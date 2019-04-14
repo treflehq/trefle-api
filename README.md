@@ -1,7 +1,7 @@
 
 # The trefle REST API & website
 
-[🌎 Website](https://trefle.io) | [📖 API Documentation](https://trefle.io/reference) | [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3) | [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
+[🌎 Website](https://trefle.io)  •  [📖 API Documentation](https://trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
 
 ## What is Trefle ?
 
