@@ -17,7 +17,7 @@ The purpose of this repository is:
 
 ### 🚨 There is a bug
 
-[Please create a new bug report !](https://github.com/treflehq/trefle-api/issues/new?assignees=&labels=&template=bug_report.md&title=) ! We will look at it, make sur it's not a duplicate, then it will goes into our [Issues board](https://github.com/orgs/treflehq/projects/1)
+[Please create a new bug report !](https://github.com/treflehq/trefle-api/issues/new?assignees=&labels=&template=bug_report.md&title=) ! We will look at it, make sur it's not a duplicate, then it will goes into our [Issues board](https://github.com/orgs/treflehq/projects/2)
 
 ### 💡 I have a feature idea
 
