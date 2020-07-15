@@ -10,6 +10,7 @@ module Api
     include Pagy::Backend
 
     before_action :authorize_request!
+    before_action :set_raven_context
     before_action :log_request
     after_action :cors_set_access_control_headers
 
@@ -40,6 +41,11 @@ module Api
           render_unauthorized(e.message) && (return)
         end
       end
+    end
+
+    def set_raven_context
+      Raven.user_context(id: @current_user.id, jwt: @jwt)
+      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
     end
 
     # Setup custom CORS for JWT client tokens

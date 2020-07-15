@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.313Z'
+                      last_modified: '2020-07-15T14:15:48.776Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.336Z'
+                      last_modified: '2020-07-15T14:15:48.788Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.356Z'
+                      last_modified: '2020-07-15T14:15:48.801Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.445Z'
+                      last_modified: '2020-07-15T14:15:48.838Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.514Z'
+                      last_modified: '2020-07-15T14:15:48.873Z'
         '401':
           description: Invalid credentials
           content:
@@ -2256,7 +2256,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.867Z'
+                      last_modified: '2020-07-15T14:15:49.075Z'
         '401':
           description: Invalid credentials
           content:
@@ -2524,7 +2524,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-14T15:18:46.897Z'
+                      last_modified: '2020-07-15T14:15:49.090Z'
         '401':
           description: Invalid credentials
           content:
@@ -3046,7 +3046,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
                     meta:
-                      last_modified: '2020-07-14T15:18:47.080Z'
+                      last_modified: '2020-07-15T14:15:49.166Z'
         '401':
           description: Invalid credentials
           content:
@@ -3118,530 +3118,20 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    data:
-                    - id: 122263
-                      scientific_name: Cocos nucifera
-                      common_name: coconut palm
-                      synonyms:
-                      - Calappa nucifera
-                      - Cocos nana
-                      - Cocos indica
-                      - Palma cocos
-                      - Cocos mamillaris
-                      - Cocos nucifera var. synphyllica
-                      - Diplothemium henryanum
-                      - Cocos nucifera var. spicata
-                      author: L.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Sp. pl. 2:1188.  1753
-                      slug: cocos-nucifera
-                      image_url: https://bs.floristic.org/image/o/3d907876dd89dcf4880c50fb0786191a1cb95589
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 7538
-                      links:
-                        self: "/api/v1/species/cocos-nucifera"
-                        plant: "/api/v1/plants/cocos-nucifera"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227429
-                      scientific_name: Cocos cocogale
-                      common_name: 
-                      synonyms: []
-                      author: Mart.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-cocogale
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-cocogale"
-                        plant: "/api/v1/plants/cocos-cocogale"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227430
-                      scientific_name: Cocos cocoides
-                      common_name: 
-                      synonyms: []
-                      author: Mart.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-cocoides
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-cocoides"
-                        plant: "/api/v1/plants/cocos-cocoides"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227431
-                      scientific_name: Cocos glaucescens
-                      common_name: 
-                      synonyms: []
-                      author: Glaz.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-glaucescens
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-glaucescens"
-                        plant: "/api/v1/plants/cocos-glaucescens"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227432
-                      scientific_name: Cocos regalis
-                      common_name: 
-                      synonyms: []
-                      author: Liebm.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-regalis
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-regalis"
-                        plant: "/api/v1/plants/cocos-regalis"
-                        genus: "/api/v1/genus/1916"
-                    - id: 228816
-                      scientific_name: Cocos aculeatus
-                      common_name: 
-                      synonyms: []
-                      author: Jacq.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Selectarum Stirpium Americanarum Historia ...
-                        278, t. 169. 1763. (Select. Stirp. Amer. Hist.) '
-                      slug: cocos-aculeatus
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-aculeatus"
-                        plant: "/api/v1/plants/cocos-aculeatus"
-                        genus: "/api/v1/genus/1916"
-                    - id: 229422
-                      scientific_name: Cocos subg. Arecastrum
-                      common_name: 
-                      synonyms: []
-                      author: Drude
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Flora Brasiliensis 3(2): 402. 1881. (Fl. Bras.) '
-                      slug: cocos-subg-arecastrum
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-subg-arecastrum"
-                        plant: "/api/v1/plants/cocos-subg-arecastrum"
-                        genus: "/api/v1/genus/1916"
-                    - id: 371563
-                      scientific_name: Thelypteris cocos
-                      common_name: 
-                      synonyms:
-                      - Amauropelta cocos
-                      author: A.R.Sm. & Lellinger
-                      main_species: true
-                      genus: Thelypteris
-                      family: Aspleniaceae
-                      family_common_name: 
-                      bibliography: 'Proc. Biol. Soc. Washington 98: 918 (1985)'
-                      slug: thelypteris-cocos
-                      image_url: 
-                      rank: species
-                      genus_id: 2157
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/thelypteris-cocos"
-                        plant: "/api/v1/plants/thelypteris-cocos"
-                        genus: "/api/v1/genus/2157"
-                    - id: 702751
-                      scientific_name: Hymenophyllum cocosense
-                      common_name: 
-                      synonyms: []
-                      author: A.Rojas
-                      main_species: true
-                      genus: Hymenophyllum
-                      family: Hymenophyllaceae
-                      family_common_name: 
-                      bibliography: 'Brenesia 45-46: 37 (1996)'
-                      slug: hymenophyllum-cocosense
-                      image_url: 
-                      rank: species
-                      genus_id: 3688
-                      type: species
-                      status: accepted
-                      score: 25
-                      links:
-                        self: "/api/v1/species/hymenophyllum-cocosense"
-                        plant: "/api/v1/plants/hymenophyllum-cocosense"
-                        genus: "/api/v1/genus/3688"
-                    - id: 742422
-                      scientific_name: Cryptocarya cocosoides
-                      common_name: 
-                      synonyms: []
-                      author: B.Hyland
-                      main_species: true
-                      genus: Cryptocarya
-                      family: Lauraceae
-                      family_common_name: 
-                      bibliography: 'Austral. Syst. Bot. 2: 177 (1989)'
-                      slug: cryptocarya-cocosoides
-                      image_url: 
-                      rank: species
-                      genus_id: 2137
-                      type: species
-                      status: accepted
-                      score: 219
-                      links:
-                        self: "/api/v1/species/cryptocarya-cocosoides"
-                        plant: "/api/v1/plants/cryptocarya-cocosoides"
-                        genus: "/api/v1/genus/2137"
-                    - id: 816847
-                      scientific_name: Eugenia cocosensis
-                      common_name: 
-                      synonyms: []
-                      author: Barrie
-                      main_species: true
-                      genus: Eugenia
-                      family: Myrtaceae
-                      family_common_name: 
-                      bibliography: 'Novon 15: 11 (2005)'
-                      slug: eugenia-cocosensis
-                      image_url: 
-                      rank: species
-                      genus_id: 1380
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/eugenia-cocosensis"
-                        plant: "/api/v1/plants/eugenia-cocosensis"
-                        genus: "/api/v1/genus/1380"
-                    - id: 374730
-                      scientific_name: Asplenium delicatulum var. cocosensis
-                      common_name: 
-                      synonyms: []
-                      author: A.Rojas & Trusty
-                      main_species: false
-                      genus: Asplenium
-                      family: Aspleniaceae
-                      family_common_name: 
-                      bibliography: 'Brenesia 62: 2 (fig. 1) (2004)'
-                      slug: asplenium-delicatulum-var-cocosensis
-                      image_url: 
-                      rank: var
-                      genus_id: 747
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/asplenium-delicatulum-var-cocosensis"
-                        plant: "/api/v1/plants/asplenium-delicatulum-var-cocosensis"
-                        genus: "/api/v1/genus/747"
-                    - id: 113114
-                      scientific_name: Brya ebenus
-                      common_name: ebony coccuswood
-                      synonyms:
-                      - Spartium arborescens
-                      - Nefrakis ebenus
-                      - Aspalathus ebenus
-                      - Genista arborescens
-                      - Pterocarpus glaber
-                      - Pterocarpus ebenus
-                      - Amerimnon ebenus
-                      - Aspalatus ebenus L.
-                      - Aspalatus ebenus
-                      author: DC.
-                      main_species: true
-                      genus: Brya
-                      family: Fabaceae
-                      family_common_name: Pea family
-                      bibliography: 'Prodr. 2: 421 (1825)'
-                      slug: brya-ebenus
-                      image_url: http://storage.googleapis.com/powop-assets/lowo/KLOWO_176_fullsize.jpg
-                      rank: species
-                      genus_id: 1174
-                      type: species
-                      status: accepted
-                      score: 240
-                      links:
-                        self: "/api/v1/species/brya-ebenus"
-                        plant: "/api/v1/plants/brya-ebenus"
-                        genus: "/api/v1/genus/1174"
-                    - id: 173910
-                      scientific_name: Ranunculus repens
-                      common_name: creeping buttercup
-                      synonyms:
-                      - Ranunculus repens var. erectus
-                      - Ranunculus repens var. glabratus
-                      - Ranunculus repens var. linearilobus
-                      - Ranunculus repens var. pleniflorus
-                      - Ranunculus philonotis
-                      - Ranunculus lucidus
-                      - Ranunculus schlechtendalii
-                      - Ranunculus semidecurrens
-                      - Ranunculus repens f. polypetalus
-                      - Ranunculus repens f. schlechtendalii
-                      - Ranunculastrum reptabundum
-                      - Ranunculastrum repens
-                      - Ranunculus caleyanus
-                      - Ranunculus clintonii
-                      - Ranunculus oenanthifolius
-                      - Ranunculus belvisii
-                      - Ranunculus prostratus
-                      - Ranunculus lagascanus
-                      - Ranunculus repens var. degeneratus
-                      - Ranunculus repens var. typicus
-                      - Ranunculus repens var. villosus
-                      author: L.
-                      main_species: true
-                      genus: Ranunculus
-                      family: Ranunculaceae
-                      family_common_name: Buttercup family
-                      bibliography: 'Sp. Pl.: 554 (1753)'
-                      slug: ranunculus-repens
-                      image_url: https://bs.floristic.org/image/o/c6d9a5222b6ef0e3a7bdef3350278718d3097bce
-                      rank: species
-                      genus_id: 1607
-                      type: species
-                      status: accepted
-                      score: 790155
-                      links:
-                        self: "/api/v1/species/ranunculus-repens"
-                        plant: "/api/v1/plants/ranunculus-repens"
-                        genus: "/api/v1/genus/1607"
-                    - id: 106474
-                      scientific_name: Arachis hypogaea
-                      common_name: peanut
-                      synonyms:
-                      - Arachis hypogaea var. peruviana
-                      - Arachis hypogaea var. aequatoriana
-                      - Arachis guaraniana
-                      - Arachis hypogaea subsp. procumbens
-                      - Arachis hypogaea subsp. nambyquarae
-                      - Arachis hypogaea var. nambyquarae
-                      - Arachis hypogaea f. nambyquarae
-                      - Arachis nambyquarae
-                      - Arachis americana
-                      - Arachis hypogaea subsp. fastigiata
-                      - Arachidna hypogaea
-                      - Arachis oleifera
-                      - Arachis asiatica
-                      - Arachis rasteiro
-                      author: L.
-                      main_species: true
-                      genus: Arachis
-                      family: Fabaceae
-                      family_common_name: Pea family
-                      bibliography: 'Sp. Pl.: 741 (1753)'
-                      slug: arachis-hypogaea
-                      image_url: https://bs.floristic.org/image/o/c2dfd0ea0a2f1270d1fbe8fff93313b0549e4c23
-                      rank: species
-                      genus_id: 570
-                      type: species
-                      status: accepted
-                      score: 48879
-                      links:
-                        self: "/api/v1/species/arachis-hypogaea"
-                        plant: "/api/v1/plants/arachis-hypogaea"
-                        genus: "/api/v1/genus/570"
-                    - id: 110673
-                      scientific_name: Bactris guineensis
-                      common_name: Guinea bactris
-                      synonyms:
-                      - Cocos guineensis
-                      - Bactris piritu
-                      - Guilielma piritu
-                      - Bactris horrida
-                      - Bactris oraria
-                      - Bactris rotunda
-                      - Cocos acicularis
-                      author: H.E.Moore (L.)
-                      main_species: true
-                      genus: Bactris
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Gentes Herbarum 9:251.  1963
-                      slug: bactris-guineensis
-                      image_url: 
-                      rank: species
-                      genus_id: 209
-                      type: species
-                      status: accepted
-                      score: 293
-                      links:
-                        self: "/api/v1/species/bactris-guineensis"
-                        plant: "/api/v1/plants/bactris-guineensis"
-                        genus: "/api/v1/genus/209"
-                    - id: 151095
-                      scientific_name: Lodoicea maldivica
-                      common_name: double coconut
-                      synonyms:
-                      - Cocos maldivica
-                      - Borassus sonneratii
-                      - Lodoicea callypige
-                      - Cocos maritima
-                      - Lodoicea sonneratii
-                      - Lodoicea sechellarum
-                      author: Pers. (J.F.Gmel.)
-                      main_species: true
-                      genus: Lodoicea
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Syn. pl. 2(2):630.  1807
-                      slug: lodoicea-maldivica
-                      image_url: https://bs.floristic.org/image/o/1ad4853b6c359bac439ef21a714a9b5568c91b63
-                      rank: species
-                      genus_id: 4249
-                      type: species
-                      status: accepted
-                      score: 150
-                      links:
-                        self: "/api/v1/species/lodoicea-maldivica"
-                        plant: "/api/v1/plants/lodoicea-maldivica"
-                        genus: "/api/v1/genus/4249"
-                    - id: 171754
-                      scientific_name: Pseudophoenix vinifera
-                      common_name: Wine palm
-                      synonyms:
-                      - Cocos vinifera
-                      - Euterpe vinifera
-                      - Aeria vinifera
-                      - Gaussia vinifera
-                      - Pseudophoenix insignis
-                      author: Becc. (Mart.)
-                      main_species: true
-                      genus: Pseudophoenix
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Pomona Coll. J. Econ. Bot. 2:268.  1912
-                      slug: pseudophoenix-vinifera
-                      image_url: https://bs.floristic.org/image/o/434c56eae15970db681a596da36634a3db65a770
-                      rank: species
-                      genus_id: 5677
-                      type: species
-                      status: accepted
-                      score: 46
-                      links:
-                        self: "/api/v1/species/pseudophoenix-vinifera"
-                        plant: "/api/v1/plants/pseudophoenix-vinifera"
-                        genus: "/api/v1/genus/5677"
-                    - id: 185344
-                      scientific_name: Syagrus coronata
-                      common_name: Ouricury palm
-                      synonyms:
-                      - Cocos coronata
-                      - Cocos botryophora var. ensifolia
-                      - Arecastrum romanzoffianum var. ensifolium
-                      - Syagrus coronata var. todari
-                      - Syagrus quinquefaria
-                      - Cocos coronata var. todari
-                      - Glaziova treubiana
-                      - Syagrus treubiana
-                      - Cocos quinquefaria
-                      - Calappa coronata
-                      author: Becc.
-                      main_species: true
-                      genus: Syagrus
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Agric. Colon. 10: 466 1916'
-                      slug: syagrus-coronata
-                      image_url: https://bs.floristic.org/image/o/a7574b0b745a7246b2c05ac49c0461e920fe2671
-                      rank: species
-                      genus_id: 6428
-                      type: species
-                      status: accepted
-                      score: 335
-                      links:
-                        self: "/api/v1/species/syagrus-coronata"
-                        plant: "/api/v1/plants/syagrus-coronata"
-                        genus: "/api/v1/genus/6428"
-                    - id: 227870
-                      scientific_name: Syagrus inajai
-                      common_name: 
-                      synonyms:
-                      - Cocos chavesiana
-                      - Cocos inajai
-                      - Cocos speciosa
-                      - Maximiliana inajai
-                      - Calappa speciosa
-                      - Cocos equatorialis
-                      - Syagrus chavesiana
-                      author: Becc.
-                      main_species: true
-                      genus: Syagrus
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Agric. Colon. 10(2):467.  1916
-                      slug: syagrus-inajai
-                      image_url: http://d2seqvvyy3b8p2.cloudfront.net/b1bdce3fc7e0b19e988ffd3e4209afc8.jpg
-                      rank: species
-                      genus_id: 6428
-                      type: species
-                      status: accepted
-                      score: 183
-                      links:
-                        self: "/api/v1/species/syagrus-inajai"
-                        plant: "/api/v1/plants/syagrus-inajai"
-                        genus: "/api/v1/genus/6428"
-                    meta:
-                      total: 624
+                    data: []
                     links:
-                      self: "/api/v1/plants/search?q=cocos"
-                      first: "/api/v1/plants/search?page=1&q=cocos"
-                      next: "/api/v1/plants/search?page=2&q=cocos"
-                      last: "/api/v1/plants/search?page=32&q=cocos"
+                      self: "/api/v1/plants?q=cocos"
+                      first: "/api/v1/plants?page=1&q=cocos"
+                      last: "/api/v1/plants?page=1&q=cocos"
+                    meta:
+                      total: 0
   "/api/v1/plants/{id}/report":
     post:
       summary: Report an error
       tags:
-      - Species
+      - Plants
       description: A short API call to report an error regarding a plant entry
-      operationId: reportSpecies
+      operationId: reportPlants
       parameters:
       - name: id
         required: true
@@ -3679,12 +3169,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-14T15:18:54.967Z'
-                      updated_at: '2020-07-14T15:18:54.970Z'
+                      created_at: '2020-07-15T14:15:55.449Z'
+                      updated_at: '2020-07-15T14:15:55.451Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-14T15:18:54.970Z'
+                      last_modified: '2020-07-15T14:15:55.451Z'
         '401':
           description: Invalid credentials
           content:
@@ -3741,12 +3231,6 @@ paths:
         description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_plants"
-      - name: q
-        in: query
-        required: false
-        description: Search for plants matching the given query
-        schema:
-          type: string
       - name: page
         in: query
         required: false
@@ -3923,12 +3407,6 @@ paths:
         description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_plants"
-      - name: q
-        in: query
-        required: false
-        description: Search for plants matching the given query
-        schema:
-          type: string
       - name: page
         in: query
         required: false
@@ -4697,7 +4175,7 @@ paths:
                       images_count: 0
                       sources_count: 1
                       synonyms_count: 0
-                      last_modified: '2020-07-14T15:18:47.246Z'
+                      last_modified: '2020-07-15T14:15:49.311Z'
         '401':
           description: Invalid credentials
           content:
@@ -4769,523 +4247,13 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    data:
-                    - id: 122263
-                      scientific_name: Cocos nucifera
-                      common_name: coconut palm
-                      synonyms:
-                      - Calappa nucifera
-                      - Cocos nana
-                      - Cocos indica
-                      - Palma cocos
-                      - Cocos mamillaris
-                      - Cocos nucifera var. synphyllica
-                      - Diplothemium henryanum
-                      - Cocos nucifera var. spicata
-                      author: L.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Sp. pl. 2:1188.  1753
-                      slug: cocos-nucifera
-                      image_url: https://bs.floristic.org/image/o/3d907876dd89dcf4880c50fb0786191a1cb95589
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 7538
-                      links:
-                        self: "/api/v1/species/cocos-nucifera"
-                        plant: "/api/v1/plants/cocos-nucifera"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227429
-                      scientific_name: Cocos cocogale
-                      common_name: 
-                      synonyms: []
-                      author: Mart.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-cocogale
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-cocogale"
-                        plant: "/api/v1/plants/cocos-cocogale"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227430
-                      scientific_name: Cocos cocoides
-                      common_name: 
-                      synonyms: []
-                      author: Mart.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-cocoides
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-cocoides"
-                        plant: "/api/v1/plants/cocos-cocoides"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227431
-                      scientific_name: Cocos glaucescens
-                      common_name: 
-                      synonyms: []
-                      author: Glaz.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-glaucescens
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-glaucescens"
-                        plant: "/api/v1/plants/cocos-glaucescens"
-                        genus: "/api/v1/genus/1916"
-                    - id: 227432
-                      scientific_name: Cocos regalis
-                      common_name: 
-                      synonyms: []
-                      author: Liebm.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 
-                      slug: cocos-regalis
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-regalis"
-                        plant: "/api/v1/plants/cocos-regalis"
-                        genus: "/api/v1/genus/1916"
-                    - id: 228816
-                      scientific_name: Cocos aculeatus
-                      common_name: 
-                      synonyms: []
-                      author: Jacq.
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Selectarum Stirpium Americanarum Historia ...
-                        278, t. 169. 1763. (Select. Stirp. Amer. Hist.) '
-                      slug: cocos-aculeatus
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-aculeatus"
-                        plant: "/api/v1/plants/cocos-aculeatus"
-                        genus: "/api/v1/genus/1916"
-                    - id: 229422
-                      scientific_name: Cocos subg. Arecastrum
-                      common_name: 
-                      synonyms: []
-                      author: Drude
-                      main_species: true
-                      genus: Cocos
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Flora Brasiliensis 3(2): 402. 1881. (Fl. Bras.) '
-                      slug: cocos-subg-arecastrum
-                      image_url: 
-                      rank: species
-                      genus_id: 1916
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/cocos-subg-arecastrum"
-                        plant: "/api/v1/plants/cocos-subg-arecastrum"
-                        genus: "/api/v1/genus/1916"
-                    - id: 371563
-                      scientific_name: Thelypteris cocos
-                      common_name: 
-                      synonyms:
-                      - Amauropelta cocos
-                      author: A.R.Sm. & Lellinger
-                      main_species: true
-                      genus: Thelypteris
-                      family: Aspleniaceae
-                      family_common_name: 
-                      bibliography: 'Proc. Biol. Soc. Washington 98: 918 (1985)'
-                      slug: thelypteris-cocos
-                      image_url: 
-                      rank: species
-                      genus_id: 2157
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/thelypteris-cocos"
-                        plant: "/api/v1/plants/thelypteris-cocos"
-                        genus: "/api/v1/genus/2157"
-                    - id: 702751
-                      scientific_name: Hymenophyllum cocosense
-                      common_name: 
-                      synonyms: []
-                      author: A.Rojas
-                      main_species: true
-                      genus: Hymenophyllum
-                      family: Hymenophyllaceae
-                      family_common_name: 
-                      bibliography: 'Brenesia 45-46: 37 (1996)'
-                      slug: hymenophyllum-cocosense
-                      image_url: 
-                      rank: species
-                      genus_id: 3688
-                      type: species
-                      status: accepted
-                      score: 25
-                      links:
-                        self: "/api/v1/species/hymenophyllum-cocosense"
-                        plant: "/api/v1/plants/hymenophyllum-cocosense"
-                        genus: "/api/v1/genus/3688"
-                    - id: 742422
-                      scientific_name: Cryptocarya cocosoides
-                      common_name: 
-                      synonyms: []
-                      author: B.Hyland
-                      main_species: true
-                      genus: Cryptocarya
-                      family: Lauraceae
-                      family_common_name: 
-                      bibliography: 'Austral. Syst. Bot. 2: 177 (1989)'
-                      slug: cryptocarya-cocosoides
-                      image_url: 
-                      rank: species
-                      genus_id: 2137
-                      type: species
-                      status: accepted
-                      score: 219
-                      links:
-                        self: "/api/v1/species/cryptocarya-cocosoides"
-                        plant: "/api/v1/plants/cryptocarya-cocosoides"
-                        genus: "/api/v1/genus/2137"
-                    - id: 816847
-                      scientific_name: Eugenia cocosensis
-                      common_name: 
-                      synonyms: []
-                      author: Barrie
-                      main_species: true
-                      genus: Eugenia
-                      family: Myrtaceae
-                      family_common_name: 
-                      bibliography: 'Novon 15: 11 (2005)'
-                      slug: eugenia-cocosensis
-                      image_url: 
-                      rank: species
-                      genus_id: 1380
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/eugenia-cocosensis"
-                        plant: "/api/v1/plants/eugenia-cocosensis"
-                        genus: "/api/v1/genus/1380"
-                    - id: 374730
-                      scientific_name: Asplenium delicatulum var. cocosensis
-                      common_name: 
-                      synonyms: []
-                      author: A.Rojas & Trusty
-                      main_species: false
-                      genus: Asplenium
-                      family: Aspleniaceae
-                      family_common_name: 
-                      bibliography: 'Brenesia 62: 2 (fig. 1) (2004)'
-                      slug: asplenium-delicatulum-var-cocosensis
-                      image_url: 
-                      rank: var
-                      genus_id: 747
-                      type: species
-                      status: accepted
-                      score: 0
-                      links:
-                        self: "/api/v1/species/asplenium-delicatulum-var-cocosensis"
-                        plant: "/api/v1/plants/asplenium-delicatulum-var-cocosensis"
-                        genus: "/api/v1/genus/747"
-                    - id: 113114
-                      scientific_name: Brya ebenus
-                      common_name: ebony coccuswood
-                      synonyms:
-                      - Spartium arborescens
-                      - Nefrakis ebenus
-                      - Aspalathus ebenus
-                      - Genista arborescens
-                      - Pterocarpus glaber
-                      - Pterocarpus ebenus
-                      - Amerimnon ebenus
-                      - Aspalatus ebenus L.
-                      - Aspalatus ebenus
-                      author: DC.
-                      main_species: true
-                      genus: Brya
-                      family: Fabaceae
-                      family_common_name: Pea family
-                      bibliography: 'Prodr. 2: 421 (1825)'
-                      slug: brya-ebenus
-                      image_url: http://storage.googleapis.com/powop-assets/lowo/KLOWO_176_fullsize.jpg
-                      rank: species
-                      genus_id: 1174
-                      type: species
-                      status: accepted
-                      score: 240
-                      links:
-                        self: "/api/v1/species/brya-ebenus"
-                        plant: "/api/v1/plants/brya-ebenus"
-                        genus: "/api/v1/genus/1174"
-                    - id: 173910
-                      scientific_name: Ranunculus repens
-                      common_name: creeping buttercup
-                      synonyms:
-                      - Ranunculus repens var. erectus
-                      - Ranunculus repens var. glabratus
-                      - Ranunculus repens var. linearilobus
-                      - Ranunculus repens var. pleniflorus
-                      - Ranunculus philonotis
-                      - Ranunculus lucidus
-                      - Ranunculus schlechtendalii
-                      - Ranunculus semidecurrens
-                      - Ranunculus repens f. polypetalus
-                      - Ranunculus repens f. schlechtendalii
-                      - Ranunculastrum reptabundum
-                      - Ranunculastrum repens
-                      - Ranunculus caleyanus
-                      - Ranunculus clintonii
-                      - Ranunculus oenanthifolius
-                      - Ranunculus belvisii
-                      - Ranunculus prostratus
-                      - Ranunculus lagascanus
-                      - Ranunculus repens var. degeneratus
-                      - Ranunculus repens var. typicus
-                      - Ranunculus repens var. villosus
-                      author: L.
-                      main_species: true
-                      genus: Ranunculus
-                      family: Ranunculaceae
-                      family_common_name: Buttercup family
-                      bibliography: 'Sp. Pl.: 554 (1753)'
-                      slug: ranunculus-repens
-                      image_url: https://bs.floristic.org/image/o/c6d9a5222b6ef0e3a7bdef3350278718d3097bce
-                      rank: species
-                      genus_id: 1607
-                      type: species
-                      status: accepted
-                      score: 790155
-                      links:
-                        self: "/api/v1/species/ranunculus-repens"
-                        plant: "/api/v1/plants/ranunculus-repens"
-                        genus: "/api/v1/genus/1607"
-                    - id: 106474
-                      scientific_name: Arachis hypogaea
-                      common_name: peanut
-                      synonyms:
-                      - Arachis hypogaea var. peruviana
-                      - Arachis hypogaea var. aequatoriana
-                      - Arachis guaraniana
-                      - Arachis hypogaea subsp. procumbens
-                      - Arachis hypogaea subsp. nambyquarae
-                      - Arachis hypogaea var. nambyquarae
-                      - Arachis hypogaea f. nambyquarae
-                      - Arachis nambyquarae
-                      - Arachis americana
-                      - Arachis hypogaea subsp. fastigiata
-                      - Arachidna hypogaea
-                      - Arachis oleifera
-                      - Arachis asiatica
-                      - Arachis rasteiro
-                      author: L.
-                      main_species: true
-                      genus: Arachis
-                      family: Fabaceae
-                      family_common_name: Pea family
-                      bibliography: 'Sp. Pl.: 741 (1753)'
-                      slug: arachis-hypogaea
-                      image_url: https://bs.floristic.org/image/o/c2dfd0ea0a2f1270d1fbe8fff93313b0549e4c23
-                      rank: species
-                      genus_id: 570
-                      type: species
-                      status: accepted
-                      score: 48879
-                      links:
-                        self: "/api/v1/species/arachis-hypogaea"
-                        plant: "/api/v1/plants/arachis-hypogaea"
-                        genus: "/api/v1/genus/570"
-                    - id: 110673
-                      scientific_name: Bactris guineensis
-                      common_name: Guinea bactris
-                      synonyms:
-                      - Cocos guineensis
-                      - Bactris piritu
-                      - Guilielma piritu
-                      - Bactris horrida
-                      - Bactris oraria
-                      - Bactris rotunda
-                      - Cocos acicularis
-                      author: H.E.Moore (L.)
-                      main_species: true
-                      genus: Bactris
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Gentes Herbarum 9:251.  1963
-                      slug: bactris-guineensis
-                      image_url: 
-                      rank: species
-                      genus_id: 209
-                      type: species
-                      status: accepted
-                      score: 293
-                      links:
-                        self: "/api/v1/species/bactris-guineensis"
-                        plant: "/api/v1/plants/bactris-guineensis"
-                        genus: "/api/v1/genus/209"
-                    - id: 151095
-                      scientific_name: Lodoicea maldivica
-                      common_name: double coconut
-                      synonyms:
-                      - Cocos maldivica
-                      - Borassus sonneratii
-                      - Lodoicea callypige
-                      - Cocos maritima
-                      - Lodoicea sonneratii
-                      - Lodoicea sechellarum
-                      author: Pers. (J.F.Gmel.)
-                      main_species: true
-                      genus: Lodoicea
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Syn. pl. 2(2):630.  1807
-                      slug: lodoicea-maldivica
-                      image_url: https://bs.floristic.org/image/o/1ad4853b6c359bac439ef21a714a9b5568c91b63
-                      rank: species
-                      genus_id: 4249
-                      type: species
-                      status: accepted
-                      score: 150
-                      links:
-                        self: "/api/v1/species/lodoicea-maldivica"
-                        plant: "/api/v1/plants/lodoicea-maldivica"
-                        genus: "/api/v1/genus/4249"
-                    - id: 171754
-                      scientific_name: Pseudophoenix vinifera
-                      common_name: Wine palm
-                      synonyms:
-                      - Cocos vinifera
-                      - Euterpe vinifera
-                      - Aeria vinifera
-                      - Gaussia vinifera
-                      - Pseudophoenix insignis
-                      author: Becc. (Mart.)
-                      main_species: true
-                      genus: Pseudophoenix
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Pomona Coll. J. Econ. Bot. 2:268.  1912
-                      slug: pseudophoenix-vinifera
-                      image_url: https://bs.floristic.org/image/o/434c56eae15970db681a596da36634a3db65a770
-                      rank: species
-                      genus_id: 5677
-                      type: species
-                      status: accepted
-                      score: 46
-                      links:
-                        self: "/api/v1/species/pseudophoenix-vinifera"
-                        plant: "/api/v1/plants/pseudophoenix-vinifera"
-                        genus: "/api/v1/genus/5677"
-                    - id: 185344
-                      scientific_name: Syagrus coronata
-                      common_name: Ouricury palm
-                      synonyms:
-                      - Cocos coronata
-                      - Cocos botryophora var. ensifolia
-                      - Arecastrum romanzoffianum var. ensifolium
-                      - Syagrus coronata var. todari
-                      - Syagrus quinquefaria
-                      - Cocos coronata var. todari
-                      - Glaziova treubiana
-                      - Syagrus treubiana
-                      - Cocos quinquefaria
-                      - Calappa coronata
-                      author: Becc.
-                      main_species: true
-                      genus: Syagrus
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: 'Agric. Colon. 10: 466 1916'
-                      slug: syagrus-coronata
-                      image_url: https://bs.floristic.org/image/o/a7574b0b745a7246b2c05ac49c0461e920fe2671
-                      rank: species
-                      genus_id: 6428
-                      type: species
-                      status: accepted
-                      score: 335
-                      links:
-                        self: "/api/v1/species/syagrus-coronata"
-                        plant: "/api/v1/plants/syagrus-coronata"
-                        genus: "/api/v1/genus/6428"
-                    - id: 227870
-                      scientific_name: Syagrus inajai
-                      common_name: 
-                      synonyms:
-                      - Cocos chavesiana
-                      - Cocos inajai
-                      - Cocos speciosa
-                      - Maximiliana inajai
-                      - Calappa speciosa
-                      - Cocos equatorialis
-                      - Syagrus chavesiana
-                      author: Becc.
-                      main_species: true
-                      genus: Syagrus
-                      family: Arecaceae
-                      family_common_name: Palm family
-                      bibliography: Agric. Colon. 10(2):467.  1916
-                      slug: syagrus-inajai
-                      image_url: http://d2seqvvyy3b8p2.cloudfront.net/b1bdce3fc7e0b19e988ffd3e4209afc8.jpg
-                      rank: species
-                      genus_id: 6428
-                      type: species
-                      status: accepted
-                      score: 183
-                      links:
-                        self: "/api/v1/species/syagrus-inajai"
-                        plant: "/api/v1/plants/syagrus-inajai"
-                        genus: "/api/v1/genus/6428"
-                    meta:
-                      total: 624
+                    data: []
                     links:
-                      self: "/api/v1/species/search?q=cocos"
-                      first: "/api/v1/species/search?page=1&q=cocos"
-                      next: "/api/v1/species/search?page=2&q=cocos"
-                      last: "/api/v1/species/search?page=32&q=cocos"
+                      self: "/api/v1/species?q=cocos"
+                      first: "/api/v1/species?page=1&q=cocos"
+                      last: "/api/v1/species?page=1&q=cocos"
+                    meta:
+                      total: 0
   "/api/v1/species/{id}/report":
     post:
       summary: Report an error
@@ -5330,12 +4298,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-14T15:18:55.412Z'
-                      updated_at: '2020-07-14T15:18:55.414Z'
+                      created_at: '2020-07-15T14:15:55.815Z'
+                      updated_at: '2020-07-15T14:15:55.817Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-14T15:18:55.414Z'
+                      last_modified: '2020-07-15T14:15:55.817Z'
         '401':
           description: Invalid credentials
           content:
@@ -5677,7 +4645,7 @@ paths:
                         plants: "/api/v1/distributions/northern-provinces/plants"
                         species: "/api/v1/distributions/northern-provinces/species"
                     meta:
-                      last_modified: '2020-07-14T15:18:45.091Z'
+                      last_modified: '2020-07-15T14:15:47.896Z'
         '401':
           description: Invalid credentials
           content:
@@ -5724,8 +4692,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTE1IDE3OjE4OjU1ICswMjAwIiwiZXhwIjoxNTk0ODI2MzM1fQ.0sG5BRFIgVFzk35qLHYkz-ax4Ch5FUeoEY9mr6Y4kz0
-                    expiration: 07-15-2020 17:18
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTE2IDE2OjE1OjU1ICswMjAwIiwiZXhwIjoxNTk0OTA4OTU1fQ.sMhh8sJHdNcmZJu3XYdOrDgUTqoSe6juFw8FK3lxWvU
+                    expiration: 07-16-2020 16:15
         '401':
           description: Invalid credentials
           content:
@@ -5820,8 +4788,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-14T15:18:55.719Z'
-                      updated_at: '2020-07-14T15:18:55.719Z'
+                      created_at: '2020-07-15T14:15:56.000Z'
+                      updated_at: '2020-07-15T14:15:56.000Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
@@ -5836,8 +4804,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-14T15:18:55.734Z'
-                      updated_at: '2020-07-14T15:18:55.734Z'
+                      created_at: '2020-07-15T14:15:56.008Z'
+                      updated_at: '2020-07-15T14:15:56.008Z'
                       correction: 
                       changes: 
                     links:
@@ -5899,15 +4867,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-14T15:18:55.828Z'
-                      updated_at: '2020-07-14T15:18:55.828Z'
+                      created_at: '2020-07-15T14:15:56.072Z'
+                      updated_at: '2020-07-15T14:15:56.072Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-14T15:18:55.828Z'
+                      last_modified: '2020-07-15T14:15:56.072Z'
         '401':
           description: Invalid credentials
           content:
@@ -5963,8 +4931,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-14T15:18:56.010Z'
-                      updated_at: '2020-07-14T15:18:56.010Z'
+                      created_at: '2020-07-15T14:15:56.215Z'
+                      updated_at: '2020-07-15T14:15:56.215Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5974,7 +4942,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-14T15:18:56.010Z'
+                      last_modified: '2020-07-15T14:15:56.215Z'
         '422':
           description: Invalid parameters
           content:

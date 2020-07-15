@@ -194,16 +194,31 @@ class Api::V1::SpeciesController < Api::ApiController
   def search
     search = params.require(:q)
     options = parse_search_options
-    results = ::Search.search_species(search, options)
-    links = search_collection_links(results, name: %i[species index], scope: %i[search api v1])
+    begin
+      results = ::Search.search_species(search, options)
+      links = search_collection_links(results, name: %i[species index], scope: %i[search api v1])
 
-    render json: Panko::Response.new({
-      data: serialize_search_data(results),
-      meta: {
-        total: results['nbHits']
-      },
-      links: links
-    }.compact), status: :ok
+      render json: Panko::Response.new({
+        data: serialize_search_data(results),
+        meta: {
+          total: results['nbHits']
+        },
+        links: links
+      }.compact), status: :ok
+    rescue MeiliSearch::CommunicationError => e
+      Raven.capture_exception(e)
+      
+      @collection ||= Species.all
+      @collection = apply_search(collection)
+      @pagy, @collection = pagy(@collection)
+      links = collection_links(@collection, name: %i[species index])
+
+      render_serialized_collection(
+        @collection,
+        SpeciesLightSerializer,
+        links: links
+      )
+    end
   end
 
   # Report an error
