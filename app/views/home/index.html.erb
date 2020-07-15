@@ -1,173 +1,175 @@
-<div class="home-page container">
-  <section class="hero">
-    <div class="hero-body">
+<% cache [:home, :index, TrefleAdmin::Application::VERSION] do %>
+  <div class="home-page container">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-10 is-offset-1">
+              <h1 class="main-title title is-1">
+                <%= image_tag(asset_pack_path("media/packs/images/logo.svg"), alt: "logo") %>
+                <p class="title-vertical">Trefle</p>
+              </h1>
+              <h2 class="subtitle">
+                A global plants API
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="container">
         <div class="columns">
           <div class="column is-10 is-offset-1">
-            <h1 class="main-title title is-1">
-              <%= image_tag(asset_pack_path("media/packs/images/logo.svg"), alt: "logo") %>
-              <p class="title-vertical">Trefle</p>
-            </h1>
             <h2 class="subtitle">
-              A global plants API
+              <p>We are an open, freely accessible botanical data source and REST API.</p>
+              <%
+=begin%>
+              <div class="typed"><span class="typed-in"></span></div>
+              <%
+=end%>
             </h2>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-10 is-offset-1">
-          <h2 class="subtitle">
-            <p>We are an open, freely accessible botanical data source and REST API.</p>
-            <%
-=begin%>
-            <div class="typed"><span class="typed-in"></span></div>
-            <%
-=end%>
-          </h2>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column is-10 is-offset-1">
-          <div class="buttons">
-            <a href="https://docs.trefle.io" class="button is-info is-outlined">Browse the docs</a>
-            <% if current_user %>
-            <a href="<%= profile_path %>" class="button is-primary">My account</a>
-            <% else %>
-            <a href="<%= new_user_registration_path %>" class="button is-primary">Create an account to get started</a>
-            <% end %>
+        <div class="columns">
+          <div class="column is-10 is-offset-1">
+            <div class="buttons">
+              <a href="https://docs.trefle.io" class="button is-info is-outlined">Browse the docs</a>
+              <% if current_user %>
+              <a href="<%= profile_path %>" class="button is-primary">My account</a>
+              <% else %>
+              <a href="<%= new_user_registration_path %>" class="button is-primary">Create an account to get started</a>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section is-hidden-mobile">
-    <div class="container">
-      <div id="code-sandbox">
+    <section class="section is-hidden-mobile">
+      <div class="container">
+        <div id="code-sandbox">
 
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-1">
-          <h1 class="title has-text-centered">
-            <i class="fad has-text-primary fa-magic"></i>
-          </h1>
-        </div>
-        <div class="column is-10">
-          <h1 class="title">
-            Explore <%= number_to_human(@plants_count + @synonyms_count, precision: 1).downcase %> indexed plants!
-          </h1>
-          <h2 class=" subtitle">
-            including <%= number_to_human(@detailled_plants_count, precision: 1).downcase %> with detailed data, and <%= number_to_human(@synonyms_count, precision: 1).downcase %> synonyms!
-          </h2>
         </div>
       </div>
-      <div class="columns">
-        <div class="column is-1">
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-1">
+            <h1 class="title has-text-centered">
+              <i class="fad has-text-primary fa-magic"></i>
+            </h1>
+          </div>
+          <div class="column is-10">
+            <h1 class="title">
+              Explore <%= number_to_human(@plants_count + @synonyms_count, precision: 1).downcase %> indexed plants!
+            </h1>
+            <h2 class=" subtitle">
+              including <%= number_to_human(@detailled_plants_count, precision: 1).downcase %> with detailed data, and <%= number_to_human(@synonyms_count, precision: 1).downcase %> synonyms!
+            </h2>
+          </div>
         </div>
-        <div class="column is-3">
-          <div id="persp-chart"></div>
-        </div>
-        <div class="column is-7">
-          <div id="persp-chart-legend"></div>
+        <div class="columns">
+          <div class="column is-1">
+          </div>
+          <div class="column is-3">
+            <div id="persp-chart"></div>
+          </div>
+          <div class="column is-7">
+            <div id="persp-chart-legend"></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <hr />
-  <section class="section">
-    <div class="container">
+    </section>
+    <hr />
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-10 is-offset-1">
+            <h1 class="title">
+              A complete plants API for...
+            </h1>
+            <br />
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-1">
+            <h1 class="title is-4 has-text-centered">
+              <i class="fad has-text-primary fa-robot"></i>
+            </h1>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-4">
+              Robots
+            </h1>
+            <p>
+              <mark>Build the next gardening apps and farming robots</mark> by getting high-level informations, such as minimum temperature, root minimum depth or fertility requirement.
+            </p>
+          </div>
+          <div class="column is-1">
+            <h1 class="title is-4 has-text-centered">
+              <i class="fad has-text-primary fa-search"></i>
+            </h1>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-4">
+              Researchers
+            </h1>
+            <p>
+              <mark>Search over (almost) all the plants of the world</mark> over multiple criterias, and get up-to-date informations, taxonomical references and more
+            </p>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-1">
+            <h1 class="title is-4 has-text-centered">
+              <i class="fad has-text-primary fa-seedling"></i>
+            </h1>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-4">
+              Gardeners & nature lovers
+            </h1>
+            <p>
+              Get detailed informations about how, when and where to grow your plants.
+            </p>
+          </div>
+          <div class="column is-1">
+            <h1 class="title is-4 has-text-centered">
+              <i class="fad has-text-primary fa-book-heart"></i>
+            </h1>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-4">
+              Students
+            </h1>
+            <p>
+              Get in touch ! We try to support as much as we can educational projects !
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
+        var temp_token = "<%= @jwt.token %>";
+      </script>
+    </section>
+    <hr />
+    <section class="section">
       <div class="columns">
         <div class="column is-10 is-offset-1">
-          <h1 class="title">
-            A complete plants API for...
-          </h1>
-          <br />
+          <article class="message is-primary">
+            <div class="message-header">
+              <p>Trefle is out of alpha !</p>
+            </div>
+            <div class="message-body">
+              We just released the 1.6.0. <a href="https://docs.trefle.io/blog/1-6-0-released">Check the release notes !</a>
+            </div>
+          </article>
         </div>
       </div>
-      <div class="columns">
-        <div class="column is-1">
-          <h1 class="title is-4 has-text-centered">
-            <i class="fad has-text-primary fa-robot"></i>
-          </h1>
-        </div>
-        <div class="column is-5">
-          <h1 class="title is-4">
-            Robots
-          </h1>
-          <p>
-            <mark>Build the next gardening apps and farming robots</mark> by getting high-level informations, such as minimum temperature, root minimum depth or fertility requirement.
-          </p>
-        </div>
-        <div class="column is-1">
-          <h1 class="title is-4 has-text-centered">
-            <i class="fad has-text-primary fa-search"></i>
-          </h1>
-        </div>
-        <div class="column is-5">
-          <h1 class="title is-4">
-            Researchers
-          </h1>
-          <p>
-            <mark>Search over (almost) all the plants of the world</mark> over multiple criterias, and get up-to-date informations, taxonomical references and more
-          </p>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column is-1">
-          <h1 class="title is-4 has-text-centered">
-            <i class="fad has-text-primary fa-seedling"></i>
-          </h1>
-        </div>
-        <div class="column is-5">
-          <h1 class="title is-4">
-            Gardeners & nature lovers
-          </h1>
-          <p>
-            Get detailed informations about how, when and where to grow your plants.
-          </p>
-        </div>
-        <div class="column is-1">
-          <h1 class="title is-4 has-text-centered">
-            <i class="fad has-text-primary fa-book-heart"></i>
-          </h1>
-        </div>
-        <div class="column is-5">
-          <h1 class="title is-4">
-            Students
-          </h1>
-          <p>
-            Get in touch ! We try to support as much as we can educational projects !
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
-      var temp_token = "<%= @jwt.token %>";
-    </script>
-  </section>
-  <hr />
-  <section class="section">
-    <div class="columns">
-      <div class="column is-10 is-offset-1">
-        <article class="message is-primary">
-          <div class="message-header">
-            <p>Trefle is out of alpha !</p>
-          </div>
-          <div class="message-body">
-            We just released the 1.6.0. <a href="https://docs.trefle.io/blog/1-6-0-released">Check the release notes !</a>
-          </div>
-        </article>
-      </div>
-    </div>
-</div>
+  </div>
+<% end %>
