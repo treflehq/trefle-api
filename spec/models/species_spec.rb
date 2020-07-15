@@ -147,15 +147,20 @@
 #
 # Indexes
 #
-#  index_species_on_family_common_name  (family_common_name)
-#  index_species_on_flower_conspicuous  (flower_conspicuous)
-#  index_species_on_slug                (slug)
-#  index_species_on_token               (token)
-#  species_gbif_score_idx               (gbif_score)
-#  species_genus_id_index               (genus_id)
-#  species_main_species_id_index        (main_species_id)
-#  species_plant_id_index               (plant_id)
-#  species_scientific_name_index        (scientific_name) UNIQUE
+#  index_species_on_average_height_cm         (average_height_cm)
+#  index_species_on_family_common_name        (family_common_name)
+#  index_species_on_flower_conspicuous        (flower_conspicuous)
+#  index_species_on_minimum_precipitation_mm  (minimum_precipitation_mm)
+#  index_species_on_minimum_root_depth_cm     (minimum_root_depth_cm)
+#  index_species_on_planting_row_spacing_cm   (planting_row_spacing_cm)
+#  index_species_on_planting_spread_cm        (planting_spread_cm)
+#  index_species_on_slug                      (slug)
+#  index_species_on_token                     (token)
+#  species_gbif_score_idx                     (gbif_score)
+#  species_genus_id_index                     (genus_id)
+#  species_main_species_id_index              (main_species_id)
+#  species_plant_id_index                     (plant_id)
+#  species_scientific_name_index              (scientific_name) UNIQUE
 #
 # Foreign Keys
 #

@@ -36,7 +36,7 @@ module Search
         family_common_name: species.family_common_name,
         bibliography: species.bibliography,
         rank: species.rank,
-        common_names: species.common_names.pluck(:name),
+        common_names: species.common_names.where(lang: 'en').pluck(:name),
         synonyms: species.synonyms.pluck(:name),
       }
     end

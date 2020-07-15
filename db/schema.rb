@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_114150) do
+ActiveRecord::Schema.define(version: 2020_07_15_174645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -477,12 +477,17 @@ ActiveRecord::Schema.define(version: 2020_07_14_114150) do
     t.string "genus_name"
     t.string "family_name"
     t.integer "average_height_cm"
+    t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
     t.index ["flower_conspicuous"], name: "index_species_on_flower_conspicuous"
     t.index ["gbif_score"], name: "species_gbif_score_idx"
     t.index ["genus_id"], name: "species_genus_id_index"
     t.index ["main_species_id"], name: "species_main_species_id_index"
+    t.index ["minimum_precipitation_mm"], name: "index_species_on_minimum_precipitation_mm"
+    t.index ["minimum_root_depth_cm"], name: "index_species_on_minimum_root_depth_cm"
     t.index ["plant_id"], name: "species_plant_id_index"
+    t.index ["planting_row_spacing_cm"], name: "index_species_on_planting_row_spacing_cm"
+    t.index ["planting_spread_cm"], name: "index_species_on_planting_spread_cm"
     t.index ["scientific_name"], name: "species_scientific_name_index", unique: true
     t.index ["slug"], name: "index_species_on_slug"
     t.index ["token"], name: "index_species_on_token"
