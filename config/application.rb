@@ -20,7 +20,7 @@ Bundler.require(*Rails.groups)
 module TrefleAdmin
   class Application < Rails::Application
 
-    VERSION = '1.5.0'.freeze
+    VERSION = '1.6.0'.freeze
 
     # Initialize configuration defaults for originally generated Rails version.
     # config.load_defaults 5.2
