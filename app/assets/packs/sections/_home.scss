@@ -30,6 +30,17 @@ a.navbar-item {
   font-weight: 600;
 }
 
+.footer > .level {
+  align-items: flex-start;
+}
+
+a.navbar-item.aligned-item {
+  display: flex;
+  align-items: center;
+  span + span {
+    margin-left: 5px;
+  }
+}
 
 .fakeButtons {
   height: 10px;

@@ -11,6 +11,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   devise_for :users
   root 'home#index'
   get '/about', to: 'home#about', as: 'about'
+  get '/terms', to: 'home#licence', as: 'terms'
   get '/stats', to: 'home#stats', as: 'stats'
   get '/profile', to: 'profile#index', as: 'profile'
 

@@ -1,0 +1,71 @@
+
+<footer class="footer">
+  <nav class="level">
+    <div class="level-item">
+      <aside class="menu">
+        <p class="menu-label">
+          <a class="navbar-itemm" href="https://trefle.io">Trefle</a>
+        </p>
+        <ul class="menu-list">
+          <li><%= link_to('About', about_path) %></li>
+          <li><%= link_to('Terms', terms_path) %></li>
+          <li>
+            <% if user_signed_in? %>
+              <a class="navbar-itemm" title="Account" href="<%= profile_path %>">
+                Account
+              </a>
+              <% else %>
+              <a class="navbar-itemm" title="Sign in" href="<%= new_user_session_path %>">
+                Sign in
+              </a>
+            <% end %>
+            </li>
+        </ul>
+      </aside>
+    </div>
+    <div class="level-item">
+      <aside class="menu">
+        <p class="menu-label">
+          <a class="navbar-itemm" href="https://docs.trefle.io">Documentation</a>
+        </p>
+        <ul class="menu-list">
+          <li><a class="navbar-itemm" href="https://docs.trefle.io/docs/guides/getting-started">Getting started</a></li>
+          <li><a class="navbar-itemm" href="https://docs.trefle.io/reference">Reference</a></li>
+          <li><a class="navbar-itemm" href="https://docs.trefle.io/docs/examples/snippets">Snippets</a></li>
+          <li><a class="navbar-itemm" href="https://docs.trefle.io/blog/tags/releases">Releases</a></li>
+        </ul>
+      </aside>
+    </div>
+    <div class="level-item">
+      <aside class="menu">
+        <p class="menu-label">
+          <a class="navbar-itemm" href="#"></a>
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a class="navbar-item aligned-item" title="Join us on Discord" href="https://discord.gg/fuamwgk" target="_blank">
+              <span class="icon" style="color: #7289da;">
+              <i class="fab fa-lg fa-discord"></i>
+              </span>
+              <span> Discord</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="navbar-item aligned-item" title="Join us on Twitter" href="https://twitter.com/trefle_api" target="_blank" rel="noopener">
+              <span class="icon" style="color: #55acee;"><i class="fab fa-lg fa-twitter"></i></span>
+              <span> Twitter</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="navbar-item aligned-item" title="Github" href="https://github.com/treflehq/trefle-api" target="_blank" rel="noopener">
+              <span class="icon" style="color: #242a2f;"><i class="fab fa-lg fa-github"></i></span>
+              <span> Github</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </nav>
+</footer>
