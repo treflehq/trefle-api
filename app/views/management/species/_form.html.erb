@@ -1,0 +1,81 @@
+<%= form_with(model: [:management, species], local: true) do |form| %>
+<% if species.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(species.errors.count, "error") %> prohibited this species from being saved:</h2>
+
+  <ul>
+    <% species.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<h3 class="title is-4">General informations</h3>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :scientific_name %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :scientific_name, control_class: 'is-expanded' %>
+    </div>
+    <div class="field">
+      <%= form.text_field :author %>
+    </div>
+    <div class="field">
+      <%= form.number_field :year %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :bibliography %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :bibliography %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :observations %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :observations %>
+    </div>
+  </div>
+</div>
+
+<h3 class="title is-4">Specifications</h3>
+
+<%= render partial: 'form_specifications', locals: {form: form} %>
+
+
+<h3 class="title is-4">Growth</h3>
+
+<%= render partial: 'form_growth', locals: {form: form} %>
+
+<h3 class="title is-4">Fruit / Seed</h3>
+
+<%= render partial: 'form_fruit', locals: {form: form} %>
+
+<h3 class="title is-4">Foliage</h3>
+
+<%= render partial: 'form_foliage', locals: {form: form} %>
+
+<h3 class="title is-4">Flower</h3>
+
+<%= render partial: 'form_flower', locals: {form: form} %>
+
+
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>

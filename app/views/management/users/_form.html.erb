@@ -1,0 +1,137 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_hash %>
+    <%= form.text_field :password_hash %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reset_password_token %>
+    <%= form.text_field :reset_password_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reset_password_sent_at %>
+    <%= form.datetime_select :reset_password_sent_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :failed_attempts %>
+    <%= form.number_field :failed_attempts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :locked_at %>
+    <%= form.datetime_select :locked_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sign_in_count %>
+    <%= form.number_field :sign_in_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_sign_in_at %>
+    <%= form.datetime_select :current_sign_in_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_sign_in_at %>
+    <%= form.datetime_select :last_sign_in_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_sign_in_ip %>
+    <%= form.text_field :current_sign_in_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_sign_in_ip %>
+    <%= form.text_field :last_sign_in_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unlock_token %>
+    <%= form.text_field :unlock_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirmation_token %>
+    <%= form.text_field :confirmation_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirmed_at %>
+    <%= form.datetime_select :confirmed_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirmation_sent_at %>
+    <%= form.datetime_select :confirmation_sent_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :admin %>
+    <%= form.check_box :admin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :token %>
+    <%= form.text_field :token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organization_name %>
+    <%= form.text_field :organization_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organization_url %>
+    <%= form.text_field :organization_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organization_image_url %>
+    <%= form.text_field :organization_image_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account_type %>
+    <%= form.text_field :account_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :public_profile %>
+    <%= form.check_box :public_profile %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,82 @@
+<%= form_with(model: plant, local: true) do |form| %>
+  <% if plant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(plant.errors.count, "error") %> prohibited this plant from being saved:</h2>
+
+      <ul>
+      <% plant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug %>
+  </div>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bibliography %>
+    <%= form.text_field :bibliography %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_field :author %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :common_name %>
+    <%= form.text_field :common_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :family_common_name %>
+    <%= form.text_field :family_common_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :scientific_name %>
+    <%= form.text_field :scientific_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :usda_name %>
+    <%= form.text_field :usda_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genus_id %>
+    <%= form.text_field :genus_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :main_species_id %>
+    <%= form.text_field :main_species_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complete_data %>
+    <%= form.check_box :complete_data %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

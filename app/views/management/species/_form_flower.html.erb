@@ -1,0 +1,114 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :flower_conspicuous %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        <label class="radio"><%= form.radio_button :flower_conspicuous, "true" %> Yes</label>
+        <label class="radio"><%= form.radio_button :flower_conspicuous, "false" %> No</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :flower_color %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="columns is-multiline">
+        <% Species.flower_colors.pairs.each do |k, v| %>
+        <div class="column is-2-desktop is-3-tablet is-6-mobile">
+          <%= form.label "flower_color_#{v}" do %>
+          <%= form.check_box :flower_color, {multiple: true, id: "species_flower_color_#{v}"}, v, nil %>
+          <span class="color-round" style="<%= "color: #{v}"%>"></span>
+          <span><%= k %></span>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :sexuality %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :sexuality %>
+    </div>
+    <div class="field">
+      <%= form.text_field :sexuality_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :pollinisation %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :pollinisation %>
+    </div>
+    <div class="field">
+      <%= form.text_field :pollinisation_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :maturation_order %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :maturation_order %>
+    </div>
+    <div class="field">
+      <%= form.text_field :maturation_order_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :dissemination %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :dissemination %>
+    </div>
+    <div class="field">
+      <%= form.text_field :dissemination_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :inflorescence_form %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :inflorescence_form %>
+      <p class="help">form</p>
+    </div>
+    <div class="field">
+      <%= form.text_field :inflorescence_type %>
+      <p class="help">type</p>
+    </div>
+    <div class="field">
+      <%= form.text_field :inflorescence_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>

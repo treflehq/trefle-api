@@ -1,0 +1,45 @@
+<section class="section">
+  <div class="container">
+    <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+      <ul>
+        <li><%= @genuse&.family && link_to("Family #{@genuse&.family&.name}", management_family_path(@genuse&.family))|| 'No family' %></li>
+        <li class="is-active"><%= link_to("Genus #{@genuse.name}", management_genuse_path(@genuse)) %></li>
+      </ul>
+    </nav>
+    <h1 class="title">
+      Genus <%= @genuse.name %>
+      <sup>#<%= @genuse.id %></sup>
+    </h1>
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+
+    <p>
+      <strong>Slug:</strong>
+      <%= @genuse.slug %>
+    </p>
+
+    <p>
+      <strong>Family:</strong>
+      <%= link_to("Family #{@genuse&.family&.name}", management_family_path(@genuse&.family)) %>
+    </p>
+
+    <p>
+      <strong>Inserted at:</strong>
+      <%= @genuse.inserted_at %>
+    </p>
+
+    <h1><%= @genuse.plants.count %> Plants</h1>
+
+    <hr>
+
+    <% @genuse.plants.order(:scientific_name).each do |pl| %>
+      <% cache [:genus, :index, pl] do %>
+        <%= render pl %>
+      <% end %>
+    <% end %>
+
+    <%= link_to 'Edit', edit_management_genuse_path(@genuse) %> |
+    <%= link_to 'Back', management_genuses_path %>
+  </div>
+</section>

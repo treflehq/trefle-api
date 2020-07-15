@@ -1,0 +1,178 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :planting_description %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :planting_description %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :planting_sowing_description %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :planting_sowing_description %>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :edible_part %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="columns is-multiline">
+        <% Species.edible_parts.pairs.each do |k, v| %>
+        <div class="column is-2-desktop is-3-tablet is-6-mobile">
+          <%= form.label "edible_part_#{v}" do %>
+          <%= form.check_box :edible_part, {multiple: true, id: "species_edible_part_#{v}"}, v, nil %>
+          <span><%= k %></span>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"><%= form.label "Planting" %></div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <%= form.number_field :planting_days_to_harvest, min: 1, max: 999 %>
+      <p class="control"><a class="button is-static">days to harvest</a></p>
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">row spacing</a></p>
+      <%= form.number_field :planting_row_spacing_cm %>
+      <p class="control"><a class="button is-static">cm</a></p>
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">spread</a></p>
+      <%= form.number_field :planting_spread_cm %>
+      <p class="control"><a class="button is-static">cm</a></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label "PH" %>
+  </div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <%= form.number_field :ph_minimum %>
+      <p class="control"><a class="button is-static">min</a></p>
+    </div>
+    <div class="field has-addons">
+      <%= form.number_field :ph_maximum %>
+      <p class="control"><a class="button is-static">max</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label "Temperature" %>
+  </div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <%= form.number_field :minimum_temperature_deg_c %>
+      <p class="control"><a class="button is-static">℃ min</a></p>
+    </div>
+    <div class="field has-addons">
+      <%= form.number_field :maximum_temperature_deg_c %>
+      <p class="control"><a class="button is-static">℃ max</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label "Precipitation" %>
+  </div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">minimum</a></p>
+      <%= form.number_field :minimum_precipitation_mm %>
+      <p class="control"><a class="button is-static">mm</a></p>
+
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">maximum</a></p>
+      <%= form.number_field :maximum_precipitation_mm %>
+      <p class="control"><a class="button is-static">mm</a></p>
+
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :minimum_root_depth %>
+  </div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">minimum</a></p>
+      <%= form.number_field :minimum_root_depth_cm %>
+      <p class="control"><a class="button is-static">cm</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"><%= form.label "Soil Specs" %></div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">Nutriments</a></p>
+      <%= form.number_field :soil_nutriments, min: 0, max: 10 %>
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">Salinity</a></p>
+      <%= form.number_field :soil_salinity, min: 0, max: 10 %>
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">Humidity</a></p>
+      <%= form.number_field :ground_humidity, min: 0, max: 10 %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"><%= form.label "Soil texture" %></div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <%= form.simple_select :soil_texture, Species.soil_textures.keys, include_blank: true %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"><%= form.label "Adapted to" %></div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.label :fine_textured_soils %>
+      <label class="radio"><%= form.radio_button :adapted_to_fine_textured_soils, "true" %> Yes</label>
+      <label class="radio"><%= form.radio_button :adapted_to_fine_textured_soils, "false" %> No</label>
+    </div>
+    <div class="field">
+      <%= form.label :medium_textured_soils %>
+      <label class="radio"><%= form.radio_button :adapted_to_medium_textured_soils, "true" %> Yes</label>
+      <label class="radio"><%= form.radio_button :adapted_to_medium_textured_soils, "false" %> No</label>
+    </div>
+    <div class="field">
+      <%= form.label :coarse_textured_soils %>
+      <label class="radio"><%= form.radio_button :adapted_to_coarse_textured_soils, "true" %> Yes</label>
+      <label class="radio"><%= form.radio_button :adapted_to_coarse_textured_soils, "false" %> No</label>
+    </div>
+  </div>
+</div>

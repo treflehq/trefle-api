@@ -1,0 +1,55 @@
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'frontend/node_modules/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds/**/*.rb'
+    - 'db/*'
+
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/DoubleCopDisableDirective:
+  Enabled: false
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  SpaceBeforeBlockParameters: false
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/LineLength:
+  Max: 180
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+
+Metrics/AbcSize:
+  Max: 40
+Metrics/MethodLength:
+  Max: 25
+Metrics/BlockLength:
+  Max: 30
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/ClassLength:
+  Max: 250

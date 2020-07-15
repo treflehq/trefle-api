@@ -1,0 +1,33 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<h1>Foreign Sources</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Url</th>
+      <th>Inserted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @foreign_sources.each do |foreign_source| %>
+      <tr>
+        <td><%= foreign_source.name %></td>
+        <td><%= foreign_source.slug %></td>
+        <td><%= foreign_source.url %></td>
+        <td><%= foreign_source.inserted_at %></td>
+        <td><%= link_to 'Show', foreign_source %></td>
+        <td><%= link_to 'Edit', edit_foreign_source_path(foreign_source) %></td>
+        <td><%= link_to 'Destroy', foreign_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Foreign Source', new_foreign_source_path %>

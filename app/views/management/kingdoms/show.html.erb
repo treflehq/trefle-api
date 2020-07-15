@@ -1,0 +1,19 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @kingdom.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @kingdom.slug %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @kingdom.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_kingdom_path(@kingdom) %> |
+<%= link_to 'Back', kingdoms_path %>

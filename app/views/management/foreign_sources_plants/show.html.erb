@@ -1,0 +1,29 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Last update:</strong>
+  <%= @foreign_sources_plant.last_update %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @foreign_sources_plant.species %>
+</p>
+
+<p>
+  <strong>Foreign source:</strong>
+  <%= @foreign_sources_plant.foreign_source %>
+</p>
+
+<p>
+  <strong>Fid:</strong>
+  <%= @foreign_sources_plant.fid %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @foreign_sources_plant.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_foreign_sources_plant_path(@foreign_sources_plant) %> |
+<%= link_to 'Back', foreign_sources_plants_path %>

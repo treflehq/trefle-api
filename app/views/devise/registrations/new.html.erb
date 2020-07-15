@@ -1,0 +1,77 @@
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-10 is-offset-1">
+          <h1 class="main-title has-text-centered title is-3">
+            Create a new account
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="login-container-short">
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email, class: "label" %>
+    <div class="control">
+      <%= f.email_field :email, autofocus: true, placeholder: 'Your email', autocomplete: "email", class: "input", required: true %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :name, class: "label" %>
+    <div class="control">
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: 'Your name', class: "input", required: true %>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :account_type, class: "label" %>
+    <div class="control">
+      <div class="select">
+        <%= f.select :account_type, User::ACCOUNT_TYPES.map{|e| [e.to_s.humanize, e]}, autocomplete: "account_type", class: "input, required: true", required: true %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :password, class: "label" %>
+    <div class="control">
+      <%= f.password_field :password, autocomplete: "new-password", class: "input", required: true %>
+    </div>
+    <p class="help is-danger">
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+    </p>
+
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, class: "label" %>
+    <div class="control">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", required: true %>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-10 is-offset-2">
+      <div class="field is-grouped is-grouped-right">
+        <div class="actions">
+          <%= f.submit "Sign up", class: "button is-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
+</div>

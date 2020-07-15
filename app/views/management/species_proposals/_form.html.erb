@@ -1,0 +1,532 @@
+<%= form_with(model: species_proposal, local: true) do |form| %>
+  <% if species_proposal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(species_proposal.errors.count, "error") %> prohibited this species_proposal from being saved:</h2>
+
+      <ul>
+      <% species_proposal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bibliography %>
+    <%= form.text_field :bibliography %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_field :author %>
+  </div>
+
+  <div class="field">
+    <%= form.label :scientific_name %>
+    <%= form.text_field :scientific_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_conspicuous %>
+    <%= form.check_box :fruit_conspicuous %>
+  </div>
+
+  <div class="field">
+    <%= form.label :coppice_potential %>
+    <%= form.check_box :coppice_potential %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_seed_period_end %>
+    <%= form.text_field :fruit_seed_period_end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :resprout_ability %>
+    <%= form.check_box :resprout_ability %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_sprigs %>
+    <%= form.check_box :propogated_by_sprigs %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_cuttings %>
+    <%= form.check_box :propogated_by_cuttings %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fodder_product %>
+    <%= form.check_box :fodder_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :precipitation_minimum %>
+    <%= form.text_field :precipitation_minimum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :toxicity %>
+    <%= form.text_field :toxicity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :foliage_texture %>
+    <%= form.text_field :foliage_texture %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_seed_abundance %>
+    <%= form.text_field :fruit_seed_abundance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fire_resistance %>
+    <%= form.check_box :fire_resistance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :height_at_base_age_max_ft %>
+    <%= form.text_field :height_at_base_age_max_ft %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fall_conspicuous %>
+    <%= form.check_box :fall_conspicuous %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fire_tolerance %>
+    <%= form.text_field :fire_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ph_minimum %>
+    <%= form.text_field :ph_minimum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_container %>
+    <%= form.check_box :propogated_by_container %>
+  </div>
+
+  <div class="field">
+    <%= form.label :flower_conspicuous %>
+    <%= form.check_box :flower_conspicuous %>
+  </div>
+
+  <div class="field">
+    <%= form.label :native_status %>
+    <%= form.text_field :native_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fuelwood_product %>
+    <%= form.text_field :fuelwood_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :frost_free_days_minimum %>
+    <%= form.text_field :frost_free_days_minimum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :growth_habit %>
+    <%= form.text_field :growth_habit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :protein_potential %>
+    <%= form.text_field :protein_potential %>
+  </div>
+
+  <div class="field">
+    <%= form.label :planting_density_per_acre_maximum %>
+    <%= form.text_field :planting_density_per_acre_maximum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :root_depth_minimum_inches %>
+    <%= form.text_field :root_depth_minimum_inches %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adapted_to_medium_textured_soils %>
+    <%= form.check_box :adapted_to_medium_textured_soils %>
+  </div>
+
+  <div class="field">
+    <%= form.label :growth_form %>
+    <%= form.text_field :growth_form %>
+  </div>
+
+  <div class="field">
+    <%= form.label :after_harvest_regrowth_rate %>
+    <%= form.text_field :after_harvest_regrowth_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :drought_tolerance %>
+    <%= form.text_field :drought_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salinity_tolerance %>
+    <%= form.text_field :salinity_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fertility_requirement %>
+    <%= form.text_field :fertility_requirement %>
+  </div>
+
+  <div class="field">
+    <%= form.label :foliage_color %>
+    <%= form.text_field :foliage_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nitrogen_fixation %>
+    <%= form.text_field :nitrogen_fixation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commercial_availability %>
+    <%= form.text_field :commercial_availability %>
+  </div>
+
+  <div class="field">
+    <%= form.label :anaerobic_tolerance %>
+    <%= form.text_field :anaerobic_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lifespan %>
+    <%= form.text_field :lifespan %>
+  </div>
+
+  <div class="field">
+    <%= form.label :veneer_product %>
+    <%= form.check_box :veneer_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bloat %>
+    <%= form.text_field :bloat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :precipitation_maximum %>
+    <%= form.text_field :precipitation_maximum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :planting_density_per_acre_minimum %>
+    <%= form.text_field :planting_density_per_acre_minimum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :foliage_porosity_winter %>
+    <%= form.text_field :foliage_porosity_winter %>
+  </div>
+
+  <div class="field">
+    <%= form.label :height_mature_ft %>
+    <%= form.text_field :height_mature_ft %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ph_maximum %>
+    <%= form.text_field :ph_maximum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :christmas_tree_product %>
+    <%= form.check_box :christmas_tree_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shape_and_orientation %>
+    <%= form.text_field :shape_and_orientation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shade_tolerance %>
+    <%= form.text_field :shade_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :usda_synonym %>
+    <%= form.text_field :usda_synonym %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pulpwood_product %>
+    <%= form.check_box :pulpwood_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :small_grain %>
+    <%= form.check_box :small_grain %>
+  </div>
+
+  <div class="field">
+    <%= form.label :low_growing_grass %>
+    <%= form.check_box :low_growing_grass %>
+  </div>
+
+  <div class="field">
+    <%= form.label :berry_nut_seed_product %>
+    <%= form.check_box :berry_nut_seed_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vegetative_spread_rate %>
+    <%= form.text_field :vegetative_spread_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_bare_root %>
+    <%= form.check_box :propogated_by_bare_root %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_sod %>
+    <%= form.check_box :propogated_by_sod %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_seed_period_begin %>
+    <%= form.text_field :fruit_seed_period_begin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :palatable_browse_animal %>
+    <%= form.text_field :palatable_browse_animal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :foliage_porosity_summer %>
+    <%= form.text_field :foliage_porosity_summer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seeds_per_pound %>
+    <%= form.text_field :seeds_per_pound %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adapted_to_fine_textured_soils %>
+    <%= form.check_box :adapted_to_fine_textured_soils %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hedge_tolerance %>
+    <%= form.text_field :hedge_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :post_product %>
+    <%= form.check_box :post_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :growth_rate %>
+    <%= form.text_field :growth_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_seed %>
+    <%= form.check_box :propogated_by_seed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_color %>
+    <%= form.text_field :fruit_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nursery_stock_product %>
+    <%= form.check_box :nursery_stock_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seedling_vigor %>
+    <%= form.text_field :seedling_vigor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cold_stratification_required %>
+    <%= form.check_box :cold_stratification_required %>
+  </div>
+
+  <div class="field">
+    <%= form.label :palatable_graze_animal %>
+    <%= form.text_field :palatable_graze_animal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bloom_period %>
+    <%= form.text_field :bloom_period %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fruit_seed_persistence %>
+    <%= form.check_box :fruit_seed_persistence %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_bulbs %>
+    <%= form.check_box :propogated_by_bulbs %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active_growth_period %>
+    <%= form.text_field :active_growth_period %>
+  </div>
+
+  <div class="field">
+    <%= form.label :c_n_ratio %>
+    <%= form.text_field :c_n_ratio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duration %>
+    <%= form.text_field :duration %>
+  </div>
+
+  <div class="field">
+    <%= form.label :flower_color %>
+    <%= form.text_field :flower_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :leaf_retention %>
+    <%= form.check_box :leaf_retention %>
+  </div>
+
+  <div class="field">
+    <%= form.label :known_allelopath %>
+    <%= form.check_box :known_allelopath %>
+  </div>
+
+  <div class="field">
+    <%= form.label :palatable_human %>
+    <%= form.check_box :palatable_human %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_tubers %>
+    <%= form.check_box :propogated_by_tubers %>
+  </div>
+
+  <div class="field">
+    <%= form.label :moisture_use %>
+    <%= form.text_field :moisture_use %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lumber_product %>
+    <%= form.check_box :lumber_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adapted_to_coarse_textured_soils %>
+    <%= form.check_box :adapted_to_coarse_textured_soils %>
+  </div>
+
+  <div class="field">
+    <%= form.label :propogated_by_corms %>
+    <%= form.check_box :propogated_by_corms %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temperature_minimum_deg_f %>
+    <%= form.text_field :temperature_minimum_deg_f %>
+  </div>
+
+  <div class="field">
+    <%= form.label :naval_store_product %>
+    <%= form.check_box :naval_store_product %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seed_spread_rate %>
+    <%= form.text_field :seed_spread_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :caco_3_tolerance %>
+    <%= form.text_field :caco_3_tolerance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species_type %>
+    <%= form.text_field :species_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :usda_name %>
+    <%= form.text_field :usda_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :family_common_name %>
+    <%= form.text_field :family_common_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :common_name %>
+    <%= form.text_field :common_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complete_data %>
+    <%= form.check_box :complete_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genus_id %>
+    <%= form.text_field :genus_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :change_type %>
+    <%= form.text_field :change_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :change_status %>
+    <%= form.text_field :change_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :synonym_of_id %>
+    <%= form.text_field :synonym_of_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

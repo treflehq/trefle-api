@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container">
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Images of species</h1>
+
+    <div class="image-grid">
+      <% @species_images.each do |species_image| %>
+      <article class="image-item" style="background-image: url(<%= species_image.image_url %>)">
+        <p class="title"><%= species_image.species&.scientific_name %></p>
+        <p class="subtitle"><%= species_image.image_url %></p>
+        <%= link_to 'Destroy', [:management, species_image], method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+      </article>
+      <% end %>
+    </div>
+
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+
+    <br />
+  </div>
+</section>

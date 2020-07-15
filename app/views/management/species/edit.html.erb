@@ -1,0 +1,30 @@
+<section class="section">
+  <div class="container">
+    <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+      <ul>
+        <li><%= @species.plant&.genus && link_to("Genus #{@species.plant&.genus&.name}", management_genuse_path(@species.plant&.genus))|| 'No genus' %></li>
+        <li><%= link_to("Plant #{@species.plant.scientific_name}", management_plant_path(@species.plant)) %></li>
+        <li class="is-active"><%= @species.plant&.main_species && link_to("Main species #{@species.plant&.main_species&.scientific_name}", management_species_path(@species.plant&.main_species)) || 'No main species' %></li>
+      </ul>
+    </nav>
+
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">
+      <%= @species.scientific_name %>
+      <span class="tag is-info is-light"><%= @species.rank %></span>
+      <sup>#<%= @species.id %></sup>
+      <%= link_to  'Back', management_species_path(@species), class: 'button is-pulled-right' %>
+
+    </h1>
+
+    <div class="columns is-desktop">
+      <div class="column">
+        <%= render 'form', species: @species %>
+      </div>
+    </div>
+    <%= link_to 'Show', management_species_path(@species) %> |
+    <%= link_to 'Back', management_species_index_path %>
+  </div>
+</section>

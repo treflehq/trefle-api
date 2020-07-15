@@ -1,0 +1,232 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<h1>Species Proposals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Bibliography</th>
+      <th>Author</th>
+      <th>Scientific name</th>
+      <th>Status</th>
+      <th>Fruit conspicuous</th>
+      <th>Coppice potential</th>
+      <th>Fruit seed period end</th>
+      <th>Resprout ability</th>
+      <th>Propogated by sprigs</th>
+      <th>Propogated by cuttings</th>
+      <th>Fodder product</th>
+      <th>Precipitation minimum</th>
+      <th>Toxicity</th>
+      <th>Foliage texture</th>
+      <th>Fruit seed abundance</th>
+      <th>Fire resistance</th>
+      <th>Height at base age max ft</th>
+      <th>Fall conspicuous</th>
+      <th>Fire tolerance</th>
+      <th>Ph minimum</th>
+      <th>Propogated by container</th>
+      <th>Flower conspicuous</th>
+      <th>Native status</th>
+      <th>Fuelwood product</th>
+      <th>Frost free days minimum</th>
+      <th>Growth habit</th>
+      <th>Protein potential</th>
+      <th>Planting density per acre maximum</th>
+      <th>Root depth minimum inches</th>
+      <th>Adapted to medium textured soils</th>
+      <th>Growth form</th>
+      <th>After harvest regrowth rate</th>
+      <th>Drought tolerance</th>
+      <th>Salinity tolerance</th>
+      <th>Fertility requirement</th>
+      <th>Foliage color</th>
+      <th>Nitrogen fixation</th>
+      <th>Commercial availability</th>
+      <th>Anaerobic tolerance</th>
+      <th>Lifespan</th>
+      <th>Veneer product</th>
+      <th>Bloat</th>
+      <th>Precipitation maximum</th>
+      <th>Planting density per acre minimum</th>
+      <th>Foliage porosity winter</th>
+      <th>Height mature ft</th>
+      <th>Ph maximum</th>
+      <th>Christmas tree product</th>
+      <th>Shape and orientation</th>
+      <th>Shade tolerance</th>
+      <th>Usda synonym</th>
+      <th>Pulpwood product</th>
+      <th>Small grain</th>
+      <th>Low growing grass</th>
+      <th>Berry nut seed product</th>
+      <th>Vegetative spread rate</th>
+      <th>Propogated by bare root</th>
+      <th>Propogated by sod</th>
+      <th>Fruit seed period begin</th>
+      <th>Palatable browse animal</th>
+      <th>Foliage porosity summer</th>
+      <th>Seeds per pound</th>
+      <th>Adapted to fine textured soils</th>
+      <th>Hedge tolerance</th>
+      <th>Post product</th>
+      <th>Growth rate</th>
+      <th>Propogated by seed</th>
+      <th>Fruit color</th>
+      <th>Nursery stock product</th>
+      <th>Seedling vigor</th>
+      <th>Cold stratification required</th>
+      <th>Palatable graze animal</th>
+      <th>Bloom period</th>
+      <th>Fruit seed persistence</th>
+      <th>Propogated by bulbs</th>
+      <th>Active growth period</th>
+      <th>C n ratio</th>
+      <th>Duration</th>
+      <th>Flower color</th>
+      <th>Leaf retention</th>
+      <th>Known allelopath</th>
+      <th>Palatable human</th>
+      <th>Propogated by tubers</th>
+      <th>Moisture use</th>
+      <th>Lumber product</th>
+      <th>Adapted to coarse textured soils</th>
+      <th>Propogated by corms</th>
+      <th>Temperature minimum deg f</th>
+      <th>Naval store product</th>
+      <th>Seed spread rate</th>
+      <th>Caco 3 tolerance</th>
+      <th>Species type</th>
+      <th>Usda name</th>
+      <th>Family common name</th>
+      <th>Common name</th>
+      <th>Complete data</th>
+      <th>Genus</th>
+      <th>User</th>
+      <th>Inserted at</th>
+      <th>Change type</th>
+      <th>Change status</th>
+      <th>Synonym of</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @species_proposals.each do |species_proposal| %>
+      <tr>
+        <td><%= species_proposal.year %></td>
+        <td><%= species_proposal.bibliography %></td>
+        <td><%= species_proposal.author %></td>
+        <td><%= species_proposal.scientific_name %></td>
+        <td><%= species_proposal.status %></td>
+        <td><%= species_proposal.fruit_conspicuous %></td>
+        <td><%= species_proposal.coppice_potential %></td>
+        <td><%= species_proposal.fruit_seed_period_end %></td>
+        <td><%= species_proposal.resprout_ability %></td>
+        <td><%= species_proposal.propogated_by_sprigs %></td>
+        <td><%= species_proposal.propogated_by_cuttings %></td>
+        <td><%= species_proposal.fodder_product %></td>
+        <td><%= species_proposal.precipitation_minimum %></td>
+        <td><%= species_proposal.toxicity %></td>
+        <td><%= species_proposal.foliage_texture %></td>
+        <td><%= species_proposal.fruit_seed_abundance %></td>
+        <td><%= species_proposal.fire_resistance %></td>
+        <td><%= species_proposal.height_at_base_age_max_ft %></td>
+        <td><%= species_proposal.fall_conspicuous %></td>
+        <td><%= species_proposal.fire_tolerance %></td>
+        <td><%= species_proposal.ph_minimum %></td>
+        <td><%= species_proposal.propogated_by_container %></td>
+        <td><%= species_proposal.flower_conspicuous %></td>
+        <td><%= species_proposal.native_status %></td>
+        <td><%= species_proposal.fuelwood_product %></td>
+        <td><%= species_proposal.frost_free_days_minimum %></td>
+        <td><%= species_proposal.growth_habit %></td>
+        <td><%= species_proposal.protein_potential %></td>
+        <td><%= species_proposal.planting_density_per_acre_maximum %></td>
+        <td><%= species_proposal.root_depth_minimum_inches %></td>
+        <td><%= species_proposal.adapted_to_medium_textured_soils %></td>
+        <td><%= species_proposal.growth_form %></td>
+        <td><%= species_proposal.after_harvest_regrowth_rate %></td>
+        <td><%= species_proposal.drought_tolerance %></td>
+        <td><%= species_proposal.salinity_tolerance %></td>
+        <td><%= species_proposal.fertility_requirement %></td>
+        <td><%= species_proposal.foliage_color %></td>
+        <td><%= species_proposal.nitrogen_fixation %></td>
+        <td><%= species_proposal.commercial_availability %></td>
+        <td><%= species_proposal.anaerobic_tolerance %></td>
+        <td><%= species_proposal.lifespan %></td>
+        <td><%= species_proposal.veneer_product %></td>
+        <td><%= species_proposal.bloat %></td>
+        <td><%= species_proposal.precipitation_maximum %></td>
+        <td><%= species_proposal.planting_density_per_acre_minimum %></td>
+        <td><%= species_proposal.foliage_porosity_winter %></td>
+        <td><%= species_proposal.height_mature_ft %></td>
+        <td><%= species_proposal.ph_maximum %></td>
+        <td><%= species_proposal.christmas_tree_product %></td>
+        <td><%= species_proposal.shape_and_orientation %></td>
+        <td><%= species_proposal.shade_tolerance %></td>
+        <td><%= species_proposal.usda_synonym %></td>
+        <td><%= species_proposal.pulpwood_product %></td>
+        <td><%= species_proposal.small_grain %></td>
+        <td><%= species_proposal.low_growing_grass %></td>
+        <td><%= species_proposal.berry_nut_seed_product %></td>
+        <td><%= species_proposal.vegetative_spread_rate %></td>
+        <td><%= species_proposal.propogated_by_bare_root %></td>
+        <td><%= species_proposal.propogated_by_sod %></td>
+        <td><%= species_proposal.fruit_seed_period_begin %></td>
+        <td><%= species_proposal.palatable_browse_animal %></td>
+        <td><%= species_proposal.foliage_porosity_summer %></td>
+        <td><%= species_proposal.seeds_per_pound %></td>
+        <td><%= species_proposal.adapted_to_fine_textured_soils %></td>
+        <td><%= species_proposal.hedge_tolerance %></td>
+        <td><%= species_proposal.post_product %></td>
+        <td><%= species_proposal.growth_rate %></td>
+        <td><%= species_proposal.propogated_by_seed %></td>
+        <td><%= species_proposal.fruit_color %></td>
+        <td><%= species_proposal.nursery_stock_product %></td>
+        <td><%= species_proposal.seedling_vigor %></td>
+        <td><%= species_proposal.cold_stratification_required %></td>
+        <td><%= species_proposal.palatable_graze_animal %></td>
+        <td><%= species_proposal.bloom_period %></td>
+        <td><%= species_proposal.fruit_seed_persistence %></td>
+        <td><%= species_proposal.propogated_by_bulbs %></td>
+        <td><%= species_proposal.active_growth_period %></td>
+        <td><%= species_proposal.c_n_ratio %></td>
+        <td><%= species_proposal.duration %></td>
+        <td><%= species_proposal.flower_color %></td>
+        <td><%= species_proposal.leaf_retention %></td>
+        <td><%= species_proposal.known_allelopath %></td>
+        <td><%= species_proposal.palatable_human %></td>
+        <td><%= species_proposal.propogated_by_tubers %></td>
+        <td><%= species_proposal.moisture_use %></td>
+        <td><%= species_proposal.lumber_product %></td>
+        <td><%= species_proposal.adapted_to_coarse_textured_soils %></td>
+        <td><%= species_proposal.propogated_by_corms %></td>
+        <td><%= species_proposal.temperature_minimum_deg_f %></td>
+        <td><%= species_proposal.naval_store_product %></td>
+        <td><%= species_proposal.seed_spread_rate %></td>
+        <td><%= species_proposal.caco_3_tolerance %></td>
+        <td><%= species_proposal.species_type %></td>
+        <td><%= species_proposal.usda_name %></td>
+        <td><%= species_proposal.family_common_name %></td>
+        <td><%= species_proposal.common_name %></td>
+        <td><%= species_proposal.complete_data %></td>
+        <td><%= species_proposal.genus %></td>
+        <td><%= species_proposal.user %></td>
+        <td><%= species_proposal.inserted_at %></td>
+        <td><%= species_proposal.change_type %></td>
+        <td><%= species_proposal.change_status %></td>
+        <td><%= species_proposal.synonym_of %></td>
+        <td><%= link_to 'Show', species_proposal %></td>
+        <td><%= link_to 'Edit', edit_species_proposal_path(species_proposal) %></td>
+        <td><%= link_to 'Destroy', species_proposal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @species_proposals %>
+
+<br>
+
+<%= link_to 'New Species Proposal', new_species_proposal_path %>

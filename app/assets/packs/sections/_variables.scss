@@ -1,0 +1,29 @@
+
+$family-monospace: 'Roboto Mono', monospace;
+$kelly-green: #41b913ff;
+$deep-taupe: #795c5fff;
+$burlywood: #d9b26fff;
+$green-blue-crayola: #1982c4ff;
+$kobi: #ee92c2ff;
+
+$green: $kelly-green;
+$blue: $green-blue-crayola;
+
+$primary: $green;
+
+$break-small: 480px;
+$break-large: 1024px;
+
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 3) { @content; }
+    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 2) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}

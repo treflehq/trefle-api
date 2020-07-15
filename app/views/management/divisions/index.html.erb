@@ -1,0 +1,33 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<h1>Divisions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Subkingdom</th>
+      <th>Inserted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @divisions.each do |division| %>
+      <tr>
+        <td><%= division.name %></td>
+        <td><%= division.slug %></td>
+        <td><%= division.subkingdom %></td>
+        <td><%= division.inserted_at %></td>
+        <td><%= link_to 'Show', division %></td>
+        <td><%= link_to 'Edit', edit_division_path(division) %></td>
+        <td><%= link_to 'Destroy', division, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Division', new_division_path %>

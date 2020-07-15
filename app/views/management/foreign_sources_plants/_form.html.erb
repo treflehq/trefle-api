@@ -1,0 +1,42 @@
+<%= form_with(model: foreign_sources_plant, local: true) do |form| %>
+  <% if foreign_sources_plant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(foreign_sources_plant.errors.count, "error") %> prohibited this foreign_sources_plant from being saved:</h2>
+
+      <ul>
+      <% foreign_sources_plant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :last_update %>
+    <%= form.datetime_select :last_update %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species_id %>
+    <%= form.text_field :species_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :foreign_source_id %>
+    <%= form.text_field :foreign_source_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fid %>
+    <%= form.text_field :fid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

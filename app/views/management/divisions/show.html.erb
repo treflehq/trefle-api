@@ -1,0 +1,24 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @division.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @division.slug %>
+</p>
+
+<p>
+  <strong>Subkingdom:</strong>
+  <%= @division.subkingdom %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @division.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_division_path(@division) %> |
+<%= link_to 'Back', divisions_path %>

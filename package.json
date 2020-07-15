@@ -1,0 +1,27 @@
+{
+  "name": "trefle-admin",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "@fortawesome/fontawesome-pro": "^5.13.0",
+    "@rails/ujs": "^6.0.3-1",
+    "@rails/webpacker": "5.1.1",
+    "axios": "^0.19.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "britecharts": "^2.16.0",
+    "bulma": "^0.9.0",
+    "d3-selection": "^1.4.1",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-debounce-input": "^3.2.2",
+    "react-dom": "^16.13.1",
+    "react-syntax-highlighter": "^12.2.1",
+    "swagger-ui": "^3.26.2",
+    "typed.js": "^2.0.11"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
+}

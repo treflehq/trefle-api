@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="container">
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Query Stats</h1>
+  </div>
+</section>
+<section>
+
+  <div class="container">
+    <h3 class="title is-4">API Calls over time</h3>
+
+    <div id="queries-chart">
+
+    </div>
+
+    <h3 class="title is-4">API Calls repartition per hour</h3>
+
+    <div id="hm-chart">
+
+    </div>
+  </div>
+</section>
+
+<script>
+  var query_data = <%= @counters.to_json.html_safe %> ;
+  var hm_data = <%= @heatmap.to_json.html_safe %> ;
+</script>

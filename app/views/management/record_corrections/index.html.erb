@@ -1,0 +1,68 @@
+<section class="section">
+  <div class="container">
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Record corrections</h1>
+
+  </div>
+</section>
+<section>
+
+  <div class="table-container">
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= sortable_link(:record_id, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:record_type, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:user_id, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:warning_type, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:change_status, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:change_type, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:notes, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:correction_json, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:created_at, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:updated_at, :management_record_corrections_path, params) %></th>
+          <th colspan=" 3">
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @record_corrections.each do |record_correction| %>
+        <tr>
+
+          <td><%= table_desc(record_correction, :id) %></td>
+          <td><%= record_correction.record && link_to((record_correction.record&.scientific_name || record_correction.record&.name), [:management, record_correction.record]) || table_desc(record_correction, :record_id) %></td>
+          <td><%= table_desc(record_correction, :record_type) %></td>
+          <td><%= table_desc(record_correction, :user_id) %></td>
+          <td><%= table_desc(record_correction, :warning_type) %></td>
+          <td><%= table_desc(record_correction, :change_status) %></td>
+          <td><%= table_desc(record_correction, :change_type) %></td>
+          <td><%= table_desc(record_correction, :notes) %></td>
+          <td><%= table_desc(record_correction, :correction_json) %></td>
+          <td><%= table_desc(record_correction, :created_at) %></td>
+          <td><%= table_desc(record_correction, :updated_at) %></td>
+
+          <td><%= link_to 'Show', [:management, record_correction] %></td>
+          <td><%= link_to 'Edit', edit_management_record_correction_path(record_correction) %></td>
+          <td><%= link_to 'Destroy', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <div class="container">
+
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+
+    <br>
+
+    <%= link_to 'New Record correction', new_management_record_correction_path %>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+<div class="container">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="<%= root_path %>">
+        <%= image_tag(asset_pack_path("media/packs/images/logo.svg"), alt: "logo", height: "200") %>
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-trefle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+
+    <div id="navbar-trefle" class="navbar-menu">
+      <div class="navbar-start">
+
+        <a class="navbar-item " href="https://docs.trefle.io">
+          Documentation
+        </a>
+        <a class="navbar-item " href="<%= about_path %>">
+          About
+        </a>
+
+        <% if user_signed_in? && current_user.admin? %>
+        <a class="navbar-item " href="<%= management_path %>">
+          Management
+        </a>
+        <% end %>
+      </div>
+
+      <div class="navbar-end">
+        <% if user_signed_in? %>
+        <a class="navbar-item" title="Account" href="<%= profile_path() %>">
+          Account
+        </a>
+        <%
+=begin%>
+ <a class="navbar-item" title="Correct or add missing data" href="<%= root_path %>">
+          <b><i class="far fa-hands-helping"></i> Complete our data</b>
+        </a> 
+<%
+=end%>
+        <% else %>
+        <a class="navbar-item" title="Sign in" href="<%= new_user_session_path %>">
+          Sign in
+        </a>
+        <%
+=begin%>
+ <a class="navbar-item" title="Correct or add missing data" href="<%= new_user_session_path %>">
+          <b><i class="far fa-hands-helping"></i> Complete our data</b>
+        </a> 
+<%
+=end%>
+        <% end %>
+
+        <a class="navbar-item is-hidden-desktop-only" title="Join us on Discord" href="https://discord.gg/fuamwgk" target="_blank">
+          <span class="icon" style="color: #7289da;">
+            <i class="fab fa-lg fa-discord"></i>
+          </span>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop-only" title="Join us on Twitter" href="https://twitter.com/trefle_api" target="_blank" rel="noopener">
+          <span class="icon" style="color: #55acee;">
+            <i class="fab fa-lg fa-twitter"></i>
+          </span>
+        </a>
+        <span class="navbar-item " id="changelog-badge"></span>
+
+      </div>
+    </div>
+  </nav>
+</div>

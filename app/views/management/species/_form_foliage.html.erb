@@ -1,0 +1,46 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :foliage_texture %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.simple_select :foliage_texture, Species.foliage_textures.keys, include_blank: true %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :leaf_retention %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        <label class="radio"><%= form.radio_button :leaf_retention, "true" %> Yes</label>
+        <label class="radio"><%= form.radio_button :leaf_retention, "false" %> No</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :foliage_color %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="columns is-multiline">
+        <% Species.foliage_colors.pairs.each do |k, v| %>
+        <div class="column is-2-desktop is-3-tablet is-6-mobile">
+          <%= form.label "foliage_color_#{v}" do %>
+          <%= form.check_box :foliage_color, {multiple: true, id: "species_foliage_color_#{v}"}, v, nil %>
+          <span class="color-round" style="<%= "color: #{v}"%>"></span>
+          <span><%= k %></span>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

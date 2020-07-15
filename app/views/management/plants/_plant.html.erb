@@ -1,0 +1,46 @@
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-48x48">
+      <% if plant&.main_species&.species_images&.first&.image_url %>
+      <img class="async-image small" data-src="<%= plant&.main_species&.species_images&.first&.image_url %>" />
+      <% end %>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+
+      <h3>
+        <i>[<%= plant.status || 'null' %>]</i>
+        Plant
+        <%= link_to plant.scientific_name, [:management, plant] %>
+        <sup>#<%= plant.id %></sup>
+      </h3>
+      <progress class="progress is-small" value="<%= plant.completion_ratio %>" max="100"><%= plant.completion_ratio %>%</progress>
+
+    </div>
+
+    <% if plant.species.any? %>
+    <% plant.species.order(:status).each do |sp| %>
+    <article class="media <%= sp.id == plant.main_species_id ? 'main-specie' : 'no-main-specie' %> species species--<%= sp.status&.parameterize %>">
+      <figure class="media-left">
+        <p class="image is-32x32">
+          <% if sp&.species_images&.first&.image_url %>
+          <img class=" async-image small" data-src="<%= sp&.species_images&.first&.image_url %>" />
+          <% end %>
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <i>[<%= sp.status %>]</i>
+          <mark><%= sp.species_type || 'NO SPECIES TYPE' %></mark>
+          <%= link_to sp.scientific_name, [:management, sp] %>
+          <sup>#<%= sp.id %></sup>
+        </div>
+      </div>
+    </article>
+    <% end %>
+    <% else %>
+    <b>No species</b>
+    <% end %>
+  </div>
+</article>

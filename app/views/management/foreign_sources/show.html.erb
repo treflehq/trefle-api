@@ -1,0 +1,24 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @foreign_source.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @foreign_source.slug %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @foreign_source.url %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @foreign_source.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_foreign_source_path(@foreign_source) %> |
+<%= link_to 'Back', foreign_sources_path %>

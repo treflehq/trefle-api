@@ -1,0 +1,102 @@
+
+// 2. Set your own initial variables
+// Update blue
+// $blue: #72d0eb;
+// // Add pink and its invert
+// $pink: #ffb3b3;
+// $pink-invert: #fff;
+// // Add a serif family
+// $family-serif: "Merriweather", "Georgia", serif;
+//
+// // 3. Set the derived variables
+// // Use the new pink as the primary color
+// $primary: $pink;
+// $primary-invert: $pink-invert;
+// // Use the existing orange as the danger color
+// $danger: $orange;
+// // Use the new serif family
+// $family-primary: $family-serif;
+
+// 4. Import the rest of Bulma
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700');
+
+
+$family-monospace: 'Roboto Mono', monospace;
+$green: #41b913;
+$blue: #3273dc;
+$primary: $green;
+
+$break-small: 480px;
+$break-large: 1024px;
+
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 3) { @content; }
+    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 2) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}
+
+// @import 'sections/variables';
+
+@import 'bulma/bulma';
+
+@import 'sections/home';
+
+body {
+  // background-color: green;
+}
+
+.top-notification:not(:empty) {
+  display: block;
+  margin: 0;
+  // border: 1px solid #ccc;
+  padding: 1em;
+  text-align: center;
+
+  &.alert-info {
+    background: transparentize($info, .7);
+    color: darken($info, 30);
+  }
+  &.alert-danger {
+    background: transparentize($danger, .7);
+    color: darken($danger, 30);
+  }
+
+}
+span.token.number {
+  font-size: inherit;
+  background: inherit;
+  height: inherit;
+  width: inherit;
+  margin: inherit;
+  padding: inherit;
+  border-radius: inherit;
+  display: initial;
+}
+
+.redoc-json code {
+  background-color: initial;
+  color: #a2a2a2;
+}
+
+.login-container-short {
+  max-width: 400px;
+  margin: auto;
+}
+.login-container-medium {
+  max-width: 500px;
+  margin: auto;
+}
+.login-container-large {
+  max-width: 600px;
+  margin: auto;
+}

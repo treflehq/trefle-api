@@ -1,0 +1,34 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @family.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @family.slug %>
+</p>
+
+<p>
+  <strong>Common name:</strong>
+  <%= @family.common_name %>
+</p>
+
+<p>
+  <strong>Division order:</strong>
+  <%= @family.division_order %>
+</p>
+
+<p>
+  <strong>Major group:</strong>
+  <%= @family.major_group %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @family.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_family_path(@family) %> |
+<%= link_to 'Back', families_path %>

@@ -1,0 +1,47 @@
+<section class="section">
+  <div class="container">
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Queries for <%= UserQuery.convert_datetime(params[:dt] || UserQuery.time_key).to_formatted_s(:short) %> UTC</h1>
+  </div>
+</section>
+<section>
+
+  <div class="container">
+
+    <table class="table is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th><%= sortable_link(:time, :management_user_queries_path, params) %></th>
+          <th><%= sortable_link(:counter, :management_user_queries_path, params) %></th>
+          <th><%= sortable_link(:user_id, :management_user_queries_path, params) %></th>
+          <th>name</th>
+          <th>email</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @user_queries.each do |user_queries| %>
+        <tr class="user_queries">
+          <td><%= user_queries.time %></td>
+          <td><%= user_queries.counter %></td>
+          <td><%= user_queries.user_id %></td>
+          <td><%= user_queries.user&.name %></td>
+          <td><%= user_queries.user&.email %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+  </div>
+  <div class="container">
+
+  </div>
+</section>

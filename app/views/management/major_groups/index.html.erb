@@ -1,0 +1,31 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<h1>Major Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Inserted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @major_groups.each do |major_group| %>
+      <tr>
+        <td><%= major_group.name %></td>
+        <td><%= major_group.slug %></td>
+        <td><%= major_group.inserted_at %></td>
+        <td><%= link_to 'Show', major_group %></td>
+        <td><%= link_to 'Edit', edit_major_group_path(major_group) %></td>
+        <td><%= link_to 'Destroy', major_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Major Group', new_major_group_path %>

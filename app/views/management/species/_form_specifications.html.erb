@@ -1,0 +1,192 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :ligneous_type %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.simple_select :ligneous_type, Species.ligneous_types.keys.map{|k| [k.to_s.humanize, k]}, include_blank: true %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label">
+    <%= form.label :duration %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="columns is-multiline">
+        <% Species.durations.pairs.each do |k, v| %>
+        <div class="column is-2-desktop is-3-tablet is-6-mobile">
+          <%= form.label "duration_#{v}" do %>
+          <%= form.check_box :duration, {multiple: true, id: "species_duration_#{v}"}, v, nil %>
+          <span><%= k %></span>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :growth_form %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :growth_form %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :growth_habit %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :growth_habit %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :growth_rate %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :growth_rate %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :known_allelopath %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :known_allelopath %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :lifespan %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :lifespan %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label "average and max height" %>
+  </div>
+  <div class="field-body">
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">average</a></p>
+      <%= form.number_field :average_height_cm %>
+    </div>
+    <div class="field has-addons">
+      <p class="control"><a class="button is-static">maximum</a></p>
+      <%= form.number_field :maximum_height_cm %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :nitrogen_fixation %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :nitrogen_fixation %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :shape_and_orientation %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :shape_and_orientation %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :toxicity %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.simple_select :toxicity, Species.toxicities.keys, include_blank: true %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :light %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.number_field :light, min: 0, max: 10 %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :atmospheric_humidity %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.number_field :atmospheric_humidity, min: 0, max: 10 %>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.label :growth_months %>
+      <% Species.growth_months.pairs.each do |k, v| %>
+      <%= form.label "growth_months_#{v}" do %>
+      <%= form.check_box :growth_months, {multiple: true, id: "species_growth_months_#{v}"}, v, nil %>
+      <span><%= k %></span>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="field">
+      <%= form.label :bloom_months %>
+      <% Species.bloom_months.pairs.each do |k, v| %>
+      <%= form.label "bloom_months_#{v}" do %>
+      <%= form.check_box :bloom_months, {multiple: true, id: "species_bloom_months_#{v}"}, v, nil %>
+      <span><%= k %></span>
+      <% end %>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= form.label :fruit_months %>
+      <% Species.fruit_months.pairs.each do |k, v| %>
+      <%= form.label "fruit_months_#{v}" do %>
+      <%= form.check_box :fruit_months, {multiple: true, id: "species_fruit_months_#{v}"}, v, nil %>
+      <span><%= k %></span>
+      <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<%= form_with(model: foreign_source, local: true) do |form| %>
+  <% if foreign_source.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(foreign_source.errors.count, "error") %> prohibited this foreign_source from being saved:</h2>
+
+      <ul>
+      <% foreign_source.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

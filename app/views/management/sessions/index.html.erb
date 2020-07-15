@@ -1,0 +1,35 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<h1>Sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Started at</th>
+      <th>Ended at</th>
+      <th>Counters</th>
+      <th>Inserted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sessions.each do |session| %>
+      <tr>
+        <td><%= session.name %></td>
+        <td><%= session.started_at %></td>
+        <td><%= session.ended_at %></td>
+        <td><%= session.counters %></td>
+        <td><%= session.inserted_at %></td>
+        <td><%= link_to 'Show', session %></td>
+        <td><%= link_to 'Edit', edit_session_path(session) %></td>
+        <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Session', new_session_path %>

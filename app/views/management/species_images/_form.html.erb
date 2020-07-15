@@ -1,0 +1,32 @@
+<%= form_with(model: species_image, local: true) do |form| %>
+  <% if species_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(species_image.errors.count, "error") %> prohibited this species_image from being saved:</h2>
+
+      <ul>
+      <% species_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :image_url %>
+    <%= form.text_field :image_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species_id %>
+    <%= form.text_field :species_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

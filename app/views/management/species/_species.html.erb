@@ -1,0 +1,141 @@
+<h3 class="title is-4">
+  <% if species.main_species_id.nil? %>
+  <span class="tag is-primary">Main species</span>
+  <% end %>
+  <%= link_to species.scientific_name, [:management, species] %>
+  <span class="tag is-info is-light"><%= species.rank %></span>
+  <span class="has-text-grey">#<%= species.id %></span>
+</h3>
+
+<% if species.synonyms.any? %>
+<p>
+  <%= species.synonyms.count %> Synonyms:
+</p>
+<div class="field is-grouped is-grouped-multiline">
+
+  <% species.synonyms.each do |sp| %>
+  <div class="control">
+    <div class="tags has-addons">
+      <span class="tag">Synonym</span>
+      <span class="tag is-dark"><%= "#{sp.name} (#{sp.author})" %></span>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% else %>
+<p>No synonyms</p>
+<% end %>
+
+
+<section class="image-list">
+  <% if species.species_images.empty? %>
+  <p>No images</p>
+  <% end %>
+
+  <% species.species_images.limit(10).each do |spi| %>
+  <img src="<%= spi.image_url %>" alt="<%= spi.id %>" class="async-image medium" />
+  <% end %>
+  <% if species.species_images.count - 10 > 0 %>
+  <b>And <%= species.species_images.count - 10 %> more
+    <% end %>
+
+</section>
+
+<details>
+  <summary>Full details</summary>
+
+  <%= field_desc(species, :images_count) %>
+  <%= field_desc(species, :sources_count) %>
+  <%= field_desc(species, :synonyms_count) %>
+
+  <%= field_desc(species, :gbif_score) %>
+  <%= field_desc(species, :author) %>
+  <%= field_desc(species, :bibliography) %>
+  <%= field_desc(species, :common_name) %>
+  <%= field_desc(species, :complete_data) %>
+  <%= field_desc(species, :duration, :flags) %>
+  <%= field_desc(species, :family_common_name) %>
+  <%= field_desc(species, :adapted_to_coarse_textured_soils) %>
+  <%= field_desc(species, :adapted_to_fine_textured_soils) %>
+  <%= field_desc(species, :adapted_to_medium_textured_soils) %>
+  <%= field_desc(species, :anaerobic_tolerance) %>
+  <%= field_desc(species, :atmospheric_humidity) %>
+  <%= field_desc(species, :average_height_cm) %>
+  <%= field_desc(species, :biological_type) %>
+  <%= field_desc(species, :biological_type_raw) %>
+  <%= field_desc(species, :bloom_months, :flags) %>
+  <%= field_desc(species, :c_n_ratio) %>
+  <%= field_desc(species, :caco_3_tolerance) %>
+  <%= field_desc(species, :dissemination) %>
+  <%= field_desc(species, :dissemination_raw) %>
+  <%= field_desc(species, :edible) %>
+  <%= field_desc(species, :flower_color, :flags) %>
+  <%= field_desc(species, :flower_conspicuous) %>
+  <%= field_desc(species, :foliage_color, :flags) %>
+  <%= field_desc(species, :foliage_texture) %>
+  <%= field_desc(species, :frost_free_days_minimum) %>
+  <%= field_desc(species, :fruit_color, :flags) %>
+  <%= field_desc(species, :fruit_conspicuous) %>
+  <%= field_desc(species, :fruit_months, :flags) %>
+  <%= field_desc(species, :fruit_seed_persistence) %>
+  <%= field_desc(species, :fruit_shape) %>
+  <%= field_desc(species, :fruit_shape_raw) %>
+  <%= field_desc(species, :ground_humidity) %>
+  <%= field_desc(species, :growth_form) %>
+  <%= field_desc(species, :growth_habit) %>
+  <%= field_desc(species, :growth_months, :flags) %>
+  <%= field_desc(species, :growth_rate) %>
+  <%= field_desc(species, :hardiness_zone) %>
+  <%= field_desc(species, :inflorescence_form) %>
+  <%= field_desc(species, :inflorescence_raw) %>
+  <%= field_desc(species, :inflorescence_type) %>
+  <%= field_desc(species, :inserted_at) %>
+  <%= field_desc(species, :known_allelopath) %>
+  <%= field_desc(species, :leaf_retention) %>
+  <%= field_desc(species, :lifespan) %>
+  <%= field_desc(species, :light) %>
+  <%= field_desc(species, :ligneous_type) %>
+  <%= field_desc(species, :maturation_order) %>
+  <%= field_desc(species, :maturation_order_raw) %>
+  <%= field_desc(species, :maximum_height_cm) %>
+  <%= field_desc(species, :maximum_precipitation_mm) %>
+  <%= field_desc(species, :maximum_temperature_deg_c) %>
+  <%= field_desc(species, :maximum_temperature_deg_f) %>
+  <%
+=begin%>
+  <%= field_desc(species, :minimum_planting_density_cm) %>
+  <%
+=end%>
+  <%= field_desc(species, :minimum_precipitation_mm) %>
+  <%= field_desc(species, :minimum_root_depth_cm) %>
+  <%= field_desc(species, :minimum_temperature_deg_c) %>
+  <%= field_desc(species, :minimum_temperature_deg_f) %>
+  <%= field_desc(species, :nitrogen_fixation) %>
+  <%= field_desc(species, :observations) %>
+  <%= field_desc(species, :ph_maximum) %>
+  <%= field_desc(species, :ph_minimum) %>
+  <%= field_desc(species, :pollinisation) %>
+  <%= field_desc(species, :pollinisation_raw) %>
+  <%= field_desc(species, :propagated_by) %>
+  <%= field_desc(species, :protein_potential) %>
+  <%= field_desc(species, :rank) %>
+  <%= field_desc(species, :reviewed_at) %>
+  <%= field_desc(species, :scientific_name) %>
+  <%= field_desc(species, :sexuality) %>
+  <%= field_desc(species, :sexuality_raw) %>
+  <%= field_desc(species, :shape_and_orientation) %>
+  <%= field_desc(species, :slug) %>
+  <%= field_desc(species, :soil_nutriments) %>
+  <%= field_desc(species, :soil_salinity) %>
+  <%= field_desc(species, :soil_texture) %>
+  <%= field_desc(species, :status) %>
+  <%= field_desc(species, :toxicity) %>
+  <%= field_desc(species, :vegetable) %>
+  <%= field_desc(species, :year) %>
+
+
+</details>
+
+
+<%= link_to 'Edit', edit_management_species_path(species) %> |
+<%= link_to 'Back', management_species_index_path %>

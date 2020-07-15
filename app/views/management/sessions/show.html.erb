@@ -1,0 +1,29 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @session.name %>
+</p>
+
+<p>
+  <strong>Started at:</strong>
+  <%= @session.started_at %>
+</p>
+
+<p>
+  <strong>Ended at:</strong>
+  <%= @session.ended_at %>
+</p>
+
+<p>
+  <strong>Counters:</strong>
+  <%= @session.counters %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @session.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_session_path(@session) %> |
+<%= link_to 'Back', sessions_path %>

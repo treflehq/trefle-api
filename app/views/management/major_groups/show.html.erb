@@ -1,0 +1,19 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @major_group.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @major_group.slug %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @major_group.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_major_group_path(@major_group) %> |
+<%= link_to 'Back', major_groups_path %>

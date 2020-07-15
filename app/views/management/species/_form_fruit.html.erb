@@ -1,0 +1,65 @@
+<div class="field is-horizontal">
+  <div class="field-label">
+    <%= form.label :fruit_conspicuous %>
+  </div>
+  <div class="field-body">
+    <div class="field is-narrow">
+      <div class="control">
+        <label class="radio"><%= form.radio_button :fruit_conspicuous, "true" %> Yes</label>
+        <label class="radio"><%= form.radio_button :fruit_conspicuous, "false" %> No</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :fruit_seed_persistence %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        <label class="radio"><%= form.radio_button :fruit_seed_persistence, "true" %> Yes</label>
+        <label class="radio"><%= form.radio_button :fruit_seed_persistence, "false" %> No</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :fruit_shape %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <%= form.text_field :fruit_shape %>
+    </div>
+    <div class="field">
+      <%= form.text_field :fruit_shape_raw, class: 'is-info' %>
+      <p class="help">Raw value</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <%= form.label :fruit_color %>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="columns is-multiline">
+        <% Species.fruit_colors.pairs.each do |k, v| %>
+        <div class="column is-2-desktop is-3-tablet is-6-mobile">
+          <%= form.label "fruit_color_#{v}" do %>
+          <%= form.check_box :fruit_color, {multiple: true, id: "species_fruit_color_#{v}"}, v, nil %>
+          <span class="color-round" style="<%= "color: #{v}"%>"></span>
+          <span><%= k %></span>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

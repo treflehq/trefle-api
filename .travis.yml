@@ -1,0 +1,18 @@
+language: ruby
+cache:
+  directories:
+    - /home/travis/.rvm/
+    - ./vendor/bundle/
+rvm:
+ - 2.6.5
+services:
+  - postgresql
+  - redis-server
+env:
+  - PG_USER=postgres DEVISE_JWT_SECRET_KEY=mamamia
+script:
+  - bundle exec rspec --format doc
+install:
+  - bundle install
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate

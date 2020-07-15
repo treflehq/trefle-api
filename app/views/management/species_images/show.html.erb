@@ -1,0 +1,19 @@
+<p id="notice" class="notification is-info"><%= notice %></p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @species_image.image_url %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @species_image.species %>
+</p>
+
+<p>
+  <strong>Inserted at:</strong>
+  <%= @species_image.inserted_at %>
+</p>
+
+<%= link_to 'Edit', edit_species_image_path(@species_image) %> |
+<%= link_to 'Back', species_images_path %>

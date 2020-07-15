@@ -1,0 +1,93 @@
+<div class="home-page container is-fluid">
+
+  <div class="columns">
+    <div class="column is-2"></div>
+    <div class="column is-10">
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-1">
+              <i class="fad has-text-primary fa-key-skeleton"></i>
+
+              Your account
+            </h1>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-2">
+      <br>
+      <br>
+      <aside class="menu">
+        <ul class="menu-list">
+          <li><a href="#token-informations">Access token</a></li>
+          <li><a href="#informations">Account</a></li>
+          <li>
+            <%= link_to "Sign out", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: "has-text-danger" %>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <div class="column is-10">
+
+      <section class="section" id="token-informations">
+        <!-- <div class="columns">
+          <div class="column"> -->
+        <p class="title is-4">
+          Access token
+        </p>
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              Your token is:
+            </a>
+          </p>
+          <p class="control is-expanded">
+            <input class="input readonly" readonly value="<%= current_user.token %>" />
+          </p>
+        </div>
+        <p class="help">You token allow you to makes queries on the Trefle API. Keep it private.</p>
+
+
+      </section>
+      <section class="section" id="token-informations">
+        <p class="title is-4">
+          Account informations
+        </p>
+        <ul>
+          <li>
+            <strong>Name:</strong>
+            <%= current_user.name %>
+          </li>
+          <li>
+            <strong>Account type:</strong>
+            <%= current_user.account_type&.to_s&.humanize || 'Unknown' %>
+          </li>
+          <li>
+            <strong>Email:</strong>
+            <%= current_user.email %>
+          </li>
+          <li>
+            <strong>Password</strong>
+            <span>********</span>
+            <%= link_to "(change)", edit_user_registration_path(current_user), class: "link" %>
+          </li>
+
+        </ul>
+        <br />
+        <hr />
+        <br />
+        <div class="field is-grouped">
+          <p class="control">
+
+            <%= link_to "Edit your account", edit_user_registration_path(current_user), class: "button is-primary" %>
+            <%= button_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, class: "button is-link is-danger" %>
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

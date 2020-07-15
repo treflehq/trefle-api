@@ -1,0 +1,93 @@
+<section class="section">
+  <div class="container">
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Plants</h1>
+
+    <%= form_with(method: :get, data: {remote: false}) do %>
+    <%= label_tag(:q, "Search for:") %>
+    <%= text_field_tag(:search) %>
+    <%= submit_tag("Search") %>
+    <% end %>
+  </div>
+</section>
+<section>
+
+  <div class="table-container">
+
+    <%== pagy_bulma_nav(@pagy) %>
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= sortable_link(:scientific_name, :management_plants_path, params) %></th>
+          <th>Main species</th>
+          <th><%= sortable_link(:species_count, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:images_count, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:sources_count, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:completion_ratio, :management_plants_path, params) %></th>
+
+          <th><%= sortable_link(:year, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:author, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:main_species_gbif_score, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:reviewed_at, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:genus_id, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:created_at, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:updated_at, :management_plants_path, params) %></th>
+
+          <th><%= sortable_link(:common_name, :management_plants_path, params) %></th>
+          <th><%= sortable_link(:family_common_name, :management_plants_path, params) %></th>
+          <th>Sources</th>
+          <th colspan=" 3">
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @plants.each do |plant| %>
+        <% cache [:plant, :index, plant.cache_key, plant.cache_version] do %>
+        <tr>
+          <td><img class="async-image small" data-src="<%= plant&.main_species&.species_images&.first&.image_url %>" /></td>
+          <td>
+            <b><%= link_to plant.scientific_name, [:management, plant] %></b>
+          </td>
+          <td><%= plant&.main_species && link_to(plant&.main_species&.scientific_name, management_species_path(plant&.main_species)) %></td>
+          <td><%= plant.species_count || '?' %> sp</td>
+          <td><%= plant.images_count || '?' %> 🖼</td>
+          <td><%= plant.sources_count || '?' %> 🔗</td>
+          <td><progress class="progress is-small" value="<%= plant.completion_ratio %>" max="100"><%= plant.completion_ratio %>%</progress></td>
+          <td><%= table_desc(plant, :year) %></td>
+          <td><%= table_desc(plant, :author) %></td>
+          <td><%= plant.main_species_gbif_score %></td>
+          <td><%= table_desc(plant, :reviewed_at) %></td>
+          <td><%= plant&.genus && link_to(plant&.genus&.name, management_genuse_path(plant&.genus)) %></td>
+          <td><%= plant.created_at&.strftime('%d/%m/%Y') %></td>
+          <td><%= plant.updated_at&.strftime('%d/%m/%Y') %></td>
+          <td><%= table_desc(plant, :common_name) %></td>
+          <td><%= table_desc(plant, :family_common_name) %></td>
+          <td><%= plant.main_species&.foreign_sources&.pluck(:name)&.join(', ') %></td>
+
+          <td><%= link_to 'Show', [:management, plant] %></td>
+          <td><%= link_to 'Edit', edit_management_plant_path(plant) %></td>
+          <td><%= link_to 'Destroy', [:management, plant], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <div class="container">
+
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+
+
+    <br>
+
+    <%= link_to 'New Plant', new_management_plant_path %>
+  </div>
+</section>

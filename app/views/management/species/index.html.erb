@@ -1,0 +1,276 @@
+<% cache [:species, :index, @species.cache_key, @species.cache_version] do %>
+<section class="section">
+  <div class="container">
+
+    <p id="notice" class="notification is-info"><%= notice %></p>
+
+    <h1 class="title">Species</h1>
+
+    <%= form_with(method: :get, data: {remote: false}) do %>
+    <%= label_tag(:q, "Search for:") %>
+    <%= text_field_tag(:search) %>
+    <%= submit_tag("Search") %>
+    <% end %>
+
+  </div>
+</section>
+<section>
+
+  <div class="table-container">
+
+    <table class="table is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= sortable_link(:reviewed_at, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:main_image_url, :management_species_index_path, params) %></th>
+          <th>FS</th>
+          <th><%= sortable_link(:gbif_score, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:family_name, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:scientific_name, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:author, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:common_name, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:rank, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:status, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:vegetable, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:edible_part, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:anaerobic_tolerance, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:atmospheric_humidity, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:bibliography, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:bloom_months, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:c_n_ratio, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:caco_3_tolerance, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:checked_at, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:complete_data, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:duration, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:edible, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:family_common_name, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:flower_color, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:flower_conspicuous, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:foliage_color, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:foliage_texture, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:frost_free_days_minimum, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_color, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_conspicuous, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_months, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_seed_persistence, :management_species_index_path, params) %></th>
+
+          <th><%= sortable_link(:ground_humidity, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:growth_form, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:growth_habit, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:growth_months, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:growth_rate, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:hardiness_zone, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:images_count, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:inflorescence_type, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:inserted_at, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:known_allelopath, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:leaf_retention, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:lifespan, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:light, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:ligneous_type, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:average_height_cm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_height_cm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_height_unit, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_height_value, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_precipitation_mm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_temperature_deg_c, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maximum_temperature_deg_f, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:minimum_precipitation_mm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:minimum_root_depth_cm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:minimum_temperature_deg_c, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:minimum_temperature_deg_f, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:nitrogen_fixation, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:observations, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:ph_maximum, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:ph_minimum, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:planting_days_to_harvest, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:planting_description, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:planting_row_spacing_cm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:planting_sowing_description, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:planting_spread_cm, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:propagated_by, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:protein_potential, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:reviewed_at, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:scientific_name, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:shape_and_orientation, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:slug, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:soil_nutriments, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:soil_salinity, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:soil_texture, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:sources_count, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:status, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:synonyms_count, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:token, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:toxicity, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:year, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:biological_type, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:biological_type_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:dissemination, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:dissemination_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_shape, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:fruit_shape_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:inflorescence_form, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:inflorescence_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maturation_order, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:maturation_order_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:pollinisation, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:pollinisation_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:sexuality, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:sexuality_raw, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:plant_id, :management_species_index_path, params) %></th>
+
+          <th><%= sortable_link(:main_species_id, :management_species_index_path, params) %></th>
+
+          <th><%= sortable_link(:genus_id, :management_species_index_path, params) %></th>
+
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @species.each do |species| %>
+        <tr class="species species--<%= species.status&.parameterize %>">
+          <td>
+            <%= link_to 'S', [:management, species] %>
+            <%= link_to 'E', edit_management_species_path(species) %>
+            <%= link_to 'D', [:management, species], method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+
+          <td><%= table_desc(species, :reviewed_at) %></td>
+          <td>
+            <img src="<%= species.main_image_url %>" style="max-height: 50px; max-width: 50px" />
+          </td>
+          <td>
+            <% species&.foreign_sources_plants&.each do |fsp| %>
+            <span class="tag"><a target="_blank" href="<%= fsp.full_url %>"><%= fsp.foreign_source.name %></a></span>
+            <% end %>
+          </td>
+          <td><%= species.gbif_score %></td>
+
+          <td>
+            <%= species.genus&.family && link_to(species.family_name, management_family_path(species.genus&.family_id)) %>
+            <br /><%= species.genus && link_to(species.genus_name, management_genuse_path(species.genus)) %>
+          </td>
+          <td>
+            <b><%= link_to species.scientific_name, [:management, species] %></b>
+            <br />(<%= species.plant && link_to(species.plant&.scientific_name, management_plant_path(species.plant)) %>)
+          </td>
+
+          <td><%= table_desc(species, :author) %></td>
+          <td><%= table_desc(species, :common_name) %></td>
+          <td><%= table_desc(species, :rank) %></td>
+          <td><%= table_desc(species, :status) %></td>
+          <td><%= table_desc(species, :vegetable) %></td>
+          <td><%= table_desc(species, :edible_part) %></td>
+          <td><%= table_desc(species, :anaerobic_tolerance) %></td>
+          <td><%= table_desc(species, :atmospheric_humidity) %></td>
+          <td><%= table_desc(species, :bibliography) %></td>
+          <td><%= table_desc(species, :bloom_months) %></td>
+          <td><%= table_desc(species, :c_n_ratio) %></td>
+          <td><%= table_desc(species, :caco_3_tolerance) %></td>
+          <td><%= table_desc(species, :checked_at) %></td>
+          <td><%= table_desc(species, :complete_data) %></td>
+          <td><%= table_desc(species, :duration) %></td>
+          <td><%= table_desc(species, :edible) %></td>
+          <td><%= table_desc(species, :family_common_name) %></td>
+          <td><%= table_desc(species, :flower_color) %></td>
+          <td><%= table_desc(species, :flower_conspicuous) %></td>
+          <td><%= table_desc(species, :foliage_color) %></td>
+          <td><%= table_desc(species, :foliage_texture) %></td>
+          <td><%= table_desc(species, :frost_free_days_minimum) %></td>
+          <td><%= table_desc(species, :fruit_color) %></td>
+          <td><%= table_desc(species, :fruit_conspicuous) %></td>
+          <td><%= table_desc(species, :fruit_months) %></td>
+          <td><%= table_desc(species, :fruit_seed_persistence) %></td>
+
+          <td><%= table_desc(species, :ground_humidity) %></td>
+          <td><%= table_desc(species, :growth_form) %></td>
+          <td><%= table_desc(species, :growth_habit) %></td>
+          <td><%= table_desc(species, :growth_months) %></td>
+          <td><%= table_desc(species, :growth_rate) %></td>
+          <td><%= table_desc(species, :hardiness_zone) %></td>
+          <td><%= table_desc(species, :images_count) %></td>
+          <td><%= table_desc(species, :inflorescence_type) %></td>
+          <td><%= table_desc(species, :inserted_at) %></td>
+          <td><%= table_desc(species, :known_allelopath) %></td>
+          <td><%= table_desc(species, :leaf_retention) %></td>
+          <td><%= table_desc(species, :lifespan) %></td>
+          <td><%= table_desc(species, :light) %></td>
+          <td><%= table_desc(species, :ligneous_type) %></td>
+          <td><%= table_desc(species, :average_height_cm) %></td>
+          <td><%= table_desc(species, :maximum_height_cm) %></td>
+          <td><%= table_desc(species, :maximum_height_unit) %></td>
+          <td><%= table_desc(species, :maximum_height_value) %></td>
+          <td><%= table_desc(species, :maximum_precipitation_mm) %></td>
+          <td><%= table_desc(species, :maximum_temperature_deg_c) %></td>
+          <td><%= table_desc(species, :maximum_temperature_deg_f) %></td>
+          <td><%= table_desc(species, :minimum_precipitation_mm) %></td>
+          <td><%= table_desc(species, :minimum_root_depth_cm) %></td>
+          <td><%= table_desc(species, :minimum_temperature_deg_c) %></td>
+          <td><%= table_desc(species, :minimum_temperature_deg_f) %></td>
+          <td><%= table_desc(species, :nitrogen_fixation) %></td>
+          <td><%= truncate(species.observations) %></td>
+          <td><%= table_desc(species, :ph_maximum) %></td>
+          <td><%= table_desc(species, :ph_minimum) %></td>
+          <td><%= table_desc(species, :planting_days_to_harvest) %></td>
+          <td><%= table_desc(species, :planting_description) %></td>
+          <td><%= table_desc(species, :planting_row_spacing_cm) %></td>
+          <td><%= table_desc(species, :planting_sowing_description) %></td>
+          <td><%= table_desc(species, :planting_spread_cm) %></td>
+          <td><%= table_desc(species, :propagated_by) %></td>
+          <td><%= table_desc(species, :protein_potential) %></td>
+          <td><%= table_desc(species, :reviewed_at) %></td>
+          <td><%= table_desc(species, :scientific_name) %></td>
+          <td><%= table_desc(species, :shape_and_orientation) %></td>
+          <td><%= table_desc(species, :slug) %></td>
+          <td><%= table_desc(species, :soil_nutriments) %></td>
+          <td><%= table_desc(species, :soil_salinity) %></td>
+          <td><%= table_desc(species, :soil_texture) %></td>
+          <td><%= table_desc(species, :sources_count) %></td>
+          <td><%= table_desc(species, :status) %></td>
+          <td><%= table_desc(species, :synonyms_count) %></td>
+          <td><%= table_desc(species, :token) %></td>
+          <td><%= table_desc(species, :toxicity) %></td>
+          <td><%= table_desc(species, :year) %></td>
+          <td><%= table_desc(species, :biological_type) %></td>
+          <td><%= table_desc(species, :biological_type_raw) %></td>
+          <td><%= table_desc(species, :dissemination) %></td>
+          <td><%= table_desc(species, :dissemination_raw) %></td>
+          <td><%= table_desc(species, :fruit_shape) %></td>
+          <td><%= table_desc(species, :fruit_shape_raw) %></td>
+          <td><%= table_desc(species, :inflorescence_form) %></td>
+          <td><%= table_desc(species, :inflorescence_raw) %></td>
+          <td><%= table_desc(species, :maturation_order) %></td>
+          <td><%= table_desc(species, :maturation_order_raw) %></td>
+          <td><%= table_desc(species, :pollinisation) %></td>
+          <td><%= table_desc(species, :pollinisation_raw) %></td>
+          <td><%= table_desc(species, :sexuality) %></td>
+          <td><%= table_desc(species, :sexuality_raw) %></td>
+          <td><%= table_desc(species, :plant_id) %></td>
+
+          <td><%= table_desc(species, :main_species_id) %></td>
+
+          <td><%= table_desc(species, :genus_id) %></td>
+
+          <td><%= link_to 'Show', [:management, species] %></td>
+          <td><%= link_to 'Edit', edit_management_species_path(species) %></td>
+          <td><%= link_to 'Destroy', [:management, species], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <div class="container">
+
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+
+    <br>
+
+    <%= link_to 'New species', new_management_species_path %>
+  </div>
+</section>
+<% end %>

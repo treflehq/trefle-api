@@ -1,0 +1,36 @@
+// Place all the styles related to the Plants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$color-white: rgba(255, 254, 255, 1);
+$color-green: rgba(96, 153, 45, 1);
+$color-red: rgba(239, 100, 97, 1);
+$color-orange: rgba(228, 179, 99, 1);
+$color-black: rgba(49, 54, 56, 1);
+
+.null-elt {
+  color: #999;
+}
+
+.true-elt {
+  color: $color-green;
+}
+
+.false-elt {
+  color: $color-red;
+}
+
+.species {
+  &.species--synonym {
+    background-color: transparentize($color-orange, .8);
+  }
+  &.species--accepted {
+    background-color: transparentize($color-green, .8);
+  }
+  &.species--unknown {
+    background-color: transparentize($color-red, .8);
+  }
+}
+
+#notice:empty {
+  display: none;
+}

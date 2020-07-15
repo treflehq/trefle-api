@@ -1,0 +1,37 @@
+<%= form_with(model: division, local: true) do |form| %>
+  <% if division.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(division.errors.count, "error") %> prohibited this division from being saved:</h2>
+
+      <ul>
+      <% division.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subkingdom_id %>
+    <%= form.text_field :subkingdom_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inserted_at %>
+    <%= form.datetime_select :inserted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
