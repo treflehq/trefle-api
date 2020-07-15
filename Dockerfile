@@ -38,7 +38,8 @@ RUN mkdir -p /app/tmp/pids && \
 
 RUN bundle exec rails assets:precompile --trace --verbose
 RUN rm -rf /app/node_modules storage /usr/local/share/.cache/yarn log/* *.md test kube frontend spec tmp/cache lib/assets spec && \
-  rm -rf /var/cache/apk/*
+  rm -rf /var/cache/apk/* && \
+  rm -rf /app/config/master.key
 
 ARG SENTRY_RELEASE=untagged
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}

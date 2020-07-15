@@ -44,7 +44,7 @@ module Api
     end
 
     def set_raven_context
-      Raven.user_context(id: @current_user.id, jwt: @jwt)
+      Raven.user_context(id: @current_user&.id, jwt: @jwt)
       Raven.extra_context(params: params.to_unsafe_h, url: request.url)
     end
 
