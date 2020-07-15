@@ -4,6 +4,7 @@ module Api
     rescue_from ActionController::ParameterMissing, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from Pagy::OverflowError, with: :render_page_overflow_response
+    rescue_from Pagy::VariableError, with: :render_page_overflow_response
 
     include ActionController::MimeResponds
     include CollectionRenderers
@@ -44,7 +45,12 @@ module Api
     end
 
     def set_raven_context
-      Raven.user_context(id: @current_user&.id, jwt: @jwt)
+      Raven.user_context(
+        id: @current_user&.id,
+        email: @current_user&.email,
+        username: @current_user&.name,
+        jwt: @jwt
+      )
       Raven.extra_context(params: params.to_unsafe_h, url: request.url)
     end
 
