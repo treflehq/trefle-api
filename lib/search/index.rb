@@ -5,14 +5,14 @@ module Search
 
     def self.add_species!(species)
       Search.instance.with do |conn|
-        conn.index('species').add_documents(to_document(species))
+        conn.index('species').add_or_replace_documents(to_document(species))
       end
     end
 
     def self.bulk_add_species!(species)
       puts "Bulk adding..."
       Search.instance.with do |conn|
-        conn.index('species').add_documents(species.map {|s| to_document(s) })
+        conn.index('species').add_or_replace_documents(species.map {|s| to_document(s) })
       end
       puts "Bulk Added !"
     end
