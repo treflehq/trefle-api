@@ -3,10 +3,6 @@ require 'sidekiq/cron/web'
 require 'sidekiq-status/web'
 
 Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
-  resources :synonyms
-
-  # if Rails.env.development?
-  # end
 
   devise_for :users
   root 'home#index'
@@ -14,10 +10,6 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   get '/terms', to: 'home#licence', as: 'terms'
   get '/stats', to: 'home#stats', as: 'stats'
   get '/profile', to: 'profile#index', as: 'profile'
-
-  resources :documentation, only: [:index] do
-    get :reference, on: :collection
-  end
 
   namespace 'api' do
     namespace 'v1' do
@@ -55,21 +47,6 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
         resources :plants, only: %i[index show]
         resources :species, only: %i[index show]
       end
-
-      # resources :species_proposals
-      # resources :species_images do
-      #   get :chaos, on: :collection
-      # end
-      # resources :record_corrections
-      # resources :species
-      # resources :sessions
-      # resources :plants
-      # resources :major_groups
-      # resources :kingdoms
-      # resources :genuses
-      # resources :foreign_sources_plants
-      # resources :foreign_sources
-
     end
 
     namespace 'auth' do
