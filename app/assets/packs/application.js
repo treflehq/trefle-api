@@ -19,41 +19,11 @@ import './application.scss'
 
 require("@rails/ujs").start()
 
-import Typed from 'typed.js';
 require('@fortawesome/fontawesome-pro/js/all.js');
 
-// import "./fa/brands.min.js";
-// import "./fa/regular.min.js";
-// import "./fa/fontawesome.min.js";
 import "./home/admin.js";
 import "./home/home.js";
 import "./home/codesandbox.js";
-// import "./home/form-select.js";
-// import "./home/form.js";
-// import "./reference.js";
-
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
-// console.log("Hello");
-// if (document.querySelectorAll(".typed-in").length > 0) {
-//   // console.log("World");
-//   var options = {
-//     strings: [
-//       'Browse all plants in the world ?^1000<code>curl <a href="https://trefle.io/api/v1/plants">trefle.io/api/v1/plants</a></code>^1000\n\n' +
-//       'Search a very specific plant ?^1000<code>curl <a href="https://trefle.io/api/v1/plants/search?q=pomegranate">trefle.io/api/v1/plants?q=pomegranate</a></code>^1000'
-//     ],
-//     typeSpeed: 40,
-//     backSpeed: 10,
-//     // cursorChar: '🁢',
-//     smartBackspace: true
-//   }
-
-//   var typed = new Typed(".typed-in", options);
-// }
 
 document.addEventListener('DOMContentLoaded', () => {
 

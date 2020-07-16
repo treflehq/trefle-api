@@ -131,9 +131,9 @@ const CodeSandbox = (props) => {
       </div>
       <div className="column is-10">
         <p>
-          <a href="/profile" class="">Create an account to get started</a>
+          <a href="/profile" >Create an account to get started</a>
           {' or '}
-          <a href="https://docs.trefle.io" class="">Browse the docs</a>
+          <a href="https://docs.trefle.io" >Browse the docs</a>
         </p>
       </div>
     </div>

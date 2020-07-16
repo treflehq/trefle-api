@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
 
   def index
+    @page_title       = 'The plants API'
+    @page_description = 'Trefle is a botanical API and data source.'
+    @page_keywords    = 'API, Botanical, Plants, Species, Data'
+
     @plants_count = Rails.cache.fetch('home/plants_count') { Plant.count }
     @detailled_plants_count = Rails.cache.fetch("home/detailled_plants_count-#{@plants_count}") { Species.where.not(foliage_color: nil).count }
 
@@ -26,9 +30,11 @@ class HomeController < ApplicationController
 
   end
 
-  def show; end
-
-  def about; end
+  def about
+    @page_title       = 'About'
+    @page_description = 'Trefle is a botanical API and data source.'
+    @page_keywords    = 'API, Botanical, Plants, Species, Data'
+  end
 
   def stats; end
 end

@@ -84,6 +84,7 @@ gem 'meilisearch'
 
 # SEO
 gem 'sitemap_generator'
+gem 'meta-tags'
 
 
 group :development, :test do
