@@ -50,6 +50,9 @@ module Resolver
 
         return unless match
 
+        return if match[:kingdom] != 'Plantae'
+        return if match[:taxonomicStatus] != 'ACCEPTED'
+
         pp match
 
         match[:main_species] = nil
@@ -92,7 +95,7 @@ module Resolver
       end
 
       def clean_authorship(authorship)
-        return authorship if authorship.nil? || authorship.blank?
+        return {} if authorship.nil? || authorship.blank?
 
         reg = /, ([1-9][0-9]{2,3})/
         if authorship.match(reg)
@@ -110,6 +113,8 @@ module Resolver
         scientific_name = ::Utils::ScientificName.format_name(entry[:scientificName], entry[:authorship])
         rank = :hybrid if scientific_name&.match(/ × /) && rank == :species
 
+        authorship = clean_authorship(entry[:authorship])
+        pp authorship
         {
           scientific_name: scientific_name,
           rank: rank,
@@ -120,7 +125,7 @@ module Resolver
           main_species_scientific_name: entry[:main_species]&.dig(:scientific_name),
           source_gbif: entry[:key],
           confidence: entry[:confidence]
-        }.merge(clean_authorship(entry[:authorship])).compact
+        }.merge(authorship).compact
       end
 
     end

@@ -76,7 +76,10 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
       patch :reject, on: :member
     end
 
-    resources :species
+    resources :species do
+      patch :refresh, on: :member
+    end
+
     resources :sessions
     resources :plants
     resources :major_groups

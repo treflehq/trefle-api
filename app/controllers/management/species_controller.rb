@@ -1,5 +1,5 @@
 class Management::SpeciesController < Management::ManagementController
-  before_action :set_species, only: %i[show edit update destroy]
+  before_action :set_species, only: %i[show edit update destroy refresh]
 
   # GET /species
   # GET /species.json
@@ -62,6 +62,19 @@ class Management::SpeciesController < Management::ManagementController
     respond_to do |format|
       format.html { redirect_to species_index_url, notice: 'Species was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def refresh
+    respond_to do |format|
+      if @species
+        Crawlers::SpeciesFetchWorker.perform_async(@species.slug)
+        format.html { redirect_to [:management, @species], notice: 'Species refresh enqueued.' }
+        format.json { render :show, status: :ok, location: @species }
+      else
+        format.html { redirect_to [:management, @species], notice: 'En error occured' }
+        format.json { render json: @species.errors, status: :unprocessable_entity }
+      end
     end
   end
 

@@ -133,6 +133,7 @@
         <tr class="species species--<%= species.status&.parameterize %>">
           <td>
             <%= link_to 'S', [:management, species] %>
+            <%= link_to '♺ ', refresh_management_species_path(species), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
             <%= link_to 'E', edit_management_species_path(species) %>
             <%= link_to 'D', [:management, species], method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>

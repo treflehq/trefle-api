@@ -7,7 +7,7 @@ module Checks
 
       return if pre == @species&.genus&.name
 
-      good_name = [@species&.genus&.name, @species.scientific_name.gsub(pre, '').compact].flatten.join(' ')
+      good_name = [@species&.genus&.name, @species.scientific_name.gsub(pre, '')].compact.flatten.join(' ')
 
       get_or_create_warning_for_record(
         @species,
