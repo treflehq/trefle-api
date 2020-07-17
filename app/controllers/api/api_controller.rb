@@ -67,10 +67,11 @@ module Api
     def token_from_request
       token = params[:token]
 
-      unless token.blank?
+      if token.blank?
         auth_header = request.headers['Authorization']
-        token = auth_header.split(' ')&.last if auth_header
+        token = auth_header.strip.split(' ')&.last if auth_header
       end
+
       token
     end
 
