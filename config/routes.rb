@@ -71,7 +71,11 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     resources :species_images do
       get :chaos, on: :collection
     end
-    resources :record_corrections
+    resources :record_corrections do
+      patch :accept, on: :member
+      patch :reject, on: :member
+    end
+
     resources :species
     resources :sessions
     resources :plants

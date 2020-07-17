@@ -57,4 +57,28 @@ class RecordCorrection < ApplicationRecord
     rc
   end
 
+  def accept!(user_id = nil)
+    return unless pending_change_status?
+    return unless record_type == 'Species'
+
+    if deletion_change_type?
+      record.destroy!
+    else
+      correction = JSON.parse(correction_json)
+      i = ::Ingester::Species.new(correction, species_id: record_id)
+      i.ingest!
+    end
+
+    update(
+      accepted_by: user_id,
+      change_status: :accepted
+    )
+  end
+
+  def reject!
+    update(
+      change_status: :rejected
+    )
+  end
+
 end

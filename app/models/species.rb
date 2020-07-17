@@ -375,7 +375,7 @@ class Species < ApplicationRecord # rubocop:todo Metrics/ClassLength
   # Theses are tokens used for integrity and search
   def regenerate_tokens!
     # This one is for integrity, to avoir same species with similar names
-    self.token = scientific_name.parameterize.split('-').join(' ').strip
+    self.token = scientific_name.parameterize.split('-').join(' ').gsub(' x ', ' ').gsub(/^x /, '').strip
 
     # We tokenize the english common names (Ex: Strawberry)
     names_tokens = common_names

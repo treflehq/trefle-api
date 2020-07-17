@@ -1,6 +1,6 @@
 class Management::RecordCorrectionsController < Management::ManagementController
 
-  before_action :set_record_correction, only: %i[show edit update destroy]
+  before_action :set_record_correction, only: %i[show edit update destroy accept reject]
 
   # GET /record_corrections
   # GET /record_corrections.json
@@ -32,7 +32,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
 
     respond_to do |format|
       if @record_correction.save
-        format.html { redirect_to @record_correction, notice: 'RecordCorrection was successfully created.' }
+        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully created.' }
         format.json { render :show, status: :created, location: @record_correction }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
   def update
     respond_to do |format|
       if @record_correction.update(record_correction_params)
-        format.html { redirect_to @record_correction, notice: 'RecordCorrection was successfully updated.' }
+        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully updated.' }
         format.json { render :show, status: :ok, location: @record_correction }
       else
         format.html { render :edit }
@@ -56,7 +56,27 @@ class Management::RecordCorrectionsController < Management::ManagementController
   end
 
   def accept
-    # TODO
+    respond_to do |format|
+      if @record_correction.accept!(current_user)
+        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully accepted.' }
+        format.json { render :show, status: :ok, location: @record_correction }
+      else
+        format.html { render :edit }
+        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def reject
+    respond_to do |format|
+      if @record_correction.reject!
+        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully rejected.' }
+        format.json { render :show, status: :ok, location: @record_correction }
+      else
+        format.html { render :edit }
+        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /record_corrections/1

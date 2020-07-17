@@ -43,6 +43,10 @@
           <td>
             <%= table_desc(record_correction, :change_status) %>
             <%= table_desc(record_correction, :change_type) %>
+            <% if record_correction.pending_change_status? %>
+              <%= link_to 'Accept', accept_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
+              <%= link_to 'Reject', reject_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
+            <% end %>
           </td>
           <td>
             <%= table_desc(record_correction, :record_type) %>

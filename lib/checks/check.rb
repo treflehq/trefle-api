@@ -15,7 +15,6 @@ module Checks
       c.run
     end
 
-
     def get_or_create_warning_for_record(record, params, correction = nil)
       r = RecordCorrection.where(
         record: record,
