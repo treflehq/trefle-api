@@ -52,6 +52,8 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     namespace 'auth' do
       post '/claim', to: 'auth#claim'
     end
+
+    match '*all', controller: 'api', action: 'cors_preflight_check', via: [:options]
   end
 
   namespace 'management' do

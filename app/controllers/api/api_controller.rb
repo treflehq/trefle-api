@@ -10,12 +10,22 @@ module Api
     include CollectionRenderers
     include Pagy::Backend
 
+    before_action :cors_set_access_control_headers
     before_action :authorize_request!
     before_action :set_raven_context
     before_action :log_request
     after_action :cors_set_access_control_headers
 
     respond_to :json
+
+    def cors_preflight_check
+      return unless request.method == 'OPTIONS'
+
+      cors_set_access_control_headers
+      render text: '', content_type: 'text/plain'
+    end
+
+    protected
 
     def log_request
       puts "🚠 Request by [#{@current_user&.email || 'anonymous'}]"
