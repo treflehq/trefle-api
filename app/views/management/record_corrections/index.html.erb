@@ -15,16 +15,16 @@
       <thead>
         <tr>
           <th></th>
+          <th></th>
           <th><%= sortable_link(:record_id, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:record_type, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:user_id, :management_record_corrections_path, params) %></th>
           <th><%= sortable_link(:warning_type, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:correction_json, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:change_notes, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:updated_at, :management_record_corrections_path, params) %></th>
           <th><%= sortable_link(:change_status, :management_record_corrections_path, params) %></th>
           <th><%= sortable_link(:change_type, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:notes, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:correction_json, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:created_at, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:updated_at, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:user_id, :management_record_corrections_path, params) %></th>
+          <th><%= sortable_link(:id, :management_record_corrections_path, params) %></th>
           <th colspan=" 3">
           </th>
         </tr>
@@ -34,17 +34,42 @@
         <% @record_corrections.each do |record_correction| %>
         <tr>
 
-          <td><%= table_desc(record_correction, :id) %></td>
-          <td><%= record_correction.record && link_to((record_correction.record&.scientific_name || record_correction.record&.name), [:management, record_correction.record]) || table_desc(record_correction, :record_id) %></td>
-          <td><%= table_desc(record_correction, :record_type) %></td>
-          <td><%= table_desc(record_correction, :user_id) %></td>
-          <td><%= table_desc(record_correction, :warning_type) %></td>
+          <td>
+            <%= link_to 'S', [:management, record_correction] %>
+            <%= link_to 'E', edit_management_record_correction_path(record_correction) %>
+            <%= link_to 'D', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+
+          <td>
+            <%= table_desc(record_correction, :change_status) %>
+            <%= table_desc(record_correction, :change_type) %>
+          </td>
+          <td>
+            <%= table_desc(record_correction, :record_type) %>
+            <%= record_correction.record && link_to((record_correction.record&.scientific_name || record_correction.record&.name), [:management, record_correction.record]) || table_desc(record_correction, :record_id) %>
+          </td>
+          <td>
+            <b><%= record_correction.warning_type %></b>
+            <%= table_desc(record_correction, :notes) %>
+          </td>
+          <td>
+            <pre><%= JSON.pretty_generate(JSON.parse(record_correction.correction_json)) %></pre>
+          </td>
+          <td>
+            <pre><%= JSON.pretty_generate(JSON.parse(record_correction.change_notes)) %></pre>
+          </td>
+          <td>
+            <%= table_desc(record_correction, :created_at) %>
+            <%= table_desc(record_correction, :updated_at) %>
+          </td>
           <td><%= table_desc(record_correction, :change_status) %></td>
           <td><%= table_desc(record_correction, :change_type) %></td>
-          <td><%= table_desc(record_correction, :notes) %></td>
-          <td><%= table_desc(record_correction, :correction_json) %></td>
-          <td><%= table_desc(record_correction, :created_at) %></td>
-          <td><%= table_desc(record_correction, :updated_at) %></td>
+          <td>
+            <%= record_correction.user&.name %>
+            <%= record_correction.user&.email %>
+          </td>
+
+          <td><%= table_desc(record_correction, :id) %></td>
 
           <td><%= link_to 'Show', [:management, record_correction] %></td>
           <td><%= link_to 'Edit', edit_management_record_correction_path(record_correction) %></td>

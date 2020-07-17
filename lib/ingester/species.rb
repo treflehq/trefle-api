@@ -22,6 +22,7 @@ module Ingester
       @data = data&.deep_symbolize_keys&.compact
       # @data[:scientific_name] = "Mama mia"
       @dry_run = options[:dry_run] || false
+      @species = ::Species.friendly.find(options[:species_id]) if options[:species_id]
 
       return unless @data
 
@@ -37,7 +38,7 @@ module Ingester
       return unless @data
 
       # We get or create the species to change
-      @species = ::Species.where(scientific_name: @data[:scientific_name]).first
+      @species ||= ::Species.where(scientific_name: @data[:scientific_name]).first
 
       @species ||= ::Species.new(scientific_name: @data[:scientific_name])
 
@@ -116,7 +117,7 @@ module Ingester
         rank: @data[:rank],
         year: @data[:year],
         author: @data[:author]
-      }
+      }.compact.map {|k, v| @species.send("#{k}=", v) }
     end
 
     # Will try to match genus or create a new one

@@ -8,13 +8,15 @@ module Checks
       @species = Species.friendly.find(species_id)
     end
 
+
     def self.run(species_id)
       c = new(species_id)
       puts "[Checking #{self.class.to_s.humanize}] for [#{species_id}] Running..."
       c.run
     end
 
-    def get_or_create_warning_for_record(record, params)
+
+    def get_or_create_warning_for_record(record, params, correction = nil)
       r = RecordCorrection.where(
         record: record,
         warning_type: self.class.to_s
@@ -22,29 +24,38 @@ module Checks
 
       return if r&.pending_change_status?
 
+      if correction
+        result = Ingester::Species.new(correction, dry_run: true, species_id: record.id).ingest!
+
+        pp result
+        params[:change_notes] = result[:changes].to_json
+        params[:correction_json] = correction.to_json
+      end
+
       if r&.accepted_change_status?
-        r.update(
-          change_status: :pending,
-          user: USER,
-          source_type: :report,
-          change_notes: [
-            "Reopened on #{Time.zone.now}",
-            r.change_notes
-          ].compact.join("\n")
-        )
+        r.update! report_params(r, record, params)
       else
-        RecordCorrection.create!(
-          params.merge(
-            record: record,
-            source_type: :report,
-            warning_type: self.class.to_s,
-            user: USER
-          )
-        )
+        RecordCorrection.create! report_params(r, record, params)
       end
     end
 
+
+    def report_params(report, record, params)
+      changes_notes = report ? ["Reopened on #{Time.zone.now}", report.change_notes].compact.join("\n") : nil
+
+      {
+        change_status: :pending,
+        record: record,
+        source_type: :report,
+        warning_type: self.class.to_s,
+        user: USER,
+        change_notes: changes_notes
+      }.merge(params)
+    end
+
   end
+
+
 
   def self.run_all(species_id)
     enabled = [

@@ -55,6 +55,10 @@ class Management::RecordCorrectionsController < Management::ManagementController
     end
   end
 
+  def accept
+    # TODO
+  end
+
   # DELETE /record_corrections/1
   # DELETE /record_corrections/1.json
   def destroy

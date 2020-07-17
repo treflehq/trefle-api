@@ -2,16 +2,18 @@ module Checks
   class GenusName < Check
 
     def run
-      return if @species.scientific_name.split(' ')&.first == @species&.genus&.name
+      pre = @species.scientific_name.split(' ')&.first
+      pre = [pre, @species.scientific_name.split(' ')&.second].join(' ') if pre == '×'
 
-      good_name = [@species&.genus&.name, @species.scientific_name.split(' ').slice(1, 10)].flatten.join(' ')
-      get_or_create_warning_for_record(@species, {
-        notes: "Specie #{@species.scientific_name} genus don't match genus '#{@species&.genus&.name}', expected #{good_name}.",
-        change_type: :update,
-        correction_json: {
-          scientific_name: good_name
-        }.to_json
-      })
+      return if pre == @species&.genus&.name
+
+      good_name = [@species&.genus&.name, @species.scientific_name.gsub(pre, '').compact].flatten.join(' ')
+
+      get_or_create_warning_for_record(
+        @species,
+        { notes: "Specie #{@species.scientific_name} genus don't match genus '#{@species&.genus&.name}', expected #{good_name}." },
+        { scientific_name: good_name }
+      )
     end
 
   end

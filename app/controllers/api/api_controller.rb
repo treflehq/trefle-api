@@ -69,7 +69,7 @@ module Api
 
       unless token.blank?
         auth_header = request.headers['Authorization']
-        token = header.split(' ')&.last if auth_header
+        token = auth_header.split(' ')&.last if auth_header
       end
       token
     end
