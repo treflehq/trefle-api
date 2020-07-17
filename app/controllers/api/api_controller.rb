@@ -19,7 +19,8 @@ module Api
     respond_to :json
 
     def cors_preflight_check
-      return unless request.method == 'OPTIONS'
+      # return unless request.method == 'OPTIONS'
+      Rails.logger.debug("[cors_preflight_check]")
 
       cors_set_access_control_headers
       render text: '', content_type: 'text/plain'
@@ -66,6 +67,7 @@ module Api
 
     # Setup custom CORS for JWT client tokens
     def cors_set_access_control_headers
+      Rails.logger.debug("[cors_set_access_control_headers] #{@jwt[:origin]}")
       if @jwt # rubocop:todo Style/GuardClause
         headers['Access-Control-Allow-Origin'] = @jwt[:origin]
         headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
@@ -121,7 +123,8 @@ module Api
       client_ip = IPAddr.new(request.remote_ip || request.remote_addr)
       client_origin = request.headers['origin']
 
-      puts "origin = #{request.headers['origin']}"
+      puts "origin = #{origin}"
+      puts "client_origin = #{request.headers['origin']}"
       puts "request.remote_ip = #{request.remote_ip}"
       puts "request.env['HTTP_X_FORWARDED_FOR'] = #{request.env['HTTP_X_FORWARDED_FOR']}"
       puts "request.remote_addr = #{request.remote_addr}"
