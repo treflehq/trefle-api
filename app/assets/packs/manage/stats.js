@@ -41,6 +41,14 @@ export function createHeatmapChart(elt, data) {
 
 export function createBarChart(elt, data) {
 
+  const fdata = data.map(v => {
+    const k = v.name.toString()
+    return {
+      name: Date.parse(`20${k .slice(0, 2)}-${k .slice(2, 4)}-${k .slice(4, 6)}`),
+      value: v.value
+    }
+  })
+
   const barChart = bar(),
     barContainer = d3Selection.select(elt),
     containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false
@@ -55,6 +63,6 @@ export function createBarChart(elt, data) {
     .labelsNumberFormat('.2s')
     .height(300);
 
-  barContainer.datum(data).call(barChart);
+  barContainer.datum(fdata).call(barChart);
 }
 

@@ -12,9 +12,9 @@ class Management::UserQueriesController < Management::ManagementController
   end
 
   def stats
-    @counters = UserQuery.group(:time).sum(:counter).map {|k, v| { value: v, name: k } }
-
     limit = 1.month.ago.strftime('%y%m%d%H')
+    @counters = UserQuery.where('time > ?', limit).group("time / 100").sum(:counter).map {|k, v| { value: v, name: k } }
+
     @heatmap = UserQuery.where('time > ?', limit).group(:time).sum(:counter).map do |k, v|
       date = UserQuery.convert_datetime(k.to_s)
       {
