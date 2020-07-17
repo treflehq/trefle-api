@@ -57,10 +57,10 @@
             <%= table_desc(record_correction, :notes) %>
           </td>
           <td>
-            <pre><%= JSON.pretty_generate(JSON.parse(record_correction.correction_json)) %></pre>
+            <pre><%= record_correction.correction_json && JSON.pretty_generate(JSON.parse(record_correction.correction_json)) || 'null' %></pre>
           </td>
           <td>
-            <pre><%= JSON.pretty_generate(JSON.parse(record_correction.change_notes)) %></pre>
+            <pre><%= record_correction.change_notes && JSON.pretty_generate(JSON.parse(record_correction.change_notes)) || 'null' %></pre>
           </td>
           <td>
             <%= table_desc(record_correction, :created_at) %>
