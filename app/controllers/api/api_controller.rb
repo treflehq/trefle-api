@@ -10,7 +10,6 @@ module Api
     include CollectionRenderers
     include Pagy::Backend
 
-    before_action :cors_set_access_control_headers
     before_action :authorize_request!
     before_action :set_raven_context
     before_action :log_request
@@ -21,8 +20,6 @@ module Api
     def cors_preflight_check
       # return unless request.method == 'OPTIONS'
       Rails.logger.debug("[cors_preflight_check]")
-
-      cors_set_access_control_headers
       render text: '', content_type: 'text/plain'
     end
 
@@ -67,7 +64,7 @@ module Api
 
     # Setup custom CORS for JWT client tokens
     def cors_set_access_control_headers
-      Rails.logger.debug("[cors_set_access_control_headers] #{@jwt[:origin]}")
+      Rails.logger.debug("[cors_set_access_control_headers] #{@jwt && @jwt[:origin]}")
       if @jwt # rubocop:todo Style/GuardClause
         headers['Access-Control-Allow-Origin'] = @jwt[:origin]
         headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
