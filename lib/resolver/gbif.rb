@@ -2,10 +2,6 @@ require 'httparty'
 require 'colorize'
 
 module Resolver
-  class ResolverException < RuntimeError
-
-  end
-
   class Gbif
 
     DATASET_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'.freeze
