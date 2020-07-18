@@ -10,7 +10,7 @@ module Api
     include CollectionRenderers
     include Pagy::Backend
 
-    before_action :authorize_request!
+    before_action :authorize_request!, except: [:cors_preflight_check]
     before_action :set_raven_context
     before_action :log_request
     after_action :cors_set_access_control_headers

@@ -92,16 +92,16 @@ Rails.application.configure do # rubocop:todo Metrics/BlockLength
   #      resource '*', :headers => :any, :methods => [:get, :post, :options]
   #    end
   # end
-  config.middleware.insert_before 0, Rack::Cors do
-    allow do
-      origins %r{\Ahttp://localhost:(3000|3232)}
-      resource '*',
-               headers: :any,
-               methods: :any,
-               expose: %w[Authorization Link],
-               max_age: 600
-    end
-  end
+  # config.middleware.insert_before 0, Rack::Cors do
+  #   allow do
+  #     origins %r{\Ahttp://localhost:(3000|3232)}
+  #     resource '*',
+  #              headers: :any,
+  #              methods: :any,
+  #              expose: %w[Authorization Link],
+  #              max_age: 600
+  #   end
+  # end
 
   config.action_controller.forgery_protection_origin_check = false
 

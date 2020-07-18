@@ -38,24 +38,34 @@ module TrefleAdmin
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins 'https://trefle.io', %r{\Ahttps://.*\.trefle.io\z}
-        resource '*',
-                 headers: :any,
-                 methods: :any,
-                 expose: %w[Authorization Link],
-                 max_age: 600
-      end
-      allow do
-        origins %r{\Ahttp://localhost:(3000|3232)}
-        resource '*',
-                 headers: :any,
-                 methods: :any,
-                 expose: %w[Authorization Link],
-                 max_age: 600
-      end
-    end
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins 'https://trefle.io', %r{\Ahttps://.*\.trefle.io\z}
+    #     resource '*',
+    #              headers: :any,
+    #              methods: :any,
+    #              expose: %w[Authorization Link],
+    #              max_age: 600
+    #   end
+    #   allow do
+    #     origins %r{\Ahttp://localhost:(3000|3232)}
+    #     resource '*',
+    #              headers: :any,
+    #              methods: :any,
+    #              expose: %w[Authorization Link],
+    #              max_age: 600
+    #   end
+
+    #   allow do
+    #     origins '*'
+
+    #     # Preflight
+    #     resource '/api/v1/*',
+    #         headers: :any,
+    #         methods: :options
+    #   end
+
+    # end
 
     config.action_controller.forgery_protection_origin_check = false
 
