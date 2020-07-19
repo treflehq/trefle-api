@@ -34,9 +34,10 @@ module Checks
         },
         {
           scientific_name: good_data[:scientific_name],
+          rank: good_data[:rank],
           author: good_data[:author],
           bibliography: good_data[:bibliography]
-        }
+        }.compact
       )
     end
 
