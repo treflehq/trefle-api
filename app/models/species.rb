@@ -401,8 +401,9 @@ class Species < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
  
   def computed_token
-    scientific_name.gsub('-', '_').parameterize.split('-').join(' ').gsub(' x ', ' ').gsub(/^x /, '').strip.gsub('_', '-')
+    ::Utils::ScientificName.tokenize(scientific_name)
   end
+
 
   def infer_genus
     return if genus_id

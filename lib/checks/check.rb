@@ -60,7 +60,8 @@ module Checks
     enabled = [
       GenusSpecies,
       ScientificNameFormat,
-      GenusName
+      GenusName,
+      NameAcceptance
     ].freeze
 
     enabled.each {|e| e.run(species_id) }
