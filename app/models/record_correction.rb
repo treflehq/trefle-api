@@ -75,6 +75,15 @@ class RecordCorrection < ApplicationRecord
     )
   end
 
+  # Accept without applying the changes
+  def resolve!(user_id = nil)
+    update(
+      accepted_by: user_id,
+      change_status: :accepted,
+      notes: [notes, 'Other corrections resolved this correction'].compact.join("\n")
+    )
+  end
+
   def reject!
     update(
       change_status: :rejected

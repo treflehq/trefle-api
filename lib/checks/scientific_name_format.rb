@@ -8,7 +8,6 @@ module Checks
       return unless good_name != @species.scientific_name
 
       get_or_create_warning_for_record(
-        @species,
         {
           notes: "Species scientific name '#{@species.scientific_name}' seems not well formatted (expected #{good_name})",
         },
