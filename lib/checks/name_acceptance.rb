@@ -7,6 +7,7 @@ module Checks
 
       token = ::Utils::ScientificName.tokenize(@species.scientific_name)
       good_data = ::Resolver::Powo.resolve_hash(token)
+      good_data ||= ::Resolver::Gbif.resolve_hash(token)
 
       if good_data.nil?
         log("Species scientific name ('#{@species.scientific_name}') can't be found on GBIF or POWO".red)

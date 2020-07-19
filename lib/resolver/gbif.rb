@@ -34,6 +34,12 @@ module Resolver
         return unless match
 
         confidence = match[:confidence]
+        
+        if confidence <= 90
+          puts "Confidence is too low: #{confidence}, skipping..."
+          return
+        end
+
         puts "#{match[:taxonomicStatus]}: #{match.inspect}"
 
         if match[:synonym]
