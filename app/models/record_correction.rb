@@ -63,16 +63,25 @@ class RecordCorrection < ApplicationRecord
 
     if deletion_change_type?
       record.destroy!
+      update(
+        accepted_by: user_id,
+        change_status: :accepted
+      )
     else
       correction = JSON.parse(correction_json)
       i = ::Ingester::Species.new(correction, species_id: record_id)
-      i.ingest!
+      res = i.ingest!
+      if res[:valid]
+        update(
+          accepted_by: user_id,
+          change_status: :accepted
+        )
+      else
+        update(
+          notes: [notes, "Unable to accept, #{res[:errors].join(', ')}"].compact.join("\n")
+        )
+      end
     end
-
-    update(
-      accepted_by: user_id,
-      change_status: :accepted
-    )
   end
 
   # Accept without applying the changes
