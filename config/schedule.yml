@@ -11,7 +11,7 @@ migrate_queries_counters:
   queue: low
 
 keep_it_hot:
-  cron: "*/10 * * * *" # At every 10th minute
-  class: "KeepItHotWorker"
+  cron: "*/15 * * * *" # At every 15th minute
+  class: "Crawlers::KeepItHotWorker"
   queue: low
 
