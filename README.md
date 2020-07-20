@@ -3,7 +3,7 @@
 
 [🌎 Website](https://trefle.io)  •  [🚀 Getting started](https://docs.trefle.io)  •  [📖 API Documentation](https://docs.trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
 
-[![View performance data on Skylight](https://badges.skylight.io/rpm/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)  •  [![View performance data on Skylight](https://badges.skylight.io/status/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)  •  [![View performance data on Skylight](https://badges.skylight.io/problem/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)  •  [![View performance data on Skylight](https://badges.skylight.io/typical/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)
+[![View performance data on Skylight](https://badges.skylight.io/status/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/rpm/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/problem/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/typical/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)
 
 ## What is Trefle ?
 
