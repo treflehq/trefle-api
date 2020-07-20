@@ -72,6 +72,8 @@ module Scopes
 
       # plants
       scope :plants, -> { where(main_species_id: nil) }
+      scope :vegetable, ->(_v) { where(vegetable: true) }
+      scope :edible, ->(_v) { where.not(edible_part: [0, nil]) }
 
     end
   end
