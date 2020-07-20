@@ -30,6 +30,9 @@ class RecordCorrection < ApplicationRecord
   belongs_to :record, polymorphic: true, optional: true
   belongs_to :user, optional: true
 
+  scope :status, ->(s) { where(change_status: s) }
+  # Ex:- scope :active, -> {where(:active => true)}
+
   enum change_type: %i[addition update deletion], _suffix: true
   enum change_status: %i[pending accepted rejected], _suffix: true
   enum source_type: %i[external observation report], _suffix: true

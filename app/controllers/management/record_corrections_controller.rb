@@ -2,12 +2,14 @@ class Management::RecordCorrectionsController < Management::ManagementController
 
   before_action :set_record_correction, only: %i[show edit update destroy accept reject]
 
+  has_scope :status, allow_blank: false
+
   # GET /record_corrections
   # GET /record_corrections.json
   def index
     p = params.permit(:search, order: {})
 
-    @record_corrections = RecordCorrection.all
+    @record_corrections = apply_scopes(RecordCorrection.all)
     @record_corrections = @record_corrections.order(p.to_h.dig('order')) if p[:order]
     # @record_corrections = @record_corrections.where.like(scientific_name: "%#{p[:search]}%") if p[:search]
     @pagy, @record_corrections = pagy(@record_corrections)

@@ -54,15 +54,14 @@ module Checks
     end
 
     def report_params(params)
-      changes_notes = @existing_check ? ["Reopened on #{Time.zone.now}", @existing_check.change_notes].compact.join("\n") : nil
+      params[:notes] = @existing_check ? [@existing_check.notes, "Reopened on #{Time.zone.now}", params[:notes]].compact.join("\n") : params[:notes]
 
       {
         change_status: :pending,
         record: @species,
         source_type: :report,
         warning_type: self.class.to_s,
-        user: USER,
-        change_notes: changes_notes
+        user: USER
       }.merge(params)
     end
 
