@@ -13,6 +13,23 @@
     <% end %>
 
   </div>
+  <div class="container">
+    <div class="tabs">
+      <ul>
+        <li>
+          <%= link_to 'All', management_species_index_path %>
+        </li>
+        <li class="<%= params[:vegetable] && 'is-active' %>">
+          <%= link_to 'Vegetables', management_species_index_path(vegetable: true) %>
+        </li>
+        <li class="<%= params[:edible] && 'is-active' %>">
+          <%= link_to 'Edibles', management_species_index_path(edible: true) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
 </section>
 <section>
 

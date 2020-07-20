@@ -10,7 +10,6 @@ module Checks
       good_name = [@species&.genus&.name, @species.scientific_name.gsub(pre, '')].compact.flatten.join(' ')
 
       get_or_create_warning_for_record(
-        @species,
         { notes: "Specie #{@species.scientific_name} genus don't match genus '#{@species&.genus&.name}', expected #{good_name}." },
         { scientific_name: good_name }
       )

@@ -6,5 +6,6 @@ production:
   - critical
   - default
   - crawlers
+  - checks
   - migrations
   - low

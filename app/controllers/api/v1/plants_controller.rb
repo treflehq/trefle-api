@@ -70,7 +70,9 @@ class Api::V1::PlantsController < Api::ApiController
 
   def search
     search = params.require(:q)
-    options = parse_search_options
+    options = parse_search_options.merge(
+      filters: 'main_species=true'
+    )
 
     begin
       results = ::Search.search_species(search, options)

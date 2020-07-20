@@ -198,7 +198,7 @@ module Ingester
     end
 
     def return_hash(changes = nil)
-      @species.reload
+      @species
       {
         id: @species&.id,
         saved: @species&.persisted?,

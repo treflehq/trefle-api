@@ -10,7 +10,8 @@ module Resolver
     species = Species.friendly.find(species_id)
 
     {
-      gbif: try_resolves(Gbif, species)
+      gbif: try_resolves(Gbif, species),
+      powo: try_resolves(Powo, species),
     }
   end
 
@@ -18,6 +19,13 @@ module Resolver
     data = resolver::resolve_hash(species.scientific_name)
     data ||= resolver::resolve_hash(species.token)
     data
+  end
+
+  def self.best_resolve(scientific_name)
+    [
+      Resolver::Gbif.resolve_hash(scientific_name) || {},
+      Resolver::Powo.resolve_hash(scientific_name) || {},
+    ].reduce(&:merge)
   end
 
 end

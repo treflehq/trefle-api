@@ -16,5 +16,9 @@ module Utils
       name = name.split(' ').reject(&:blank?).join(' ')
       name
     end
+
+    def self.tokenize(name)
+      name.gsub('-', '_').parameterize.split('-').join(' ').gsub(' x ', ' ').gsub(/^x /, '').strip.gsub('_', '-')
+    end
   end
 end

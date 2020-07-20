@@ -1,12 +1,15 @@
 class Management::SpeciesController < Management::ManagementController
   before_action :set_species, only: %i[show edit update destroy refresh]
 
+  has_scope :vegetable, type: :boolean, allow_blank: true
+  has_scope :edible, type: :boolean, allow_blank: true
+
   # GET /species
   # GET /species.json
   def index
     p = params.permit(:search, order: {})
 
-    @species = Species.all
+    @species = apply_scopes(Species.all)
     @species = @species.order(p.to_h.dig('order')) if p[:order]
     @species = @species.search(p[:search]) if p[:search]
     @pagy, @species = pagy(@species)

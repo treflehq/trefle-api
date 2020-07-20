@@ -6,6 +6,25 @@
     <h1 class="title">Record corrections</h1>
 
   </div>
+  <div class="container">
+    <div class="tabs">
+      <ul>
+        <li class="<%= params[:status].blank? && 'is-active' %>">
+          <%= link_to 'All', management_record_corrections_path %>
+        </li>
+        <li class="<%= params[:status] == 'pending' && 'is-active' %>">
+          <%= link_to 'Pending', management_record_corrections_path(status: :pending) %>
+        </li>
+        <li class="<%= params[:status] == 'accepted' && 'is-active' %>">
+          <%= link_to 'Accepted', management_record_corrections_path(status: :accepted) %>
+        </li>
+        <li class="<%= params[:status] == 'rejected' && 'is-active' %>">
+          <%= link_to 'Rejected', management_record_corrections_path(status: :rejected) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </section>
 <section>
 
@@ -44,8 +63,8 @@
             <%= table_desc(record_correction, :change_status) %>
             <%= table_desc(record_correction, :change_type) %>
             <% if record_correction.pending_change_status? %>
-              <%= link_to 'Accept', accept_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
-              <%= link_to 'Reject', reject_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
+            <%= link_to 'Accept', accept_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
+            <%= link_to 'Reject', reject_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
             <% end %>
           </td>
           <td>
@@ -57,10 +76,10 @@
             <%= table_desc(record_correction, :notes) %>
           </td>
           <td>
-            <pre><%= record_correction.correction_json && JSON.pretty_generate(JSON.parse(record_correction.correction_json)) || 'null' %></pre>
+            <pre><%= record_correction.correction_json && (JSON.pretty_generate(JSON.parse(record_correction.correction_json)) rescue record_correction.correction_json) || 'null' %></pre>
           </td>
           <td>
-            <pre><%= record_correction.change_notes && JSON.pretty_generate(JSON.parse(record_correction.change_notes)) || 'null' %></pre>
+            <pre><%= record_correction.change_notes && (JSON.pretty_generate(JSON.parse(record_correction.change_notes)) rescue record_correction.change_notes) || 'null' %></pre>
           </td>
           <td>
             <%= table_desc(record_correction, :created_at) %>

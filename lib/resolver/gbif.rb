@@ -2,10 +2,6 @@ require 'httparty'
 require 'colorize'
 
 module Resolver
-  class ResolverException < RuntimeError
-
-  end
-
   class Gbif
 
     DATASET_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'.freeze
@@ -38,6 +34,12 @@ module Resolver
         return unless match
 
         confidence = match[:confidence]
+        
+        if confidence <= 90
+          puts "Confidence is too low: #{confidence}, skipping..."
+          return
+        end
+
         puts "#{match[:taxonomicStatus]}: #{match.inspect}"
 
         if match[:synonym]
@@ -80,7 +82,9 @@ module Resolver
         return unless r.ok?
 
         puts "[GBIF] [#{scientific_name}] Adding #{r.parsed_response['speciesMatches']['count']} items"
-        data = r.parsed_response['speciesMatches']['results']&.first&.deep_symbolize_keys
+        datas = r.parsed_response['speciesMatches']['results']
+        
+        data = datas&.reject {|e| e['rank'] == 'GENUS' }&.first&.deep_symbolize_keys
         Rails.cache.write("resolver/gbif/search/#{scientific_name}", data.to_json, expires_in: 12.hours)
         data
       end
