@@ -166,7 +166,7 @@
 #
 #  species_plant_id_fkey  (plant_id => plants.id)
 #
-class Species < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Species < ApplicationRecord
   include ActiveModel::Validations
 
   PLANTS_ATTRIBUTES = %w[
@@ -399,11 +399,10 @@ class Species < ApplicationRecord # rubocop:todo Metrics/ClassLength
       *syn_tokens
     ].join(' ').strip
   end
- 
+
   def computed_token
     ::Utils::ScientificName.tokenize(scientific_name)
   end
-
 
   def infer_genus
     return if genus_id
@@ -458,7 +457,7 @@ class Species < ApplicationRecord # rubocop:todo Metrics/ClassLength
     pattrs.merge(attributes.slice(*merge_attrs).compact)
   end
 
-  def merge_from_complete_data(species_from) # rubocop:todo Metrics/MethodLength
+  def merge_from_complete_data(species_from)
     merge_attrs = merge_attributes_keys
 
     theirs = species_from ? species_from.attributes.slice(*merge_attrs).compact : {}

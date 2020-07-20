@@ -6,6 +6,6 @@ class CreateMillisearchIndexes < ActiveRecord::Migration[6.0]
   end
 
   def down
-    Search.instance.with{|e| e.delete_index('species') }
+    Search.instance.with {|e| e.delete_index('species') }
   end
 end

@@ -11,8 +11,7 @@ class Auth::JsonWebToken
     HashWithIndifferentAccess.new decoded
   end
 
-
-  def initialize(user: , origin:, ip: nil, expire: 24.hours)
+  def initialize(user:, origin:, ip: nil, expire: 24.hours)
     @time = Time.now + expire.to_i
     @token = ::Auth::JsonWebToken.encode(
       user_id: user.id,
@@ -22,11 +21,7 @@ class Auth::JsonWebToken
     )
   end
 
-  def token
-    @token
-  end
+  attr_reader :token
 
-  def time
-    @time
-  end
+  attr_reader :time
 end

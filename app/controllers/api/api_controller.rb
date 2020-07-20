@@ -19,7 +19,8 @@ module Api
 
     def cors_preflight_check
       return unless request.method == 'OPTIONS'
-      Rails.logger.debug("[cors_preflight_check]")
+
+      Rails.logger.debug('[cors_preflight_check]')
       headers['Access-Control-Allow-Origin'] = request.headers['origin']
       headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
       headers['Access-Control-Allow-Headers'] = '*'

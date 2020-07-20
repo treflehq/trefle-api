@@ -34,7 +34,7 @@ module Resolver
         return unless match
 
         confidence = match[:confidence]
-        
+
         if confidence <= 90
           puts "Confidence is too low: #{confidence}, skipping..."
           return
@@ -83,7 +83,7 @@ module Resolver
 
         puts "[GBIF] [#{scientific_name}] Adding #{r.parsed_response['speciesMatches']['count']} items"
         datas = r.parsed_response['speciesMatches']['results']
-        
+
         data = datas&.reject {|e| e['rank'] == 'GENUS' }&.first&.deep_symbolize_keys
         Rails.cache.write("resolver/gbif/search/#{scientific_name}", data.to_json, expires_in: 12.hours)
         data

@@ -207,7 +207,7 @@ class Api::V1::SpeciesController < Api::ApiController
       }.compact), status: :ok
     rescue MeiliSearch::CommunicationError => e
       Raven.capture_exception(e)
-      
+
       @collection ||= Species.all
       @collection = apply_search(collection)
       @pagy, @collection = pagy(@collection)

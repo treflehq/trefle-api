@@ -27,7 +27,6 @@ class HomeController < ApplicationController
       expire: 10.minutes
       # ip: request.headers['X-Forwarded-For']
     )
-
   end
 
   def about

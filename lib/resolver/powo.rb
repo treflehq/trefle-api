@@ -2,7 +2,6 @@ require 'httparty'
 require 'colorize'
 
 module Resolver
-
   class Powo
 
     RANK_MAP = {
@@ -23,7 +22,7 @@ module Resolver
     class << self
 
       # Will request POWO to resolve a given scientific name
-      def resolve_hash(scientific_name) # rubocop:todo Metrics/PerceivedComplexity
+      def resolve_hash(scientific_name)
         d = Rails.cache.read("resolver/powo/resolve_hash/#{scientific_name}")
         return JSON.parse(d)&.deep_symbolize_keys if d
 
@@ -51,7 +50,7 @@ module Resolver
         return unless r.ok?
 
         puts "[POWO] [#{scientific_name}] Adding #{r.parsed_response['totalResults']} items"
-        data = r.parsed_response['results']&.filter{|e| e['accepted'] && e['rank'] != 'Genus'}&.first&.deep_symbolize_keys
+        data = r.parsed_response['results']&.filter {|e| e['accepted'] && e['rank'] != 'Genus' }&.first&.deep_symbolize_keys
         Rails.cache.write("resolver/powo/search/#{scientific_name}", data.to_json, expires_in: 12.hours)
         data
       end

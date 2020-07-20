@@ -1,5 +1,4 @@
 module Checks
-
   USER = User.find_by_email('andre@trefle.io')
 
   class Check
@@ -65,10 +64,7 @@ module Checks
       }.merge(params)
     end
 
-
   end
-
-
 
   def self.run_all(species_id)
     enabled = [

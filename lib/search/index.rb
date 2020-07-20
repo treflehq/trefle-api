@@ -1,8 +1,6 @@
-
 # Will index a species
 module Search
   module Index
-
     def self.add_species!(species)
       Search.instance.with do |conn|
         conn.index('species').add_or_replace_documents(to_document(species))
@@ -10,11 +8,11 @@ module Search
     end
 
     def self.bulk_add_species!(species)
-      puts "Bulk adding..."
+      puts 'Bulk adding...'
       Search.instance.with do |conn|
         conn.index('species').add_or_replace_documents(species.map {|s| to_document(s) })
       end
-      puts "Bulk Added !"
+      puts 'Bulk Added !'
     end
 
     def self.to_document(species)
@@ -37,14 +35,17 @@ module Search
         bibliography: species.bibliography,
         rank: species.rank,
         common_names: species.common_names.where(lang: 'en').pluck(:name),
-        synonyms: species.synonyms.pluck(:name),
+        synonyms: species.synonyms.pluck(:name)
       }
     end
 
-
     def self.reset
       Search.instance.with do |conn|
-        (conn.delete_index('species') rescue nil)
+        (begin
+           conn.delete_index('species')
+         rescue StandardError
+           nil
+         end)
         reconfigure_settings
         Search::IndexAllWorker.perform_async
       end
@@ -57,38 +58,38 @@ module Search
         #   ["typo", "words", "proximity", "desc(score)", "attribute", "wordsPosition", "exactness"]
         # )
 
-        conn.index('species').update_searchable_attributes([
-          'scientific_name',
-          'common_name',
-          'common_names',
-          'synonyms',
-          'author',
-          'main_species',
-          'genus',
-          'family',
-          'family_common_name',
-          'year',
-          'bibliography',
-          'id',
-        ])
+        conn.index('species').update_searchable_attributes(%w[
+                                                             scientific_name
+                                                             common_name
+                                                             common_names
+                                                             synonyms
+                                                             author
+                                                             main_species
+                                                             genus
+                                                             family
+                                                             family_common_name
+                                                             year
+                                                             bibliography
+                                                             id
+                                                           ])
 
         conn.index('species').update_displayed_attributes([
-          'id',
-          'scientific_name',
-          'common_name',
-          'author',
-          'main_species',
-          'image_url',
-          'genus_id',
-          'genus',
-          'family',
-          'rank',
-          'slug',
-          # 'common_names',
-          'bibliography',
-          'family_common_name',
-          'synonyms',
-        ])
+                                                            'id',
+                                                            'scientific_name',
+                                                            'common_name',
+                                                            'author',
+                                                            'main_species',
+                                                            'image_url',
+                                                            'genus_id',
+                                                            'genus',
+                                                            'family',
+                                                            'rank',
+                                                            'slug',
+                                                            # 'common_names',
+                                                            'bibliography',
+                                                            'family_common_name',
+                                                            'synonyms'
+                                                          ])
       end
     end
   end

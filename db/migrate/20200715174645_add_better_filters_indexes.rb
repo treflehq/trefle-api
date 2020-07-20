@@ -6,6 +6,5 @@ class AddBetterFiltersIndexes < ActiveRecord::Migration[6.0]
     add_index :species, [:minimum_root_depth_cm], algorithm: :concurrently
     add_index :species, [:planting_row_spacing_cm], algorithm: :concurrently
     add_index :species, [:planting_spread_cm], algorithm: :concurrently
-
   end
 end

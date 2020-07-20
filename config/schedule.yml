@@ -10,3 +10,8 @@ migrate_queries_counters:
   class: "UserQueryWorker"
   queue: low
 
+keep_it_hot:
+  cron: "*/10 * * * *" # At every 10th minute
+  class: "KeepItHotWorker"
+  queue: low
+

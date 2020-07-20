@@ -1,7 +1,6 @@
 module Utils
-
   class Merger
-    
+
     class MergerException < RuntimeError
 
     end
@@ -19,7 +18,7 @@ module Utils
     end
 
     def to_sentence
-      "Merging #{@to_delete.pluck(:scientific_name, :slug).map{|e| e.join('#')}.join(', ')} into [#{@good_species.scientific_name}##{@good_species.slug}]"
+      "Merging #{@to_delete.pluck(:scientific_name, :slug).map {|e| e.join('#') }.join(', ')} into [#{@good_species.scientific_name}##{@good_species.slug}]"
     end
 
     def merge_a_into_b(a_to_delete, b_to_keep)
@@ -45,7 +44,7 @@ module Utils
         if SpeciesImage.where(species_id: b_to_keep.id, image_url: spi.image_url).any?
           spi.destroy
         else
-          spi.update(species_id: b_to_keep.id) 
+          spi.update(species_id: b_to_keep.id)
         end
       end
     end
@@ -65,7 +64,7 @@ module Utils
         if RecordCorrection.where(record: b_to_keep, change_notes: rc.change_notes).any?
           rc.destroy
         else
-          rc.update(record: b_to_keep, notes: rc.notes + "\nMerged into a new species") 
+          rc.update(record: b_to_keep, notes: rc.notes + "\nMerged into a new species")
         end
       end
     end
@@ -102,7 +101,7 @@ module Utils
     end
 
     def resolve_good_species
-      tokens = @species.map {|e| e.token }.uniq
+      tokens = @species.map(&:token).uniq
       raise MergerException, "Can't select the good species to merge, species have several tokens: #{tokens}" if tokens.length > 1
 
       token = tokens.first
@@ -115,5 +114,4 @@ module Utils
       good_species
     end
   end
-
 end

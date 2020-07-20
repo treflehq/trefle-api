@@ -22,7 +22,7 @@ module CollectionRenderers
     page = params[:page] || nil
     params[:limit] = 50 if params[:limit] && params[:limit].to_i > 50
     limit = params[:limit] || 20
-    offset = (params[:offset] && params[:offset].to_i) || (page && (page.to_i - 1) * limit) || 0
+    offset = params[:offset]&.to_i || (page && (page.to_i - 1) * limit) || 0
     { limit: limit, offset: offset }
   end
 
@@ -38,14 +38,14 @@ module CollectionRenderers
     end
   end
 
-  def search_collection_links(collection, scope: %i[api v1], name: nil) # rubocop:todo Metrics/PerceivedComplexity
+  def search_collection_links(collection, scope: %i[api v1], name: nil)
     currpage = params[:page]&.to_i || 1
     {
-      self: polymorphic_path([*scope, *[*name]], filtered_params),
-      first: polymorphic_path([*scope, *[*name]], filtered_params.merge({ page: 1 })),
-      prev: collection['offset'] > 0 && polymorphic_path([*scope, *[*name]], filtered_params.merge({ page: currpage - 1 })) || nil,
-      next: (collection['offset'] + collection['limit']) < collection['nbHits'] && polymorphic_path([*scope, *[*name]], filtered_params.merge({ page: currpage + 1 })) || nil,
-      last: polymorphic_path([*scope, *[*name]], filtered_params.merge({ page: (collection['nbHits'] / collection['limit']).to_i + 1 }))
+      self: polymorphic_path([*scope, *name], filtered_params),
+      first: polymorphic_path([*scope, *name], filtered_params.merge({ page: 1 })),
+      prev: collection['offset'] > 0 && polymorphic_path([*scope, *name], filtered_params.merge({ page: currpage - 1 })) || nil,
+      next: (collection['offset'] + collection['limit']) < collection['nbHits'] && polymorphic_path([*scope, *name], filtered_params.merge({ page: currpage + 1 })) || nil,
+      last: polymorphic_path([*scope, *name], filtered_params.merge({ page: (collection['nbHits'] / collection['limit']).to_i + 1 }))
     }.compact
   end
 

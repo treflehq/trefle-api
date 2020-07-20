@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://trefle.io"
+SitemapGenerator::Sitemap.default_host = 'https://trefle.io'
 
 SitemapGenerator::Sitemap.create(compress: false) do
   # Put links creation logic here.
@@ -17,10 +17,10 @@ SitemapGenerator::Sitemap.create(compress: false) do
   #
   # Add '/articles'
   #
-  add about_path, :priority => 0.7, :changefreq => 'weekly'
-  add terms_path, :priority => 0.7, :changefreq => 'weekly'
-  add new_user_session_path, :priority => 0.3, :changefreq => 'weekly'
-  add new_user_registration_path, :priority => 0.3, :changefreq => 'weekly'
+  add about_path, priority: 0.7, changefreq: 'weekly'
+  add terms_path, priority: 0.7, changefreq: 'weekly'
+  add new_user_session_path, priority: 0.3, changefreq: 'weekly'
+  add new_user_registration_path, priority: 0.3, changefreq: 'weekly'
   #
   # Add all articles:
   #
