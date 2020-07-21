@@ -17,11 +17,12 @@ module Utils
       format_qualifiers(name)
     end
 
-    def format_qualifiers(name)
+    def self.format_qualifiers(name)
       name
         .gsub(' var ', ' var. ')
         .gsub(' subvar ', ' subvar. ')
         .gsub(' fo ', ' f. ')
+        .gsub(' fo. ', ' f. ')
         .gsub(' f ', ' f. ')
         .gsub(' f ', ' f. ')
         .gsub(' ssp ', ' subsp. ')

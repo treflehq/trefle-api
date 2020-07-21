@@ -68,36 +68,55 @@ class Api::V1::PlantsController < Api::ApiController
     )
   end
 
-  def search
+  # Search on database
+  def full_search
+    puts "full_search"
+    @collection ||= collection
+    @collection = apply_search(collection)
+    @pagy, @collection = pagy(@collection)
+    links = collection_links(@collection, name: %i[plants], scope: %i[search api v1])
+
+    render_serialized_collection(
+      @collection,
+      SpeciesLightSerializer,
+      links: links
+    )
+  end
+
+  # Search on meilisearch
+  def quick_search
+    puts "quick_search"
     search = params.require(:q)
     options = parse_search_options.merge(
       filters: 'main_species=true'
     )
+    results = ::Search.search_species(search, options)
+    links = search_collection_links(results, name: %i[plants], scope: %i[search api v1])
 
-    begin
-      results = ::Search.search_species(search, options)
-      links = search_collection_links(results, name: %i[plants], scope: %i[search api v1])
+    render json: Panko::Response.new({
+      data: serialize_search_data(results),
+      meta: {
+        total: results['nbHits']
+      },
+      links: links
+    }.compact), status: :ok
+  end
 
-      render json: Panko::Response.new({
-        data: serialize_search_data(results),
-        meta: {
-          total: results['nbHits']
-        },
-        links: links
-      }.compact), status: :ok
-    rescue MeiliSearch::CommunicationError => e
-      Raven.capture_exception(e)
+  # @TODO this whole thing is ugly
+  def search
+    if params[:filter]&.is_a?(ActionController::Parameters) ||
+       params[:filter_not]&.is_a?(ActionController::Parameters)  ||
+       params[:range]&.is_a?(ActionController::Parameters)  ||
+       params[:sort]&.is_a?(ActionController::Parameters)
+      full_search
+    else
+      begin
+        quick_search
+      rescue MeiliSearch::CommunicationError => e
+        Raven.capture_exception(e)
 
-      @collection ||= Species.plants
-      @collection = apply_search(collection)
-      @pagy, @collection = pagy(@collection)
-      links = collection_links(@collection, name: :plants)
-
-      render_serialized_collection(
-        @collection,
-        SpeciesLightSerializer,
-        links: links
-      )
+        full_search
+      end
     end
   end
 

@@ -48,7 +48,7 @@ end
 
 RSpec.shared_examples 'a filterable_not collection' do |klass, filters_not|
 
-  filters_not.each do |filter|
+  filters_not.without('image_url').each do |filter|
     it "and can be filter_not_by #{filter}" do
       sample_value = klass.where.not(filter => nil)&.first&.send(filter) || klass&.first&.send(filter)
       elts = klass.send("filter_not_by_#{filter}".to_sym, 'null')

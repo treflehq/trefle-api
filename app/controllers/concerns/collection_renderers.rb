@@ -18,6 +18,14 @@ module CollectionRenderers
   end
 
   def parse_search_options
+    parse_search_pagination_options.merge(parse_search_filters_options)
+  end
+
+  def parse_search_filters_options
+    {}
+  end
+
+  def parse_search_pagination_options
     search = params.require(:q)
     page = params[:page] || nil
     params[:limit] = 50 if params[:limit] && params[:limit].to_i > 50
@@ -25,6 +33,7 @@ module CollectionRenderers
     offset = params[:offset]&.to_i || (page && (page.to_i - 1) * limit) || 0
     { limit: limit, offset: offset }
   end
+
 
   def serialize_search_data(results)
     results['hits'].map do |hit|

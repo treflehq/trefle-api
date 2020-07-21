@@ -58,38 +58,40 @@ module Search
         #   ["typo", "words", "proximity", "desc(score)", "attribute", "wordsPosition", "exactness"]
         # )
 
-        conn.index('species').update_searchable_attributes(%w[
-                                                             scientific_name
-                                                             common_name
-                                                             common_names
-                                                             synonyms
-                                                             author
-                                                             main_species
-                                                             genus
-                                                             family
-                                                             family_common_name
-                                                             year
-                                                             bibliography
-                                                             id
-                                                           ])
+        conn.index('species').update_searchable_attributes(
+          %w[
+              scientific_name
+              common_name
+              common_names
+              synonyms
+              author
+              main_species
+              genus
+              family
+              family_common_name
+              year
+              bibliography
+              id
+            ]
+          )
 
         conn.index('species').update_displayed_attributes([
-                                                            'id',
-                                                            'scientific_name',
-                                                            'common_name',
-                                                            'author',
-                                                            'main_species',
-                                                            'image_url',
-                                                            'genus_id',
-                                                            'genus',
-                                                            'family',
-                                                            'rank',
-                                                            'slug',
-                                                            # 'common_names',
-                                                            'bibliography',
-                                                            'family_common_name',
-                                                            'synonyms'
-                                                          ])
+          'id',
+          'scientific_name',
+          'common_name',
+          'author',
+          'main_species',
+          'image_url',
+          'genus_id',
+          'genus',
+          'family',
+          'rank',
+          'slug',
+          # 'common_names',
+          'bibliography',
+          'family_common_name',
+          'synonyms'
+        ])
       end
     end
   end

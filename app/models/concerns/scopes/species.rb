@@ -30,6 +30,7 @@ module Scopes
       scope :filter_not_by_fruit_color, ->(_v) { where.not(fruit_color: [0, nil]) }
       scope :filter_by_edible_part, ->(v) { where_edible_part(*v) }
       scope :filter_not_by_edible_part, ->(_v) { where.not(edible_part: [0, nil]) }
+      scope :filter_not_by_image_url, ->(_v) { where.not(main_image_url: nil) }
 
       # Ranges
       scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }

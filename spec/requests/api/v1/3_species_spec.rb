@@ -88,14 +88,17 @@ describe 'Species API' do # rubocop:todo Metrics/BlockLength
 
   path '/api/v1/species/search' do
 
-    get 'Search a species' do
+    get 'Search for a species' do
       tags 'Species'
       consumes 'application/json'
       produces 'application/json'
-      description 'Search a species'
+      description "Search for a species with the given scientific name, common name, synonym name etc...\n**Caution:** Setting a filter, a sort or a range on this endpoint will make it significantly slower. If you need a quick response (For a search input, for example), make sure you're only using the `q` parameter."
       operationId 'searchSpecies'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
+      parameter name: :sort, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
+      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
 
       security [token: []]
 
