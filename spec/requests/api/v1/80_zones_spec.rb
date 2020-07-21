@@ -19,9 +19,11 @@ describe 'Distributions API' do # rubocop:todo Metrics/BlockLength
       tags 'Distributions'
       consumes 'application/json'
       produces 'application/json'
-      description <<-DESC
+      description <<~DESC
       List distributions zones. Zones are following the WGSRPD convention.
+      
       WGSRPD provides an agreed system of geographical units at approximately "country" level and upwards for use in recording plant distributions. It allows adopting organizations to compare and exchange data with each other without loss of information due to incompatible geographical boundaries.
+      
       [Read more on the TDWG website](https://www.tdwg.org/standards/wgsrpd/).
       DESC
 

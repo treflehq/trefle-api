@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.400Z'
+                      last_modified: '2020-07-21T15:15:15.299Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.413Z'
+                      last_modified: '2020-07-21T15:15:15.314Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.428Z'
+                      last_modified: '2020-07-21T15:15:15.329Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.470Z'
+                      last_modified: '2020-07-21T15:15:15.366Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.502Z'
+                      last_modified: '2020-07-21T15:15:15.404Z'
         '401':
           description: Invalid credentials
           content:
@@ -2256,7 +2256,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.708Z'
+                      last_modified: '2020-07-21T15:15:15.621Z'
         '401':
           description: Invalid credentials
           content:
@@ -2524,7 +2524,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-21T14:47:34.726Z'
+                      last_modified: '2020-07-21T15:15:15.640Z'
         '401':
           description: Invalid credentials
           content:
@@ -3053,7 +3053,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
                     meta:
-                      last_modified: '2020-07-21T14:47:34.844Z'
+                      last_modified: '2020-07-21T15:15:15.767Z'
         '401':
           description: Invalid credentials
           content:
@@ -3070,6 +3070,7 @@ paths:
       - Plants
       description: |-
         Search for a plant with the given scientific name, common name, synonym name etc...
+
         **Caution:** Setting a filter, a sort or a range on this endpoint will make it significantly slower. If you need a quick response (For a search input, for example), make sure you're only using the `q` parameter.
       operationId: searchPlants
       parameters:
@@ -3199,12 +3200,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T14:47:39.756Z'
-                      updated_at: '2020-07-21T14:47:39.757Z'
+                      created_at: '2020-07-21T15:15:21.040Z'
+                      updated_at: '2020-07-21T15:15:21.042Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:47:39.757Z'
+                      last_modified: '2020-07-21T15:15:21.042Z'
         '401':
           description: Invalid credentials
           content:
@@ -4219,7 +4220,7 @@ paths:
                       images_count: 0
                       sources_count: 1
                       synonyms_count: 0
-                      last_modified: '2020-07-21T14:47:34.959Z'
+                      last_modified: '2020-07-21T15:15:15.896Z'
         '401':
           description: Invalid credentials
           content:
@@ -4236,6 +4237,7 @@ paths:
       - Species
       description: |-
         Search for a species with the given scientific name, common name, synonym name etc...
+
         **Caution:** Setting a filter, a sort or a range on this endpoint will make it significantly slower. If you need a quick response (For a search input, for example), make sure you're only using the `q` parameter.
       operationId: searchSpecies
       parameters:
@@ -4365,12 +4367,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T14:47:40.061Z'
-                      updated_at: '2020-07-21T14:47:40.062Z'
+                      created_at: '2020-07-21T15:15:21.363Z'
+                      updated_at: '2020-07-21T15:15:21.364Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:47:40.062Z'
+                      last_modified: '2020-07-21T15:15:21.364Z'
         '401':
           description: Invalid credentials
           content:
@@ -4395,10 +4397,12 @@ paths:
       summary: List distributions zones
       tags:
       - Distributions
-      description: |2
-              List distributions zones. Zones are following the WGSRPD convention.
-              WGSRPD provides an agreed system of geographical units at approximately "country" level and upwards for use in recording plant distributions. It allows adopting organizations to compare and exchange data with each other without loss of information due to incompatible geographical boundaries.
-              [Read more on the TDWG website](https://www.tdwg.org/standards/wgsrpd/).
+      description: |
+        List distributions zones. Zones are following the WGSRPD convention.
+
+        WGSRPD provides an agreed system of geographical units at approximately "country" level and upwards for use in recording plant distributions. It allows adopting organizations to compare and exchange data with each other without loss of information due to incompatible geographical boundaries.
+
+        [Read more on the TDWG website](https://www.tdwg.org/standards/wgsrpd/).
       operationId: listDistributions
       security:
       - token: []
@@ -4712,7 +4716,7 @@ paths:
                         plants: "/api/v1/distributions/northern-provinces/plants"
                         species: "/api/v1/distributions/northern-provinces/species"
                     meta:
-                      last_modified: '2020-07-21T14:47:33.498Z'
+                      last_modified: '2020-07-21T15:15:14.425Z'
         '401':
           description: Invalid credentials
           content:
@@ -4759,8 +4763,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIyIDE2OjQ3OjQwICswMjAwIiwiZXhwIjoxNTk1NDI5MjYwfQ.90mB-JqXMexguELV4Rb6FqqdZWYUw3aOp2Sh29orn2M
-                    expiration: 07-22-2020 16:47
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIyIDE3OjE1OjIxICswMjAwIiwiZXhwIjoxNTk1NDMwOTIxfQ.S3Wq_LMWTw2aOSUT64YlKrAj3xasGmRecDuqMDIgPLo
+                    expiration: 07-22-2020 17:15
         '401':
           description: Invalid credentials
           content:
@@ -4855,8 +4859,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T14:47:40.225Z'
-                      updated_at: '2020-07-21T14:47:40.225Z'
+                      created_at: '2020-07-21T15:15:21.538Z'
+                      updated_at: '2020-07-21T15:15:21.538Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
@@ -4871,8 +4875,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-21T14:47:40.233Z'
-                      updated_at: '2020-07-21T14:47:40.233Z'
+                      created_at: '2020-07-21T15:15:21.546Z'
+                      updated_at: '2020-07-21T15:15:21.546Z'
                       correction: 
                       changes: 
                     links:
@@ -4934,15 +4938,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T14:47:40.289Z'
-                      updated_at: '2020-07-21T14:47:40.289Z'
+                      created_at: '2020-07-21T15:15:21.606Z'
+                      updated_at: '2020-07-21T15:15:21.606Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:47:40.289Z'
+                      last_modified: '2020-07-21T15:15:21.606Z'
         '401':
           description: Invalid credentials
           content:
@@ -4998,8 +5002,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-21T14:47:40.403Z'
-                      updated_at: '2020-07-21T14:47:40.403Z'
+                      created_at: '2020-07-21T15:15:21.728Z'
+                      updated_at: '2020-07-21T15:15:21.728Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5009,7 +5013,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-21T14:47:40.403Z'
+                      last_modified: '2020-07-21T15:15:21.728Z'
         '422':
           description: Invalid parameters
           content:
