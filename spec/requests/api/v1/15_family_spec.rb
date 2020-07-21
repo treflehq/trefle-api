@@ -25,7 +25,7 @@ describe 'Families API' do # rubocop:todo Metrics/BlockLength
       security [token: []]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
       parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_families')
-      parameter name: :sort, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_families')
+      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_families')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for family names matching the given query'
 
       response '200', 'Success' do

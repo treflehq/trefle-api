@@ -31,7 +31,7 @@ describe 'Genus API' do # rubocop:todo Metrics/BlockLength
       operationId 'listGenus'
 
       parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_genus')
-      parameter name: :sort, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_genus')
+      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_genus')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for genus names matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
