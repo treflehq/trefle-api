@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.404Z'
+                      last_modified: '2020-07-21T14:43:38.953Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.420Z'
+                      last_modified: '2020-07-21T14:43:38.968Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.434Z'
+                      last_modified: '2020-07-21T14:43:38.985Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.471Z'
+                      last_modified: '2020-07-21T14:43:39.037Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.503Z'
+                      last_modified: '2020-07-21T14:43:39.087Z'
         '401':
           description: Invalid credentials
           content:
@@ -2256,7 +2256,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.714Z'
+                      last_modified: '2020-07-21T14:43:39.324Z'
         '401':
           description: Invalid credentials
           content:
@@ -2524,7 +2524,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-21T14:37:18.744Z'
+                      last_modified: '2020-07-21T14:43:39.343Z'
         '401':
           description: Invalid credentials
           content:
@@ -2632,15 +2632,15 @@ paths:
                       genus_id: 1700
                       image_url: https://bs.floristic.org/image/o/54fb8312373faf0b7a1c7b84979331cc9d7619fc
                       synonyms:
-                      - Euchylia villosa
-                      - Lonicera rubra
-                      - Chamaecerasus dumetorum
-                      - Caprifolium dumetorum
-                      - Caprifolium xylosteum
-                      - Xylosteon dumetorum
-                      - Lonicera ochroleuca
-                      - Chamaecerasus xylosteum
                       - Lonicera dumetorum
+                      - Chamaecerasus xylosteum
+                      - Lonicera ochroleuca
+                      - Xylosteon dumetorum
+                      - Caprifolium xylosteum
+                      - Caprifolium dumetorum
+                      - Chamaecerasus dumetorum
+                      - Lonicera rubra
+                      - Euchylia villosa
                       genus: Lonicera
                       family: Caprifoliaceae
                       links:
@@ -2679,36 +2679,36 @@ paths:
                       genus_id: 599
                       image_url: https://bs.floristic.org/image/o/aa4f6610a4ebb4eb9a2e22f7853d5d038b048660
                       synonyms:
-                      - Arctostaphylos officinalis
-                      - Arctostaphylos uva-ursi subsp. longipilosa
-                      - Arctostaphylos uva-ursi f. coactilis
-                      - Arctostaphylos uva-ursi subsp. crassifolius
-                      - Daphnidostaphylis fendleriana
-                      - Arbutus procumbens
-                      - Arctostaphylos uva-ursi f. marinensis
-                      - Arbutus buxifolia
-                      - Arctostaphylos uva-ursi subsp. coactilis
-                      - Uva-ursi procumbens var. adenotricha
-                      - Arbutus officinalis
-                      - Uva-ursi procumbens var. coactilis
-                      - Arctostaphylos uva-ursi var. fendleriana
-                      - Uva-ursi procumbens
-                      - Arctostaphylos procumbens
-                      - Uva-ursi uva-ursi var. coactilis
-                      - Arctostaphylos uva-ursi subsp. monoensis
-                      - Arbutus uva-ursi
-                      - Arctostaphylos uva-ursi subsp. stipitata
-                      - Arctostaphylos uva-ursi subsp. adenotricha
-                      - Uva-ursi buxifolia
-                      - Arctostaphylos uva-ursi var. suborbiculata
-                      - Arctostaphylos uva-ursi var. stipitata
-                      - Arctostaphylos uva-ursi var. pacifica
-                      - Arctostaphylos uva-ursi var. marinensis
-                      - Arctostaphylos uva-ursi var. leobreweri
-                      - Arctostaphylos uva-ursi var. coactilis
-                      - Arctostaphylos uva-ursi var. adenotricha
-                      - Arctostaphylos adenotricha
                       - Arctostaphylos uva-ursi var. saxicola
+                      - Arctostaphylos adenotricha
+                      - Arctostaphylos uva-ursi var. adenotricha
+                      - Arctostaphylos uva-ursi var. coactilis
+                      - Arctostaphylos uva-ursi var. leobreweri
+                      - Arctostaphylos uva-ursi var. marinensis
+                      - Arctostaphylos uva-ursi var. pacifica
+                      - Arctostaphylos uva-ursi var. stipitata
+                      - Arctostaphylos uva-ursi var. suborbiculata
+                      - Uva-ursi buxifolia
+                      - Arctostaphylos uva-ursi subsp. adenotricha
+                      - Arctostaphylos uva-ursi subsp. stipitata
+                      - Arbutus uva-ursi
+                      - Arctostaphylos uva-ursi subsp. monoensis
+                      - Uva-ursi uva-ursi var. coactilis
+                      - Arctostaphylos procumbens
+                      - Uva-ursi procumbens
+                      - Arctostaphylos uva-ursi var. fendleriana
+                      - Uva-ursi procumbens var. coactilis
+                      - Arbutus officinalis
+                      - Uva-ursi procumbens var. adenotricha
+                      - Arctostaphylos uva-ursi subsp. coactilis
+                      - Arbutus buxifolia
+                      - Arctostaphylos uva-ursi f. marinensis
+                      - Arbutus procumbens
+                      - Daphnidostaphylis fendleriana
+                      - Arctostaphylos uva-ursi subsp. crassifolius
+                      - Arctostaphylos uva-ursi f. coactilis
+                      - Arctostaphylos uva-ursi subsp. longipilosa
+                      - Arctostaphylos officinalis
                       genus: Arctostaphylos
                       family: Ericaceae
                       links:
@@ -2728,8 +2728,8 @@ paths:
                       genus_id: 4407
                       image_url: http://d2seqvvyy3b8p2.cloudfront.net/a1d2563c0435af30c49c0db543f4e2b1.jpg
                       synonyms:
-                      - Kochia enchylaenoides
                       - Kochia tomentosa var. enchylaenoides
+                      - Kochia enchylaenoides
                       genus: Maireana
                       family: Amaranthaceae
                       links:
@@ -2872,8 +2872,8 @@ paths:
                         common_names: {}
                         distribution:
                           native:
-                          - China South-Central
                           - China Southeast
+                          - China South-Central
                           - China North-Central
                         flower:
                           color: 
@@ -2989,25 +2989,6 @@ paths:
                           genus: "/api/v1/genus/ribes"
                       subspecies: []
                       varieties:
-                      - id: 697967
-                        common_name: 
-                        slug: ribes-tenue-var-incisum
-                        scientific_name: Ribes tenue var. incisum
-                        year: 1993
-                        bibliography: 'Acta Phytotax. Sin. 31: 458 (1993)'
-                        author: L.T.Lu
-                        status: accepted
-                        rank: var
-                        family_common_name: 
-                        genus_id: 5882
-                        image_url: 
-                        synonyms: []
-                        genus: Ribes
-                        family: Grossulariaceae
-                        links:
-                          self: "/api/v1/species/ribes-tenue-var-incisum"
-                          plant: "/api/v1/plants/ribes-tenue"
-                          genus: "/api/v1/genus/ribes"
                       - id: 697966
                         common_name: 
                         slug: ribes-tenue-var-puberulum
@@ -3025,6 +3006,25 @@ paths:
                         family: Grossulariaceae
                         links:
                           self: "/api/v1/species/ribes-tenue-var-puberulum"
+                          plant: "/api/v1/plants/ribes-tenue"
+                          genus: "/api/v1/genus/ribes"
+                      - id: 697967
+                        common_name: 
+                        slug: ribes-tenue-var-incisum
+                        scientific_name: Ribes tenue var. incisum
+                        year: 1993
+                        bibliography: 'Acta Phytotax. Sin. 31: 458 (1993)'
+                        author: L.T.Lu
+                        status: accepted
+                        rank: var
+                        family_common_name: 
+                        genus_id: 5882
+                        image_url: 
+                        synonyms: []
+                        genus: Ribes
+                        family: Grossulariaceae
+                        links:
+                          self: "/api/v1/species/ribes-tenue-var-incisum"
                           plant: "/api/v1/plants/ribes-tenue"
                           genus: "/api/v1/genus/ribes"
                       hybrids: []
@@ -3053,7 +3053,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
                     meta:
-                      last_modified: '2020-07-21T14:37:18.854Z'
+                      last_modified: '2020-07-21T14:43:39.468Z'
         '401':
           description: Invalid credentials
           content:
@@ -3199,12 +3199,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T14:37:23.933Z'
-                      updated_at: '2020-07-21T14:37:23.935Z'
+                      created_at: '2020-07-21T14:43:45.290Z'
+                      updated_at: '2020-07-21T14:43:45.293Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:37:23.935Z'
+                      last_modified: '2020-07-21T14:43:45.293Z'
         '401':
           description: Invalid credentials
           content:
@@ -3234,6 +3234,12 @@ paths:
       security:
       - token: []
       parameters:
+      - name: zone_id
+        required: true
+        in: path
+        description: The zone id or slug
+        schema:
+          type: string
       - name: filter
         in: query
         required: false
@@ -3306,13 +3312,101 @@ paths:
                       total:
                         type: integer
               examples:
-                returns-a-200-response: {}
+                returns-a-200-response:
+                  value:
+                    data:
+                    - id: 151545
+                      common_name: dwarf honeysuckle
+                      slug: lonicera-xylosteum
+                      scientific_name: Lonicera xylosteum
+                      year: 1753
+                      bibliography: 'Sp. Pl.: 174 (1753)'
+                      author: L.
+                      status: accepted
+                      rank: species
+                      family_common_name: Honeysuckle family
+                      genus_id: 1700
+                      image_url: https://bs.floristic.org/image/o/54fb8312373faf0b7a1c7b84979331cc9d7619fc
+                      synonyms:
+                      - Lonicera dumetorum
+                      - Chamaecerasus xylosteum
+                      - Lonicera ochroleuca
+                      - Xylosteon dumetorum
+                      - Caprifolium xylosteum
+                      - Caprifolium dumetorum
+                      - Chamaecerasus dumetorum
+                      - Lonicera rubra
+                      - Euchylia villosa
+                      genus: Lonicera
+                      family: Caprifoliaceae
+                      links:
+                        self: "/api/v1/species/lonicera-xylosteum"
+                        plant: "/api/v1/plants/lonicera-xylosteum"
+                        genus: "/api/v1/genus/lonicera"
+                    - id: 106847
+                      common_name: kinnikinnick
+                      slug: arctostaphylos-uva-ursi
+                      scientific_name: Arctostaphylos uva-ursi
+                      year: 1825
+                      bibliography: 'Syst. Veg. 2: 287 (1825)'
+                      author: Spreng. (L.)
+                      status: accepted
+                      rank: species
+                      family_common_name: Heath family
+                      genus_id: 599
+                      image_url: https://bs.floristic.org/image/o/aa4f6610a4ebb4eb9a2e22f7853d5d038b048660
+                      synonyms:
+                      - Arctostaphylos uva-ursi var. saxicola
+                      - Arctostaphylos adenotricha
+                      - Arctostaphylos uva-ursi var. adenotricha
+                      - Arctostaphylos uva-ursi var. coactilis
+                      - Arctostaphylos uva-ursi var. leobreweri
+                      - Arctostaphylos uva-ursi var. marinensis
+                      - Arctostaphylos uva-ursi var. pacifica
+                      - Arctostaphylos uva-ursi var. stipitata
+                      - Arctostaphylos uva-ursi var. suborbiculata
+                      - Uva-ursi buxifolia
+                      - Arctostaphylos uva-ursi subsp. adenotricha
+                      - Arctostaphylos uva-ursi subsp. stipitata
+                      - Arbutus uva-ursi
+                      - Arctostaphylos uva-ursi subsp. monoensis
+                      - Uva-ursi uva-ursi var. coactilis
+                      - Arctostaphylos procumbens
+                      - Uva-ursi procumbens
+                      - Arctostaphylos uva-ursi var. fendleriana
+                      - Uva-ursi procumbens var. coactilis
+                      - Arbutus officinalis
+                      - Uva-ursi procumbens var. adenotricha
+                      - Arctostaphylos uva-ursi subsp. coactilis
+                      - Arbutus buxifolia
+                      - Arctostaphylos uva-ursi f. marinensis
+                      - Arbutus procumbens
+                      - Daphnidostaphylis fendleriana
+                      - Arctostaphylos uva-ursi subsp. crassifolius
+                      - Arctostaphylos uva-ursi f. coactilis
+                      - Arctostaphylos uva-ursi subsp. longipilosa
+                      - Arctostaphylos officinalis
+                      genus: Arctostaphylos
+                      family: Ericaceae
+                      links:
+                        self: "/api/v1/species/arctostaphylos-uva-ursi"
+                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
+                        genus: "/api/v1/genus/arctostaphylos"
+                    links:
+                      self: "/api/v1/plants?zone_id=czechoslovakia"
+                      first: "/api/v1/plants?page=1&zone_id=czechoslovakia"
+                      last: "/api/v1/plants?page=1&zone_id=czechoslovakia"
+                    meta:
+                      total: 2
         '401':
           description: Invalid credentials
           content:
             application/json:
               examples:
-                returns-a-401-response: {}
+                returns-a-401-response:
+                  value:
+                    error: true
+                    messages: Invalid access token
   "/api/v1/genus/{genus_id}/plants":
     get:
       summary: List plants of a genus
@@ -3335,21 +3429,28 @@ paths:
         type: object
         description: Filter on values
         schema:
-          "$ref": "#/components/schemas/filters_plants"
+          "$ref": "#/components/schemas/filters_species"
+      - name: filter_not
+        in: query
+        required: false
+        type: object
+        description: Exclude results matching null values
+        schema:
+          "$ref": "#/components/schemas/filters_not_species"
       - name: sort
         in: query
         required: false
         type: object
         description: Sort on values
         schema:
-          "$ref": "#/components/schemas/sorts_plants"
+          "$ref": "#/components/schemas/sorts_species"
       - name: range
         in: query
         required: false
         type: object
         description: Range on values
         schema:
-          "$ref": "#/components/schemas/ranges_plants"
+          "$ref": "#/components/schemas/ranges_species"
       - name: page
         in: query
         required: false
@@ -3792,10 +3893,10 @@ paths:
                         self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-coloradensis"
                         plant: "/api/v1/plants/arctostaphylos-uva-ursi"
                         genus: "/api/v1/genus/arctostaphylos"
-                    - id: 106858
+                    - id: 106765
                       common_name: kinnikinnick
-                      slug: arctostaphylos-uva-ursi-ssp-stipitata
-                      scientific_name: Arctostaphylos uva-ursi ssp. stipitata
+                      slug: arctostaphylos-uva-ursi-ssp-myrtifolia
+                      scientific_name: Arctostaphylos uva-ursi ssp. myrtifolia
                       year: 1825
                       bibliography: 'Syst. Veg. 2: 287 (1825)'
                       author: "(L.) Spreng."
@@ -3808,7 +3909,143 @@ paths:
                       genus: Arctostaphylos
                       family: Ericaceae
                       links:
-                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-stipitata"
+                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-myrtifolia"
+                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
+                        genus: "/api/v1/genus/arctostaphylos"
+                    - id: 106776
+                      common_name: kinnikinnick
+                      slug: arctostaphylos-uva-ursi-ssp-sensitiva
+                      scientific_name: Arctostaphylos uva-ursi ssp. sensitiva
+                      year: 1825
+                      bibliography: 'Syst. Veg. 2: 287 (1825)'
+                      author: "(L.) Spreng."
+                      status: unknown
+                      rank: ssp
+                      family_common_name: Heath family
+                      genus_id: 599
+                      image_url: 
+                      synonyms: []
+                      genus: Arctostaphylos
+                      family: Ericaceae
+                      links:
+                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-sensitiva"
+                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
+                        genus: "/api/v1/genus/arctostaphylos"
+                    - id: 106853
+                      common_name: kinnikinnick
+                      slug: arctostaphylos-uva-ursi-ssp-longipilosa
+                      scientific_name: Arctostaphylos uva-ursi ssp. longipilosa
+                      year: 1825
+                      bibliography: 'Syst. Veg. 2: 287 (1825)'
+                      author: "(L.) Spreng."
+                      status: unknown
+                      rank: ssp
+                      family_common_name: Heath family
+                      genus_id: 599
+                      image_url: 
+                      synonyms: []
+                      genus: Arctostaphylos
+                      family: Ericaceae
+                      links:
+                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-longipilosa"
+                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
+                        genus: "/api/v1/genus/arctostaphylos"
+                    - id: 106856
+                      common_name: kinnikinnick
+                      slug: arctostaphylos-uva-ursi-ssp-monoensis
+                      scientific_name: Arctostaphylos uva-ursi ssp. monoensis
+                      year: 1825
+                      bibliography: 'Syst. Veg. 2: 287 (1825)'
+                      author: "(L.) Spreng."
+                      status: unknown
+                      rank: ssp
+                      family_common_name: Heath family
+                      genus_id: 599
+                      image_url: 
+                      synonyms: []
+                      genus: Arctostaphylos
+                      family: Ericaceae
+                      links:
+                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-monoensis"
+                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
+                        genus: "/api/v1/genus/arctostaphylos"
+                    - id: 108799
+                      common_name: alpine aster
+                      slug: aster-alpinus-ssp-vierhapperi
+                      scientific_name: Aster alpinus ssp. vierhapperi
+                      year: 1984
+                      bibliography: 'Folia Mus. Rerum Nat. Bohemiae Occid., Bot. 21:
+                        12 (1984)'
+                      author: L.
+                      status: unknown
+                      rank: ssp
+                      family_common_name: Aster family
+                      genus_id: 272
+                      image_url: 
+                      synonyms: []
+                      genus: Aster
+                      family: Asteraceae
+                      links:
+                        self: "/api/v1/species/aster-alpinus-ssp-vierhapperi"
+                        plant: "/api/v1/plants/aster-alpinus"
+                        genus: "/api/v1/genus/aster"
+                    - id: 399264
+                      common_name: alpine aster
+                      slug: aster-alpinus-subsp-bohemicus
+                      scientific_name: Aster alpinus subsp. bohemicus
+                      year: 1984
+                      bibliography: 'Folia Mus. Rerum Nat. Bohemiae Occid., Bot. 21:
+                        12 (1984)'
+                      author: "(Reichenb.) Dostál"
+                      status: accepted
+                      rank: ssp
+                      family_common_name: Aster family
+                      genus_id: 272
+                      image_url: 
+                      synonyms:
+                      - Aster alpinus var. glaber
+                      genus: Aster
+                      family: Asteraceae
+                      links:
+                        self: "/api/v1/species/aster-alpinus-subsp-bohemicus"
+                        plant: "/api/v1/plants/aster-alpinus"
+                        genus: "/api/v1/genus/aster"
+                    - id: 399266
+                      common_name: alpine aster
+                      slug: aster-alpinus-var-diversisquamus
+                      scientific_name: Aster alpinus var. diversisquamus
+                      year: 1985
+                      bibliography: 'Fl. Reipubl. Popularis Sin. 74: 359 (1985)'
+                      author: Y.Ling
+                      status: accepted
+                      rank: var
+                      family_common_name: Aster family
+                      genus_id: 272
+                      image_url: 
+                      synonyms: []
+                      genus: Aster
+                      family: Asteraceae
+                      links:
+                        self: "/api/v1/species/aster-alpinus-var-diversisquamus"
+                        plant: "/api/v1/plants/aster-alpinus"
+                        genus: "/api/v1/genus/aster"
+                    - id: 106690
+                      common_name: kinnikinnick
+                      slug: arctostaphylos-uva-ursi-ssp-emundsii
+                      scientific_name: Arctostaphylos uva-ursi ssp. emundsii
+                      year: 1825
+                      bibliography: 'Syst. Veg. 2: 287 (1825)'
+                      author: "(L.) Spreng."
+                      status: unknown
+                      rank: ssp
+                      family_common_name: Heath family
+                      genus_id: 599
+                      image_url: 
+                      synonyms: []
+                      genus: Arctostaphylos
+                      family: Ericaceae
+                      links:
+                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-emundsii"
                         plant: "/api/v1/plants/arctostaphylos-uva-ursi"
                         genus: "/api/v1/genus/arctostaphylos"
                     - id: 315292
@@ -3830,145 +4067,6 @@ paths:
                         self: "/api/v1/species/maireana-tomentosa-subsp-urceolala"
                         plant: "/api/v1/plants/maireana-tomentosa"
                         genus: "/api/v1/genus/maireana"
-                    - id: 399267
-                      common_name: alpine aster
-                      slug: aster-alpinus-subsp-glabratus
-                      scientific_name: Aster alpinus subsp. glabratus
-                      year: 1984
-                      bibliography: 'Folia Mus. Rerum Nat. Bohemiae Occid., Bot. 21:
-                        12 (1984)'
-                      author: "(Herbich) Dostál"
-                      status: accepted
-                      rank: ssp
-                      family_common_name: Aster family
-                      genus_id: 272
-                      image_url: 
-                      synonyms:
-                      - Aster alpinus var. glabratus
-                      genus: Aster
-                      family: Asteraceae
-                      links:
-                        self: "/api/v1/species/aster-alpinus-subsp-glabratus"
-                        plant: "/api/v1/plants/aster-alpinus"
-                        genus: "/api/v1/genus/aster"
-                    - id: 399274
-                      common_name: alpine aster
-                      slug: aster-alpinus-subsp-subvillosus
-                      scientific_name: Aster alpinus subsp. subvillosus
-                      year: 1984
-                      bibliography: 'Folia Mus. Rerum Nat. Bohemiae Occid., Bot. 21:
-                        12 (1984)'
-                      author: "(Schur) Dostál"
-                      status: accepted
-                      rank: ssp
-                      family_common_name: Aster family
-                      genus_id: 272
-                      image_url: 
-                      synonyms:
-                      - Aster alpinus var. subvillosus
-                      genus: Aster
-                      family: Asteraceae
-                      links:
-                        self: "/api/v1/species/aster-alpinus-subsp-subvillosus"
-                        plant: "/api/v1/plants/aster-alpinus"
-                        genus: "/api/v1/genus/aster"
-                    - id: 697964
-                      common_name: 
-                      slug: ribes-tenue
-                      scientific_name: Ribes tenue
-                      year: 1906
-                      bibliography: 'Bull. Int. Acad. Sci. Cracovie, Cl. Sci. Math.
-                        6: 290 (1906)'
-                      author: Jancz.
-                      status: accepted
-                      rank: species
-                      family_common_name: 
-                      genus_id: 5882
-                      image_url: http://d2seqvvyy3b8p2.cloudfront.net/4234eb1949b037510eff8f05d26da5a3.jpg
-                      synonyms:
-                      - Ribes coeleste
-                      genus: Ribes
-                      family: Grossulariaceae
-                      links:
-                        self: "/api/v1/species/ribes-tenue"
-                        plant: "/api/v1/plants/ribes-tenue"
-                        genus: "/api/v1/genus/ribes"
-                    - id: 697966
-                      common_name: 
-                      slug: ribes-tenue-var-puberulum
-                      scientific_name: Ribes tenue var. puberulum
-                      year: 2006
-                      bibliography: 'Fl. Yunnanica 12: 254 (2006)'
-                      author: H.Chuang
-                      status: accepted
-                      rank: var
-                      family_common_name: 
-                      genus_id: 5882
-                      image_url: 
-                      synonyms: []
-                      genus: Ribes
-                      family: Grossulariaceae
-                      links:
-                        self: "/api/v1/species/ribes-tenue-var-puberulum"
-                        plant: "/api/v1/plants/ribes-tenue"
-                        genus: "/api/v1/genus/ribes"
-                    - id: 697967
-                      common_name: 
-                      slug: ribes-tenue-var-incisum
-                      scientific_name: Ribes tenue var. incisum
-                      year: 1993
-                      bibliography: 'Acta Phytotax. Sin. 31: 458 (1993)'
-                      author: L.T.Lu
-                      status: accepted
-                      rank: var
-                      family_common_name: 
-                      genus_id: 5882
-                      image_url: 
-                      synonyms: []
-                      genus: Ribes
-                      family: Grossulariaceae
-                      links:
-                        self: "/api/v1/species/ribes-tenue-var-incisum"
-                        plant: "/api/v1/plants/ribes-tenue"
-                        genus: "/api/v1/genus/ribes"
-                    - id: 106690
-                      common_name: kinnikinnick
-                      slug: arctostaphylos-uva-ursi-ssp-emundsii
-                      scientific_name: Arctostaphylos uva-ursi ssp. emundsii
-                      year: 1825
-                      bibliography: 'Syst. Veg. 2: 287 (1825)'
-                      author: "(L.) Spreng."
-                      status: unknown
-                      rank: ssp
-                      family_common_name: Heath family
-                      genus_id: 599
-                      image_url: 
-                      synonyms: []
-                      genus: Arctostaphylos
-                      family: Ericaceae
-                      links:
-                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-emundsii"
-                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
-                        genus: "/api/v1/genus/arctostaphylos"
-                    - id: 106765
-                      common_name: kinnikinnick
-                      slug: arctostaphylos-uva-ursi-ssp-myrtifolia
-                      scientific_name: Arctostaphylos uva-ursi ssp. myrtifolia
-                      year: 1825
-                      bibliography: 'Syst. Veg. 2: 287 (1825)'
-                      author: "(L.) Spreng."
-                      status: unknown
-                      rank: ssp
-                      family_common_name: Heath family
-                      genus_id: 599
-                      image_url: 
-                      synonyms: []
-                      genus: Arctostaphylos
-                      family: Ericaceae
-                      links:
-                        self: "/api/v1/species/arctostaphylos-uva-ursi-ssp-myrtifolia"
-                        plant: "/api/v1/plants/arctostaphylos-uva-ursi"
-                        genus: "/api/v1/genus/arctostaphylos"
                     links:
                       self: "/api/v1/species"
                       first: "/api/v1/species?page=1"
@@ -4121,7 +4219,7 @@ paths:
                       images_count: 0
                       sources_count: 1
                       synonyms_count: 0
-                      last_modified: '2020-07-21T14:37:18.979Z'
+                      last_modified: '2020-07-21T14:43:39.592Z'
         '401':
           description: Invalid credentials
           content:
@@ -4267,12 +4365,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T14:37:24.196Z'
-                      updated_at: '2020-07-21T14:37:24.198Z'
+                      created_at: '2020-07-21T14:43:45.634Z'
+                      updated_at: '2020-07-21T14:43:45.636Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:37:24.198Z'
+                      last_modified: '2020-07-21T14:43:45.636Z'
         '401':
           description: Invalid credentials
           content:
@@ -4614,7 +4712,7 @@ paths:
                         plants: "/api/v1/distributions/northern-provinces/plants"
                         species: "/api/v1/distributions/northern-provinces/species"
                     meta:
-                      last_modified: '2020-07-21T14:37:17.479Z'
+                      last_modified: '2020-07-21T14:43:37.996Z'
         '401':
           description: Invalid credentials
           content:
@@ -4661,8 +4759,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIyIDE2OjM3OjI0ICswMjAwIiwiZXhwIjoxNTk1NDI4NjQ0fQ.O2lHYpdNjIoptSJ1DcUq5-lz2tyQLYmYPQpEQtpeRoI
-                    expiration: 07-22-2020 16:37
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIyIDE2OjQzOjQ1ICswMjAwIiwiZXhwIjoxNTk1NDI5MDI1fQ.AMA8XNZUYmyP7_Gcu4AEuWVp1wh8mVbWOCyt8jrzcrU
+                    expiration: 07-22-2020 16:43
         '401':
           description: Invalid credentials
           content:
@@ -4757,8 +4855,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T14:37:24.365Z'
-                      updated_at: '2020-07-21T14:37:24.365Z'
+                      created_at: '2020-07-21T14:43:45.810Z'
+                      updated_at: '2020-07-21T14:43:45.810Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
@@ -4773,8 +4871,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-21T14:37:24.374Z'
-                      updated_at: '2020-07-21T14:37:24.374Z'
+                      created_at: '2020-07-21T14:43:45.818Z'
+                      updated_at: '2020-07-21T14:43:45.818Z'
                       correction: 
                       changes: 
                     links:
@@ -4836,15 +4934,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T14:37:24.435Z'
-                      updated_at: '2020-07-21T14:37:24.435Z'
+                      created_at: '2020-07-21T14:43:45.882Z'
+                      updated_at: '2020-07-21T14:43:45.882Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T14:37:24.435Z'
+                      last_modified: '2020-07-21T14:43:45.882Z'
         '401':
           description: Invalid credentials
           content:
@@ -4900,8 +4998,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-21T14:37:24.561Z'
-                      updated_at: '2020-07-21T14:37:24.561Z'
+                      created_at: '2020-07-21T14:43:46.006Z'
+                      updated_at: '2020-07-21T14:43:46.006Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -4911,7 +5009,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-21T14:37:24.561Z'
+                      last_modified: '2020-07-21T14:43:46.006Z'
         '422':
           description: Invalid parameters
           content:
@@ -6143,7 +6241,7 @@ components:
             genus:
               type: string
               nullable: true
-              example: 
+              example: Puya
             year:
               type: integer
               nullable: true
