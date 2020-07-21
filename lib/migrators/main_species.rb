@@ -8,7 +8,7 @@ module Migrators
         next if sp.has_root_name?
 
         main_spec = Species.find_by_scientific_name(sp.root_name)
-        return unless main_spec
+        next unless main_spec
 
         puts sp.errors.messages unless sp.update(main_species_id: main_spec.id)
       end
