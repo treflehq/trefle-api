@@ -17,6 +17,7 @@
 
 import './manage.scss'
 import lazy from './lazy'
+import search from './manage/search'
 import { createBarChart, createHeatmapChart } from './manage/stats'
 
 lazy()

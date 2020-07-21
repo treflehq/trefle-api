@@ -20,6 +20,9 @@
 
   <%= render 'management/layouts/header' %>
   <%= yield %>
+  <script>
+    var temp_token = "<%= current_user.token %>";
+  </script>
 
 </body>
 

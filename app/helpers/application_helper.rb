@@ -2,11 +2,14 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def sortable_link(attr, path, params)
-    nparams = params.permit(
-      :search, order: {}
-    ).to_h.merge({
+    nparams = params.to_unsafe_h.merge({
       'order' => { attr => (params.dig(:order, attr) == 'asc' ? :desc : :asc) }
     })
+    # nparams = params.permit(
+    #   :search, order: {}
+    # ).to_h.merge({
+    #   'order' => { attr => (params.dig(:order, attr) == 'asc' ? :desc : :asc) }
+    # })
     link_to(attr.to_s.humanize, send(path, nparams))
   end
 

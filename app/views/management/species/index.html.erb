@@ -7,9 +7,16 @@
     <h1 class="title">Species</h1>
 
     <%= form_with(method: :get, data: {remote: false}) do %>
-    <%= label_tag(:q, "Search for:") %>
-    <%= text_field_tag(:search) %>
-    <%= submit_tag("Search") %>
+
+    <div class="field has-addons">
+      <div class="control">
+        <input name="search" class="input" type="text" value="<%= params[:search] %>" placeholder="Find a species">
+      </div>
+      <div class="control">
+        <%= submit_tag("Search", class: 'button is-info') %>
+      </div>
+    </div>
+
     <% end %>
 
   </div>
@@ -232,9 +239,9 @@
           <td><%= table_desc(species, :ph_maximum) %></td>
           <td><%= table_desc(species, :ph_minimum) %></td>
           <td><%= table_desc(species, :planting_days_to_harvest) %></td>
-          <td><%= table_desc(species, :planting_description) %></td>
+          <td><%= truncate(species.planting_description) %></td>
           <td><%= table_desc(species, :planting_row_spacing_cm) %></td>
-          <td><%= table_desc(species, :planting_sowing_description) %></td>
+          <td><%= truncate(species.planting_sowing_description) %></td>
           <td><%= table_desc(species, :planting_spread_cm) %></td>
           <td><%= table_desc(species, :propagated_by) %></td>
           <td><%= table_desc(species, :protein_potential) %></td>

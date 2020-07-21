@@ -14,7 +14,19 @@ module Utils
       name = name.split(' ').reject(&:blank?).join(' ')
       name = name.gsub(' x ', ' × ').split('×').join(' × ')
       name = name.split(' ').reject(&:blank?).join(' ')
+      format_qualifiers(name)
+    end
+
+    def format_qualifiers(name)
       name
+        .gsub(' var ', ' var. ')
+        .gsub(' subvar ', ' subvar. ')
+        .gsub(' fo ', ' f. ')
+        .gsub(' f ', ' f. ')
+        .gsub(' f ', ' f. ')
+        .gsub(' ssp ', ' subsp. ')
+        .gsub(' ssp. ', ' subsp. ')
+        .gsub(' subsp ', ' subsp. ')
     end
 
     def self.tokenize(name)

@@ -510,7 +510,7 @@ class Species < ApplicationRecord
   end
 
   def self.root_scientific_name(full)
-    full.gsub(/\s+(var|ssp|subvar|x|(fo?)|subsp)\.\s+.*/, '')
+    full.gsub(/\s+(var|ssp|subvar|(fo?)|subsp)\.\s+.*/, '')
   end
 
   def minimum_planting_density_in(unit)

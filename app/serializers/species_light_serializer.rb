@@ -19,18 +19,18 @@ class SpeciesLightSerializer < BaseSerializer
   # end
 
   def genus
-    object.genus_name || object.genus.name
+    object.genus_name || object&.genus&.name
   end
 
   def family
-    object.family_name || object.genus&.family&.name
+    object.family_name || object&.genus&.family&.name
   end
 
   def links
     {
       self: url_helpers.api_v1_species_path(object),
-      plant: url_helpers.api_v1_plant_path(object.plant.slug),
-      genus: url_helpers.api_v1_genus_path(object.genus.slug)
+      plant: url_helpers.api_v1_plant_path(object&.plant&.slug),
+      genus: url_helpers.api_v1_genus_path(object&.genus&.slug)
     }
   end
 

@@ -1,5 +1,6 @@
 module Api
   class ApiController < ActionController::API
+    rescue_from ActionController::BadRequest, with: :render_bad_request_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_record_response
     rescue_from ActionController::ParameterMissing, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
@@ -148,6 +149,10 @@ module Api
     end
 
     def render_unprocessable_entity_response(exception)
+      render_error(exception.message, :unprocessable_entity)
+    end
+
+    def render_bad_request_response(exception)
       render_error(exception.message, :unprocessable_entity)
     end
 

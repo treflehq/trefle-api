@@ -17,6 +17,7 @@
     "react": "^16.13.1",
     "react-debounce-input": "^3.2.2",
     "react-dom": "^16.13.1",
+    "react-select": "^3.1.0",
     "react-syntax-highlighter": "^12.2.1",
     "swagger-ui": "^3.26.2",
     "typed.js": "^2.0.11"
