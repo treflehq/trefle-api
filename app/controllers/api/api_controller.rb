@@ -172,13 +172,15 @@ module Api
       end
     end
 
+    # @TODO ugly one
+    # Turn query params into elasticsearch query
     def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [])
       where = {}
       order = nil
       if params[:filter_not]&.is_a?(ActionController::Parameters)
         params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
           where[field] ||= {}
-          where[field][:not] = value.split(',')
+          where[field][:not] = value.split(',').map{|e| e.blank? || e == 'null' ? nil : e}
         end
       end
       if params[:filter]&.is_a?(ActionController::Parameters)
