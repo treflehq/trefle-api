@@ -180,7 +180,7 @@ module Api
       if params[:filter_not]&.is_a?(ActionController::Parameters)
         params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
           where[field] ||= {}
-          where[field][:not] = value.split(',').map{|e| e.blank? || e == 'null' ? nil : e}
+          where[field][:not] = value&.split(',')&.map{|e| e.blank? || e == 'null' ? nil : e}
         end
       end
       if params[:filter]&.is_a?(ActionController::Parameters)
