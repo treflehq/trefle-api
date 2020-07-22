@@ -9,3 +9,12 @@ production:
   - checks
   - migrations
   - low
+  - heater
+:process_limits:
+  heater: 2
+  critical: 50
+  default: 20
+  crawlers: 5
+  checks: 5
+  migrations: 5
+  low: 5

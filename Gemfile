@@ -64,15 +64,16 @@ gem 'pg_query', '>= 0.9.0'
 gem 'pghero'
 gem 'sentry-raven'
 gem 'skylight'
+gem 'rack-attack', '~> 6.2.2'
 
 # Sidekiq
-gem 'rack-attack', '~> 6.2.2'
 gem 'redis', '~> 4.1.4'
 gem 'redis-namespace', '~> 1.7.0'
 gem 'rufus-scheduler', '~> 3.4.2'
 gem 'sidekiq', '~> 6.0.7'
 gem 'sidekiq-cron', '~> 0.6.3'
 gem 'sidekiq-status'
+# gem 'sidekiq-limit_fetch'
 
 gem 'counter_culture', '~> 2.0'
 gem 'interactor-rails', '~> 2.2.1'

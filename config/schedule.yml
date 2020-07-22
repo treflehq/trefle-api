@@ -13,5 +13,5 @@ migrate_queries_counters:
 keep_it_hot:
   cron: "0 */2 * * *" # At every 2th hour
   class: "Crawlers::KeepItHotWorker"
-  queue: default
+  queue: heater
 
