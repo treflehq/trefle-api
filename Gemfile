@@ -41,9 +41,9 @@ gem 'jwt'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'httparty', require: false
-gem "typhoeus"
 gem 'kaminari'
 gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
+gem 'typhoeus'
 
 gem 'measured'
 gem 'measured-rails'
@@ -63,9 +63,9 @@ gem 'active_flag'
 # Monitoring
 gem 'pg_query', '>= 0.9.0'
 gem 'pghero'
+gem 'rack-attack', '~> 6.2.2'
 gem 'sentry-raven'
 gem 'skylight'
-gem 'rack-attack', '~> 6.2.2'
 
 # Sidekiq
 gem 'redis', '~> 4.1.4'

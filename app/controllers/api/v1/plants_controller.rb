@@ -70,7 +70,7 @@ class Api::V1::PlantsController < Api::ApiController
 
   # Search on database
   def full_search
-    puts "full_search"
+    puts 'full_search'
     @collection ||= collection
     @collection = apply_search(collection)
     @pagy, @collection = pagy(@collection)
@@ -120,16 +120,16 @@ class Api::V1::PlantsController < Api::ApiController
       filter_not_fields: Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS,
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
-      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
+      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS
     )
     options = {
       where: { main_species_id: nil }.merge(search_params[:where]),
-      includes: [:synonyms, :genus, :plant],
+      includes: %i[synonyms genus plant],
       boost_by: [:gbif_score],
-      fields: ["common_name^10", "scientific_name^5", "author", "genus", "family", "family_common_name"],
+      fields: ['common_name^10', 'scientific_name^5', 'author', 'genus', 'family', 'family_common_name'],
       order: search_params[:order]
     }.compact
-    
+
     @collection = Species.pagy_search(search, options)
     @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
 

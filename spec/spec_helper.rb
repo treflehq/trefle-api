@@ -49,10 +49,22 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+
+    # reindex models
+    Species.reindex
+
+    # and disable callbacks
+    Searchkick.disable_callbacks
   end
 
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
+  config.around(:each, search: true) do |example|
+    Searchkick.callbacks(nil) do
       example.run
     end
   end

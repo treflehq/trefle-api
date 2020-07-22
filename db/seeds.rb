@@ -23,3 +23,4 @@ u = User.where(email: 'guest@trefle.io').first_or_create!(
   organization_url: 'https://trefle.io'
 )
 u.confirm
+

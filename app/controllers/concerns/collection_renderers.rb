@@ -34,7 +34,6 @@ module CollectionRenderers
     { limit: limit, offset: offset }
   end
 
-
   def serialize_search_data(results)
     results['hits'].map do |hit|
       hit.merge({

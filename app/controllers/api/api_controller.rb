@@ -194,9 +194,7 @@ module Api
           where[field][:lte] = max unless max.blank?
         end
       end
-      if params[:order]&.is_a?(ActionController::Parameters)
-        order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash
-      end
+      order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash if params[:order]&.is_a?(ActionController::Parameters)
       {
         where: where,
         order: order

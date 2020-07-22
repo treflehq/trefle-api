@@ -181,7 +181,7 @@ class Species < ApplicationRecord
     case_sensitive: false,
     callbacks: :queue
   )
-  
+
   extend Pagy::Search
   include ActiveModel::Validations
 

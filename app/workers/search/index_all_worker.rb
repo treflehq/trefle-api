@@ -3,7 +3,6 @@ module Search
   class IndexAllWorker
     include Sidekiq::Worker
 
-
     def perform
       Species.reindex
     end
