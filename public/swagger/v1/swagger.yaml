@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.299Z'
+                      last_modified: '2020-07-22T11:16:26.120Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.314Z'
+                      last_modified: '2020-07-22T11:16:26.134Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.329Z'
+                      last_modified: '2020-07-22T11:16:26.149Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.366Z'
+                      last_modified: '2020-07-22T11:16:26.185Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.404Z'
+                      last_modified: '2020-07-22T11:16:26.221Z'
         '401':
           description: Invalid credentials
           content:
@@ -2256,7 +2256,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.621Z'
+                      last_modified: '2020-07-22T11:16:26.465Z'
         '401':
           description: Invalid credentials
           content:
@@ -2524,7 +2524,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-21T15:15:15.640Z'
+                      last_modified: '2020-07-22T11:16:26.484Z'
         '401':
           description: Invalid credentials
           content:
@@ -3053,7 +3053,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
                     meta:
-                      last_modified: '2020-07-21T15:15:15.767Z'
+                      last_modified: '2020-07-22T11:16:26.595Z'
         '401':
           description: Invalid credentials
           content:
@@ -3093,6 +3093,13 @@ paths:
         description: Filter on values
         schema:
           "$ref": "#/components/schemas/filters_plants"
+      - name: filter_not
+        in: query
+        required: false
+        type: object
+        description: Exclude results matching null values
+        schema:
+          "$ref": "#/components/schemas/filters_not_species"
       - name: order
         in: query
         required: false
@@ -3200,12 +3207,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T15:15:21.040Z'
-                      updated_at: '2020-07-21T15:15:21.042Z'
+                      created_at: '2020-07-22T11:16:32.301Z'
+                      updated_at: '2020-07-22T11:16:32.303Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T15:15:21.042Z'
+                      last_modified: '2020-07-22T11:16:32.303Z'
         '401':
           description: Invalid credentials
           content:
@@ -4220,7 +4227,7 @@ paths:
                       images_count: 0
                       sources_count: 1
                       synonyms_count: 0
-                      last_modified: '2020-07-21T15:15:15.896Z'
+                      last_modified: '2020-07-22T11:16:26.721Z'
         '401':
           description: Invalid credentials
           content:
@@ -4259,21 +4266,28 @@ paths:
         type: object
         description: Filter on values
         schema:
-          "$ref": "#/components/schemas/filters_plants"
+          "$ref": "#/components/schemas/filters_species"
+      - name: filter_not
+        in: query
+        required: false
+        type: object
+        description: Exclude results matching null values
+        schema:
+          "$ref": "#/components/schemas/filters_not_species"
       - name: order
         in: query
         required: false
         type: object
         description: Sort on values
         schema:
-          "$ref": "#/components/schemas/sorts_plants"
+          "$ref": "#/components/schemas/sorts_species"
       - name: range
         in: query
         required: false
         type: object
         description: Range on values
         schema:
-          "$ref": "#/components/schemas/ranges_plants"
+          "$ref": "#/components/schemas/ranges_species"
       security:
       - token: []
       responses:
@@ -4367,12 +4381,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-21T15:15:21.363Z'
-                      updated_at: '2020-07-21T15:15:21.364Z'
+                      created_at: '2020-07-22T11:16:32.615Z'
+                      updated_at: '2020-07-22T11:16:32.616Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T15:15:21.364Z'
+                      last_modified: '2020-07-22T11:16:32.616Z'
         '401':
           description: Invalid credentials
           content:
@@ -4716,7 +4730,7 @@ paths:
                         plants: "/api/v1/distributions/northern-provinces/plants"
                         species: "/api/v1/distributions/northern-provinces/species"
                     meta:
-                      last_modified: '2020-07-21T15:15:14.425Z'
+                      last_modified: '2020-07-22T11:16:25.208Z'
         '401':
           description: Invalid credentials
           content:
@@ -4763,8 +4777,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIyIDE3OjE1OjIxICswMjAwIiwiZXhwIjoxNTk1NDMwOTIxfQ.S3Wq_LMWTw2aOSUT64YlKrAj3xasGmRecDuqMDIgPLo
-                    expiration: 07-22-2020 17:15
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIzIDEzOjE2OjMyICswMjAwIiwiZXhwIjoxNTk1NTAyOTkyfQ.Z6WYx7BYiPEjVCIfdhx3Hq78u0Rv4WSOFyS6acsKoIs
+                    expiration: 07-23-2020 13:16
         '401':
           description: Invalid credentials
           content:
@@ -4859,8 +4873,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T15:15:21.538Z'
-                      updated_at: '2020-07-21T15:15:21.538Z'
+                      created_at: '2020-07-22T11:16:32.796Z'
+                      updated_at: '2020-07-22T11:16:32.796Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
@@ -4875,8 +4889,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-21T15:15:21.546Z'
-                      updated_at: '2020-07-21T15:15:21.546Z'
+                      created_at: '2020-07-22T11:16:32.803Z'
+                      updated_at: '2020-07-22T11:16:32.803Z'
                       correction: 
                       changes: 
                     links:
@@ -4938,15 +4952,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-21T15:15:21.606Z'
-                      updated_at: '2020-07-21T15:15:21.606Z'
+                      created_at: '2020-07-22T11:16:32.864Z'
+                      updated_at: '2020-07-22T11:16:32.864Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-21T15:15:21.606Z'
+                      last_modified: '2020-07-22T11:16:32.864Z'
         '401':
           description: Invalid credentials
           content:
@@ -5002,8 +5016,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-21T15:15:21.728Z'
-                      updated_at: '2020-07-21T15:15:21.728Z'
+                      created_at: '2020-07-22T11:16:32.992Z'
+                      updated_at: '2020-07-22T11:16:32.992Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5013,7 +5027,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-21T15:15:21.728Z'
+                      last_modified: '2020-07-22T11:16:32.992Z'
         '422':
           description: Invalid parameters
           content:

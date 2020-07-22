@@ -96,9 +96,10 @@ describe 'Species API' do # rubocop:todo Metrics/BlockLength
       operationId 'searchSpecies'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
+      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
 
       security [token: []]
 
