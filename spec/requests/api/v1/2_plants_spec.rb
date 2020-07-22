@@ -88,7 +88,7 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       tags 'Plants'
       consumes 'application/json'
       produces 'application/json'
-      description "Search for a plant with the given scientific name, common name, synonym name etc...\n\n**Caution:** Setting a filter, a sort or a range on this endpoint will make it significantly slower. If you need a quick response (For a search input, for example), make sure you're only using the `q` parameter."
+      description 'Search for a plant with the given scientific name, common name, synonym name etc.'
       operationId 'searchPlants'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
