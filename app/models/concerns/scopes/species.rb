@@ -67,7 +67,7 @@ module Scopes
       scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || 0)...(b&.to_i || 3000))) }
 
       # Search
-      scope :search, lambda {|q|
+      scope :database_search, lambda {|q|
         where('full_token ILIKE ?', "%#{q}%")
       }
 

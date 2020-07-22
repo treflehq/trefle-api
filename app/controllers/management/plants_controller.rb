@@ -7,7 +7,7 @@ class Management::PlantsController < Management::ManagementController
     p = params.permit(:search, order: {})
     @plants = Plant.all
     @plants = @plants.order(p.to_h.dig('order')) if p[:order]
-    @plants = @plants.search(p[:search]) if p[:search]
+    @plants = @plants.database_search(p[:search]) if p[:search]
     @pagy, @plants = pagy(@plants)
   end
 

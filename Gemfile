@@ -41,6 +41,7 @@ gem 'jwt'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'httparty', require: false
+gem "typhoeus"
 gem 'kaminari'
 gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 
@@ -81,7 +82,8 @@ gem 'interactor-rails', '~> 2.2.1'
 gem 'nokogiri'
 gem 'terminal-table'
 
-gem 'meilisearch'
+# gem 'meilisearch'
+gem 'searchkick'
 
 # SEO
 gem 'meta-tags'

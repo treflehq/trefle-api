@@ -15,3 +15,8 @@ keep_it_hot:
   class: "Crawlers::KeepItHotWorker"
   queue: heater
 
+reindex_species:
+  cron: "*/10 * * * *" # At every 10th minute
+  class: "Search::ReindexSpeciesWorker"
+  queue: reindex
+

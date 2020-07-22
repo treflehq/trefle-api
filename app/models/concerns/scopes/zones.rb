@@ -12,7 +12,7 @@ module Scopes
       scope :range_by_species_count, ->(a, b) { where(species_count: ((a&.to_i || 0)...(b&.to_i || 9_999_999_999_999))) }
 
       # Search
-      scope :search, lambda {|q|
+      scope :database_search, lambda {|q|
         where('name ILIKE ?', "%#{q}%")
       }
     end

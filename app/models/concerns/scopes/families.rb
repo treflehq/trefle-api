@@ -7,7 +7,7 @@ module Scopes
       scope :filter_by_name, ->(v) { where('LOWER(name) IN (?)', v) }
       scope :filter_by_slug, ->(v) { where('LOWER(slug) IN (?)', v) }
       # Search
-      scope :search, lambda {|q|
+      scope :database_search, lambda {|q|
         where('name ILIKE ?', "%#{q}%")
       }
     end

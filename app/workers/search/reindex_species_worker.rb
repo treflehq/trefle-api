@@ -3,13 +3,8 @@ module Search
   class ReindexSpeciesWorker
     include Sidekiq::Worker
 
-    def perform(species_id)
-      species = Species.find(species_id)
-      ::Search::Index.add_species!(species)
-    rescue ActiveRecord::RecordNotFound
-      ::Search.instance.with do |conn|
-        conn.index('species').delete_document(species_id)
-      end
+    def perform
+      Searchkick::ProcessQueueJob.perform_now(class_name: 'Species')
     end
   end
 end

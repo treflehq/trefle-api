@@ -30,6 +30,7 @@ class Api::V1::SpeciesController < Api::ApiController
     fruit_color
     edible_part
     establishment
+    genus_name
   ].freeze
 
   FILTERABLE_NOT_FIELDS = %w[
@@ -210,18 +211,18 @@ class Api::V1::SpeciesController < Api::ApiController
   # Search on meilisearch
   def quick_search
     puts "quick_search"
-    search = params.require(:q)
-    options = parse_search_options
-    results = ::Search.search_species(search, options)
-    links = search_collection_links(results, name: %i[species index], scope: %i[search api v1])
+    # search = params.require(:q)
+    # options = parse_search_options
+    # results = ::Search.search_species(search, options)
+    # links = search_collection_links(results, name: %i[species index], scope: %i[search api v1])
 
-    render json: Panko::Response.new({
-      data: serialize_search_data(results),
-      meta: {
-        total: results['nbHits']
-      },
-      links: links
-    }.compact), status: :ok
+    # render json: Panko::Response.new({
+    #   data: serialize_search_data(results),
+    #   meta: {
+    #     total: results['nbHits']
+    #   },
+    #   links: links
+    # }.compact), status: :ok
   end
 
   # @TODO this whole thing is ugly

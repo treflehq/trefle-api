@@ -20,7 +20,7 @@ module Scopes
       scope :range_by_images_count, ->(a, b) { where(images_count: ((a&.to_i || 0)...(b&.to_i || 3000))) }
 
       # Search
-      scope :search, lambda {|q|
+      scope :database_search, lambda {|q|
         joins(:species).where('species.full_token ILIKE ?', "%#{q}%")
       }
     end

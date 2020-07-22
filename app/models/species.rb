@@ -167,6 +167,22 @@
 #  species_plant_id_fkey  (plant_id => plants.id)
 #
 class Species < ApplicationRecord
+  searchkick(
+    word_start: %w[
+      scientific_name
+      common_name
+      common_name_tokens
+      synonyms_tokens
+      author
+      genus
+      family
+      family_common_name
+    ],
+    case_sensitive: false,
+    callbacks: :queue
+  )
+  
+  extend Pagy::Search
   include ActiveModel::Validations
 
   PLANTS_ATTRIBUTES = %w[
@@ -337,8 +353,6 @@ class Species < ApplicationRecord
   friendly_id :scientific_name, use: :slugged
 
   after_save :setup_main_species
-  after_save :reindex
-  after_destroy :deindex
 
   auto_strip_attributes(*STRING_ATTRIBUTES, squish: true)
 
@@ -354,12 +368,12 @@ class Species < ApplicationRecord
     plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
   end
 
-  def reindex
-    ::Search::ReindexSpeciesWorker.perform_async(id)
+  def common_name_tokens
+    common_names.where(lang: 'en').pluck(:name)
   end
 
-  def deindex
-    ::Search::DeindexSpeciesWorker.perform_async(id)
+  def synonyms_tokens
+    synonyms.pluck(:name).uniq
   end
 
   def complete_cache_fields

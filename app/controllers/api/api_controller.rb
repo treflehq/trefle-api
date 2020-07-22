@@ -172,6 +172,37 @@ module Api
       end
     end
 
+    def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [])
+      where = {}
+      order = nil
+      if params[:filter_not]&.is_a?(ActionController::Parameters)
+        params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
+          where[field] ||= {}
+          where[field][:not] = value.split(',')
+        end
+      end
+      if params[:filter]&.is_a?(ActionController::Parameters)
+        params[:filter].permit(filter_fields).slice(*filter_fields).each do |field, value|
+          where[field] = value.split(',')
+        end
+      end
+      if params[:range]&.is_a?(ActionController::Parameters)
+        params[:range].permit(range_fields).slice(*range_fields).each do |field, value|
+          min, max = value.split(',')
+          where[field] ||= {}
+          where[field][:gte] = min unless min.blank?
+          where[field][:lte] = max unless max.blank?
+        end
+      end
+      if params[:order]&.is_a?(ActionController::Parameters)
+        order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash
+      end
+      {
+        where: where,
+        order: order
+      }
+    end
+
     def apply_filters_not(collection, filterable_fields)
       if params[:filter_not]&.is_a?(ActionController::Parameters)
         collection.filter_not_with(params[:filter_not].permit(filterable_fields).slice(*filterable_fields))
@@ -198,7 +229,7 @@ module Api
 
     def apply_search(collection)
       if params[:q]
-        collection.search(params[:q])
+        collection.database_search(params[:q])
       else
         collection
       end

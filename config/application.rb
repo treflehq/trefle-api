@@ -66,6 +66,7 @@ module TrefleAdmin
     #   end
 
     # end
+    config.active_job.queue_adapter = :sidekiq
 
     config.action_controller.forgery_protection_origin_check = false
 
