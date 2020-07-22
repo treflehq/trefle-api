@@ -24,3 +24,7 @@ u = User.where(email: 'guest@trefle.io').first_or_create!(
 )
 u.confirm
 
+
+# reindex models
+puts "Reindexing"
+Species.reindex

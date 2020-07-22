@@ -194,6 +194,7 @@ class Api::V1::SpeciesController < Api::ApiController
   end
 
   # Search on database
+  # @TODO @deprecated
   def full_search
     puts 'full_search'
     @collection ||= collection
@@ -208,39 +209,33 @@ class Api::V1::SpeciesController < Api::ApiController
     )
   end
 
-  # Search on meilisearch
-  def quick_search
-    puts 'quick_search'
-    # search = params.require(:q)
-    # options = parse_search_options
-    # results = ::Search.search_species(search, options)
-    # links = search_collection_links(results, name: %i[species index], scope: %i[search api v1])
-
-    # render json: Panko::Response.new({
-    #   data: serialize_search_data(results),
-    #   meta: {
-    #     total: results['nbHits']
-    #   },
-    #   links: links
-    # }.compact), status: :ok
-  end
-
-  # @TODO this whole thing is ugly
+  # Search on elasticsearch
   def search
-    if params[:filter]&.is_a?(ActionController::Parameters) ||
-       params[:filter_not]&.is_a?(ActionController::Parameters) ||
-       params[:range]&.is_a?(ActionController::Parameters) ||
-       params[:sort]&.is_a?(ActionController::Parameters)
-      full_search
-    else
-      begin
-        quick_search
-      rescue MeiliSearch::CommunicationError => e
-        Raven.capture_exception(e)
+    search = params.require(:q)
+    search_params = search_params(
+      filter_not_fields: Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS,
+      filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
+      order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
+      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS
+    )
+    options = {
+      where: { main_species_id: nil }.merge(search_params[:where]),
+      includes: %i[synonyms genus plant],
+      boost_by: [:gbif_score],
+      fields: ['common_name^10', 'scientific_name^5', 'author', 'genus', 'family', 'family_common_name'],
+      order: search_params[:order]
+    }.compact
 
-        full_search
-      end
-    end
+    @collection = Species.pagy_search(search, options)
+    @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
+
+    links = collection_links(@collection, name: %i[species index], scope: %i[search api v1])
+
+    render_serialized_collection(
+      @collection,
+      SpeciesLightSerializer,
+      links: links
+    )
   end
 
   # Report an error

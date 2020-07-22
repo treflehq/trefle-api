@@ -69,6 +69,7 @@ class Api::V1::PlantsController < Api::ApiController
   end
 
   # Search on database
+  # @TODO @deprecated
   def full_search
     puts 'full_search'
     @collection ||= collection
@@ -83,37 +84,7 @@ class Api::V1::PlantsController < Api::ApiController
     )
   end
 
-  # Search on meilisearch
-  # def quick_search
-  #   puts "quick_search"
-  #   search = params.require(:q)
-  #   search_params = search_params(
-  #     filter_not_fields: Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS,
-  #     filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
-  #     order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
-  #     range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
-  #   )
-  #   options = {
-  #     where: { main_species_id: nil }.merge(search_params[:where]),
-  #     includes: [:synonyms, :genus, :plant],
-  #     boost_by: [:gbif_score],
-  #     fields: ["common_name^10", "scientific_name^5", "author", "genus", "family", "family_common_name"],
-  #     order: search_params[:order]
-  #   }.compact
-
-  #   @collection = Species.pagy_search(search, options)
-  #   @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
-
-  #   links = collection_links(@collection, name: %i[plants], scope: %i[search api v1])
-
-  #   render_serialized_collection(
-  #     @collection,
-  #     SpeciesLightSerializer,
-  #     links: links
-  #   )
-  # end
-
-  # @TODO this whole thing is ugly
+  # Search on elasticsearch
   def search
     search = params.require(:q)
     search_params = search_params(

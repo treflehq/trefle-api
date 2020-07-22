@@ -50,8 +50,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
-    # reindex models
-    Species.reindex
 
     # and disable callbacks
     Searchkick.disable_callbacks
