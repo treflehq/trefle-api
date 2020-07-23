@@ -260,7 +260,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
     @collection = Genus.friendly.find(params[:genus_id]).species if params[:genus_id]
     @collection = Plant.friendly.find(params[:plant_id]).species if params[:plant_id]
-    @collection = Zone.friendly.find(params[:zone_id]).species if params[:zone_id]
+    @collection = Zone.friendly.find(params[:zone_id]).all_species if params[:zone_id]
     @collection ||= Species.all
 
     @collection = @collection.preload(:plant, :genus, :synonyms)

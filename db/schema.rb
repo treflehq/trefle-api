@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_110359) do
+ActiveRecord::Schema.define(version: 2020_07_23_120531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -709,6 +709,7 @@ ActiveRecord::Schema.define(version: 2020_07_23_110359) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.integer "species_count", default: 0, null: false
+    t.integer "parent_id"
   end
 
   add_foreign_key "division_classes", "divisions", name: "division_classes_division_id_fkey"
