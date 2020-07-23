@@ -41,6 +41,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
       resources :record_corrections, path: 'corrections', only: %i[index show] do
         post '/:record_type/:record_id', to: 'record_corrections#create', on: :collection
+        get :mine, to: 'record_corrections#index', on: :collection, mine: true
       end
 
       resources :zones, path: 'distributions', only: %i[index show] do
