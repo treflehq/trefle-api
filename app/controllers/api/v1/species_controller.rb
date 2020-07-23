@@ -136,6 +136,7 @@ class Api::V1::SpeciesController < Api::ApiController
     toxicity
     vegetable
     year
+    updated_at
   ].freeze
 
   RANGEABLE_FIELDS = %w[
