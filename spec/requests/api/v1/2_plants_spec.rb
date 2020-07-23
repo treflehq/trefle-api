@@ -177,7 +177,7 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       tags 'Plants'
       consumes 'application/json'
       produces 'application/json'
-      description 'List plants in the requested zone'
+      description 'List all the plants in the requested zone.'
       operationId 'listPlantsZone'
       security [token: []]
 

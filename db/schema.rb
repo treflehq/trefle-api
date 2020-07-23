@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_174645) do
+ActiveRecord::Schema.define(version: 2020_07_23_120531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -478,14 +478,20 @@ ActiveRecord::Schema.define(version: 2020_07_15_174645) do
     t.string "family_name"
     t.integer "average_height_cm"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
+    t.index ["common_name"], name: "index_species_on_common_name"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
     t.index ["flower_conspicuous"], name: "index_species_on_flower_conspicuous"
     t.index ["gbif_score"], name: "species_gbif_score_idx"
     t.index ["genus_id"], name: "species_genus_id_index"
+    t.index ["light"], name: "index_species_on_light"
+    t.index ["main_species_id", "gbif_score"], name: "index_species_on_main_species_id_and_gbif_score"
     t.index ["main_species_id"], name: "species_main_species_id_index"
+    t.index ["maximum_height_cm"], name: "index_species_on_maximum_height_cm"
     t.index ["minimum_precipitation_mm"], name: "index_species_on_minimum_precipitation_mm"
     t.index ["minimum_root_depth_cm"], name: "index_species_on_minimum_root_depth_cm"
+    t.index ["minimum_temperature_deg_f"], name: "index_species_on_minimum_temperature_deg_f"
     t.index ["plant_id"], name: "species_plant_id_index"
+    t.index ["planting_days_to_harvest"], name: "index_species_on_planting_days_to_harvest"
     t.index ["planting_row_spacing_cm"], name: "index_species_on_planting_row_spacing_cm"
     t.index ["planting_spread_cm"], name: "index_species_on_planting_spread_cm"
     t.index ["scientific_name"], name: "species_scientific_name_index", unique: true
@@ -703,6 +709,7 @@ ActiveRecord::Schema.define(version: 2020_07_15_174645) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.integer "species_count", default: 0, null: false
+    t.integer "parent_id"
   end
 
   add_foreign_key "division_classes", "divisions", name: "division_classes_division_id_fkey"

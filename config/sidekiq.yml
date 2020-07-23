@@ -9,11 +9,9 @@ production:
   - checks
   - migrations
   - low
-  - heater
   - reindex
   - searchkick
 :process_limits:
-  heater: 2
   critical: 50
   searchkick: 20
   searchkick: 20

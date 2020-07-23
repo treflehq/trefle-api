@@ -10,11 +10,6 @@ migrate_queries_counters:
   class: "UserQueryWorker"
   queue: low
 
-keep_it_hot:
-  cron: "0 */2 * * *" # At every 2th hour
-  class: "Crawlers::KeepItHotWorker"
-  queue: heater
-
 reindex_species:
   cron: "*/10 * * * *" # At every 10th minute
   class: "Search::ReindexSpeciesWorker"

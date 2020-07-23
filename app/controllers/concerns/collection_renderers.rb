@@ -64,19 +64,37 @@ module CollectionRenderers
   end
 
   def render_serialized_collection(collection, serializer, serializer_options: {}, links: nil, meta: {})
-    options = {
-      each_serializer: serializer
-    }.merge(serializer_options)
+    puts "[render_serialized_collection] serializer=#{serializer} options=#{serializer_options}"
+
+    # options = {
+    #   each_serializer: serializer
+    # }.merge(serializer_options)
 
     meta = {
       total: @pagy.count || collection.count
     }.merge(meta)
 
     render json: Panko::Response.new({
-      data: Panko::ArraySerializer.new(collection, options),
+      data: cache_or_serialize(collection, serializer, serializer_options: serializer_options),
       links: links,
       meta: meta
     }.compact)
+
+    # render json: Panko::Response.new({
+    #   data: Panko::ArraySerializer.new(collection, options),
+    #   links: links,
+    #   meta: meta
+    # }.compact)
+  end
+
+  def cache_or_serialize(collection, serializer, serializer_options: {})
+    puts "[cache_or_serialize] serializer=#{serializer} options=#{serializer_options}"
+    collection.map do |resource|
+      end_key = "#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
+      Rails.cache.fetch(end_key) do
+        serializer.new(serializer_options).serialize(resource)
+      end
+    end
   end
 
   def render_serialized_resource(resource, serializer, serializer_options: {}, links: nil, meta: {})

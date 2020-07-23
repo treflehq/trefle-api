@@ -32,4 +32,5 @@ class SpeciesDistribution < ApplicationRecord
   }, _suffix: true
 
   counter_culture :zone, column_name: 'species_count'
+
 end

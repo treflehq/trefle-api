@@ -11,6 +11,7 @@
 #  tdwg_level    :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  parent_id     :integer
 #
 require 'rails_helper'
 

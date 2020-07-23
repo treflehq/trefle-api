@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.578Z'
+                      last_modified: '2020-07-23T13:23:58.232Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.592Z'
+                      last_modified: '2020-07-23T13:23:58.247Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.605Z'
+                      last_modified: '2020-07-23T13:23:58.264Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.639Z'
+                      last_modified: '2020-07-23T13:23:58.311Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.671Z'
+                      last_modified: '2020-07-23T13:23:58.355Z'
         '401':
           description: Invalid credentials
           content:
@@ -2256,7 +2256,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.884Z'
+                      last_modified: '2020-07-23T13:23:58.593Z'
         '401':
           description: Invalid credentials
           content:
@@ -2524,7 +2524,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-22T13:33:56.900Z'
+                      last_modified: '2020-07-23T13:23:58.609Z'
         '401':
           description: Invalid credentials
           content:
@@ -3053,7 +3053,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
                     meta:
-                      last_modified: '2020-07-22T13:33:56.994Z'
+                      last_modified: '2020-07-23T13:23:58.697Z'
         '401':
           description: Invalid credentials
           content:
@@ -3205,12 +3205,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-22T13:34:02.883Z'
-                      updated_at: '2020-07-22T13:34:02.886Z'
+                      created_at: '2020-07-23T13:24:04.609Z'
+                      updated_at: '2020-07-23T13:24:04.611Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-22T13:34:02.886Z'
+                      last_modified: '2020-07-23T13:24:04.611Z'
         '401':
           description: Invalid credentials
           content:
@@ -3235,7 +3235,7 @@ paths:
       summary: List plants in a distribution zone
       tags:
       - Plants
-      description: List plants in the requested zone
+      description: List all the plants in the requested zone.
       operationId: listPlantsZone
       security:
       - token: []
@@ -4225,7 +4225,7 @@ paths:
                       images_count: 0
                       sources_count: 1
                       synonyms_count: 0
-                      last_modified: '2020-07-22T13:33:57.112Z'
+                      last_modified: '2020-07-23T13:23:58.841Z'
         '401':
           description: Invalid credentials
           content:
@@ -4377,12 +4377,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-22T13:34:03.233Z'
-                      updated_at: '2020-07-22T13:34:03.235Z'
+                      created_at: '2020-07-23T13:24:04.915Z'
+                      updated_at: '2020-07-23T13:24:04.916Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-22T13:34:03.235Z'
+                      last_modified: '2020-07-23T13:24:04.916Z'
         '401':
           description: Invalid credentials
           content:
@@ -4474,6 +4474,8 @@ paths:
                         self: "/api/v1/distributions/afghanistan"
                         plants: "/api/v1/distributions/afghanistan/plants"
                         species: "/api/v1/distributions/afghanistan/species"
+                      parent: 
+                      children: []
                     - id: 144
                       name: Alabama
                       slug: alabama
@@ -4484,6 +4486,8 @@ paths:
                         self: "/api/v1/distributions/alabama"
                         plants: "/api/v1/distributions/alabama/plants"
                         species: "/api/v1/distributions/alabama/species"
+                      parent: 
+                      children: []
                     - id: 325
                       name: Alaska
                       slug: alaska
@@ -4494,6 +4498,8 @@ paths:
                         self: "/api/v1/distributions/alaska"
                         plants: "/api/v1/distributions/alaska/plants"
                         species: "/api/v1/distributions/alaska/species"
+                      parent: 
+                      children: []
                     - id: 93
                       name: Albania
                       slug: albania
@@ -4504,6 +4510,8 @@ paths:
                         self: "/api/v1/distributions/albania"
                         plants: "/api/v1/distributions/albania/plants"
                         species: "/api/v1/distributions/albania/species"
+                      parent: 
+                      children: []
                     - id: 326
                       name: Alberta
                       slug: alberta
@@ -4514,6 +4522,8 @@ paths:
                         self: "/api/v1/distributions/alberta"
                         plants: "/api/v1/distributions/alberta/plants"
                         species: "/api/v1/distributions/alberta/species"
+                      parent: 
+                      children: []
                     - id: 212
                       name: Aldabra
                       slug: aldabra
@@ -4524,6 +4534,8 @@ paths:
                         self: "/api/v1/distributions/aldabra"
                         plants: "/api/v1/distributions/aldabra/plants"
                         species: "/api/v1/distributions/aldabra/species"
+                      parent: 
+                      children: []
                     - id: 356
                       name: Aleutian Is.
                       slug: aleutian-is
@@ -4534,6 +4546,8 @@ paths:
                         self: "/api/v1/distributions/aleutian-is"
                         plants: "/api/v1/distributions/aleutian-is/plants"
                         species: "/api/v1/distributions/aleutian-is/species"
+                      parent: 
+                      children: []
                     - id: 137
                       name: Algeria
                       slug: algeria
@@ -4544,6 +4558,8 @@ paths:
                         self: "/api/v1/distributions/algeria"
                         plants: "/api/v1/distributions/algeria/plants"
                         species: "/api/v1/distributions/algeria/species"
+                      parent: 
+                      children: []
                     - id: 303
                       name: Altay
                       slug: altay
@@ -4554,6 +4570,8 @@ paths:
                         self: "/api/v1/distributions/altay"
                         plants: "/api/v1/distributions/altay/plants"
                         species: "/api/v1/distributions/altay/species"
+                      parent: 
+                      children: []
                     - id: 355
                       name: Amsterdam-St.Paul Is
                       slug: amsterdam-st-paul-is
@@ -4564,6 +4582,8 @@ paths:
                         self: "/api/v1/distributions/amsterdam-st-paul-is"
                         plants: "/api/v1/distributions/amsterdam-st-paul-is/plants"
                         species: "/api/v1/distributions/amsterdam-st-paul-is/species"
+                      parent: 
+                      children: []
                     - id: 304
                       name: Amur
                       slug: amur
@@ -4574,6 +4594,8 @@ paths:
                         self: "/api/v1/distributions/amur"
                         plants: "/api/v1/distributions/amur/plants"
                         species: "/api/v1/distributions/amur/species"
+                      parent: 
+                      children: []
                     - id: 39
                       name: Andaman Is.
                       slug: andaman-is
@@ -4584,6 +4606,8 @@ paths:
                         self: "/api/v1/distributions/andaman-is"
                         plants: "/api/v1/distributions/andaman-is/plants"
                         species: "/api/v1/distributions/andaman-is/species"
+                      parent: 
+                      children: []
                     - id: 4
                       name: Angola
                       slug: angola
@@ -4594,6 +4618,8 @@ paths:
                         self: "/api/v1/distributions/angola"
                         plants: "/api/v1/distributions/angola/plants"
                         species: "/api/v1/distributions/angola/species"
+                      parent: 
+                      children: []
                     - id: 367
                       name: Antarctica
                       slug: antarctica
@@ -4604,6 +4630,8 @@ paths:
                         self: "/api/v1/distributions/antarctica"
                         plants: "/api/v1/distributions/antarctica/plants"
                         species: "/api/v1/distributions/antarctica/species"
+                      parent: 
+                      children: []
                     - id: 354
                       name: Antipodean Is.
                       slug: antipodean-is
@@ -4614,6 +4642,8 @@ paths:
                         self: "/api/v1/distributions/antipodean-is"
                         plants: "/api/v1/distributions/antipodean-is/plants"
                         species: "/api/v1/distributions/antipodean-is/species"
+                      parent: 
+                      children: []
                     - id: 169
                       name: Argentina Northeast
                       slug: argentina-northeast
@@ -4624,6 +4654,8 @@ paths:
                         self: "/api/v1/distributions/argentina-northeast"
                         plants: "/api/v1/distributions/argentina-northeast/plants"
                         species: "/api/v1/distributions/argentina-northeast/species"
+                      parent: 
+                      children: []
                     - id: 171
                       name: Argentina Northwest
                       slug: argentina-northwest
@@ -4634,6 +4666,8 @@ paths:
                         self: "/api/v1/distributions/argentina-northwest"
                         plants: "/api/v1/distributions/argentina-northwest/plants"
                         species: "/api/v1/distributions/argentina-northwest/species"
+                      parent: 
+                      children: []
                     - id: 264
                       name: Argentina South
                       slug: argentina-south
@@ -4644,6 +4678,8 @@ paths:
                         self: "/api/v1/distributions/argentina-south"
                         plants: "/api/v1/distributions/argentina-south/plants"
                         species: "/api/v1/distributions/argentina-south/species"
+                      parent: 
+                      children: []
                     - id: 164
                       name: Arizona
                       slug: arizona
@@ -4654,6 +4690,8 @@ paths:
                         self: "/api/v1/distributions/arizona"
                         plants: "/api/v1/distributions/arizona/plants"
                         species: "/api/v1/distributions/arizona/species"
+                      parent: 
+                      children: []
                     - id: 227
                       name: Arkansas
                       slug: arkansas
@@ -4664,6 +4702,8 @@ paths:
                         self: "/api/v1/distributions/arkansas"
                         plants: "/api/v1/distributions/arkansas/plants"
                         species: "/api/v1/distributions/arkansas/species"
+                      parent: 
+                      children: []
                     links:
                       self: "/api/v1/distributions"
                       first: "/api/v1/distributions?page=1"
@@ -4725,8 +4765,10 @@ paths:
                         self: "/api/v1/distributions/northern-provinces"
                         plants: "/api/v1/distributions/northern-provinces/plants"
                         species: "/api/v1/distributions/northern-provinces/species"
+                      parent: 
+                      children: []
                     meta:
-                      last_modified: '2020-07-22T13:33:55.704Z'
+                      last_modified: '2020-07-23T13:23:57.323Z'
         '401':
           description: Invalid credentials
           content:
@@ -4773,8 +4815,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTIzIDE1OjM0OjAzICswMjAwIiwiZXhwIjoxNTk1NTExMjQzfQ.ts1EyJ4QURAi1viKVh00A3JPNYF4OEaYwgppXsKXg4o
-                    expiration: 07-23-2020 15:34
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTI0IDE1OjI0OjA1ICswMjAwIiwiZXhwIjoxNTk1NTk3MDQ1fQ.N43obzQMXa5--9aTKvYwZsViK7HkduFIp67XuytcQsQ
+                    expiration: 07-24-2020 15:24
         '401':
           description: Invalid credentials
           content:
@@ -4860,22 +4902,6 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                    - id: 3
-                      record_type: Species
-                      record_id: 106648
-                      user_id: 30
-                      warning_type: 
-                      change_status: pending
-                      change_type: update
-                      accepted_by: 
-                      notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-22T13:34:03.419Z'
-                      updated_at: '2020-07-22T13:34:03.419Z'
-                      correction:
-                        scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
-                        maximum_height_value: 7
-                        maximum_height_unit: cm
-                      changes: 
                     - id: 4
                       record_type: Species
                       record_id: 697964
@@ -4885,9 +4911,25 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-22T13:34:03.428Z'
-                      updated_at: '2020-07-22T13:34:03.428Z'
+                      created_at: '2020-07-23T13:24:05.133Z'
+                      updated_at: '2020-07-23T13:24:05.133Z'
                       correction: 
+                      changes: 
+                    - id: 3
+                      record_type: Species
+                      record_id: 106648
+                      user_id: 30
+                      warning_type: 
+                      change_status: pending
+                      change_type: update
+                      accepted_by: 
+                      notes: The height is wrong, it's way smaller
+                      created_at: '2020-07-23T13:24:05.125Z'
+                      updated_at: '2020-07-23T13:24:05.125Z'
+                      correction:
+                        scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
+                        maximum_height_value: 7
+                        maximum_height_unit: cm
                       changes: 
                     links:
                       self: "/api/v1/corrections"
@@ -4948,15 +4990,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-22T13:34:03.491Z'
-                      updated_at: '2020-07-22T13:34:03.491Z'
+                      created_at: '2020-07-23T13:24:05.193Z'
+                      updated_at: '2020-07-23T13:24:05.193Z'
                       correction:
                         scientific_name: Arctostaphylos uva-ursi ssp. coloradensis
                         maximum_height_value: 7
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-22T13:34:03.491Z'
+                      last_modified: '2020-07-23T13:24:05.193Z'
         '401':
           description: Invalid credentials
           content:
@@ -5012,8 +5054,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-22T13:34:03.671Z'
-                      updated_at: '2020-07-22T13:34:03.671Z'
+                      created_at: '2020-07-23T13:24:05.346Z'
+                      updated_at: '2020-07-23T13:24:05.346Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5023,7 +5065,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-22T13:34:03.671Z'
+                      last_modified: '2020-07-23T13:24:05.346Z'
         '422':
           description: Invalid parameters
           content:
@@ -6204,6 +6246,65 @@ components:
           - self
           - plants
           - species
+        parent:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            slug:
+              type: string
+            tdwg_code:
+              type: string
+            tdwg_level:
+              type: integer
+            species_count:
+              type: integer
+            links:
+              type: object
+              properties:
+                self:
+                  type: string
+                plants:
+                  type: string
+                species:
+                  type: string
+              required:
+              - self
+              - plants
+              - species
+          nullable: true
+        children:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              slug:
+                type: string
+              tdwg_code:
+                type: string
+              tdwg_level:
+                type: integer
+              species_count:
+                type: integer
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                  plants:
+                    type: string
+                  species:
+                    type: string
+                required:
+                - self
+                - plants
+                - species
       required:
       - id
       - name
@@ -7012,6 +7113,8 @@ components:
           type: string
         year:
           type: string
+        updated_at:
+          type: string
     sorts_species:
       type: object
       properties:
@@ -7112,6 +7215,8 @@ components:
         vegetable:
           type: string
         year:
+          type: string
+        updated_at:
           type: string
     ranges_plants:
       type: object

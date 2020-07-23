@@ -2,7 +2,17 @@ module Schemas
   module V1
     module Zone
       def self.schema
-        Helpers.object_of({
+        Helpers.object_of(
+          zone_schema.merge(
+            parent: Helpers.object_of(zone_schema, extras: { nullable: true }),
+            children: Helpers.array_of(zone_schema)
+          ),
+          extras: { required: %w[id name slug links tdwg_code tdwg_level species_count] }
+        )
+      end
+
+      def self.zone_schema
+        {
           id: { type: :integer },
           name: { type: :string },
           slug: { type: :string },
@@ -14,7 +24,7 @@ module Schemas
             plants: { type: :string },
             species: { type: :string }
           }, extras: { required: %w[self plants species] })
-        }, extras: { required: %w[id name slug links tdwg_code tdwg_level species_count] })
+        }
       end
     end
   end

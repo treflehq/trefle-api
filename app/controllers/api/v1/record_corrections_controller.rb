@@ -1,8 +1,32 @@
 class Api::V1::RecordCorrectionsController < Api::ApiController
   before_action :set_record, only: %i[create report update destroy]
 
+  FILTERABLE_FIELDS = %w[
+    user_id
+    record_id
+    record_type
+    warning_type
+    change_status
+    change_type
+    accepted_by
+    source_type
+    external
+  ].freeze
+
+  ORDERABLE_FIELDS = %w[
+    user_id
+    record_id
+    record_type
+    warning_type
+    change_status
+    change_type
+    accepted_by
+    source_type
+    external
+  ].freeze
+
   def index
-    @collection = RecordCorrection.all
+    @collection = collection
     @collection = @collection.order(created_at: :asc)
     @pagy, @collection = pagy(@collection)
 
@@ -71,6 +95,21 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
                     end)
 
     record_class&.friendly&.find(params[:record_id])
+  end
+
+  def collection
+    return @collection if @collection
+
+    @collection = RecordCorrection.where(user_id: current_user.id) if params[:mine]
+    @collection ||= RecordCorrection.all
+
+    # @collection = @collection.preload(:plant, :genus, :synonyms)
+
+    @collection = apply_filters(@collection, FILTERABLE_FIELDS)
+    @collection = apply_sort(@collection, ORDERABLE_FIELDS, default_sort: { updated_at: :desc })
+
+    @pagy, @collection = pagy(@collection)
+    @collection
   end
 
   def record_correction_params

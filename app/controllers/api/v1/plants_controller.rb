@@ -117,7 +117,7 @@ class Api::V1::PlantsController < Api::ApiController
     return @collection if @collection
 
     @collection = Genus.friendly.find(params[:genus_id]).species.plants if params[:genus_id]
-    @collection = Zone.friendly.find(params[:zone_id]).species.plants if params[:zone_id]
+    @collection = Zone.friendly.find(params[:zone_id]).all_species.plants if params[:zone_id]
 
     @collection ||= Species.plants.includes(:genus)
 
