@@ -13,11 +13,8 @@
 #  updated_at    :datetime         not null
 #  parent_id     :integer
 #
-class ZoneSerializer < BaseSerializer
+class ZoneLightSerializer < BaseSerializer
   attributes :name, :slug, :links, :tdwg_code, :tdwg_level, :species_count
-
-  has_one :parent, serializer: ZoneLightSerializer
-  has_many :children, serializer: ZoneLightSerializer
 
   # link(:self) {|o| url_helpers.api_v1_kingdom_path(o) }
 

@@ -82,6 +82,8 @@ gem 'interactor-rails', '~> 2.2.1'
 gem 'nokogiri'
 gem 'terminal-table'
 
+gem 'json-schema'
+
 # gem 'meilisearch'
 gem 'searchkick'
 
@@ -104,7 +106,6 @@ group :development, :test do
   # gem 'rswag'
   gem 'factory_bot', '~> 5.1.2'
   gem 'faker', '~> 2.1.2'
-  gem 'json-schema'
   gem 'seed_dump'
 end
 

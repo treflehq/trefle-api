@@ -201,7 +201,7 @@ module Schemas
             sources: Helpers.array_of({
               id: { type: :string, description: 'An unique identifier from the source' }, # 101131,
               name: { type: :string, description: 'The name of the source' }, # "(Douglas ex D.Don) Lindl.",
-              citation: { type: :string, description: 'How to cite the source' }, # "(Douglas ex D.Don) Lindl.",
+              citation: { type: :string, nullable: true, description: 'How to cite the source' }, # "(Douglas ex D.Don) Lindl.",
               url: { type: :string, description: 'The link on the source website, or the publication reference' }, # "(Douglas ex D.Don) Lindl.",
               last_update: { type: :string, description: 'The last time the source was checked' } # "(Douglas ex D.Don) Lindl.",
             }, extras: { description: 'The symonyms scientific names and authors' })
