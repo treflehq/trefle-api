@@ -90,7 +90,7 @@ module CollectionRenderers
   def cache_or_serialize(collection, serializer, serializer_options: {})
     puts "[cache_or_serialize] serializer=#{serializer} options=#{serializer_options}"
     collection.map do |resource|
-      end_key = "#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
+      end_key = "collection/#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
       Rails.cache.fetch(end_key) do
         serializer.new(serializer_options).serialize(resource)
       end
