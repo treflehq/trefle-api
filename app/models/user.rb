@@ -47,6 +47,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
 
   has_many :record_corrections, dependent: :nullify
+  has_many :user_queries, dependent: :destroy
 
   before_create :assign_token
 
