@@ -43,7 +43,7 @@ class PlantLightSerializer < BaseSerializer
     {
       self: url_helpers.api_v1_plant_path(object),
       species: url_helpers.api_v1_plant_species_index_path(object),
-      genus: url_helpers.api_v1_genus_path(object.genus.slug)
+      genus: url_helpers.api_v1_genus_path(object&.genus&.slug || 'unknown')
     }
   end
 end

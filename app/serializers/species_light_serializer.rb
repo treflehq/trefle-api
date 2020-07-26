@@ -29,8 +29,8 @@ class SpeciesLightSerializer < BaseSerializer
   def links
     {
       self: url_helpers.api_v1_species_path(object),
-      plant: url_helpers.api_v1_plant_path(object&.plant&.slug),
-      genus: url_helpers.api_v1_genus_path(object&.genus&.slug)
+      plant: url_helpers.api_v1_plant_path(object&.plant&.slug || 'unknown'),
+      genus: url_helpers.api_v1_genus_path(object&.genus&.slug || 'unknown')
     }
   end
 
