@@ -64,7 +64,7 @@ class Zone < ApplicationRecord
   end
 
   def all_species
-    Species.joins(:species_distributions).where(species_distributions: {zone_id: self_and_descendents.pluck(:id)})
+    Species.joins(:species_distributions).where(species_distributions: { zone_id: self_and_descendents.pluck(:id) })
   end
 
   def descendents

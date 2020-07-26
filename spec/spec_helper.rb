@@ -50,7 +50,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
-
     # and disable callbacks
     Searchkick.disable_callbacks
   end
