@@ -63,6 +63,7 @@ class RecordCorrection < ApplicationRecord
   def accept!(user_id = nil)
     return unless pending_change_status?
     return unless record_type == 'Species'
+    return accept_check!(user_id) if warning_type.starts_with?('Checks::')
 
     if deletion_change_type?
       record.destroy!
@@ -85,6 +86,12 @@ class RecordCorrection < ApplicationRecord
         )
       end
     end
+  end
+
+  # If the correction if from a check, we delegate this to the check
+  def accept_check!(user_id = nil)
+    check = warning_type.constantize.new(record_id)
+    check.accept!(user_id)
   end
 
   # Accept without applying the changes

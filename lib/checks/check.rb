@@ -14,6 +14,37 @@ module Checks
       ).first
     end
 
+    # This is the generic acceptance
+    def accept!(user_id = nil)
+      return unless @existing_check.pending_change_status?
+      return unless @existing_check.record_type == 'Species'
+
+      if @existing_check.deletion_change_type?
+        @existing_check.record.destroy!
+        @existing_check.update(
+          accepted_by: user_id,
+          change_status: :accepted
+        )
+      else
+        correction = JSON.parse(@existing_check.correction_json)
+        i = ::Ingester::Species.new(correction, species_id: @existing_check.record_id)
+        res = i.ingest!
+        if res[:valid]
+          @existing_check.update(
+            accepted_by: user_id,
+            change_status: :accepted
+          )
+        else
+          @existing_check.update(
+            notes: [
+              @existing_check.notes,
+              "Unable to accept, #{res[:errors].join(', ')}"
+            ].compact.join("\n")
+          )
+        end
+      end
+    end
+
     def self.run(species_id)
       c = new(species_id)
       puts "[Checking #{self.class.to_s.humanize}] for [#{species_id}] Running... (Existing check is #{c.existing_check.inspect})"
