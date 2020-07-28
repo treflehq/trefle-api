@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.100Z'
+                      last_modified: '2020-07-28T11:29:45.650Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.115Z'
+                      last_modified: '2020-07-28T11:29:45.665Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.130Z'
+                      last_modified: '2020-07-28T11:29:45.678Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.165Z'
+                      last_modified: '2020-07-28T11:29:45.711Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.203Z'
+                      last_modified: '2020-07-28T11:29:45.740Z'
         '401':
           description: Invalid credentials
           content:
@@ -2172,7 +2172,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.415Z'
+                      last_modified: '2020-07-28T11:29:45.997Z'
         '401':
           description: Invalid credentials
           content:
@@ -2440,7 +2440,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-07-23T14:51:27.430Z'
+                      last_modified: '2020-07-28T11:29:46.013Z'
         '401':
           description: Invalid credentials
           content:
@@ -2567,13 +2567,13 @@ paths:
                       genus_id: 3994
                       image_url: https://bs.floristic.org/image/o/e64132b6c51836851158a8654ea310b97bfaa283
                       synonyms:
-                      - Orobus lathyroides
-                      - Lathyrus coerulescens
-                      - Lathyrus hirtus
-                      - Lathyrus cicer
-                      - Pisum hirsutum
-                      - Orobus glabratus
                       - Lastila hirsuta
+                      - Orobus glabratus
+                      - Pisum hirsutum
+                      - Lathyrus cicer
+                      - Lathyrus hirtus
+                      - Lathyrus coerulescens
+                      - Orobus lathyroides
                       genus: Lathyrus
                       family: Fabaceae
                       links:
@@ -2593,12 +2593,12 @@ paths:
                       genus_id: 5
                       image_url: https://bs.floristic.org/image/o/f3f23b3cc8cc65d9d322fc58a614786d09067cb7
                       synonyms:
-                      - Pinus novogaliciana
-                      - Pinus strobiformis subsp. carvajalii
-                      - Pinus ayacahuite var. novogaliciana
-                      - Pinus ayacahuite var. brachyptera
-                      - Pinus ayacahuite subsp. strobiformis
                       - Pinus strobiformis var. carvajalii
+                      - Pinus ayacahuite subsp. strobiformis
+                      - Pinus ayacahuite var. brachyptera
+                      - Pinus ayacahuite var. novogaliciana
+                      - Pinus strobiformis subsp. carvajalii
+                      - Pinus novogaliciana
                       genus: Pinus
                       family: Pinaceae
                       links:
@@ -2618,8 +2618,8 @@ paths:
                       genus_id: 1787
                       image_url: https://bs.floristic.org/image/o/054d9e821899477894daf9c0190f2d00bfd6104c
                       synonyms:
-                      - Carduus foliosus
                       - Cnicus foliosus
+                      - Carduus foliosus
                       genus: Cirsium
                       family: Asteraceae
                       links:
@@ -2639,8 +2639,8 @@ paths:
                       genus_id: 3743
                       image_url: http://d2seqvvyy3b8p2.cloudfront.net/913ad26d2047ce8fe35626152c1d163f.jpg
                       synonyms:
-                      - Ilex gaultheriifolia
                       - Ilex odorata var. teysmannii
+                      - Ilex gaultheriifolia
                       genus: Ilex
                       family: Aquifoliaceae
                       links:
@@ -2894,7 +2894,7 @@ paths:
                         url: https://www.gbif.org/species/3994876
                         citation: 
                     meta:
-                      last_modified: '2020-07-23T14:51:27.513Z'
+                      last_modified: '2020-07-28T11:29:46.115Z'
         '401':
           description: Invalid credentials
           content:
@@ -3046,12 +3046,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-23T14:51:31.656Z'
-                      updated_at: '2020-07-23T14:51:31.658Z'
+                      created_at: '2020-07-28T11:29:50.972Z'
+                      updated_at: '2020-07-28T11:29:50.973Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-23T14:51:31.658Z'
+                      last_modified: '2020-07-28T11:29:50.973Z'
         '401':
           description: Invalid credentials
           content:
@@ -3175,13 +3175,13 @@ paths:
                       genus_id: 3994
                       image_url: https://bs.floristic.org/image/o/e64132b6c51836851158a8654ea310b97bfaa283
                       synonyms:
-                      - Orobus lathyroides
-                      - Lathyrus coerulescens
-                      - Lathyrus hirtus
-                      - Lathyrus cicer
-                      - Pisum hirsutum
-                      - Orobus glabratus
                       - Lastila hirsuta
+                      - Orobus glabratus
+                      - Pisum hirsutum
+                      - Lathyrus cicer
+                      - Lathyrus hirtus
+                      - Lathyrus coerulescens
+                      - Orobus lathyroides
                       genus: Lathyrus
                       family: Fabaceae
                       links:
@@ -3201,8 +3201,8 @@ paths:
                       genus_id: 3743
                       image_url: http://d2seqvvyy3b8p2.cloudfront.net/913ad26d2047ce8fe35626152c1d163f.jpg
                       synonyms:
-                      - Ilex gaultheriifolia
                       - Ilex odorata var. teysmannii
+                      - Ilex gaultheriifolia
                       genus: Ilex
                       family: Aquifoliaceae
                       links:
@@ -3786,31 +3786,15 @@ paths:
                         plant: "/api/v1/plants/cirsium-foliosum"
                         genus: "/api/v1/genus/cirsium"
                       synonyms:
-                      - id: 58996
-                        name: Carduus foliosus
-                        author: Hook.
-                        sources: []
                       - id: 159582
                         name: Cnicus foliosus
                         author: A.Gray
                         sources: []
+                      - id: 58996
+                        name: Carduus foliosus
+                        author: Hook.
+                        sources: []
                       sources:
-                      - last_update: '2020-06-21T20:16:01.000Z'
-                        id: CIFO
-                        name: USDA
-                        url: https://plants.usda.gov/core/profile?symbol=CIFO
-                        citation: https://plants.sc.egov.usda.gov/core/profile?symbol=CIFO
-                      - last_update: '2020-06-16T21:04:36.000Z'
-                        id: Cirsium foliosum (Hook.) DC.
-                        name: PlantNet
-                        url: https://identify.plantnet.org/species/the-plant-list/Cirsium
-                          foliosum (Hook.) DC.
-                        citation: 
-                      - last_update: '2020-06-16T21:04:36.000Z'
-                        id: '3112957'
-                        name: GBIF
-                        url: https://www.gbif.org/species/3112957
-                        citation: 
                       - last_update: '2020-06-17T02:57:57.000Z'
                         id: urn:lsid:ipni.org:names:195361-1
                         name: POWO
@@ -3818,11 +3802,27 @@ paths:
                         citation: POWO (2019). Plants of the World Online. Facilitated
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-17
+                      - last_update: '2020-06-16T21:04:36.000Z'
+                        id: '3112957'
+                        name: GBIF
+                        url: https://www.gbif.org/species/3112957
+                        citation: 
+                      - last_update: '2020-06-16T21:04:36.000Z'
+                        id: Cirsium foliosum (Hook.) DC.
+                        name: PlantNet
+                        url: https://identify.plantnet.org/species/the-plant-list/Cirsium
+                          foliosum (Hook.) DC.
+                        citation: 
+                      - last_update: '2020-06-21T20:16:01.000Z'
+                        id: CIFO
+                        name: USDA
+                        url: https://plants.usda.gov/core/profile?symbol=CIFO
+                        citation: https://plants.sc.egov.usda.gov/core/profile?symbol=CIFO
                     meta:
                       images_count: 13
                       sources_count: 4
                       synonyms_count: 2
-                      last_modified: '2020-07-23T14:51:27.669Z'
+                      last_modified: '2020-07-28T11:29:46.279Z'
         '401':
           description: Invalid credentials
           content:
@@ -3974,12 +3974,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-07-23T14:51:31.925Z'
-                      updated_at: '2020-07-23T14:51:31.927Z'
+                      created_at: '2020-07-28T11:29:51.242Z'
+                      updated_at: '2020-07-28T11:29:51.244Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-07-23T14:51:31.927Z'
+                      last_modified: '2020-07-28T11:29:51.244Z'
         '401':
           description: Invalid credentials
           content:
@@ -4560,14 +4560,14 @@ paths:
                       parent:
                         id: 220
                         name: Samoa
-                        slug: samoa-d871240e-e4f4-420a-b8ff-dc0b483bf5af
+                        slug: samoa-b076ff0b-223c-4c11-9f1f-cd71836db14f
                         tdwg_code: SAM
                         tdwg_level: 3
                         species_count: 0
                         links:
-                          self: "/api/v1/distributions/samoa-d871240e-e4f4-420a-b8ff-dc0b483bf5af"
-                          plants: "/api/v1/distributions/samoa-d871240e-e4f4-420a-b8ff-dc0b483bf5af/plants"
-                          species: "/api/v1/distributions/samoa-d871240e-e4f4-420a-b8ff-dc0b483bf5af/species"
+                          self: "/api/v1/distributions/samoa-b076ff0b-223c-4c11-9f1f-cd71836db14f"
+                          plants: "/api/v1/distributions/samoa-b076ff0b-223c-4c11-9f1f-cd71836db14f/plants"
+                          species: "/api/v1/distributions/samoa-b076ff0b-223c-4c11-9f1f-cd71836db14f/species"
                       children: []
                     - id: 355
                       name: Amsterdam-St.Paul Is
@@ -4705,7 +4705,7 @@ paths:
                           plants: "/api/v1/distributions/mpumalanga/plants"
                           species: "/api/v1/distributions/mpumalanga/species"
                     meta:
-                      last_modified: '2020-07-23T14:51:25.577Z'
+                      last_modified: '2020-07-28T11:29:42.951Z'
         '401':
           description: Invalid credentials
           content:
@@ -4752,8 +4752,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTI0IDE2OjUxOjMyICswMjAwIiwiZXhwIjoxNTk1NjAyMjkyfQ.QwFbuu2Jp2MBTwuSlNZ1Ge1BhTo2CXEXTWq2AgTwsB4
-                    expiration: 07-24-2020 16:51
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA3LTI5IDEzOjI5OjUxICswMjAwIiwiZXhwIjoxNTk2MDIyMTkxfQ.yDPsWAtUGrpa8lPQDje6M0RWaE2y26HNHRmLvo4aaas
+                    expiration: 07-29-2020 13:29
         '401':
           description: Invalid credentials
           content:
@@ -4848,8 +4848,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-07-23T14:51:32.172Z'
-                      updated_at: '2020-07-23T14:51:32.172Z'
+                      created_at: '2020-07-28T11:29:51.491Z'
+                      updated_at: '2020-07-28T11:29:51.491Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -4861,8 +4861,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-23T14:51:32.164Z'
-                      updated_at: '2020-07-23T14:51:32.164Z'
+                      created_at: '2020-07-28T11:29:51.483Z'
+                      updated_at: '2020-07-28T11:29:51.483Z'
                       correction:
                         scientific_name: Cirsium foliosum
                         maximum_height_value: 60
@@ -4927,15 +4927,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-07-23T14:51:32.231Z'
-                      updated_at: '2020-07-23T14:51:32.231Z'
+                      created_at: '2020-07-28T11:29:51.554Z'
+                      updated_at: '2020-07-28T11:29:51.554Z'
                       correction:
                         scientific_name: Cirsium foliosum
                         maximum_height_value: 60
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-07-23T14:51:32.231Z'
+                      last_modified: '2020-07-28T11:29:51.554Z'
         '401':
           description: Invalid credentials
           content:
@@ -4991,8 +4991,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-07-23T14:51:32.411Z'
-                      updated_at: '2020-07-23T14:51:32.411Z'
+                      created_at: '2020-07-28T11:29:51.733Z'
+                      updated_at: '2020-07-28T11:29:51.733Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5002,7 +5002,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-07-23T14:51:32.411Z'
+                      last_modified: '2020-07-28T11:29:51.733Z'
         '422':
           description: Invalid parameters
           content:
@@ -6875,6 +6875,8 @@ components:
         growth_habit:
           type: string
         growth_rate:
+          type: string
+        genus_name:
           type: string
         images_count:
           type: string

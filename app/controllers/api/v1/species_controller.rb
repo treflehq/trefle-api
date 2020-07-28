@@ -53,6 +53,7 @@ class Api::V1::SpeciesController < Api::ApiController
     growth_form
     growth_habit
     growth_rate
+    genus_name
     images_count
     leaf_retention
     lifespan
