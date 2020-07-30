@@ -66,6 +66,7 @@ gem 'pghero'
 gem 'rack-attack', '~> 6.2.2'
 gem 'sentry-raven'
 gem 'skylight'
+gem 'appsignal'
 
 # Sidekiq
 gem 'redis', '~> 4.1.4'
