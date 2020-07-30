@@ -27,11 +27,6 @@ module JsonApiHelper
   end
 
   def self.save_example(example, response)
-    # puts "\nSaving example into:"
-    # pp example.metadata
-    # puts "\n\n"
-    # pp JSON.parse(response.body, symbolize_names: true)
-    # puts "\n=========================================\n"
     example.metadata[:response][:examples] ||= {}
     example.metadata[:response][:examples][example.metadata[:description].parameterize] = {}
     example.metadata[:response][:examples][example.metadata[:description].parameterize][:value] = JSON.parse(response.body, symbolize_names: true)

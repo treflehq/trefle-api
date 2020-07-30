@@ -173,20 +173,6 @@
 #  species_plant_id_fkey  (plant_id => plants.id)
 #
 class Species < ApplicationRecord
-  searchkick(
-    word_start: %w[
-      scientific_name
-      common_name
-      common_name_tokens
-      synonyms_tokens
-      author
-      genus
-      family
-      family_common_name
-    ],
-    case_sensitive: false,
-    callbacks: :queue
-  )
 
   extend Pagy::Search
   include ActiveModel::Validations
@@ -222,6 +208,9 @@ class Species < ApplicationRecord
   include Rangeable
 
   include Scopes::Species
+  
+  # Elasticsearch search
+  include Search::Species
 
   belongs_to :plant, optional: true
   belongs_to :genus
@@ -372,14 +361,6 @@ class Species < ApplicationRecord
     return unless main_species.nil? || main_species.id == id
 
     plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
-  end
-
-  def common_name_tokens
-    common_names.where(lang: 'en').pluck(:name)
-  end
-
-  def synonyms_tokens
-    synonyms.pluck(:name).uniq
   end
 
   def complete_cache_fields

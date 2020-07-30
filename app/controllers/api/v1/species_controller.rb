@@ -221,10 +221,10 @@ class Api::V1::SpeciesController < Api::ApiController
       range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS
     )
     options = {
-      where: { main_species_id: nil }.merge(search_params[:where]),
+      where: search_params[:where],
       includes: %i[synonyms genus plant],
       boost_by: [:gbif_score],
-      fields: ['common_name^10', 'scientific_name^5', 'author', 'genus', 'family', 'family_common_name'],
+      fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions'],
       order: search_params[:order]
     }.compact
 
