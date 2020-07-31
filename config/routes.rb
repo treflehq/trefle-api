@@ -57,6 +57,11 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     match '*all', controller: 'api', action: 'cors_preflight_check', via: [:options]
   end
 
+  namespace 'explore' do
+    get '/', to: 'species#index'
+    resources :species
+  end
+
   namespace 'management' do
     authenticate :user, ->(user) { user.admin? } do
       mount PgHero::Engine, at: 'pghero'
@@ -94,10 +99,6 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     resources :divisions
     resources :division_orders
     resources :division_classes
-    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
-
-  # mount Rswag::Ui::Engine => '/swagger'
-  # mount Rswag::Api::Engine => '/swagger'
 
 end

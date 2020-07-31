@@ -1,0 +1,30 @@
+
+.species-grid-item {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+
+  aside {
+    min-width: 100px;
+    min-height: 150px;
+    height: 100%;
+    display: flex;
+    background-color: #ccc;
+    margin: 10px 0;
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  main {
+    h2 {
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+
+    p {
+      color: #6f6f6f
+    }
+  }
+}
