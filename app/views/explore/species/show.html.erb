@@ -1,0 +1,77 @@
+<div class="species-page home-page container">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="#"><%= @species.family_name %></a></li>
+      <li><a href="#"><%= @species.genus_name %></a></li>
+      <li class="is-active"><a href="#" aria-current="page"><%= @species.scientific_name %></a></li>
+    </ul>
+  </nav>
+
+  <div class="columns">
+    <div class="column is-4">
+      <aside class="species-side-image" style="background-image: url(<%= @species.main_image_url %>)"></aside>
+    </div>
+    <div class="column is-8">
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-1">
+              <%= @species.scientific_name %>
+            </h1>
+            <h2 class="subtitle">
+              <%= @species.common_name || 'No common name' %>
+            </h2>
+            <p class="subtitle">
+              <i class="fad fa-book has-text-success"></i> <%= @species.author || 'No author' %> <%= @species.year || 'No year' %> - <i><%= @species.bibliography || 'No bibliography' %></i>
+              <br />
+              <%= @species.observations %>
+            </h2>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <div class="columns">
+    <div class="column is-2">
+      <br>
+      <br>
+      <aside class="menu">
+        <ul class="menu-list">
+          <li><a href="#specifications">Specifications</a></li>
+          <li><a href="#synonyms">Synonyms</a></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-10">
+
+      <section class="section content" id="specifications">
+        <h1 class="title is-4 ">
+          <i class="fad fa-cog has-text-success"></i> Specifications
+        </h1>
+
+      </section>
+
+      <section class="section content logo-section" id="synonyms">
+        <h1 class="title is-4 ">
+          <i class="fad fa-clone has-text-success"></i> Synonyms
+        </h1>
+        <% if @species.synonyms.any? %>
+          <div class="columns is-multiline">
+            <% @species.synonyms.each do |s| %>
+              <div class="synonym-item column is-4">
+                <h3 class="title is-5"><%= s.name %></h1>
+                <p><%= s.author %></p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>No known synonyms</p>
+        <% end %>
+
+      </section>
+
+    </div>
+  </div>
+</div>

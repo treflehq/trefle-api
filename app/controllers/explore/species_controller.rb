@@ -27,7 +27,9 @@ class Explore::SpeciesController < Explore::ExploreController
 
   # GET /species/1
   # GET /species/1.json
-  def show; end
+  def show
+    
+  end
 
   # # GET /species/new
   # def new

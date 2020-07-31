@@ -28,3 +28,23 @@
     }
   }
 }
+
+.species-page {
+
+  &.home-page .hero {
+    margin: 0em auto;
+  }
+
+  .species-side-image {
+    // min-width: 100px;
+    min-height: 300px;
+    height: 100%;
+    display: flex;
+    background-color: #ccc;
+    margin: 10px 0;
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
