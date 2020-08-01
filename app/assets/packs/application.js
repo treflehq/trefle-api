@@ -24,6 +24,7 @@ require('@fortawesome/fontawesome-pro/js/all.js');
 import "./home/admin.js";
 import "./home/home.js";
 import "./home/codesandbox.js";
+import "./explore/SpeciesPage";
 
 document.addEventListener('DOMContentLoaded', () => {
 

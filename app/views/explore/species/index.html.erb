@@ -1,4 +1,4 @@
-<div class="about-page home-page container is-fluid">
+<div class="about-page home-page container">
   <div class="columns">
     <div class="column is-2"></div>
     <div class="column is-8">
@@ -25,22 +25,23 @@
       </section>
     </div>
   </div>
+
+  <% if @collection %>
+    <div class="columns is-multiline">
+
+      <% @collection.each do |species| %>
+        <div class="column is-3">
+          <%= render partial: 'explore/species/species_item', locals: {species: species} %>
+        </div>
+      <% end %>
+    </div>
+    <div class="container">
+      <%== pagy_bulma_nav(@pagy) %>
+      <%== pagy_info(@pagy) %>
+    </div>
+  <% end %>
+
 </div>
-
-<% if @collection %>
-  <div class="columns is-multiline">
-
-    <% @collection.each do |species| %>
-      <div class="column is-3">
-        <%= render partial: 'explore/species/species_item', locals: {species: species} %>
-      </div>
-    <% end %>
-  </div>
-  <div class="container">
-    <%== pagy_bulma_nav(@pagy) %>
-    <%== pagy_info(@pagy) %>
-  </div>
-<% end %>
 
 <script>
   var temp_token = "<%= @jwt.token %>";
