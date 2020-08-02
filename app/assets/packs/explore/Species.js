@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
+import ReactIntense from 'react-intense'
 
 const Species = ({ species }) => {
 
@@ -31,12 +32,13 @@ const Species = ({ species }) => {
             return null
           }
           return (<div key={itype}>
+            <br />
             <h2 className="title is-5 ">
               {capitalize(itype)}
             </h2>
             <div className="columns is-multiline">
-              {images.map(i => <div key={i.id} className="column is-3">
-                <img src={i.image_url} />
+              {images.map(i => <div key={i.id} className="column is-2">
+                <ReactIntense src={i.image_url} vertical={false} moveSpeed={0} caption={i.copyright}/>
               </div>)}
             </div>
           </div>)
@@ -55,9 +57,9 @@ const Species = ({ species }) => {
           if (zones.length == 0) {
             return null
           }
-          return (<div key={itype}>
-            <p><b>{capitalize(itype)}</b>: { zones.join(', ') }</p>
-          </div>)
+          return (<p key={itype}>
+            <b>{capitalize(itype)}</b>: { zones.join(', ') }
+          </p>)
         })}
       </section>)
   }
@@ -109,7 +111,7 @@ const Species = ({ species }) => {
         <br />
         <br />
         <aside className="menu">
-          <ul className="menu-list">
+          <ul className="menu-list sticky-menu">
             <li><a href="#specifications">Specifications</a></li>
             <li><a href="#images">Images</a></li>
             <li><a href="#distribution">Distribution</a></li>
@@ -119,8 +121,11 @@ const Species = ({ species }) => {
       </div>
       <div className="column is-10">
         { renderSpecifications() }
+        <hr />
         { renderImages() }
+        <hr />
         { renderDistributions() }
+        <hr />
         { renderSynonyms() }
       </div>
     </div>

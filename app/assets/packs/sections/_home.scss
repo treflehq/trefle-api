@@ -1,6 +1,45 @@
 
 @import "variables";
 
+.content figure.ri-container {
+  margin: auto;
+}
+.content figure.ri-container img {
+  // display: block;
+}
+.content figure.ri-container figcaption{
+  font-style: normal;
+}
+.content figure.ri-container figcaption h2 {
+  margin: 0px;
+  padding: 0px;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.1px;
+  max-width: 500px;
+  text-align: left;
+  background: none;
+  margin-top: 5px;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+}
+.content figure.ri-container figcaption h1 {
+
+  margin: 0px;
+  padding: 0px;
+  font-weight: normal;
+  font-size: 40px;
+  letter-spacing: 0.5px;
+  line-height: 35px;
+  text-align: left;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+}
+.column.is-2 .ri-trigger {
+    width: 150px;
+    height: 150px;
+}
+
 .alpha-badge {
   position: relative;
   font-size: .7rem;
@@ -156,6 +195,8 @@ a.navbar-item.aligned-item {
   font-family: $family-monospace;
 
   .section.content {
+    border-left: 2px solid transparent;
+    
     &:active,
     &:target {
       border-left: 2px solid $green;
