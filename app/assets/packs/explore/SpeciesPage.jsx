@@ -28,6 +28,7 @@ const SpeciesPage = ({ slug }) => {
 document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelectorAll("#explore-species-page").length > 0) {
     const domContainer = document.querySelector('#explore-species-page');
-    ReactDOM.render(React.createElement(SpeciesPage, { slug: 'quercus-rotundifolia' }), domContainer);
+    const slug = document.location.pathname.split('/').slice(-1)
+    ReactDOM.render(React.createElement(SpeciesPage, { slug: slug[0] }), domContainer);
   }
 })
