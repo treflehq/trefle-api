@@ -1,3 +1,4 @@
+@import "variables";
 
 .species-grid-item {
   display: flex;
@@ -57,5 +58,94 @@
   aside.menu {
     position: sticky;
     top: 20px;
+  }
+
+  .fieldItem + .fieldItem {
+    // padding-left: .5em;
+  }
+
+  .suptitle {
+    margin-bottom: 1em;
+  }
+
+  .unknownItem {
+    border-bottom: 1px dashed #FF4136;
+    opacity: .7;
+    cursor: help;
+  }
+
+  .CalendarItem {
+
+    td {
+      padding: 0;
+    }
+    
+    td:first-child {
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .row-growth .is-active {
+      background-color: #39CCCC;
+    }
+    
+    .row-bloom .is-active {
+      background-color: $primary;
+    }
+    
+    .row-fruit .is-active {
+      background-color: #85144B;
+    }
+
+    .is-active {
+      width: 100%;
+      height: 5px;
+      vertical-align: middle;
+      padding: 5px 0;
+      margin: 12px 0;
+
+      &.is-first {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+
+      &.is-last {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+  }
+
+  .colorBadgeItem {
+
+    .colorBadge {
+      // height: 14px;
+      // width: 14px;
+      // border-radius: 16px;
+      border-bottom: 3px solid currentColor;
+      // background-color: currentColor;
+      // text-decoration: underline;
+      // text-decoration-color: currentColor;
+      display: inline-block;
+      margin: 0px 0px -3px 0px;
+    }
+
+    .navy { border-color: #001F3F; }
+    .blue { border-color: #0074D9; }
+    .aqua { border-color: #7FDBFF; }
+    .teal { border-color: #39CCCC; }
+    .olive { border-color: #3D9970; }
+    .green { border-color: #2ECC40; }
+    .lime { border-color: #01FF70; }
+    .yellow { border-color: #FFDC00; }
+    .orange { border-color: #FF851B; }
+    .red { border-color: #FF4136; }
+    .fuchsia { border-color: #F012BE; }
+    .purple { border-color: #B10DC9; }
+    .maroon { border-color: #85144B; }
+    .white { border-color: #FFFFFF; }
+    .silver { border-color: #DDDDDD; }
+    .gray { border-color: #AAAAAA; }
+    .black { border-color: #111111; }
   }
 }

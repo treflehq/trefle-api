@@ -5,19 +5,81 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import ReactIntense from 'react-intense'
+import Field from './Field'
+import ColorBadge from './ColorBadge'
+import Calendar from './Calendar';
+import UnknownItem from './Unknown';
 
 const Species = ({ species }) => {
 
 
   const renderSpecifications = () => {
 
+    const { duration, specifications, flower, foliage, fruit_or_seed } = species
+    
+    // const { color } = flower
+    // const { color } = foliage
+    // const { color } = fruit_or_seed
+
+    const {
+      growth_habit, average_height, maximum_height
+    } = specifications
+
+    const flowerFields = [
+      renderColor('flower_color', flower.color)
+    ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
+
+    const foliageFields = [
+      foliage.leaf_retention == null ? <UnknownItem key="leaf_retention" name="leaf_retention" /> : (foliage.leaf_retention ? 'persistent during winter' : 'not persistent'),
+      foliage.texture == null ? <UnknownItem key="foliage_texture" name="foliage_texture" /> : foliage.texture,
+      renderColor('foliage_color', foliage.color)
+    ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
+
+    const fruitFields = [
+      fruit_or_seed.conspicuous == null ? <UnknownItem key="1" name="fruit_conspicuous" /> : (fruit_or_seed.conspicuous ? 'visible' : 'not visible'),
+      renderColor('fruit_color', fruit_or_seed.color)
+    ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
+
     return (
       <section className="section content" id="specifications">
         <h1 className="title is-4 ">
           <i className="fad fa-cog has-text-success"></i> Specifications
-          </h1>
+        </h1>
+        <div className="columns">
+          <div className="column is-6">
+            <p><b><i className="fad fa-ruler-vertical" /> Height</b>:{' '}
+              <Field value={average_height.cm} name={'average_height_cm'}>{average_height.cm} cm</Field>
+            </p>
+            <p><b>Growth habit</b>: <Field value={growth_habit} name={'growth_habit'} /></p>
+            <p><b>Duration</b>: <Field value={duration} name={'duration'}>{duration && duration.join(' or ')}</Field></p>
+          </div>
+          <div className="column is-6">
+            <p><i className="fad fa-flower" />{' '}{flowerFields}{' flowers'}</p>
+            <p><i className="fad fa-leaf-maple"/>{' '}{foliageFields}{' foliage'}</p>
+            <p><i className="fad fa-lemon" />{' '}{fruitFields}{' fruits'}</p>
+          </div>
+        </div>
       </section>
     )
+  }
+
+  const renderColor = (name, value) => {
+    if (value) {
+      return value.map(e => <Field key={e} value={e} Component={ColorBadge} name={name} />).reduce((prev, curr) => [prev, ' and ', curr])
+    } else {
+      return <UnknownItem key={name} name={name} />
+    }
+  }
+
+  const renderGrowing = () => {
+    const { growth } = species
+
+    return (<section className="section content" id="growth">
+      <h1 className="title is-4 ">
+        <i className="fad fa-seedling has-text-success"></i> Growing
+      </h1>
+      <Calendar bloom={growth.bloom_months} growth={growth.growth_months} fruit={growth.fruit_months} />
+    </section>)
   }
 
   const renderImages = () => {
@@ -26,7 +88,7 @@ const Species = ({ species }) => {
       <section className="section content" id="images">
         <h1 className="title is-4 ">
           <i className="fad fa-image has-text-success"></i> Images
-          </h1>
+        </h1>
         {map(species.images, (images, itype) => {
           if (images.length == 0) {
             return null
@@ -90,15 +152,33 @@ const Species = ({ species }) => {
         <section className="hero">
           <div className="hero-body">
             <div className="container">
+              <h2 className="suptitle">
+                <div className="field is-grouped is-grouped-multiline">
+                  <div className="control">
+
+                    <div className="tags has-addons">
+                      <span className="tag">Status</span>
+                      <span className={`tag ${species.status == 'accepted' ? 'is-primary' : ''}`}>{species.status}</span>
+                    </div>
+                  </div>
+                  <div className="control">
+                    <div className="tags has-addons">
+                      <span className="tag">Rank</span>
+                      <span className={`tag ${species.rank == 'species' ? 'is-primary' : 'is-info'}`}>{species.rank}</span>
+                    </div>
+                  </div>
+                </div>
+              </h2>
               <h1 className="title is-1">
                 { species.scientific_name }
               </h1>
               <h2 className="subtitle">
-                { species.common_name || 'No common name' }
+                { species.common_name ? capitalize(species.common_name) : 'No common name' }
               </h2>
               <p className="subtitle">
                 <i className="fad fa-book has-text-success"></i> { species.author || 'No author' } { species.year || 'No year' } - <i>{ species.bibliography || 'No bibliography' }</i>
-                <br />
+              </p>
+              <p className="subtitle">
                 { species.observations }
               </p>
             </div>
@@ -113,6 +193,7 @@ const Species = ({ species }) => {
         <aside className="menu">
           <ul className="menu-list sticky-menu">
             <li><a href="#specifications">Specifications</a></li>
+            <li><a href="#growth">Growing</a></li>
             <li><a href="#images">Images</a></li>
             <li><a href="#distribution">Distribution</a></li>
             <li><a href="#synonyms">Synonyms</a></li>
@@ -121,6 +202,7 @@ const Species = ({ species }) => {
       </div>
       <div className="column is-10">
         { renderSpecifications() }
+        { renderGrowing() }
         <hr />
         { renderImages() }
         <hr />
