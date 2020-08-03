@@ -9,6 +9,8 @@ import Field from './Field'
 import ColorBadge from './ColorBadge'
 import Calendar from './Calendar';
 import UnknownItem from './Unknown';
+import ReactMarkdown from 'react-markdown'
+import Scale from './Scale';
 
 const Species = ({ species }) => {
 
@@ -26,6 +28,7 @@ const Species = ({ species }) => {
     } = specifications
 
     const flowerFields = [
+      flower.conspicuous == null ? <UnknownItem key="1" name="flower_conspicuous" /> : (flower.conspicuous ? 'visible' : 'not visible'),
       renderColor('flower_color', flower.color)
     ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
 
@@ -78,6 +81,8 @@ const Species = ({ species }) => {
       <h1 className="title is-4 ">
         <i className="fad fa-seedling has-text-success"></i> Growing
       </h1>
+      { growth.description && <ReactMarkdown source={growth.description} /> }
+      <p><Scale label="Light" min={1} max={10} value={growth.light} /></p>
       <Calendar bloom={growth.bloom_months} growth={growth.growth_months} fruit={growth.fruit_months} />
     </section>)
   }
