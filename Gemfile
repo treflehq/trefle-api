@@ -61,12 +61,12 @@ gem 'groupdate'
 gem 'active_flag'
 
 # Monitoring
-gem 'pg_query', '>= 0.9.0'
+gem 'appsignal'
 gem 'pghero'
+gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.2.2'
 gem 'sentry-raven'
 gem 'skylight'
-gem 'appsignal'
 
 # Sidekiq
 gem 'redis', '~> 4.1.4'
@@ -93,8 +93,8 @@ gem 'meta-tags'
 gem 'sitemap_generator'
 
 # profiling
-gem "memory_profiler"
-gem "derailed_benchmarks"
+gem 'derailed_benchmarks'
+gem 'memory_profiler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

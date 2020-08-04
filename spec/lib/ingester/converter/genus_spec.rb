@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Ingester::Converter::Genus do # rubocop:todo Metrics/BlockLength
 
-  let (:genus) { Genus.all.sample }
+  let(:genus) { Genus.all.sample }
 
   it 'Can process a genus id' do
 

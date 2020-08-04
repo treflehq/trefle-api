@@ -9,8 +9,10 @@ class Explore::SpeciesController < Explore::ExploreController
   def index
     search = params[:search]
 
-
-    unless search.blank?
+    if search.blank?
+      @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(gbif_score: :desc)
+      @pagy, @collection = pagy(@collection)
+    else
       options = {
         includes: %i[synonyms genus plant],
         boost_by: [:gbif_score],
@@ -19,17 +21,12 @@ class Explore::SpeciesController < Explore::ExploreController
 
       @collection = Species.pagy_search(search, options)
       @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
-    else
-      @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(gbif_score: :desc)
-      @pagy, @collection = pagy(@collection)
     end
   end
 
   # GET /species/1
   # GET /species/1.json
-  def show
-    
-  end
+  def show; end
 
   # # GET /species/new
   # def new

@@ -1,10 +1,8 @@
-
 class Explore::ExploreController < ActionController::Base
   include Pagy::Backend
 
   layout 'application'
   before_action :generate_jwt
-
 
   def generate_jwt
     @jwt = ::Auth::JsonWebToken.new(

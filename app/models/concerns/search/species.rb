@@ -2,23 +2,23 @@ module Search
   module Species
     extend ActiveSupport::Concern
 
-    included do # rubocop:todo Metrics/BlockLength
+    included do
 
       searchkick(
-        word_start: [
-          'scientific_name',
-          'common_name',
-          'common_names',
-          'synonyms',
-          'distributions',
-          'author',
-          'genus_name',
-          'family_name',
-          'family_common_name',
+        word_start: %w[
+          scientific_name
+          common_name
+          common_names
+          synonyms
+          distributions
+          author
+          genus_name
+          family_name
+          family_common_name
         ],
         case_sensitive: false,
         callbacks: :queue,
-        index_prefix: "trefle"
+        index_prefix: 'trefle'
       )
     end
 

@@ -208,7 +208,7 @@ class Species < ApplicationRecord
   include Rangeable
 
   include Scopes::Species
-  
+
   # Elasticsearch search
   include Search::Species
 
