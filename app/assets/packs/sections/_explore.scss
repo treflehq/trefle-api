@@ -79,18 +79,29 @@
     display: flex;
     align-items: center;
     position: relative;
-    // justify-content: center;
+
+    svg.svg-inline--fa, .blanker {
+      min-width: 20px;
+    }
+
+    .scaleItemContainer {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: auto 10px;
+    }
 
     .scaleItem-step {
-      &:before {
+      // &:before {
         background-color: #eee;
-        min-height: 15px;
-        min-width: 15px;
+        min-height: 5px;
+        min-width: 10px;
+        padding: 5px 0;
         font-size: .8em;
         text-align: center;
         content: "";
         display: inline-block;
-      }
+      // }
 
       &:not(:last-child) {
         border-right: 1px solid #fff;
@@ -107,10 +118,10 @@
       }
 
       &.current {
-        &:before {
+        // &:before {
           background-color: $primary;
           color: #fff;
-        }
+        // }
       }
     }
   }

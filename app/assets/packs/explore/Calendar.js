@@ -19,10 +19,10 @@ const Calendar = ({
     </thead>
   }
 
-  const renderRows = (name, rows) => {
+  const renderRows = (name, rows, label) => {
     const newRows = months.map(m => rows.includes(m))
     return (<tr className={`row-${name}`}>
-      <td>{ name }</td>
+      <td>{ label }</td>
       {newRows.map((m, index) => {
         return (<td key={index}>
           <div className={clsx(m && 'is-active', m && !newRows[index + 1] && 'is-last', !newRows[index - 1] && m && 'is-first')}/>
@@ -35,9 +35,9 @@ const Calendar = ({
     <table>
       {renderHeaders()}
       <tbody>
-        {growth && renderRows('growth', growth)}
-        {bloom && renderRows('bloom', bloom)}
-        {fruit && renderRows('fruit', fruit)}
+        {growth && renderRows('growth', growth, 'Growing')}
+        {bloom && renderRows('bloom', bloom, 'Blooming')}
+        {fruit && renderRows('fruit', fruit, 'Fruits')}
       </tbody>
     </table>
   </div>)

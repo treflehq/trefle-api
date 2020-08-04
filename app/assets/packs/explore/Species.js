@@ -10,7 +10,15 @@ import ColorBadge from './ColorBadge'
 import Calendar from './Calendar';
 import UnknownItem from './Unknown';
 import ReactMarkdown from 'react-markdown'
-import Scale from './Scale';
+import FieldLight from './FieldLight';
+import FieldAtmosphericHumidity from './FieldAtmosphericHumidity';
+import FieldPh from './FieldPh';
+import FieldPrecipitations from './FieldPrecipitations';
+import FieldSoilHumidity from './FieldSoilHumidity';
+import FieldSoilNutriments from './FieldSoilNutriments';
+import FieldSoilSalinity from './FieldSoilSalinity';
+import FieldSoilTexture from './FieldSoilTexture';
+import FieldTemperature from './FieldTemperature';
 
 const Species = ({ species }) => {
 
@@ -45,9 +53,9 @@ const Species = ({ species }) => {
 
     return (
       <section className="section content" id="specifications">
-        <h1 className="title is-4 ">
+        <h2 className="title is-3 ">
           <i className="fad fa-cog has-text-success"></i> Specifications
-        </h1>
+        </h2>
         <div className="columns">
           <div className="column is-6">
             <p><b><i className="fad fa-ruler-vertical" /> Height</b>:{' '}
@@ -78,11 +86,29 @@ const Species = ({ species }) => {
     const { growth } = species
 
     return (<section className="section content" id="growth">
-      <h1 className="title is-4 ">
+      <h2 className="title is-3 ">
         <i className="fad fa-seedling has-text-success"></i> Growing
-      </h1>
+      </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
-      <p><Scale label="Light" min={1} max={10} value={growth.light} /></p>
+      <FieldLight value={growth.light} />
+      <FieldAtmosphericHumidity value={growth.atmospheric_humidity} />
+      <FieldPh min={growth.ph_minimum} max={growth.ph_maximum} />
+      <FieldPrecipitations min={growth.minimum_precipitation && growth.minimum_precipitation.mm} max={growth.maximum_precipitation && growth.maximum_precipitation.mm} />
+      <FieldTemperature min={growth.minimum_temperature && growth.minimum_temperature.deg_c} max={growth.maximum_temperature && growth.maximum_temperature.deg_c} />
+
+      <br />
+      <h4 className="title is-5 ">
+        Soil
+      </h4>
+      <FieldSoilHumidity value={growth.soil_humidity} />
+      <FieldSoilNutriments value={growth.soil_nutriments} />
+      <FieldSoilSalinity value={growth.soil_salinity} />
+      <FieldSoilTexture value={growth.soil_texture} />
+
+      <br />
+      <h4 className="title is-5 ">
+        Calendar
+      </h4>
       <Calendar bloom={growth.bloom_months} growth={growth.growth_months} fruit={growth.fruit_months} />
     </section>)
   }
@@ -91,18 +117,18 @@ const Species = ({ species }) => {
     
     return (
       <section className="section content" id="images">
-        <h1 className="title is-4 ">
+        <h2 className="title is-3 ">
           <i className="fad fa-image has-text-success"></i> Images
-        </h1>
+        </h2>
         {map(species.images, (images, itype) => {
           if (images.length == 0) {
             return null
           }
           return (<div key={itype}>
             <br />
-            <h2 className="title is-5 ">
+            <h4 className="title is-5 ">
               {capitalize(itype)}
-            </h2>
+            </h4>
             <div className="columns is-multiline">
               {images.map(i => <div key={i.id} className="column is-2">
                 <ReactIntense src={i.image_url} vertical={false} moveSpeed={0} caption={i.copyright}/>
@@ -117,9 +143,9 @@ const Species = ({ species }) => {
 
     return (
       <section className="section content" id="distribution">
-        <h1 className="title is-4 ">
+        <h2 className="title is-3 ">
           <i className="fad fa-map has-text-success"></i> Distributions
-          </h1>
+          </h2>
         {map(species.distribution, (zones, itype) => {
           if (zones.length == 0) {
             return null
@@ -135,9 +161,9 @@ const Species = ({ species }) => {
 
     return (
       <section className="section content" id="synonyms">
-        <h1 className="title is-4 ">
+        <h2 className="title is-3 ">
           <i className="fad fa-clone has-text-success"></i> Synonyms
-          </h1>
+          </h2>
         {species.synonyms.map(syn => {
           return (<div key={syn.id}>
             <p>
