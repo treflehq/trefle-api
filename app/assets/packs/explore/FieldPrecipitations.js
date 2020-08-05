@@ -2,9 +2,18 @@
 import React from 'react'
 import { range } from 'lodash'
 import clsx from 'clsx'
-import Scale from './Scale'
+import UnknownItem from './Unknown'
 
 const FieldPrecipitations = ({min, max}) => {
+  
+  if (!min || !max) {
+    return <p>
+      <b>Precipitations:</b>{' Best between '}
+      <UnknownItem value={min} name={'minimum_precipitation_mm'} />
+      {' '}and{' '}
+      <UnknownItem value={max} name={'maximum_precipitation_mm'} />
+    </p>
+  }
 
   return (
     <div className="columns">
@@ -12,7 +21,7 @@ const FieldPrecipitations = ({min, max}) => {
         <p>
           <b>Precipitations:</b>
           {' '}
-          <mark>TODO</mark>
+          Best between <b>{min}</b>mm and <b>{max}</b>mm per year
         </p>
       </div>
       <div className="column is-3">

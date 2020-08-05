@@ -18,7 +18,7 @@ const Scale = ({
   return (<span className="scaleItem">
     {leftIcon && <i className={clsx('fad', `fa-${leftIcon}`)} /> || <span className="blanker" /> }
     <span className="scaleItemContainer">
-      {values.map(v => <span className={clsx('scaleItem-step', v == value && 'current')}>
+      {values.map(v => <span key={v} className={clsx('scaleItem-step', v == value && 'current')}>
       </span>)}
     </span>
     {rightIcon && <i className={clsx('fad', `fa-${rightIcon}`)} />}
