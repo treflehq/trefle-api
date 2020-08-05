@@ -3,6 +3,7 @@ class Explore::ExploreController < ActionController::Base
 
   layout 'application'
   before_action :generate_jwt
+  before_action :set_meta
 
   def generate_jwt
     @jwt = ::Auth::JsonWebToken.new(
@@ -11,6 +12,13 @@ class Explore::ExploreController < ActionController::Base
       expire: 10.minutes
       # ip: request.headers['X-Forwarded-For']
     )
+  end
+
+  def set_meta
+    set_meta_tags open_search: {
+      title: "Open Search",
+      href:  "/opensearch.xml"
+    }
   end
 
 end

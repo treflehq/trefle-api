@@ -8,6 +8,8 @@ class Explore::SpeciesController < Explore::ExploreController
   # GET /species.json
   def index
     search = params[:search]
+    @page_title       = 'Explore plants and species'
+    @page_keywords    = 'explore, plants, search, species'
 
     if search.blank?
       @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(gbif_score: :desc)
@@ -26,7 +28,21 @@ class Explore::SpeciesController < Explore::ExploreController
 
   # GET /species/1
   # GET /species/1.json
-  def show; end
+  def show
+    ptitle = @species.scientific_name
+    ptitle = "#{ptitle} (#{@species.common_name})" if @species.common_name
+    @page_title       = ptitle
+    @page_description = "#{@species.scientific_name} is an #{@species.status} #{@species.rank} of the #{@species.family_name} family"
+    @page_keywords    = [@species.scientific_name, @species.common_name, @species.family_name, @species.family_common_name, 'plant', 'explore'].compact.join(', ')
+
+    set_meta_tags(
+      image_src: @species.main_image_url,
+      og: {
+        title:    @species.scientific_name,
+        image:    @species.main_image_url,
+      }
+    )
+  end
 
   # # GET /species/new
   # def new

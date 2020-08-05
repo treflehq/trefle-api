@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>Trefle</ShortName>
+  <Description>Search for a plant trough the Trefle API</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+
+  <Image width="16" height="16">https://trefle.io/favicon-16x16.png</Image>
+  
+  <Url type="text/html" template="https://trefle.io/explore?search={searchTerms}" />
+  <Tags>Search, species, plants</Tags>
+  <moz:SearchForm>https://trefle.io/explore</moz:SearchForm>
+
+</OpenSearchDescription>
