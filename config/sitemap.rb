@@ -24,8 +24,8 @@ SitemapGenerator::Sitemap.create(compress: false) do
   add new_user_registration_path, priority: 0.3, changefreq: 'weekly'
 
 
-  Plant.order(completion_ratio: :desc).limit(50000).each do |plant|
-    add explore_species_path(plant.main_species), :lastmod => plant.updated_at if plant.main_species
+  Plant.order(completion_ratio: :desc).limit(50_000).each do |plant|
+    add explore_species_path(plant.main_species), lastmod: plant.updated_at if plant.main_species
   end
   #
   # Add all articles:
