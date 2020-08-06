@@ -2,9 +2,18 @@
 import React from 'react'
 import { range } from 'lodash'
 import clsx from 'clsx'
-import Scale from './Scale'
+import UnknownItem from './Unknown'
 
 const FieldPh = ({min, max}) => {
+
+  if (!min || !max) {
+    return <p>
+      <b>Ph:</b>{' Best between '}
+      <UnknownItem value={min} name={'ph_minimum'} />
+      {' '}and{' '}
+      <UnknownItem value={max} name={'ph_maximum'} />
+    </p>
+  }
 
   return (
     <div className="columns">

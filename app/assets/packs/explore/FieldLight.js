@@ -3,10 +3,17 @@ import React from 'react'
 import { range } from 'lodash'
 import clsx from 'clsx'
 import Scale from './Scale'
+import UnknownItem from './Unknown'
 
 const FieldLight = ({
   value
 }) => {
+
+  if (value === null || value === undefined) {
+    return <p>
+      <b>Light:</b>{' '}<UnknownItem value={value} name={'light'} />
+    </p>
+  }
 
   const legend = {
     0: 'Dark night (< 1 lux)',
