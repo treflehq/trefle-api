@@ -1,8 +1,6 @@
 
 import React from 'react'
-import { range } from 'lodash'
-import clsx from 'clsx'
-import Scale from './Scale'
+import Scale from '../elements/Scale'
 import UnknownItem from './Unknown'
 
 const FieldSoilNutriments = ({ value }) => {

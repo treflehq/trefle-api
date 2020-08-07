@@ -1,36 +1,30 @@
 
-import { map, capitalize } from 'lodash';
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import { useEffect } from 'react';
+import { map, capitalize, keys } from 'lodash';
+import React, { useContext } from 'react'
 import ReactIntense from 'react-intense'
-import Field from './Field'
-import ColorBadge from './ColorBadge'
-import Calendar from './Calendar';
-import UnknownItem from './Unknown';
+import Field from './fields/Field'
+import ColorBadge from './elements/ColorBadge'
+import Calendar from './elements/Calendar';
+import UnknownItem from './fields/Unknown';
 import ReactMarkdown from 'react-markdown'
-import FieldLight from './FieldLight';
-import FieldAtmosphericHumidity from './FieldAtmosphericHumidity';
-import FieldPh from './FieldPh';
-import FieldPrecipitations from './FieldPrecipitations';
-import FieldSoilHumidity from './FieldSoilHumidity';
-import FieldSoilNutriments from './FieldSoilNutriments';
-import FieldSoilSalinity from './FieldSoilSalinity';
-import FieldSoilTexture from './FieldSoilTexture';
-import FieldTemperature from './FieldTemperature';
+import FieldLight from './fields/FieldLight';
+import FieldAtmosphericHumidity from './fields/FieldAtmosphericHumidity';
+import FieldPh from './fields/FieldPh';
+import FieldPrecipitations from './fields/FieldPrecipitations';
+import FieldSoilHumidity from './fields/FieldSoilHumidity';
+import FieldSoilNutriments from './fields/FieldSoilNutriments';
+import FieldSoilSalinity from './fields/FieldSoilSalinity';
+import FieldSoilTexture from './fields/FieldSoilTexture';
+import FieldTemperature from './fields/FieldTemperature';
 import CorrectionContext from './CorrectionContext';
 
 const Species = ({ species }) => {
+  const { toggleEdit, correction } = useContext(CorrectionContext)
 
 
   const renderSpecifications = () => {
 
     const { duration, specifications, flower, foliage, fruit_or_seed } = species
-    
-    // const { color } = flower
-    // const { color } = foliage
-    // const { color } = fruit_or_seed
 
     const {
       growth_habit, average_height, maximum_height
@@ -230,6 +224,14 @@ const Species = ({ species }) => {
             <li><a href="#distribution">Distribution</a></li>
             <li><a href="#synonyms">Synonyms</a></li>
           </ul>
+
+          {keys(correction).length > 0 && <>
+            <hr/>
+            <div className="changes-panel">
+              {keys(correction).length} changes
+              <button className="button is-primary" onClick={toggleEdit}>Propose changes</button>
+            </div>
+          </>}
         </aside>
       </div>
       <div className="column is-10">

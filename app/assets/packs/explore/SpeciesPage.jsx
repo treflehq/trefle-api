@@ -16,7 +16,7 @@ const SpeciesPage = ({ slug }) => {
   }
 
   const setField = (field, value) => {
-    setCorrection({correction, [field]: value})
+    setCorrection({...correction, [field]: value})
   }
 
   useEffect(() => {

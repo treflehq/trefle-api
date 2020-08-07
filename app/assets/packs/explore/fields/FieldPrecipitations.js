@@ -1,7 +1,5 @@
 
 import React from 'react'
-import { range } from 'lodash'
-import clsx from 'clsx'
 import UnknownItem from './Unknown'
 
 const FieldPrecipitations = ({min, max}) => {
