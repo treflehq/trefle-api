@@ -57,7 +57,7 @@ RSpec.shared_examples 'a filterable_not collection' do |klass, filters_not|
       get :index, params: params.merge(filter_not: { filter => nil })
       # puts assigns(:collection).to_sql
       expect(assigns(:collection).to_sql).to match(filter)
-      expect(assigns(:collection).to_sql).to match(/NOT/)
+      expect(assigns(:collection).to_sql).to match(/IS NULL/)
     end
   end
 end
