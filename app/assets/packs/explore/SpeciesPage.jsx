@@ -4,20 +4,39 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Species from './Species';
 import { useEffect } from 'react';
+import CorrectionContext from './CorrectionContext';
 
 const SpeciesPage = ({ slug }) => {
-  const [response, setresponse] = useState({})
+  const [response, setResponse] = useState({})
+  const [correction, setCorrection] = useState({})
+  const [edit, setEdit] = useState(false)
+
+  const toggleEdit = () => {
+    setEdit(!edit)
+  }
+
+  const setField = (field, value) => {
+    setCorrection({correction, [field]: value})
+  }
 
   useEffect(() => {
     async function fetchData() {
       const r = await axios.get(`/api/v1/species/${slug}?token=${temp_token}`)
-      setresponse(r.data)
+      setResponse(r.data)
     }
-    fetchData()
+    if (slug) {
+      fetchData()
+    }
   }, [])
 
   if (response.data) {
-    return <Species species={response.data} />
+    return <>
+      <CorrectionContext.Provider value={{ correction, edit, setField, toggleEdit }}>
+        <Species
+          species={response.data}
+        />
+      </CorrectionContext.Provider>
+    </>
   } else {
     return (<div>
       <h2>Loading...</h2>
