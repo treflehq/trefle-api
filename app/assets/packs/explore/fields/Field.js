@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import UnknownItem from './Unknown'
 import CorrectionContext from '../CorrectionContext'
+import ChangeInput from '../elements/ChangeInput'
 
 const Field = ({
   value,
@@ -21,14 +22,11 @@ const Field = ({
     }
   }
   if (edit) {
-    return (<span className="fieldItem edit">
-      <input
+    return (<ChangeInput
         type="text"
-        className="input"
         onChange={(e) => setField(name, e.target.value)}
         value={`${correction[name] || ''}`}
-      />
-    </span>)
+      />)
   } else {
     return (<span className="fieldItem">
       {value ? renderValue() : <UnknownItem value={value} name={name}/> }

@@ -30,6 +30,23 @@
   }
 }
 
+.line {
+  margin-bottom: 1em;
+}
+
+.fieldItem.edit {
+  .inline-input {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 3px;
+  }
+  .inline-select {
+    display: inline-block;
+    min-width: 130px;
+    font-size: .9em;
+  }
+}
+
 .species-page {
 
   &.home-page .hero {
@@ -71,6 +88,12 @@
   .unknownItem {
     border-bottom: 1px dashed #FF4136;
     opacity: .7;
+    cursor: help;
+  }
+
+  .correctedItem {
+    border-bottom: 1px dashed #2ECC40;
+    opacity: 1;
     cursor: help;
   }
 

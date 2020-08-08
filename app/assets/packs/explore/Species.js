@@ -17,9 +17,17 @@ import FieldSoilSalinity from './fields/FieldSoilSalinity';
 import FieldSoilTexture from './fields/FieldSoilTexture';
 import FieldTemperature from './fields/FieldTemperature';
 import CorrectionContext from './CorrectionContext';
+import FieldHeightAverage from './fields/FieldHeightAverage';
+import FieldGrowthHabit from './fields/FieldGrowthHabit';
+import FieldDuration from './fields/FieldDuration';
+import FieldConspicuous from './fields/FieldConspicuous';
+import FieldColor from './fields/FieldColor';
+import FieldFoliageTexture from './fields/FieldFoliageTexture';
+import FieldLeafRetention from './fields/FieldLeafRetention';
+import clsx from 'clsx';
 
 const Species = ({ species }) => {
-  const { toggleEdit, correction } = useContext(CorrectionContext)
+  const { toggleEdit, correction, edit } = useContext(CorrectionContext)
 
 
   const renderSpecifications = () => {
@@ -31,18 +39,19 @@ const Species = ({ species }) => {
     } = specifications
 
     const flowerFields = [
-      flower.conspicuous == null ? <UnknownItem key="1" name="flower_conspicuous" /> : (flower.conspicuous ? 'visible' : 'not visible'),
+      <FieldConspicuous value={flower.conspicuous} key='flower_conspicuous' name="flower_conspicuous" />,
       renderColor('flower_color', flower.color)
     ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
 
     const foliageFields = [
-      foliage.leaf_retention == null ? <UnknownItem key="leaf_retention" name="leaf_retention" /> : (foliage.leaf_retention ? 'persistent during winter' : 'not persistent'),
-      foliage.texture == null ? <UnknownItem key="foliage_texture" name="foliage_texture" /> : foliage.texture,
+      <FieldConspicuous value={flower.conspicuous} key='flower_conspicuous' name="flower_conspicuous" />,
+      <FieldLeafRetention value={foliage.leaf_retention} key="leaf_retention" name="leaf_retention" />,
+      <FieldFoliageTexture value={foliage.texture} key="foliage_texture" name="foliage_texture" />,
       renderColor('foliage_color', foliage.color)
     ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
 
     const fruitFields = [
-      fruit_or_seed.conspicuous == null ? <UnknownItem key="1" name="fruit_conspicuous" /> : (fruit_or_seed.conspicuous ? 'visible' : 'not visible'),
+      <FieldConspicuous value={fruit_or_seed.conspicuous} key='fruit_conspicuous' name="fruit_conspicuous" />,
       renderColor('fruit_color', fruit_or_seed.color)
     ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
 
@@ -51,18 +60,18 @@ const Species = ({ species }) => {
         <h2 className="title is-3 ">
           <i className="fad fa-cog has-text-success"></i> Specifications
         </h2>
-        <div className="columns">
-          <div className="column is-6">
-            <p><b><i className="fad fa-ruler-vertical" /> Height</b>:{' '}
-              <Field value={average_height.cm} name={'average_height_cm'}>{average_height.cm} cm</Field>
+        <div className="columns is-multiline">
+          <div className={clsx("column", edit ? 'is-12' : 'is-6')}>
+            <p><b>Height</b>:{' '}
+              <FieldHeightAverage value={average_height.cm} />
             </p>
-            <p><b>Growth habit</b>: <Field value={growth_habit} name={'growth_habit'} /></p>
-            <p><b>Duration</b>: <Field value={duration} name={'duration'}>{duration && duration.join(' or ')}</Field></p>
+            <p><b>Growth habit</b>: <FieldGrowthHabit value={growth_habit} /></p>
+            <div><b>Duration</b>: <FieldDuration value={duration} /></div>
           </div>
-          <div className="column is-6">
-            <p><i className="fad fa-flower" />{' '}{flowerFields}{' flowers'}</p>
-            <p><i className="fad fa-leaf-maple"/>{' '}{foliageFields}{' foliage'}</p>
-            <p><i className="fad fa-lemon" />{' '}{fruitFields}{' fruits'}</p>
+          <div className={clsx("column", edit ? 'is-12' : 'is-6')}>
+            <div className="line"><i className="fad fa-flower" />{' '}{flowerFields}{' flowers'}</div>
+            <div className="line"><i className="fad fa-leaf-maple"/>{' '}{foliageFields}{' foliage'}</div>
+            <div className="line"><i className="fad fa-lemon" />{' '}{fruitFields}{' fruits'}</div>
           </div>
         </div>
       </section>
@@ -70,11 +79,7 @@ const Species = ({ species }) => {
   }
 
   const renderColor = (name, value) => {
-    if (value) {
-      return value.map(e => <Field key={e} value={e} Component={ColorBadge} name={name} />).reduce((prev, curr) => [prev, ' and ', curr])
-    } else {
-      return <UnknownItem key={name} name={name} />
-    }
+    return <FieldColor key={name} value={value} name={name} />
   }
 
   const renderGrowing = () => {
@@ -244,6 +249,11 @@ const Species = ({ species }) => {
         <hr />
         { renderSynonyms() }
       </div>
+    </div>
+    <div>
+      <pre>
+        <code>{JSON.stringify(correction, null, 2)}</code>
+      </pre>
     </div>
   </div>)
 }
