@@ -4,6 +4,7 @@ import UnknownItem from './Unknown'
 import CorrectionContext from '../CorrectionContext'
 import ChangeInputSelect from '../elements/ChangeInputSelect'
 import { useContext } from 'react'
+import { firstNotNil } from '../utils/utils'
 
 const FieldLeafRetention = ({
   value,
@@ -27,19 +28,13 @@ const FieldLeafRetention = ({
     return (<ChangeInputSelect
       options={options}
       onChange={(e) => setField(name, e)}
-      value={correction[name]}
+      value={firstNotNil(correction[name], value)}
     />)
   }
 
-  if (value === null || value === undefined) {
-    return <span>
-      <UnknownItem value={value} name={name} mapping={options} />
-    </span>
-  }
-
-  return (<span>
-    {value}
-  </span>)
+  return <span>
+    <UnknownItem value={value} name={name} mapping={options} />
+  </span>
 }
 
 export default FieldLeafRetention

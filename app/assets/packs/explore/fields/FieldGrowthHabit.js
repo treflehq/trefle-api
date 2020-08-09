@@ -19,15 +19,9 @@ const FieldGrowthHabit = ({
     />)
   }
 
-  if (value === null || value === undefined) {
-    return <span>
-      <UnknownItem value={value} name={name} />
-    </span>
-  }
-
-  return (<span>
-    {value}
-  </span>)
+  return <span>
+    <UnknownItem value={value} name={name} />
+  </span>
 }
 
 export default FieldGrowthHabit

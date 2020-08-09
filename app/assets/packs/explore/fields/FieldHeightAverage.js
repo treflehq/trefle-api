@@ -20,15 +20,9 @@ const FieldHeightAverage = ({
     />)
   }
 
-  if (value === null || value === undefined) {
-    return <span>
-      <UnknownItem value={value} name={name} /> cm average
-    </span>
-  }
-
-  return (<span>
-    {value} cm average
-  </span>)
+  return <span>
+    <UnknownItem value={value} name={name} /> cm average
+  </span>
 }
 
 export default FieldHeightAverage

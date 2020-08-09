@@ -1,12 +1,17 @@
 
 import React from 'react'
 import { useContext } from 'react'
-import { findKey, isArray, pickBy, keys } from 'lodash'
+import { findKey, isArray, pickBy, keys, isNil } from 'lodash'
 import CorrectionContext from '../CorrectionContext'
+import MappedValue from '../elements/MappedValue'
 
 const UnknownItem = ({ value, name, mapping = null }) => {
 
   const { toggleEdit, correction } = useContext(CorrectionContext)
+
+  if (!isNil(value) && isNil(correction[name])) {
+    return <MappedValue value={value} name={name} mapping={mapping} />
+  }
 
   if (correction[name] === undefined || correction[name] === null) {
     return (<span key={name} onClick={toggleEdit} className="">

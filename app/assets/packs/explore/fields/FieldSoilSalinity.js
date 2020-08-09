@@ -22,7 +22,7 @@ const FieldSoilSalinity = ({ value }) => {
     6: <span>0.9 - 1.2 % <sup>Cl−</sup></span>,  // meso - euhalines
     7: <span>1.2 - 1.6 % <sup>Cl−</sup></span>,  // euhalines
     8: <span>1.6 - 2.3 % <sup>Cl−</sup></span>,  // polyhalines
-    9: <span>> 2.3 % <sup>Cl−</sup></span>,       // hyperhalines
+    9: <span>&gt; 2.3 % <sup>Cl−</sup></span>,       // hyperhalines
   }
 
 

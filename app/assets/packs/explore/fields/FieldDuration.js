@@ -5,6 +5,7 @@ import CorrectionContext from '../CorrectionContext'
 import ChangeInputSelect from '../elements/ChangeInputSelect'
 import { useContext } from 'react'
 import { durations } from '../constants/constants'
+import { firstNotNil } from '../utils/utils'
 
 const FieldDuration = ({
   value,
@@ -18,19 +19,13 @@ const FieldDuration = ({
       multiple
       placeholder='durations...'
       onChange={(e) => setField(name, e)}
-      value={correction[name]}
+      value={firstNotNil(correction[name], value)}
     />)
   }
 
-  if (value === null || value === undefined) {
-    return <span>
-      <UnknownItem value={value} name={name} />
-    </span>
-  }
-
-  return (<span>
-    {value}
-  </span>)
+  return <span>
+    <UnknownItem value={value} name={name} />
+  </span>
 }
 
 export default FieldDuration
