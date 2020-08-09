@@ -44,7 +44,6 @@ const Species = ({ species }) => {
     ].filter(e => e).reduce((prev, curr) => [prev, ', ', curr])
 
     const foliageFields = [
-      <FieldConspicuous value={flower.conspicuous} key='flower_conspicuous' name="flower_conspicuous" />,
       <FieldLeafRetention value={foliage.leaf_retention} key="leaf_retention" name="leaf_retention" />,
       <FieldFoliageTexture value={foliage.texture} key="foliage_texture" name="foliage_texture" />,
       renderColor('foliage_color', foliage.color)
@@ -90,7 +89,7 @@ const Species = ({ species }) => {
         <i className="fad fa-seedling has-text-success"></i> Growing
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
-      <FieldLight value={growth.light} />
+      <FieldLight name={'light'} value={growth.light} />
       <FieldAtmosphericHumidity value={growth.atmospheric_humidity} />
       <FieldPh min={growth.ph_minimum} max={growth.ph_maximum} />
       <FieldPrecipitations min={growth.minimum_precipitation && growth.minimum_precipitation.mm} max={growth.maximum_precipitation && growth.maximum_precipitation.mm} />
