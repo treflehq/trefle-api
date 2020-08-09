@@ -18,12 +18,12 @@ module Search
         ],
         case_sensitive: false,
         callbacks: :queue,
-        index_prefix: 'trefle'
+        index_prefix: 'trefle_2'
       )
     end
 
     def search_data
-      attributes.merge(additional_search_data)
+      attributes.deep_symbolize_keys.merge(additional_search_data)
     end
 
     def additional_search_data
@@ -37,7 +37,7 @@ module Search
         fruit_color: fruit_color.to_a,
         foliage_color: foliage_color.to_a,
         edible_part: edible_part.to_a,
-        
+
         synonyms: synonyms.pluck(:name).uniq,
         distributions: distributions,
         common_names: common_names_names,
