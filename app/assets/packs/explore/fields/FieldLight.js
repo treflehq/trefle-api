@@ -46,6 +46,7 @@ const FieldLight = ({
               onChange={(e) => setField(name, parseInt(e.target.value))}
               value={realValue}
             />
+            
             <span>
               {' '}
               {invert(options)[realValue]}
