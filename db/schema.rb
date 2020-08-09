@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_120531) do
+ActiveRecord::Schema.define(version: 2020_08_09_123247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -345,68 +345,28 @@ ActiveRecord::Schema.define(version: 2020_07_23_120531) do
     t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "fruit_conspicuous"
-    t.boolean "z_leg_coppice_potential"
-    t.boolean "z_leg_resprout_ability"
-    t.boolean "z_leg_fodder_product"
-    t.string "z_leg_fruit_seed_abundance", limit: 255
-    t.boolean "z_leg_fire_resistance"
-    t.boolean "z_leg_fall_conspicuous"
-    t.string "z_leg_fire_tolerance", limit: 255
     t.float "ph_minimum"
     t.boolean "flower_conspicuous"
-    t.string "z_leg_native_status", limit: 255
-    t.string "z_leg_fuelwood_product", limit: 255
     t.float "frost_free_days_minimum"
     t.string "growth_habit", limit: 255
     t.string "protein_potential", limit: 255
     t.boolean "adapted_to_medium_textured_soils"
     t.string "growth_form", limit: 255
-    t.string "z_leg_after_harvest_regrowth_rate", limit: 255
-    t.string "z_leg_drought_tolerance", limit: 255
-    t.string "z_leg_salinity_tolerance", limit: 255
-    t.string "z_leg_fertility_requirement", limit: 255
     t.string "nitrogen_fixation", limit: 255
-    t.string "z_leg_commercial_availability", limit: 255
     t.string "anaerobic_tolerance", limit: 255
     t.string "lifespan", limit: 255
-    t.boolean "z_leg_veneer_product"
-    t.string "z_leg_bloat", limit: 255
-    t.string "z_leg_foliage_porosity_winter", limit: 255
     t.float "ph_maximum"
-    t.boolean "z_leg_christmas_tree_product"
     t.string "shape_and_orientation", limit: 255
-    t.string "z_leg_shade_tolerance", limit: 255
-    t.string "z_leg_usda_synonym", limit: 255
-    t.boolean "z_leg_pulpwood_product"
-    t.boolean "z_leg_small_grain"
-    t.boolean "z_leg_low_growing_grass"
-    t.boolean "z_leg_berry_nut_seed_product"
-    t.string "z_leg_vegetative_spread_rate", limit: 255
-    t.string "z_leg_palatable_browse_animal", limit: 255
-    t.string "z_leg_foliage_porosity_summer", limit: 255
-    t.float "z_leg_seeds_per_pound"
     t.boolean "adapted_to_fine_textured_soils"
-    t.string "z_leg_hedge_tolerance", limit: 255
-    t.boolean "z_leg_post_product"
     t.string "growth_rate", limit: 255
-    t.boolean "z_leg_nursery_stock_product"
-    t.string "z_leg_seedling_vigor", limit: 255
-    t.boolean "z_leg_cold_stratification_required"
-    t.string "z_leg_palatable_graze_animal", limit: 255
     t.boolean "fruit_seed_persistence"
     t.string "c_n_ratio", limit: 255
     t.boolean "leaf_retention"
     t.boolean "known_allelopath"
-    t.boolean "z_leg_palatable_human"
-    t.string "z_leg_moisture_use", limit: 255
-    t.boolean "z_leg_lumber_product"
     t.boolean "adapted_to_coarse_textured_soils"
-    t.boolean "z_leg_naval_store_product"
-    t.string "z_leg_seed_spread_rate", limit: 255
     t.string "caco_3_tolerance", limit: 255
     t.integer "genus_id"
     t.integer "main_species_id"
-    t.string "z_leg_usda_name", limit: 255
     t.string "family_common_name", limit: 255
     t.string "common_name", limit: 255
     t.boolean "complete_data"
@@ -415,8 +375,6 @@ ActiveRecord::Schema.define(version: 2020_07_23_120531) do
     t.boolean "edible"
     t.datetime "reviewed_at"
     t.datetime "created_at"
-    t.decimal "maximum_height_value"
-    t.string "maximum_height_unit", limit: 12
     t.decimal "minimum_temperature_deg_f"
     t.decimal "minimum_temperature_deg_c"
     t.decimal "maximum_temperature_deg_f"
@@ -477,6 +435,7 @@ ActiveRecord::Schema.define(version: 2020_07_23_120531) do
     t.string "genus_name"
     t.string "family_name"
     t.integer "average_height_cm"
+    t.integer "completion_ratio"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["common_name"], name: "index_species_on_common_name"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
