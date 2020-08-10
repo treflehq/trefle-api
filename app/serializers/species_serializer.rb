@@ -138,7 +138,8 @@ class SpeciesSerializer < BaseSerializer
              :year, :bibliography, :author, :status,
              :rank, :family_common_name, :family,
              :genus_id, :genus,
-             :observations, :images, :common_names, :distribution,
+             :observations, :images, :common_names,
+             :distributions, :distribution,
              :duration,
              :links, :image_url
 
@@ -190,6 +191,12 @@ class SpeciesSerializer < BaseSerializer
 
   def distribution
     object.species_distributions.joins(:zone).group_by(&:establishment).transform_values {|e| e.map {|r| r.zone.name } }
+  end
+
+  def distributions
+    object.species_distributions.joins(:zone).group_by(&:establishment).transform_values do |e|
+      e.map {|r| ZoneLightSerializer.new.serialize(r.zone) }
+    end
   end
 
   def flower
