@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
-    "@fortawesome/fontawesome-pro": "^5.13.0",
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
     "autobind-decorator": "^2.4.0",

@@ -51,3 +51,5 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(React.createElement(SpeciesPage, { slug: slug[0] }), domContainer);
   }
 })
+
+// export default SpeciesPage

@@ -31,7 +31,7 @@ const Calendar = ({
     </tr>)
   }
 
-  return (<div className="CalendarItem">
+  return (<div className="CalendarItem is-hidden-touch">
     <table>
       {renderHeaders()}
       <tbody>
