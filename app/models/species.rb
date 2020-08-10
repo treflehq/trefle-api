@@ -194,26 +194,6 @@ class Species < ApplicationRecord
 
   counter_culture :plant
 
-  # measured_length :average_height
-  # validates :average_height, measured: { units: %I[in ft cm m] }
-
-  # measured_length :maximum_height
-  # validates :maximum_height, measured: { units: %I[in ft cm m] }
-
-  # measured_length :minimum_root_depth
-  # validates :minimum_root_depth, measured: { units: %I[in ft cm m] }
-
-  # measured_length :minimum_precipitation
-  # validates :minimum_precipitation, measured: { units: %I[in ft mm cm m] }
-
-  # measured_length :maximum_precipitation
-  # validates :maximum_precipitation, measured: { units: %I[in ft cm m] }
-
-  # measured Measured::Area, :minimum_planting_density, measured: { units: %I[ac m2] }
-
-  # (700 / Measured::Area.new(1, 'acres').convert_to('acre').value).to_f => 700.0
-  # (700 / Measured::Area.new(1, 'm2').convert_to('acre').value).to_f => 2832802.0
-
   # Check the scientific name is well formatted according to rank
   validates :scientific_name,
             scientific_name_length: true,
@@ -300,7 +280,8 @@ class Species < ApplicationRecord
   before_validation :complete_cache_fields
 
   before_create :infer_plant
-
+  
+  before_save :update_completion_ratio!
   before_save :regenerate_tokens!
 
   extend FriendlyId
@@ -330,6 +311,28 @@ class Species < ApplicationRecord
     candidate = species_images.order(score: :desc).where(part: :habit)&.first&.image_url
     candidate ||= species_images.order(score: :desc)&.first&.image_url
     self.main_image_url = candidate if candidate
+  end
+
+  def current_completion_percentage
+
+    ignored = [
+      *attributes.keys.filter {|e| e.ends_with?('_count') },
+      *attributes.keys.filter {|e| e.ends_with?('_raw') },
+      'id', 'plant_id', 'genus_id', 'slug',
+      'inserted_at', 'updated_at', 'created_at', 'checked_at',
+      'token', 'full_token', 'complete_data', 'completion_ratio'
+    ]
+
+    total = attributes.without(ignored).keys.count
+    complete = attributes.without(ignored).values.reject {|e| e.nil? || e.blank? || e == 0 }.count
+
+    Rails.logger.debug("[current_completion_percentage] #{complete} complete fields over #{total} fields")
+    ((complete.to_f / total.to_f).to_f * 100).to_i # rubocop:todo Style/FloatDivision
+  end
+
+  def update_completion_ratio!
+    self.completion_ratio = current_completion_percentage
+    self.complete_data = (completion_ratio > 50)
   end
 
   # Theses are tokens used for integrity and search
