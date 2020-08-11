@@ -18,7 +18,7 @@ const Review = ({ species }) => {
   const [sourceReference, setSourceReference] = useState([])
   const [notes, setNotes] = useState('')
 
-  const { toggleEdit, correction, submission, edit } = useContext(CorrectionContext)
+  const { reset, correction, submission } = useContext(CorrectionContext)
 
   const payload = omitBy({
     notes,

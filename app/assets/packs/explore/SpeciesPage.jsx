@@ -40,7 +40,7 @@ const SpeciesPage = ({ slug }) => {
 
   const submitCorrection = async (payload) => {
     const response = await fetch(
-      `/api/v1/corrections/species/abies-alba?token=${temp_token}`, {
+      `/api/v1/corrections/species/${slug}?token=${temp_token}`, {
       method: 'post',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' }

@@ -7,10 +7,21 @@ import ChangeInput from '../elements/ChangeInput'
 import { firstNotNil } from '../utils/utils'
 import { invert, reverse } from 'lodash'
 
-const FieldPrecipitations = ({ min, max }) => {
-  const { edit, correction, setField } = useContext(CorrectionContext)
-  const realMin = firstNotNil(correction['minimum_precipitation_mm'], min)
-  const realMax = firstNotNil(correction['maximum_precipitation_mm'], max)
+const FieldPrecipitations = ({
+  min,
+  max,
+  unit = 'mm'
+}) => {
+  const { edit, correction, setFields } = useContext(CorrectionContext)
+  const realMin = firstNotNil(correction['minimum_precipitation_value'], min)
+  const realMax = firstNotNil(correction['maximum_precipitation_value'], max)
+
+  const onChange = (name, v) => {
+    setFields({
+      [`${name}_value`]: v.target.value && parseInt(v.target.value),
+      [`${name}_unit`]: unit,
+    })
+  }
 
   if (edit) {
     return (
@@ -23,18 +34,18 @@ const FieldPrecipitations = ({ min, max }) => {
               min={0}
               // max={realMax}
               type="number"
-              onChange={(e) => setField('minimum_precipitation_mm', parseFloat(e.target.value))}
-              value={realMin || 0.0}
-              addon={'mm'}
+              onChange={(e) => onChange('minimum_precipitation', e)}
+              value={realMin || ''}
+              addon={unit}
             />
             {' and '}
             <ChangeInput
               type="number"
               // min={realMin}
               max={5000}
-              onChange={(e) => setField('maximum_precipitation_mm', parseFloat(e.target.value))}
-              value={realMax || 0.0}
-              addon={'mm'}
+              onChange={(e) => onChange('maximum_precipitation', e)}
+              value={realMax || ''}
+              addon={unit}
             />
           </p>
         </div>

@@ -36,6 +36,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
       end
 
       resources :species, only: %i[index show] do
+        resources :record_corrections, only: %i[index], path: 'corrections'
         post '/report', action: :report, on: :member
         get '/search', action: :search, on: :collection
       end
