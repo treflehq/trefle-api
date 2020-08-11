@@ -12,7 +12,6 @@ module Ingester
 
       FIELDS = %I[
         duration
-        propagated_by
         growth_months
         bloom_months
         fruit_months

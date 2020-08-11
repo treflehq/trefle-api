@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.465Z'
+                      last_modified: '2020-08-11T16:23:03.622Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.481Z'
+                      last_modified: '2020-08-11T16:23:03.637Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.497Z'
+                      last_modified: '2020-08-11T16:23:03.651Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.540Z'
+                      last_modified: '2020-08-11T16:23:03.685Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.576Z'
+                      last_modified: '2020-08-11T16:23:03.716Z'
         '401':
           description: Invalid credentials
           content:
@@ -2214,7 +2214,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.879Z'
+                      last_modified: '2020-08-11T16:23:03.954Z'
         '401':
           description: Invalid credentials
           content:
@@ -2482,7 +2482,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-08-10T09:52:32.896Z'
+                      last_modified: '2020-08-11T16:23:03.968Z'
         '401':
           description: Invalid credentials
           content:
@@ -2959,7 +2959,7 @@ paths:
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
                           http://www.plantsoftheworldonline.org/ Retrieved 2020-06-26
                     meta:
-                      last_modified: '2020-08-10T09:52:32.982Z'
+                      last_modified: '2020-08-11T16:23:04.080Z'
         '401':
           description: Invalid credentials
           content:
@@ -3111,12 +3111,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-10T09:52:38.737Z'
-                      updated_at: '2020-08-10T09:52:38.739Z'
+                      created_at: '2020-08-11T16:23:09.550Z'
+                      updated_at: '2020-08-11T16:23:09.551Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-10T09:52:38.739Z'
+                      last_modified: '2020-08-11T16:23:09.551Z'
         '401':
           description: Invalid credentials
           content:
@@ -4060,517 +4060,86 @@ paths:
                         afr:
                         - witpopulier
                       distribution:
-                        introduced:
-                        - Northern Provinces
-                        - China Southeast
-                        - Rwanda
-                        - Bolivia
-                        - Mexico Southwest
-                        - Free State
-                        - Iraq
-                        - Palestine
-                        - Azores
-                        - Baleares
-                        - Canary Is.
-                        - Great Britain
-                        - Madeira
-                        - Alabama
-                        - Illinois
-                        - Kentucky
-                        - Tennessee
-                        - Guatemala
-                        - New Mexico
-                        - Argentina Northeast
-                        - St.Helena
-                        - Japan
-                        - Lesotho
-                        - Korea
-                        - New York
-                        - Vermont
-                        - China North-Central
-                        - Argentina South
-                        - Cyprus
-                        - Baltic States
-                        - Belgium
-                        - Denmark
-                        - Ireland
-                        - Netherlands
-                        - North European Russi
-                        - Northwest European R
-                        - Sweden
-                        - Colorado
-                        - Krasnoyarsk
-                        - Manchuria
-                        - Inner Mongolia
-                        - Qinghai
-                        - Falkland Is.
                         native:
                         - Albania
+                        - Algeria
+                        - Altay
+                        - Austria
                         - Bulgaria
-                        - Greece
-                        - Romania
-                        - Yugoslavia
+                        - Central European Rus
+                        - Corse
                         - Czechoslovakia
-                        - Turkey
-                        - Lebanon-Syria
                         - East Aegean Is.
+                        - East European Russia
+                        - France
+                        - Germany
+                        - Greece
+                        - Hungary
                         - Italy
+                        - Kazakhstan
+                        - Kriti
+                        - Lebanon-Syria
+                        - Libya
+                        - Morocco
+                        - Poland
+                        - Portugal
+                        - Romania
                         - Sardegna
                         - Sicilia
-                        - Corse
-                        - France
-                        - Kriti
-                        - Morocco
-                        - Portugal
-                        - Spain
-                        - Algeria
-                        - Libya
-                        - Kazakhstan
                         - South European Russi
-                        - Ukraine
-                        - Austria
-                        - Central European Rus
-                        - East European Russia
-                        - Germany
-                        - Hungary
-                        - Poland
+                        - Spain
                         - Switzerland
                         - Tunisia
-                        - Altay
-                        - Xinjiang
+                        - Turkey
                         - Turkmenistan
-                      distributions:
+                        - Ukraine
+                        - Xinjiang
+                        - Yugoslavia
                         introduced:
-                        - id: 1
-                          name: Northern Provinces
-                          slug: northern-provinces
-                          tdwg_code: TVL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/northern-provinces"
-                            plants: "/api/v1/distributions/northern-provinces/plants"
-                            species: "/api/v1/distributions/northern-provinces/species"
-                        - id: 46
-                          name: China Southeast
-                          slug: china-southeast
-                          tdwg_code: CHS
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/china-southeast"
-                            plants: "/api/v1/distributions/china-southeast/plants"
-                            species: "/api/v1/distributions/china-southeast/species"
-                        - id: 68
-                          name: Rwanda
-                          slug: rwanda
-                          tdwg_code: RWA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/rwanda"
-                            plants: "/api/v1/distributions/rwanda/plants"
-                            species: "/api/v1/distributions/rwanda/species"
-                        - id: 77
-                          name: Bolivia
-                          slug: bolivia
-                          tdwg_code: BOL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/bolivia"
-                            plants: "/api/v1/distributions/bolivia/plants"
-                            species: "/api/v1/distributions/bolivia/species"
-                        - id: 88
-                          name: Mexico Southwest
-                          slug: mexico-southwest
-                          tdwg_code: MXS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/mexico-southwest"
-                            plants: "/api/v1/distributions/mexico-southwest/plants"
-                            species: "/api/v1/distributions/mexico-southwest/species"
-                        - id: 90
-                          name: Free State
-                          slug: free-state
-                          tdwg_code: OFS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/free-state"
-                            plants: "/api/v1/distributions/free-state/plants"
-                            species: "/api/v1/distributions/free-state/species"
-                        - id: 108
-                          name: Iraq
-                          slug: iraq
-                          tdwg_code: IRQ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/iraq"
-                            plants: "/api/v1/distributions/iraq/plants"
-                            species: "/api/v1/distributions/iraq/species"
-                        - id: 117
-                          name: Palestine
-                          slug: palestine
-                          tdwg_code: PAL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/palestine"
-                            plants: "/api/v1/distributions/palestine/plants"
-                            species: "/api/v1/distributions/palestine/species"
-                        - id: 122
-                          name: Azores
-                          slug: azores
-                          tdwg_code: AZO
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/azores"
-                            plants: "/api/v1/distributions/azores/plants"
-                            species: "/api/v1/distributions/azores/species"
-                        - id: 123
-                          name: Baleares
-                          slug: baleares
-                          tdwg_code: BAL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/baleares"
-                            plants: "/api/v1/distributions/baleares/plants"
-                            species: "/api/v1/distributions/baleares/species"
-                        - id: 124
-                          name: Canary Is.
-                          slug: canary-is
-                          tdwg_code: CNY
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/canary-is"
-                            plants: "/api/v1/distributions/canary-is/plants"
-                            species: "/api/v1/distributions/canary-is/species"
-                        - id: 127
-                          name: Great Britain
-                          slug: great-britain
-                          tdwg_code: GRB
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/great-britain"
-                            plants: "/api/v1/distributions/great-britain/plants"
-                            species: "/api/v1/distributions/great-britain/species"
-                        - id: 129
-                          name: Madeira
-                          slug: madeira
-                          tdwg_code: MDR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/madeira"
-                            plants: "/api/v1/distributions/madeira/plants"
-                            species: "/api/v1/distributions/madeira/species"
-                        - id: 144
-                          name: Alabama
-                          slug: alabama
-                          tdwg_code: ALA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/alabama"
-                            plants: "/api/v1/distributions/alabama/plants"
-                            species: "/api/v1/distributions/alabama/species"
-                        - id: 145
-                          name: Illinois
-                          slug: illinois
-                          tdwg_code: ILL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/illinois"
-                            plants: "/api/v1/distributions/illinois/plants"
-                            species: "/api/v1/distributions/illinois/species"
-                        - id: 146
-                          name: Kentucky
-                          slug: kentucky
-                          tdwg_code: KTY
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/kentucky"
-                            plants: "/api/v1/distributions/kentucky/plants"
-                            species: "/api/v1/distributions/kentucky/species"
-                        - id: 149
-                          name: Tennessee
-                          slug: tennessee
-                          tdwg_code: TEN
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/tennessee"
-                            plants: "/api/v1/distributions/tennessee/plants"
-                            species: "/api/v1/distributions/tennessee/species"
-                        - id: 156
-                          name: Guatemala
-                          slug: guatemala
-                          tdwg_code: GUA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/guatemala"
-                            plants: "/api/v1/distributions/guatemala/plants"
-                            species: "/api/v1/distributions/guatemala/species"
-                        - id: 167
-                          name: New Mexico
-                          slug: new-mexico
-                          tdwg_code: NWM
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/new-mexico"
-                            plants: "/api/v1/distributions/new-mexico/plants"
-                            species: "/api/v1/distributions/new-mexico/species"
-                        - id: 169
-                          name: Argentina Northeast
-                          slug: argentina-northeast
-                          tdwg_code: AGE
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/argentina-northeast"
-                            plants: "/api/v1/distributions/argentina-northeast/plants"
-                            species: "/api/v1/distributions/argentina-northeast/species"
-                        - id: 184
-                          name: St.Helena
-                          slug: st-helena
-                          tdwg_code: STH
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/st-helena"
-                            plants: "/api/v1/distributions/st-helena/plants"
-                            species: "/api/v1/distributions/st-helena/species"
-                        - id: 202
-                          name: Japan
-                          slug: japan
-                          tdwg_code: JAP
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/japan"
-                            plants: "/api/v1/distributions/japan/plants"
-                            species: "/api/v1/distributions/japan/species"
-                        - id: 222
-                          name: Lesotho
-                          slug: lesotho
-                          tdwg_code: LES
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/lesotho"
-                            plants: "/api/v1/distributions/lesotho/plants"
-                            species: "/api/v1/distributions/lesotho/species"
-                        - id: 226
-                          name: Korea
-                          slug: korea
-                          tdwg_code: KOR
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/korea"
-                            plants: "/api/v1/distributions/korea/plants"
-                            species: "/api/v1/distributions/korea/species"
-                        - id: 237
-                          name: New York
-                          slug: new-york
-                          tdwg_code: NWY
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/new-york"
-                            plants: "/api/v1/distributions/new-york/plants"
-                            species: "/api/v1/distributions/new-york/species"
-                        - id: 243
-                          name: Vermont
-                          slug: vermont
-                          tdwg_code: VER
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/vermont"
-                            plants: "/api/v1/distributions/vermont/plants"
-                            species: "/api/v1/distributions/vermont/species"
-                        - id: 249
-                          name: China North-Central
-                          slug: china-north-central
-                          tdwg_code: CHN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/china-north-central"
-                            plants: "/api/v1/distributions/china-north-central/plants"
-                            species: "/api/v1/distributions/china-north-central/species"
-                        - id: 264
-                          name: Argentina South
-                          slug: argentina-south
-                          tdwg_code: AGS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/argentina-south"
-                            plants: "/api/v1/distributions/argentina-south/plants"
-                            species: "/api/v1/distributions/argentina-south/species"
-                        - id: 266
-                          name: Cyprus
-                          slug: cyprus
-                          tdwg_code: CYP
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/cyprus"
-                            plants: "/api/v1/distributions/cyprus/plants"
-                            species: "/api/v1/distributions/cyprus/species"
-                        - id: 276
-                          name: Baltic States
-                          slug: baltic-states
-                          tdwg_code: BLT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/baltic-states"
-                            plants: "/api/v1/distributions/baltic-states/plants"
-                            species: "/api/v1/distributions/baltic-states/species"
-                        - id: 278
-                          name: Belgium
-                          slug: belgium
-                          tdwg_code: BGM
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/belgium"
-                            plants: "/api/v1/distributions/belgium/plants"
-                            species: "/api/v1/distributions/belgium/species"
-                        - id: 280
-                          name: Denmark
-                          slug: denmark
-                          tdwg_code: DEN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/denmark"
-                            plants: "/api/v1/distributions/denmark/plants"
-                            species: "/api/v1/distributions/denmark/species"
-                        - id: 286
-                          name: Ireland
-                          slug: ireland
-                          tdwg_code: IRE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ireland"
-                            plants: "/api/v1/distributions/ireland/plants"
-                            species: "/api/v1/distributions/ireland/species"
-                        - id: 287
-                          name: Netherlands
-                          slug: netherlands
-                          tdwg_code: NET
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/netherlands"
-                            plants: "/api/v1/distributions/netherlands/plants"
-                            species: "/api/v1/distributions/netherlands/species"
-                        - id: 289
-                          name: North European Russi
-                          slug: north-european-russi
-                          tdwg_code: RUN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/north-european-russi"
-                            plants: "/api/v1/distributions/north-european-russi/plants"
-                            species: "/api/v1/distributions/north-european-russi/species"
-                        - id: 290
-                          name: Northwest European R
-                          slug: northwest-european-r
-                          tdwg_code: RUW
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/northwest-european-r"
-                            plants: "/api/v1/distributions/northwest-european-r/plants"
-                            species: "/api/v1/distributions/northwest-european-r/species"
-                        - id: 293
-                          name: Sweden
-                          slug: sweden
-                          tdwg_code: SWE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/sweden"
-                            plants: "/api/v1/distributions/sweden/plants"
-                            species: "/api/v1/distributions/sweden/species"
-                        - id: 298
-                          name: Colorado
-                          slug: colorado
-                          tdwg_code: COL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/colorado"
-                            plants: "/api/v1/distributions/colorado/plants"
-                            species: "/api/v1/distributions/colorado/species"
-                        - id: 309
-                          name: Krasnoyarsk
-                          slug: krasnoyarsk
-                          tdwg_code: KRA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/krasnoyarsk"
-                            plants: "/api/v1/distributions/krasnoyarsk/plants"
-                            species: "/api/v1/distributions/krasnoyarsk/species"
-                        - id: 310
-                          name: Manchuria
-                          slug: manchuria
-                          tdwg_code: CHM
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/manchuria"
-                            plants: "/api/v1/distributions/manchuria/plants"
-                            species: "/api/v1/distributions/manchuria/species"
-                        - id: 317
-                          name: Inner Mongolia
-                          slug: inner-mongolia
-                          tdwg_code: CHI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/inner-mongolia"
-                            plants: "/api/v1/distributions/inner-mongolia/plants"
-                            species: "/api/v1/distributions/inner-mongolia/species"
-                        - id: 322
-                          name: Qinghai
-                          slug: qinghai
-                          tdwg_code: CHQ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/qinghai"
-                            plants: "/api/v1/distributions/qinghai/plants"
-                            species: "/api/v1/distributions/qinghai/species"
-                        - id: 345
-                          name: Falkland Is.
-                          slug: falkland-is
-                          tdwg_code: FAL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/falkland-is"
-                            plants: "/api/v1/distributions/falkland-is/plants"
-                            species: "/api/v1/distributions/falkland-is/species"
+                        - Alabama
+                        - Argentina Northeast
+                        - Argentina South
+                        - Azores
+                        - Baleares
+                        - Baltic States
+                        - Belgium
+                        - Bolivia
+                        - Canary Is.
+                        - China North-Central
+                        - China Southeast
+                        - Colorado
+                        - Cyprus
+                        - Denmark
+                        - Falkland Is.
+                        - Free State
+                        - Great Britain
+                        - Guatemala
+                        - Illinois
+                        - Inner Mongolia
+                        - Iraq
+                        - Ireland
+                        - Japan
+                        - Kentucky
+                        - Korea
+                        - Krasnoyarsk
+                        - Lesotho
+                        - Madeira
+                        - Manchuria
+                        - Mexico Southwest
+                        - Netherlands
+                        - New Mexico
+                        - New York
+                        - North European Russi
+                        - Northern Provinces
+                        - Northwest European R
+                        - Palestine
+                        - Qinghai
+                        - Rwanda
+                        - St.Helena
+                        - Sweden
+                        - Tennessee
+                        - Vermont
+                      distributions:
                         native:
                         - id: 93
                           name: Albania
@@ -4582,6 +4151,36 @@ paths:
                             self: "/api/v1/distributions/albania"
                             plants: "/api/v1/distributions/albania/plants"
                             species: "/api/v1/distributions/albania/species"
+                        - id: 137
+                          name: Algeria
+                          slug: algeria
+                          tdwg_code: ALG
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/algeria"
+                            plants: "/api/v1/distributions/algeria/plants"
+                            species: "/api/v1/distributions/algeria/species"
+                        - id: 303
+                          name: Altay
+                          slug: altay
+                          tdwg_code: ALT
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/altay"
+                            plants: "/api/v1/distributions/altay/plants"
+                            species: "/api/v1/distributions/altay/species"
+                        - id: 275
+                          name: Austria
+                          slug: austria
+                          tdwg_code: AUT
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/austria"
+                            plants: "/api/v1/distributions/austria/plants"
+                            species: "/api/v1/distributions/austria/species"
                         - id: 94
                           name: Bulgaria
                           slug: bulgaria
@@ -4592,36 +4191,26 @@ paths:
                             self: "/api/v1/distributions/bulgaria"
                             plants: "/api/v1/distributions/bulgaria/plants"
                             species: "/api/v1/distributions/bulgaria/species"
-                        - id: 95
-                          name: Greece
-                          slug: greece
-                          tdwg_code: GRC
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/greece"
-                            plants: "/api/v1/distributions/greece/plants"
-                            species: "/api/v1/distributions/greece/species"
-                        - id: 96
-                          name: Romania
-                          slug: romania
-                          tdwg_code: ROM
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/romania"
-                            plants: "/api/v1/distributions/romania/plants"
-                            species: "/api/v1/distributions/romania/species"
-                        - id: 98
-                          name: Yugoslavia
-                          slug: yugoslavia
-                          tdwg_code: YUG
+                        - id: 279
+                          name: Central European Rus
+                          slug: central-european-rus
+                          tdwg_code: RUC
                           tdwg_level: 3
                           species_count: 2
                           links:
-                            self: "/api/v1/distributions/yugoslavia"
-                            plants: "/api/v1/distributions/yugoslavia/plants"
-                            species: "/api/v1/distributions/yugoslavia/species"
+                            self: "/api/v1/distributions/central-european-rus"
+                            plants: "/api/v1/distributions/central-european-rus/plants"
+                            species: "/api/v1/distributions/central-european-rus/species"
+                        - id: 125
+                          name: Corse
+                          slug: corse
+                          tdwg_code: COR
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/corse"
+                            plants: "/api/v1/distributions/corse/plants"
+                            species: "/api/v1/distributions/corse/species"
                         - id: 99
                           name: Czechoslovakia
                           slug: czechoslovakia
@@ -4632,26 +4221,6 @@ paths:
                             self: "/api/v1/distributions/czechoslovakia"
                             plants: "/api/v1/distributions/czechoslovakia/plants"
                             species: "/api/v1/distributions/czechoslovakia/species"
-                        - id: 107
-                          name: Turkey
-                          slug: turkey
-                          tdwg_code: TUR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/turkey"
-                            plants: "/api/v1/distributions/turkey/plants"
-                            species: "/api/v1/distributions/turkey/species"
-                        - id: 109
-                          name: Lebanon-Syria
-                          slug: lebanon-syria
-                          tdwg_code: LBS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/lebanon-syria"
-                            plants: "/api/v1/distributions/lebanon-syria/plants"
-                            species: "/api/v1/distributions/lebanon-syria/species"
                         - id: 118
                           name: East Aegean Is.
                           slug: east-aegean-is
@@ -4662,6 +4231,56 @@ paths:
                             self: "/api/v1/distributions/east-aegean-is"
                             plants: "/api/v1/distributions/east-aegean-is/plants"
                             species: "/api/v1/distributions/east-aegean-is/species"
+                        - id: 281
+                          name: East European Russia
+                          slug: east-european-russia
+                          tdwg_code: RUE
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/east-european-russia"
+                            plants: "/api/v1/distributions/east-european-russia/plants"
+                            species: "/api/v1/distributions/east-european-russia/species"
+                        - id: 126
+                          name: France
+                          slug: france
+                          tdwg_code: FRA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/france"
+                            plants: "/api/v1/distributions/france/plants"
+                            species: "/api/v1/distributions/france/species"
+                        - id: 284
+                          name: Germany
+                          slug: germany
+                          tdwg_code: GER
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/germany"
+                            plants: "/api/v1/distributions/germany/plants"
+                            species: "/api/v1/distributions/germany/species"
+                        - id: 95
+                          name: Greece
+                          slug: greece
+                          tdwg_code: GRC
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/greece"
+                            plants: "/api/v1/distributions/greece/plants"
+                            species: "/api/v1/distributions/greece/species"
+                        - id: 285
+                          name: Hungary
+                          slug: hungary
+                          tdwg_code: HUN
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/hungary"
+                            plants: "/api/v1/distributions/hungary/plants"
+                            species: "/api/v1/distributions/hungary/species"
                         - id: 119
                           name: Italy
                           slug: italy
@@ -4672,6 +4291,86 @@ paths:
                             self: "/api/v1/distributions/italy"
                             plants: "/api/v1/distributions/italy/plants"
                             species: "/api/v1/distributions/italy/species"
+                        - id: 267
+                          name: Kazakhstan
+                          slug: kazakhstan
+                          tdwg_code: KAZ
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/kazakhstan"
+                            plants: "/api/v1/distributions/kazakhstan/plants"
+                            species: "/api/v1/distributions/kazakhstan/species"
+                        - id: 128
+                          name: Kriti
+                          slug: kriti
+                          tdwg_code: KRI
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/kriti"
+                            plants: "/api/v1/distributions/kriti/plants"
+                            species: "/api/v1/distributions/kriti/species"
+                        - id: 109
+                          name: Lebanon-Syria
+                          slug: lebanon-syria
+                          tdwg_code: LBS
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/lebanon-syria"
+                            plants: "/api/v1/distributions/lebanon-syria/plants"
+                            species: "/api/v1/distributions/lebanon-syria/species"
+                        - id: 269
+                          name: Libya
+                          slug: libya
+                          tdwg_code: LBY
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/libya"
+                            plants: "/api/v1/distributions/libya/plants"
+                            species: "/api/v1/distributions/libya/species"
+                        - id: 131
+                          name: Morocco
+                          slug: morocco
+                          tdwg_code: MOR
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/morocco"
+                            plants: "/api/v1/distributions/morocco/plants"
+                            species: "/api/v1/distributions/morocco/species"
+                        - id: 292
+                          name: Poland
+                          slug: poland
+                          tdwg_code: POL
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/poland"
+                            plants: "/api/v1/distributions/poland/plants"
+                            species: "/api/v1/distributions/poland/species"
+                        - id: 134
+                          name: Portugal
+                          slug: portugal
+                          tdwg_code: POR
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/portugal"
+                            plants: "/api/v1/distributions/portugal/plants"
+                            species: "/api/v1/distributions/portugal/species"
+                        - id: 96
+                          name: Romania
+                          slug: romania
+                          tdwg_code: ROM
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/romania"
+                            plants: "/api/v1/distributions/romania/plants"
+                            species: "/api/v1/distributions/romania/species"
                         - id: 120
                           name: Sardegna
                           slug: sardegna
@@ -4692,96 +4391,6 @@ paths:
                             self: "/api/v1/distributions/sicilia"
                             plants: "/api/v1/distributions/sicilia/plants"
                             species: "/api/v1/distributions/sicilia/species"
-                        - id: 125
-                          name: Corse
-                          slug: corse
-                          tdwg_code: COR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/corse"
-                            plants: "/api/v1/distributions/corse/plants"
-                            species: "/api/v1/distributions/corse/species"
-                        - id: 126
-                          name: France
-                          slug: france
-                          tdwg_code: FRA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/france"
-                            plants: "/api/v1/distributions/france/plants"
-                            species: "/api/v1/distributions/france/species"
-                        - id: 128
-                          name: Kriti
-                          slug: kriti
-                          tdwg_code: KRI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/kriti"
-                            plants: "/api/v1/distributions/kriti/plants"
-                            species: "/api/v1/distributions/kriti/species"
-                        - id: 131
-                          name: Morocco
-                          slug: morocco
-                          tdwg_code: MOR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/morocco"
-                            plants: "/api/v1/distributions/morocco/plants"
-                            species: "/api/v1/distributions/morocco/species"
-                        - id: 134
-                          name: Portugal
-                          slug: portugal
-                          tdwg_code: POR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/portugal"
-                            plants: "/api/v1/distributions/portugal/plants"
-                            species: "/api/v1/distributions/portugal/species"
-                        - id: 135
-                          name: Spain
-                          slug: spain
-                          tdwg_code: SPA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/spain"
-                            plants: "/api/v1/distributions/spain/plants"
-                            species: "/api/v1/distributions/spain/species"
-                        - id: 137
-                          name: Algeria
-                          slug: algeria
-                          tdwg_code: ALG
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/algeria"
-                            plants: "/api/v1/distributions/algeria/plants"
-                            species: "/api/v1/distributions/algeria/species"
-                        - id: 269
-                          name: Libya
-                          slug: libya
-                          tdwg_code: LBY
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/libya"
-                            plants: "/api/v1/distributions/libya/plants"
-                            species: "/api/v1/distributions/libya/species"
-                        - id: 267
-                          name: Kazakhstan
-                          slug: kazakhstan
-                          tdwg_code: KAZ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/kazakhstan"
-                            plants: "/api/v1/distributions/kazakhstan/plants"
-                            species: "/api/v1/distributions/kazakhstan/species"
                         - id: 270
                           name: South European Russi
                           slug: south-european-russi
@@ -4792,76 +4401,16 @@ paths:
                             self: "/api/v1/distributions/south-european-russi"
                             plants: "/api/v1/distributions/south-european-russi/plants"
                             species: "/api/v1/distributions/south-european-russi/species"
-                        - id: 273
-                          name: Ukraine
-                          slug: ukraine
-                          tdwg_code: UKR
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ukraine"
-                            plants: "/api/v1/distributions/ukraine/plants"
-                            species: "/api/v1/distributions/ukraine/species"
-                        - id: 275
-                          name: Austria
-                          slug: austria
-                          tdwg_code: AUT
+                        - id: 135
+                          name: Spain
+                          slug: spain
+                          tdwg_code: SPA
                           tdwg_level: 3
                           species_count: 1
                           links:
-                            self: "/api/v1/distributions/austria"
-                            plants: "/api/v1/distributions/austria/plants"
-                            species: "/api/v1/distributions/austria/species"
-                        - id: 279
-                          name: Central European Rus
-                          slug: central-european-rus
-                          tdwg_code: RUC
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/central-european-rus"
-                            plants: "/api/v1/distributions/central-european-rus/plants"
-                            species: "/api/v1/distributions/central-european-rus/species"
-                        - id: 281
-                          name: East European Russia
-                          slug: east-european-russia
-                          tdwg_code: RUE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/east-european-russia"
-                            plants: "/api/v1/distributions/east-european-russia/plants"
-                            species: "/api/v1/distributions/east-european-russia/species"
-                        - id: 284
-                          name: Germany
-                          slug: germany
-                          tdwg_code: GER
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/germany"
-                            plants: "/api/v1/distributions/germany/plants"
-                            species: "/api/v1/distributions/germany/species"
-                        - id: 285
-                          name: Hungary
-                          slug: hungary
-                          tdwg_code: HUN
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/hungary"
-                            plants: "/api/v1/distributions/hungary/plants"
-                            species: "/api/v1/distributions/hungary/species"
-                        - id: 292
-                          name: Poland
-                          slug: poland
-                          tdwg_code: POL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/poland"
-                            plants: "/api/v1/distributions/poland/plants"
-                            species: "/api/v1/distributions/poland/species"
+                            self: "/api/v1/distributions/spain"
+                            plants: "/api/v1/distributions/spain/plants"
+                            species: "/api/v1/distributions/spain/species"
                         - id: 294
                           name: Switzerland
                           slug: switzerland
@@ -4882,26 +4431,16 @@ paths:
                             self: "/api/v1/distributions/tunisia"
                             plants: "/api/v1/distributions/tunisia/plants"
                             species: "/api/v1/distributions/tunisia/species"
-                        - id: 303
-                          name: Altay
-                          slug: altay
-                          tdwg_code: ALT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/altay"
-                            plants: "/api/v1/distributions/altay/plants"
-                            species: "/api/v1/distributions/altay/species"
-                        - id: 324
-                          name: Xinjiang
-                          slug: xinjiang
-                          tdwg_code: CHX
+                        - id: 107
+                          name: Turkey
+                          slug: turkey
+                          tdwg_code: TUR
                           tdwg_level: 3
                           species_count: 1
                           links:
-                            self: "/api/v1/distributions/xinjiang"
-                            plants: "/api/v1/distributions/xinjiang/plants"
-                            species: "/api/v1/distributions/xinjiang/species"
+                            self: "/api/v1/distributions/turkey"
+                            plants: "/api/v1/distributions/turkey/plants"
+                            species: "/api/v1/distributions/turkey/species"
                         - id: 337
                           name: Turkmenistan
                           slug: turkmenistan
@@ -4912,6 +4451,467 @@ paths:
                             self: "/api/v1/distributions/turkmenistan"
                             plants: "/api/v1/distributions/turkmenistan/plants"
                             species: "/api/v1/distributions/turkmenistan/species"
+                        - id: 273
+                          name: Ukraine
+                          slug: ukraine
+                          tdwg_code: UKR
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ukraine"
+                            plants: "/api/v1/distributions/ukraine/plants"
+                            species: "/api/v1/distributions/ukraine/species"
+                        - id: 324
+                          name: Xinjiang
+                          slug: xinjiang
+                          tdwg_code: CHX
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/xinjiang"
+                            plants: "/api/v1/distributions/xinjiang/plants"
+                            species: "/api/v1/distributions/xinjiang/species"
+                        - id: 98
+                          name: Yugoslavia
+                          slug: yugoslavia
+                          tdwg_code: YUG
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/yugoslavia"
+                            plants: "/api/v1/distributions/yugoslavia/plants"
+                            species: "/api/v1/distributions/yugoslavia/species"
+                        introduced:
+                        - id: 144
+                          name: Alabama
+                          slug: alabama
+                          tdwg_code: ALA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/alabama"
+                            plants: "/api/v1/distributions/alabama/plants"
+                            species: "/api/v1/distributions/alabama/species"
+                        - id: 169
+                          name: Argentina Northeast
+                          slug: argentina-northeast
+                          tdwg_code: AGE
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/argentina-northeast"
+                            plants: "/api/v1/distributions/argentina-northeast/plants"
+                            species: "/api/v1/distributions/argentina-northeast/species"
+                        - id: 264
+                          name: Argentina South
+                          slug: argentina-south
+                          tdwg_code: AGS
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/argentina-south"
+                            plants: "/api/v1/distributions/argentina-south/plants"
+                            species: "/api/v1/distributions/argentina-south/species"
+                        - id: 122
+                          name: Azores
+                          slug: azores
+                          tdwg_code: AZO
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/azores"
+                            plants: "/api/v1/distributions/azores/plants"
+                            species: "/api/v1/distributions/azores/species"
+                        - id: 123
+                          name: Baleares
+                          slug: baleares
+                          tdwg_code: BAL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/baleares"
+                            plants: "/api/v1/distributions/baleares/plants"
+                            species: "/api/v1/distributions/baleares/species"
+                        - id: 276
+                          name: Baltic States
+                          slug: baltic-states
+                          tdwg_code: BLT
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/baltic-states"
+                            plants: "/api/v1/distributions/baltic-states/plants"
+                            species: "/api/v1/distributions/baltic-states/species"
+                        - id: 278
+                          name: Belgium
+                          slug: belgium
+                          tdwg_code: BGM
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/belgium"
+                            plants: "/api/v1/distributions/belgium/plants"
+                            species: "/api/v1/distributions/belgium/species"
+                        - id: 77
+                          name: Bolivia
+                          slug: bolivia
+                          tdwg_code: BOL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/bolivia"
+                            plants: "/api/v1/distributions/bolivia/plants"
+                            species: "/api/v1/distributions/bolivia/species"
+                        - id: 124
+                          name: Canary Is.
+                          slug: canary-is
+                          tdwg_code: CNY
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/canary-is"
+                            plants: "/api/v1/distributions/canary-is/plants"
+                            species: "/api/v1/distributions/canary-is/species"
+                        - id: 249
+                          name: China North-Central
+                          slug: china-north-central
+                          tdwg_code: CHN
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/china-north-central"
+                            plants: "/api/v1/distributions/china-north-central/plants"
+                            species: "/api/v1/distributions/china-north-central/species"
+                        - id: 46
+                          name: China Southeast
+                          slug: china-southeast
+                          tdwg_code: CHS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/china-southeast"
+                            plants: "/api/v1/distributions/china-southeast/plants"
+                            species: "/api/v1/distributions/china-southeast/species"
+                        - id: 298
+                          name: Colorado
+                          slug: colorado
+                          tdwg_code: COL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/colorado"
+                            plants: "/api/v1/distributions/colorado/plants"
+                            species: "/api/v1/distributions/colorado/species"
+                        - id: 266
+                          name: Cyprus
+                          slug: cyprus
+                          tdwg_code: CYP
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/cyprus"
+                            plants: "/api/v1/distributions/cyprus/plants"
+                            species: "/api/v1/distributions/cyprus/species"
+                        - id: 280
+                          name: Denmark
+                          slug: denmark
+                          tdwg_code: DEN
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/denmark"
+                            plants: "/api/v1/distributions/denmark/plants"
+                            species: "/api/v1/distributions/denmark/species"
+                        - id: 345
+                          name: Falkland Is.
+                          slug: falkland-is
+                          tdwg_code: FAL
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/falkland-is"
+                            plants: "/api/v1/distributions/falkland-is/plants"
+                            species: "/api/v1/distributions/falkland-is/species"
+                        - id: 90
+                          name: Free State
+                          slug: free-state
+                          tdwg_code: OFS
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/free-state"
+                            plants: "/api/v1/distributions/free-state/plants"
+                            species: "/api/v1/distributions/free-state/species"
+                        - id: 127
+                          name: Great Britain
+                          slug: great-britain
+                          tdwg_code: GRB
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/great-britain"
+                            plants: "/api/v1/distributions/great-britain/plants"
+                            species: "/api/v1/distributions/great-britain/species"
+                        - id: 156
+                          name: Guatemala
+                          slug: guatemala
+                          tdwg_code: GUA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/guatemala"
+                            plants: "/api/v1/distributions/guatemala/plants"
+                            species: "/api/v1/distributions/guatemala/species"
+                        - id: 145
+                          name: Illinois
+                          slug: illinois
+                          tdwg_code: ILL
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/illinois"
+                            plants: "/api/v1/distributions/illinois/plants"
+                            species: "/api/v1/distributions/illinois/species"
+                        - id: 317
+                          name: Inner Mongolia
+                          slug: inner-mongolia
+                          tdwg_code: CHI
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/inner-mongolia"
+                            plants: "/api/v1/distributions/inner-mongolia/plants"
+                            species: "/api/v1/distributions/inner-mongolia/species"
+                        - id: 108
+                          name: Iraq
+                          slug: iraq
+                          tdwg_code: IRQ
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/iraq"
+                            plants: "/api/v1/distributions/iraq/plants"
+                            species: "/api/v1/distributions/iraq/species"
+                        - id: 286
+                          name: Ireland
+                          slug: ireland
+                          tdwg_code: IRE
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ireland"
+                            plants: "/api/v1/distributions/ireland/plants"
+                            species: "/api/v1/distributions/ireland/species"
+                        - id: 202
+                          name: Japan
+                          slug: japan
+                          tdwg_code: JAP
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/japan"
+                            plants: "/api/v1/distributions/japan/plants"
+                            species: "/api/v1/distributions/japan/species"
+                        - id: 146
+                          name: Kentucky
+                          slug: kentucky
+                          tdwg_code: KTY
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/kentucky"
+                            plants: "/api/v1/distributions/kentucky/plants"
+                            species: "/api/v1/distributions/kentucky/species"
+                        - id: 226
+                          name: Korea
+                          slug: korea
+                          tdwg_code: KOR
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/korea"
+                            plants: "/api/v1/distributions/korea/plants"
+                            species: "/api/v1/distributions/korea/species"
+                        - id: 309
+                          name: Krasnoyarsk
+                          slug: krasnoyarsk
+                          tdwg_code: KRA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/krasnoyarsk"
+                            plants: "/api/v1/distributions/krasnoyarsk/plants"
+                            species: "/api/v1/distributions/krasnoyarsk/species"
+                        - id: 222
+                          name: Lesotho
+                          slug: lesotho
+                          tdwg_code: LES
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/lesotho"
+                            plants: "/api/v1/distributions/lesotho/plants"
+                            species: "/api/v1/distributions/lesotho/species"
+                        - id: 129
+                          name: Madeira
+                          slug: madeira
+                          tdwg_code: MDR
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/madeira"
+                            plants: "/api/v1/distributions/madeira/plants"
+                            species: "/api/v1/distributions/madeira/species"
+                        - id: 310
+                          name: Manchuria
+                          slug: manchuria
+                          tdwg_code: CHM
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/manchuria"
+                            plants: "/api/v1/distributions/manchuria/plants"
+                            species: "/api/v1/distributions/manchuria/species"
+                        - id: 88
+                          name: Mexico Southwest
+                          slug: mexico-southwest
+                          tdwg_code: MXS
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/mexico-southwest"
+                            plants: "/api/v1/distributions/mexico-southwest/plants"
+                            species: "/api/v1/distributions/mexico-southwest/species"
+                        - id: 287
+                          name: Netherlands
+                          slug: netherlands
+                          tdwg_code: NET
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/netherlands"
+                            plants: "/api/v1/distributions/netherlands/plants"
+                            species: "/api/v1/distributions/netherlands/species"
+                        - id: 167
+                          name: New Mexico
+                          slug: new-mexico
+                          tdwg_code: NWM
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/new-mexico"
+                            plants: "/api/v1/distributions/new-mexico/plants"
+                            species: "/api/v1/distributions/new-mexico/species"
+                        - id: 237
+                          name: New York
+                          slug: new-york
+                          tdwg_code: NWY
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/new-york"
+                            plants: "/api/v1/distributions/new-york/plants"
+                            species: "/api/v1/distributions/new-york/species"
+                        - id: 289
+                          name: North European Russi
+                          slug: north-european-russi
+                          tdwg_code: RUN
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/north-european-russi"
+                            plants: "/api/v1/distributions/north-european-russi/plants"
+                            species: "/api/v1/distributions/north-european-russi/species"
+                        - id: 1
+                          name: Northern Provinces
+                          slug: northern-provinces
+                          tdwg_code: TVL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/northern-provinces"
+                            plants: "/api/v1/distributions/northern-provinces/plants"
+                            species: "/api/v1/distributions/northern-provinces/species"
+                        - id: 290
+                          name: Northwest European R
+                          slug: northwest-european-r
+                          tdwg_code: RUW
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/northwest-european-r"
+                            plants: "/api/v1/distributions/northwest-european-r/plants"
+                            species: "/api/v1/distributions/northwest-european-r/species"
+                        - id: 117
+                          name: Palestine
+                          slug: palestine
+                          tdwg_code: PAL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/palestine"
+                            plants: "/api/v1/distributions/palestine/plants"
+                            species: "/api/v1/distributions/palestine/species"
+                        - id: 322
+                          name: Qinghai
+                          slug: qinghai
+                          tdwg_code: CHQ
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/qinghai"
+                            plants: "/api/v1/distributions/qinghai/plants"
+                            species: "/api/v1/distributions/qinghai/species"
+                        - id: 68
+                          name: Rwanda
+                          slug: rwanda
+                          tdwg_code: RWA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/rwanda"
+                            plants: "/api/v1/distributions/rwanda/plants"
+                            species: "/api/v1/distributions/rwanda/species"
+                        - id: 184
+                          name: St.Helena
+                          slug: st-helena
+                          tdwg_code: STH
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/st-helena"
+                            plants: "/api/v1/distributions/st-helena/plants"
+                            species: "/api/v1/distributions/st-helena/species"
+                        - id: 293
+                          name: Sweden
+                          slug: sweden
+                          tdwg_code: SWE
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/sweden"
+                            plants: "/api/v1/distributions/sweden/plants"
+                            species: "/api/v1/distributions/sweden/species"
+                        - id: 149
+                          name: Tennessee
+                          slug: tennessee
+                          tdwg_code: TEN
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/tennessee"
+                            plants: "/api/v1/distributions/tennessee/plants"
+                            species: "/api/v1/distributions/tennessee/species"
+                        - id: 243
+                          name: Vermont
+                          slug: vermont
+                          tdwg_code: VER
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/vermont"
+                            plants: "/api/v1/distributions/vermont/plants"
+                            species: "/api/v1/distributions/vermont/species"
                       flower:
                         color: 
                         conspicuous: false
@@ -5049,7 +5049,7 @@ paths:
                       images_count: 35
                       sources_count: 5
                       synonyms_count: 11
-                      last_modified: '2020-08-10T09:52:33.150Z'
+                      last_modified: '2020-08-11T16:23:04.199Z'
         '401':
           description: Invalid credentials
           content:
@@ -5201,12 +5201,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-10T09:52:39.220Z'
-                      updated_at: '2020-08-10T09:52:39.222Z'
+                      created_at: '2020-08-11T16:23:09.960Z'
+                      updated_at: '2020-08-11T16:23:09.961Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-10T09:52:39.222Z'
+                      last_modified: '2020-08-11T16:23:09.961Z'
         '401':
           description: Invalid credentials
           content:
@@ -5932,7 +5932,7 @@ paths:
                           plants: "/api/v1/distributions/north-west-province/plants"
                           species: "/api/v1/distributions/north-west-province/species"
                     meta:
-                      last_modified: '2020-08-10T09:52:31.515Z'
+                      last_modified: '2020-08-11T16:23:02.620Z'
         '401':
           description: Invalid credentials
           content:
@@ -5979,8 +5979,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTExIDExOjUyOjM5ICswMjAwIiwiZXhwIjoxNTk3MTM5NTU5fQ.4j8gUZUBSUpgboRmh_kLadTGWI1kGV6TjF5EEcB_ueY
-                    expiration: '08-11-2020 11:52'
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTEyIDE4OjIzOjEwICswMjAwIiwiZXhwIjoxNTk3MjQ5MzkwfQ.xUDkfjdFh0DV1jMDgxzNTU5zowtVjJv2-TYcpJG0RgM
+                    expiration: '08-12-2020 18:23'
         '401':
           description: Invalid credentials
           content:
@@ -6075,8 +6075,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-08-10T09:52:39.475Z'
-                      updated_at: '2020-08-10T09:52:39.475Z'
+                      created_at: '2020-08-11T16:23:10.220Z'
+                      updated_at: '2020-08-11T16:23:10.220Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -6088,8 +6088,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-10T09:52:39.467Z'
-                      updated_at: '2020-08-10T09:52:39.467Z'
+                      created_at: '2020-08-11T16:23:10.212Z'
+                      updated_at: '2020-08-11T16:23:10.212Z'
                       correction:
                         scientific_name: Populus alba
                         maximum_height_value: 1524
@@ -6154,15 +6154,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-10T09:52:39.536Z'
-                      updated_at: '2020-08-10T09:52:39.536Z'
+                      created_at: '2020-08-11T16:23:10.282Z'
+                      updated_at: '2020-08-11T16:23:10.282Z'
                       correction:
                         scientific_name: Populus alba
                         maximum_height_value: 1524
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-08-10T09:52:39.536Z'
+                      last_modified: '2020-08-11T16:23:10.282Z'
         '401':
           description: Invalid credentials
           content:
@@ -6218,8 +6218,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-08-10T09:52:39.683Z'
-                      updated_at: '2020-08-10T09:52:39.683Z'
+                      created_at: '2020-08-11T16:23:10.454Z'
+                      updated_at: '2020-08-11T16:23:10.454Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6229,7 +6229,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-08-10T09:52:39.683Z'
+                      last_modified: '2020-08-11T16:23:10.454Z'
         '422':
           description: Invalid parameters
           content:
@@ -7739,62 +7739,121 @@ components:
               nullable: true
               example: A description on how to sow the plant
             duration:
-              type: string
-              enum:
-              - annual
-              - biennial
-              - perennial
-              - 
-              nullable: true
-              description: The duration(s) of the species. Several values can be separated
-                with "|"
-              example: annual
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - annual
+                  - biennial
+                  - perennial
+                  - 
+                  nullable: true
+                  description: The duration(s) of the species. Several values can
+                    be separated with "|"
+                  example: annual
+              - type: string
+                enum:
+                - annual
+                - biennial
+                - perennial
+                - 
+                nullable: true
+                description: The duration(s) of the species. Several values can be
+                  separated with "|"
+                example: annual
             flower_color:
-              type: string
-              enum:
-              - white
-              - red
-              - brown
-              - orange
-              - yellow
-              - lime
-              - green
-              - cyan
-              - blue
-              - purple
-              - magenta
-              - grey
-              - black
-              - 
-              nullable: true
-              description: The species flower color(s). Several values can be separated
-                with "|"
-              example: yellow
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - white
+                  - red
+                  - brown
+                  - orange
+                  - yellow
+                  - lime
+                  - green
+                  - cyan
+                  - blue
+                  - purple
+                  - magenta
+                  - grey
+                  - black
+                  - 
+                  nullable: true
+                  description: The species flower color(s). Several values can be
+                    separated with "|"
+                  example: yellow
+              - type: string
+                enum:
+                - white
+                - red
+                - brown
+                - orange
+                - yellow
+                - lime
+                - green
+                - cyan
+                - blue
+                - purple
+                - magenta
+                - grey
+                - black
+                - 
+                nullable: true
+                description: The species flower color(s). Several values can be separated
+                  with "|"
+                example: yellow
             flower_conspicuous:
               type: boolean
               nullable: true
               example: true
             foliage_color:
-              type: string
-              enum:
-              - white
-              - red
-              - brown
-              - orange
-              - yellow
-              - lime
-              - green
-              - cyan
-              - blue
-              - purple
-              - magenta
-              - grey
-              - black
-              - 
-              nullable: true
-              description: The species foliage color(s). Several values can be separated
-                with "|"
-              example: green|blue
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - white
+                  - red
+                  - brown
+                  - orange
+                  - yellow
+                  - lime
+                  - green
+                  - cyan
+                  - blue
+                  - purple
+                  - magenta
+                  - grey
+                  - black
+                  - 
+                  nullable: true
+                  description: The species foliage color(s). Several values can be
+                    separated with "|"
+                  example: green|blue
+              - type: string
+                enum:
+                - white
+                - red
+                - brown
+                - orange
+                - yellow
+                - lime
+                - green
+                - cyan
+                - blue
+                - purple
+                - magenta
+                - grey
+                - black
+                - 
+                nullable: true
+                description: The species foliage color(s). Several values can be separated
+                  with "|"
+                example: green|blue
             foliage_texture:
               type: string
               enum:
@@ -7809,26 +7868,49 @@ components:
               nullable: true
               example: false
             fruit_color:
-              type: string
-              enum:
-              - white
-              - red
-              - brown
-              - orange
-              - yellow
-              - lime
-              - green
-              - cyan
-              - blue
-              - purple
-              - magenta
-              - grey
-              - black
-              - 
-              nullable: true
-              description: The species fruit color(s). Several values can be separated
-                with "|"
-              example: white
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - white
+                  - red
+                  - brown
+                  - orange
+                  - yellow
+                  - lime
+                  - green
+                  - cyan
+                  - blue
+                  - purple
+                  - magenta
+                  - grey
+                  - black
+                  - 
+                  nullable: true
+                  description: The species fruit color(s). Several values can be separated
+                    with "|"
+                  example: white
+              - type: string
+                enum:
+                - white
+                - red
+                - brown
+                - orange
+                - yellow
+                - lime
+                - green
+                - cyan
+                - blue
+                - purple
+                - magenta
+                - grey
+                - black
+                - 
+                nullable: true
+                description: The species fruit color(s). Several values can be separated
+                  with "|"
+                example: white
             fruit_conspicuous:
               type: boolean
               nullable: true
@@ -7838,45 +7920,89 @@ components:
               nullable: true
               example: false
             fruit_months:
-              type: string
-              enum:
-              - jan
-              - feb
-              - mar
-              - apr
-              - may
-              - jun
-              - jul
-              - aug
-              - sep
-              - oct
-              - nov
-              - dec
-              - 
-              nullable: true
-              description: The months when his species have fruits. Several values
-                can be separated by "|"
-              example: jan|feb|mar
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - jan
+                  - feb
+                  - mar
+                  - apr
+                  - may
+                  - jun
+                  - jul
+                  - aug
+                  - sep
+                  - oct
+                  - nov
+                  - dec
+                  - 
+                  nullable: true
+                  description: The months when his species have fruits. Several values
+                    can be separated by "|"
+                  example: jan|feb|mar
+              - type: string
+                enum:
+                - jan
+                - feb
+                - mar
+                - apr
+                - may
+                - jun
+                - jul
+                - aug
+                - sep
+                - oct
+                - nov
+                - dec
+                - 
+                nullable: true
+                description: The months when his species have fruits. Several values
+                  can be separated by "|"
+                example: jan|feb|mar
             bloom_months:
-              type: string
-              enum:
-              - jan
-              - feb
-              - mar
-              - apr
-              - may
-              - jun
-              - jul
-              - aug
-              - sep
-              - oct
-              - nov
-              - dec
-              - 
-              nullable: true
-              description: The months when this species blooms. Several values can
-                be separated by "|"
-              example: 
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - jan
+                  - feb
+                  - mar
+                  - apr
+                  - may
+                  - jun
+                  - jul
+                  - aug
+                  - sep
+                  - oct
+                  - nov
+                  - dec
+                  - 
+                  nullable: true
+                  description: The months when this species blooms. Several values
+                    can be separated by "|"
+                  example: 
+              - type: string
+                enum:
+                - jan
+                - feb
+                - mar
+                - apr
+                - may
+                - jun
+                - jul
+                - aug
+                - sep
+                - oct
+                - nov
+                - dec
+                - 
+                nullable: true
+                description: The months when this species blooms. Several values can
+                  be separated by "|"
+                example: 
             ground_humidity:
               type: integer
               nullable: true
@@ -7892,43 +8018,81 @@ components:
               nullable: true
               example: 
             growth_months:
-              type: string
-              enum:
-              - jan
-              - feb
-              - mar
-              - apr
-              - may
-              - jun
-              - jul
-              - aug
-              - sep
-              - oct
-              - nov
-              - dec
-              - 
-              nullable: true
-              description: The months when this species grows. Several values can
-                be separated by "|"
-              example: 
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - jan
+                  - feb
+                  - mar
+                  - apr
+                  - may
+                  - jun
+                  - jul
+                  - aug
+                  - sep
+                  - oct
+                  - nov
+                  - dec
+                  - 
+                  nullable: true
+                  description: The months when this species grows. Several values
+                    can be separated by "|"
+                  example: 
+              - type: string
+                enum:
+                - jan
+                - feb
+                - mar
+                - apr
+                - may
+                - jun
+                - jul
+                - aug
+                - sep
+                - oct
+                - nov
+                - dec
+                - 
+                nullable: true
+                description: The months when this species grows. Several values can
+                  be separated by "|"
+                example: 
             growth_rate:
               type: string
               nullable: true
               example: 
             edible_part:
-              type: string
-              enum:
-              - roots
-              - stem
-              - leaves
-              - flowers
-              - fruits
-              - seeds
-              - 
-              nullable: true
-              description: The edible part of the species (if any). Several values
-                can be separated by "|"
-              example: flowers
+              anyOf:
+              - type: array
+                items:
+                  type: string
+                  enum:
+                  - roots
+                  - stem
+                  - leaves
+                  - flowers
+                  - fruits
+                  - seeds
+                  - 
+                  nullable: true
+                  description: The edible part of the species (if any). Several values
+                    can be separated by "|"
+                  example: flowers
+              - type: string
+                enum:
+                - roots
+                - stem
+                - leaves
+                - flowers
+                - fruits
+                - seeds
+                - 
+                nullable: true
+                description: The edible part of the species (if any). Several values
+                  can be separated by "|"
+                example: flowers
             vegetable:
               type: boolean
               nullable: true

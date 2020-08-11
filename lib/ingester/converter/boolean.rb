@@ -11,10 +11,6 @@ module Ingester
       end
 
       FIELDS = %I[
-        adapted_to_coarse_textured_soils
-        adapted_to_fine_textured_soils
-        adapted_to_medium_textured_soils
-        complete_data
         edible
         flower_conspicuous
         fruit_conspicuous
