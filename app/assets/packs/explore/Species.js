@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 import ReactIntense from 'react-intense'
 import Field from './fields/Field'
 import ColorBadge from './elements/ColorBadge'
-import Calendar from './elements/Calendar';
+import FieldCalendar from './fields/FieldCalendar';
 import UnknownItem from './fields/Unknown';
 import ReactMarkdown from 'react-markdown'
 import FieldLight from './fields/FieldLight';
@@ -25,6 +25,7 @@ import FieldColor from './fields/FieldColor';
 import FieldFoliageTexture from './fields/FieldFoliageTexture';
 import FieldLeafRetention from './fields/FieldLeafRetention';
 import clsx from 'clsx';
+import DoneButton from './elements/DoneButton';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
@@ -99,16 +100,16 @@ const Species = ({ species }) => {
       <h4 className="title is-5 ">
         Soil
       </h4>
-      <FieldSoilHumidity value={growth.soil_humidity} />
-      <FieldSoilNutriments value={growth.soil_nutriments} />
-      <FieldSoilSalinity value={growth.soil_salinity} />
-      <FieldSoilTexture value={growth.soil_texture} />
+      <FieldSoilHumidity name={'ground_humidity'} value={growth.soil_humidity} />
+      <FieldSoilNutriments name={'soil_nutriments'} value={growth.soil_nutriments} />
+      <FieldSoilSalinity name={'soil_salinity'} value={growth.soil_salinity} />
+      <FieldSoilTexture name={'soil_texture'} value={growth.soil_texture} />
 
       <br />
       <h4 className="title is-5 ">
         Calendar
       </h4>
-      <Calendar bloom={growth.bloom_months} growth={growth.growth_months} fruit={growth.fruit_months} />
+      <FieldCalendar bloom={growth.bloom_months} growth={growth.growth_months} fruit={growth.fruit_months} />
     </section>)
   }
 
@@ -246,7 +247,8 @@ const Species = ({ species }) => {
         <hr />
         { renderDistributions() }
         <hr />
-        { renderSynonyms() }
+        {renderSynonyms()}
+        <DoneButton />
       </div>
     </div>
     <div>

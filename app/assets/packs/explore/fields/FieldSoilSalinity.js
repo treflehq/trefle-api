@@ -1,30 +1,57 @@
-
 import React from 'react'
 import Scale from '../elements/Scale'
 import UnknownItem from './Unknown'
+import { useContext } from 'react'
+import CorrectionContext from '../CorrectionContext'
+import ChangeInputRange from '../elements/ChangeInputRange'
+import { firstNotNil } from '../utils/utils'
+import { invert, reverse } from 'lodash'
 
-const FieldSoilSalinity = ({ value }) => {
+const FieldSoilSalinity = ({
+  value,
+  name
+}) => {
+  const { edit, correction, setField } = useContext(CorrectionContext)
 
-  if (value === null || value === undefined) {
-    return <p>
-      <b>Soil salinity:</b>{' '}<UnknownItem value={value} name={'soil_salinity'} />
-    </p>
+  const options = {
+    'Untolerant': 0,
+    '0% - 0.1% Cl−': 1,     // hyperoligohalines
+    '0.1% - 0.3% Cl−': 2,  // peroligohalines
+    '0.3% - 0.5% Cl−': 3,  // oligohalines
+    '0.5% - 0.7% Cl−': 4,  // meso - oligohalines
+    '0.7% - 0.9% Cl−': 5,  // mesohalines
+    '0.9% - 1.2% Cl−': 6,  // meso - euhalines
+    '1.2% - 1.6% Cl−': 7,  // euhalines
+    '1.6% - 2.3% Cl−': 8,  // polyhalines
+    '> 2.3% Cl−': 9,       // hyperhalines
   }
 
+  const realValue = firstNotNil(correction[name], value)
 
-  const legend = {
-    0: 'Untolerant',
-    1: <span>0 - 0.1 % <sup>Cl−</sup></span>,     // hyperoligohalines
-    2: <span>0.1 - 0.3 % <sup>Cl−</sup></span>,  // peroligohalines
-    3: <span>0.3 - 0.5 % <sup>Cl−</sup></span>,  // oligohalines
-    4: <span>0.5 - 0.7 % <sup>Cl−</sup></span>,  // meso - oligohalines
-    5: <span>0.7 - 0.9 % <sup>Cl−</sup></span>,  // mesohalines
-    6: <span>0.9 - 1.2 % <sup>Cl−</sup></span>,  // meso - euhalines
-    7: <span>1.2 - 1.6 % <sup>Cl−</sup></span>,  // euhalines
-    8: <span>1.6 - 2.3 % <sup>Cl−</sup></span>,  // polyhalines
-    9: <span>&gt; 2.3 % <sup>Cl−</sup></span>,       // hyperhalines
+  if (edit) {
+    return (
+      <div className="columns">
+        <div className="column is-12">
+          <p>
+            <b>Soil salinity:</b>
+            {' '}
+
+            <ChangeInputRange
+              min={0}
+              max={9}
+              onChange={(e) => setField(name, parseInt(e.target.value))}
+              value={realValue}
+            />
+
+            <span>
+              {' '}
+              {invert(options)[realValue]}
+            </span>
+          </p>
+        </div>
+      </div>
+    )
   }
-
 
   return (
     <div className="columns">
@@ -32,11 +59,11 @@ const FieldSoilSalinity = ({ value }) => {
         <p>
           <b>Soil salinity:</b>
           {' '}
-          {legend[value]}
+          <UnknownItem value={value} name={name} mapping={options} />
         </p>
       </div>
       <div className="column is-3">
-        <Scale min={0} max={9} value={value} leftIcon={'atom-alt'} />
+        <Scale min={0} max={9} value={realValue} leftIcon={'atom-alt'} />
       </div>
     </div>
   )

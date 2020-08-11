@@ -8,6 +8,7 @@ import CorrectionContext from './CorrectionContext';
 
 const SpeciesPage = ({ slug }) => {
   const [response, setResponse] = useState({})
+  const [user, setUser] = useState({})
   const [correction, setCorrection] = useState({})
   const [edit, setEdit] = useState(false)
 
@@ -19,19 +20,29 @@ const SpeciesPage = ({ slug }) => {
     setCorrection({...correction, [field]: value})
   }
 
+  const reset = () => {
+    setCorrection({})
+    setEdit(false)
+  }
+
   useEffect(() => {
     async function fetchData() {
       const r = await axios.get(`/api/v1/species/${slug}?token=${temp_token}`)
       setResponse(r.data)
     }
+    async function fetchUser() {
+      const r = await axios.get(`/api/v1/me?token=${temp_token}`)
+      setUser(r.data)
+    }
     if (slug) {
       fetchData()
+      fetchUser()
     }
   }, [])
 
-  if (response.data) {
+  if (response.data && user) {
     return <>
-      <CorrectionContext.Provider value={{ correction, edit, setField, toggleEdit }}>
+      <CorrectionContext.Provider value={{ correction, edit, setField, reset, toggleEdit, user }}>
         <Species
           species={response.data}
         />

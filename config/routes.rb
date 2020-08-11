@@ -14,6 +14,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   namespace 'api' do
     namespace 'v1' do
       get '/', to: 'home#index'
+      get '/me', to: 'users#me'
 
       resources :kingdoms, only: %i[index show]
       resources :subkingdoms, only: %i[index show]

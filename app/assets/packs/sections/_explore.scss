@@ -37,8 +37,13 @@
 .fieldItem.edit {
   .inline-input {
     display: inline-block;
-    border: 1px solid #ccc;
+    border: none;
     padding: 3px;
+    width: auto;
+    min-width: 50px;
+    max-width: 80px;
+    border-bottom: 3px solid #42ba12;
+    background: #f3f3f3;
   }
   .inline-select {
     display: inline-block;
@@ -64,6 +69,15 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .done-footer {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0px;
+    background-color: #fff;
+    padding: 5px;
+    border-top: 1px solid #ccc;
   }
 
   .sticky-menu {

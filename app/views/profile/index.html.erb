@@ -71,6 +71,14 @@
             <%= current_user.email %>
           </li>
           <li>
+            <strong>Organization:</strong>
+            <%= current_user.organization_name %>
+          </li>
+          <li>
+            <strong>Website:</strong>
+            <%= current_user.organization_url %>
+          </li>
+          <li>
             <strong>Password</strong>
             <span>********</span>
             <%= link_to "(change)", edit_user_registration_path(current_user), class: "link" %>

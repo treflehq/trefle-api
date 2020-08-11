@@ -1,27 +1,55 @@
-
 import React from 'react'
 import Scale from '../elements/Scale'
 import UnknownItem from './Unknown'
+import { useContext } from 'react'
+import CorrectionContext from '../CorrectionContext'
+import ChangeInputRange from '../elements/ChangeInputRange'
+import { firstNotNil } from '../utils/utils'
+import { invert, reverse } from 'lodash'
 
-const FieldSoilNutriments = ({ value }) => {
+const FieldSoilNutriments = ({
+  value,
+  name
+}) => {
+  const { edit, correction, setField } = useContext(CorrectionContext)
 
-  if (value === null || value === undefined) {
-    return <p>
-      <b>Soil nutriments:</b>{' '}<UnknownItem value={value} name={'soil_nutriments'} />
-    </p>
+  const options = {
+    'Very low (≈100 µg N / l)': 1, // hyperoligotrophiles
+    'Low (≈200 µg N / l)': 2, // peroligotrophiles
+    'Low (≈300 µg N / l)': 3, // oligotrophiles
+    'Low (≈400 µg N / l)': 4, // méso - oligotrophiles
+    'Medium (≈500 µg N / l)': 5, // mésotrophiles
+    'Medium (≈750 µg N / l)': 6, // méso - eutrophiles
+    'High (≈1000 µg N / l)': 7, // eutrophiles
+    'High (≈1250 µg N / l)': 8, // pereutrophiles
+    'Very high (≈1500 µg N / l)': 9, // hypereutrophiles
   }
 
+  const realValue = firstNotNil(correction[name], value)
 
-  const legend = {
-    1: 'Very low (≈100 µg N / l)', // hyperoligotrophiles
-    2: 'Low (≈200 µg N / l)', // peroligotrophiles
-    3: 'Low (≈300 µg N / l)', // oligotrophiles
-    4: 'Low (≈400 µg N / l)', // méso - oligotrophiles
-    5: 'Medium (≈500 µg N / l)', // mésotrophiles
-    6: 'Medium (≈750 µg N / l)', // méso - eutrophiles
-    7: 'High (≈1000 µg N / l)', // eutrophiles
-    8: 'High (≈1250 µg N / l)', // pereutrophiles
-    9: 'Very high (≈1500 µg N / l)', // hypereutrophiles
+  if (edit) {
+    return (
+      <div className="columns">
+        <div className="column is-12">
+          <p>
+            <b>Soil nutriments:</b>
+            {' '}
+
+            <ChangeInputRange
+              min={0}
+              max={9}
+              onChange={(e) => setField(name, parseInt(e.target.value))}
+              value={realValue}
+            />
+
+            <span>
+              {' '}
+              {invert(options)[realValue]}
+            </span>
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -30,11 +58,11 @@ const FieldSoilNutriments = ({ value }) => {
         <p>
           <b>Soil nutriments:</b>
           {' '}
-          {legend[value]}
+          <UnknownItem value={value} name={name} mapping={options} />
         </p>
       </div>
       <div className="column is-3">
-        <Scale min={1} max={9} value={value} leftIcon={'cauldron'} />
+        <Scale min={1} max={9} value={realValue} leftIcon={'cauldron'} />
       </div>
     </div>
   )
