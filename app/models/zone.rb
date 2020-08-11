@@ -31,7 +31,14 @@ class Zone < ApplicationRecord
   include Scopes::Zones
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
+  def slug_candidates
+    [
+      :tdwg_code,
+      [:tdwg_code, :name]
+    ]
+  end
 
   def self.fix_global_counts
     Zone.all.each do |z|
