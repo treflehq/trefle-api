@@ -89,8 +89,8 @@ const Species = ({ species }) => {
         <i className="fad fa-seedling has-text-success"></i> Growing
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
-      <FieldLight name={'light'} value={growth.light} />
-      <FieldAtmosphericHumidity value={growth.atmospheric_humidity} />
+      <FieldLight name="light" value={growth.light} />
+      <FieldAtmosphericHumidity name="atmospheric_humidity" value={growth.atmospheric_humidity} />
       <FieldPh min={growth.ph_minimum} max={growth.ph_maximum} />
       <FieldPrecipitations min={growth.minimum_precipitation && growth.minimum_precipitation.mm} max={growth.maximum_precipitation && growth.maximum_precipitation.mm} />
       <FieldTemperature min={growth.minimum_temperature && growth.minimum_temperature.deg_c} max={growth.maximum_temperature && growth.maximum_temperature.deg_c} />

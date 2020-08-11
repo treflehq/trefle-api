@@ -6,7 +6,6 @@ import { useContext } from 'react'
 import CorrectionContext from '../CorrectionContext'
 import ChangeInputRange from '../elements/ChangeInputRange'
 import { firstNotNil } from '../utils/utils'
-import MappedValue from '../elements/MappedValue'
 import { invert, reverse } from 'lodash'
 
 const FieldLight = ({
@@ -31,7 +30,6 @@ const FieldLight = ({
   const realValue = firstNotNil(correction[name], value)
 
   if (edit) {
-    console.log({ realValue, reverse: invert(options) });
     return (
       <div className="columns">
         <div className="column is-12">
@@ -42,7 +40,6 @@ const FieldLight = ({
             <ChangeInputRange
               min={0}
               max={9}
-              placeholder='Light'
               onChange={(e) => setField(name, parseInt(e.target.value))}
               value={realValue}
             />
@@ -63,7 +60,7 @@ const FieldLight = ({
         <p>
           <b>Light:</b>
           {' '}
-          <UnknownItem value={value} name={'light'} mapping={options}/>
+          <UnknownItem value={value} name={name} mapping={options}/>
         </p>
       </div>
       <div className="column is-3">
