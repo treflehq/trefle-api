@@ -5,24 +5,50 @@ import axios from 'axios';
 import Species from './Species';
 import { useEffect } from 'react';
 import CorrectionContext from './CorrectionContext';
+import Review from './Review';
 
 const SpeciesPage = ({ slug }) => {
+  const [submission, setSubmission] = useState({})
   const [response, setResponse] = useState({})
   const [user, setUser] = useState({})
-  const [correction, setCorrection] = useState({})
-  const [edit, setEdit] = useState(false)
+  const [correction, setCorrection] = useState({ "average_height_value": 10 })
+  const [edit, setEdit] = useState(true)
+  const [review, setReview] = useState(true)
 
   const toggleEdit = () => {
     setEdit(!edit)
+  }
+
+  const toggleReview = () => {
+    setReview(!review)
   }
 
   const setField = (field, value) => {
     setCorrection({...correction, [field]: value})
   }
 
+  const setFields = (hash) => {
+    setCorrection({...correction, ...hash})
+  }
+
   const reset = () => {
     setCorrection({})
     setEdit(false)
+    setReview(false)
+    setSubmission({})
+  }
+
+  const submitCorrection = async (payload) => {
+    const response = await fetch(
+      `/api/v1/corrections/species/abies-alba?token=${temp_token}`, {
+      method: 'post',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const json = await response.json();
+    console.log(json);
+    setSubmission(json)
+    return json
   }
 
   useEffect(() => {
@@ -40,12 +66,25 @@ const SpeciesPage = ({ slug }) => {
     }
   }, [])
 
+  const correxionContext = {
+    correction,
+    edit,
+    setField,
+    setFields,
+    reset,
+    toggleEdit,
+    user,
+    review,
+    toggleReview,
+    setReview,
+    submission,
+    submitCorrection
+  }
+
   if (response.data && user) {
     return <>
-      <CorrectionContext.Provider value={{ correction, edit, setField, reset, toggleEdit, user }}>
-        <Species
-          species={response.data}
-        />
+      <CorrectionContext.Provider value={correxionContext}>
+        {review ? <Review species={response.data} /> : <Species species={response.data} />}
       </CorrectionContext.Provider>
     </>
   } else {

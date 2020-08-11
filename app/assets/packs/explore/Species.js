@@ -163,7 +163,7 @@ const Species = ({ species }) => {
       <section className="section content" id="synonyms">
         <h2 className="title is-3 ">
           <i className="fad fa-clone has-text-success"></i> Synonyms
-          </h2>
+        </h2>
         {species.synonyms.map(syn => {
           return (<div key={syn.id}>
             <p>
@@ -229,14 +229,14 @@ const Species = ({ species }) => {
             <li><a href="#distribution">Distribution</a></li>
             <li><a href="#synonyms">Synonyms</a></li>
           </ul>
-
+{/* 
           {keys(correction).length > 0 && <>
             <hr/>
             <div className="changes-panel">
               {keys(correction).length} changes
               <button className="button is-primary" onClick={toggleEdit}>Propose changes</button>
             </div>
-          </>}
+          </>} */}
         </aside>
       </div>
       <div className="column is-10">

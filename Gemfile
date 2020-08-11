@@ -45,6 +45,9 @@ gem 'kaminari'
 gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 gem 'typhoeus'
 
+# Gravatar
+gem 'gravtastic'
+
 gem 'measured'
 gem 'measured-rails'
 

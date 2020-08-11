@@ -44,5 +44,5 @@
 </div>
 
 <script>
-  var temp_token = "<%= @jwt.token %>";
+  var temp_token = "<%= current_user.token || @jwt.token %>";
 </script>

@@ -184,6 +184,7 @@ GEM
       ffi (~> 1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gravtastic (3.2.6)
     groupdate (5.1.0)
       activesupport (>= 5)
     has_scope (0.7.2)
@@ -462,6 +463,7 @@ DEPENDENCIES
   factory_bot (~> 5.1.2)
   faker (~> 2.1.2)
   friendly_id (>= 5.2.4)
+  gravtastic
   groupdate
   has_scope
   health_check

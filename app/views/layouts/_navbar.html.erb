@@ -39,7 +39,8 @@
       <div class="navbar-end">
         <% if user_signed_in? %>
         <a class="navbar-item" title="Account" href="<%= profile_path() %>">
-          <i class="fad fa-key-skeleton"></i><span> Account</span>
+          <%= image_tag current_user.gravatar_url, class: 'user-image' %>
+          <%= current_user.name || current_user.email %>
         </a>
         <%
 =begin%>
