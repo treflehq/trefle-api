@@ -13,10 +13,10 @@ class Rack::Attack
   # throttle('videos/ip', limit: 2, period: 20.seconds) do |req|
   #   req.ip if req.path =~ /videos(\.json)?/ && req.post?
   # end
-  # safelist('allowed users') do |request|
-  #   # Requests are allowed if the return value is truthy
-  #   token(request)&.starts_with?('unl-')
-  # end
+  safelist('allowed users') do |request|
+    # Requests are allowed if the return value is truthy
+    token(request)&.starts_with?('unl-')
+  end
 
   throttle('/api/user', limit: 120, period: 60.seconds) do |req|
     if req.path.starts_with?('/api')
