@@ -1,0 +1,17 @@
+<%= link_to explore_record_correction_path(correction), class: 'correction-item' do %>
+  <main>
+    <h2 class="title is-5">
+      <span><%= correction.notes %></span>
+      <span class="tag"><%= correction.change_status %></span>
+      <span class="tag"><%= correction.change_type %></span>
+    </h2>
+    <pre><code><%= correction.correction_json && JSON.pretty_generate(JSON.parse(correction.correction_json)) %></code></pre>
+    <p class="subtitle is-6">From <%= correction.source_type %></p>
+  </main>
+
+  <aside>
+    <%= image_tag correction.user.gravatar_url, class: 'user-image' %>
+    <%= correction.user&.name || 'anonymous' %>
+  </aside>
+
+<% end %>

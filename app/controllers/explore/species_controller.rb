@@ -1,5 +1,5 @@
 class Explore::SpeciesController < Explore::ExploreController
-  before_action :set_species, only: %i[show edit update destroy refresh]
+  before_action :set_species, only: %i[show edit update destroy refresh corrections]
 
   has_scope :vegetable, type: :boolean, allow_blank: true
   has_scope :edible, type: :boolean, allow_blank: true

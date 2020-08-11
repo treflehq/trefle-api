@@ -27,7 +27,7 @@ import FieldLeafRetention from './fields/FieldLeafRetention';
 import clsx from 'clsx';
 import DoneButton from './elements/DoneButton';
 
-const Species = ({ species }) => {
+const Species = ({ species, currentCorrections }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
 
 
@@ -228,15 +228,8 @@ const Species = ({ species }) => {
             <li><a href="#images">Images</a></li>
             <li><a href="#distribution">Distribution</a></li>
             <li><a href="#synonyms">Synonyms</a></li>
+            {currentCorrections && currentCorrections.length > 0 && <li><a href="#corrections">Corrections <span className="tag">{currentCorrections.length}</span></a></li>}
           </ul>
-{/* 
-          {keys(correction).length > 0 && <>
-            <hr/>
-            <div className="changes-panel">
-              {keys(correction).length} changes
-              <button className="button is-primary" onClick={toggleEdit}>Propose changes</button>
-            </div>
-          </>} */}
         </aside>
       </div>
       <div className="column is-10">

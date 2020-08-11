@@ -61,7 +61,12 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
   namespace 'explore' do
     get '/', to: 'species#index'
-    resources :species
+    resources :species, only: %i[index show] do
+      resources :record_corrections, only: %i[index], path: 'corrections'
+    end
+    resources :record_corrections, path: 'corrections', only: %i[index show] do
+
+    end
   end
 
   namespace 'management' do

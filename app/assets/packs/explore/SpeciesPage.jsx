@@ -11,9 +11,10 @@ const SpeciesPage = ({ slug }) => {
   const [submission, setSubmission] = useState({})
   const [response, setResponse] = useState({})
   const [user, setUser] = useState({})
-  const [correction, setCorrection] = useState({ "average_height_value": 10 })
-  const [edit, setEdit] = useState(true)
-  const [review, setReview] = useState(true)
+  const [currentCorrections, setCurrentCorrections] = useState({})
+  const [correction, setCorrection] = useState({})
+  const [edit, setEdit] = useState(false)
+  const [review, setReview] = useState(false)
 
   const toggleEdit = () => {
     setEdit(!edit)
@@ -60,9 +61,14 @@ const SpeciesPage = ({ slug }) => {
       const r = await axios.get(`/api/v1/me?token=${temp_token}`)
       setUser(r.data)
     }
+    async function fetchCorrections() {
+      const r = await axios.get(`/api/v1/species/${slug}/corrections?token=${temp_token}&mine=true`)
+      setCurrentCorrections(r.data)
+    }
     if (slug) {
       fetchData()
       fetchUser()
+      fetchCorrections()
     }
   }, [])
 
@@ -81,10 +87,10 @@ const SpeciesPage = ({ slug }) => {
     submitCorrection
   }
 
-  if (response.data && user) {
+  if (response.data && user && currentCorrections) {
     return <>
       <CorrectionContext.Provider value={correxionContext}>
-        {review ? <Review species={response.data} /> : <Species species={response.data} />}
+        {review ? <Review species={response.data} /> : <Species currentCorrections={currentCorrections && currentCorrections.data} species={response.data} />}
       </CorrectionContext.Provider>
     </>
   } else {
