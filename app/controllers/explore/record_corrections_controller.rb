@@ -19,17 +19,18 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
   # GET /record_correction/1
   # GET /record_correction/1.json
   def show
-    ptitle = @record_correction.scientific_name
-    ptitle = "Correction for #{ptitle} (#{@record_correction.common_name})" if @record_correction.common_name
+    @species = @record_correction.record
+
+    ptitle = "Correction for #{@species.scientific_name}"
     @page_title       = ptitle
-    @page_description = "#{@record_correction.scientific_name} is an #{@record_correction.status} #{@record_correction.rank} of the #{@record_correction.family_name} family"
-    @page_keywords    = [@record_correction.scientific_name, @record_correction.common_name, @record_correction.family_name, @record_correction.family_common_name, 'plant', 'explore'].compact.join(', ')
+    @page_description = "#{@species.scientific_name} is an #{@species.status} #{@species.rank} of the #{@species.family_name} family"
+    @page_keywords    = [@species.scientific_name, @species.common_name, @species.family_name, @species.family_common_name, 'plant', 'explore'].compact.join(', ')
 
     set_meta_tags(
-      image_src: @record_correction.main_image_url,
+      image_src: @species.main_image_url,
       og: {
-        title:    @record_correction.scientific_name,
-        image:    @record_correction.main_image_url,
+        title:    @species.scientific_name,
+        image:    @species.main_image_url,
       }
     )
   end
