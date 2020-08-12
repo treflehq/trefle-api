@@ -1,11 +1,8 @@
 
-import { map, capitalize, keys } from 'lodash';
+import { map, capitalize } from 'lodash';
 import React, { useContext } from 'react'
 import ReactIntense from 'react-intense'
-import Field from './fields/Field'
-import ColorBadge from './elements/ColorBadge'
 import FieldCalendar from './fields/FieldCalendar';
-import UnknownItem from './fields/Unknown';
 import ReactMarkdown from 'react-markdown'
 import FieldLight from './fields/FieldLight';
 import FieldAtmosphericHumidity from './fields/FieldAtmosphericHumidity';
@@ -27,7 +24,7 @@ import FieldLeafRetention from './fields/FieldLeafRetention';
 import clsx from 'clsx';
 import DoneButton from './elements/DoneButton';
 
-const Species = ({ species, currentCorrections }) => {
+const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
 
 
@@ -174,82 +171,17 @@ const Species = ({ species, currentCorrections }) => {
       </section>)
   }
 
-  return (<div>
-    <div className="columns">
-      <div className="column is-4">
-        <aside className="species-side-image" style={{backgroundImage: `url(${ species.image_url })`}}></aside>
-      </div>
-      <div className="column is-8">
-        <section className="hero">
-          <div className="hero-body">
-            <div className="container">
-              <h2 className="suptitle">
-                <div className="field is-grouped is-grouped-multiline">
-                  <div className="control">
-
-                    <div className="tags has-addons">
-                      <span className="tag">Status</span>
-                      <span className={`tag ${species.status == 'accepted' ? 'is-primary' : ''}`}>{species.status}</span>
-                    </div>
-                  </div>
-                  <div className="control">
-                    <div className="tags has-addons">
-                      <span className="tag">Rank</span>
-                      <span className={`tag ${species.rank == 'species' ? 'is-primary' : 'is-info'}`}>{species.rank}</span>
-                    </div>
-                  </div>
-                </div>
-              </h2>
-              <h1 className="title is-1">
-                { species.scientific_name }
-              </h1>
-              <h2 className="subtitle">
-                { species.common_name ? capitalize(species.common_name) : 'No common name' }
-              </h2>
-              <p className="subtitle">
-                <i className="fad fa-book has-text-success"></i> { species.author || 'No author' } { species.year || 'No year' } - <i>{ species.bibliography || 'No bibliography' }</i>
-              </p>
-              <p className="subtitle">
-                { species.observations }
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-    <div className="columns">
-      <div className="column is-2">
-        <br />
-        <br />
-        <aside className="menu">
-          <ul className="menu-list sticky-menu">
-            <li><a href="#specifications">Specifications</a></li>
-            <li><a href="#growth">Growing</a></li>
-            <li><a href="#images">Images</a></li>
-            <li><a href="#distribution">Distribution</a></li>
-            <li><a href="#synonyms">Synonyms</a></li>
-            {currentCorrections && currentCorrections.length > 0 && <li><a href="#corrections">Corrections <span className="tag">{currentCorrections.length}</span></a></li>}
-          </ul>
-        </aside>
-      </div>
-      <div className="column is-10">
-        { renderSpecifications() }
-        { renderGrowing() }
-        <hr />
-        { renderImages() }
-        <hr />
-        { renderDistributions() }
-        <hr />
-        {renderSynonyms()}
-        <DoneButton />
-      </div>
-    </div>
-    <div>
-      <pre>
-        <code>{JSON.stringify(correction, null, 2)}</code>
-      </pre>
-    </div>
-  </div>)
+  return (<>
+    { renderSpecifications() }
+    { renderGrowing() }
+    <hr />
+    { renderImages() }
+    <hr />
+    { renderDistributions() }
+    <hr />
+    {renderSynonyms()}
+    <DoneButton />
+  </>)
 }
 
 export default Species

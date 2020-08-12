@@ -133,72 +133,14 @@ const Review = ({ species }) => {
       </section>)
   }
 
-  return (<div>
-    <div className="columns">
-      <div className="column is-4">
-        <aside className="species-side-image" style={{backgroundImage: `url(${ species.image_url })`}}></aside>
-      </div>
-      <div className="column is-8">
-        <section className="hero">
-          <div className="hero-body">
-            <div className="container">
-              <h2 className="suptitle">
-                <div className="field is-grouped is-grouped-multiline">
-                  <div className="control">
+  return (<>
+    {submission && !submission.error && submission.data && renderSuccess() || <>
+      { renderForm() }
+      { renderSummary() }
 
-                    <div className="tags has-addons">
-                      <span className="tag">Status</span>
-                      <span className={`tag ${species.status == 'accepted' ? 'is-primary' : ''}`}>{species.status}</span>
-                    </div>
-                  </div>
-                  <div className="control">
-                    <div className="tags has-addons">
-                      <span className="tag">Rank</span>
-                      <span className={`tag ${species.rank == 'species' ? 'is-primary' : 'is-info'}`}>{species.rank}</span>
-                    </div>
-                  </div>
-                </div>
-              </h2>
-              <h1 className="title is-1">
-                { species.scientific_name }
-              </h1>
-              <h2 className="subtitle">
-                { species.common_name ? capitalize(species.common_name) : 'No common name' }
-              </h2>
-              <p className="subtitle">
-                <i className="fad fa-book has-text-success"></i> { species.author || 'No author' } { species.year || 'No year' } - <i>{ species.bibliography || 'No bibliography' }</i>
-              </p>
-              <p className="subtitle">
-                { species.observations }
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-    <div className="columns">
-      <div className="column is-2">
-        <br />
-        <br />
-        <aside className="menu">
-          <ul className="menu-list sticky-menu">
-            <li><a href="#infos">Source infos</a></li>
-            <li><a href="#summary">Summary</a></li>
-          </ul>
-        </aside>
-      </div>
-
-      <div className="column is-10">
-
-        {submission && !submission.error && submission.data && renderSuccess() || <>
-          { renderForm() }
-          { renderSummary() }
-
-          <DoneButton payload={payload} />
-        </>}
-      </div>
-    </div>
-  </div>)
+      <DoneButton payload={payload} />
+    </>}
+  </>)
 }
 
 export default Review

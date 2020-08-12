@@ -1,0 +1,30 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="#"><%= species.family_name %></a></li>
+      <li><a href="#"><%= species.genus_name %></a></li>
+      <li class="is-active"><a href="#" aria-current="page"><%= species.scientific_name %></a></li>
+    </ul>
+  </nav>
+
+  <div class="columns">
+    <div class="column is-3">
+      <aside class="species-correction-image" style="background-image: url(<%= species.main_image_url %>)"></aside>
+    </div>
+    <div class="column is-9">
+          <div class="container">
+            <h1 class="title is-1">
+              <%= species.scientific_name %>
+            </h1>
+            <h2 class="subtitle">
+              <%= species.common_name || 'No common name' %>
+            </h2>
+            <p class="subtitle">
+              <i class="fad fa-book has-text-success"></i> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
+              <br />
+              <%= species.observations %>
+            </p>
+          </div>
+    </div>
+  </div>
+
+  <hr />

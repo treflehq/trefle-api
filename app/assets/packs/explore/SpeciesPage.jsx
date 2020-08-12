@@ -62,7 +62,7 @@ const SpeciesPage = ({ slug }) => {
       setUser(r.data)
     }
     async function fetchCorrections() {
-      const r = await axios.get(`/api/v1/species/${slug}/corrections?token=${temp_token}&mine=true`)
+      const r = await axios.get(`/api/v1/species/${slug}/corrections?token=${temp_token}`)
       setCurrentCorrections(r.data)
     }
     if (slug) {

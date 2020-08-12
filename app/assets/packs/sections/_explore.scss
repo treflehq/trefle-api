@@ -4,26 +4,10 @@
   display: flex;
   align-items: stretch;
   padding: 10px;
-  flex-direction: row;
+  flex-direction: column;
   border: 1px solid #eee;
   margin: 10px 0;
 
-  aside {
-    min-width: 100px;
-    height: 100%;
-    flex: 0 1 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    img {
-      max-width: 64px;
-      max-height: 64px;
-      padding: 10px;
-      border-radius: 64px;
-    }
-  }
 
   main {
     flex: 1 1;
@@ -35,11 +19,38 @@
     h2.title {
       font-size: 1em;
       font-weight: 700;
-      // margin-bottom: 0;
+      margin-bottom: 1em;
     }
 
     p {
       color: #6f6f6f
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #6f6f6f;
+
+    .footer-item {
+      min-width: 100px;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      img {
+        max-width: 16px;
+        max-height: 16px;
+        margin-left: 5px;
+        border-radius: 16px;
+      }
+
+      & + .footer-item {
+        margin-left: 1em;
+      }
     }
   }
 }
@@ -98,19 +109,40 @@
 
 .species-page {
 
+  .section:first-child {
+    padding-top: 0;
+    padding-bottom: 1em;
+  }
+  .section:last-child {
+    padding-bottom: 0;
+  }
+
   &.home-page .hero {
     margin: 0em auto;
   }
 
-  .species-side-image {
-    min-height: 300px;
-    background-size: cover;
-  }
+  .user-line {
+    display: flex;
+    align-items: center;
 
-  .species-correction-image {
-    min-height: 100px;
-    background-size: contain;
+    .correction-user-image {
+      max-height: 32px;
+      text-align: center;
+      vertical-align: baseline;
+      border-radius: 3px;
+      margin-right: 1rem;
+    }
+
+    .correction-status-line {
+      align-self: flex-end;
+      justify-self: flex-end;
+      text-align: right;
+      display: flex;
+      flex: 1 1;
+      justify-content: flex-end;
+    }
   }
+  
 
   .species-side-image,
   .species-correction-image {
@@ -121,6 +153,17 @@
     border-radius: 3px;
     background-position: center;
     background-repeat: no-repeat;
+  }
+
+  .species-side-image {
+    min-height: 300px;
+    background-size: cover;
+  }
+
+  .species-correction-image {
+    min-height: 100px;
+    margin: 0;
+    background-size: cover;
   }
 
   .done-footer {
