@@ -47,10 +47,6 @@ function createDonutChart(elt, data) {
     containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false,
     legendChart = getLegendChart(elt, dataset)
 
-  console.log({
-    containerWidth
-  });
-  
   donutChart
     .isAnimated(true)
     .highlightSliceById(2)

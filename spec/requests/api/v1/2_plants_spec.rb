@@ -181,7 +181,7 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       operationId 'listPlantsZone'
       security [token: []]
 
-      parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or slug'
+      parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
       parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
       parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')

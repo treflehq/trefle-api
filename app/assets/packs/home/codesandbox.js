@@ -26,7 +26,7 @@ const SpeciesItem = ({
 }) => {
 
   return (<div className="speciesItem">
-    <aside style={{ backgroundImage: `url(${image_url})`}}>
+    <aside style={image_url && { backgroundImage: `url(${image_url})`}}>
       {/* <img src={image_url} alt={scientific_name}/> */}
     </aside>
     <main>
