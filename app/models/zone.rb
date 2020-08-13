@@ -36,7 +36,7 @@ class Zone < ApplicationRecord
   def slug_candidates
     [
       :tdwg_code,
-      [:tdwg_code, :name]
+      %i[tdwg_code name]
     ]
   end
 

@@ -40,7 +40,7 @@ module Search
 
         synonyms: synonyms.pluck(:name).uniq,
         distributions: distributions,
-        common_names: common_names_names,
+        common_names: common_names_names
       }
     end
 

@@ -280,7 +280,7 @@ class Species < ApplicationRecord
   before_validation :complete_cache_fields
 
   before_create :infer_plant
-  
+
   before_save :update_completion_ratio!
   before_save :regenerate_tokens!
 
@@ -314,7 +314,6 @@ class Species < ApplicationRecord
   end
 
   def current_completion_percentage
-
     ignored = [
       *attributes.keys.filter {|e| e.ends_with?('_count') },
       *attributes.keys.filter {|e| e.ends_with?('_raw') },

@@ -16,8 +16,8 @@ class Explore::ExploreController < ActionController::Base
 
   def set_meta
     set_meta_tags open_search: {
-      title: "Open Search",
-      href:  "/opensearch.xml"
+      title: 'Open Search',
+      href: '/opensearch.xml'
     }
   end
 
