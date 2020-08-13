@@ -409,13 +409,13 @@ class Species < ApplicationRecord
   def merge_plant_over_species
     merge_attrs = PLANTS_ATTRIBUTES
 
-    pattrs = plant.reload ? plant.reload.attributes.slice(*merge_attrs).compact : {}
+    pattrs = plant&.reload ? plant.reload.attributes.slice(*merge_attrs).compact : {}
     attributes.slice(*merge_attrs).compact.merge(pattrs)
   end
 
   def merge_species_over_plant
     merge_attrs = PLANTS_ATTRIBUTES
-    pattrs = plant.reload ? plant.reload.attributes.slice(*merge_attrs).compact : {}
+    pattrs = plant&.reload ? plant.reload.attributes.slice(*merge_attrs).compact : {}
     pattrs.merge(attributes.slice(*merge_attrs).compact)
   end
 
