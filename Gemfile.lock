@@ -374,6 +374,8 @@ GEM
     sidekiq-cron (0.6.3)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
+    sidekiq-limit_fetch (3.4.0)
+      sidekiq (>= 4)
     sidekiq-status (1.1.4)
       chronic_duration
       sidekiq (>= 3.0)
@@ -502,6 +504,7 @@ DEPENDENCIES
   sentry-raven
   sidekiq (~> 6.0.7)
   sidekiq-cron (~> 0.6.3)
+  sidekiq-limit_fetch
   sidekiq-status
   simplecov (>= 0.16.1)
   sitemap_generator

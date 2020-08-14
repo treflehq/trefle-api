@@ -5,18 +5,17 @@ production:
 :queues:
   - critical
   - default
-  - crawlers
   - checks
   - migrations
-  - low
   - reindex
   - searchkick
+  - low
+  - crawlers
 :process_limits:
-  critical: 50
-  searchkick: 20
-  searchkick: 20
-  default: 20
-  crawlers: 5
-  checks: 5
-  migrations: 5
-  low: 5
+  critical: 4
+  default: 4
+  crawlers: 3
+  checks: 3
+  migrations: 3
+  low: 3
+  searchkick: 1
