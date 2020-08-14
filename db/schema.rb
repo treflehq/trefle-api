@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_123247) do
+ActiveRecord::Schema.define(version: 2020_08_14_135845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -436,6 +436,8 @@ ActiveRecord::Schema.define(version: 2020_08_09_123247) do
     t.string "family_name"
     t.integer "average_height_cm"
     t.integer "completion_ratio"
+    t.string "phylum"
+    t.integer "wiki_score"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["common_name"], name: "index_species_on_common_name"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
@@ -589,6 +591,17 @@ ActiveRecord::Schema.define(version: 2020_08_09_123247) do
     t.integer "synonym_of_id"
   end
 
+  create_table "species_trends", force: :cascade do |t|
+    t.bigint "species_id", null: false
+    t.bigint "foreign_source_id", null: false
+    t.integer "score"
+    t.datetime "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["foreign_source_id"], name: "index_species_trends_on_foreign_source_id"
+    t.index ["species_id"], name: "index_species_trends_on_species_id"
+  end
+
   create_table "subkingdoms", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "slug", limit: 255
@@ -686,6 +699,8 @@ ActiveRecord::Schema.define(version: 2020_08_09_123247) do
   add_foreign_key "species_distributions", "zones"
   add_foreign_key "species_proposals", "genuses", column: "genus_id", name: "species_proposals_genus_id_fkey"
   add_foreign_key "species_proposals", "users", name: "species_proposals_user_id_fkey"
+  add_foreign_key "species_trends", "foreign_sources"
+  add_foreign_key "species_trends", "species"
   add_foreign_key "subkingdoms", "kingdoms", name: "subkingdoms_kingdom_id_fkey"
   add_foreign_key "user_queries", "users"
 end

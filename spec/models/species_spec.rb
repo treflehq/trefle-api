@@ -72,6 +72,7 @@
 #  observations                     :text
 #  ph_maximum                       :float
 #  ph_minimum                       :float
+#  phylum                           :string
 #  planting_days_to_harvest         :integer
 #  planting_description             :text
 #  planting_row_spacing_cm          :integer
@@ -97,6 +98,7 @@
 #  token                            :text
 #  toxicity                         :integer
 #  vegetable                        :boolean
+#  wiki_score                       :integer
 #  year                             :integer
 #  created_at                       :datetime
 #  updated_at                       :datetime         not null
