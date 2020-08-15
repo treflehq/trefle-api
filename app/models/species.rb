@@ -309,7 +309,7 @@ class Species < ApplicationRecord
   def complete_cache_fields
     self.genus_name = genus&.name
     self.family_name = genus&.family&.name
-    self.edible = (self.vegetable || self.edible_part&.any?)
+    self.edible = (vegetable || edible_part&.any?)
 
     return unless main_image_url.nil?
 

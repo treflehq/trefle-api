@@ -24,5 +24,4 @@ class SpeciesTrend < ApplicationRecord
   belongs_to :species
   belongs_to :foreign_source
 
-  
 end
