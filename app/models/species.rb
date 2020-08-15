@@ -276,7 +276,7 @@ class Species < ApplicationRecord
   flag :fruit_color, %i[white red brown orange yellow lime green cyan blue purple magenta grey black]
   flag :foliage_color, %i[white red brown orange yellow lime green cyan blue purple magenta grey black]
 
-  flag :edible_part, %i[roots stem leaves flowers fruits seeds]
+  flag :edible_part, %i[roots stem leaves flowers fruits seeds tubers]
 
   before_validation :infer_rank
   before_validation :infer_genus

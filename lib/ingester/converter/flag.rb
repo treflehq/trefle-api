@@ -26,8 +26,7 @@ module Ingester
         data = FIELDS.each_with_object({}) do |metric, memo|
           next(memo) if hash[metric].nil?
 
-          array_flags = hash[metric].is_a?(Array) ? hash[metric] : hash[metric]&.split('|')
-          keys = array_flags&.map(&:strip)&.reject(&:blank?)&.compact&.map(&:to_sym)
+          keys = filter_keys(hash[metric])
 
           puts "[Converter][Flag] Species.#{metric} = #{keys.inspect} (metric was #{hash[metric].inspect})"
           check_keys!(metric, keys)
@@ -35,6 +34,12 @@ module Ingester
           memo[metric] = keys
         end
         data&.deep_symbolize_keys
+      end
+
+      def self.filter_keys(hash_metric)
+        array_flags = hash_metric.is_a?(Array) ? hash_metric : hash_metric&.split('|')
+        
+        array_flags&.map{|e| e&.to_s&.strip&.to_sym }&.reject(&:blank?)&.compact
       end
 
       def self.check_keys!(metric, keys)
