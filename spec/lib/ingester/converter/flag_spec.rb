@@ -28,10 +28,41 @@ RSpec.describe Ingester::Converter::Flag do # rubocop:todo Metrics/BlockLength
       genus: 'Aiphanes',
       status: 'accepted',
       duration: 'annual',
-      propagated_by: 'bulbs',
       growth_months: 'mar|apr',
       bloom_months: 'apr|may',
       fruit_months: 'may|jun',
+      flower_color: 'yellow|blue',
+      fruit_color: 'red|brown',
+      foliage_color: 'green',
+      edible_part: 'fruits|leaves'
+    }
+
+    result = Ingester::Converter::Flag.resolve!(hash)
+    expect(result).to eq({
+      bloom_months: %i[apr may],
+      duration: [:annual],
+      edible_part: %i[fruits leaves],
+      flower_color: %i[yellow blue],
+      foliage_color: [:green],
+      fruit_color: %i[red brown],
+      fruit_months: %i[may jun],
+      growth_months: %i[mar apr],
+      propagated_by: [:bulbs]
+    })
+  end
+
+  it 'Can process array good flags' do
+
+    hash = {
+      scientific_name: 'Aiphanes grandis',
+      rank: 'species',
+      author: 'Borchs. & Balslev',
+      genus: 'Aiphanes',
+      status: 'accepted',
+      duration: 'annual',
+      growth_months: %w[mar apr],
+      bloom_months: 'apr|may',
+      fruit_months: %w[may jun],
       flower_color: 'yellow|blue',
       fruit_color: 'red|brown',
       foliage_color: 'green',

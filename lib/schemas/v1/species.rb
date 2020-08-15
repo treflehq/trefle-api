@@ -116,7 +116,16 @@ module Schemas
                 description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
               },
               description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
-            }, # "Purple",
+            }, # "perrenial",
+            edible_part: {
+              type: :array, nullable: true, items: {
+                type: :string, nullable: true, enum: [*::Species.edible_parts.maps.keys, nil],
+                description: "The plant edible part(s), if any."
+              },
+              description: "The plant edible part(s), if any."
+            }, # "stems",
+            edible: { type: :boolean, nullable: true, description: 'Is the species edible ?' },
+            vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable ?' },
             observations: { type: :string, nullable: true, description: 'Some habit observations on the species' },
 
             images: images_schema,
