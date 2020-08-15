@@ -143,7 +143,8 @@ class SpeciesSerializer < BaseSerializer
              :observations, :images, :common_names,
              :distributions, :distribution,
              :duration,
-             :links, :image_url
+             :links, :image_url,
+             :vegetable, :edible, :edible_part
 
   attributes :flower, :foliage,
              :fruit_or_seed, :specifications,
@@ -170,6 +171,14 @@ class SpeciesSerializer < BaseSerializer
 
   def duration
     render_flag(:duration)
+  end
+
+  def edible_part
+    render_flag(:edible_part)
+  end
+
+  def edible
+    object.edible_part&.any? || object.vegetable
   end
 
   # def propagated_by
