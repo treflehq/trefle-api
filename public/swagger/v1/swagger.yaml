@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.421Z'
+                      last_modified: '2020-08-15T07:56:53.988Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.438Z'
+                      last_modified: '2020-08-15T07:56:54.004Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.453Z'
+                      last_modified: '2020-08-15T07:56:54.019Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.492Z'
+                      last_modified: '2020-08-15T07:56:54.059Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.530Z'
+                      last_modified: '2020-08-15T07:56:54.093Z'
         '401':
           description: Invalid credentials
           content:
@@ -1869,69 +1869,27 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                    - id: 168
-                      name: Cupressaceae
-                      common_name: Cypress family
-                      slug: cupressaceae
+                    - id: 29
+                      name: Arecaceae
+                      common_name: Palm family
+                      slug: arecaceae
                       links:
-                        self: "/api/v1/families/cupressaceae"
-                        division_order: "/api/v1/division_orders/pinales"
-                        genus: "/api/v1/families/cupressaceae/genus"
+                        self: "/api/v1/families/arecaceae"
+                        division_order: "/api/v1/division_orders/arecales"
+                        genus: "/api/v1/families/arecaceae/genus"
                       division_order:
-                        id: 3
-                        name: Pinales
-                        slug: pinales
+                        id: 24
+                        name: Arecales
+                        slug: arecales
                         links:
-                          self: "/api/v1/division_orders/pinales"
-                          division_class: "/api/v1/division_classes/pinopsida"
+                          self: "/api/v1/division_orders/arecales"
+                          division_class: "/api/v1/division_classes/liliopsida"
                         division_class:
-                          id: 2
-                          name: Pinopsida
-                          slug: pinopsida
+                          id: 4
+                          name: Liliopsida
+                          slug: liliopsida
                           links:
-                            self: "/api/v1/division_classes/pinopsida"
-                            division: "/api/v1/divisions/coniferophyta"
-                          division:
-                            id: 2
-                            name: Coniferophyta
-                            slug: coniferophyta
-                            links:
-                              self: "/api/v1/divisions/coniferophyta"
-                              subkingdom: "/api/v1/subkingdoms/tracheobionta"
-                            subkingdom:
-                              id: 1
-                              name: Tracheobionta
-                              slug: tracheobionta
-                              links:
-                                self: "/api/v1/subkingdoms/tracheobionta"
-                                kingdom: "/api/v1/kingdoms/plantae"
-                              kingdom:
-                                id: 1
-                                name: Plantae
-                                slug: plantae
-                                links:
-                                  self: "/api/v1/kingdoms/plantae"
-                    - id: 9
-                      name: Fabaceae
-                      common_name: Pea family
-                      slug: fabaceae
-                      links:
-                        self: "/api/v1/families/fabaceae"
-                        division_order: "/api/v1/division_orders/fabales"
-                        genus: "/api/v1/families/fabaceae/genus"
-                      division_order:
-                        id: 8
-                        name: Fabales
-                        slug: fabales
-                        links:
-                          self: "/api/v1/division_orders/fabales"
-                          division_class: "/api/v1/division_classes/magnoliopsida"
-                        division_class:
-                          id: 1
-                          name: Magnoliopsida
-                          slug: magnoliopsida
-                          links:
-                            self: "/api/v1/division_classes/magnoliopsida"
+                            self: "/api/v1/division_classes/liliopsida"
                             division: "/api/v1/divisions/magnoliophyta"
                           division:
                             id: 1
@@ -1953,20 +1911,20 @@ paths:
                                 slug: plantae
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
-                    - id: 172
-                      name: Myrtaceae
-                      common_name: Myrtle family
-                      slug: myrtaceae
+                    - id: 110
+                      name: Lauraceae
+                      common_name: Laurel family
+                      slug: lauraceae
                       links:
-                        self: "/api/v1/families/myrtaceae"
-                        division_order: "/api/v1/division_orders/myrtales"
-                        genus: "/api/v1/families/myrtaceae/genus"
+                        self: "/api/v1/families/lauraceae"
+                        division_order: "/api/v1/division_orders/laurales"
+                        genus: "/api/v1/families/lauraceae/genus"
                       division_order:
-                        id: 22
-                        name: Myrtales
-                        slug: myrtales
+                        id: 59
+                        name: Laurales
+                        slug: laurales
                         links:
-                          self: "/api/v1/division_orders/myrtales"
+                          self: "/api/v1/division_orders/laurales"
                           division_class: "/api/v1/division_classes/magnoliopsida"
                         division_class:
                           id: 1
@@ -2037,6 +1995,48 @@ paths:
                                 slug: plantae
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
+                    - id: 177
+                      name: Proteaceae
+                      common_name: Protea family
+                      slug: proteaceae
+                      links:
+                        self: "/api/v1/families/proteaceae"
+                        division_order: "/api/v1/division_orders/proteales"
+                        genus: "/api/v1/families/proteaceae/genus"
+                      division_order:
+                        id: 84
+                        name: Proteales
+                        slug: proteales
+                        links:
+                          self: "/api/v1/division_orders/proteales"
+                          division_class: "/api/v1/division_classes/magnoliopsida"
+                        division_class:
+                          id: 1
+                          name: Magnoliopsida
+                          slug: magnoliopsida
+                          links:
+                            self: "/api/v1/division_classes/magnoliopsida"
+                            division: "/api/v1/divisions/magnoliophyta"
+                          division:
+                            id: 1
+                            name: Magnoliophyta
+                            slug: magnoliophyta
+                            links:
+                              self: "/api/v1/divisions/magnoliophyta"
+                              subkingdom: "/api/v1/subkingdoms/tracheobionta"
+                            subkingdom:
+                              id: 1
+                              name: Tracheobionta
+                              slug: tracheobionta
+                              links:
+                                self: "/api/v1/subkingdoms/tracheobionta"
+                                kingdom: "/api/v1/kingdoms/plantae"
+                              kingdom:
+                                id: 1
+                                name: Plantae
+                                slug: plantae
+                                links:
+                                  self: "/api/v1/kingdoms/plantae"
                     - id: 11
                       name: Rosaceae
                       common_name: Rose family
@@ -2079,20 +2079,20 @@ paths:
                                 slug: plantae
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
-                    - id: 484
-                      name: Salicaceae
-                      common_name: Willow family
-                      slug: salicaceae
+                    - id: 74
+                      name: Sapindaceae
+                      common_name: Soapberry family
+                      slug: sapindaceae
                       links:
-                        self: "/api/v1/families/salicaceae"
-                        division_order: "/api/v1/division_orders/salicales"
-                        genus: "/api/v1/families/salicaceae/genus"
+                        self: "/api/v1/families/sapindaceae"
+                        division_order: "/api/v1/division_orders/sapindales"
+                        genus: "/api/v1/families/sapindaceae/genus"
                       division_order:
-                        id: 145
-                        name: Salicales
-                        slug: salicales
+                        id: 17
+                        name: Sapindales
+                        slug: sapindales
                         links:
-                          self: "/api/v1/division_orders/salicales"
+                          self: "/api/v1/division_orders/sapindales"
                           division_class: "/api/v1/division_classes/magnoliopsida"
                         division_class:
                           id: 1
@@ -2214,7 +2214,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.752Z'
+                      last_modified: '2020-08-15T07:56:54.328Z'
         '401':
           description: Invalid credentials
           content:
@@ -2312,98 +2312,30 @@ paths:
                           self: "/api/v1/families/pinaceae"
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
-                    - id: 21
-                      name: Acacia
-                      slug: acacia
+                    - id: 39
+                      name: Acer
+                      slug: acer
                       links:
-                        self: "/api/v1/genus/acacia"
-                        plants: "/api/v1/genus/acacia/plants"
-                        species: "/api/v1/genus/acacia/species"
-                        family: "/api/v1/families/fabaceae"
+                        self: "/api/v1/genus/acer"
+                        plants: "/api/v1/genus/acer/plants"
+                        species: "/api/v1/genus/acer/species"
+                        family: "/api/v1/families/sapindaceae"
                       family:
-                        id: 9
-                        name: Fabaceae
-                        common_name: Pea family
-                        slug: fabaceae
+                        id: 74
+                        name: Sapindaceae
+                        common_name: Soapberry family
+                        slug: sapindaceae
                         links:
-                          self: "/api/v1/families/fabaceae"
-                          division_order: "/api/v1/division_orders/fabales"
-                          genus: "/api/v1/families/fabaceae/genus"
-                    - id: 1322
-                      name: Calocedrus
-                      slug: calocedrus
+                          self: "/api/v1/families/sapindaceae"
+                          division_order: "/api/v1/division_orders/sapindales"
+                          genus: "/api/v1/families/sapindaceae/genus"
+                    - id: 219
+                      name: Alchemilla
+                      slug: alchemilla
                       links:
-                        self: "/api/v1/genus/calocedrus"
-                        plants: "/api/v1/genus/calocedrus/plants"
-                        species: "/api/v1/genus/calocedrus/species"
-                        family: "/api/v1/families/cupressaceae"
-                      family:
-                        id: 168
-                        name: Cupressaceae
-                        common_name: Cypress family
-                        slug: cupressaceae
-                        links:
-                          self: "/api/v1/families/cupressaceae"
-                          division_order: "/api/v1/division_orders/pinales"
-                          genus: "/api/v1/families/cupressaceae/genus"
-                    - id: 2059
-                      name: Eucalyptus
-                      slug: eucalyptus
-                      links:
-                        self: "/api/v1/genus/eucalyptus"
-                        plants: "/api/v1/genus/eucalyptus/plants"
-                        species: "/api/v1/genus/eucalyptus/species"
-                        family: "/api/v1/families/myrtaceae"
-                      family:
-                        id: 172
-                        name: Myrtaceae
-                        common_name: Myrtle family
-                        slug: myrtaceae
-                        links:
-                          self: "/api/v1/families/myrtaceae"
-                          division_order: "/api/v1/division_orders/myrtales"
-                          genus: "/api/v1/families/myrtaceae/genus"
-                    - id: 1380
-                      name: Eugenia
-                      slug: eugenia
-                      links:
-                        self: "/api/v1/genus/eugenia"
-                        plants: "/api/v1/genus/eugenia/plants"
-                        species: "/api/v1/genus/eugenia/species"
-                        family: "/api/v1/families/myrtaceae"
-                      family:
-                        id: 172
-                        name: Myrtaceae
-                        common_name: Myrtle family
-                        slug: myrtaceae
-                        links:
-                          self: "/api/v1/families/myrtaceae"
-                          division_order: "/api/v1/division_orders/myrtales"
-                          genus: "/api/v1/families/myrtaceae/genus"
-                    - id: 5568
-                      name: Populus
-                      slug: populus
-                      links:
-                        self: "/api/v1/genus/populus"
-                        plants: "/api/v1/genus/populus/plants"
-                        species: "/api/v1/genus/populus/species"
-                        family: "/api/v1/families/salicaceae"
-                      family:
-                        id: 484
-                        name: Salicaceae
-                        common_name: Willow family
-                        slug: salicaceae
-                        links:
-                          self: "/api/v1/families/salicaceae"
-                          division_order: "/api/v1/division_orders/salicales"
-                          genus: "/api/v1/families/salicaceae/genus"
-                    - id: 5912
-                      name: Rosa
-                      slug: rosa
-                      links:
-                        self: "/api/v1/genus/rosa"
-                        plants: "/api/v1/genus/rosa/plants"
-                        species: "/api/v1/genus/rosa/species"
+                        self: "/api/v1/genus/alchemilla"
+                        plants: "/api/v1/genus/alchemilla/plants"
+                        species: "/api/v1/genus/alchemilla/species"
                         family: "/api/v1/families/rosaceae"
                       family:
                         id: 11
@@ -2414,6 +2346,74 @@ paths:
                           self: "/api/v1/families/rosaceae"
                           division_order: "/api/v1/division_orders/rosales"
                           genus: "/api/v1/families/rosaceae/genus"
+                    - id: 2070
+                      name: Cotoneaster
+                      slug: cotoneaster
+                      links:
+                        self: "/api/v1/genus/cotoneaster"
+                        plants: "/api/v1/genus/cotoneaster/plants"
+                        species: "/api/v1/genus/cotoneaster/species"
+                        family: "/api/v1/families/rosaceae"
+                      family:
+                        id: 11
+                        name: Rosaceae
+                        common_name: Rose family
+                        slug: rosaceae
+                        links:
+                          self: "/api/v1/families/rosaceae"
+                          division_order: "/api/v1/division_orders/rosales"
+                          genus: "/api/v1/families/rosaceae/genus"
+                    - id: 4132
+                      name: Leucospermum
+                      slug: leucospermum
+                      links:
+                        self: "/api/v1/genus/leucospermum"
+                        plants: "/api/v1/genus/leucospermum/plants"
+                        species: "/api/v1/genus/leucospermum/species"
+                        family: "/api/v1/families/proteaceae"
+                      family:
+                        id: 177
+                        name: Proteaceae
+                        common_name: Protea family
+                        slug: proteaceae
+                        links:
+                          self: "/api/v1/families/proteaceae"
+                          division_order: "/api/v1/division_orders/proteales"
+                          genus: "/api/v1/families/proteaceae/genus"
+                    - id: 5936
+                      name: Sabal
+                      slug: sabal
+                      links:
+                        self: "/api/v1/genus/sabal"
+                        plants: "/api/v1/genus/sabal/plants"
+                        species: "/api/v1/genus/sabal/species"
+                        family: "/api/v1/families/arecaceae"
+                      family:
+                        id: 29
+                        name: Arecaceae
+                        common_name: Palm family
+                        slug: arecaceae
+                        links:
+                          self: "/api/v1/families/arecaceae"
+                          division_order: "/api/v1/division_orders/arecales"
+                          genus: "/api/v1/families/arecaceae/genus"
+                    - id: 6010
+                      name: Sassafras
+                      slug: sassafras
+                      links:
+                        self: "/api/v1/genus/sassafras"
+                        plants: "/api/v1/genus/sassafras/plants"
+                        species: "/api/v1/genus/sassafras/species"
+                        family: "/api/v1/families/lauraceae"
+                      family:
+                        id: 110
+                        name: Lauraceae
+                        common_name: Laurel family
+                        slug: lauraceae
+                        links:
+                          self: "/api/v1/families/lauraceae"
+                          division_order: "/api/v1/division_orders/laurales"
+                          genus: "/api/v1/families/lauraceae/genus"
                     links:
                       self: "/api/v1/genus"
                       first: "/api/v1/genus?page=1"
@@ -2482,7 +2482,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-08-12T12:08:05.766Z'
+                      last_modified: '2020-08-15T07:56:54.350Z'
         '401':
           description: Invalid credentials
           content:
@@ -2578,166 +2578,182 @@ paths:
                   value:
                     data:
                     - id: 1164724
-                      common_name: 
+                      common_name: Christmastree
                       slug: abies-alba
                       scientific_name: Abies alba
-                      year: 
-                      bibliography: 
+                      year: 1756
+                      bibliography: 'Gard. Dict. ed. 7: n.º 1 (1756)'
                       author: Mill.
                       status: accepted
                       rank: species
                       family_common_name: 
                       genus_id: 4
-                      image_url: 
-                      synonyms: []
+                      image_url: https://bs.floristic.org/image/o/7928c21ee9fdc5ffa423501d3ba54084247cf9a9
+                      synonyms:
+                      - Abies nobilis
+                      - Pinus heterophylla
+                      - Pinus abies
+                      - Abies pectinata
+                      - Pinus picea
+                      - Abies taxifolia
+                      - Abies minor
+                      - Abies picea
+                      - Abies abies
+                      - Abies chlorocarpa
+                      - Abies pardei
+                      - Picea pectinata
+                      - Pinus pectinata
+                      - Pinus baldensis
+                      - Picea tenuifolia
+                      - Abies alba var. pardei
+                      - Peuce abies
+                      - Abies alba subsp. pardei
+                      - Picea metensis
+                      - Picea rinzi
+                      - Abies argentea
+                      - Abies candicans
+                      - Picea pyramidalis
+                      - Abies baldensis
+                      - Abies vulgaris
+                      - Picea kukunaria
+                      - Abies alba subsp. apennina
+                      - Abies metensis
+                      - Pinus lucida
+                      - Abies miniata
                       genus: Abies
                       family: Pinaceae
                       links:
                         self: "/api/v1/species/abies-alba"
                         plant: "/api/v1/plants/abies-alba"
                         genus: "/api/v1/genus/abies"
-                    - id: 170054
-                      common_name: white poplar
-                      slug: populus-alba
-                      scientific_name: Populus alba
-                      year: 1753
-                      bibliography: 'Sp. Pl.: 1034 (1753)'
-                      author: L.
-                      status: accepted
-                      rank: species
-                      family_common_name: Willow family
-                      genus_id: 5568
-                      image_url: https://bs.floristic.org/image/o/fae7ede0f0fb6e7fd6c57c7f48c93af9262cb13a
-                      synonyms:
-                      - Populus hybrida
-                      - Populus hickeliana
-                      - Populus bachofenii
-                      - Populus aegyptiaca
-                      - Populus caspica
-                      - Populus nivea
-                      - Populus bolleana
-                      - Populus major
-                      - Leuce alba
-                      - Populus berkarensis
-                      - Populus alba var. bolleana
-                      genus: Populus
-                      family: Salicaceae
-                      links:
-                        self: "/api/v1/species/populus-alba"
-                        plant: "/api/v1/plants/populus-alba"
-                        genus: "/api/v1/genus/populus"
-                    - id: 175834
-                      common_name: rugosa rose
-                      slug: rosa-rugosa
-                      scientific_name: Rosa rugosa
-                      year: 1784
-                      bibliography: 'J.A.Murray, Syst. Veg., ed. 14: 473 (1784)'
-                      author: Thunb.
+                    - id: 123665
+                      common_name: cotoneaster
+                      slug: cotoneaster-integerrimus
+                      scientific_name: Cotoneaster integerrimus
+                      year: 1793
+                      bibliography: 'Gesch. Bot.: 85 (1793)'
+                      author: Medik.
                       status: accepted
                       rank: species
                       family_common_name: Rose family
-                      genus_id: 5912
-                      image_url: https://bs.floristic.org/image/o/fe957b1a87df808443782ad72c2c0ddec0729370
+                      genus_id: 2070
+                      image_url: https://bs.floristic.org/image/o/3bf7a133fee95aed318cda1a4269fb956aeb0a3a
                       synonyms:
-                      - Rosa coruscans
-                      - Rosa ferox
-                      - Rosa regeliana
-                      - Rosa kamtchatica
-                      - Rosa andreae
-                      - Rosa rugosa var. albiflora
-                      genus: Rosa
+                      - Cotoneaster canescens
+                      - Mespilus cotoneaster
+                      - Cotoneaster suboblongus
+                      - Cotoneaster pyrenaicus
+                      - Gymnopyrenium vulgare
+                      - Cotoneaster kullensis
+                      - Cotoneaster gilgitensis
+                      - Cotoneaster vulgaris
+                      - Cotoneaster juranus
+                      - Cotoneaster kaganensis
+                      - Cotoneaster humilis
+                      - Ostinia cotoneaster
+                      - Cotoneaster cambricus
+                      - Cotoneaster scandinavicus
+                      genus: Cotoneaster
                       family: Rosaceae
                       links:
-                        self: "/api/v1/species/rosa-rugosa"
-                        plant: "/api/v1/plants/rosa-rugosa"
-                        genus: "/api/v1/genus/rosa"
-                    - id: 101355
-                      common_name: 
-                      slug: acacia-dietrichiana
-                      scientific_name: Acacia dietrichiana
-                      year: 1882
-                      bibliography: 'S. Sci. Rec. 2: 149 (1882)'
-                      author: F.Muell.
-                      status: accepted
-                      rank: species
-                      family_common_name: Pea family
-                      genus_id: 21
-                      image_url: http://d2seqvvyy3b8p2.cloudfront.net/921d2e77ad5f50113a0d16236ca257b6.jpg
-                      synonyms:
-                      - Acacia juncifolia var. planifolia
-                      - Racosperma dietrichianum
-                      genus: Acacia
-                      family: Fabaceae
-                      links:
-                        self: "/api/v1/species/acacia-dietrichiana"
-                        plant: "/api/v1/plants/acacia-dietrichiana"
-                        genus: "/api/v1/genus/acacia"
-                    - id: 546498
-                      common_name: Chinese Incense-cedar
-                      slug: calocedrus-macrolepis
-                      scientific_name: Calocedrus macrolepis
-                      year: 1878
-                      bibliography: 'J. Bot. 11: 196 (1878)'
-                      author: Kurz
+                        self: "/api/v1/species/cotoneaster-integerrimus"
+                        plant: "/api/v1/plants/cotoneaster-integerrimus"
+                        genus: "/api/v1/genus/cotoneaster"
+                    - id: 1031158
+                      common_name: Grey tree-pincushion
+                      slug: leucospermum-conocarpodendron
+                      scientific_name: Leucospermum conocarpodendron
+                      year: 1874
+                      bibliography: 'Gen. Sp. Candoll. 4: 203 (1874)'
+                      author: H.Buek
                       status: accepted
                       rank: species
                       family_common_name: 
-                      genus_id: 1322
-                      image_url: https://bs.floristic.org/image/o/05b702e76b77091cf51662fe2874f78740b01290
+                      genus_id: 4132
+                      image_url: https://bs.floristic.org/image/o/2098e6ef1c680c90c2f2866ae5d476652f25c963
                       synonyms:
-                      - Heyderia macrolepis
-                      - Thuja macrolepis
-                      - Libocedrus macrolepis
-                      genus: Calocedrus
-                      family: Cupressaceae
+                      - Leucospermum macowanii
+                      - Protea tortuosa
+                      - Protea conocarpa
+                      - Leucadendron crassicaule
+                      - Leucospermum conocarpum
+                      - Leucadendron conocarpodendron
+                      - Leucadendron cervinum
+                      genus: Leucospermum
+                      family: Proteaceae
                       links:
-                        self: "/api/v1/species/calocedrus-macrolepis"
-                        plant: "/api/v1/plants/calocedrus-macrolepis"
-                        genus: "/api/v1/genus/calocedrus"
-                    - id: 819657
+                        self: "/api/v1/species/leucospermum-conocarpodendron"
+                        plant: "/api/v1/plants/leucospermum-conocarpodendron"
+                        genus: "/api/v1/genus/leucospermum"
+                    - id: 744022
                       common_name: 
-                      slug: eugenia-websteri
-                      scientific_name: Eugenia websteri
-                      year: 1982
-                      bibliography: 'J. Arnold Arbor. 63: 276 (1982)'
-                      author: Proctor
+                      slug: sassafras-randaiense
+                      scientific_name: Sassafras randaiense
+                      year: 1920
+                      bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                      author: "(Hayata) Rehder"
                       status: accepted
                       rank: species
                       family_common_name: 
-                      genus_id: 1380
+                      genus_id: 6010
+                      image_url: 
+                      synonyms:
+                      - Yushunia randaiensis
+                      - Lindera randaiensis
+                      genus: Sassafras
+                      family: Lauraceae
+                      links:
+                        self: "/api/v1/species/sassafras-randaiense"
+                        plant: "/api/v1/plants/sassafras-randaiense"
+                        genus: "/api/v1/genus/sassafras"
+                    - id: 177049
+                      common_name: Puerto Rico palmetto
+                      slug: sabal-causiarum
+                      scientific_name: Sabal causiarum
+                      year: 1907
+                      bibliography: 'Webbia 2: 71 (1907)'
+                      author: "(O.F.Cook) Becc."
+                      status: accepted
+                      rank: species
+                      family_common_name: Palm family
+                      genus_id: 5936
+                      image_url: https://bs.floristic.org/image/o/54f2d48ea6fa4bb20a714d2d807a7b81e6992f90
+                      synonyms:
+                      - Inodes causiarum
+                      - Inodes glauca
+                      - Sabal haitensis
+                      - Sabal questeliana
+                      genus: Sabal
+                      family: Arecaceae
+                      links:
+                        self: "/api/v1/species/sabal-causiarum"
+                        plant: "/api/v1/plants/sabal-causiarum"
+                        genus: "/api/v1/genus/sabal"
+                    - id: 1051713
+                      common_name: 
+                      slug: alchemilla-bogumilii
+                      scientific_name: Alchemilla bogumilii
+                      year: 1979
+                      bibliography: 'Fragm. Florist. Geobot. 25: 10 (1979)'
+                      author: Pawlus
+                      status: accepted
+                      rank: species
+                      family_common_name: 
+                      genus_id: 219
                       image_url: 
                       synonyms: []
-                      genus: Eugenia
-                      family: Myrtaceae
+                      genus: Alchemilla
+                      family: Rosaceae
                       links:
-                        self: "/api/v1/species/eugenia-websteri"
-                        plant: "/api/v1/plants/eugenia-websteri"
-                        genus: "/api/v1/genus/eugenia"
-                    - id: 814834
-                      common_name: 
-                      slug: eucalyptus-nebulosa
-                      scientific_name: Eucalyptus nebulosa
-                      year: 2008
-                      bibliography: 'Kanunnah 3: 42 (2008)'
-                      author: A.M.Gray
-                      status: accepted
-                      rank: species
-                      family_common_name: 
-                      genus_id: 2059
-                      image_url: 
-                      synonyms: []
-                      genus: Eucalyptus
-                      family: Myrtaceae
-                      links:
-                        self: "/api/v1/species/eucalyptus-nebulosa"
-                        plant: "/api/v1/plants/eucalyptus-nebulosa"
-                        genus: "/api/v1/genus/eucalyptus"
+                        self: "/api/v1/species/alchemilla-bogumilii"
+                        plant: "/api/v1/plants/alchemilla-bogumilii"
+                        genus: "/api/v1/genus/alchemilla"
                     links:
                       self: "/api/v1/plants"
                       first: "/api/v1/plants?page=1"
                       last: "/api/v1/plants?page=1"
                     meta:
-                      total: 7
+                      total: 6
         '401':
           description: Invalid credentials
           content:
@@ -2782,39 +2798,39 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                      id: 416205
+                      id: 391449
                       common_name: 
-                      slug: eucalyptus-nebulosa
-                      scientific_name: Eucalyptus nebulosa
-                      main_species_id: 814834
+                      slug: sassafras-randaiense
+                      scientific_name: Sassafras randaiense
+                      main_species_id: 744022
                       image_url: 
-                      year: 2008
-                      bibliography: 'Kanunnah 3: 42 (2008)'
-                      author: A.M.Gray
+                      year: 1920
+                      bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                      author: "(Hayata) Rehder"
                       family_common_name: 
-                      genus_id: 2059
-                      observations: Tasmania
+                      genus_id: 6010
+                      observations: C. & S. Taiwan
                       vegetable: false
                       links:
-                        self: "/api/v1/plants/eucalyptus-nebulosa"
-                        species: "/api/v1/plants/eucalyptus-nebulosa/species"
-                        genus: "/api/v1/genus/eucalyptus"
+                        self: "/api/v1/plants/sassafras-randaiense"
+                        species: "/api/v1/plants/sassafras-randaiense/species"
+                        genus: "/api/v1/genus/sassafras"
                       main_species:
-                        id: 814834
+                        id: 744022
                         common_name: 
-                        slug: eucalyptus-nebulosa
-                        scientific_name: Eucalyptus nebulosa
-                        year: 2008
-                        bibliography: 'Kanunnah 3: 42 (2008)'
-                        author: A.M.Gray
+                        slug: sassafras-randaiense
+                        scientific_name: Sassafras randaiense
+                        year: 1920
+                        bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                        author: "(Hayata) Rehder"
                         status: accepted
                         rank: species
                         family_common_name: 
-                        genus_id: 2059
-                        observations: Tasmania
+                        genus_id: 6010
+                        observations: C. & S. Taiwan
                         image_url: 
-                        genus: Eucalyptus
-                        family: Myrtaceae
+                        genus: Sassafras
+                        family: Lauraceae
                         duration: 
                         images:
                           flower: []
@@ -2823,22 +2839,24 @@ paths:
                           fruit: []
                           bark: []
                           other: []
-                        common_names: {}
+                        common_names:
+                          zho:
+                          - 臺灣檫樹
                         distribution:
                           native:
-                          - Tasmania
+                          - Taiwan
                         distributions:
                           native:
-                          - id: 215
-                            name: Tasmania
-                            slug: tas
-                            tdwg_code: TAS
+                          - id: 92
+                            name: Taiwan
+                            slug: tai
+                            tdwg_code: TAI
                             tdwg_level: 3
                             species_count: 1
                             links:
-                              self: "/api/v1/distributions/tas"
-                              plants: "/api/v1/distributions/tas/plants"
-                              species: "/api/v1/distributions/tas/species"
+                              self: "/api/v1/distributions/tai"
+                              plants: "/api/v1/distributions/tai/plants"
+                              species: "/api/v1/distributions/tai/species"
                         flower:
                           color: 
                           conspicuous: 
@@ -2895,71 +2913,91 @@ paths:
                           soil_texture: 
                           soil_humidity: 
                         links:
-                          self: "/api/v1/species/eucalyptus-nebulosa"
-                          plant: "/api/v1/plants/eucalyptus-nebulosa"
-                          genus: "/api/v1/genus/eucalyptus"
-                        synonyms: []
+                          self: "/api/v1/species/sassafras-randaiense"
+                          plant: "/api/v1/plants/sassafras-randaiense"
+                          genus: "/api/v1/genus/sassafras"
+                        synonyms:
+                        - id: 365533
+                          name: Yushunia randaiensis
+                          author: "(Hayata) Kamik."
+                          sources: []
+                        - id: 365534
+                          name: Lindera randaiensis
+                          author: Hayata
+                          sources: []
                         sources:
-                        - last_update: '2020-06-26T03:44:08.000Z'
-                          id: urn:lsid:ipni.org:names:77094385-1
+                        - last_update: '2020-06-25T02:55:41.000Z'
+                          id: urn:lsid:ipni.org:names:468633-1
                           name: POWO
-                          url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77094385-1
+                          url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:468633-1
                           citation: POWO (2019). Plants of the World Online. Facilitated
                             by the Royal Botanic Gardens, Kew. Published on the Internet;
-                            http://www.plantsoftheworldonline.org/ Retrieved 2020-06-26
+                            http://www.plantsoftheworldonline.org/ Retrieved 2020-06-25
+                        - last_update: '2020-08-13T09:40:14.000Z'
+                          id: '4178502'
+                          name: GBIF
+                          url: https://www.gbif.org/species/4178502
+                          citation: 
                       genus:
-                        id: 2059
-                        name: Eucalyptus
-                        slug: eucalyptus
+                        id: 6010
+                        name: Sassafras
+                        slug: sassafras
                         links:
-                          self: "/api/v1/genus/eucalyptus"
-                          plants: "/api/v1/genus/eucalyptus/plants"
-                          species: "/api/v1/genus/eucalyptus/species"
-                          family: "/api/v1/families/myrtaceae"
+                          self: "/api/v1/genus/sassafras"
+                          plants: "/api/v1/genus/sassafras/plants"
+                          species: "/api/v1/genus/sassafras/species"
+                          family: "/api/v1/families/lauraceae"
                       family:
-                        id: 172
-                        name: Myrtaceae
-                        common_name: Myrtle family
-                        slug: myrtaceae
+                        id: 110
+                        name: Lauraceae
+                        common_name: Laurel family
+                        slug: lauraceae
                         links:
-                          self: "/api/v1/families/myrtaceae"
-                          division_order: "/api/v1/division_orders/myrtales"
-                          genus: "/api/v1/families/myrtaceae/genus"
+                          self: "/api/v1/families/lauraceae"
+                          division_order: "/api/v1/division_orders/laurales"
+                          genus: "/api/v1/families/lauraceae/genus"
                       species:
-                      - id: 814834
+                      - id: 744022
                         common_name: 
-                        slug: eucalyptus-nebulosa
-                        scientific_name: Eucalyptus nebulosa
-                        year: 2008
-                        bibliography: 'Kanunnah 3: 42 (2008)'
-                        author: A.M.Gray
+                        slug: sassafras-randaiense
+                        scientific_name: Sassafras randaiense
+                        year: 1920
+                        bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                        author: "(Hayata) Rehder"
                         status: accepted
                         rank: species
                         family_common_name: 
-                        genus_id: 2059
+                        genus_id: 6010
                         image_url: 
-                        synonyms: []
-                        genus: Eucalyptus
-                        family: Myrtaceae
+                        synonyms:
+                        - Yushunia randaiensis
+                        - Lindera randaiensis
+                        genus: Sassafras
+                        family: Lauraceae
                         links:
-                          self: "/api/v1/species/eucalyptus-nebulosa"
-                          plant: "/api/v1/plants/eucalyptus-nebulosa"
-                          genus: "/api/v1/genus/eucalyptus"
+                          self: "/api/v1/species/sassafras-randaiense"
+                          plant: "/api/v1/plants/sassafras-randaiense"
+                          genus: "/api/v1/genus/sassafras"
                       subspecies: []
                       varieties: []
                       hybrids: []
                       forms: []
                       subvarieties: []
                       sources:
-                      - last_update: '2020-06-26T03:44:08.000Z'
-                        id: urn:lsid:ipni.org:names:77094385-1
+                      - last_update: '2020-06-25T02:55:41.000Z'
+                        id: urn:lsid:ipni.org:names:468633-1
                         name: POWO
-                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77094385-1
+                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:468633-1
                         citation: POWO (2019). Plants of the World Online. Facilitated
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
-                          http://www.plantsoftheworldonline.org/ Retrieved 2020-06-26
+                          http://www.plantsoftheworldonline.org/ Retrieved 2020-06-25
+                      - last_update: '2020-08-13T09:40:14.000Z'
+                        id: '4178502'
+                        name: GBIF
+                        url: https://www.gbif.org/species/4178502
+                        citation: 
                     meta:
-                      last_modified: '2020-08-12T12:08:05.876Z'
+                      last_modified: '2020-08-15T07:56:54.464Z'
         '401':
           description: Invalid credentials
           content:
@@ -3104,19 +3142,19 @@ paths:
                     data:
                       id: 1
                       record_type: Species
-                      record_id: 170054
+                      record_id: 101852
                       user_id: 19
                       warning_type: report
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-12T12:08:11.679Z'
-                      updated_at: '2020-08-12T12:08:11.681Z'
+                      created_at: '2020-08-15T07:57:00.200Z'
+                      updated_at: '2020-08-15T07:57:00.202Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-12T12:08:11.681Z'
+                      last_modified: '2020-08-15T07:57:00.202Z'
         '401':
           description: Invalid credentials
           content:
@@ -3227,64 +3265,113 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                    - id: 170054
-                      common_name: white poplar
-                      slug: populus-alba
-                      scientific_name: Populus alba
-                      year: 1753
-                      bibliography: 'Sp. Pl.: 1034 (1753)'
-                      author: L.
-                      status: accepted
-                      rank: species
-                      family_common_name: Willow family
-                      genus_id: 5568
-                      image_url: https://bs.floristic.org/image/o/fae7ede0f0fb6e7fd6c57c7f48c93af9262cb13a
-                      synonyms:
-                      - Populus hybrida
-                      - Populus hickeliana
-                      - Populus bachofenii
-                      - Populus aegyptiaca
-                      - Populus caspica
-                      - Populus nivea
-                      - Populus bolleana
-                      - Populus major
-                      - Leuce alba
-                      - Populus berkarensis
-                      - Populus alba var. bolleana
-                      genus: Populus
-                      family: Salicaceae
-                      links:
-                        self: "/api/v1/species/populus-alba"
-                        plant: "/api/v1/plants/populus-alba"
-                        genus: "/api/v1/genus/populus"
-                    - id: 546498
-                      common_name: Chinese Incense-cedar
-                      slug: calocedrus-macrolepis
-                      scientific_name: Calocedrus macrolepis
-                      year: 1878
-                      bibliography: 'J. Bot. 11: 196 (1878)'
-                      author: Kurz
+                    - id: 1164724
+                      common_name: Christmastree
+                      slug: abies-alba
+                      scientific_name: Abies alba
+                      year: 1756
+                      bibliography: 'Gard. Dict. ed. 7: n.º 1 (1756)'
+                      author: Mill.
                       status: accepted
                       rank: species
                       family_common_name: 
-                      genus_id: 1322
-                      image_url: https://bs.floristic.org/image/o/05b702e76b77091cf51662fe2874f78740b01290
+                      genus_id: 4
+                      image_url: https://bs.floristic.org/image/o/7928c21ee9fdc5ffa423501d3ba54084247cf9a9
                       synonyms:
-                      - Heyderia macrolepis
-                      - Thuja macrolepis
-                      - Libocedrus macrolepis
-                      genus: Calocedrus
-                      family: Cupressaceae
+                      - Abies nobilis
+                      - Pinus heterophylla
+                      - Pinus abies
+                      - Abies pectinata
+                      - Pinus picea
+                      - Abies taxifolia
+                      - Abies minor
+                      - Abies picea
+                      - Abies abies
+                      - Abies chlorocarpa
+                      - Abies pardei
+                      - Picea pectinata
+                      - Pinus pectinata
+                      - Pinus baldensis
+                      - Picea tenuifolia
+                      - Abies alba var. pardei
+                      - Peuce abies
+                      - Abies alba subsp. pardei
+                      - Picea metensis
+                      - Picea rinzi
+                      - Abies argentea
+                      - Abies candicans
+                      - Picea pyramidalis
+                      - Abies baldensis
+                      - Abies vulgaris
+                      - Picea kukunaria
+                      - Abies alba subsp. apennina
+                      - Abies metensis
+                      - Pinus lucida
+                      - Abies miniata
+                      genus: Abies
+                      family: Pinaceae
                       links:
-                        self: "/api/v1/species/calocedrus-macrolepis"
-                        plant: "/api/v1/plants/calocedrus-macrolepis"
-                        genus: "/api/v1/genus/calocedrus"
+                        self: "/api/v1/species/abies-alba"
+                        plant: "/api/v1/plants/abies-alba"
+                        genus: "/api/v1/genus/abies"
+                    - id: 123665
+                      common_name: cotoneaster
+                      slug: cotoneaster-integerrimus
+                      scientific_name: Cotoneaster integerrimus
+                      year: 1793
+                      bibliography: 'Gesch. Bot.: 85 (1793)'
+                      author: Medik.
+                      status: accepted
+                      rank: species
+                      family_common_name: Rose family
+                      genus_id: 2070
+                      image_url: https://bs.floristic.org/image/o/3bf7a133fee95aed318cda1a4269fb956aeb0a3a
+                      synonyms:
+                      - Cotoneaster canescens
+                      - Mespilus cotoneaster
+                      - Cotoneaster suboblongus
+                      - Cotoneaster pyrenaicus
+                      - Gymnopyrenium vulgare
+                      - Cotoneaster kullensis
+                      - Cotoneaster gilgitensis
+                      - Cotoneaster vulgaris
+                      - Cotoneaster juranus
+                      - Cotoneaster kaganensis
+                      - Cotoneaster humilis
+                      - Ostinia cotoneaster
+                      - Cotoneaster cambricus
+                      - Cotoneaster scandinavicus
+                      genus: Cotoneaster
+                      family: Rosaceae
+                      links:
+                        self: "/api/v1/species/cotoneaster-integerrimus"
+                        plant: "/api/v1/plants/cotoneaster-integerrimus"
+                        genus: "/api/v1/genus/cotoneaster"
+                    - id: 1051713
+                      common_name: 
+                      slug: alchemilla-bogumilii
+                      scientific_name: Alchemilla bogumilii
+                      year: 1979
+                      bibliography: 'Fragm. Florist. Geobot. 25: 10 (1979)'
+                      author: Pawlus
+                      status: accepted
+                      rank: species
+                      family_common_name: 
+                      genus_id: 219
+                      image_url: 
+                      synonyms: []
+                      genus: Alchemilla
+                      family: Rosaceae
+                      links:
+                        self: "/api/v1/species/alchemilla-bogumilii"
+                        plant: "/api/v1/plants/alchemilla-bogumilii"
+                        genus: "/api/v1/genus/alchemilla"
                     links:
-                      self: "/api/v1/plants?zone_id=chs"
-                      first: "/api/v1/plants?page=1&zone_id=chs"
-                      last: "/api/v1/plants?page=1&zone_id=chs"
+                      self: "/api/v1/plants?zone_id=cze"
+                      first: "/api/v1/plants?page=1&zone_id=cze"
+                      last: "/api/v1/plants?page=1&zone_id=cze"
                     meta:
-                      total: 2
+                      total: 3
         '401':
           description: Invalid credentials
           content:
@@ -3385,29 +3472,31 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                    - id: 814834
+                    - id: 744022
                       common_name: 
-                      slug: eucalyptus-nebulosa
-                      scientific_name: Eucalyptus nebulosa
-                      year: 2008
-                      bibliography: 'Kanunnah 3: 42 (2008)'
-                      author: A.M.Gray
+                      slug: sassafras-randaiense
+                      scientific_name: Sassafras randaiense
+                      year: 1920
+                      bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                      author: "(Hayata) Rehder"
                       status: accepted
                       rank: species
                       family_common_name: 
-                      genus_id: 2059
+                      genus_id: 6010
                       image_url: 
-                      synonyms: []
-                      genus: Eucalyptus
-                      family: Myrtaceae
+                      synonyms:
+                      - Yushunia randaiensis
+                      - Lindera randaiensis
+                      genus: Sassafras
+                      family: Lauraceae
                       links:
-                        self: "/api/v1/species/eucalyptus-nebulosa"
-                        plant: "/api/v1/plants/eucalyptus-nebulosa"
-                        genus: "/api/v1/genus/eucalyptus"
+                        self: "/api/v1/species/sassafras-randaiense"
+                        plant: "/api/v1/plants/sassafras-randaiense"
+                        genus: "/api/v1/genus/sassafras"
                     links:
-                      self: "/api/v1/plants?genus_id=eucalyptus"
-                      first: "/api/v1/plants?genus_id=eucalyptus&page=1"
-                      last: "/api/v1/plants?genus_id=eucalyptus&page=1"
+                      self: "/api/v1/plants?genus_id=sassafras"
+                      first: "/api/v1/plants?genus_id=sassafras&page=1"
+                      last: "/api/v1/plants?genus_id=sassafras&page=1"
                     meta:
                       total: 1
         '401':
@@ -3505,205 +3594,298 @@ paths:
                   value:
                     data:
                     - id: 1164724
-                      common_name: 
+                      common_name: Christmastree
                       slug: abies-alba
                       scientific_name: Abies alba
-                      year: 
-                      bibliography: 
+                      year: 1756
+                      bibliography: 'Gard. Dict. ed. 7: n.º 1 (1756)'
                       author: Mill.
                       status: accepted
                       rank: species
                       family_common_name: 
                       genus_id: 4
-                      image_url: 
-                      synonyms: []
+                      image_url: https://bs.floristic.org/image/o/7928c21ee9fdc5ffa423501d3ba54084247cf9a9
+                      synonyms:
+                      - Abies nobilis
+                      - Pinus heterophylla
+                      - Pinus abies
+                      - Abies pectinata
+                      - Pinus picea
+                      - Abies taxifolia
+                      - Abies minor
+                      - Abies picea
+                      - Abies abies
+                      - Abies chlorocarpa
+                      - Abies pardei
+                      - Picea pectinata
+                      - Pinus pectinata
+                      - Pinus baldensis
+                      - Picea tenuifolia
+                      - Abies alba var. pardei
+                      - Peuce abies
+                      - Abies alba subsp. pardei
+                      - Picea metensis
+                      - Picea rinzi
+                      - Abies argentea
+                      - Abies candicans
+                      - Picea pyramidalis
+                      - Abies baldensis
+                      - Abies vulgaris
+                      - Picea kukunaria
+                      - Abies alba subsp. apennina
+                      - Abies metensis
+                      - Pinus lucida
+                      - Abies miniata
                       genus: Abies
                       family: Pinaceae
                       links:
                         self: "/api/v1/species/abies-alba"
                         plant: "/api/v1/plants/abies-alba"
                         genus: "/api/v1/genus/abies"
-                    - id: 170054
-                      common_name: white poplar
-                      slug: populus-alba
-                      scientific_name: Populus alba
+                    - id: 101852
+                      common_name: red maple
+                      slug: acer-rubrum
+                      scientific_name: Acer rubrum
                       year: 1753
-                      bibliography: 'Sp. Pl.: 1034 (1753)'
+                      bibliography: 'Sp. Pl.: 1055 (1753)'
                       author: L.
                       status: accepted
                       rank: species
-                      family_common_name: Willow family
-                      genus_id: 5568
-                      image_url: https://bs.floristic.org/image/o/fae7ede0f0fb6e7fd6c57c7f48c93af9262cb13a
+                      family_common_name: Maple family
+                      genus_id: 39
+                      image_url: https://bs.floristic.org/image/o/38e103ad0ddf8c302e4cb8cf0b4b865178b83dfd
                       synonyms:
-                      - Populus hybrida
-                      - Populus hickeliana
-                      - Populus bachofenii
-                      - Populus aegyptiaca
-                      - Populus caspica
-                      - Populus nivea
-                      - Populus bolleana
-                      - Populus major
-                      - Leuce alba
-                      - Populus berkarensis
-                      - Populus alba var. bolleana
-                      genus: Populus
-                      family: Salicaceae
+                      - Acer rubrum var. drummondii
+                      - Acer drummondii
+                      - Rufacer drummondii
+                      - Acer rubrum var. tomentosum
+                      - Rufacer rubrum
+                      - Acer rubrum var. trilobum
+                      - Acer carolinianum
+                      - Acer rubrum var. tridens
+                      - Rufacer carolinianum
+                      - Acer sanguineum
+                      - Acer hypoleucum
+                      - Acer rubrum subsp. drummondii
+                      - Acer rubrum f. viride
+                      - Acer rubrum f. breviramusculum
+                      - Acer rubrum subsp. carolinianum
+                      - Acer glaucum
+                      - Acer rubrum var. rubrocarpum
+                      - Acer rubrum var. sanguineum
+                      - Acer wagneri
+                      - Acer fulgens
+                      - Acer rubrum var. stenocarpum
+                      - Acer rubrum subsp. semiorbiculatum
+                      - Acer tomentosum
+                      - Acer rubrum subsp. tomentosum
+                      - Acer rubrum var. pallidum
+                      - Acer rubrum var. coccineum
+                      - Acer rubrum subsp. microphyllum
+                      - Acer rubrum var. pallidiflorum
+                      - Acer rubrum var. virginianum
+                      - Acer rubrum var. viride
+                      - Acer rubrum var. clausum
+                      - Acer semiorbiculatum
+                      - Acer splendens
+                      - Acer rubrum var. columnare
+                      - Acer rubrum var. globosum
+                      - Acer stenocarpum
+                      - Acer rubrum var. rubrum
+                      - Acer rubrum f. columnare
+                      - Acer rubrum f. rubrum
+                      - Acer rubrum f. pallidiflorum
+                      genus: Acer
+                      family: Sapindaceae
                       links:
-                        self: "/api/v1/species/populus-alba"
-                        plant: "/api/v1/plants/populus-alba"
-                        genus: "/api/v1/genus/populus"
-                    - id: 175834
-                      common_name: rugosa rose
-                      slug: rosa-rugosa
-                      scientific_name: Rosa rugosa
-                      year: 1784
-                      bibliography: 'J.A.Murray, Syst. Veg., ed. 14: 473 (1784)'
-                      author: Thunb.
+                        self: "/api/v1/species/acer-rubrum"
+                        plant: "/api/v1/plants/acer-rubrum"
+                        genus: "/api/v1/genus/acer"
+                    - id: 123665
+                      common_name: cotoneaster
+                      slug: cotoneaster-integerrimus
+                      scientific_name: Cotoneaster integerrimus
+                      year: 1793
+                      bibliography: 'Gesch. Bot.: 85 (1793)'
+                      author: Medik.
                       status: accepted
                       rank: species
                       family_common_name: Rose family
-                      genus_id: 5912
-                      image_url: https://bs.floristic.org/image/o/fe957b1a87df808443782ad72c2c0ddec0729370
+                      genus_id: 2070
+                      image_url: https://bs.floristic.org/image/o/3bf7a133fee95aed318cda1a4269fb956aeb0a3a
                       synonyms:
-                      - Rosa coruscans
-                      - Rosa ferox
-                      - Rosa regeliana
-                      - Rosa kamtchatica
-                      - Rosa andreae
-                      - Rosa rugosa var. albiflora
-                      genus: Rosa
+                      - Cotoneaster canescens
+                      - Mespilus cotoneaster
+                      - Cotoneaster suboblongus
+                      - Cotoneaster pyrenaicus
+                      - Gymnopyrenium vulgare
+                      - Cotoneaster kullensis
+                      - Cotoneaster gilgitensis
+                      - Cotoneaster vulgaris
+                      - Cotoneaster juranus
+                      - Cotoneaster kaganensis
+                      - Cotoneaster humilis
+                      - Ostinia cotoneaster
+                      - Cotoneaster cambricus
+                      - Cotoneaster scandinavicus
+                      genus: Cotoneaster
                       family: Rosaceae
                       links:
-                        self: "/api/v1/species/rosa-rugosa"
-                        plant: "/api/v1/plants/rosa-rugosa"
-                        genus: "/api/v1/genus/rosa"
-                    - id: 101355
-                      common_name: 
-                      slug: acacia-dietrichiana
-                      scientific_name: Acacia dietrichiana
-                      year: 1882
-                      bibliography: 'S. Sci. Rec. 2: 149 (1882)'
-                      author: F.Muell.
-                      status: accepted
-                      rank: species
-                      family_common_name: Pea family
-                      genus_id: 21
-                      image_url: http://d2seqvvyy3b8p2.cloudfront.net/921d2e77ad5f50113a0d16236ca257b6.jpg
-                      synonyms:
-                      - Acacia juncifolia var. planifolia
-                      - Racosperma dietrichianum
-                      genus: Acacia
-                      family: Fabaceae
-                      links:
-                        self: "/api/v1/species/acacia-dietrichiana"
-                        plant: "/api/v1/plants/acacia-dietrichiana"
-                        genus: "/api/v1/genus/acacia"
-                    - id: 546498
-                      common_name: Chinese Incense-cedar
-                      slug: calocedrus-macrolepis
-                      scientific_name: Calocedrus macrolepis
-                      year: 1878
-                      bibliography: 'J. Bot. 11: 196 (1878)'
-                      author: Kurz
+                        self: "/api/v1/species/cotoneaster-integerrimus"
+                        plant: "/api/v1/plants/cotoneaster-integerrimus"
+                        genus: "/api/v1/genus/cotoneaster"
+                    - id: 1031158
+                      common_name: Grey tree-pincushion
+                      slug: leucospermum-conocarpodendron
+                      scientific_name: Leucospermum conocarpodendron
+                      year: 1874
+                      bibliography: 'Gen. Sp. Candoll. 4: 203 (1874)'
+                      author: H.Buek
                       status: accepted
                       rank: species
                       family_common_name: 
-                      genus_id: 1322
-                      image_url: https://bs.floristic.org/image/o/05b702e76b77091cf51662fe2874f78740b01290
+                      genus_id: 4132
+                      image_url: https://bs.floristic.org/image/o/2098e6ef1c680c90c2f2866ae5d476652f25c963
                       synonyms:
-                      - Heyderia macrolepis
-                      - Thuja macrolepis
-                      - Libocedrus macrolepis
-                      genus: Calocedrus
-                      family: Cupressaceae
+                      - Leucospermum macowanii
+                      - Protea tortuosa
+                      - Protea conocarpa
+                      - Leucadendron crassicaule
+                      - Leucospermum conocarpum
+                      - Leucadendron conocarpodendron
+                      - Leucadendron cervinum
+                      genus: Leucospermum
+                      family: Proteaceae
                       links:
-                        self: "/api/v1/species/calocedrus-macrolepis"
-                        plant: "/api/v1/plants/calocedrus-macrolepis"
-                        genus: "/api/v1/genus/calocedrus"
-                    - id: 1163469
-                      common_name: white poplar
-                      slug: populus-alba-subsp-pyramidalis
-                      scientific_name: Populus alba subsp. pyramidalis
+                        self: "/api/v1/species/leucospermum-conocarpodendron"
+                        plant: "/api/v1/plants/leucospermum-conocarpodendron"
+                        genus: "/api/v1/genus/leucospermum"
+                    - id: 1248105
+                      common_name: 
+                      slug: acer-rubrum-var-drummondii
+                      scientific_name: Acer rubrum var. drummondii
+                      year: 
+                      bibliography: 
+                      author: Sarg. (Hook. & Arn. ex Nutt.)
+                      status: accepted
+                      rank: var
+                      family_common_name: 
+                      genus_id: 39
+                      image_url: 
+                      synonyms: []
+                      genus: Acer
+                      family: Sapindaceae
+                      links:
+                        self: "/api/v1/species/acer-rubrum-var-drummondii"
+                        plant: "/api/v1/plants/acer-rubrum"
+                        genus: "/api/v1/genus/acer"
+                    - id: 1031166
+                      common_name: Grey tree-pincushion
+                      slug: leucospermum-conocarpodendron-subsp-viridum
+                      scientific_name: Leucospermum conocarpodendron subsp. viridum
+                      year: 1972
+                      bibliography: 'J. S. African Bot., Suppl. 8: 38 (1972)'
+                      author: Rourke
+                      status: accepted
+                      rank: ssp
+                      family_common_name: 
+                      genus_id: 4132
+                      image_url: 
+                      synonyms: []
+                      genus: Leucospermum
+                      family: Proteaceae
+                      links:
+                        self: "/api/v1/species/leucospermum-conocarpodendron-subsp-viridum"
+                        plant: "/api/v1/plants/leucospermum-conocarpodendron"
+                        genus: "/api/v1/genus/leucospermum"
+                    - id: 744022
+                      common_name: 
+                      slug: sassafras-randaiense
+                      scientific_name: Sassafras randaiense
+                      year: 1920
+                      bibliography: 'J. Arnold Arbor. 1: 244 (1920)'
+                      author: "(Hayata) Rehder"
+                      status: accepted
+                      rank: species
+                      family_common_name: 
+                      genus_id: 6010
+                      image_url: 
+                      synonyms:
+                      - Yushunia randaiensis
+                      - Lindera randaiensis
+                      genus: Sassafras
+                      family: Lauraceae
+                      links:
+                        self: "/api/v1/species/sassafras-randaiense"
+                        plant: "/api/v1/plants/sassafras-randaiense"
+                        genus: "/api/v1/genus/sassafras"
+                    - id: 177049
+                      common_name: Puerto Rico palmetto
+                      slug: sabal-causiarum
+                      scientific_name: Sabal causiarum
+                      year: 1907
+                      bibliography: 'Webbia 2: 71 (1907)'
+                      author: "(O.F.Cook) Becc."
+                      status: accepted
+                      rank: species
+                      family_common_name: Palm family
+                      genus_id: 5936
+                      image_url: https://bs.floristic.org/image/o/54f2d48ea6fa4bb20a714d2d807a7b81e6992f90
+                      synonyms:
+                      - Inodes causiarum
+                      - Inodes glauca
+                      - Sabal haitensis
+                      - Sabal questeliana
+                      genus: Sabal
+                      family: Arecaceae
+                      links:
+                        self: "/api/v1/species/sabal-causiarum"
+                        plant: "/api/v1/plants/sabal-causiarum"
+                        genus: "/api/v1/genus/sabal"
+                    - id: 1051713
+                      common_name: 
+                      slug: alchemilla-bogumilii
+                      scientific_name: Alchemilla bogumilii
+                      year: 1979
+                      bibliography: 'Fragm. Florist. Geobot. 25: 10 (1979)'
+                      author: Pawlus
+                      status: accepted
+                      rank: species
+                      family_common_name: 
+                      genus_id: 219
+                      image_url: 
+                      synonyms: []
+                      genus: Alchemilla
+                      family: Rosaceae
+                      links:
+                        self: "/api/v1/species/alchemilla-bogumilii"
+                        plant: "/api/v1/plants/alchemilla-bogumilii"
+                        genus: "/api/v1/genus/alchemilla"
+                    - id: 101855
+                      common_name: red maple
+                      slug: acer-rubrum-subsp-drummondii
+                      scientific_name: Acer rubrum subsp. drummondii
                       year: 1753
-                      bibliography: 'Sp. Pl.: 1034 (1753)'
-                      author: W.Wettstein ex E.Janchen (Bunge)
+                      bibliography: 'Sp. Pl.: 1055 (1753)'
+                      author: L.
                       status: unknown
                       rank: ssp
-                      family_common_name: Willow family
-                      genus_id: 5568
-                      image_url: 
-                      synonyms:
-                      - Populus alba var. pyramidalis
-                      genus: Populus
-                      family: Salicaceae
-                      links:
-                        self: "/api/v1/species/populus-alba-subsp-pyramidalis"
-                        plant: "/api/v1/plants/populus-alba"
-                        genus: "/api/v1/genus/populus"
-                    - id: 819657
-                      common_name: 
-                      slug: eugenia-websteri
-                      scientific_name: Eugenia websteri
-                      year: 1982
-                      bibliography: 'J. Arnold Arbor. 63: 276 (1982)'
-                      author: Proctor
-                      status: accepted
-                      rank: species
-                      family_common_name: 
-                      genus_id: 1380
+                      family_common_name: Maple family
+                      genus_id: 39
                       image_url: 
                       synonyms: []
-                      genus: Eugenia
-                      family: Myrtaceae
+                      genus: Acer
+                      family: Sapindaceae
                       links:
-                        self: "/api/v1/species/eugenia-websteri"
-                        plant: "/api/v1/plants/eugenia-websteri"
-                        genus: "/api/v1/genus/eugenia"
-                    - id: 814834
-                      common_name: 
-                      slug: eucalyptus-nebulosa
-                      scientific_name: Eucalyptus nebulosa
-                      year: 2008
-                      bibliography: 'Kanunnah 3: 42 (2008)'
-                      author: A.M.Gray
-                      status: accepted
-                      rank: species
-                      family_common_name: 
-                      genus_id: 2059
-                      image_url: 
-                      synonyms: []
-                      genus: Eucalyptus
-                      family: Myrtaceae
-                      links:
-                        self: "/api/v1/species/eucalyptus-nebulosa"
-                        plant: "/api/v1/plants/eucalyptus-nebulosa"
-                        genus: "/api/v1/genus/eucalyptus"
-                    - id: 175835
-                      common_name: rugosa rose
-                      slug: rosa-rugosa-f-alba
-                      scientific_name: Rosa rugosa f. alba
-                      year: 1784
-                      bibliography: 'J.A.Murray, Syst. Veg., ed. 14: 473 (1784)'
-                      author: Thunb.
-                      status: unknown
-                      rank: form
-                      family_common_name: Rose family
-                      genus_id: 5912
-                      image_url: 
-                      synonyms: []
-                      genus: Rosa
-                      family: Rosaceae
-                      links:
-                        self: "/api/v1/species/rosa-rugosa-f-alba"
-                        plant: "/api/v1/plants/rosa-rugosa"
-                        genus: "/api/v1/genus/rosa"
+                        self: "/api/v1/species/acer-rubrum-subsp-drummondii"
+                        plant: "/api/v1/plants/acer-rubrum"
+                        genus: "/api/v1/genus/acer"
                     links:
                       self: "/api/v1/species"
                       first: "/api/v1/species?page=1"
                       last: "/api/v1/species?page=1"
                     meta:
-                      total: 9
+                      total: 10
         '401':
           description: Invalid credentials
           content:
@@ -3754,734 +3936,258 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                      id: 170054
-                      common_name: white poplar
-                      slug: populus-alba
-                      scientific_name: Populus alba
+                      id: 101852
+                      common_name: red maple
+                      slug: acer-rubrum
+                      scientific_name: Acer rubrum
                       year: 1753
-                      bibliography: 'Sp. Pl.: 1034 (1753)'
+                      bibliography: 'Sp. Pl.: 1055 (1753)'
                       author: L.
                       status: accepted
                       rank: species
-                      family_common_name: Willow family
-                      genus_id: 5568
-                      observations: C. & S. Europe to NW. China
-                      image_url: https://bs.floristic.org/image/o/fae7ede0f0fb6e7fd6c57c7f48c93af9262cb13a
-                      genus: Populus
-                      family: Salicaceae
+                      family_common_name: Maple family
+                      genus_id: 39
+                      observations: SE. Canada to C. & E. U.S.A.
+                      image_url: https://bs.floristic.org/image/o/38e103ad0ddf8c302e4cb8cf0b4b865178b83dfd
+                      genus: Acer
+                      family: Sapindaceae
                       duration: 
                       images:
                         flower:
-                        - id: 3364540
-                          image_url: https://bs.floristic.org/image/o/e79211219db9463dea30e7c12ef37c94ea9be897
-                          copyright: Taken Mar 22, 2018 by Jordi Riera (cc-by-sa)
-                        - id: 3364541
-                          image_url: https://bs.floristic.org/image/o/8790bd993b39022371099c33471486696662c3d2
-                          copyright: Taken Nov 7, 2019 by Medrano Alvaro (cc-by-sa)
-                        - id: 3364542
-                          image_url: https://bs.floristic.org/image/o/9175f957aa09b1b67831c551b081d68d79664d8c
-                          copyright: Taken Jun 1, 2017 by Cruz Fer (cc-by-sa)
-                        - id: 3364543
-                          image_url: https://bs.floristic.org/image/o/ee12297b319008ae9c1b8d464ed04496aca42d48
-                          copyright: Taken Mar 26, 2018 by francois tissot (cc-by-sa)
-                        - id: 3364544
-                          image_url: https://bs.floristic.org/image/o/61ecf1d96689ef3ad9adfc52d9032a831ecf85c4
-                          copyright: Taken Jun 1, 2017 by Cruz Fer (cc-by-sa)
-                        - id: 3556753
-                          image_url: https://bs.floristic.org/image/o/8614339dc35bd27fa335a5ffb626a79a12364782
-                          copyright: Taken Jul 7, 2020 by catherine chauffray (cc-by-sa)
+                        - id: 3202827
+                          image_url: https://bs.floristic.org/image/o/14b3cf7ea979062db99f3856b836c191e877bf47
+                          copyright: Taken Dec 21, 2016 by EOL − Laura Clark (cc-by-nc)
+                        - id: 3202828
+                          image_url: https://bs.floristic.org/image/o/c480bff051df92ee488da04eb9b68804c2085174
+                          copyright: Taken Feb 26, 2019 by Nathan Torres (cc-by-sa)
+                        - id: 3202829
+                          image_url: https://bs.floristic.org/image/o/2a5b79a777d945f39944745072cf2287d2ba3416
+                          copyright: Taken Dec 21, 2016 by EOL − Katja Schulz (cc-by)
+                        - id: 3202831
+                          image_url: https://bs.floristic.org/image/o/8c0af03c9ea6a6d50a47b0b2fbeaea0ff535ff04
+                          copyright: Taken Dec 21, 2016 by EOL − Matthew O'Donnell
+                            (cc-by-nc-sa)
+                        - id: 3202832
+                          image_url: https://bs.floristic.org/image/o/ea443efc04b05abe39a9761722825480bf567aac
+                          copyright: Taken Dec 21, 2016 by EOL − Robert L Curtis (cc-by-nc-sa)
+                        - id: 3544087
+                          image_url: https://bs.floristic.org/image/o/08844e5dbc5203ad576056de999dfd35611e4ab2
+                          copyright: Taken Dec 21, 2016 by EOL − Zoya Akulova (cc-by-nc)
                         leaf:
-                        - id: 3364550
-                          image_url: https://bs.floristic.org/image/o/5eb606754be1f23e47d91c1a4099b06e00ee764d
-                          copyright: Taken Sep 28, 2019 by elena (cc-by-sa)
-                        - id: 3364551
-                          image_url: https://bs.floristic.org/image/o/85f208afcc9843a9f42258444b62bee6ba0de2d2
-                          copyright: Taken Jun 25, 2019 by liocam (cc-by-sa)
-                        - id: 3364552
-                          image_url: https://bs.floristic.org/image/o/ee08f7f0be9a5b2668c9854f4cb59d654d18bf8b
-                          copyright: Taken Oct 12, 2017 by Lou Vandaele (cc-by-sa)
-                        - id: 3364553
-                          image_url: https://bs.floristic.org/image/o/cad997e94dd64bf32d8e46d9e8c3e8fc57be1931
-                          copyright: Taken Sep 1, 2019 by zef (cc-by-sa)
-                        - id: 3364554
-                          image_url: https://bs.floristic.org/image/o/204214db34ac0ebfbffbfeb87a1bce613c9140f5
-                          copyright: Taken May 18, 2017 by Philippe Feldmann (cc-by-sa)
-                        - id: 3556755
-                          image_url: https://bs.floristic.org/image/o/689f2cd4243ef219309105177fc7766e940e5b92
-                          copyright: Taken Sep 28, 2019 by elena (cc-by-sa)
+                        - id: 3202822
+                          image_url: https://bs.floristic.org/image/o/053e841f00be8db40f07ed5e996f61a6f4148c33
+                          copyright: Taken Oct 23, 2019 by Dieter Albrecht (cc-by-sa)
+                        - id: 3202823
+                          image_url: https://bs.floristic.org/image/o/1b54bf651cb366e3d5095934b2bc889b5db12fc3
+                          copyright: Taken Oct 7, 2019 by Ginette Lanou (cc-by-sa)
+                        - id: 3202824
+                          image_url: https://bs.floristic.org/image/o/df750c1610bc447c174474f6b8739d79fcf1727e
+                          copyright: Taken May 31, 2020 by philip beef (cc-by-sa)
+                        - id: 3202825
+                          image_url: https://bs.floristic.org/image/o/dbc552a84b6fd31aa515d0fde1f6c1dffda50c9d
+                          copyright: Taken May 27, 2017 by Kilien de Chateauvieux
+                            (cc-by-sa)
+                        - id: 3202826
+                          image_url: https://bs.floristic.org/image/o/d6e9fd0a976484f5731af8d7d45a9964aa1cce01
+                          copyright: Taken May 22, 2017 by Tela Botanica − Bertrand
+                            AUCOUTURIER (cc-by-sa)
                         habit:
-                        - id: 3364559
-                          image_url: https://bs.floristic.org/image/o/fae7ede0f0fb6e7fd6c57c7f48c93af9262cb13a
-                          copyright: Taken Sep 1, 2019 by zef (cc-by-sa)
-                        - id: 3364555
-                          image_url: https://bs.floristic.org/image/o/fecf6a3ae03c461778921e59c0cca8fb6a617b8b
-                          copyright: Taken Apr 22, 2020 by Juni (cc-by-sa)
-                        - id: 3364556
-                          image_url: https://bs.floristic.org/image/o/79b2764048e85e66c87450acfe35829c635f7be3
-                          copyright: Taken Dec 2, 2019 by Kampf Robert (cc-by-sa)
-                        - id: 3364557
-                          image_url: https://bs.floristic.org/image/o/c398cf3a6b0bb6d6c5c41482763dd409d7de89ca
-                          copyright: Taken Aug 15, 2019 by Jiří Vilím (cc-by-sa)
-                        - id: 3364558
-                          image_url: https://bs.floristic.org/image/o/ad493224532eed7595d6898a99f1efc1317416e3
-                          copyright: Taken Oct 15, 2019 by Werner Rom (cc-by-sa)
+                        - id: 3202817
+                          image_url: https://bs.floristic.org/image/o/63b35baa262ed2e437171a1b78337d503489ba43
+                          copyright: Taken Oct 29, 2019 by Interior Design Mimar (cc-by-sa)
+                        - id: 3202818
+                          image_url: https://bs.floristic.org/image/o/431fa7c7b1bdd6017665589151dee05b9b1c9021
+                          copyright: Taken Dec 21, 2016 by EOL − Charlie Hohn (cc-by-nc)
+                        - id: 3202819
+                          image_url: https://bs.floristic.org/image/o/537d387239e14010e7f9c15fb18f87a43ae77997
+                          copyright: Taken Jul 26, 2016 by Tela Botanica − Alain BIGOU
+                            (cc-by-sa)
+                        - id: 3202820
+                          image_url: https://bs.floristic.org/image/o/c1023eba3ca60bfc8efadb3710586b9f8109d435
+                          copyright: Taken Sep 26, 2017 by Dieter Albrecht (cc-by-sa)
+                        - id: 3202821
+                          image_url: https://bs.floristic.org/image/o/38e103ad0ddf8c302e4cb8cf0b4b865178b83dfd
+                          copyright: Taken Oct 23, 2019 by Dieter Albrecht (cc-by-sa)
                         fruit:
-                        - id: 3364561
-                          image_url: https://bs.floristic.org/image/o/9f288fdcc627ba9d283cdb619da6dc12c0b5e8ba
-                          copyright: Taken Oct 5, 2019 by Mihai rad (cc-by-sa)
-                        - id: 3364562
-                          image_url: https://bs.floristic.org/image/o/13b6317c3d9807155858366098b47789faad734a
-                          copyright: Taken Apr 24, 2020 by Dieter Wagner (cc-by-sa)
-                        - id: 3364563
-                          image_url: https://bs.floristic.org/image/o/124c356132a598108c35cc1b53d27a58502d16fa
-                          copyright: Taken Apr 24, 2020 by Dieter Wagner (cc-by-sa)
-                        - id: 3364564
-                          image_url: https://bs.floristic.org/image/o/c4b56eb13e6de9cca0133bab6eea091830ba9866
-                          copyright: Taken Apr 24, 2020 by Dieter Wagner (cc-by-sa)
-                        - id: 3364565
-                          image_url: https://bs.floristic.org/image/o/823cceb4c01e7c532bc8394a01413bfff41da38b
-                          copyright: Taken May 4, 2019 by Marek Jancák (cc-by-sa)
+                        - id: 3202838
+                          image_url: https://bs.floristic.org/image/o/ca8fe1dd679c77744f47f9badf5a23e1fed0a50e
+                          copyright: Taken Apr 20, 2019 by Matthias Foellmer (cc-by-sa)
+                        - id: 3202839
+                          image_url: https://bs.floristic.org/image/o/814125d653a89a76b4ab9935dee61263f250ed95
+                          copyright: Taken Jun 22, 2019 by dredodo (cc-by-sa)
+                        - id: 3202840
+                          image_url: https://bs.floristic.org/image/o/5fa042a8fe8d8adccd73de601e72922d20c8dc24
+                          copyright: Taken Apr 27, 2019 by Emilio Herrero (cc-by-sa)
+                        - id: 3202841
+                          image_url: https://bs.floristic.org/image/o/205dda9a481542feb10066fccc4d3d0d45523648
+                          copyright: Taken Dec 21, 2016 by EOL − Steven J. Baskauf
+                            (cc-by-nc-sa)
+                        - id: 3202842
+                          image_url: https://bs.floristic.org/image/o/ea49f7d9cba1ea69abe60dfdb7244c39d93a07f9
+                          copyright: Taken May 31, 2020 by philip beef (cc-by-sa)
                         bark:
-                        - id: 3364545
-                          image_url: https://bs.floristic.org/image/o/028cecc74b14805f7aaef78da53b9556eb8f946e
-                          copyright: Taken Dec 7, 2016 by Marta Valencia (cc-by-sa)
-                        - id: 3364546
-                          image_url: https://bs.floristic.org/image/o/28635066aaf5a191d0ac6658147c1f61ff791ce6
-                          copyright: Taken May 4, 2019 by Marek Jancák (cc-by-sa)
-                        - id: 3364547
-                          image_url: https://bs.floristic.org/image/o/fd48aec74d25715b7402ed9feca3d1a730287d0f
-                          copyright: Taken Oct 4, 2019 by monique exbrayat (cc-by-sa)
-                        - id: 3364548
-                          image_url: https://bs.floristic.org/image/o/32730db42475fba90608129c6ff86ba67f8820d8
-                          copyright: Taken Dec 8, 2019 by fabio (cc-by-sa)
-                        - id: 3364549
-                          image_url: https://bs.floristic.org/image/o/88260defd473dd00f39487533b2a575aa13f24a1
-                          copyright: Taken Dec 8, 2019 by fabio (cc-by-sa)
+                        - id: 3202833
+                          image_url: https://bs.floristic.org/image/o/899c1ce33cbc8cc99addacfe0cd83634a3edbc02
+                          copyright: Taken Mar 3, 2020 by Alex Lavoie (cc-by-sa)
+                        - id: 3202834
+                          image_url: https://bs.floristic.org/image/o/92ca92afc7b0d1193da25c93081c099992ac95bd
+                          copyright: Taken Dec 3, 2019 by Plantagramm (cc-by-sa)
+                        - id: 3202835
+                          image_url: https://bs.floristic.org/image/o/87237a54844a17b6c4bc5649452c9402cbd85166
+                          copyright: Taken Feb 7, 2020 by Robert Bartic Robert Bartic
+                            (cc-by-sa)
+                        - id: 3202836
+                          image_url: https://bs.floristic.org/image/o/300f0239a31a48968b247521631fa2384cce4899
+                          copyright: Taken May 18, 2020 by Kim Randell (cc-by-sa)
+                        - id: 3202837
+                          image_url: https://bs.floristic.org/image/o/0ecff4c52b4e0668e7ad105a25c40cdafb2c3d60
+                          copyright: Taken Oct 2, 2018 by Keith Gebhardt (cc-by-sa)
+                        - id: 3544088
+                          image_url: https://bs.floristic.org/image/o/749deb9ae7b7da998387e09a4e1b776b2cad4175
+                          copyright: Taken May 20, 2020 by Thomas Murphy (cc-by-sa)
+                        - id: 3544089
+                          image_url: https://bs.floristic.org/image/o/7929412da5e5502384e5557a7f42c36cd5c46559
+                          copyright: Taken Jan 11, 2020 by Robert Kiefl (cc-by-sa)
                         other:
-                        - id: 3364566
-                          image_url: https://bs.floristic.org/image/o/fa4d75e768d12d95b7dbdfef63ef52a77b65acde
-                          copyright: Taken Oct 7, 2014 by Tela Botanica − Liliane
-                            Roubaudi (cc-by-sa)
-                        - id: 3364567
-                          image_url: https://bs.floristic.org/image/o/9718b5550d31c85fa361da72e5bbc880cbd3c079
-                          copyright: Taken Oct 7, 2014 by Tela Botanica − Liliane
-                            Roubaudi (cc-by-sa)
-                        - id: 3364568
-                          image_url: https://bs.floristic.org/image/o/c3cdbf5f84b2e0e6e6d62d871c8523696aaa43be
-                          copyright: Taken Jun 10, 2013 by Tela Botanica − daniel
-                            BARTHELEMY (cc-by-sa)
-                        - id: 3364569
-                          image_url: https://bs.floristic.org/image/o/e0bd8dfa825a611ea524001dcc342a263b9fceea
-                          copyright: Taken Jun 10, 2013 by Tela Botanica − daniel
-                            BARTHELEMY (cc-by-sa)
-                        - id: 3364570
-                          image_url: https://bs.floristic.org/image/o/f5039904c971b00c491235d194a0d59729679052
-                          copyright: Taken Jun 10, 2013 by Tela Botanica − daniel
-                            BARTHELEMY (cc-by-sa)
+                        - id: 3202843
+                          image_url: https://bs.floristic.org/image/o/e228ea8f1d65e00951c8d4dcceeb115880b38d8c
+                          copyright: Taken Apr 10, 2019 by Carlos Carlos Fonseca (cc-by-sa)
+                        - id: 3202844
+                          image_url: https://bs.floristic.org/image/o/039df709b9aa205231990abfa022b51a93054adf
+                          copyright: Taken Nov 3, 2019 by a a (cc-by-sa)
+                        - id: 3202845
+                          image_url: https://bs.floristic.org/image/o/c282d0c7009ff0e56edaa8cb09e4effd571db42f
+                          copyright: Taken Nov 3, 2019 by a a (cc-by-sa)
+                        - id: 3202846
+                          image_url: https://bs.floristic.org/image/o/6bfb86e4444439bf07e728a352014a3aa6dd2a4c
+                          copyright: Taken Oct 5, 2013 by Tela Botanica − Michou Jibo
+                            (cc-by-sa)
                       common_names:
                         en:
-                        - Silverleaf poplar
-                        - Abele
-                        - White poplar
-                        - Silver poplar
-                        - European white poplar
-                        - Silber-Pappel
-                        - Witte abeel
-                        - Lamo blanco
-                        - Lamo
-                        - Lber
-                        - Silver-leaved poplar
-                        - Silver-leaf Poplar
-                        - Abele Tree
-                        - Gin-doro
-                        - Xin bai yang
-                        af:
-                        - Witpopulier
-                        sq:
-                        - Plepi i bardhë
+                        - Red maple
+                        - Scarlet Maple
+                        - Yellow-throated warbler
+                        - ACERUB
+                        - Maple Rojo
+                        - Soft maple
+                        - Water maple
+                        - Swamp maple
                         ar:
-                        - حور أبيض
+                        - قيقب أحمر
                         hy:
-                        - Բարդի սպիտակ
-                        av:
-                        - ХахIцIул
-                        az:
-                        - Ağcaqovaq (bitki)
+                        - Կարմիր թխկի
                         eu:
-                        - Zurzuri
-                        bg:
-                        - Бяла топола
-                        ca:
-                        - Àlber
-                        - Poll blanc
-                        - Popul blanc
-                        zh:
-                        - Xin bai yang
-                        co:
-                        - Albaru
-                        hr:
-                        - Bijela topola
+                        - Astigar gorri
+                        bn:
+                        - লাল ম্যাপেল
                         cs:
-                        - Topol bílý
-                        - Linda
+                        - Javor červený
                         da:
-                        - Sølv-Poppel
+                        - Rød Løn
                         nl:
-                        - Witte abeel
-                        eo:
-                        - Blanka poplo
-                        et:
-                        - Hõbepappel
-                        - Hõbehaab
+                        - Rode esdoorn
                         fi:
-                        - Hopeapoppeli
-                        - Hopeahaapa
+                        - Punavaahtera
                         fr:
-                        - Peuplier blanc
-                        - Abèle
-                        - Peuplier argenté
-                        - Peuplier blanc de Hollande
-                        - Peuplier à feuille d'érable
-                        - Peuplier de Hollande
-                        - Peuplier grisard
-                        - Peuplier gris de l'Oise
+                        - Érable rouge
+                        - Plaine
+                        - Plaine rouge
+                        - Érable de Virginie
                         gl:
-                        - Álamo Branco
+                        - Pradairo vermello
                         de:
-                        - Silber-Pappel
-                        - Silberpappel
-                        - Weißpappel
+                        - Rotahorn
+                        - Rot-Ahorn
+                        he:
+                        - אדר אדום
                         hu:
-                        - Fehér nyár
-                        is:
-                        - Silfurösp
-                        ga:
-                        - Poibleog gheal
+                        - Vörös juhar
                         it:
-                        - Pioppo bianco
-                        - Gattice
+                        - Acero rosso
                         ja:
-                        - Gin-doro
-                        - Urajiro-hako-yanagi
-                        - Hakuyō
-                        - ギンドロ
-                        kk:
-                        - Ақ терек
-                        ko:
-                        - Eunbaegyang
-                        lv:
-                        - Baltā apse
-                        - Balt
+                        - レッドメイプル
                         lt:
-                        - Baltoji tuopa
+                        - Raudonasis klevas
+                        ml:
+                        - ഏസർ രുബ്രം
                         nb:
-                        - Sølvpoppel
-                        nn:
-                        - Sølvpoppel
-                        oc:
-                        - Albar
+                        - Rødlønn
                         fa:
-                        - سپیدار سفید
+                        - افرای قرمز
                         pl:
-                        - Topola biała
-                        pt:
-                        - Choupo-branco
-                        ro:
-                        - Plop alb
+                        - Klon czerwony
                         ru:
-                        - Topol' serebristyj
-                        - Тополь белый
-                        sc:
-                        - Fustialvu
-                        sr:
-                        - Бела топола
+                        - Клён красный
                         sk:
-                        - Topoľ biely
-                        sl:
-                        - Beli topol
+                        - Javor červený
                         es:
-                        - Álamo blanco
-                        - Alamo-blanco
-                        - Chopo blanco
-                        - Populus alba
-                        - Alamo blanco
+                        - Arce rojo
                         sv:
-                        - Silverpoppel
-                        - Hopeapoppeli
-                        - Vitpoppel
+                        - Rödlönn
                         tr:
-                        - Ak kavak
-                        uk:
-                        - Тополя біла
-                        cy:
-                        - Poplysen wen
-                        lit:
-                        - baltoji tuopa
-                        por:
-                        - choupo-branco
-                        - álamo-branco
-                        - álamo-prateado
+                        - Kırmızı akçaağaç
+                        vi:
+                        - Phong hoa đỏ
                         deu:
-                        - silber-pappel
-                        dan:
-                        - sølv-poppel
+                        - rot-ahorn
+                        - rotahorn
+                        ita:
+                        - acero rosso
                         eng:
-                        - white poplar
-                        - abele
-                        - silver poplar
-                        - silverleaf poplar
-                        - european white poplar
-                        - silver-leaved poplar
-                        nld:
-                        - witte abeel
-                        spa:
-                        - alamo-blanco
-                        - álamo blanco
-                        lav:
-                        - balt
-                        fin:
-                        - hopeapoppeli
+                        - red maple
+                        - scarlet maple
+                        - soft maple
+                        - swamp maple
+                        - maple
                         swe:
-                        - hopeapoppeli
-                        - silverpoppel
-                        - vitpoppel
-                        est:
-                        - hõbehaab
+                        - rödlönn
                         fra:
-                        - peuplier blanc
-                        - abèle
-                        - peuplier argenté
-                        - peuplier blanc de hollande
-                        - peuplier à feuille d'érable
-                        nno:
-                        - sølvpoppel
-                        nob:
-                        - sølvpoppel
-                        afr:
-                        - witpopulier
+                        - érable rouge
+                        - plaine
+                        - plaine rouge
+                        por:
+                        - ácer-do-pântano
+                        - ácer-rubro
+                        - ácer-vermelho
                       distribution:
                         native:
-                        - Albania
-                        - Algeria
-                        - Altay
-                        - Austria
-                        - Bulgaria
-                        - Central European Rus
-                        - Corse
-                        - Czechoslovakia
-                        - East Aegean Is.
-                        - East European Russia
-                        - France
-                        - Germany
-                        - Greece
-                        - Hungary
-                        - Italy
-                        - Kazakhstan
-                        - Kriti
-                        - Lebanon-Syria
-                        - Libya
-                        - Morocco
-                        - Poland
-                        - Portugal
-                        - Romania
-                        - Sardegna
-                        - Sicilia
-                        - South European Russi
-                        - Spain
-                        - Switzerland
-                        - Tunisia
-                        - Turkey
-                        - Turkmenistan
-                        - Ukraine
-                        - Xinjiang
-                        - Yugoslavia
-                        introduced:
+                        - Florida
                         - Alabama
-                        - Argentina Northeast
-                        - Argentina South
-                        - Azores
-                        - Baleares
-                        - Baltic States
-                        - Belgium
-                        - Bolivia
-                        - Canary Is.
-                        - China North-Central
-                        - China Southeast
-                        - Colorado
-                        - Cyprus
-                        - Denmark
-                        - Falkland Is.
-                        - Free State
-                        - Great Britain
-                        - Guatemala
                         - Illinois
-                        - Inner Mongolia
-                        - Iraq
-                        - Ireland
-                        - Japan
                         - Kentucky
-                        - Korea
-                        - Krasnoyarsk
-                        - Lesotho
-                        - Madeira
-                        - Manchuria
-                        - Mexico Southwest
-                        - Netherlands
-                        - New Mexico
-                        - New York
-                        - North European Russi
-                        - Northern Provinces
-                        - Northwest European R
-                        - Palestine
-                        - Qinghai
-                        - Rwanda
-                        - St.Helena
-                        - Sweden
                         - Tennessee
+                        - New Mexico
+                        - Texas
+                        - Georgia
+                        - South Carolina
+                        - Virginia
+                        - Arkansas
+                        - Delaware
+                        - Indiana
+                        - New Jersey
+                        - New York
+                        - North Carolina
+                        - Ohio
+                        - Ontario
+                        - Pennsylvania
+                        - Québec
                         - Vermont
+                        - South Dakota
+                        - North Dakota
+                        introduced:
+                        - Great Britain
                       distributions:
                         native:
-                        - id: 93
-                          name: Albania
-                          slug: alb
-                          tdwg_code: ALB
+                        - id: 85
+                          name: Florida
+                          slug: fla
+                          tdwg_code: FLA
                           tdwg_level: 3
                           species_count: 1
                           links:
-                            self: "/api/v1/distributions/alb"
-                            plants: "/api/v1/distributions/alb/plants"
-                            species: "/api/v1/distributions/alb/species"
-                        - id: 137
-                          name: Algeria
-                          slug: alg
-                          tdwg_code: ALG
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/alg"
-                            plants: "/api/v1/distributions/alg/plants"
-                            species: "/api/v1/distributions/alg/species"
-                        - id: 303
-                          name: Altay
-                          slug: alt
-                          tdwg_code: ALT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/alt"
-                            plants: "/api/v1/distributions/alt/plants"
-                            species: "/api/v1/distributions/alt/species"
-                        - id: 275
-                          name: Austria
-                          slug: aut
-                          tdwg_code: AUT
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/aut"
-                            plants: "/api/v1/distributions/aut/plants"
-                            species: "/api/v1/distributions/aut/species"
-                        - id: 94
-                          name: Bulgaria
-                          slug: bul
-                          tdwg_code: BUL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/bul"
-                            plants: "/api/v1/distributions/bul/plants"
-                            species: "/api/v1/distributions/bul/species"
-                        - id: 279
-                          name: Central European Rus
-                          slug: ruc
-                          tdwg_code: RUC
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ruc"
-                            plants: "/api/v1/distributions/ruc/plants"
-                            species: "/api/v1/distributions/ruc/species"
-                        - id: 125
-                          name: Corse
-                          slug: cor
-                          tdwg_code: COR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/cor"
-                            plants: "/api/v1/distributions/cor/plants"
-                            species: "/api/v1/distributions/cor/species"
-                        - id: 99
-                          name: Czechoslovakia
-                          slug: cze
-                          tdwg_code: CZE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/cze"
-                            plants: "/api/v1/distributions/cze/plants"
-                            species: "/api/v1/distributions/cze/species"
-                        - id: 118
-                          name: East Aegean Is.
-                          slug: eai
-                          tdwg_code: EAI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/eai"
-                            plants: "/api/v1/distributions/eai/plants"
-                            species: "/api/v1/distributions/eai/species"
-                        - id: 281
-                          name: East European Russia
-                          slug: rue
-                          tdwg_code: RUE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/rue"
-                            plants: "/api/v1/distributions/rue/plants"
-                            species: "/api/v1/distributions/rue/species"
-                        - id: 126
-                          name: France
-                          slug: fra
-                          tdwg_code: FRA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/fra"
-                            plants: "/api/v1/distributions/fra/plants"
-                            species: "/api/v1/distributions/fra/species"
-                        - id: 284
-                          name: Germany
-                          slug: ger
-                          tdwg_code: GER
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ger"
-                            plants: "/api/v1/distributions/ger/plants"
-                            species: "/api/v1/distributions/ger/species"
-                        - id: 95
-                          name: Greece
-                          slug: grc
-                          tdwg_code: GRC
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/grc"
-                            plants: "/api/v1/distributions/grc/plants"
-                            species: "/api/v1/distributions/grc/species"
-                        - id: 285
-                          name: Hungary
-                          slug: hun
-                          tdwg_code: HUN
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/hun"
-                            plants: "/api/v1/distributions/hun/plants"
-                            species: "/api/v1/distributions/hun/species"
-                        - id: 119
-                          name: Italy
-                          slug: ita
-                          tdwg_code: ITA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ita"
-                            plants: "/api/v1/distributions/ita/plants"
-                            species: "/api/v1/distributions/ita/species"
-                        - id: 267
-                          name: Kazakhstan
-                          slug: kaz
-                          tdwg_code: KAZ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/kaz"
-                            plants: "/api/v1/distributions/kaz/plants"
-                            species: "/api/v1/distributions/kaz/species"
-                        - id: 128
-                          name: Kriti
-                          slug: kri
-                          tdwg_code: KRI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/kri"
-                            plants: "/api/v1/distributions/kri/plants"
-                            species: "/api/v1/distributions/kri/species"
-                        - id: 109
-                          name: Lebanon-Syria
-                          slug: lbs
-                          tdwg_code: LBS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/lbs"
-                            plants: "/api/v1/distributions/lbs/plants"
-                            species: "/api/v1/distributions/lbs/species"
-                        - id: 269
-                          name: Libya
-                          slug: lby
-                          tdwg_code: LBY
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/lby"
-                            plants: "/api/v1/distributions/lby/plants"
-                            species: "/api/v1/distributions/lby/species"
-                        - id: 131
-                          name: Morocco
-                          slug: mor
-                          tdwg_code: MOR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/mor"
-                            plants: "/api/v1/distributions/mor/plants"
-                            species: "/api/v1/distributions/mor/species"
-                        - id: 292
-                          name: Poland
-                          slug: pol
-                          tdwg_code: POL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/pol"
-                            plants: "/api/v1/distributions/pol/plants"
-                            species: "/api/v1/distributions/pol/species"
-                        - id: 134
-                          name: Portugal
-                          slug: por
-                          tdwg_code: POR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/por"
-                            plants: "/api/v1/distributions/por/plants"
-                            species: "/api/v1/distributions/por/species"
-                        - id: 96
-                          name: Romania
-                          slug: rom
-                          tdwg_code: ROM
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/rom"
-                            plants: "/api/v1/distributions/rom/plants"
-                            species: "/api/v1/distributions/rom/species"
-                        - id: 120
-                          name: Sardegna
-                          slug: sar
-                          tdwg_code: SAR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/sar"
-                            plants: "/api/v1/distributions/sar/plants"
-                            species: "/api/v1/distributions/sar/species"
-                        - id: 121
-                          name: Sicilia
-                          slug: sic
-                          tdwg_code: SIC
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/sic"
-                            plants: "/api/v1/distributions/sic/plants"
-                            species: "/api/v1/distributions/sic/species"
-                        - id: 270
-                          name: South European Russi
-                          slug: rus
-                          tdwg_code: RUS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/rus"
-                            plants: "/api/v1/distributions/rus/plants"
-                            species: "/api/v1/distributions/rus/species"
-                        - id: 135
-                          name: Spain
-                          slug: spa
-                          tdwg_code: SPA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/spa"
-                            plants: "/api/v1/distributions/spa/plants"
-                            species: "/api/v1/distributions/spa/species"
-                        - id: 294
-                          name: Switzerland
-                          slug: swi
-                          tdwg_code: SWI
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/swi"
-                            plants: "/api/v1/distributions/swi/plants"
-                            species: "/api/v1/distributions/swi/species"
-                        - id: 295
-                          name: Tunisia
-                          slug: tun
-                          tdwg_code: TUN
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/tun"
-                            plants: "/api/v1/distributions/tun/plants"
-                            species: "/api/v1/distributions/tun/species"
-                        - id: 107
-                          name: Turkey
-                          slug: tur
-                          tdwg_code: TUR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/tur"
-                            plants: "/api/v1/distributions/tur/plants"
-                            species: "/api/v1/distributions/tur/species"
-                        - id: 337
-                          name: Turkmenistan
-                          slug: tkm
-                          tdwg_code: TKM
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/tkm"
-                            plants: "/api/v1/distributions/tkm/plants"
-                            species: "/api/v1/distributions/tkm/species"
-                        - id: 273
-                          name: Ukraine
-                          slug: ukr
-                          tdwg_code: UKR
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ukr"
-                            plants: "/api/v1/distributions/ukr/plants"
-                            species: "/api/v1/distributions/ukr/species"
-                        - id: 324
-                          name: Xinjiang
-                          slug: chx
-                          tdwg_code: CHX
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/chx"
-                            plants: "/api/v1/distributions/chx/plants"
-                            species: "/api/v1/distributions/chx/species"
-                        - id: 98
-                          name: Yugoslavia
-                          slug: yug
-                          tdwg_code: YUG
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/yug"
-                            plants: "/api/v1/distributions/yug/plants"
-                            species: "/api/v1/distributions/yug/species"
-                        introduced:
+                            self: "/api/v1/distributions/fla"
+                            plants: "/api/v1/distributions/fla/plants"
+                            species: "/api/v1/distributions/fla/species"
                         - id: 144
                           name: Alabama
                           slug: ala
@@ -4492,406 +4198,26 @@ paths:
                             self: "/api/v1/distributions/ala"
                             plants: "/api/v1/distributions/ala/plants"
                             species: "/api/v1/distributions/ala/species"
-                        - id: 169
-                          name: Argentina Northeast
-                          slug: age
-                          tdwg_code: AGE
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/age"
-                            plants: "/api/v1/distributions/age/plants"
-                            species: "/api/v1/distributions/age/species"
-                        - id: 264
-                          name: Argentina South
-                          slug: ags
-                          tdwg_code: AGS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/ags"
-                            plants: "/api/v1/distributions/ags/plants"
-                            species: "/api/v1/distributions/ags/species"
-                        - id: 122
-                          name: Azores
-                          slug: azo
-                          tdwg_code: AZO
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/azo"
-                            plants: "/api/v1/distributions/azo/plants"
-                            species: "/api/v1/distributions/azo/species"
-                        - id: 123
-                          name: Baleares
-                          slug: bal
-                          tdwg_code: BAL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/bal"
-                            plants: "/api/v1/distributions/bal/plants"
-                            species: "/api/v1/distributions/bal/species"
-                        - id: 276
-                          name: Baltic States
-                          slug: blt
-                          tdwg_code: BLT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/blt"
-                            plants: "/api/v1/distributions/blt/plants"
-                            species: "/api/v1/distributions/blt/species"
-                        - id: 278
-                          name: Belgium
-                          slug: bgm
-                          tdwg_code: BGM
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/bgm"
-                            plants: "/api/v1/distributions/bgm/plants"
-                            species: "/api/v1/distributions/bgm/species"
-                        - id: 77
-                          name: Bolivia
-                          slug: bol
-                          tdwg_code: BOL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/bol"
-                            plants: "/api/v1/distributions/bol/plants"
-                            species: "/api/v1/distributions/bol/species"
-                        - id: 124
-                          name: Canary Is.
-                          slug: cny
-                          tdwg_code: CNY
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/cny"
-                            plants: "/api/v1/distributions/cny/plants"
-                            species: "/api/v1/distributions/cny/species"
-                        - id: 249
-                          name: China North-Central
-                          slug: chn
-                          tdwg_code: CHN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/chn"
-                            plants: "/api/v1/distributions/chn/plants"
-                            species: "/api/v1/distributions/chn/species"
-                        - id: 46
-                          name: China Southeast
-                          slug: chs
-                          tdwg_code: CHS
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/chs"
-                            plants: "/api/v1/distributions/chs/plants"
-                            species: "/api/v1/distributions/chs/species"
-                        - id: 298
-                          name: Colorado
-                          slug: col
-                          tdwg_code: COL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/col"
-                            plants: "/api/v1/distributions/col/plants"
-                            species: "/api/v1/distributions/col/species"
-                        - id: 266
-                          name: Cyprus
-                          slug: cyp
-                          tdwg_code: CYP
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/cyp"
-                            plants: "/api/v1/distributions/cyp/plants"
-                            species: "/api/v1/distributions/cyp/species"
-                        - id: 280
-                          name: Denmark
-                          slug: den
-                          tdwg_code: DEN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/den"
-                            plants: "/api/v1/distributions/den/plants"
-                            species: "/api/v1/distributions/den/species"
-                        - id: 345
-                          name: Falkland Is.
-                          slug: fal
-                          tdwg_code: FAL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/fal"
-                            plants: "/api/v1/distributions/fal/plants"
-                            species: "/api/v1/distributions/fal/species"
-                        - id: 90
-                          name: Free State
-                          slug: ofs
-                          tdwg_code: OFS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/ofs"
-                            plants: "/api/v1/distributions/ofs/plants"
-                            species: "/api/v1/distributions/ofs/species"
-                        - id: 127
-                          name: Great Britain
-                          slug: grb
-                          tdwg_code: GRB
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/grb"
-                            plants: "/api/v1/distributions/grb/plants"
-                            species: "/api/v1/distributions/grb/species"
-                        - id: 156
-                          name: Guatemala
-                          slug: gua
-                          tdwg_code: GUA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/gua"
-                            plants: "/api/v1/distributions/gua/plants"
-                            species: "/api/v1/distributions/gua/species"
                         - id: 145
                           name: Illinois
                           slug: ill
                           tdwg_code: ILL
                           tdwg_level: 3
-                          species_count: 2
+                          species_count: 1
                           links:
                             self: "/api/v1/distributions/ill"
                             plants: "/api/v1/distributions/ill/plants"
                             species: "/api/v1/distributions/ill/species"
-                        - id: 317
-                          name: Inner Mongolia
-                          slug: chi
-                          tdwg_code: CHI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/chi"
-                            plants: "/api/v1/distributions/chi/plants"
-                            species: "/api/v1/distributions/chi/species"
-                        - id: 108
-                          name: Iraq
-                          slug: irq
-                          tdwg_code: IRQ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/irq"
-                            plants: "/api/v1/distributions/irq/plants"
-                            species: "/api/v1/distributions/irq/species"
-                        - id: 286
-                          name: Ireland
-                          slug: ire
-                          tdwg_code: IRE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ire"
-                            plants: "/api/v1/distributions/ire/plants"
-                            species: "/api/v1/distributions/ire/species"
-                        - id: 202
-                          name: Japan
-                          slug: jap
-                          tdwg_code: JAP
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/jap"
-                            plants: "/api/v1/distributions/jap/plants"
-                            species: "/api/v1/distributions/jap/species"
                         - id: 146
                           name: Kentucky
                           slug: kty
                           tdwg_code: KTY
                           tdwg_level: 3
-                          species_count: 2
+                          species_count: 1
                           links:
                             self: "/api/v1/distributions/kty"
                             plants: "/api/v1/distributions/kty/plants"
                             species: "/api/v1/distributions/kty/species"
-                        - id: 226
-                          name: Korea
-                          slug: kor
-                          tdwg_code: KOR
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/kor"
-                            plants: "/api/v1/distributions/kor/plants"
-                            species: "/api/v1/distributions/kor/species"
-                        - id: 309
-                          name: Krasnoyarsk
-                          slug: kra
-                          tdwg_code: KRA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/kra"
-                            plants: "/api/v1/distributions/kra/plants"
-                            species: "/api/v1/distributions/kra/species"
-                        - id: 222
-                          name: Lesotho
-                          slug: les
-                          tdwg_code: LES
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/les"
-                            plants: "/api/v1/distributions/les/plants"
-                            species: "/api/v1/distributions/les/species"
-                        - id: 129
-                          name: Madeira
-                          slug: mdr
-                          tdwg_code: MDR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/mdr"
-                            plants: "/api/v1/distributions/mdr/plants"
-                            species: "/api/v1/distributions/mdr/species"
-                        - id: 310
-                          name: Manchuria
-                          slug: chm
-                          tdwg_code: CHM
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/chm"
-                            plants: "/api/v1/distributions/chm/plants"
-                            species: "/api/v1/distributions/chm/species"
-                        - id: 88
-                          name: Mexico Southwest
-                          slug: mxs
-                          tdwg_code: MXS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/mxs"
-                            plants: "/api/v1/distributions/mxs/plants"
-                            species: "/api/v1/distributions/mxs/species"
-                        - id: 287
-                          name: Netherlands
-                          slug: net
-                          tdwg_code: NET
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/net"
-                            plants: "/api/v1/distributions/net/plants"
-                            species: "/api/v1/distributions/net/species"
-                        - id: 167
-                          name: New Mexico
-                          slug: nwm
-                          tdwg_code: NWM
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/nwm"
-                            plants: "/api/v1/distributions/nwm/plants"
-                            species: "/api/v1/distributions/nwm/species"
-                        - id: 237
-                          name: New York
-                          slug: nwy
-                          tdwg_code: NWY
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/nwy"
-                            plants: "/api/v1/distributions/nwy/plants"
-                            species: "/api/v1/distributions/nwy/species"
-                        - id: 289
-                          name: North European Russi
-                          slug: run
-                          tdwg_code: RUN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/run"
-                            plants: "/api/v1/distributions/run/plants"
-                            species: "/api/v1/distributions/run/species"
-                        - id: 1
-                          name: Northern Provinces
-                          slug: tvl
-                          tdwg_code: TVL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/tvl"
-                            plants: "/api/v1/distributions/tvl/plants"
-                            species: "/api/v1/distributions/tvl/species"
-                        - id: 290
-                          name: Northwest European R
-                          slug: ruw
-                          tdwg_code: RUW
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ruw"
-                            plants: "/api/v1/distributions/ruw/plants"
-                            species: "/api/v1/distributions/ruw/species"
-                        - id: 117
-                          name: Palestine
-                          slug: pal
-                          tdwg_code: PAL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/pal"
-                            plants: "/api/v1/distributions/pal/plants"
-                            species: "/api/v1/distributions/pal/species"
-                        - id: 322
-                          name: Qinghai
-                          slug: chq
-                          tdwg_code: CHQ
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/chq"
-                            plants: "/api/v1/distributions/chq/plants"
-                            species: "/api/v1/distributions/chq/species"
-                        - id: 68
-                          name: Rwanda
-                          slug: rwa
-                          tdwg_code: RWA
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/rwa"
-                            plants: "/api/v1/distributions/rwa/plants"
-                            species: "/api/v1/distributions/rwa/species"
-                        - id: 184
-                          name: St.Helena
-                          slug: sth
-                          tdwg_code: STH
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/sth"
-                            plants: "/api/v1/distributions/sth/plants"
-                            species: "/api/v1/distributions/sth/species"
-                        - id: 293
-                          name: Sweden
-                          slug: swe
-                          tdwg_code: SWE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/swe"
-                            plants: "/api/v1/distributions/swe/plants"
-                            species: "/api/v1/distributions/swe/species"
                         - id: 149
                           name: Tennessee
                           slug: ten
@@ -4902,21 +4228,202 @@ paths:
                             self: "/api/v1/distributions/ten"
                             plants: "/api/v1/distributions/ten/plants"
                             species: "/api/v1/distributions/ten/species"
+                        - id: 167
+                          name: New Mexico
+                          slug: nwm
+                          tdwg_code: NWM
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nwm"
+                            plants: "/api/v1/distributions/nwm/plants"
+                            species: "/api/v1/distributions/nwm/species"
+                        - id: 168
+                          name: Texas
+                          slug: tex
+                          tdwg_code: TEX
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/tex"
+                            plants: "/api/v1/distributions/tex/plants"
+                            species: "/api/v1/distributions/tex/species"
+                        - id: 191
+                          name: Georgia
+                          slug: geo
+                          tdwg_code: GEO
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/geo"
+                            plants: "/api/v1/distributions/geo/plants"
+                            species: "/api/v1/distributions/geo/species"
+                        - id: 192
+                          name: South Carolina
+                          slug: sca
+                          tdwg_code: SCA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/sca"
+                            plants: "/api/v1/distributions/sca/plants"
+                            species: "/api/v1/distributions/sca/species"
+                        - id: 224
+                          name: Virginia
+                          slug: vrg
+                          tdwg_code: VRG
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/vrg"
+                            plants: "/api/v1/distributions/vrg/plants"
+                            species: "/api/v1/distributions/vrg/species"
+                        - id: 227
+                          name: Arkansas
+                          slug: ark
+                          tdwg_code: ARK
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ark"
+                            plants: "/api/v1/distributions/ark/plants"
+                            species: "/api/v1/distributions/ark/species"
+                        - id: 228
+                          name: Delaware
+                          slug: del
+                          tdwg_code: DEL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/del"
+                            plants: "/api/v1/distributions/del/plants"
+                            species: "/api/v1/distributions/del/species"
+                        - id: 230
+                          name: Indiana
+                          slug: ini
+                          tdwg_code: INI
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ini"
+                            plants: "/api/v1/distributions/ini/plants"
+                            species: "/api/v1/distributions/ini/species"
+                        - id: 236
+                          name: New Jersey
+                          slug: nwj
+                          tdwg_code: NWJ
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nwj"
+                            plants: "/api/v1/distributions/nwj/plants"
+                            species: "/api/v1/distributions/nwj/species"
+                        - id: 237
+                          name: New York
+                          slug: nwy
+                          tdwg_code: NWY
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nwy"
+                            plants: "/api/v1/distributions/nwy/plants"
+                            species: "/api/v1/distributions/nwy/species"
+                        - id: 238
+                          name: North Carolina
+                          slug: nca
+                          tdwg_code: NCA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nca"
+                            plants: "/api/v1/distributions/nca/plants"
+                            species: "/api/v1/distributions/nca/species"
+                        - id: 239
+                          name: Ohio
+                          slug: ohi
+                          tdwg_code: OHI
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ohi"
+                            plants: "/api/v1/distributions/ohi/plants"
+                            species: "/api/v1/distributions/ohi/species"
+                        - id: 240
+                          name: Ontario
+                          slug: ont
+                          tdwg_code: ONT
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ont"
+                            plants: "/api/v1/distributions/ont/plants"
+                            species: "/api/v1/distributions/ont/species"
+                        - id: 241
+                          name: Pennsylvania
+                          slug: pen
+                          tdwg_code: PEN
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/pen"
+                            plants: "/api/v1/distributions/pen/plants"
+                            species: "/api/v1/distributions/pen/species"
+                        - id: 242
+                          name: Québec
+                          slug: que
+                          tdwg_code: QUE
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/que"
+                            plants: "/api/v1/distributions/que/plants"
+                            species: "/api/v1/distributions/que/species"
                         - id: 243
                           name: Vermont
                           slug: ver
                           tdwg_code: VER
                           tdwg_level: 3
-                          species_count: 2
+                          species_count: 1
                           links:
                             self: "/api/v1/distributions/ver"
                             plants: "/api/v1/distributions/ver/plants"
                             species: "/api/v1/distributions/ver/species"
+                        - id: 331
+                          name: South Dakota
+                          slug: sda
+                          tdwg_code: SDA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/sda"
+                            plants: "/api/v1/distributions/sda/plants"
+                            species: "/api/v1/distributions/sda/species"
+                        - id: 332
+                          name: North Dakota
+                          slug: nda
+                          tdwg_code: NDA
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nda"
+                            plants: "/api/v1/distributions/nda/plants"
+                            species: "/api/v1/distributions/nda/species"
+                        introduced:
+                        - id: 127
+                          name: Great Britain
+                          slug: grb
+                          tdwg_code: GRB
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/grb"
+                            plants: "/api/v1/distributions/grb/plants"
+                            species: "/api/v1/distributions/grb/species"
                       flower:
                         color: 
-                        conspicuous: false
+                        conspicuous: true
                       foliage:
-                        texture: coarse
+                        texture: medium
                         color: 
                         leaf_retention: false
                       fruit_or_seed:
@@ -4930,12 +4437,12 @@ paths:
                         growth_habit: Tree
                         growth_rate: Rapid
                         average_height:
-                          cm: 3048
+                          cm: 2072
                         maximum_height:
-                          cm: 3048
+                          cm: 2072
                         nitrogen_fixation: None
-                        shape_and_orientation: Erect
-                        toxicity: none
+                        shape_and_orientation: Rounded
+                        toxicity: low
                       growth:
                         description: 
                         sowing: 
@@ -4944,112 +4451,228 @@ paths:
                           cm: 
                         spread:
                           cm: 
-                        ph_maximum: 7.0
-                        ph_minimum: 4.9
-                        light: 8
-                        atmospheric_humidity: 8
+                        ph_maximum: 7.3
+                        ph_minimum: 4.7
+                        light: 7
+                        atmospheric_humidity: 5
                         growth_months: 
                         bloom_months: 
                         fruit_months: 
                         minimum_precipitation:
-                          mm: 609
+                          mm: 635
                         maximum_precipitation:
-                          mm: 1397
+                          mm: 2032
                         minimum_root_depth:
-                          cm: 60
+                          cm: 76
                         minimum_temperature:
-                          deg_f: -38
-                          deg_c: -38
+                          deg_f: -47
+                          deg_c: -43
                         maximum_temperature:
                           deg_f: 
                           deg_c: 
-                        soil_nutriments: 7
+                        soil_nutriments: 5
                         soil_salinity: 0
-                        soil_texture: 1
+                        soil_texture: 3
                         soil_humidity: 
                       links:
-                        self: "/api/v1/species/populus-alba"
-                        plant: "/api/v1/plants/populus-alba"
-                        genus: "/api/v1/genus/populus"
+                        self: "/api/v1/species/acer-rubrum"
+                        plant: "/api/v1/plants/acer-rubrum"
+                        genus: "/api/v1/genus/acer"
                       synonyms:
-                      - id: 23739
-                        name: Populus hybrida
-                        author: M.Bieb.
+                      - id: 214
+                        name: Acer rubrum var. drummondii
+                        author: "(Hook. & Arn. ex Nutt.) Sarg."
                         sources: []
-                      - id: 583553
-                        name: Populus hickeliana
-                        author: Dode
+                      - id: 215
+                        name: Acer drummondii
+                        author: Hook. & Arn. ex Nutt.
                         sources: []
-                      - id: 583554
-                        name: Populus bachofenii
-                        author: Wierzb. ex Rchb.
+                      - id: 216
+                        name: Rufacer drummondii
+                        author: "(Hook. & Arn. ex Nutt.) Small"
                         sources: []
-                      - id: 583555
-                        name: Populus aegyptiaca
-                        author: W.Baxter
+                      - id: 217
+                        name: Acer rubrum var. tomentosum
+                        author: "(Du Tour) Tausch"
                         sources: []
-                      - id: 583556
-                        name: Populus caspica
-                        author: "(Bornm.) Bornm."
+                      - id: 218
+                        name: Rufacer rubrum
+                        author: "(L.) Small"
                         sources: []
-                      - id: 583557
-                        name: Populus nivea
-                        author: "(Aiton) Willd."
+                      - id: 219
+                        name: Acer rubrum var. trilobum
+                        author: Torr. & A.Gray ex K.Koch
                         sources: []
-                      - id: 583558
-                        name: Populus bolleana
-                        author: Carrière
+                      - id: 220
+                        name: Acer carolinianum
+                        author: Walter
                         sources: []
-                      - id: 583559
-                        name: Populus major
-                        author: Mill.
+                      - id: 221
+                        name: Acer rubrum var. tridens
+                        author: Alph.Wood
                         sources: []
-                      - id: 583560
-                        name: Leuce alba
-                        author: "(L.) Opiz"
+                      - id: 222
+                        name: Rufacer carolinianum
+                        author: "(Walter) Small"
                         sources: []
-                      - id: 583561
-                        name: Populus berkarensis
-                        author: Poljakov
+                      - id: 33438
+                        name: Acer sanguineum
+                        author: Spach
                         sources: []
-                      - id: 638377
-                        name: Populus alba var. bolleana
-                        author: Lauche
+                      - id: 33481
+                        name: Acer hypoleucum
+                        author: K.Koch
+                        sources: []
+                      - id: 33531
+                        name: Acer rubrum subsp. drummondii
+                        author: "(Hook. & Arn. ex Nutt.) A.E.Murray"
+                        sources: []
+                      - id: 585883
+                        name: Acer rubrum f. viride
+                        author: "(Detmers) A.E.Murray"
+                        sources: []
+                      - id: 585884
+                        name: Acer rubrum f. breviramusculum
+                        author: Vict.
+                        sources: []
+                      - id: 585885
+                        name: Acer rubrum subsp. carolinianum
+                        author: "(Walter) W.Stone"
+                        sources: []
+                      - id: 585886
+                        name: Acer glaucum
+                        author: K.Koch
+                        sources: []
+                      - id: 585887
+                        name: Acer rubrum var. rubrocarpum
+                        author: Detmers
+                        sources: []
+                      - id: 585888
+                        name: Acer rubrum var. sanguineum
+                        author: "(Spach) Pax"
+                        sources: []
+                      - id: 585889
+                        name: Acer wagneri
+                        author: Wesm.
+                        sources: []
+                      - id: 585890
+                        name: Acer fulgens
+                        author: Dippel
+                        sources: []
+                      - id: 585891
+                        name: Acer rubrum var. stenocarpum
+                        author: Ashe
+                        sources: []
+                      - id: 585892
+                        name: Acer rubrum subsp. semiorbiculatum
+                        author: "(Pax) Wesm."
+                        sources: []
+                      - id: 585893
+                        name: Acer tomentosum
+                        author: Du Tour
+                        sources: []
+                      - id: 585894
+                        name: Acer rubrum subsp. tomentosum
+                        author: "(Du Tour) Pax"
+                        sources: []
+                      - id: 585895
+                        name: Acer rubrum var. pallidum
+                        author: Aiton
+                        sources: []
+                      - id: 585896
+                        name: Acer rubrum var. coccineum
+                        author: Aiton
+                        sources: []
+                      - id: 585898
+                        name: Acer rubrum subsp. microphyllum
+                        author: Wesm.
+                        sources: []
+                      - id: 585899
+                        name: Acer rubrum var. pallidiflorum
+                        author: K.Koch ex Pax
+                        sources: []
+                      - id: 585900
+                        name: Acer rubrum var. virginianum
+                        author: Tausch
+                        sources: []
+                      - id: 585901
+                        name: Acer rubrum var. viride
+                        author: Detmers
+                        sources: []
+                      - id: 585902
+                        name: Acer rubrum var. clausum
+                        author: Pax
+                        sources: []
+                      - id: 585903
+                        name: Acer semiorbiculatum
+                        author: Pax
+                        sources: []
+                      - id: 585904
+                        name: Acer splendens
+                        author: Dippel
+                        sources: []
+                      - id: 585905
+                        name: Acer rubrum var. columnare
+                        author: Rehder
+                        sources: []
+                      - id: 585906
+                        name: Acer rubrum var. globosum
+                        author: Rehder
+                        sources: []
+                      - id: 624816
+                        name: Acer stenocarpum
+                        author: Britt.
+                        sources: []
+                      - id: 634661
+                        name: Acer rubrum var. rubrum
+                        author: 
+                        sources: []
+                      - id: 676035
+                        name: Acer rubrum f. columnare
+                        author: Dans.
+                        sources: []
+                      - id: 676036
+                        name: Acer rubrum f. rubrum
+                        author: 
+                        sources: []
+                      - id: 676039
+                        name: Acer rubrum f. pallidiflorum
+                        author: Fernald (K.Koch ex Pax)
                         sources: []
                       sources:
-                      - last_update: '2020-06-21T20:38:54.000Z'
-                        id: POAL7
+                      - last_update: '2020-06-21T20:05:12.000Z'
+                        id: ACRU
                         name: USDA
-                        url: https://plants.usda.gov/core/profile?symbol=POAL7
-                        citation: https://plants.sc.egov.usda.gov/core/profile?symbol=POAL7
-                      - last_update: '2020-07-04T19:20:53.000Z'
-                        id: 16/8.0.2.0.1
+                        url: https://plants.usda.gov/core/profile?symbol=ACRU
+                        citation: https://plants.sc.egov.usda.gov/core/profile?symbol=ACRU
+                      - last_update: '2020-06-16T17:28:59.000Z'
+                        id: Acer rubrum L.
+                        name: PlantNet
+                        url: https://identify.plantnet.org/species/the-plant-list/Acer
+                          rubrum L.
+                        citation: 
+                      - last_update: '2020-06-16T17:28:59.000Z'
+                        id: '3189883'
+                        name: GBIF
+                        url: https://www.gbif.org/species/3189883
+                        citation: 
+                      - last_update: '2020-07-04T19:23:08.000Z'
+                        id: 18/11.
                         name: CATMINAT
                         url: 
                         citation: 
-                      - last_update: '2020-06-17T02:28:44.000Z'
-                        id: Populus alba L.
-                        name: PlantNet
-                        url: https://identify.plantnet.org/species/the-plant-list/Populus
-                          alba L.
-                        citation: 
-                      - last_update: '2020-06-17T02:28:44.000Z'
-                        id: '3040233'
-                        name: GBIF
-                        url: https://www.gbif.org/species/3040233
-                        citation: 
-                      - last_update: '2020-07-18T06:49:02.000Z'
-                        id: urn:lsid:ipni.org:names:776573-1
+                      - last_update: '2020-07-17T18:29:45.000Z'
+                        id: urn:lsid:ipni.org:names:1867-2
                         name: POWO
-                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:776573-1
+                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:1867-2
                         citation: POWO (2019). Plants of the World Online. Facilitated
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
-                          http://www.plantsoftheworldonline.org/ Retrieved 2020-07-18
+                          http://www.plantsoftheworldonline.org/ Retrieved 2020-07-17
                     meta:
-                      images_count: 35
+                      images_count: 33
                       sources_count: 5
-                      synonyms_count: 11
-                      last_modified: '2020-08-12T12:08:05.988Z'
+                      synonyms_count: 40
+                      last_modified: '2020-08-15T07:56:54.575Z'
         '401':
           description: Invalid credentials
           content:
@@ -5194,19 +4817,19 @@ paths:
                     data:
                       id: 2
                       record_type: Species
-                      record_id: 170054
+                      record_id: 101852
                       user_id: 25
                       warning_type: report
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-12T12:08:12.123Z'
-                      updated_at: '2020-08-12T12:08:12.125Z'
+                      created_at: '2020-08-15T07:57:00.617Z'
+                      updated_at: '2020-08-15T07:57:00.619Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-12T12:08:12.125Z'
+                      last_modified: '2020-08-15T07:57:00.619Z'
         '401':
           description: Invalid credentials
           content:
@@ -5359,7 +4982,7 @@ paths:
                       slug: afg
                       tdwg_code: AFG
                       tdwg_level: 3
-                      species_count: 0
+                      species_count: 1
                       links:
                         self: "/api/v1/distributions/afg"
                         plants: "/api/v1/distributions/afg/plants"
@@ -5581,7 +5204,7 @@ paths:
                       slug: ask
                       tdwg_code: ASK
                       tdwg_level: 3
-                      species_count: 1
+                      species_count: 0
                       links:
                         self: "/api/v1/distributions/ask"
                         plants: "/api/v1/distributions/ask/plants"
@@ -5603,7 +5226,7 @@ paths:
                       slug: alb
                       tdwg_code: ALB
                       tdwg_level: 3
-                      species_count: 1
+                      species_count: 2
                       links:
                         self: "/api/v1/distributions/alb"
                         plants: "/api/v1/distributions/alb/plants"
@@ -5691,7 +5314,7 @@ paths:
                       slug: alg
                       tdwg_code: ALG
                       tdwg_level: 3
-                      species_count: 1
+                      species_count: 0
                       links:
                         self: "/api/v1/distributions/alg"
                         plants: "/api/v1/distributions/alg/plants"
@@ -5713,7 +5336,7 @@ paths:
                       slug: alt
                       tdwg_code: ALT
                       tdwg_level: 3
-                      species_count: 2
+                      species_count: 0
                       links:
                         self: "/api/v1/distributions/alt"
                         plants: "/api/v1/distributions/alt/plants"
@@ -5932,7 +5555,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-08-12T12:08:03.241Z'
+                      last_modified: '2020-08-15T07:56:51.988Z'
         '401':
           description: Invalid credentials
           content:
@@ -5979,8 +5602,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTEzIDE0OjA4OjEyICswMjAwIiwiZXhwIjoxNTk3MzIwNDkyfQ.0AGInCiurDMNKWykXkF8uz-dB_DHCEfgwqmETLeaBz4
-                    expiration: '08-13-2020 14:08'
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTE2IDA5OjU3OjAwICswMjAwIiwiZXhwIjoxNTk3NTY0NjIwfQ.G7hrNRFnm6GaX6kCjeoZKwzsaStnWcYpBWOFt3fnb6Y
+                    expiration: '08-16-2020 09:57'
         '401':
           description: Invalid credentials
           content:
@@ -6068,31 +5691,31 @@ paths:
                     data:
                     - id: 4
                       record_type: Species
-                      record_id: 814834
+                      record_id: 744022
                       user_id: 31
                       warning_type: 
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-08-12T12:08:12.396Z'
-                      updated_at: '2020-08-12T12:08:12.396Z'
+                      created_at: '2020-08-15T07:57:00.912Z'
+                      updated_at: '2020-08-15T07:57:00.912Z'
                       correction: 
                       changes: 
                     - id: 3
                       record_type: Species
-                      record_id: 170054
+                      record_id: 101852
                       user_id: 30
                       warning_type: 
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-12T12:08:12.388Z'
-                      updated_at: '2020-08-12T12:08:12.388Z'
+                      created_at: '2020-08-15T07:57:00.903Z'
+                      updated_at: '2020-08-15T07:57:00.903Z'
                       correction:
-                        scientific_name: Populus alba
-                        maximum_height_value: 1524
+                        scientific_name: Acer rubrum
+                        maximum_height_value: 1036
                         maximum_height_unit: cm
                       changes: 
                     links:
@@ -6147,22 +5770,22 @@ paths:
                     data:
                       id: 7
                       record_type: Species
-                      record_id: 170054
+                      record_id: 101852
                       user_id: 35
                       warning_type: 
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-12T12:08:12.470Z'
-                      updated_at: '2020-08-12T12:08:12.470Z'
+                      created_at: '2020-08-15T07:57:00.986Z'
+                      updated_at: '2020-08-15T07:57:00.986Z'
                       correction:
-                        scientific_name: Populus alba
-                        maximum_height_value: 1524
+                        scientific_name: Acer rubrum
+                        maximum_height_value: 1036
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-08-12T12:08:12.470Z'
+                      last_modified: '2020-08-15T07:57:00.986Z'
         '401':
           description: Invalid credentials
           content:
@@ -6218,8 +5841,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-08-12T12:08:12.652Z'
-                      updated_at: '2020-08-12T12:08:12.652Z'
+                      created_at: '2020-08-15T07:57:01.184Z'
+                      updated_at: '2020-08-15T07:57:01.184Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6229,7 +5852,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-08-12T12:08:12.652Z'
+                      last_modified: '2020-08-15T07:57:01.184Z'
         '422':
           description: Invalid parameters
           content:
@@ -7707,7 +7330,7 @@ components:
             genus:
               type: string
               nullable: true
-              example: Rosa
+              example: 
             year:
               type: integer
               nullable: true
