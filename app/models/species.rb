@@ -173,9 +173,9 @@ class Species < ApplicationRecord
   # Elasticsearch search
   include Search::Species
 
-  belongs_to :plant, optional: true
-  belongs_to :genus
-  belongs_to :main_species, class_name: 'Species', optional: true
+  belongs_to :plant, optional: true, touch: true
+  belongs_to :genus, touch: true
+  belongs_to :main_species, class_name: 'Species', optional: true, touch: true
   belongs_to :synonym_of, class_name: 'Species', optional: true
   has_many :old_synonyms, class_name: 'Species', foreign_key: :synonym_of_id
   has_many :species_images, dependent: :destroy
