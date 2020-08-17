@@ -10,7 +10,10 @@ module Scopes
 
       Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.each do |field|
         scope "filter_not_by_#{field}".to_sym, lambda {|value|
-          [*value].compact.empty? ? where.not(field => nil) : where.not(field => value).or(where(field => nil))
+          puts "filter_not_by_#{field} -> #{value.inspect}"
+          coll = where.not(field => [*value])
+          coll = coll.or(where(field => nil)) unless [*value].include?(nil)
+          coll
         }
       end
 
