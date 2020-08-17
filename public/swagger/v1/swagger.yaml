@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.385Z'
+                      last_modified: '2020-08-17T11:34:13.134Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.400Z'
+                      last_modified: '2020-08-17T11:34:13.147Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.415Z'
+                      last_modified: '2020-08-17T11:34:13.162Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.449Z'
+                      last_modified: '2020-08-17T11:34:13.197Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.481Z'
+                      last_modified: '2020-08-17T11:34:13.227Z'
         '401':
           description: Invalid credentials
           content:
@@ -2214,7 +2214,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.734Z'
+                      last_modified: '2020-08-17T11:34:13.466Z'
         '401':
           description: Invalid credentials
           content:
@@ -2465,7 +2465,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-08-15T10:26:19.749Z'
+                      last_modified: '2020-08-17T11:34:14.614Z'
         '401':
           description: Invalid credentials
           content:
@@ -2569,7 +2569,7 @@ paths:
                       author: Mill.
                       status: accepted
                       rank: species
-                      family_common_name: 
+                      family_common_name: Pine family
                       genus_id: 4
                       image_url: https://bs.floristic.org/image/o/7928c21ee9fdc5ffa423501d3ba54084247cf9a9
                       synonyms:
@@ -2705,7 +2705,7 @@ paths:
                       author: Harms
                       status: accepted
                       rank: species
-                      family_common_name: 
+                      family_common_name: Pea family
                       genus_id: 13327
                       image_url: http://d2seqvvyy3b8p2.cloudfront.net/c87e740530305a3e5c6e29525c0badd7.jpg
                       synonyms: []
@@ -2724,7 +2724,7 @@ paths:
                       author: "(Borhidi & M.Fernández) Borhidi"
                       status: accepted
                       rank: species
-                      family_common_name: 
+                      family_common_name: Madder family
                       genus_id: 16936
                       image_url: 
                       synonyms:
@@ -2785,90 +2785,616 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                      id: 505116
-                      common_name: 
-                      slug: solenandra-pervestita
-                      scientific_name: Solenandra pervestita
-                      main_species_id: 1254583
-                      image_url: 
-                      year: 2002
-                      bibliography: 'Acta Bot. Hung. 44: 230 (2002)'
-                      author: "(Borhidi & M.Fernández) Borhidi"
-                      family_common_name: 
-                      genus_id: 16936
-                      observations: E. Cuba
-                      vegetable: 
+                      id: 133160
+                      common_name: eastern teaberry
+                      slug: gaultheria-procumbens
+                      scientific_name: Gaultheria procumbens
+                      main_species_id: 138793
+                      image_url: https://bs.floristic.org/image/o/750319763bb175386784077b0e614caa52d825f3
+                      year: 1753
+                      bibliography: 'Sp. Pl.: 895 (1753)'
+                      author: L.
+                      family_common_name: Heath family
+                      genus_id: 3123
+                      observations: C. & E. Canada to NC. & E. U.S.A.
+                      vegetable: false
                       links:
-                        self: "/api/v1/plants/solenandra-pervestita"
-                        species: "/api/v1/plants/solenandra-pervestita/species"
-                        genus: "/api/v1/genus/solenandra"
+                        self: "/api/v1/plants/gaultheria-procumbens"
+                        species: "/api/v1/plants/gaultheria-procumbens/species"
+                        genus: "/api/v1/genus/gaultheria"
                       main_species:
-                        id: 1254583
-                        common_name: 
-                        slug: solenandra-pervestita
-                        scientific_name: Solenandra pervestita
-                        year: 2002
-                        bibliography: 'Acta Bot. Hung. 44: 230 (2002)'
-                        author: "(Borhidi & M.Fernández) Borhidi"
+                        id: 138793
+                        common_name: eastern teaberry
+                        slug: gaultheria-procumbens
+                        scientific_name: Gaultheria procumbens
+                        year: 1753
+                        bibliography: 'Sp. Pl.: 895 (1753)'
+                        author: L.
                         status: accepted
                         rank: species
-                        family_common_name: 
-                        genus_id: 16936
-                        observations: E. Cuba
-                        vegetable: 
-                        image_url: 
-                        genus: Solenandra
-                        family: Rubiaceae
+                        family_common_name: Heath family
+                        genus_id: 3123
+                        observations: C. & E. Canada to NC. & E. U.S.A.
+                        vegetable: false
+                        image_url: https://bs.floristic.org/image/o/750319763bb175386784077b0e614caa52d825f3
+                        genus: Gaultheria
+                        family: Ericaceae
                         duration: 
                         edible_part: 
-                        edible: 
+                        edible: false
                         images:
-                          flower: []
-                          leaf: []
-                          habit: []
-                          fruit: []
-                          bark: []
-                          other: []
-                        common_names: {}
+                          flower:
+                          - id: 3307845
+                            image_url: https://bs.floristic.org/image/o/4cfaa0e01ff9e438d8000f724da0ff6115432662
+                            copyright: Taken Dec 20, 2016 by EOL − Fluff Berger (cc-by-sa)
+                          - id: 3307846
+                            image_url: https://bs.floristic.org/image/o/1cd8f70266e89ae11f3d2faa57a4f3165f8ad027
+                            copyright: Taken Dec 20, 2019 by obelya (cc-by-sa)
+                          - id: 3307847
+                            image_url: https://bs.floristic.org/image/o/ddee98ed7bb3834a4159ac1113532585afdd185d
+                            copyright: Taken Nov 22, 2019 by Nath Nath (cc-by-sa)
+                          - id: 3307848
+                            image_url: https://bs.floristic.org/image/o/41369607c75c70e9788631d658a0b1d299af9382
+                            copyright: Taken Dec 10, 2019 by Munguia Jose Luis (cc-by-sa)
+                          - id: 3307849
+                            image_url: https://bs.floristic.org/image/o/8a10532113b5573fcee5dad21cb082b739fd08b8
+                            copyright: Taken Aug 15, 2018 by cecile desmoulins (cc-by-sa)
+                          - id: 3548554
+                            image_url: https://bs.floristic.org/image/o/01d4b64a0c088856b9498d389f615bc59040af07
+                            copyright: Taken Jun 28, 2020 by Susanna (cc-by-sa)
+                          leaf:
+                          - id: 3307850
+                            image_url: https://bs.floristic.org/image/o/f29d68853e975909e0c6bc5d647f6f971d544383
+                            copyright: Taken Dec 26, 2019 by kevin vogl (cc-by-sa)
+                          - id: 3307851
+                            image_url: https://bs.floristic.org/image/o/954ecfb6f911c2c6143612d7de30f6ffca7931a6
+                            copyright: Taken Sep 28, 2017 by Samuel Lamarre (cc-by-sa)
+                          - id: 3307852
+                            image_url: https://bs.floristic.org/image/o/e427b94d9e5800b5b67323cb1204416d406edb8f
+                            copyright: Taken Dec 1, 2019 by DarekDeviel (cc-by-sa)
+                          - id: 3307853
+                            image_url: https://bs.floristic.org/image/o/f538bc975268341032c4cd4fad6ad634486acd05
+                            copyright: Taken Dec 1, 2019 by DarekDeviel (cc-by-sa)
+                          - id: 3307854
+                            image_url: https://bs.floristic.org/image/o/92f75a7e2b19b64b68d85e2c6883bfd232c0240c
+                            copyright: Taken Jan 8, 2020 by Dieter Wagner (cc-by-sa)
+                          habit:
+                          - id: 3307855
+                            image_url: https://bs.floristic.org/image/o/f5b98478d328b7324fb39d3c0895aae19406bd3f
+                            copyright: Taken Dec 20, 2016 by EOL − Kent McFarland
+                              (cc-by-nc)
+                          - id: 3307856
+                            image_url: https://bs.floristic.org/image/o/862a8397556f37b85872fad622d45dfdfef32b5e
+                            copyright: Taken Dec 20, 2016 by EOL − Marv Elliott (cc-by-nc)
+                          - id: 3307857
+                            image_url: https://bs.floristic.org/image/o/37d593318c89087270a56de625a4256f6ee9600b
+                            copyright: Taken Dec 20, 2016 by EOL − Susan Elliott (cc-by-nc)
+                          - id: 3307858
+                            image_url: https://bs.floristic.org/image/o/9f8963a4c49a1eca9a4aedc9388aadec1fa65496
+                            copyright: Taken Jan 2, 2020 by Dieter Wagner (cc-by-sa)
+                          - id: 3307859
+                            image_url: https://bs.floristic.org/image/o/750319763bb175386784077b0e614caa52d825f3
+                            copyright: Taken Jan 8, 2020 by Dieter Wagner (cc-by-sa)
+                          - id: 3548557
+                            image_url: https://bs.floristic.org/image/o/a006322826f429f125e77dd9b76616e1df282ecf
+                            copyright: Taken Dec 20, 2016 by EOL − sallen (cc-by-nc)
+                          - id: 3548559
+                            image_url: https://bs.floristic.org/image/o/6d8d644507775561e6367d646b42aa7e0f1a78a0
+                            copyright: Taken Dec 20, 2016 by EOL − Tomas Curtis (cc-by-nc)
+                          fruit:
+                          - id: 3307840
+                            image_url: https://bs.floristic.org/image/o/08aed992b2f14ce1069150a5c6f6e2b8c237159b
+                            copyright: Taken Jan 10, 2019 by Dieter Wagner (cc-by-sa)
+                          - id: 3307841
+                            image_url: https://bs.floristic.org/image/o/37af3be958e6a27fb7160f2b4a1654f4b2601f0f
+                            copyright: Taken Jan 10, 2019 by Dieter Wagner (cc-by-sa)
+                          - id: 3307842
+                            image_url: https://bs.floristic.org/image/o/24730f9151e8bd4db9a39e209ac712a8e32505dc
+                            copyright: Taken Jan 10, 2019 by Dieter Wagner (cc-by-sa)
+                          - id: 3307843
+                            image_url: https://bs.floristic.org/image/o/8cd0661fe1caa278c0be258addc64c9fe60271b0
+                            copyright: Taken Jan 10, 2019 by Dieter Wagner (cc-by-sa)
+                          - id: 3307844
+                            image_url: https://bs.floristic.org/image/o/70f47b7d07db379d7b593d91705ad09ae2b414e5
+                            copyright: Taken Feb 2, 2019 by Annemarie Ahrens-Stehle
+                              (cc-by-sa)
+                          bark:
+                          - id: 3307860
+                            image_url: https://bs.floristic.org/image/o/6427b20b201937e85ea6d48efcf2fab00e6c6c2b
+                            copyright: Taken May 10, 2019 by Mathieu Neyret (cc-by-sa)
+                          - id: 3548561
+                            image_url: https://bs.floristic.org/image/o/79170073b7468e750d915984556296e1b250523e
+                            copyright: Taken May 14, 2020 by Joseph Moulaison (cc-by-sa)
+                          other:
+                          - id: 3307861
+                            image_url: https://bs.floristic.org/image/o/920a8db1137284513a833b75c31d5359299b3d54
+                            copyright: Taken Feb 13, 2020 by Matthias Koch (cc-by-sa)
+                          - id: 3307862
+                            image_url: https://bs.floristic.org/image/o/90a18ba0dad8eba8c83f4c08d6e0b35626c553e1
+                            copyright: Taken Jan 16, 2020 by Didier Levassort (cc-by-sa)
+                        common_names:
+                          en:
+                          - Checkerberry
+                          - Creeping wintergreen
+                          - Mountain-tea
+                          - Teaberry
+                          - Wintergreen
+                          - Eastern teaberry
+                          - Eastern wintergreen
+                          - Spring wintergreen
+                          - Mountain Tea
+                          - Partridge-berry
+                          - Yeaberry
+                          am:
+                          - የቁራ ሻይ
+                          ar:
+                          - عنب الأرض
+                          cs:
+                          - Libavka poléhavá
+                          da:
+                          - Nedliggende Bjergte
+                          fi:
+                          - Lamosalali
+                          fr:
+                          - Petit thé des bois
+                          - Gaultherie
+                          - Gaulthérie couchée
+                          - Thé des bois
+                          - Petit thé
+                          - Pommes de terre
+                          - Thé rouge
+                          - Gaulthérie du Canada
+                          - Thé de Terre-Neuve
+                          - Thé du Canada
+                          de:
+                          - Wintergrün
+                          - Niedere Scheinbeere
+                          - Niederliegende Rebhuhnbeere
+                          - Niederliegende Scheinbeere
+                          - Rote Teppichbeere
+                          hu:
+                          - Kúszó fajdbogyó
+                          it:
+                          - Gaultheria
+                          ja:
+                          - ウィンターグリーン
+                          mk:
+                          - Зимзелен
+                          fa:
+                          - انگورک
+                          pl:
+                          - Golteria rozesłana
+                          ru:
+                          - Гаультерия лежачая
+                          sv:
+                          - Tuvvaktelbär
+                          cy:
+                          - Gweunlwyn ymlusgol
+                          eng:
+                          - checkerberry
+                          - creeping wintergreen
+                          - eastern teaberry
+                          - eastern wintergreen
+                          - mountain-tea
+                          - teaberry
+                          - wintergreen
+                          - spring wintergreen
+                          deu:
+                          - wintergrün
+                          fra:
+                          - gaultherie
+                          - petit thé des bois
+                          - thé des bois
+                          - gaulthérie couchée
+                          - petit thé
+                          - pommes de terre
+                          - thé rouge
+                          swe:
+                          - tuvvaktelbär
                         distribution:
                           native:
-                          - Cuba
+                          - Alabama
+                          - Connecticut
+                          - Delaware
+                          - District of Columbia
+                          - Georgia
+                          - Illinois
+                          - Indiana
+                          - Kentucky
+                          - Maine
+                          - Manitoba
+                          - Maryland
+                          - Masachusettes
+                          - Michigan
+                          - Minnesota
+                          - New Brunswick
+                          - New Hampshire
+                          - New Jersey
+                          - New York
+                          - Newfoundland
+                          - North Carolina
+                          - Nova Scotia
+                          - Ohio
+                          - Ontario
+                          - Pennsylvania
+                          - Prince Edward I.
+                          - Québec
+                          - Rhode I.
+                          - South Carolina
+                          - Tennessee
+                          - Vermont
+                          - Virginia
+                          - West Virginia
+                          - Wisconsin
+                          introduced:
+                          - Great Britain
                         distributions:
                           native:
-                          - id: 152
-                            name: Cuba
-                            slug: cub
-                            tdwg_code: CUB
+                          - id: 144
+                            name: Alabama
+                            slug: ala
+                            tdwg_code: ALA
                             tdwg_level: 3
                             species_count: 1
                             links:
-                              self: "/api/v1/distributions/cub"
-                              plants: "/api/v1/distributions/cub/plants"
-                              species: "/api/v1/distributions/cub/species"
+                              self: "/api/v1/distributions/ala"
+                              plants: "/api/v1/distributions/ala/plants"
+                              species: "/api/v1/distributions/ala/species"
+                          - id: 252
+                            name: Connecticut
+                            slug: cnt
+                            tdwg_code: CNT
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/cnt"
+                              plants: "/api/v1/distributions/cnt/plants"
+                              species: "/api/v1/distributions/cnt/species"
+                          - id: 228
+                            name: Delaware
+                            slug: del
+                            tdwg_code: DEL
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/del"
+                              plants: "/api/v1/distributions/del/plants"
+                              species: "/api/v1/distributions/del/species"
+                          - id: 229
+                            name: District of Columbia
+                            slug: wdc
+                            tdwg_code: WDC
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/wdc"
+                              plants: "/api/v1/distributions/wdc/plants"
+                              species: "/api/v1/distributions/wdc/species"
+                          - id: 191
+                            name: Georgia
+                            slug: geo
+                            tdwg_code: GEO
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/geo"
+                              plants: "/api/v1/distributions/geo/plants"
+                              species: "/api/v1/distributions/geo/species"
+                          - id: 145
+                            name: Illinois
+                            slug: ill
+                            tdwg_code: ILL
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ill"
+                              plants: "/api/v1/distributions/ill/plants"
+                              species: "/api/v1/distributions/ill/species"
+                          - id: 230
+                            name: Indiana
+                            slug: ini
+                            tdwg_code: INI
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ini"
+                              plants: "/api/v1/distributions/ini/plants"
+                              species: "/api/v1/distributions/ini/species"
+                          - id: 146
+                            name: Kentucky
+                            slug: kty
+                            tdwg_code: KTY
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/kty"
+                              plants: "/api/v1/distributions/kty/plants"
+                              species: "/api/v1/distributions/kty/species"
+                          - id: 253
+                            name: Maine
+                            slug: mai
+                            tdwg_code: MAI
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/mai"
+                              plants: "/api/v1/distributions/mai/plants"
+                              species: "/api/v1/distributions/mai/species"
+                          - id: 259
+                            name: Manitoba
+                            slug: man
+                            tdwg_code: MAN
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/man"
+                              plants: "/api/v1/distributions/man/plants"
+                              species: "/api/v1/distributions/man/species"
+                          - id: 233
+                            name: Maryland
+                            slug: mry
+                            tdwg_code: MRY
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/mry"
+                              plants: "/api/v1/distributions/mry/plants"
+                              species: "/api/v1/distributions/mry/species"
+                          - id: 254
+                            name: Masachusettes
+                            slug: mas
+                            tdwg_code: MAS
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/mas"
+                              plants: "/api/v1/distributions/mas/plants"
+                              species: "/api/v1/distributions/mas/species"
+                          - id: 234
+                            name: Michigan
+                            slug: mic
+                            tdwg_code: MIC
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/mic"
+                              plants: "/api/v1/distributions/mic/plants"
+                              species: "/api/v1/distributions/mic/species"
+                          - id: 257
+                            name: Minnesota
+                            slug: min
+                            tdwg_code: MIN
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/min"
+                              plants: "/api/v1/distributions/min/plants"
+                              species: "/api/v1/distributions/min/species"
+                          - id: 260
+                            name: New Brunswick
+                            slug: nbr
+                            tdwg_code: NBR
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nbr"
+                              plants: "/api/v1/distributions/nbr/plants"
+                              species: "/api/v1/distributions/nbr/species"
+                          - id: 255
+                            name: New Hampshire
+                            slug: nwh
+                            tdwg_code: NWH
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nwh"
+                              plants: "/api/v1/distributions/nwh/plants"
+                              species: "/api/v1/distributions/nwh/species"
+                          - id: 236
+                            name: New Jersey
+                            slug: nwj
+                            tdwg_code: NWJ
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nwj"
+                              plants: "/api/v1/distributions/nwj/plants"
+                              species: "/api/v1/distributions/nwj/species"
+                          - id: 237
+                            name: New York
+                            slug: nwy
+                            tdwg_code: NWY
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nwy"
+                              plants: "/api/v1/distributions/nwy/plants"
+                              species: "/api/v1/distributions/nwy/species"
+                          - id: 300
+                            name: Newfoundland
+                            slug: nfl
+                            tdwg_code: NFL
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nfl"
+                              plants: "/api/v1/distributions/nfl/plants"
+                              species: "/api/v1/distributions/nfl/species"
+                          - id: 238
+                            name: North Carolina
+                            slug: nca
+                            tdwg_code: NCA
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nca"
+                              plants: "/api/v1/distributions/nca/plants"
+                              species: "/api/v1/distributions/nca/species"
+                          - id: 261
+                            name: Nova Scotia
+                            slug: nsc
+                            tdwg_code: NSC
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/nsc"
+                              plants: "/api/v1/distributions/nsc/plants"
+                              species: "/api/v1/distributions/nsc/species"
+                          - id: 239
+                            name: Ohio
+                            slug: ohi
+                            tdwg_code: OHI
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ohi"
+                              plants: "/api/v1/distributions/ohi/plants"
+                              species: "/api/v1/distributions/ohi/species"
+                          - id: 240
+                            name: Ontario
+                            slug: ont
+                            tdwg_code: ONT
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ont"
+                              plants: "/api/v1/distributions/ont/plants"
+                              species: "/api/v1/distributions/ont/species"
+                          - id: 241
+                            name: Pennsylvania
+                            slug: pen
+                            tdwg_code: PEN
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/pen"
+                              plants: "/api/v1/distributions/pen/plants"
+                              species: "/api/v1/distributions/pen/species"
+                          - id: 301
+                            name: Prince Edward I.
+                            slug: pei
+                            tdwg_code: PEI
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/pei"
+                              plants: "/api/v1/distributions/pei/plants"
+                              species: "/api/v1/distributions/pei/species"
+                          - id: 242
+                            name: Québec
+                            slug: que
+                            tdwg_code: QUE
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/que"
+                              plants: "/api/v1/distributions/que/plants"
+                              species: "/api/v1/distributions/que/species"
+                          - id: 256
+                            name: Rhode I.
+                            slug: rho
+                            tdwg_code: RHO
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/rho"
+                              plants: "/api/v1/distributions/rho/plants"
+                              species: "/api/v1/distributions/rho/species"
+                          - id: 192
+                            name: South Carolina
+                            slug: sca
+                            tdwg_code: SCA
+                            tdwg_level: 3
+                            species_count: 2
+                            links:
+                              self: "/api/v1/distributions/sca"
+                              plants: "/api/v1/distributions/sca/plants"
+                              species: "/api/v1/distributions/sca/species"
+                          - id: 149
+                            name: Tennessee
+                            slug: ten
+                            tdwg_code: TEN
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ten"
+                              plants: "/api/v1/distributions/ten/plants"
+                              species: "/api/v1/distributions/ten/species"
+                          - id: 243
+                            name: Vermont
+                            slug: ver
+                            tdwg_code: VER
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/ver"
+                              plants: "/api/v1/distributions/ver/plants"
+                              species: "/api/v1/distributions/ver/species"
+                          - id: 224
+                            name: Virginia
+                            slug: vrg
+                            tdwg_code: VRG
+                            tdwg_level: 3
+                            species_count: 2
+                            links:
+                              self: "/api/v1/distributions/vrg"
+                              plants: "/api/v1/distributions/vrg/plants"
+                              species: "/api/v1/distributions/vrg/species"
+                          - id: 244
+                            name: West Virginia
+                            slug: wva
+                            tdwg_code: WVA
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/wva"
+                              plants: "/api/v1/distributions/wva/plants"
+                              species: "/api/v1/distributions/wva/species"
+                          - id: 258
+                            name: Wisconsin
+                            slug: wis
+                            tdwg_code: WIS
+                            tdwg_level: 3
+                            species_count: 1
+                            links:
+                              self: "/api/v1/distributions/wis"
+                              plants: "/api/v1/distributions/wis/plants"
+                              species: "/api/v1/distributions/wis/species"
+                          introduced:
+                          - id: 127
+                            name: Great Britain
+                            slug: grb
+                            tdwg_code: GRB
+                            tdwg_level: 3
+                            species_count: 3
+                            links:
+                              self: "/api/v1/distributions/grb"
+                              plants: "/api/v1/distributions/grb/plants"
+                              species: "/api/v1/distributions/grb/species"
                         flower:
                           color: 
-                          conspicuous: 
+                          conspicuous: true
                         foliage:
-                          texture: 
+                          texture: coarse
                           color: 
-                          leaf_retention: 
+                          leaf_retention: false
                         fruit_or_seed:
-                          conspicuous: 
+                          conspicuous: true
                           color: 
                           shape: 
-                          seed_persistence: 
+                          seed_persistence: true
                         specifications:
-                          ligneous_type: 
-                          growth_form: 
-                          growth_habit: 
-                          growth_rate: 
+                          ligneous_type: subshrub
+                          growth_form: Stoloniferous
+                          growth_habit: Subshrub, Shrub
+                          growth_rate: Slow
                           average_height:
-                            cm: 
+                            cm: 15
                           maximum_height:
-                            cm: 
-                          nitrogen_fixation: 
-                          shape_and_orientation: 
-                          toxicity: 
+                            cm: 15
+                          nitrogen_fixation: None
+                          shape_and_orientation: Prostrate
+                          toxicity: none
                         growth:
                           description: 
                           sowing: 
@@ -2877,100 +3403,167 @@ paths:
                             cm: 
                           spread:
                             cm: 
-                          ph_maximum: 
-                          ph_minimum: 
-                          light: 
-                          atmospheric_humidity: 
+                          ph_maximum: 6.5
+                          ph_minimum: 4.0
+                          light: 8
+                          atmospheric_humidity: 9
                           growth_months: 
                           bloom_months: 
                           fruit_months: 
                           minimum_precipitation:
-                            mm: 
+                            mm: 812
                           maximum_precipitation:
-                            mm: 
+                            mm: 1524
                           minimum_root_depth:
-                            cm: 
+                            cm: 30
                           minimum_temperature:
-                            deg_f: 
-                            deg_c: 
+                            deg_f: -33
+                            deg_c: -36
                           maximum_temperature:
                             deg_f: 
                             deg_c: 
-                          soil_nutriments: 
-                          soil_salinity: 
-                          soil_texture: 
+                          soil_nutriments: 2
+                          soil_salinity: 0
+                          soil_texture: 1
                           soil_humidity: 
                         links:
-                          self: "/api/v1/species/solenandra-pervestita"
-                          plant: "/api/v1/plants/solenandra-pervestita"
-                          genus: "/api/v1/genus/solenandra"
+                          self: "/api/v1/species/gaultheria-procumbens"
+                          plant: "/api/v1/plants/gaultheria-procumbens"
+                          genus: "/api/v1/genus/gaultheria"
                         synonyms:
-                        - id: 692369
-                          name: Exostema pervestitum
-                          author: Borhidi & M.Fernández
+                        - id: 270095
+                          name: Gaultheria procumbens f. accrescens
+                          author: Fernald & Hodgdon
+                          sources: []
+                        - id: 270096
+                          name: Gaultheria procumbens f. elongata
+                          author: Svenson
+                          sources: []
+                        - id: 270097
+                          name: Gaultheria humilis
+                          author: Salisb.
+                          sources: []
+                        - id: 270098
+                          name: Brossaea procumbens
+                          author: "(L.) Kuntze"
+                          sources: []
+                        - id: 270099
+                          name: Gautiera procumbens
+                          author: "(L.) Torr."
+                          sources: []
+                        - id: 270100
+                          name: Gaultheria procumbens f. suborbiculata
+                          author: Fernald
                           sources: []
                         sources:
-                        - last_update: '2020-08-13T22:24:52.000Z'
-                          id: urn:lsid:ipni.org:names:20010098-1
+                        - last_update: '2020-06-21T20:24:44.000Z'
+                          id: GAPR2
+                          name: USDA
+                          url: https://plants.usda.gov/core/profile?symbol=GAPR2
+                          citation: https://plants.sc.egov.usda.gov/core/profile?symbol=GAPR2
+                        - last_update: '2020-06-24T05:07:04.000Z'
+                          id: urn:lsid:ipni.org:names:330655-1
                           name: POWO
-                          url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:20010098-1
+                          url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:330655-1
                           citation: POWO (2019). Plants of the World Online. Facilitated
                             by the Royal Botanic Gardens, Kew. Published on the Internet;
-                            http://www.plantsoftheworldonline.org/ Retrieved 2020-08-13
+                            http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
+                        - last_update: '2020-07-04T19:10:39.000Z'
+                          id: 14/4.0.3
+                          name: CATMINAT
+                          url: 
+                          citation: 
+                        - last_update: '2020-06-16T23:13:41.000Z'
+                          id: Gaultheria procumbens L.
+                          name: PlantNet
+                          url: https://identify.plantnet.org/species/the-plant-list/Gaultheria
+                            procumbens L.
+                          citation: 
+                        - last_update: '2020-06-16T23:13:41.000Z'
+                          id: '2882753'
+                          name: GBIF
+                          url: https://www.gbif.org/species/2882753
+                          citation: 
                       genus:
-                        id: 16936
-                        name: Solenandra
-                        slug: solenandra
+                        id: 3123
+                        name: Gaultheria
+                        slug: gaultheria
                         links:
-                          self: "/api/v1/genus/solenandra"
-                          plants: "/api/v1/genus/solenandra/plants"
-                          species: "/api/v1/genus/solenandra/species"
-                          family: "/api/v1/families/rubiaceae"
+                          self: "/api/v1/genus/gaultheria"
+                          plants: "/api/v1/genus/gaultheria/plants"
+                          species: "/api/v1/genus/gaultheria/species"
+                          family: "/api/v1/families/ericaceae"
                       family:
-                        id: 69
-                        name: Rubiaceae
-                        common_name: Madder family
-                        slug: rubiaceae
+                        id: 60
+                        name: Ericaceae
+                        common_name: Heath family
+                        slug: ericaceae
                         links:
-                          self: "/api/v1/families/rubiaceae"
-                          division_order: "/api/v1/division_orders/rubiales"
-                          genus: "/api/v1/families/rubiaceae/genus"
+                          self: "/api/v1/families/ericaceae"
+                          division_order: "/api/v1/division_orders/ericales"
+                          genus: "/api/v1/families/ericaceae/genus"
                       species:
-                      - id: 1254583
-                        common_name: 
-                        slug: solenandra-pervestita
-                        scientific_name: Solenandra pervestita
-                        year: 2002
-                        bibliography: 'Acta Bot. Hung. 44: 230 (2002)'
-                        author: "(Borhidi & M.Fernández) Borhidi"
+                      - id: 138793
+                        common_name: eastern teaberry
+                        slug: gaultheria-procumbens
+                        scientific_name: Gaultheria procumbens
+                        year: 1753
+                        bibliography: 'Sp. Pl.: 895 (1753)'
+                        author: L.
                         status: accepted
                         rank: species
-                        family_common_name: 
-                        genus_id: 16936
-                        image_url: 
+                        family_common_name: Heath family
+                        genus_id: 3123
+                        image_url: https://bs.floristic.org/image/o/750319763bb175386784077b0e614caa52d825f3
                         synonyms:
-                        - Exostema pervestitum
-                        genus: Solenandra
-                        family: Rubiaceae
+                        - Gaultheria procumbens f. accrescens
+                        - Gaultheria procumbens f. elongata
+                        - Gaultheria humilis
+                        - Brossaea procumbens
+                        - Gautiera procumbens
+                        - Gaultheria procumbens f. suborbiculata
+                        genus: Gaultheria
+                        family: Ericaceae
                         links:
-                          self: "/api/v1/species/solenandra-pervestita"
-                          plant: "/api/v1/plants/solenandra-pervestita"
-                          genus: "/api/v1/genus/solenandra"
+                          self: "/api/v1/species/gaultheria-procumbens"
+                          plant: "/api/v1/plants/gaultheria-procumbens"
+                          genus: "/api/v1/genus/gaultheria"
                       subspecies: []
                       varieties: []
                       hybrids: []
                       forms: []
                       subvarieties: []
                       sources:
-                      - last_update: '2020-08-13T22:24:52.000Z'
-                        id: urn:lsid:ipni.org:names:20010098-1
+                      - last_update: '2020-06-21T20:24:44.000Z'
+                        id: GAPR2
+                        name: USDA
+                        url: https://plants.usda.gov/core/profile?symbol=GAPR2
+                        citation: https://plants.sc.egov.usda.gov/core/profile?symbol=GAPR2
+                      - last_update: '2020-06-24T05:07:04.000Z'
+                        id: urn:lsid:ipni.org:names:330655-1
                         name: POWO
-                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:20010098-1
+                        url: http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:330655-1
                         citation: POWO (2019). Plants of the World Online. Facilitated
                           by the Royal Botanic Gardens, Kew. Published on the Internet;
-                          http://www.plantsoftheworldonline.org/ Retrieved 2020-08-13
+                          http://www.plantsoftheworldonline.org/ Retrieved 2020-06-24
+                      - last_update: '2020-07-04T19:10:39.000Z'
+                        id: 14/4.0.3
+                        name: CATMINAT
+                        url: 
+                        citation: 
+                      - last_update: '2020-06-16T23:13:41.000Z'
+                        id: Gaultheria procumbens L.
+                        name: PlantNet
+                        url: https://identify.plantnet.org/species/the-plant-list/Gaultheria
+                          procumbens L.
+                        citation: 
+                      - last_update: '2020-06-16T23:13:41.000Z'
+                        id: '2882753'
+                        name: GBIF
+                        url: https://www.gbif.org/species/2882753
+                        citation: 
                     meta:
-                      last_modified: '2020-08-15T10:26:19.822Z'
+                      last_modified: '2020-08-17T11:34:14.349Z'
         '401':
           description: Invalid credentials
           content:
@@ -3122,12 +3715,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-15T10:26:27.960Z'
-                      updated_at: '2020-08-15T10:26:27.962Z'
+                      created_at: '2020-08-17T11:34:21.183Z'
+                      updated_at: '2020-08-17T11:34:21.185Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-15T10:26:27.962Z'
+                      last_modified: '2020-08-17T11:34:21.185Z'
         '401':
           description: Invalid credentials
           content:
@@ -3344,30 +3937,35 @@ paths:
                 returns-a-200-response:
                   value:
                     data:
-                    - id: 1254583
-                      common_name: 
-                      slug: solenandra-pervestita
-                      scientific_name: Solenandra pervestita
-                      year: 2002
-                      bibliography: 'Acta Bot. Hung. 44: 230 (2002)'
-                      author: "(Borhidi & M.Fernández) Borhidi"
+                    - id: 138793
+                      common_name: eastern teaberry
+                      slug: gaultheria-procumbens
+                      scientific_name: Gaultheria procumbens
+                      year: 1753
+                      bibliography: 'Sp. Pl.: 895 (1753)'
+                      author: L.
                       status: accepted
                       rank: species
-                      family_common_name: 
-                      genus_id: 16936
-                      image_url: 
+                      family_common_name: Heath family
+                      genus_id: 3123
+                      image_url: https://bs.floristic.org/image/o/750319763bb175386784077b0e614caa52d825f3
                       synonyms:
-                      - Exostema pervestitum
-                      genus: Solenandra
-                      family: Rubiaceae
+                      - Gaultheria procumbens f. accrescens
+                      - Gaultheria procumbens f. elongata
+                      - Gaultheria humilis
+                      - Brossaea procumbens
+                      - Gautiera procumbens
+                      - Gaultheria procumbens f. suborbiculata
+                      genus: Gaultheria
+                      family: Ericaceae
                       links:
-                        self: "/api/v1/species/solenandra-pervestita"
-                        plant: "/api/v1/plants/solenandra-pervestita"
-                        genus: "/api/v1/genus/solenandra"
+                        self: "/api/v1/species/gaultheria-procumbens"
+                        plant: "/api/v1/plants/gaultheria-procumbens"
+                        genus: "/api/v1/genus/gaultheria"
                     links:
-                      self: "/api/v1/plants?genus_id=solenandra"
-                      first: "/api/v1/plants?genus_id=solenandra&page=1"
-                      last: "/api/v1/plants?genus_id=solenandra&page=1"
+                      self: "/api/v1/plants?genus_id=gaultheria"
+                      first: "/api/v1/plants?genus_id=gaultheria&page=1"
+                      last: "/api/v1/plants?genus_id=gaultheria&page=1"
                     meta:
                       total: 1
         '401':
@@ -3473,7 +4071,7 @@ paths:
                       author: Mill.
                       status: accepted
                       rank: species
-                      family_common_name: 
+                      family_common_name: Pine family
                       genus_id: 4
                       image_url: https://bs.floristic.org/image/o/7928c21ee9fdc5ffa423501d3ba54084247cf9a9
                       synonyms:
@@ -4689,7 +5287,7 @@ paths:
                       images_count: 29
                       sources_count: 5
                       synonyms_count: 6
-                      last_modified: '2020-08-15T10:26:20.492Z'
+                      last_modified: '2020-08-17T11:34:14.346Z'
         '401':
           description: Invalid credentials
           content:
@@ -4841,12 +5439,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-15T10:26:28.347Z'
-                      updated_at: '2020-08-15T10:26:28.348Z'
+                      created_at: '2020-08-17T11:34:21.575Z'
+                      updated_at: '2020-08-17T11:34:21.577Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-15T10:26:28.348Z'
+                      last_modified: '2020-08-17T11:34:21.577Z'
         '401':
           description: Invalid credentials
           content:
@@ -5572,7 +6170,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-08-15T10:26:17.579Z'
+                      last_modified: '2020-08-17T11:34:11.445Z'
         '401':
           description: Invalid credentials
           content:
@@ -5619,8 +6217,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTE2IDEyOjI2OjI4ICswMjAwIiwiZXhwIjoxNTk3NTczNTg4fQ.nNqHvhHBo6HUkU8i8lVorBYfo9yoEbfj2Y-4l1FjhYQ
-                    expiration: '08-16-2020 12:26'
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTE4IDEzOjM0OjIxICswMjAwIiwiZXhwIjoxNTk3NzUwNDYxfQ.yQxHqxlU6bSHUCAb5gqx8j-bZwoeMDOBCawhCJsb_HM
+                    expiration: '08-18-2020 13:34'
         '401':
           description: Invalid credentials
           content:
@@ -5708,15 +6306,15 @@ paths:
                     data:
                     - id: 4
                       record_type: Species
-                      record_id: 1254583
+                      record_id: 138793
                       user_id: 31
                       warning_type: 
                       change_status: pending
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-08-15T10:26:28.623Z'
-                      updated_at: '2020-08-15T10:26:28.623Z'
+                      created_at: '2020-08-17T11:34:21.874Z'
+                      updated_at: '2020-08-17T11:34:21.874Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -5728,8 +6326,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-15T10:26:28.615Z'
-                      updated_at: '2020-08-15T10:26:28.615Z'
+                      created_at: '2020-08-17T11:34:21.864Z'
+                      updated_at: '2020-08-17T11:34:21.864Z'
                       correction:
                         scientific_name: Eriogonum umbellatum var. polyanthum
                         maximum_height_value: 15
@@ -5794,15 +6392,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-15T10:26:28.688Z'
-                      updated_at: '2020-08-15T10:26:28.688Z'
+                      created_at: '2020-08-17T11:34:21.943Z'
+                      updated_at: '2020-08-17T11:34:21.943Z'
                       correction:
                         scientific_name: Eriogonum umbellatum var. polyanthum
                         maximum_height_value: 15
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-08-15T10:26:28.688Z'
+                      last_modified: '2020-08-17T11:34:21.943Z'
         '401':
           description: Invalid credentials
           content:
@@ -5858,8 +6456,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-08-15T10:26:28.868Z'
-                      updated_at: '2020-08-15T10:26:28.868Z'
+                      created_at: '2020-08-17T11:34:22.127Z'
+                      updated_at: '2020-08-17T11:34:22.127Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -5869,7 +6467,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-08-15T10:26:28.868Z'
+                      last_modified: '2020-08-17T11:34:22.127Z'
         '422':
           description: Invalid parameters
           content:
@@ -6305,6 +6903,31 @@ components:
             - Annual: plants that live, reproduce, and die in one growing season.
             - Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.
             - Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.
+        edible_part:
+          type: array
+          nullable: true
+          items:
+            type: string
+            nullable: true
+            enum:
+            - roots
+            - stem
+            - leaves
+            - flowers
+            - fruits
+            - seeds
+            - tubers
+            - 
+            description: The plant edible part(s), if any.
+          description: The plant edible part(s), if any.
+        edible:
+          type: boolean
+          nullable: true
+          description: Is the species edible ?
+        vegetable:
+          type: boolean
+          nullable: true
+          description: Is the species a vegetable ?
         observations:
           type: string
           nullable: true
@@ -7347,7 +7970,7 @@ components:
             genus:
               type: string
               nullable: true
-              example: Sassafras
+              example: Solenandra
             year:
               type: integer
               nullable: true
