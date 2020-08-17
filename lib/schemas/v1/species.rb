@@ -120,9 +120,9 @@ module Schemas
             edible_part: {
               type: :array, nullable: true, items: {
                 type: :string, nullable: true, enum: [*::Species.edible_parts.maps.keys, nil],
-                description: "The plant edible part(s), if any."
+                description: 'The plant edible part(s), if any.'
               },
-              description: "The plant edible part(s), if any."
+              description: 'The plant edible part(s), if any.'
             }, # "stems",
             edible: { type: :boolean, nullable: true, description: 'Is the species edible ?' },
             vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable ?' },
