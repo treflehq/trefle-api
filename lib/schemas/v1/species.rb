@@ -124,6 +124,7 @@ module Schemas
               },
               description: 'The plant edible part(s), if any.'
             }, # "stems",
+
             edible: { type: :boolean, nullable: true, description: 'Is the species edible ?' },
             vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable ?' },
             observations: { type: :string, nullable: true, description: 'Some habit observations on the species' },
@@ -153,7 +154,7 @@ module Schemas
 
             specifications: Helpers.object_of({
               # c_n_ratio: { type: :string, nullable: true, description: 'TODO' }, # @TODO "Medium",
-              ligneous_type: { type: :string, nullable: true, enum: [*::Species.ligneous_types.keys, nil], description: 'The ligneous type of the woody plant'  }, # "species",
+              ligneous_type: { type: :string, nullable: true, enum: [*::Species.ligneous_types.keys, nil], description: 'The ligneous type of the woody plant' }, # "species",
               growth_form: { type: :string, nullable: true, description: 'The primary growth form on the landscape in relation to soil stabilization on slopes and streamsides? Each plant species is assigned the single growth form that most enhances its ability to stabilize soil' }, # "Stoloniferous",
               growth_habit: { type: :string, nullable: true, description: 'The general appearance, growth form, or architecture of the plant' }, # "Forb/herb",
               growth_rate: { type: :string, nullable: true, description: 'The relative growth speed of the plant' }, # "Rapid",
