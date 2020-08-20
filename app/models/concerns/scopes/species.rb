@@ -21,6 +21,8 @@ module Scopes
       scope :filter_by_establishment, ->(v) { joins(:species_distributions).where(species_distributions: { establishment: v }).distinct }
 
       # Binary flags overrides
+      scope :filter_by_duration, ->(v) { where_duration(*v) }
+      scope :filter_not_by_duration, ->(_v) { where.not(duration: [0, nil]) }
       scope :filter_by_growth_months, ->(v) { where_growth_months(*v) }
       scope :filter_not_by_growth_months, ->(_v) { where.not(growth_months: [0, nil]) }
       scope :filter_by_bloom_months, ->(v) { where_bloom_months(*v) }
