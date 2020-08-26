@@ -164,7 +164,6 @@ class Species < ApplicationRecord
     shape_and_orientation
   ].freeze
 
-
   belongs_to :plant, optional: true, touch: true
   belongs_to :genus, touch: true
   belongs_to :main_species, class_name: 'Species', optional: true, touch: true
@@ -291,7 +290,6 @@ class Species < ApplicationRecord
   validates_uniqueness_of :token, allow_nil: true, message: 'A species with a close scientific name is already registered (token=%{value})'
   # rubocop:enable Style/FormatStringToken
 
-
   include Filterable
   include Sortable
   include Rangeable
@@ -300,7 +298,7 @@ class Species < ApplicationRecord
 
   # Elasticsearch search
   include Search::Species
-  
+
   # Will worward his data to the plant
   def setup_main_species
     return unless main_species.nil? || main_species.id == id
