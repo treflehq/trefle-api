@@ -12,7 +12,7 @@ class Explore::SpeciesController < Explore::ExploreController
     @page_keywords = 'explore, plants, search, species'
 
     if search.blank?
-      @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(gbif_score: :desc)
+      @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(wiki_score: :desc)
       @pagy, @collection = pagy(@collection)
     else
       options = {
