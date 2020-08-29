@@ -1,4 +1,5 @@
 <aside class="menu">
+    <p class="menu-label"><%= species.scientific_name %></p>
     <ul class="menu-list sticky-menu">
       <li>
         <%= link_to('Informations', explore_species_path(species, anchor: 'specifications'), class: (active == 'informations' ? 'is-active' : '')) %>
@@ -29,16 +30,21 @@
           </ul>
         <% end %>
 
-      </li>
-      <% if species.foreign_sources.any? %>
-          <% species.foreign_sources_plants.each do |fsp| %>
-            <li>
-            <%= link_to(fsp.full_url) do %>
-              <i class="fa fa-external-link"></i>
-              See on <%= "#{fsp.foreign_source&.name}" %>
-            <% end %>
-            </li>
+      </li> 
+    </ul> 
+    <% if species.foreign_sources.any? %>
+      <p class="menu-label">
+        Links
+      </p>
+      <ul class="menu-list">
+        <% species.foreign_sources_plants.each do |fsp| %>
+          <li>
+          <%= link_to(fsp.full_url, target: '_blank', rel: 'noopener') do %>
+            <i class="fa fa-external-link"></i>
+            See on <%= "#{fsp.foreign_source&.name}" %>
           <% end %>
-      <% end %>
-    </ul>
+          </li>
+        <% end %>
+      </ul> 
+    <% end %>
 </aside>
