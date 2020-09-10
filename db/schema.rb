@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_14_135845) do
+ActiveRecord::Schema.define(version: 2020_09_10_100523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -438,13 +438,16 @@ ActiveRecord::Schema.define(version: 2020_08_14_135845) do
     t.integer "completion_ratio"
     t.string "phylum"
     t.integer "wiki_score"
+    t.index ["author"], name: "index_species_on_author"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["common_name"], name: "index_species_on_common_name"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
     t.index ["flower_conspicuous"], name: "index_species_on_flower_conspicuous"
     t.index ["gbif_score"], name: "species_gbif_score_idx"
     t.index ["genus_id"], name: "species_genus_id_index"
+    t.index ["genus_name"], name: "index_species_on_genus_name"
     t.index ["light"], name: "index_species_on_light"
+    t.index ["main_species_id", "common_name"], name: "index_species_on_main_species_id_and_common_name"
     t.index ["main_species_id", "gbif_score"], name: "index_species_on_main_species_id_and_gbif_score"
     t.index ["main_species_id"], name: "species_main_species_id_index"
     t.index ["maximum_height_cm"], name: "index_species_on_maximum_height_cm"
