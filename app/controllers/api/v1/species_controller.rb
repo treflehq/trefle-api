@@ -7,7 +7,9 @@ class Api::V1::SpeciesController < Api::ApiController
     bloom_months
     common_name
     duration
+    edible
     family_common_name
+    family_name
     flower_conspicuous
     foliage_texture
     fruit_conspicuous
@@ -39,6 +41,7 @@ class Api::V1::SpeciesController < Api::ApiController
     common_name
     edible_part
     family_common_name
+    family_name
     flower_color
     flower_conspicuous
     foliage_color
@@ -91,6 +94,7 @@ class Api::V1::SpeciesController < Api::ApiController
     duration
     edible
     family_common_name
+    family_name
     flower_color
     flower_conspicuous
     foliage_color
