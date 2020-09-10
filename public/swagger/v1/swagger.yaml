@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.443Z'
+                      last_modified: '2020-09-10T10:09:23.027Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.458Z'
+                      last_modified: '2020-09-10T10:09:23.041Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.475Z'
+                      last_modified: '2020-09-10T10:09:23.055Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.517Z'
+                      last_modified: '2020-09-10T10:09:23.091Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.555Z'
+                      last_modified: '2020-09-10T10:09:23.151Z'
         '401':
           description: Invalid credentials
           content:
@@ -2214,7 +2214,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-08-25T09:56:20.869Z'
+                      last_modified: '2020-09-10T10:09:23.361Z'
         '401':
           description: Invalid credentials
           content:
@@ -2465,7 +2465,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-08-25T09:56:21.390Z'
+                      last_modified: '2020-09-10T10:09:23.817Z'
         '401':
           description: Invalid credentials
           content:
@@ -3055,7 +3055,7 @@ paths:
                         url: https://www.gbif.org/species/4234505
                         citation: 
                     meta:
-                      last_modified: '2020-08-25T09:56:21.249Z'
+                      last_modified: '2020-09-10T10:09:23.694Z'
         '401':
           description: Invalid credentials
           content:
@@ -3207,12 +3207,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-25T09:56:28.982Z'
-                      updated_at: '2020-08-25T09:56:28.984Z'
+                      created_at: '2020-09-10T10:09:30.395Z'
+                      updated_at: '2020-09-10T10:09:30.397Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-25T09:56:28.984Z'
+                      last_modified: '2020-09-10T10:09:30.397Z'
         '401':
           description: Invalid credentials
           content:
@@ -5604,7 +5604,7 @@ paths:
                       images_count: 37
                       sources_count: 5
                       synonyms_count: 13
-                      last_modified: '2020-08-25T09:56:21.416Z'
+                      last_modified: '2020-09-10T10:09:23.838Z'
         '401':
           description: Invalid credentials
           content:
@@ -5756,12 +5756,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-08-25T09:56:29.582Z'
-                      updated_at: '2020-08-25T09:56:29.583Z'
+                      created_at: '2020-09-10T10:09:30.869Z'
+                      updated_at: '2020-09-10T10:09:30.871Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-08-25T09:56:29.583Z'
+                      last_modified: '2020-09-10T10:09:30.871Z'
         '401':
           description: Invalid credentials
           content:
@@ -6487,7 +6487,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-08-25T09:56:18.168Z'
+                      last_modified: '2020-09-10T10:09:21.221Z'
         '401':
           description: Invalid credentials
           content:
@@ -6534,8 +6534,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA4LTI2IDExOjU2OjI5ICswMjAwIiwiZXhwIjoxNTk4NDM1Nzg5fQ.P_K_4AS3sLsJ5O9oW8M64sSRYvHNdowcIqlLxtRpr0A
-                    expiration: '08-26-2020 11:56'
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA5LTExIDEyOjA5OjMxICswMjAwIiwiZXhwIjoxNTk5ODE4OTcxfQ.fYBnXBN_VV6tuq5K6P1IhTn_CbxoQBG5h4nJ8odeoSk
+                    expiration: '09-11-2020 12:09'
         '401':
           description: Invalid credentials
           content:
@@ -6630,8 +6630,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-08-25T09:56:29.909Z'
-                      updated_at: '2020-08-25T09:56:29.909Z'
+                      created_at: '2020-09-10T10:09:31.144Z'
+                      updated_at: '2020-09-10T10:09:31.144Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -6643,8 +6643,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-25T09:56:29.898Z'
-                      updated_at: '2020-08-25T09:56:29.898Z'
+                      created_at: '2020-09-10T10:09:31.134Z'
+                      updated_at: '2020-09-10T10:09:31.134Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
@@ -6709,15 +6709,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-08-25T09:56:29.992Z'
-                      updated_at: '2020-08-25T09:56:29.992Z'
+                      created_at: '2020-09-10T10:09:31.209Z'
+                      updated_at: '2020-09-10T10:09:31.209Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-08-25T09:56:29.992Z'
+                      last_modified: '2020-09-10T10:09:31.209Z'
         '401':
           description: Invalid credentials
           content:
@@ -6773,8 +6773,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-08-25T09:56:30.229Z'
-                      updated_at: '2020-08-25T09:56:30.229Z'
+                      created_at: '2020-09-10T10:09:31.376Z'
+                      updated_at: '2020-09-10T10:09:31.376Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6784,7 +6784,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-08-25T09:56:30.229Z'
+                      last_modified: '2020-09-10T10:09:31.376Z'
         '422':
           description: Invalid parameters
           content:
@@ -8891,7 +8891,11 @@ components:
           type: string
         duration:
           type: string
+        edible:
+          type: string
         family_common_name:
+          type: string
+        family_name:
           type: string
         flower_conspicuous:
           type: string
@@ -8944,7 +8948,11 @@ components:
           type: string
         duration:
           type: string
+        edible:
+          type: string
         family_common_name:
+          type: string
+        family_name:
           type: string
         flower_conspicuous:
           type: string
@@ -9002,6 +9010,8 @@ components:
         edible_part:
           type: string
         family_common_name:
+          type: string
+        family_name:
           type: string
         flower_color:
           type: string
@@ -9120,6 +9130,8 @@ components:
           type: string
         family_common_name:
           type: string
+        family_name:
+          type: string
         flower_color:
           type: string
         flower_conspicuous:
@@ -9220,6 +9232,8 @@ components:
         edible:
           type: string
         family_common_name:
+          type: string
+        family_name:
           type: string
         flower_color:
           type: string
