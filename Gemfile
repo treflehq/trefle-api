@@ -45,6 +45,9 @@ gem 'kaminari'
 gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 gem 'typhoeus'
 
+# Gravatar
+gem 'gravtastic'
+
 gem 'measured'
 gem 'measured-rails'
 
@@ -61,12 +64,12 @@ gem 'groupdate'
 gem 'active_flag'
 
 # Monitoring
-gem 'pg_query', '>= 0.9.0'
+gem 'appsignal'
 gem 'pghero'
+gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.2.2'
 gem 'sentry-raven'
 gem 'skylight'
-gem 'appsignal'
 
 # Sidekiq
 gem 'redis', '~> 4.1.4'
@@ -74,8 +77,8 @@ gem 'redis-namespace', '~> 1.7.0'
 gem 'rufus-scheduler', '~> 3.4.2'
 gem 'sidekiq', '~> 6.0.7'
 gem 'sidekiq-cron', '~> 0.6.3'
+gem 'sidekiq-limit_fetch'
 gem 'sidekiq-status'
-# gem 'sidekiq-limit_fetch'
 
 gem 'counter_culture', '~> 2.0'
 gem 'interactor-rails', '~> 2.2.1'
@@ -91,6 +94,10 @@ gem 'searchkick'
 # SEO
 gem 'meta-tags'
 gem 'sitemap_generator'
+
+# profiling
+gem 'derailed_benchmarks'
+gem 'memory_profiler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -119,6 +126,7 @@ group :development do
   gem 'spring-watcher-listen', '>= 2.0.0'
   # Add annotations on models
   gem 'annotate'
+
 end
 
 group :test do

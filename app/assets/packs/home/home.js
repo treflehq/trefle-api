@@ -47,10 +47,6 @@ function createDonutChart(elt, data) {
     containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false,
     legendChart = getLegendChart(elt, dataset)
 
-  console.log({
-    containerWidth
-  });
-  
   donutChart
     .isAnimated(true)
     .highlightSliceById(2)
@@ -70,7 +66,7 @@ function createDonutChart(elt, data) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelectorAll(".home-page").length > 0) {
+  if (document.querySelectorAll("#persp-chart").length > 0) {
     createDonutChart('#persp-chart', persp)
   }
 })

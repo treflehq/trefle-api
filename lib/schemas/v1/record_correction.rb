@@ -1,6 +1,15 @@
 module Schemas
   module V1
     module RecordCorrection
+      def self.anyOfEnum(enum:, extras:)
+        stringItem = {
+          type: 'string',
+          enum: [*enum, nil]
+        }.merge(extras)
+
+        { anyOf: [{ type: :array, items: stringItem }, stringItem] }
+      end
+
       def self.schema
         Helpers.object_of({
           id: { type: :integer },
@@ -42,23 +51,23 @@ module Schemas
           planting_description: { type: :string, nullable: true, description: 'A description on how the plant usually grows' }, # 'Vegetal flavour, Medium-yellow flowers',
           planting_sowing_description: { type: :string, nullable: true, example: 'A description on how to sow the plant' }, # 'Vegetal flavour, Medium-yellow flowers',
 
-          duration: { type: :string, enum: [*::Species.durations.maps.keys, nil], nullable: true, description: 'The duration(s) of the species. Several values can be separated with "|"', example: 'annual' },
-          flower_color: { type: :string, enum: [*::Species.flower_colors.maps.keys, nil], nullable: true, description: 'The species flower color(s). Several values can be separated with "|"', example: 'yellow' }, # 'yellow',
+          duration: anyOfEnum(enum: ::Species.durations.maps.keys, extras: { nullable: true, description: 'The duration(s) of the species. Several values can be separated with "|"', example: 'annual' }),
+          flower_color: anyOfEnum(enum: ::Species.flower_colors.maps.keys, extras: { nullable: true, description: 'The species flower color(s). Several values can be separated with "|"', example: 'yellow' }), # 'yellow',
           flower_conspicuous: { type: :boolean, nullable: true, example: true }, # true,
-          foliage_color: { type: :string, enum: [*::Species.foliage_colors.maps.keys, nil], nullable: true, description: 'The species foliage color(s). Several values can be separated with "|"', example: 'green|blue' }, # 'green|blue',
+          foliage_color: anyOfEnum(enum: ::Species.foliage_colors.maps.keys, extras: { nullable: true, description: 'The species foliage color(s). Several values can be separated with "|"', example: 'green|blue' }), # 'green|blue',
           foliage_texture: { type: :string, enum: [*::Species.foliage_textures.keys, nil], nullable: true, example: nil }, # nil,
           leaf_retention: { type: :boolean, nullable: true, example: false }, # nil,
-          fruit_color: { type: :string, enum: [*::Species.fruit_colors.maps.keys, nil], nullable: true, description: 'The species fruit color(s). Several values can be separated with "|"', example: 'white' }, # nil,
+          fruit_color: anyOfEnum(enum: ::Species.fruit_colors.maps.keys, extras: { nullable: true, description: 'The species fruit color(s). Several values can be separated with "|"', example: 'white' }), # nil,
           fruit_conspicuous: { type: :boolean, nullable: true, example: false }, # nil,
           fruit_seed_persistence: { type: :boolean, nullable: true, example: false }, # nil,
-          fruit_months: { type: :string, enum: [*::Species.fruit_months.maps.keys, nil], nullable: true, description: 'The months when his species have fruits. Several values can be separated by "|"', example: 'jan|feb|mar' }, # 'jan|feb|mar',
-          bloom_months: { type: :string, enum: [*::Species.bloom_months.maps.keys, nil], nullable: true, description: 'The months when this species blooms. Several values can be separated by "|"', example: nil }, # nil,
+          fruit_months: anyOfEnum(enum: ::Species.fruit_months.maps.keys, extras: { nullable: true, description: 'The months when his species have fruits. Several values can be separated by "|"', example: 'jan|feb|mar' }), # 'jan|feb|mar',
+          bloom_months: anyOfEnum(enum: ::Species.bloom_months.maps.keys, extras: { nullable: true, description: 'The months when this species blooms. Several values can be separated by "|"', example: nil }), # nil,
           ground_humidity: { type: :integer, nullable: true, description: 'Required humidity of the soil, on a scale from 0 (xerophile) to 10 (subaquatic)', example: nil }, # nil,
           growth_form: { type: :string, nullable: true, example: nil }, # nil,
           growth_habit: { type: :string, nullable: true, example: nil }, # nil,
-          growth_months: { type: :string, enum: [*::Species.growth_months.maps.keys, nil], nullable: true, description: 'The months when this species grows. Several values can be separated by "|"', example: nil }, # nil,
+          growth_months: anyOfEnum(enum: ::Species.growth_months.maps.keys, extras: { nullable: true, description: 'The months when this species grows. Several values can be separated by "|"', example: nil }), # nil,
           growth_rate: { type: :string, nullable: true, example: nil }, # nil,
-          edible_part: { type: :string, enum: [*::Species.edible_parts.maps.keys, nil], nullable: true, description: 'The edible part of the species (if any). Several values can be separated by "|"', example: 'flowers' }, # 'flowers',
+          edible_part: anyOfEnum(enum: ::Species.edible_parts.maps.keys, extras: { nullable: true, description: 'The edible part of the species (if any). Several values can be separated by "|"', example: 'flowers' }), # 'flowers',
           vegetable: { type: :boolean, nullable: true, example: false }, # nil,
           light: { type: :integer, nullable: true, description: 'Required amount of light, on a scale from 0 (no light, <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)', example: 8 }, # 8,
           atmospheric_humidity: { type: :integer, nullable: true, description: 'Required relative humidity in the air, on a scale from 0 (<=10%) to 10 (>= 90%)', example: 3 }, # 8,

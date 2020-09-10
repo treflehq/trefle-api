@@ -1,0 +1,48 @@
+<div class="about-page home-page container">
+  <div class="columns">
+    <div class="column is-2"></div>
+    <div class="column is-8">
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-1">
+              <i class="fad has-text-primary fa-compass"></i>
+              Explore
+            </h1>
+            <h2 class="subtitle">
+              Browse and contribute to the Trefle botanical data.
+            </h2>
+          </div>
+        </div>
+        <%= form_with(method: "get", local: true) do %>
+          <div class="control has-icons-left">
+            <input class="input is-large" name="search" value="<%= params[:search] %>" type="search" placeholder="Search">
+            <span class="icon is-medium is-left">
+              <i class="fad has-text-primary fa-search"></i>
+            </span>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+
+  <% if @collection %>
+    <div class="columns is-multiline">
+
+      <% @collection.each do |species| %>
+        <div class="column is-3">
+          <%= render partial: 'explore/species/species_item', locals: {species: species} %>
+        </div>
+      <% end %>
+    </div>
+    <div class="container">
+      <%== pagy_bulma_nav(@pagy) %>
+      <%== pagy_info(@pagy) %>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>

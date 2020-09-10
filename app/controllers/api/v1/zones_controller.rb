@@ -17,7 +17,7 @@ class Api::V1::ZonesController < Api::ApiController
   end
 
   def show
-    @resource = Zone.friendly.find(params[:id])
+    @resource = Zone.friendly.find(params[:id].to_s.downcase)
 
     render_serialized_resource(
       @resource,

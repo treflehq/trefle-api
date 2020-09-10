@@ -19,11 +19,11 @@ import './application.scss'
 
 require("@rails/ujs").start()
 
-require('@fortawesome/fontawesome-pro/js/all.js');
+// require('@fortawesome/fontawesome-pro/js/all.js');
 
-import "./home/admin.js";
-import "./home/home.js";
-import "./home/codesandbox.js";
+// import "./home/admin.js";
+// import "./home/home.js";
+// import "./home/codesandbox.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 

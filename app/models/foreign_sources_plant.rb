@@ -62,6 +62,8 @@ class ForeignSourcesPlant < ApplicationRecord
       "https://www.gbif.org/species/#{fid}"
     when 'powo'
       "http://powo.science.kew.org/taxon/#{fid}"
+    when 'wikipedia_en'
+      "https://en.wikipedia.org/wiki/#{fid}"
     end
   end
 

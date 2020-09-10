@@ -45,11 +45,13 @@ $break-large: 1024px;
   }
 }
 
-// @import 'sections/variables';
+@import 'sections/variables';
 
 @import 'bulma/bulma';
 
 @import 'sections/home';
+@import 'sections/explore';
+
 
 body {
   // background-color: green;
@@ -99,4 +101,8 @@ span.token.number {
 .login-container-large {
   max-width: 600px;
   margin: auto;
+}
+
+.user-image {
+  margin-right: 10px;
 }

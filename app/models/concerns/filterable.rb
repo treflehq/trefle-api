@@ -5,7 +5,7 @@ module Filterable
     def filter_with(filtering_params)
       results = where(nil)
       filtering_params.each do |key, value|
-        results = results.public_send("filter_by_#{key}", value.split(',').map(&:strip).compact) if value.present?
+        results = results.public_send("filter_by_#{key}", value.split(',').map {|e| convert_value(e) }.compact) if value.present?
       end
       results
     end
@@ -13,12 +13,23 @@ module Filterable
     def filter_not_with(filtering_params)
       results = where(nil)
       filtering_params.each do |key, value|
-        # rubocop:todo Style/NestedTernaryOperator
-        vs = value.present? ? value.split(',').map(&:strip).compact.map {|e| e == 'null' ? nil : e } : nil
-        # rubocop:enable Style/NestedTernaryOperator
+        vs = value.present? ? value.split(',').map {|e| convert_value(e) } : nil
         results = results.public_send("filter_not_by_#{key}", vs)
       end
       results
+    end
+
+    def convert_value(value)
+      case value.strip
+      when 'true'
+        true
+      when 'false'
+        false
+      when 'null'
+        nil
+      else
+        value.strip
+      end
     end
   end
 end

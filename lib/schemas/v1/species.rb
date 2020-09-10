@@ -60,10 +60,39 @@ module Schemas
 
       def self.distribution_schema
         Helpers.object_of(nil, extras: {
+          deprecated: true,
           additionalProperties: {
             type: :array,
             items: { type: :string, nullable: true, description: 'TODO' }
           },
+          description: '(Deprecated) Distribution of the species per establishment'
+        })
+      end
+
+      def self.distribution_item_schema(extras:)
+        Helpers.array_of({
+          id: { type: :integer, description: 'An unique identifier' }, # 101131,
+          name: { type: :string, description: 'The zone name' },
+          slug: { type: :string, description: 'An unique, human readable, identifier' },
+          tdwg_code: { type: :string, description: 'The TDWG zone unique code' },
+          tdwg_level: { type: :integer, description: 'The TDWG zone level' },
+          species_count: { type: :integer, description: 'The number of species in this zone' },
+          links: Helpers.object_of({
+            self: { type: :string, description: 'API endpoint to the zone itself' },
+            species: { type: :string, description: 'API endpoint to the species in this zone' },
+            plants: { type: :string, description: 'API endpoint to the plants in this zone' }
+          })
+        }, extras: extras)
+      end
+
+      def self.distributions_schema
+        Helpers.object_of({
+          native: distribution_item_schema(extras: { description: 'Zones the species is native from' }),
+          introduced: distribution_item_schema(extras: { description: 'Zones the species has been introduced' }),
+          doubtful: distribution_item_schema(extras: { description: 'Zones the species presence is doubtful' }),
+          absent: distribution_item_schema(extras: { description: 'Zones the species is absent and has been wrongly recorded' }),
+          extinct: distribution_item_schema(extras: { description: 'Zones the species is extinct' })
+        }, extras: {
           description: 'Distribution of the species per establishment'
         })
       end
@@ -87,12 +116,23 @@ module Schemas
                 description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
               },
               description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
-            }, # "Purple",
+            }, # "perrenial",
+            edible_part: {
+              type: :array, nullable: true, items: {
+                type: :string, nullable: true, enum: [*::Species.edible_parts.maps.keys, nil],
+                description: 'The plant edible part(s), if any.'
+              },
+              description: 'The plant edible part(s), if any.'
+            }, # "stems",
+
+            edible: { type: :boolean, nullable: true, description: 'Is the species edible ?' },
+            vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable ?' },
             observations: { type: :string, nullable: true, description: 'Some habit observations on the species' },
 
             images: images_schema,
             common_names: common_names_schema,
             distribution: distribution_schema,
+            distributions: distributions_schema,
 
             flower: Helpers.object_of({
               color: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.flower_colors.maps.keys, nil], description: 'The flower color(s)' }, description: 'The flower color(s)' }, # "Purple",
@@ -114,7 +154,7 @@ module Schemas
 
             specifications: Helpers.object_of({
               # c_n_ratio: { type: :string, nullable: true, description: 'TODO' }, # @TODO "Medium",
-              ligneous_type: { type: :string, nullable: true, enum: [*::Species.ligneous_types.keys, nil], description: 'The ligneous type of the woody plant'  }, # "species",
+              ligneous_type: { type: :string, nullable: true, enum: [*::Species.ligneous_types.keys, nil], description: 'The ligneous type of the woody plant' }, # "species",
               growth_form: { type: :string, nullable: true, description: 'The primary growth form on the landscape in relation to soil stabilization on slopes and streamsides? Each plant species is assigned the single growth form that most enhances its ability to stabilize soil' }, # "Stoloniferous",
               growth_habit: { type: :string, nullable: true, description: 'The general appearance, growth form, or architecture of the plant' }, # "Forb/herb",
               growth_rate: { type: :string, nullable: true, description: 'The relative growth speed of the plant' }, # "Rapid",
@@ -202,7 +242,7 @@ module Schemas
               id: { type: :string, description: 'An unique identifier from the source' }, # 101131,
               name: { type: :string, description: 'The name of the source' }, # "(Douglas ex D.Don) Lindl.",
               citation: { type: :string, nullable: true, description: 'How to cite the source' }, # "(Douglas ex D.Don) Lindl.",
-              url: { type: :string, description: 'The link on the source website, or the publication reference' }, # "(Douglas ex D.Don) Lindl.",
+              url: { type: :string, nullable: true, description: 'The link on the source website, or the publication reference' }, # "(Douglas ex D.Don) Lindl.",
               last_update: { type: :string, description: 'The last time the source was checked' } # "(Douglas ex D.Don) Lindl.",
             }, extras: { description: 'The symonyms scientific names and authors' })
 

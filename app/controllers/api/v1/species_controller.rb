@@ -16,7 +16,6 @@ class Api::V1::SpeciesController < Api::ApiController
     growth_habit
     growth_rate
     leaf_retention
-    lifespan
     ligneous_type
     rank
     scientific_name
@@ -29,7 +28,6 @@ class Api::V1::SpeciesController < Api::ApiController
     foliage_color
     fruit_color
     edible_part
-    establishment
     genus_name
   ].freeze
 
@@ -56,7 +54,6 @@ class Api::V1::SpeciesController < Api::ApiController
     genus_name
     images_count
     leaf_retention
-    lifespan
     light
     ligneous_type
     maximum_height_cm
@@ -108,7 +105,6 @@ class Api::V1::SpeciesController < Api::ApiController
     growth_rate
     images_count
     leaf_retention
-    lifespan
     light
     ligneous_type
     maximum_height_cm
@@ -261,7 +257,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
     @collection = Genus.friendly.find(params[:genus_id]).species if params[:genus_id]
     @collection = Plant.friendly.find(params[:plant_id]).species if params[:plant_id]
-    @collection = Zone.friendly.find(params[:zone_id]).all_species if params[:zone_id]
+    @collection = Zone.friendly.find(params[:zone_id].to_s.downcase).all_species if params[:zone_id]
     @collection ||= Species.all
 
     @collection = @collection.preload(:plant, :genus, :synonyms)

@@ -1,0 +1,40 @@
+<div class="species-page home-page container" id="explore-species-page">
+  <%= render partial: 'explore/record_corrections/correction_header', locals: {correction: @record_correction, species: @species} %>
+  
+  <div class="columns">
+    <div class="column is-3">
+      <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'corrections'} %>
+    </div>
+
+    <div class="column is-9">
+      <section class="section content" id="changes">
+        <h2 class="title is-4 ">
+          <i class="fad fa-code-commit has-text-success"></i> Summary
+        </h2>
+        <p><b>Current status: </b> <%= status_sentence(@record_correction) %></p>
+        <%= source_sentence(@record_correction) %>
+        <br />
+        <div class="notification is-info is-light">
+          <p><b>Notes: </b> <%= @record_correction.notes || 'No notes' %></p>
+        </div>
+      </section>
+      <section class="section content" id="changes">
+        <h2 class="title is-4 ">
+          <i class="fad fa-code-branch has-text-success"></i> Changes
+        </h2>
+
+        <pre><code><%= pretty_correction(@record_correction) %></code></pre>
+        <%
+=begin%>
+ <h3 class="title is-5">Real changes</h3>
+        <pre><code><%= pretty_changes(@record_correction) %></code></pre> 
+<%
+=end%>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>

@@ -1,0 +1,58 @@
+<div class="species-page home-page container">
+  <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
+  
+  <div class="columns">
+    <div class="column is-3">
+      <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'informations'} %>
+    </div>
+
+    <div class="column is-9" id="explore-species-page">
+
+      <section class="section content" id="specifications">
+        <h1 class="title is-4 ">
+          <i class="fad fa-cog has-text-success"></i> Specifications
+        </h1>
+
+      </section>
+
+      <section class="section content" id="specifications">
+        <h1 class="title is-4 ">
+          <i class="fad fa-image has-text-success"></i> Images
+        </h1>
+
+      </section>
+
+      <section class="section content logo-section" id="synonyms">
+        <h1 class="title is-4 ">
+          <i class="fad fa-clone has-text-success"></i> Synonyms
+        </h1>
+        <% if @species.synonyms.any? %>
+          <div class="columns is-multiline">
+            <% @species.synonyms.each do |s| %>
+              <div class="synonym-item column is-12">
+                <h3 class="title is-5"><%= s.name %> <small><i><%= s.author || 'Unknown author' %></i></small></h1>
+                <%
+=begin%>
+ <% s.foreign_sources_plants.each do |fo| %>
+                  <small class="has-text-grey	"><%= fo.fid %> on <%= fo&.foreign_source&.name %></small>
+                <% end %> 
+<%
+=end%>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>No known synonyms</p>
+        <% end %>
+
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>
+
+<%= javascript_pack_tag 'explore/SpeciesPage' %>

@@ -1,0 +1,23 @@
+<%= link_to explore_record_correction_path(correction), class: 'correction-item' do %>
+  <main>
+    <h2 class="title is-5">
+      <span class="tag"><%= correction.change_status %></span>
+      <span><%= title_for_correction(correction) %></span>
+    </h2>
+  </main>
+  <footer>
+    <div class="footer-item">
+      <span>Submitted by </span>
+      <%= image_tag correction.user.gravatar_url, class: 'user-image' %>
+      <%= correction.user&.name || 'anonymous' %>
+      <%= " on #{correction.created_at.to_formatted_s(:short)}" %>
+    </div>
+    <div class="footer-item">
+      ᐧ From <%= correction.source_type %>
+    </div>
+    <div class="footer-item">
+      ᐧ <%= correction.notes.blank? ? 'No notes' : 'With a note' %>
+    </div>
+
+  </footer>
+<% end %>

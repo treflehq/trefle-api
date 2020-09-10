@@ -14,6 +14,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   namespace 'api' do
     namespace 'v1' do
       get '/', to: 'home#index'
+      get '/me', to: 'users#me'
 
       resources :kingdoms, only: %i[index show]
       resources :subkingdoms, only: %i[index show]
@@ -35,6 +36,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
       end
 
       resources :species, only: %i[index show] do
+        resources :record_corrections, only: %i[index], path: 'corrections'
         post '/report', action: :report, on: :member
         get '/search', action: :search, on: :collection
       end
@@ -55,6 +57,16 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     end
 
     match '*all', controller: 'api', action: 'cors_preflight_check', via: [:options]
+  end
+
+  namespace 'explore' do
+    get '/', to: 'species#index'
+    resources :species, only: %i[index show] do
+      resources :record_corrections, only: %i[index], path: 'corrections'
+    end
+    resources :record_corrections, path: 'corrections', only: %i[index show] do
+
+    end
   end
 
   namespace 'management' do
@@ -94,10 +106,6 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     resources :divisions
     resources :division_orders
     resources :division_classes
-    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
-
-  # mount Rswag::Ui::Engine => '/swagger'
-  # mount Rswag::Api::Engine => '/swagger'
 
 end

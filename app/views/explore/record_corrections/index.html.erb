@@ -1,0 +1,33 @@
+<div class="species-page home-page container" id="explore-species-page">
+  <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
+  
+  <div class="columns">
+    <div class="column is-3">
+      <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'corrections', corrections: @collection} %>
+    </div>
+
+    <div class="column is-9">
+      <% if @collection.empty? %>
+        <div class="notification is-info is-light">
+          <p>There is no corrections for <%= @species.scientific_name %> yet.</p>
+        </div>
+      <% end %>
+
+      <% @collection.each do |correction| %>
+        <%= render partial: 'explore/record_corrections/correction_item', locals: {correction: correction} %>
+      <% end %>
+
+      <% if @collection.count > 20 %>
+        <div class="container">
+          <%== pagy_bulma_nav(@pagy) %>
+          <%== pagy_info(@pagy) %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>

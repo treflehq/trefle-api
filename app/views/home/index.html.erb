@@ -1,4 +1,4 @@
-<% cache [:home, :index, TrefleAdmin::Application::VERSION, @jwt.token] do %>
+<% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?] do %>
   <div class="home-page container">
     <section class="hero">
       <div class="hero-body">
@@ -24,11 +24,6 @@
           <div class="column is-10 is-offset-1">
             <h2 class="subtitle">
               <p>We are an open, freely accessible botanical data source and REST API.</p>
-              <%
-=begin%>
-              <div class="typed"><span class="typed-in"></span></div>
-              <%
-=end%>
             </h2>
           </div>
         </div>
@@ -39,7 +34,7 @@
               <% if current_user %>
               <a href="<%= profile_path %>" class="button is-primary">My account</a>
               <% else %>
-              <a href="<%= new_user_registration_path %>" class="button is-primary">Create an account to get started</a>
+              <a href="<%= new_user_registration_path %>" class="button is-primary">Get started</a>
               <% end %>
             </div>
           </div>
@@ -146,16 +141,11 @@
               Students
             </h1>
             <p>
-              Get in touch ! We try to support as much as we can educational projects !
+              Get in touch! We try to support educational projects as much as we can!
             </p>
           </div>
         </div>
       </div>
-
-      <script>
-        var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
-        var temp_token = "<%= @jwt.token %>";
-      </script>
     </section>
     <hr />
     <section class="section">
@@ -173,3 +163,11 @@
       </div>
   </div>
 <% end %>
+
+<script>
+  var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
+  var temp_token = "<%= @jwt.token %>";
+</script>
+
+<%= javascript_pack_tag 'home/codesandbox' %>
+<%= javascript_pack_tag 'home/home' %>

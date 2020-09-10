@@ -15,24 +15,32 @@
     <div id="navbar-trefle" class="navbar-menu">
       <div class="navbar-start">
 
-        <a class="navbar-item " href="https://docs.trefle.io">
-          Documentation
+        <% if user_signed_in? && current_user.admin? %>
+        <a class="navbar-item " href="<%= explore_path %>">
+          <i class="fad fa-compass"></i><span> Explore</span>
         </a>
-        <a class="navbar-item " href="<%= about_path %>">
-          About
+        <% end %>
+
+        <a class="navbar-item " href="https://docs.trefle.io">
+          <i class="fad fa-book"></i><span> Documentation</span>
         </a>
 
         <% if user_signed_in? && current_user.admin? %>
         <a class="navbar-item " href="<%= management_path %>">
-          Management
+          <i class="fad fa-key"></i><span> Management</span>
         </a>
         <% end %>
+        
+        <a class="navbar-item " href="<%= about_path %>">
+          <i class="fad fa-clipboard-user"></i><span> About</span>
+        </a>
       </div>
 
       <div class="navbar-end">
         <% if user_signed_in? %>
         <a class="navbar-item" title="Account" href="<%= profile_path() %>">
-          Account
+          <%= image_tag current_user.gravatar_url, class: 'user-image' %>
+          <%= current_user.name || current_user.email %>
         </a>
         <%
 =begin%>

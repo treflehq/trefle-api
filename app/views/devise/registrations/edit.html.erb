@@ -38,6 +38,20 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= f.label :organization_name, class: "label" %>
+    <div class="control">
+      <%= f.text_field :organization_name, autofocus: true, autocomplete: "organization name", placeholder: 'Your organization name', class: "input", required: true %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :organization_url, class: "label" %>
+    <div class="control">
+      <%= f.text_field :organization_url, autofocus: true, autocomplete: "organization url", placeholder: 'Your organization website (if any)', class: "input", required: true %>
+    </div>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
@@ -61,6 +75,7 @@
     </div>
   </div>
 
+  <hr />
   <div class="field">
     <%= f.label :current_password, class: 'label' %> <i>(we need your current password to confirm your changes)</i>
     <div class="control">

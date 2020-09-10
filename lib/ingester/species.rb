@@ -31,7 +31,7 @@ module Ingester
     end
 
     def check!
-      raise IngesterException, 'No scientific name' if @data[:scientific_name].blank?
+      raise IngesterException, 'No scientific name' if @data[:scientific_name].blank? && @species.nil?
     end
 
     def ingest!
@@ -198,7 +198,6 @@ module Ingester
     end
 
     def return_hash(changes = nil)
-      @species
       {
         id: @species&.id,
         saved: @species&.persisted?,

@@ -1,6 +1,45 @@
 
 @import "variables";
 
+.content figure.ri-container {
+  margin: auto;
+}
+.content figure.ri-container img {
+  // display: block;
+}
+.content figure.ri-container figcaption{
+  font-style: normal;
+}
+.content figure.ri-container figcaption h2 {
+  margin: 0px;
+  padding: 0px;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.1px;
+  max-width: 500px;
+  text-align: left;
+  background: none;
+  margin-top: 5px;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+}
+.content figure.ri-container figcaption h1 {
+
+  margin: 0px;
+  padding: 0px;
+  font-weight: normal;
+  font-size: 40px;
+  letter-spacing: 0.5px;
+  line-height: 35px;
+  text-align: left;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+}
+.column.is-2 .ri-trigger {
+    width: 150px;
+    height: 150px;
+}
+
 .alpha-badge {
   position: relative;
   font-size: .7rem;
@@ -15,6 +54,7 @@
   @include respond-to(handhelds) { display: none };
 }
 
+
 .about-page {
   h1 {
     font-weight: bold;
@@ -28,6 +68,10 @@
 a.navbar-item {
   font-family: 'Source Sans Pro', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 600;
+
+  i, .svg-inline--fa {
+    padding-right: 5px;
+  }
 }
 
 .footer > .level {
@@ -76,20 +120,6 @@ a.navbar-item.aligned-item {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-
-// .code-wrap-left {
-//   border-top: 1px solid #42b913;
-//   border-left: 1px solid #42b913;
-//   border-bottom: 1px solid #42b913;
-//   border-radius: 5px 0px 0px 5px;
-// }
-
-// .code-wrap-right {
-//   border-top: 1px solid #42b913;
-//   border-right: 1px solid #42b913;
-//   border-bottom: 1px solid #42b913;
-//   border-radius: 0px 5px 5px 0px;
-// }
 
 .speciesItem {
   display: flex;
@@ -156,6 +186,8 @@ a.navbar-item.aligned-item {
   font-family: $family-monospace;
 
   .section.content {
+    border-left: 2px solid transparent;
+    
     &:active,
     &:target {
       border-left: 2px solid $green;

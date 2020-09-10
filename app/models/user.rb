@@ -46,6 +46,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
 
+  include Gravtastic
+  gravtastic
+
   has_many :record_corrections, dependent: :nullify
   has_many :user_queries, dependent: :destroy
 

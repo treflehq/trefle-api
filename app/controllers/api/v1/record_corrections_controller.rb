@@ -100,8 +100,9 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
   def collection
     return @collection if @collection
 
-    @collection = RecordCorrection.where(user_id: current_user.id) if params[:mine]
     @collection ||= RecordCorrection.all
+    @collection = @collection.where(record: Species.friendly.find(params[:species_id])) if params[:species_id]
+    @collection = @collection.where(user_id: current_user.id) if params[:mine]
 
     # @collection = @collection.preload(:plant, :genus, :synonyms)
 

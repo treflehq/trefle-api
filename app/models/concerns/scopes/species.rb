@@ -10,7 +10,29 @@ module Scopes
 
       Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.each do |field|
         scope "filter_not_by_#{field}".to_sym, lambda {|value|
-          value.compact.empty? ? where(field => nil) : where.not(field => value).or(where(field => nil))
+          puts "filter_not_by_#{field} -> #{value.inspect}"
+          coll = where.not(field => [*value])
+          coll = coll.or(where(field => nil)) unless [*value].include?(nil)
+          coll
+        }
+      end
+
+      ::Species.active_flags.each_key do |flag|
+        scope "filter_not_by_#{flag}".to_sym, lambda {|value|
+          puts "filter_not_by_#{flag} -> #{value.inspect}"
+          flagger = ::Species.active_flags[flag]
+          if value
+            values = flagger.maps.keys - [*value].map(&:to_sym)
+
+            if values == flagger.maps.keys
+              where.not(flag => [0, nil])
+            else
+              int_val = flagger.to_i(values)
+              where.not("species.#{flag} & #{int_val} > 0")
+            end
+          else
+            where.not(flag => [0, nil])
+          end
         }
       end
 
@@ -18,6 +40,8 @@ module Scopes
       scope :filter_by_establishment, ->(v) { joins(:species_distributions).where(species_distributions: { establishment: v }).distinct }
 
       # Binary flags overrides
+      scope :filter_by_duration, ->(v) { where_duration(*v) }
+      scope :filter_not_by_duration, ->(_v) { where.not(duration: [0, nil]) }
       scope :filter_by_growth_months, ->(v) { where_growth_months(*v) }
       scope :filter_not_by_growth_months, ->(_v) { where.not(growth_months: [0, nil]) }
       scope :filter_by_bloom_months, ->(v) { where_bloom_months(*v) }
@@ -31,7 +55,21 @@ module Scopes
       scope :filter_by_fruit_color, ->(v) { where_fruit_color(*v) }
       scope :filter_not_by_fruit_color, ->(_v) { where.not(fruit_color: [0, nil]) }
       scope :filter_by_edible_part, ->(v) { where_edible_part(*v) }
-      scope :filter_not_by_edible_part, ->(_v) { where.not(edible_part: [0, nil]) }
+      # scope :filter_not_by_edible_part, lambda {|value|
+      #   puts "VALUE = #{value.inspect}"
+      #   if value
+      #     values = ::Species.edible_parts.maps.keys - [*value].map(&:to_sym)
+
+      #     if values == ::Species.edible_parts.maps.keys
+      #       where.not(edible_part: [0, nil])
+      #     else
+      #       int_val = ::Species.edible_parts.to_i(values)
+      #       where.not("species.edible_part & #{int_val} > 0")
+      #     end
+      #   else
+      #     where.not(edible_part: [0, nil])
+      #   end
+      # }
       scope :filter_not_by_image_url, ->(_v) { where.not(main_image_url: nil) }
 
       # Ranges

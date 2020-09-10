@@ -1,6 +1,6 @@
 FROM ruby:2.6.5-alpine
-LABEL maintainer="andre@luua.io"
-LABEL description="The luua.io backend API docker image"
+LABEL maintainer="andre@trefle.io"
+LABEL description="The trefle.io backend API docker image"
 
 RUN apk update && apk upgrade && apk add \
   make cmake build-base coreutils libpq gcc g++ libc-dev linux-headers \
@@ -24,7 +24,7 @@ ENV NODE_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV PORT 3000
 
-VOLUME ["/tmp"]
+# VOLUME ["/tmp"]
 
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock

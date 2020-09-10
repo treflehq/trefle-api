@@ -46,7 +46,7 @@
             </a>
           </p>
           <p class="control is-expanded">
-            <input class="input readonly" readonly value="<%= current_user.token %>" />
+            <input class="input readonly" readonly value="<%= current_user&.token %>" />
           </p>
         </div>
         <p class="help">You token allow you to makes queries on the Trefle API. Keep it private.</p>
@@ -69,6 +69,14 @@
           <li>
             <strong>Email:</strong>
             <%= current_user.email %>
+          </li>
+          <li>
+            <strong>Organization:</strong>
+            <%= current_user.organization_name %>
+          </li>
+          <li>
+            <strong>Website:</strong>
+            <%= current_user.organization_url %>
           </li>
           <li>
             <strong>Password</strong>

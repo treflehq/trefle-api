@@ -17,12 +17,12 @@
       <%= link_to('Plants', management_plants_path, class: 'navbar-item') %>
       <%= link_to('Species', management_species_index_path, class: 'navbar-item') %>
       <%= link_to(management_record_corrections_path, class: 'navbar-item') do %>
-      Corrections
-      <span class="tag is-info is-small"><%= RecordCorrection.pending_change_status.count %><span>
-          <% end %>
-          <%= link_to('Chaos', chaos_management_species_images_path, class: 'navbar-item') %>
-          <%= link_to('Queries', management_user_queries_path, class: 'navbar-item') %>
-          <%= link_to('Stats', stats_management_user_queries_path, class: 'navbar-item') %>
+        Corrections
+        <span class="tag is-info is-small"><%= RecordCorrection.pending_change_status.count %><span>
+      <% end %>
+      <%= link_to('Chaos', chaos_management_species_images_path, class: 'navbar-item') %>
+      <%= link_to('Queries', management_user_queries_path, class: 'navbar-item') %>
+      <%= link_to('Stats', stats_management_user_queries_path, class: 'navbar-item') %>
     </div>
 
     <div class="navbar-end">
