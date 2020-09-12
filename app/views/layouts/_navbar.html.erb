@@ -16,7 +16,7 @@
       <div class="navbar-start">
 
         <% if user_signed_in? && current_user.admin? %>
-        <a class="navbar-item " href="<%= explore_path %>">
+        <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
           <i class="fad fa-compass"></i><span> Explore</span>
         </a>
         <% end %>
@@ -31,7 +31,7 @@
         </a>
         <% end %>
         
-        <a class="navbar-item " href="<%= about_path %>">
+        <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
           <i class="fad fa-clipboard-user"></i><span> About</span>
         </a>
       </div>

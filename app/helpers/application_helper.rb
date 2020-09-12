@@ -39,4 +39,12 @@ module ApplicationHelper
       tag.span(val.to_s, class: "#{val.class.to_s.underscore}-elt")
     end
   end
+
+  def active_class_for(active_controller: nil, class_name: 'has-text-link')
+    cname = "#{controller.class.to_s.underscore.gsub('_controller', '')}##{action_name}"
+    puts "cname: #{cname}"
+    return class_name if active_controller && (cname == active_controller || cname =~ /#{active_controller}/)
+
+    ""
+  end
 end

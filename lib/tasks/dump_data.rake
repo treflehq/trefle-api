@@ -66,7 +66,7 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
       Species.find_in_batches.with_index do |group, batch|
         puts "Dumping group ##{batch}"
         Species.where(id: group.map(&:id)).preload(:synonyms, :zones, :common_names, genus: :family).each do |sp|
-          next if (sp&.completion_ratio || 0) < 20
+          # next if (sp&.completion_ratio || 0) < 20
 
           csv << convert_species_to_line(sp).values
         end
