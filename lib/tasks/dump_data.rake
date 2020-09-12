@@ -56,12 +56,11 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
         planting_spread_cm: sp.planting_spread_cm,
         synonyms: array_value(sp.synonyms.map(&:name)),
         distributions: array_value(sp.zones.map(&:name)),
-        common_names: array_value(sp.common_names.where(lang: 'en').map(&:name)),
+        common_names: array_value(sp.common_names.where(lang: 'en').map(&:name))
       }
     end
 
-
-    CSV.open("../trefle-data/dump-#{Date.today.to_s}.csv", "wb", headers: true, col_sep: "\t") do |csv|
+    CSV.open("../trefle-data/dump-#{Date.today}.csv", 'wb', headers: true, col_sep: "\t") do |csv|
       csv << convert_species_to_line(Species.first).keys
 
       Species.find_in_batches.with_index do |group, batch|
