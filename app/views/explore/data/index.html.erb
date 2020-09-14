@@ -1,0 +1,33 @@
+<div class="about-page home-page container">
+  <div class="columns">
+    <div class="column is-2"></div>
+    <div class="column is-8">
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-1">
+              <i class="fad has-text-primary fa-database"></i>
+              Data archives
+            </h1>
+            <h2 class="subtitle">
+              Download the Trefle botanical data on species.
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="section content" id="species-data">
+        <p>Database archive is automatically updated after a certain amount of changes.</p>
+        <a class="button is-primary" href="https://github.com/treflehq/dump/raw/master/species.csv" target="_blank" rel="nofollow">Download latest dump</a>
+      </section>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>

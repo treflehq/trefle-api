@@ -16,9 +16,21 @@
       <div class="navbar-start">
 
         <% if user_signed_in? && current_user.admin? %>
-        <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
-          <i class="fad fa-compass"></i><span> Explore</span>
-        </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
+              <i class="fad fa-compass"></i><span> Explore</span>
+            </a>
+
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="<%= explore_path %>">
+                <i class="fad fa-search"></i><span> Search</span>
+              </a>
+              <a class="navbar-item" href="<%= explore_data_path %>">
+                <i class="fad fa-database"></i><span> Data</span>
+              </a>
+            </div>
+          </div>
+
         <% end %>
 
         <a class="navbar-item " href="https://docs.trefle.io">
