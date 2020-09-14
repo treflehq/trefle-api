@@ -45,6 +45,6 @@ module ApplicationHelper
     puts "cname: #{cname}"
     return class_name if active_controller && (cname == active_controller || cname =~ /#{active_controller}/)
 
-    ""
+    ''
   end
 end

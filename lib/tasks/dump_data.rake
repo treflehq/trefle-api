@@ -63,28 +63,28 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
     md = []
     md << <<~DESC
 
-  # Trefle data
+      # Trefle data
 
-  [🌎 Website](https://trefle.io)  •  [🚀 Getting started](https://docs.trefle.io)  •  [📖 API Documentation](https://docs.trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
+      [🌎 Website](https://trefle.io)  •  [🚀 Getting started](https://docs.trefle.io)  •  [📖 API Documentation](https://docs.trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
 
-  [![View performance data on Skylight](https://badges.skylight.io/status/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/rpm/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/problem/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/typical/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)
+      [![View performance data on Skylight](https://badges.skylight.io/status/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/rpm/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/problem/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/typical/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)
 
-  This is the repository for the [Trefle](https://trefle.io) data.
+      This is the repository for the [Trefle](https://trefle.io) data.
 
-  > This dump has been generated on #{Date.today.to_s}
+      > This dump has been generated on #{Date.today}
 
-  ## Structure
+      ## Structure
 
-  The database dump is a tab-sperated text file with the following rows:
+      The database dump is a tab-sperated text file with the following rows:
 
-DESC
+    DESC
 
-    CSV.open("../trefle-data/species.csv", 'wb', headers: true, col_sep: "\t") do |csv|
+    CSV.open('../trefle-data/species.csv', 'wb', headers: true, col_sep: "\t") do |csv|
       keys = convert_species_to_line(Species.first).keys
 
       csv << keys
 
-      md << keys.map{|e| "- #{e}"}.join("\n")
+      md << keys.map {|e| "- #{e}" }.join("\n")
 
       Species.find_in_batches.with_index do |group, batch|
         puts "Dumping group ##{batch}"
