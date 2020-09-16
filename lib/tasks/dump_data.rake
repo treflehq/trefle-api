@@ -75,7 +75,7 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
 
       ## Structure
 
-      The database dump is a tab-sperated text file with the following rows:
+      The database dump is a tab-separated text file with the following rows:
 
     DESC
 
