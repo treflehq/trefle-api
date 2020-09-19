@@ -21,7 +21,7 @@ module Scopes
         scope "filter_not_by_#{flag}".to_sym, lambda {|value|
           puts "filter_not_by_#{flag} -> #{value.inspect}"
           flagger = ::Species.active_flags[flag]
-          if value
+          if value && value.first
             values = flagger.maps.keys - [*value].map(&:to_sym)
 
             if values == flagger.maps.keys
