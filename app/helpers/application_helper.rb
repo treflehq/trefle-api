@@ -40,6 +40,10 @@ module ApplicationHelper
     end
   end
 
+  def is_explore_namespace?
+    controller.class.to_s.underscore.starts_with? 'explore/'
+  end
+
   def active_class_for(active_controller: nil, class_name: 'has-text-link')
     cname = "#{controller.class.to_s.underscore.gsub('_controller', '')}##{action_name}"
     puts "cname: #{cname}"

@@ -26,7 +26,7 @@
                 <i class="fad fa-search"></i><span> Search</span>
               </a>
               <a class="navbar-item" href="<%= explore_data_path %>">
-                <i class="fad fa-database"></i><span> Data</span>
+                <i class="fad fa-database"></i><span> Downloads</span>
               </a>
             </div>
           </div>
@@ -46,6 +46,7 @@
         <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
           <i class="fad fa-clipboard-user"></i><span> About</span>
         </a>
+        
       </div>
 
       <div class="navbar-end">
@@ -91,4 +92,12 @@
       </div>
     </div>
   </nav>
+  <%
+=begin%>
+ <% if is_explore_namespace? %>
+    <hr/>
+    <%= render partial: 'explore/layouts/navbar' %>
+  <% end %> 
+<%
+=end%>
 </div>
