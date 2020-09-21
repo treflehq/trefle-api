@@ -1,7 +1,20 @@
 <%= link_to explore_species_path(species), class: 'species-grid-item' do %>
   <aside style="background-image: url(<%= species.main_image_url %>)"></aside>
   <main>
-    <h2 class="title is-5"><%= species.scientific_name %></h2>
+    <h2 class="title is-5">
+
+        <% if species.edible? %>
+          <span class="icon has-text-success is-small" title="Edible species">
+            <i class="fad is-rounded fa-utensils is-primary"></i>
+          </span>
+        <% end %>
+        <% if species.vegetable? %>
+          <span class="icon has-text-primary is-small" title="Vegetable species">
+            <i class="fad is-rounded fa-carrot is-primary"></i>
+          </span>
+        <% end %>
+      <%= species.scientific_name %>
+    </h2>
     <p class="subtitle is-6"><%= species.common_name %></p>
   </main>
 <% end %>

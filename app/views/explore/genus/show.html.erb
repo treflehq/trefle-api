@@ -1,0 +1,23 @@
+<div class="genus-page home-page container">
+  <%= render partial: 'explore/genus/genus_header', locals: {genus: @genus, species: @species} %>
+
+  <% if @collection %>
+    <div class="columns is-multiline">
+
+      <% @collection.each do |species| %>
+        <div class="column is-3">
+          <%= render partial: 'explore/species/species_item', locals: {species: species} %>
+        </div>
+      <% end %>
+    </div>
+    <div class="container">
+      <%== pagy_bulma_nav(@pagy) %>
+      <%== pagy_info(@pagy) %>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  var temp_token = "<%= current_user&.token || @jwt.token %>";
+</script>

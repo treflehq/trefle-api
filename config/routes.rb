@@ -65,6 +65,8 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     resources :species, only: %i[index show] do
       resources :record_corrections, only: %i[index], path: 'corrections'
     end
+    resources :genus, only: %i[index show] do
+    end
     resources :record_corrections, path: 'corrections', only: %i[index show] do
 
     end
