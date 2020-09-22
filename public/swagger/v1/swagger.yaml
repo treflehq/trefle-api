@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.027Z'
+                      last_modified: '2020-09-22T12:26:41.056Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.041Z'
+                      last_modified: '2020-09-22T12:26:41.068Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.055Z'
+                      last_modified: '2020-09-22T12:26:41.085Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.091Z'
+                      last_modified: '2020-09-22T12:26:41.124Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.151Z'
+                      last_modified: '2020-09-22T12:26:41.165Z'
         '401':
           description: Invalid credentials
           content:
@@ -2214,7 +2214,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.361Z'
+                      last_modified: '2020-09-22T12:26:41.452Z'
         '401':
           description: Invalid credentials
           content:
@@ -2465,7 +2465,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-09-10T10:09:23.817Z'
+                      last_modified: '2020-09-22T12:26:41.873Z'
         '401':
           description: Invalid credentials
           content:
@@ -3055,7 +3055,7 @@ paths:
                         url: https://www.gbif.org/species/4234505
                         citation: 
                     meta:
-                      last_modified: '2020-09-10T10:09:23.694Z'
+                      last_modified: '2020-09-22T12:26:41.760Z'
         '401':
           description: Invalid credentials
           content:
@@ -3207,12 +3207,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-09-10T10:09:30.395Z'
-                      updated_at: '2020-09-10T10:09:30.397Z'
+                      created_at: '2020-09-22T12:26:49.347Z'
+                      updated_at: '2020-09-22T12:26:49.348Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-09-10T10:09:30.397Z'
+                      last_modified: '2020-09-22T12:26:49.348Z'
         '401':
           description: Invalid credentials
           content:
@@ -4093,6 +4093,25 @@ paths:
                         self: "/api/v1/species/sorbus-aucuparia-subsp-maderensis"
                         plant: "/api/v1/plants/sorbus-aucuparia"
                         genus: "/api/v1/genus/sorbus"
+                    - id: 273225
+                      common_name: 
+                      slug: senecio-gamolepis
+                      scientific_name: Senecio gamolepis
+                      year: 1955
+                      bibliography: 'Notas Mus. La Plata, Bot. 18(89): 222 (1955)'
+                      author: Cabrera
+                      status: accepted
+                      rank: species
+                      family_common_name: Aster family
+                      genus_id: 669
+                      image_url: 
+                      synonyms: []
+                      genus: Senecio
+                      family: Asteraceae
+                      links:
+                        self: "/api/v1/species/senecio-gamolepis"
+                        plant: "/api/v1/plants/senecio-gamolepis"
+                        genus: "/api/v1/genus/senecio"
                     - id: 1164147
                       common_name: spreading hedgeparsley
                       slug: torilis-arvensis-subsp-heterophylla
@@ -4114,25 +4133,6 @@ paths:
                         self: "/api/v1/species/torilis-arvensis-subsp-heterophylla"
                         plant: "/api/v1/plants/torilis-arvensis"
                         genus: "/api/v1/genus/torilis"
-                    - id: 273225
-                      common_name: 
-                      slug: senecio-gamolepis
-                      scientific_name: Senecio gamolepis
-                      year: 1955
-                      bibliography: 'Notas Mus. La Plata, Bot. 18(89): 222 (1955)'
-                      author: Cabrera
-                      status: accepted
-                      rank: species
-                      family_common_name: Aster family
-                      genus_id: 669
-                      image_url: 
-                      synonyms: []
-                      genus: Senecio
-                      family: Asteraceae
-                      links:
-                        self: "/api/v1/species/senecio-gamolepis"
-                        plant: "/api/v1/plants/senecio-gamolepis"
-                        genus: "/api/v1/genus/senecio"
                     - id: 328914
                       common_name: spreading hedgeparsley
                       slug: torilis-arvensis-subsp-turcomanica
@@ -4531,10 +4531,8 @@ paths:
                         - wilde lijsterbes
                       distribution:
                         native:
-                        - Albania
                         - Iran
-                        - Transcaucasus
-                        - Iceland
+                        - Albania
                         - Bulgaria
                         - Greece
                         - Romania
@@ -4549,6 +4547,7 @@ paths:
                         - Spain
                         - Delaware
                         - Krym
+                        - Transcaucasus
                         - Ukraine
                         - Austria
                         - Baltic States
@@ -4569,16 +4568,15 @@ paths:
                         - Poland
                         - Sweden
                         - Switzerland
+                        - Iceland
                         - Turkmenistan
                         introduced:
-                        - District of Columbia
-                        - Vermont
-                        - Alaska
                         - New Zealand North
                         - New Zealand South
                         - Illinois
                         - South Carolina
                         - California
+                        - District of Columbia
                         - Indiana
                         - Iowa
                         - Maryland
@@ -4589,6 +4587,7 @@ paths:
                         - Ontario
                         - Pennsylvania
                         - Québec
+                        - Vermont
                         - West Virginia
                         - Connecticut
                         - Maine
@@ -4607,6 +4606,7 @@ paths:
                         - Prince Edward I.
                         - Washington
                         - Oregon
+                        - Alaska
                         - Alberta
                         - Idaho
                         - Montana
@@ -4618,16 +4618,6 @@ paths:
                         - Wyoming
                       distributions:
                         native:
-                        - id: 93
-                          name: Albania
-                          slug: alb
-                          tdwg_code: ALB
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/alb"
-                            plants: "/api/v1/distributions/alb/plants"
-                            species: "/api/v1/distributions/alb/species"
                         - id: 11
                           name: Iran
                           slug: irn
@@ -4638,26 +4628,16 @@ paths:
                             self: "/api/v1/distributions/irn"
                             plants: "/api/v1/distributions/irn/plants"
                             species: "/api/v1/distributions/irn/species"
-                        - id: 272
-                          name: Transcaucasus
-                          slug: tcs
-                          tdwg_code: TCS
+                        - id: 93
+                          name: Albania
+                          slug: alb
+                          tdwg_code: ALB
                           tdwg_level: 3
-                          species_count: 2
+                          species_count: 3
                           links:
-                            self: "/api/v1/distributions/tcs"
-                            plants: "/api/v1/distributions/tcs/plants"
-                            species: "/api/v1/distributions/tcs/species"
-                        - id: 314
-                          name: Iceland
-                          slug: ice
-                          tdwg_code: ICE
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/ice"
-                            plants: "/api/v1/distributions/ice/plants"
-                            species: "/api/v1/distributions/ice/species"
+                            self: "/api/v1/distributions/alb"
+                            plants: "/api/v1/distributions/alb/plants"
+                            species: "/api/v1/distributions/alb/species"
                         - id: 94
                           name: Bulgaria
                           slug: bul
@@ -4798,6 +4778,16 @@ paths:
                             self: "/api/v1/distributions/kry"
                             plants: "/api/v1/distributions/kry/plants"
                             species: "/api/v1/distributions/kry/species"
+                        - id: 272
+                          name: Transcaucasus
+                          slug: tcs
+                          tdwg_code: TCS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/tcs"
+                            plants: "/api/v1/distributions/tcs/plants"
+                            species: "/api/v1/distributions/tcs/species"
                         - id: 273
                           name: Ukraine
                           slug: ukr
@@ -4998,6 +4988,16 @@ paths:
                             self: "/api/v1/distributions/swi"
                             plants: "/api/v1/distributions/swi/plants"
                             species: "/api/v1/distributions/swi/species"
+                        - id: 314
+                          name: Iceland
+                          slug: ice
+                          tdwg_code: ICE
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ice"
+                            plants: "/api/v1/distributions/ice/plants"
+                            species: "/api/v1/distributions/ice/species"
                         - id: 337
                           name: Turkmenistan
                           slug: tkm
@@ -5009,36 +5009,6 @@ paths:
                             plants: "/api/v1/distributions/tkm/plants"
                             species: "/api/v1/distributions/tkm/species"
                         introduced:
-                        - id: 229
-                          name: District of Columbia
-                          slug: wdc
-                          tdwg_code: WDC
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/wdc"
-                            plants: "/api/v1/distributions/wdc/plants"
-                            species: "/api/v1/distributions/wdc/species"
-                        - id: 243
-                          name: Vermont
-                          slug: ver
-                          tdwg_code: VER
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/ver"
-                            plants: "/api/v1/distributions/ver/plants"
-                            species: "/api/v1/distributions/ver/species"
-                        - id: 325
-                          name: Alaska
-                          slug: ask
-                          tdwg_code: ASK
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ask"
-                            plants: "/api/v1/distributions/ask/plants"
-                            species: "/api/v1/distributions/ask/species"
                         - id: 132
                           name: New Zealand North
                           slug: nzn
@@ -5089,6 +5059,16 @@ paths:
                             self: "/api/v1/distributions/cal"
                             plants: "/api/v1/distributions/cal/plants"
                             species: "/api/v1/distributions/cal/species"
+                        - id: 229
+                          name: District of Columbia
+                          slug: wdc
+                          tdwg_code: WDC
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/wdc"
+                            plants: "/api/v1/distributions/wdc/plants"
+                            species: "/api/v1/distributions/wdc/species"
                         - id: 230
                           name: Indiana
                           slug: ini
@@ -5189,6 +5169,16 @@ paths:
                             self: "/api/v1/distributions/que"
                             plants: "/api/v1/distributions/que/plants"
                             species: "/api/v1/distributions/que/species"
+                        - id: 243
+                          name: Vermont
+                          slug: ver
+                          tdwg_code: VER
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/ver"
+                            plants: "/api/v1/distributions/ver/plants"
+                            species: "/api/v1/distributions/ver/species"
                         - id: 244
                           name: West Virginia
                           slug: wva
@@ -5369,6 +5359,16 @@ paths:
                             self: "/api/v1/distributions/ore"
                             plants: "/api/v1/distributions/ore/plants"
                             species: "/api/v1/distributions/ore/species"
+                        - id: 325
+                          name: Alaska
+                          slug: ask
+                          tdwg_code: ASK
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ask"
+                            plants: "/api/v1/distributions/ask/plants"
+                            species: "/api/v1/distributions/ask/species"
                         - id: 326
                           name: Alberta
                           slug: abt
@@ -5604,7 +5604,7 @@ paths:
                       images_count: 37
                       sources_count: 5
                       synonyms_count: 13
-                      last_modified: '2020-09-10T10:09:23.838Z'
+                      last_modified: '2020-09-22T12:26:41.892Z'
         '401':
           description: Invalid credentials
           content:
@@ -5756,12 +5756,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-09-10T10:09:30.869Z'
-                      updated_at: '2020-09-10T10:09:30.871Z'
+                      created_at: '2020-09-22T12:26:49.852Z'
+                      updated_at: '2020-09-22T12:26:49.853Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-09-10T10:09:30.871Z'
+                      last_modified: '2020-09-22T12:26:49.853Z'
         '401':
           description: Invalid credentials
           content:
@@ -6487,7 +6487,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-09-10T10:09:21.221Z'
+                      last_modified: '2020-09-22T12:26:39.206Z'
         '401':
           description: Invalid credentials
           content:
@@ -6534,8 +6534,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA5LTExIDEyOjA5OjMxICswMjAwIiwiZXhwIjoxNTk5ODE4OTcxfQ.fYBnXBN_VV6tuq5K6P1IhTn_CbxoQBG5h4nJ8odeoSk
-                    expiration: '09-11-2020 12:09'
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTA5LTIzIDE0OjI2OjUwICswMjAwIiwiZXhwIjoxNjAwODY0MDEwfQ.usTJy3LmvLrQhMoMvgejjmN6S-MgUyf9guB6Nn_43OE
+                    expiration: '09-23-2020 14:26'
         '401':
           description: Invalid credentials
           content:
@@ -6630,8 +6630,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-09-10T10:09:31.144Z'
-                      updated_at: '2020-09-10T10:09:31.144Z'
+                      created_at: '2020-09-22T12:26:50.115Z'
+                      updated_at: '2020-09-22T12:26:50.115Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -6643,8 +6643,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-09-10T10:09:31.134Z'
-                      updated_at: '2020-09-10T10:09:31.134Z'
+                      created_at: '2020-09-22T12:26:50.106Z'
+                      updated_at: '2020-09-22T12:26:50.106Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
@@ -6709,15 +6709,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-09-10T10:09:31.209Z'
-                      updated_at: '2020-09-10T10:09:31.209Z'
+                      created_at: '2020-09-22T12:26:50.181Z'
+                      updated_at: '2020-09-22T12:26:50.181Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-09-10T10:09:31.209Z'
+                      last_modified: '2020-09-22T12:26:50.181Z'
         '401':
           description: Invalid credentials
           content:
@@ -6773,8 +6773,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-09-10T10:09:31.376Z'
-                      updated_at: '2020-09-10T10:09:31.376Z'
+                      created_at: '2020-09-22T12:26:50.341Z'
+                      updated_at: '2020-09-22T12:26:50.341Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6784,7 +6784,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-09-10T10:09:31.376Z'
+                      last_modified: '2020-09-22T12:26:50.341Z'
         '422':
           description: Invalid parameters
           content:
@@ -7240,11 +7240,11 @@ components:
         edible:
           type: boolean
           nullable: true
-          description: Is the species edible ?
+          description: Is the species edible?
         vegetable:
           type: boolean
           nullable: true
-          description: Is the species a vegetable ?
+          description: Is the species a vegetable?
         observations:
           type: string
           nullable: true
@@ -7586,7 +7586,7 @@ components:
             conspicuous:
               type: boolean
               nullable: true
-              description: Is the flower visible ?
+              description: Is the flower visible?
           description: Flower related fields (the reproductive structure found in
             flowering plants)
         foliage:
@@ -7627,7 +7627,7 @@ components:
             leaf_retention:
               type: boolean
               nullable: true
-              description: Does the leaves stay all year long ?
+              description: Does the leaves stay all year long?
           description: Foliage (or leaves) related fields
         fruit_or_seed:
           type: object
@@ -7635,7 +7635,7 @@ components:
             conspicuous:
               type: boolean
               nullable: true
-              description: Is the fruit visible ?
+              description: Is the fruit visible?
             color:
               type: array
               nullable: true
@@ -8287,7 +8287,7 @@ components:
             genus:
               type: string
               nullable: true
-              example: 
+              example: Torilis
             year:
               type: integer
               nullable: true

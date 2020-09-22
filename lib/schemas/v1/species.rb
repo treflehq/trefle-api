@@ -125,8 +125,8 @@ module Schemas
               description: 'The plant edible part(s), if any.'
             }, # "stems",
 
-            edible: { type: :boolean, nullable: true, description: 'Is the species edible ?' },
-            vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable ?' },
+            edible: { type: :boolean, nullable: true, description: 'Is the species edible?' },
+            vegetable: { type: :boolean, nullable: true, description: 'Is the species a vegetable?' },
             observations: { type: :string, nullable: true, description: 'Some habit observations on the species' },
 
             images: images_schema,
@@ -136,17 +136,17 @@ module Schemas
 
             flower: Helpers.object_of({
               color: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.flower_colors.maps.keys, nil], description: 'The flower color(s)' }, description: 'The flower color(s)' }, # "Purple",
-              conspicuous: { type: :boolean, nullable: true, description: 'Is the flower visible ?' } # true
+              conspicuous: { type: :boolean, nullable: true, description: 'Is the flower visible?' } # true
             }, extras: { description: 'Flower related fields (the reproductive structure found in flowering plants)' }),
 
             foliage: Helpers.object_of({
               texture: { type: :string, nullable: true, enum: [*::Species.foliage_textures.keys, nil], description: 'The general texture of the plant’s foliage' }, # "Coarse",
               color: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.foliage_colors.maps.keys, nil], description: 'The leaves color(s)' }, description: 'The leaves color(s)' }, # "Purple",
-              leaf_retention: { type: :boolean, nullable: true, description: 'Does the leaves stay all year long ?' } # null,
+              leaf_retention: { type: :boolean, nullable: true, description: 'Does the leaves stay all year long?' } # null,
             }, extras: { description: 'Foliage (or leaves) related fields' }),
 
             fruit_or_seed: Helpers.object_of({
-              conspicuous: { type: :boolean, nullable: true, description: 'Is the fruit visible ?' }, # null,
+              conspicuous: { type: :boolean, nullable: true, description: 'Is the fruit visible?' }, # null,
               color: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.fruit_colors.maps.keys, nil], description: 'The fruit color(s)' }, description: 'The fruit color(s)' }, # "Purple",
               shape: { type: :string, nullable: true, description: 'Fruit shape' }, # null,
               seed_persistence: { type: :boolean, nullable: true, description: 'Are the fruit or seed generally recognized as being persistent on the plant?' } # null
