@@ -30,12 +30,19 @@
               </a>
             </div>
           </div>
-
         <% end %>
 
-        <a class="navbar-item " href="https://docs.trefle.io">
-          <i class="fad fa-book"></i><span> Documentation</span>
-        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-item " href="https://docs.trefle.io">
+            <i class="fad fa-book"></i><span> Documentation</span>
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="https://docs.trefle.io/docs/guides/getting-started">Getting started</a>
+            <a class="navbar-item" href="https://docs.trefle.io/reference">Reference</a>
+            <a class="navbar-item" href="https://docs.trefle.io/docs/examples/snippets">Snippets</a>
+            <a class="navbar-item" href="https://docs.trefle.io/blog/tags/releases">Releases</a>
+          </div>
+        </div>
 
         <% if user_signed_in? && current_user.admin? %>
         <a class="navbar-item " href="<%= management_path %>">
@@ -46,7 +53,6 @@
         <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
           <i class="fad fa-clipboard-user"></i><span> About</span>
         </a>
-        
       </div>
 
       <div class="navbar-end">

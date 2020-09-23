@@ -57,7 +57,15 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
         synonyms: array_value(sp.synonyms.map(&:name)),
         distributions: array_value(sp.zones.map(&:name)),
         common_names: array_value(sp.common_names.where(lang: 'en').map(&:name))
-      }
+      }.merge(collect_foreign_sources(sp))
+    end
+
+    def collect_foreign_sources(sp)
+      fsp = sp.foreign_sources_plants
+      ForeignSource.all.map do |fs|
+        item = fsp.where(foreign_source_id: fs.id).first
+        ["url_#{fs.slug.undescore}", item&.full_url]
+      end.to_h
     end
 
     md = []
@@ -72,6 +80,10 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
       This is the repository for the [Trefle](https://trefle.io) data.
 
       > This dump has been generated on #{Date.today}
+
+      ## Disclaimer
+
+      This is an early version of the Trefle Data. Schema is subject to change. As it's filled from external database, sources and users, it's not 100% validated or complete.
 
       ## Structure
 
