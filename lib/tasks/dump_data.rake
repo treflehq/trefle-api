@@ -64,7 +64,7 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
       fsp = sp.foreign_sources_plants
       ForeignSource.all.map do |fs|
         item = fsp.where(foreign_source_id: fs.id).first
-        ["url_#{fs.slug.undescore}", item&.full_url]
+        ["url_#{fs.slug.underscore}", item&.full_url]
       end.to_h
     end
 
@@ -88,6 +88,22 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
       ## Structure
 
       The database dump is a tab-separated text file with the following rows:
+
+      ## Licence
+
+      Trefle Data is licensed under the Open Database License (ODbL).
+
+      **You're free:**
+
+      - To Share: To copy, distribute and use the database.
+      - To Create: To produce works from the database.
+      - To Adapt: To modify, transform and build upon the database.
+
+      **Under the following conditions:**
+
+      - Attribute: You must attribute to Trefle any public use of the database, or works produced from the database. For any use or redistribution of the database, or works produced from it, you must make clear to others the license of the database and keep intact any notices on the original database.
+      - Share-Alike: If you publicly use any adapted version of this database, or works produced from an adapted database, you must also offer that adapted database under the ODbL.
+      - Keep open: If you redistribute the database, or an adapted version of it, then you may use technological measures that restrict the work (such as digital rights management) as long as you also redistribute a version without such measures.
 
     DESC
 

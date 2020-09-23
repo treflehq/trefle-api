@@ -25,7 +25,7 @@ module Ingester
           next(memo) if hash[metric].nil?
 
           value = hash[metric]
-          value = resolve_number(metric, value) if value.match(/^[\d]+$/)
+          value = resolve_number(metric, value) if value.to_s.match(/^[\d]+$/)
           puts "[Converter][Enum] Species.#{metric} = #{value.inspect}"
 
           memo[metric] = value&.to_sym
