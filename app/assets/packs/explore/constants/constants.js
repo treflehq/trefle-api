@@ -26,3 +26,13 @@ export const foliageTextures = {
   Medium: 'medium',
   Coarse: 'coarse',
 }
+
+export const edibleParts = {
+  Roots: 'roots',
+  Stem: 'stem',
+  Leaves: 'leaves',
+  Flowers: 'flowers',
+  Fruits: 'fruits',
+  Seeds: 'seeds',
+  Tubers: 'tubers',
+}

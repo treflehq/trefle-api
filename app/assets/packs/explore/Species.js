@@ -26,6 +26,7 @@ import DoneButton from './elements/DoneButton';
 import FieldObservation from './fields/FieldObservation';
 import EditButton from './elements/EditButton';
 import FieldImage from './fields/FieldImage';
+import FieldEdiblePart from './fields/FieldEdiblePart';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
@@ -45,7 +46,7 @@ const Species = ({ species }) => {
 
   const renderSpecifications = () => {
 
-    const { duration, observations, specifications, flower, foliage, fruit_or_seed } = species
+    const { duration, observations, edible_part, specifications, flower, foliage, fruit_or_seed } = species
 
     const {
       growth_habit, average_height, maximum_height
@@ -83,7 +84,8 @@ const Species = ({ species }) => {
               <FieldHeightAverage value={average_height.cm} />
             </p>
             <p><b>Growth habit</b>: <FieldGrowthHabit value={growth_habit} /></p>
-            <div><b>Duration</b>: <FieldDuration value={duration} /></div>
+            <p><b>Duration</b>: <FieldDuration value={duration} /></p>
+            <p><b>Edible part(s)</b>: <FieldEdiblePart value={edible_part} key="edible_part" name="edible_part" /></p>
           </div>
           <div className={clsx("column", edit ? 'is-12' : 'is-6')}>
             <div className="line"><i className="fad fa-flower" />{' '}{flowerFields}{' flowers'}</div>

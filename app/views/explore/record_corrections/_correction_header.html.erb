@@ -1,7 +1,7 @@
 <nav class="breadcrumb" aria-label="breadcrumbs">
     <ul>
       <li><a href="#"><%= species.family_name %></a></li>
-      <li><a href="#"><%= species.genus_name %></a></li>
+      <li><%= link_to(species.genus_name, explore_genus_path(species.genus&.slug)) %></li>
       <li><%= link_to(species.scientific_name, explore_species_path(@species, anchor: 'specifications')) %></li>
       <li class="is-active">
         <%= link_to('Corrections', explore_species_record_corrections_path(@species, anchor: 'corrections'), class: 'is-active', 'aria-current' => "page") %>

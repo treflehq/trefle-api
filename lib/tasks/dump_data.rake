@@ -125,6 +125,5 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
     end
 
     File.write('../trefle-data/README.md', md.join("\n"))
-
   end
 end
