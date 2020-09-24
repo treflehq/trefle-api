@@ -41,7 +41,6 @@ class Explore::GenusController < Explore::ExploreController
     )
     @collection = @genus.species.order(wiki_score: :desc)
     @pagy, @collection = pagy(@collection)
-
   end
 
   private
