@@ -23,14 +23,29 @@ import FieldFoliageTexture from './fields/FieldFoliageTexture';
 import FieldLeafRetention from './fields/FieldLeafRetention';
 import clsx from 'clsx';
 import DoneButton from './elements/DoneButton';
+import FieldObservation from './fields/FieldObservation';
+import EditButton from './elements/EditButton';
+import FieldImage from './fields/FieldImage';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
 
 
+  // const renderHeader = () => {
+  //   const { observations } = species
+
+  //   return <section className="section content">
+  //     <div className="columns is-multiline">
+  //       <div className="column is-12">
+  //         <FieldObservation value={observations} key="observations" name="observations" />
+  //       </div>
+  //     </div>
+  //   </section>
+  // }
+
   const renderSpecifications = () => {
 
-    const { duration, specifications, flower, foliage, fruit_or_seed } = species
+    const { duration, observations, specifications, flower, foliage, fruit_or_seed } = species
 
     const {
       growth_habit, average_height, maximum_height
@@ -56,8 +71,13 @@ const Species = ({ species }) => {
       <section className="section content" id="specifications">
         <h2 className="title is-3 ">
           <i className="fad fa-cog has-text-success"></i> Specifications
+          <EditButton />
         </h2>
         <div className="columns is-multiline">
+          <div className="column is-12">
+            <FieldObservation value={observations} key="observations" name="observations" />
+          </div>
+
           <div className={clsx("column", edit ? 'is-12' : 'is-6')}>
             <p><b>Height</b>:{' '}
               <FieldHeightAverage value={average_height.cm} />
@@ -85,6 +105,7 @@ const Species = ({ species }) => {
     return (<section className="section content" id="growth">
       <h2 className="title is-3 ">
         <i className="fad fa-seedling has-text-success"></i> Growing
+        <EditButton />
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
       <FieldLight name="light" value={growth.light} />
@@ -116,6 +137,7 @@ const Species = ({ species }) => {
       <section className="section content" id="images">
         <h2 className="title is-3 ">
           <i className="fad fa-image has-text-success"></i> Images
+          {/* <EditButton /> */}
         </h2>
         {map(species.images, (images, itype) => {
           if (images.length == 0) {
@@ -128,7 +150,7 @@ const Species = ({ species }) => {
             </h4>
             <div className="columns is-multiline">
               {images.map(i => <div key={i.id} className="column is-2">
-                <ReactIntense src={i.image_url} vertical={false} moveSpeed={0} caption={i.copyright}/>
+                <FieldImage image={i} />
               </div>)}
             </div>
           </div>)
@@ -142,7 +164,7 @@ const Species = ({ species }) => {
       <section className="section content" id="distribution">
         <h2 className="title is-3 ">
           <i className="fad fa-map has-text-success"></i> Distributions
-          </h2>
+        </h2>
         {map(species.distribution, (zones, itype) => {
           if (zones.length == 0) {
             return null
@@ -172,6 +194,7 @@ const Species = ({ species }) => {
   }
 
   return (<>
+    
     { renderSpecifications() }
     { renderGrowing() }
     <hr />

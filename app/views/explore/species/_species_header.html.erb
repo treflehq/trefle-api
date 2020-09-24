@@ -20,8 +20,12 @@
             </h2>
             <p class="subtitle">
               <i class="fad fa-book has-text-success"></i> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
-              <br />
-              <%= species.observations %>
+              <%
+=begin%>
+ <br />
+              <%= species.observations %> 
+<%
+=end%>
             </p>
           </div>
     </div>
