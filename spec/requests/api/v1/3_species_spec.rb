@@ -23,10 +23,10 @@ describe 'Species API' do # rubocop:todo Metrics/BlockLength
       operationId 'listSpecies'
       security [token: []]
 
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for species matching the given query'
 
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
@@ -96,10 +96,10 @@ describe 'Species API' do # rubocop:todo Metrics/BlockLength
       operationId 'searchSpecies'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
 
       security [token: []]
 

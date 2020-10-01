@@ -23,10 +23,10 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       operationId 'listPlants'
       security [token: []]
 
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
@@ -92,10 +92,10 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       operationId 'searchPlants'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
 
       security [token: []]
 
@@ -182,10 +182,10 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       security [token: []]
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
@@ -221,10 +221,10 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
       security [token: []]
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
-      parameter name: :filter, in: :query, required: false, type: :object, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, type: :object, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, type: :object, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, type: :object, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
