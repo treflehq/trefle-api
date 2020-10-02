@@ -306,20 +306,40 @@ class Species < ApplicationRecord
   def setup_main_species
     return unless main_species.nil? || main_species.id == id
 
+    puts "setup_main_species"
     plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
+    puts "[DONE] setup_main_species"
+
   end
 
   def complete_cache_fields
+    puts "complete_cache_fields"
     self.genus_name = genus&.name
+    self.common_name = self.common_name&.capitalize if self.common_name
     self.family_name = genus&.family&.name
     self.family_common_name = genus&.family&.common_name
     self.edible = (vegetable || edible_part&.any?)
+    
+    if self.minimum_temperature_deg_f
+      self.minimum_temperature_deg_c = Temperature.from_fahrenheit(self.minimum_temperature_deg_f).celsius&.to_i
+    end
+    
+    self.minimum_temperature_deg_f = Temperature.from_celsius(self.minimum_temperature_deg_c).fahrenheit&.to_i if self.minimum_temperature_deg_c
+    
+    if self.maximum_temperature_deg_f
+      self.maximum_temperature_deg_c = Temperature.from_fahrenheit(self.maximum_temperature_deg_f).celsius&.to_i
+    end
+    self.maximum_temperature_deg_f = Temperature.from_celsius(self.maximum_temperature_deg_c).fahrenheit&.to_i if self.maximum_temperature_deg_c
+    puts "complete_cache_fields 2"
+
+
 
     return unless main_image_url.nil?
 
     candidate = species_images.order(score: :desc).where(part: :habit)&.first&.image_url
     candidate ||= species_images.order(score: :desc)&.first&.image_url
     self.main_image_url = candidate if candidate
+    puts "complete_cache_fields 3"
   end
 
   def current_completion_percentage
@@ -339,12 +359,16 @@ class Species < ApplicationRecord
   end
 
   def update_completion_ratio!
+    puts "update_completion_ratio"
     self.completion_ratio = current_completion_percentage
     self.complete_data = (completion_ratio > 50)
+    puts "[DONE] update_completion_ratio"
+
   end
 
   # Theses are tokens used for integrity and search
   def regenerate_tokens!
+    puts "regenerate_tokens"
     # This one is for integrity, to avoir same species with similar names
     self.token = computed_token
 
@@ -369,6 +393,8 @@ class Species < ApplicationRecord
       *names_tokens,
       *syn_tokens
     ].join(' ').strip
+    puts "[DONE] regenerate_tokens"
+
   end
 
   def computed_token
