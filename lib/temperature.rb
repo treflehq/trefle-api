@@ -16,10 +16,10 @@ class Temperature
   end
 
   def fahrenheit
-    @fahrenheit ||= (@celsius * (9.0 / 5.0)) + 32
+    @fahrenheit ||= ((@celsius * (9.0 / 5.0)) + 32)
   end
 
   def celsius
-    @celsius ||= (@fahrenheit - 32) * 5.0 / 9.0
+    @celsius ||= ((@fahrenheit - 32) * 5.0 / 9.0)
   end
 end
