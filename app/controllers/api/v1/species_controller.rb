@@ -6,16 +6,24 @@ class Api::V1::SpeciesController < Api::ApiController
     author
     bloom_months
     common_name
+    days_to_harvest
     duration
     edible
+    edible_part
     family_common_name
     family_name
+    flower_color
     flower_conspicuous
+    foliage_color
     foliage_texture
+    fruit_color
     fruit_conspicuous
+    fruit_months
     fruit_seed_persistence
+    genus_name
     growth_form
     growth_habit
+    growth_months
     growth_rate
     leaf_retention
     ligneous_type
@@ -23,22 +31,14 @@ class Api::V1::SpeciesController < Api::ApiController
     scientific_name
     status
     vegetable
-    growth_months
-    bloom_months
-    fruit_months
-    flower_color
-    foliage_color
-    fruit_color
-    edible_part
-    genus_name
   ].freeze
 
   FILTERABLE_NOT_FIELDS = %w[
-    image_url
     author
     average_height_cm
     bibliography
     common_name
+    days_to_harvest
     edible_part
     family_common_name
     family_name
@@ -50,11 +50,12 @@ class Api::V1::SpeciesController < Api::ApiController
     fruit_color
     fruit_conspicuous
     fruit_seed_persistence
+    genus_name
     ground_humidity
     growth_form
     growth_habit
     growth_rate
-    genus_name
+    image_url
     images_count
     leaf_retention
     light
@@ -77,9 +78,9 @@ class Api::V1::SpeciesController < Api::ApiController
     soil_nutriments
     soil_salinity
     soil_texture
+    sources_count
     status
     synonyms_count
-    sources_count
     toxicity
     vegetable
     year
@@ -92,6 +93,7 @@ class Api::V1::SpeciesController < Api::ApiController
     bibliography
     common_name
     duration
+    days_to_harvest
     edible
     family_common_name
     family_name
@@ -135,18 +137,19 @@ class Api::V1::SpeciesController < Api::ApiController
     status
     synonyms_count
     toxicity
+    updated_at
     vegetable
     year
-    updated_at
   ].freeze
 
   RANGEABLE_FIELDS = %w[
     atmospheric_humidity
+    average_height_cm
+    days_to_harvest
     frost_free_days_minimum
     ground_humidity
     images_count
     light
-    average_height_cm
     maximum_height_cm
     maximum_precipitation_mm
     maximum_temperature_deg_c
@@ -163,8 +166,8 @@ class Api::V1::SpeciesController < Api::ApiController
     soil_nutriments
     soil_salinity
     soil_texture
-    synonyms_count
     sources_count
+    synonyms_count
     toxicity
     year
   ].freeze
