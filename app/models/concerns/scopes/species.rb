@@ -3,15 +3,18 @@ module Scopes
     extend ActiveSupport::Concern
 
     included do # rubocop:todo Metrics/BlockLength
-
+      
       Api::V1::SpeciesController::FILTERABLE_FIELDS.each do |field|
-        scope "filter_by_#{field}".to_sym, ->(v) { where(field => v) }
+        # scope "filter_by_#{field}".to_sym, ->(v) { where(field => v) }
+        scope "filter_by_#{field}".to_sym, lambda {|v|
+          ::Species::COLUMN_TYPES[field] == :string ? where("lower(#{field}) IN (?)", [*v].map(&:to_s).map(&:downcase)) : where(field => v)
+        }
       end
 
       Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.each do |field|
         scope "filter_not_by_#{field}".to_sym, lambda {|value|
           puts "filter_not_by_#{field} -> #{value.inspect}"
-          coll = where.not(field => [*value])
+          coll = ::Species::COLUMN_TYPES[field] == :string ? where.not("lower(#{field}) IN (?)", [*value].map(&:to_s).map(&:downcase)) : where.not(field => value)
           coll = coll.or(where(field => nil)) unless [*value].include?(nil)
           coll
         }

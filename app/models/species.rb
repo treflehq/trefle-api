@@ -141,6 +141,8 @@ class Species < ApplicationRecord
   extend Pagy::Search
   include ActiveModel::Validations
 
+  COLUMN_TYPES = Species.columns.map{|e| [e.name, e.type]}.to_h
+
   PLANTS_ATTRIBUTES = %w[
     year bibliography author common_name family_common_name
     genus_id vegetable observations main_image_url reviewed_at
@@ -331,8 +333,6 @@ class Species < ApplicationRecord
     end
     self.maximum_temperature_deg_f = Temperature.from_celsius(self.maximum_temperature_deg_c).fahrenheit&.to_i if self.maximum_temperature_deg_c
     puts "complete_cache_fields 2"
-
-
 
     return unless main_image_url.nil?
 
