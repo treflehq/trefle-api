@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:43.932Z'
+                      last_modified: '2020-10-04T08:10:04.705Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:43.953Z'
+                      last_modified: '2020-10-04T08:10:04.724Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:43.968Z'
+                      last_modified: '2020-10-04T08:10:04.740Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:44.012Z'
+                      last_modified: '2020-10-04T08:10:04.789Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:44.050Z'
+                      last_modified: '2020-10-04T08:10:04.827Z'
         '401':
           description: Invalid credentials
           content:
@@ -2212,7 +2212,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-03T09:55:44.384Z'
+                      last_modified: '2020-10-04T08:10:05.157Z'
         '401':
           description: Invalid credentials
           content:
@@ -2461,7 +2461,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-10-03T09:55:44.836Z'
+                      last_modified: '2020-10-04T08:10:05.609Z'
         '401':
           description: Invalid credentials
           content:
@@ -3047,7 +3047,7 @@ paths:
                         url: https://www.gbif.org/species/4234505
                         citation: 
                     meta:
-                      last_modified: '2020-10-03T09:55:44.717Z'
+                      last_modified: '2020-10-04T08:10:05.489Z'
         '401':
           description: Invalid credentials
           content:
@@ -3195,12 +3195,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-10-03T09:55:52.191Z'
-                      updated_at: '2020-10-03T09:55:52.192Z'
+                      created_at: '2020-10-04T08:10:13.225Z'
+                      updated_at: '2020-10-04T08:10:13.227Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-10-03T09:55:52.192Z'
+                      last_modified: '2020-10-04T08:10:13.227Z'
         '401':
           description: Invalid credentials
           content:
@@ -4508,89 +4508,89 @@ paths:
                       distribution:
                         native:
                         - Albania
-                        - Iran
-                        - Transcaucasus
-                        - Iceland
-                        - Bulgaria
-                        - Greece
-                        - Romania
-                        - Turkey-in-Europe
-                        - Yugoslavia
-                        - Czechoslovakia
-                        - Turkey
-                        - Italy
-                        - France
-                        - Great Britain
-                        - Portugal
-                        - Spain
-                        - Delaware
-                        - Krym
-                        - Ukraine
                         - Austria
                         - Baltic States
                         - Belarus
                         - Belgium
+                        - Bulgaria
                         - Central European Rus
+                        - Czechoslovakia
+                        - Delaware
                         - Denmark
                         - East European Russia
                         - Finland
+                        - France
                         - Germany
+                        - Great Britain
+                        - Greece
                         - Hungary
+                        - Iceland
+                        - Iran
                         - Ireland
+                        - Italy
+                        - Krym
                         - Netherlands
                         - North Caucasus
                         - North European Russi
                         - Northwest European R
                         - Norway
                         - Poland
+                        - Portugal
+                        - Romania
+                        - Spain
                         - Sweden
                         - Switzerland
+                        - Transcaucasus
+                        - Turkey
+                        - Turkey-in-Europe
                         - Turkmenistan
+                        - Ukraine
+                        - Yugoslavia
                         introduced:
-                        - District of Columbia
-                        - Vermont
                         - Alaska
-                        - New Zealand North
-                        - New Zealand South
-                        - Illinois
-                        - South Carolina
-                        - California
-                        - Indiana
-                        - Iowa
-                        - Maryland
-                        - Michigan
-                        - New Jersey
-                        - New York
-                        - Ohio
-                        - Ontario
-                        - Pennsylvania
-                        - Québec
-                        - West Virginia
-                        - Connecticut
-                        - Maine
-                        - Masachusettes
-                        - New Hampshire
-                        - Rhode I.
-                        - Minnesota
-                        - Wisconsin
-                        - New Brunswick
-                        - Nova Scotia
-                        - Nebraska
+                        - Alberta
                         - Argentina South
                         - British Columbia
+                        - California
                         - Colorado
-                        - Newfoundland
-                        - Prince Edward I.
-                        - Washington
-                        - Oregon
-                        - Alberta
-                        - Idaho
-                        - Montana
-                        - Saskatchewan
-                        - South Dakota
-                        - North Dakota
-                        - Utah
+                        - Connecticut
+                        - District of Columbia
                         - Falkland Is.
+                        - Idaho
+                        - Illinois
+                        - Indiana
+                        - Iowa
+                        - Maine
+                        - Maryland
+                        - Masachusettes
+                        - Michigan
+                        - Minnesota
+                        - Montana
+                        - Nebraska
+                        - New Brunswick
+                        - New Hampshire
+                        - New Jersey
+                        - New York
+                        - New Zealand North
+                        - New Zealand South
+                        - Newfoundland
+                        - North Dakota
+                        - Nova Scotia
+                        - Ohio
+                        - Ontario
+                        - Oregon
+                        - Pennsylvania
+                        - Prince Edward I.
+                        - Québec
+                        - Rhode I.
+                        - Saskatchewan
+                        - South Carolina
+                        - South Dakota
+                        - Utah
+                        - Vermont
+                        - Washington
+                        - West Virginia
+                        - Wisconsin
                         - Wyoming
                       distributions:
                         native:
@@ -4604,186 +4604,6 @@ paths:
                             self: "/api/v1/distributions/alb"
                             plants: "/api/v1/distributions/alb/plants"
                             species: "/api/v1/distributions/alb/species"
-                        - id: 11
-                          name: Iran
-                          slug: irn
-                          tdwg_code: IRN
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/irn"
-                            plants: "/api/v1/distributions/irn/plants"
-                            species: "/api/v1/distributions/irn/species"
-                        - id: 272
-                          name: Transcaucasus
-                          slug: tcs
-                          tdwg_code: TCS
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/tcs"
-                            plants: "/api/v1/distributions/tcs/plants"
-                            species: "/api/v1/distributions/tcs/species"
-                        - id: 314
-                          name: Iceland
-                          slug: ice
-                          tdwg_code: ICE
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/ice"
-                            plants: "/api/v1/distributions/ice/plants"
-                            species: "/api/v1/distributions/ice/species"
-                        - id: 94
-                          name: Bulgaria
-                          slug: bul
-                          tdwg_code: BUL
-                          tdwg_level: 3
-                          species_count: 4
-                          links:
-                            self: "/api/v1/distributions/bul"
-                            plants: "/api/v1/distributions/bul/plants"
-                            species: "/api/v1/distributions/bul/species"
-                        - id: 95
-                          name: Greece
-                          slug: grc
-                          tdwg_code: GRC
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/grc"
-                            plants: "/api/v1/distributions/grc/plants"
-                            species: "/api/v1/distributions/grc/species"
-                        - id: 96
-                          name: Romania
-                          slug: rom
-                          tdwg_code: ROM
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/rom"
-                            plants: "/api/v1/distributions/rom/plants"
-                            species: "/api/v1/distributions/rom/species"
-                        - id: 97
-                          name: Turkey-in-Europe
-                          slug: tue
-                          tdwg_code: TUE
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/tue"
-                            plants: "/api/v1/distributions/tue/plants"
-                            species: "/api/v1/distributions/tue/species"
-                        - id: 98
-                          name: Yugoslavia
-                          slug: yug
-                          tdwg_code: YUG
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/yug"
-                            plants: "/api/v1/distributions/yug/plants"
-                            species: "/api/v1/distributions/yug/species"
-                        - id: 99
-                          name: Czechoslovakia
-                          slug: cze
-                          tdwg_code: CZE
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/cze"
-                            plants: "/api/v1/distributions/cze/plants"
-                            species: "/api/v1/distributions/cze/species"
-                        - id: 107
-                          name: Turkey
-                          slug: tur
-                          tdwg_code: TUR
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/tur"
-                            plants: "/api/v1/distributions/tur/plants"
-                            species: "/api/v1/distributions/tur/species"
-                        - id: 119
-                          name: Italy
-                          slug: ita
-                          tdwg_code: ITA
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/ita"
-                            plants: "/api/v1/distributions/ita/plants"
-                            species: "/api/v1/distributions/ita/species"
-                        - id: 126
-                          name: France
-                          slug: fra
-                          tdwg_code: FRA
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/fra"
-                            plants: "/api/v1/distributions/fra/plants"
-                            species: "/api/v1/distributions/fra/species"
-                        - id: 127
-                          name: Great Britain
-                          slug: grb
-                          tdwg_code: GRB
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/grb"
-                            plants: "/api/v1/distributions/grb/plants"
-                            species: "/api/v1/distributions/grb/species"
-                        - id: 134
-                          name: Portugal
-                          slug: por
-                          tdwg_code: POR
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/por"
-                            plants: "/api/v1/distributions/por/plants"
-                            species: "/api/v1/distributions/por/species"
-                        - id: 135
-                          name: Spain
-                          slug: spa
-                          tdwg_code: SPA
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/spa"
-                            plants: "/api/v1/distributions/spa/plants"
-                            species: "/api/v1/distributions/spa/species"
-                        - id: 228
-                          name: Delaware
-                          slug: del
-                          tdwg_code: DEL
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/del"
-                            plants: "/api/v1/distributions/del/plants"
-                            species: "/api/v1/distributions/del/species"
-                        - id: 268
-                          name: Krym
-                          slug: kry
-                          tdwg_code: KRY
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/kry"
-                            plants: "/api/v1/distributions/kry/plants"
-                            species: "/api/v1/distributions/kry/species"
-                        - id: 273
-                          name: Ukraine
-                          slug: ukr
-                          tdwg_code: UKR
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/ukr"
-                            plants: "/api/v1/distributions/ukr/plants"
-                            species: "/api/v1/distributions/ukr/species"
                         - id: 275
                           name: Austria
                           slug: aut
@@ -4824,6 +4644,16 @@ paths:
                             self: "/api/v1/distributions/bgm"
                             plants: "/api/v1/distributions/bgm/plants"
                             species: "/api/v1/distributions/bgm/species"
+                        - id: 94
+                          name: Bulgaria
+                          slug: bul
+                          tdwg_code: BUL
+                          tdwg_level: 3
+                          species_count: 4
+                          links:
+                            self: "/api/v1/distributions/bul"
+                            plants: "/api/v1/distributions/bul/plants"
+                            species: "/api/v1/distributions/bul/species"
                         - id: 279
                           name: Central European Rus
                           slug: ruc
@@ -4834,6 +4664,26 @@ paths:
                             self: "/api/v1/distributions/ruc"
                             plants: "/api/v1/distributions/ruc/plants"
                             species: "/api/v1/distributions/ruc/species"
+                        - id: 99
+                          name: Czechoslovakia
+                          slug: cze
+                          tdwg_code: CZE
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/cze"
+                            plants: "/api/v1/distributions/cze/plants"
+                            species: "/api/v1/distributions/cze/species"
+                        - id: 228
+                          name: Delaware
+                          slug: del
+                          tdwg_code: DEL
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/del"
+                            plants: "/api/v1/distributions/del/plants"
+                            species: "/api/v1/distributions/del/species"
                         - id: 280
                           name: Denmark
                           slug: den
@@ -4864,6 +4714,16 @@ paths:
                             self: "/api/v1/distributions/fin"
                             plants: "/api/v1/distributions/fin/plants"
                             species: "/api/v1/distributions/fin/species"
+                        - id: 126
+                          name: France
+                          slug: fra
+                          tdwg_code: FRA
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/fra"
+                            plants: "/api/v1/distributions/fra/plants"
+                            species: "/api/v1/distributions/fra/species"
                         - id: 284
                           name: Germany
                           slug: ger
@@ -4874,6 +4734,26 @@ paths:
                             self: "/api/v1/distributions/ger"
                             plants: "/api/v1/distributions/ger/plants"
                             species: "/api/v1/distributions/ger/species"
+                        - id: 127
+                          name: Great Britain
+                          slug: grb
+                          tdwg_code: GRB
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/grb"
+                            plants: "/api/v1/distributions/grb/plants"
+                            species: "/api/v1/distributions/grb/species"
+                        - id: 95
+                          name: Greece
+                          slug: grc
+                          tdwg_code: GRC
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/grc"
+                            plants: "/api/v1/distributions/grc/plants"
+                            species: "/api/v1/distributions/grc/species"
                         - id: 285
                           name: Hungary
                           slug: hun
@@ -4884,6 +4764,26 @@ paths:
                             self: "/api/v1/distributions/hun"
                             plants: "/api/v1/distributions/hun/plants"
                             species: "/api/v1/distributions/hun/species"
+                        - id: 314
+                          name: Iceland
+                          slug: ice
+                          tdwg_code: ICE
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/ice"
+                            plants: "/api/v1/distributions/ice/plants"
+                            species: "/api/v1/distributions/ice/species"
+                        - id: 11
+                          name: Iran
+                          slug: irn
+                          tdwg_code: IRN
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/irn"
+                            plants: "/api/v1/distributions/irn/plants"
+                            species: "/api/v1/distributions/irn/species"
                         - id: 286
                           name: Ireland
                           slug: ire
@@ -4894,6 +4794,26 @@ paths:
                             self: "/api/v1/distributions/ire"
                             plants: "/api/v1/distributions/ire/plants"
                             species: "/api/v1/distributions/ire/species"
+                        - id: 119
+                          name: Italy
+                          slug: ita
+                          tdwg_code: ITA
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/ita"
+                            plants: "/api/v1/distributions/ita/plants"
+                            species: "/api/v1/distributions/ita/species"
+                        - id: 268
+                          name: Krym
+                          slug: kry
+                          tdwg_code: KRY
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/kry"
+                            plants: "/api/v1/distributions/kry/plants"
+                            species: "/api/v1/distributions/kry/species"
                         - id: 287
                           name: Netherlands
                           slug: net
@@ -4954,6 +4874,36 @@ paths:
                             self: "/api/v1/distributions/pol"
                             plants: "/api/v1/distributions/pol/plants"
                             species: "/api/v1/distributions/pol/species"
+                        - id: 134
+                          name: Portugal
+                          slug: por
+                          tdwg_code: POR
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/por"
+                            plants: "/api/v1/distributions/por/plants"
+                            species: "/api/v1/distributions/por/species"
+                        - id: 96
+                          name: Romania
+                          slug: rom
+                          tdwg_code: ROM
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/rom"
+                            plants: "/api/v1/distributions/rom/plants"
+                            species: "/api/v1/distributions/rom/species"
+                        - id: 135
+                          name: Spain
+                          slug: spa
+                          tdwg_code: SPA
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/spa"
+                            plants: "/api/v1/distributions/spa/plants"
+                            species: "/api/v1/distributions/spa/species"
                         - id: 293
                           name: Sweden
                           slug: swe
@@ -4974,6 +4924,36 @@ paths:
                             self: "/api/v1/distributions/swi"
                             plants: "/api/v1/distributions/swi/plants"
                             species: "/api/v1/distributions/swi/species"
+                        - id: 272
+                          name: Transcaucasus
+                          slug: tcs
+                          tdwg_code: TCS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/tcs"
+                            plants: "/api/v1/distributions/tcs/plants"
+                            species: "/api/v1/distributions/tcs/species"
+                        - id: 107
+                          name: Turkey
+                          slug: tur
+                          tdwg_code: TUR
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/tur"
+                            plants: "/api/v1/distributions/tur/plants"
+                            species: "/api/v1/distributions/tur/species"
+                        - id: 97
+                          name: Turkey-in-Europe
+                          slug: tue
+                          tdwg_code: TUE
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/tue"
+                            plants: "/api/v1/distributions/tue/plants"
+                            species: "/api/v1/distributions/tue/species"
                         - id: 337
                           name: Turkmenistan
                           slug: tkm
@@ -4984,27 +4964,27 @@ paths:
                             self: "/api/v1/distributions/tkm"
                             plants: "/api/v1/distributions/tkm/plants"
                             species: "/api/v1/distributions/tkm/species"
-                        introduced:
-                        - id: 229
-                          name: District of Columbia
-                          slug: wdc
-                          tdwg_code: WDC
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/wdc"
-                            plants: "/api/v1/distributions/wdc/plants"
-                            species: "/api/v1/distributions/wdc/species"
-                        - id: 243
-                          name: Vermont
-                          slug: ver
-                          tdwg_code: VER
+                        - id: 273
+                          name: Ukraine
+                          slug: ukr
+                          tdwg_code: UKR
                           tdwg_level: 3
                           species_count: 3
                           links:
-                            self: "/api/v1/distributions/ver"
-                            plants: "/api/v1/distributions/ver/plants"
-                            species: "/api/v1/distributions/ver/species"
+                            self: "/api/v1/distributions/ukr"
+                            plants: "/api/v1/distributions/ukr/plants"
+                            species: "/api/v1/distributions/ukr/species"
+                        - id: 98
+                          name: Yugoslavia
+                          slug: yug
+                          tdwg_code: YUG
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/yug"
+                            plants: "/api/v1/distributions/yug/plants"
+                            species: "/api/v1/distributions/yug/species"
+                        introduced:
                         - id: 325
                           name: Alaska
                           slug: ask
@@ -5015,266 +4995,16 @@ paths:
                             self: "/api/v1/distributions/ask"
                             plants: "/api/v1/distributions/ask/plants"
                             species: "/api/v1/distributions/ask/species"
-                        - id: 132
-                          name: New Zealand North
-                          slug: nzn
-                          tdwg_code: NZN
+                        - id: 326
+                          name: Alberta
+                          slug: abt
+                          tdwg_code: ABT
                           tdwg_level: 3
                           species_count: 2
                           links:
-                            self: "/api/v1/distributions/nzn"
-                            plants: "/api/v1/distributions/nzn/plants"
-                            species: "/api/v1/distributions/nzn/species"
-                        - id: 133
-                          name: New Zealand South
-                          slug: nzs
-                          tdwg_code: NZS
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/nzs"
-                            plants: "/api/v1/distributions/nzs/plants"
-                            species: "/api/v1/distributions/nzs/species"
-                        - id: 145
-                          name: Illinois
-                          slug: ill
-                          tdwg_code: ILL
-                          tdwg_level: 3
-                          species_count: 4
-                          links:
-                            self: "/api/v1/distributions/ill"
-                            plants: "/api/v1/distributions/ill/plants"
-                            species: "/api/v1/distributions/ill/species"
-                        - id: 192
-                          name: South Carolina
-                          slug: sca
-                          tdwg_code: SCA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/sca"
-                            plants: "/api/v1/distributions/sca/plants"
-                            species: "/api/v1/distributions/sca/species"
-                        - id: 211
-                          name: California
-                          slug: cal
-                          tdwg_code: CAL
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/cal"
-                            plants: "/api/v1/distributions/cal/plants"
-                            species: "/api/v1/distributions/cal/species"
-                        - id: 230
-                          name: Indiana
-                          slug: ini
-                          tdwg_code: INI
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/ini"
-                            plants: "/api/v1/distributions/ini/plants"
-                            species: "/api/v1/distributions/ini/species"
-                        - id: 231
-                          name: Iowa
-                          slug: iow
-                          tdwg_code: IOW
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/iow"
-                            plants: "/api/v1/distributions/iow/plants"
-                            species: "/api/v1/distributions/iow/species"
-                        - id: 233
-                          name: Maryland
-                          slug: mry
-                          tdwg_code: MRY
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/mry"
-                            plants: "/api/v1/distributions/mry/plants"
-                            species: "/api/v1/distributions/mry/species"
-                        - id: 234
-                          name: Michigan
-                          slug: mic
-                          tdwg_code: MIC
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/mic"
-                            plants: "/api/v1/distributions/mic/plants"
-                            species: "/api/v1/distributions/mic/species"
-                        - id: 236
-                          name: New Jersey
-                          slug: nwj
-                          tdwg_code: NWJ
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/nwj"
-                            plants: "/api/v1/distributions/nwj/plants"
-                            species: "/api/v1/distributions/nwj/species"
-                        - id: 237
-                          name: New York
-                          slug: nwy
-                          tdwg_code: NWY
-                          tdwg_level: 3
-                          species_count: 4
-                          links:
-                            self: "/api/v1/distributions/nwy"
-                            plants: "/api/v1/distributions/nwy/plants"
-                            species: "/api/v1/distributions/nwy/species"
-                        - id: 239
-                          name: Ohio
-                          slug: ohi
-                          tdwg_code: OHI
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/ohi"
-                            plants: "/api/v1/distributions/ohi/plants"
-                            species: "/api/v1/distributions/ohi/species"
-                        - id: 240
-                          name: Ontario
-                          slug: ont
-                          tdwg_code: ONT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ont"
-                            plants: "/api/v1/distributions/ont/plants"
-                            species: "/api/v1/distributions/ont/species"
-                        - id: 241
-                          name: Pennsylvania
-                          slug: pen
-                          tdwg_code: PEN
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/pen"
-                            plants: "/api/v1/distributions/pen/plants"
-                            species: "/api/v1/distributions/pen/species"
-                        - id: 242
-                          name: Québec
-                          slug: que
-                          tdwg_code: QUE
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/que"
-                            plants: "/api/v1/distributions/que/plants"
-                            species: "/api/v1/distributions/que/species"
-                        - id: 244
-                          name: West Virginia
-                          slug: wva
-                          tdwg_code: WVA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/wva"
-                            plants: "/api/v1/distributions/wva/plants"
-                            species: "/api/v1/distributions/wva/species"
-                        - id: 252
-                          name: Connecticut
-                          slug: cnt
-                          tdwg_code: CNT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/cnt"
-                            plants: "/api/v1/distributions/cnt/plants"
-                            species: "/api/v1/distributions/cnt/species"
-                        - id: 253
-                          name: Maine
-                          slug: mai
-                          tdwg_code: MAI
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/mai"
-                            plants: "/api/v1/distributions/mai/plants"
-                            species: "/api/v1/distributions/mai/species"
-                        - id: 254
-                          name: Masachusettes
-                          slug: mas
-                          tdwg_code: MAS
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/mas"
-                            plants: "/api/v1/distributions/mas/plants"
-                            species: "/api/v1/distributions/mas/species"
-                        - id: 255
-                          name: New Hampshire
-                          slug: nwh
-                          tdwg_code: NWH
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/nwh"
-                            plants: "/api/v1/distributions/nwh/plants"
-                            species: "/api/v1/distributions/nwh/species"
-                        - id: 256
-                          name: Rhode I.
-                          slug: rho
-                          tdwg_code: RHO
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/rho"
-                            plants: "/api/v1/distributions/rho/plants"
-                            species: "/api/v1/distributions/rho/species"
-                        - id: 257
-                          name: Minnesota
-                          slug: min
-                          tdwg_code: MIN
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/min"
-                            plants: "/api/v1/distributions/min/plants"
-                            species: "/api/v1/distributions/min/species"
-                        - id: 258
-                          name: Wisconsin
-                          slug: wis
-                          tdwg_code: WIS
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/wis"
-                            plants: "/api/v1/distributions/wis/plants"
-                            species: "/api/v1/distributions/wis/species"
-                        - id: 260
-                          name: New Brunswick
-                          slug: nbr
-                          tdwg_code: NBR
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/nbr"
-                            plants: "/api/v1/distributions/nbr/plants"
-                            species: "/api/v1/distributions/nbr/species"
-                        - id: 261
-                          name: Nova Scotia
-                          slug: nsc
-                          tdwg_code: NSC
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/nsc"
-                            plants: "/api/v1/distributions/nsc/plants"
-                            species: "/api/v1/distributions/nsc/species"
-                        - id: 262
-                          name: Nebraska
-                          slug: neb
-                          tdwg_code: NEB
-                          tdwg_level: 3
-                          species_count: 3
-                          links:
-                            self: "/api/v1/distributions/neb"
-                            plants: "/api/v1/distributions/neb/plants"
-                            species: "/api/v1/distributions/neb/species"
+                            self: "/api/v1/distributions/abt"
+                            plants: "/api/v1/distributions/abt/plants"
+                            species: "/api/v1/distributions/abt/species"
                         - id: 264
                           name: Argentina South
                           slug: ags
@@ -5295,6 +5025,16 @@ paths:
                             self: "/api/v1/distributions/brc"
                             plants: "/api/v1/distributions/brc/plants"
                             species: "/api/v1/distributions/brc/species"
+                        - id: 211
+                          name: California
+                          slug: cal
+                          tdwg_code: CAL
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/cal"
+                            plants: "/api/v1/distributions/cal/plants"
+                            species: "/api/v1/distributions/cal/species"
                         - id: 298
                           name: Colorado
                           slug: col
@@ -5305,116 +5045,26 @@ paths:
                             self: "/api/v1/distributions/col"
                             plants: "/api/v1/distributions/col/plants"
                             species: "/api/v1/distributions/col/species"
-                        - id: 300
-                          name: Newfoundland
-                          slug: nfl
-                          tdwg_code: NFL
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/nfl"
-                            plants: "/api/v1/distributions/nfl/plants"
-                            species: "/api/v1/distributions/nfl/species"
-                        - id: 301
-                          name: Prince Edward I.
-                          slug: pei
-                          tdwg_code: PEI
-                          tdwg_level: 3
-                          species_count: 1
-                          links:
-                            self: "/api/v1/distributions/pei"
-                            plants: "/api/v1/distributions/pei/plants"
-                            species: "/api/v1/distributions/pei/species"
-                        - id: 302
-                          name: Washington
-                          slug: was
-                          tdwg_code: WAS
+                        - id: 252
+                          name: Connecticut
+                          slug: cnt
+                          tdwg_code: CNT
                           tdwg_level: 3
                           species_count: 2
                           links:
-                            self: "/api/v1/distributions/was"
-                            plants: "/api/v1/distributions/was/plants"
-                            species: "/api/v1/distributions/was/species"
-                        - id: 315
-                          name: Oregon
-                          slug: ore
-                          tdwg_code: ORE
+                            self: "/api/v1/distributions/cnt"
+                            plants: "/api/v1/distributions/cnt/plants"
+                            species: "/api/v1/distributions/cnt/species"
+                        - id: 229
+                          name: District of Columbia
+                          slug: wdc
+                          tdwg_code: WDC
                           tdwg_level: 3
                           species_count: 2
                           links:
-                            self: "/api/v1/distributions/ore"
-                            plants: "/api/v1/distributions/ore/plants"
-                            species: "/api/v1/distributions/ore/species"
-                        - id: 326
-                          name: Alberta
-                          slug: abt
-                          tdwg_code: ABT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/abt"
-                            plants: "/api/v1/distributions/abt/plants"
-                            species: "/api/v1/distributions/abt/species"
-                        - id: 327
-                          name: Idaho
-                          slug: ida
-                          tdwg_code: IDA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/ida"
-                            plants: "/api/v1/distributions/ida/plants"
-                            species: "/api/v1/distributions/ida/species"
-                        - id: 328
-                          name: Montana
-                          slug: mnt
-                          tdwg_code: MNT
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/mnt"
-                            plants: "/api/v1/distributions/mnt/plants"
-                            species: "/api/v1/distributions/mnt/species"
-                        - id: 330
-                          name: Saskatchewan
-                          slug: sas
-                          tdwg_code: SAS
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/sas"
-                            plants: "/api/v1/distributions/sas/plants"
-                            species: "/api/v1/distributions/sas/species"
-                        - id: 331
-                          name: South Dakota
-                          slug: sda
-                          tdwg_code: SDA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/sda"
-                            plants: "/api/v1/distributions/sda/plants"
-                            species: "/api/v1/distributions/sda/species"
-                        - id: 332
-                          name: North Dakota
-                          slug: nda
-                          tdwg_code: NDA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/nda"
-                            plants: "/api/v1/distributions/nda/plants"
-                            species: "/api/v1/distributions/nda/species"
-                        - id: 341
-                          name: Utah
-                          slug: uta
-                          tdwg_code: UTA
-                          tdwg_level: 3
-                          species_count: 2
-                          links:
-                            self: "/api/v1/distributions/uta"
-                            plants: "/api/v1/distributions/uta/plants"
-                            species: "/api/v1/distributions/uta/species"
+                            self: "/api/v1/distributions/wdc"
+                            plants: "/api/v1/distributions/wdc/plants"
+                            species: "/api/v1/distributions/wdc/species"
                         - id: 345
                           name: Falkland Is.
                           slug: fal
@@ -5425,6 +5075,356 @@ paths:
                             self: "/api/v1/distributions/fal"
                             plants: "/api/v1/distributions/fal/plants"
                             species: "/api/v1/distributions/fal/species"
+                        - id: 327
+                          name: Idaho
+                          slug: ida
+                          tdwg_code: IDA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ida"
+                            plants: "/api/v1/distributions/ida/plants"
+                            species: "/api/v1/distributions/ida/species"
+                        - id: 145
+                          name: Illinois
+                          slug: ill
+                          tdwg_code: ILL
+                          tdwg_level: 3
+                          species_count: 4
+                          links:
+                            self: "/api/v1/distributions/ill"
+                            plants: "/api/v1/distributions/ill/plants"
+                            species: "/api/v1/distributions/ill/species"
+                        - id: 230
+                          name: Indiana
+                          slug: ini
+                          tdwg_code: INI
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/ini"
+                            plants: "/api/v1/distributions/ini/plants"
+                            species: "/api/v1/distributions/ini/species"
+                        - id: 231
+                          name: Iowa
+                          slug: iow
+                          tdwg_code: IOW
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/iow"
+                            plants: "/api/v1/distributions/iow/plants"
+                            species: "/api/v1/distributions/iow/species"
+                        - id: 253
+                          name: Maine
+                          slug: mai
+                          tdwg_code: MAI
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/mai"
+                            plants: "/api/v1/distributions/mai/plants"
+                            species: "/api/v1/distributions/mai/species"
+                        - id: 233
+                          name: Maryland
+                          slug: mry
+                          tdwg_code: MRY
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/mry"
+                            plants: "/api/v1/distributions/mry/plants"
+                            species: "/api/v1/distributions/mry/species"
+                        - id: 254
+                          name: Masachusettes
+                          slug: mas
+                          tdwg_code: MAS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/mas"
+                            plants: "/api/v1/distributions/mas/plants"
+                            species: "/api/v1/distributions/mas/species"
+                        - id: 234
+                          name: Michigan
+                          slug: mic
+                          tdwg_code: MIC
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/mic"
+                            plants: "/api/v1/distributions/mic/plants"
+                            species: "/api/v1/distributions/mic/species"
+                        - id: 257
+                          name: Minnesota
+                          slug: min
+                          tdwg_code: MIN
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/min"
+                            plants: "/api/v1/distributions/min/plants"
+                            species: "/api/v1/distributions/min/species"
+                        - id: 328
+                          name: Montana
+                          slug: mnt
+                          tdwg_code: MNT
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/mnt"
+                            plants: "/api/v1/distributions/mnt/plants"
+                            species: "/api/v1/distributions/mnt/species"
+                        - id: 262
+                          name: Nebraska
+                          slug: neb
+                          tdwg_code: NEB
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/neb"
+                            plants: "/api/v1/distributions/neb/plants"
+                            species: "/api/v1/distributions/neb/species"
+                        - id: 260
+                          name: New Brunswick
+                          slug: nbr
+                          tdwg_code: NBR
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nbr"
+                            plants: "/api/v1/distributions/nbr/plants"
+                            species: "/api/v1/distributions/nbr/species"
+                        - id: 255
+                          name: New Hampshire
+                          slug: nwh
+                          tdwg_code: NWH
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/nwh"
+                            plants: "/api/v1/distributions/nwh/plants"
+                            species: "/api/v1/distributions/nwh/species"
+                        - id: 236
+                          name: New Jersey
+                          slug: nwj
+                          tdwg_code: NWJ
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/nwj"
+                            plants: "/api/v1/distributions/nwj/plants"
+                            species: "/api/v1/distributions/nwj/species"
+                        - id: 237
+                          name: New York
+                          slug: nwy
+                          tdwg_code: NWY
+                          tdwg_level: 3
+                          species_count: 4
+                          links:
+                            self: "/api/v1/distributions/nwy"
+                            plants: "/api/v1/distributions/nwy/plants"
+                            species: "/api/v1/distributions/nwy/species"
+                        - id: 132
+                          name: New Zealand North
+                          slug: nzn
+                          tdwg_code: NZN
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/nzn"
+                            plants: "/api/v1/distributions/nzn/plants"
+                            species: "/api/v1/distributions/nzn/species"
+                        - id: 133
+                          name: New Zealand South
+                          slug: nzs
+                          tdwg_code: NZS
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nzs"
+                            plants: "/api/v1/distributions/nzs/plants"
+                            species: "/api/v1/distributions/nzs/species"
+                        - id: 300
+                          name: Newfoundland
+                          slug: nfl
+                          tdwg_code: NFL
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nfl"
+                            plants: "/api/v1/distributions/nfl/plants"
+                            species: "/api/v1/distributions/nfl/species"
+                        - id: 332
+                          name: North Dakota
+                          slug: nda
+                          tdwg_code: NDA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/nda"
+                            plants: "/api/v1/distributions/nda/plants"
+                            species: "/api/v1/distributions/nda/species"
+                        - id: 261
+                          name: Nova Scotia
+                          slug: nsc
+                          tdwg_code: NSC
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/nsc"
+                            plants: "/api/v1/distributions/nsc/plants"
+                            species: "/api/v1/distributions/nsc/species"
+                        - id: 239
+                          name: Ohio
+                          slug: ohi
+                          tdwg_code: OHI
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/ohi"
+                            plants: "/api/v1/distributions/ohi/plants"
+                            species: "/api/v1/distributions/ohi/species"
+                        - id: 240
+                          name: Ontario
+                          slug: ont
+                          tdwg_code: ONT
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ont"
+                            plants: "/api/v1/distributions/ont/plants"
+                            species: "/api/v1/distributions/ont/species"
+                        - id: 315
+                          name: Oregon
+                          slug: ore
+                          tdwg_code: ORE
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/ore"
+                            plants: "/api/v1/distributions/ore/plants"
+                            species: "/api/v1/distributions/ore/species"
+                        - id: 241
+                          name: Pennsylvania
+                          slug: pen
+                          tdwg_code: PEN
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/pen"
+                            plants: "/api/v1/distributions/pen/plants"
+                            species: "/api/v1/distributions/pen/species"
+                        - id: 301
+                          name: Prince Edward I.
+                          slug: pei
+                          tdwg_code: PEI
+                          tdwg_level: 3
+                          species_count: 1
+                          links:
+                            self: "/api/v1/distributions/pei"
+                            plants: "/api/v1/distributions/pei/plants"
+                            species: "/api/v1/distributions/pei/species"
+                        - id: 242
+                          name: Québec
+                          slug: que
+                          tdwg_code: QUE
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/que"
+                            plants: "/api/v1/distributions/que/plants"
+                            species: "/api/v1/distributions/que/species"
+                        - id: 256
+                          name: Rhode I.
+                          slug: rho
+                          tdwg_code: RHO
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/rho"
+                            plants: "/api/v1/distributions/rho/plants"
+                            species: "/api/v1/distributions/rho/species"
+                        - id: 330
+                          name: Saskatchewan
+                          slug: sas
+                          tdwg_code: SAS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/sas"
+                            plants: "/api/v1/distributions/sas/plants"
+                            species: "/api/v1/distributions/sas/species"
+                        - id: 192
+                          name: South Carolina
+                          slug: sca
+                          tdwg_code: SCA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/sca"
+                            plants: "/api/v1/distributions/sca/plants"
+                            species: "/api/v1/distributions/sca/species"
+                        - id: 331
+                          name: South Dakota
+                          slug: sda
+                          tdwg_code: SDA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/sda"
+                            plants: "/api/v1/distributions/sda/plants"
+                            species: "/api/v1/distributions/sda/species"
+                        - id: 341
+                          name: Utah
+                          slug: uta
+                          tdwg_code: UTA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/uta"
+                            plants: "/api/v1/distributions/uta/plants"
+                            species: "/api/v1/distributions/uta/species"
+                        - id: 243
+                          name: Vermont
+                          slug: ver
+                          tdwg_code: VER
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/ver"
+                            plants: "/api/v1/distributions/ver/plants"
+                            species: "/api/v1/distributions/ver/species"
+                        - id: 302
+                          name: Washington
+                          slug: was
+                          tdwg_code: WAS
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/was"
+                            plants: "/api/v1/distributions/was/plants"
+                            species: "/api/v1/distributions/was/species"
+                        - id: 244
+                          name: West Virginia
+                          slug: wva
+                          tdwg_code: WVA
+                          tdwg_level: 3
+                          species_count: 2
+                          links:
+                            self: "/api/v1/distributions/wva"
+                            plants: "/api/v1/distributions/wva/plants"
+                            species: "/api/v1/distributions/wva/species"
+                        - id: 258
+                          name: Wisconsin
+                          slug: wis
+                          tdwg_code: WIS
+                          tdwg_level: 3
+                          species_count: 3
+                          links:
+                            self: "/api/v1/distributions/wis"
+                            plants: "/api/v1/distributions/wis/plants"
+                            species: "/api/v1/distributions/wis/species"
                         - id: 346
                           name: Wyoming
                           slug: wyo
@@ -5580,7 +5580,7 @@ paths:
                       images_count: 37
                       sources_count: 5
                       synonyms_count: 13
-                      last_modified: '2020-10-03T09:55:44.857Z'
+                      last_modified: '2020-10-04T08:10:05.628Z'
         '401':
           description: Invalid credentials
           content:
@@ -5728,12 +5728,12 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The flower color is red
-                      created_at: '2020-10-03T09:55:52.675Z'
-                      updated_at: '2020-10-03T09:55:52.677Z'
+                      created_at: '2020-10-04T08:10:13.725Z'
+                      updated_at: '2020-10-04T08:10:13.727Z'
                       correction: 
                       changes: 
                     meta:
-                      last_modified: '2020-10-03T09:55:52.677Z'
+                      last_modified: '2020-10-04T08:10:13.727Z'
         '401':
           description: Invalid credentials
           content:
@@ -6459,7 +6459,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-10-03T09:55:41.990Z'
+                      last_modified: '2020-10-04T08:10:02.693Z'
         '401':
           description: Invalid credentials
           content:
@@ -6506,8 +6506,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTEwLTA0IDExOjU1OjUyICswMjAwIiwiZXhwIjoxNjAxODA1MzUyfQ.sex3wTMFiMW8UShYQkc22s6gG3lWkoJgkqggq9Za-9U
-                    expiration: 10-04-2020 11:55
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTEwLTA1IDEwOjEwOjEzICswMjAwIiwiZXhwIjoxNjAxODg1NDEzfQ.2RhTpf9VljarL5dSYTBk1hMitWsJITTL4rpkwX6IRfE
+                    expiration: 10-05-2020 10:10
         '401':
           description: Invalid credentials
           content:
@@ -6602,8 +6602,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: Is the author okay ?
-                      created_at: '2020-10-03T09:55:52.923Z'
-                      updated_at: '2020-10-03T09:55:52.923Z'
+                      created_at: '2020-10-04T08:10:13.959Z'
+                      updated_at: '2020-10-04T08:10:13.959Z'
                       correction: 
                       changes: 
                     - id: 3
@@ -6615,8 +6615,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-10-03T09:55:52.915Z'
-                      updated_at: '2020-10-03T09:55:52.915Z'
+                      created_at: '2020-10-04T08:10:13.951Z'
+                      updated_at: '2020-10-04T08:10:13.951Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
@@ -6681,15 +6681,15 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-10-03T09:55:52.986Z'
-                      updated_at: '2020-10-03T09:55:52.986Z'
+                      created_at: '2020-10-04T08:10:14.026Z'
+                      updated_at: '2020-10-04T08:10:14.026Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
                         maximum_height_unit: cm
                       changes: 
                     meta:
-                      last_modified: '2020-10-03T09:55:52.986Z'
+                      last_modified: '2020-10-04T08:10:14.026Z'
         '401':
           description: Invalid credentials
           content:
@@ -6745,8 +6745,8 @@ paths:
                       change_type: update
                       accepted_by: 
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-10-03T09:55:53.182Z'
-                      updated_at: '2020-10-03T09:55:53.182Z'
+                      created_at: '2020-10-04T08:10:14.240Z'
+                      updated_at: '2020-10-04T08:10:14.240Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6756,7 +6756,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-10-03T09:55:53.182Z'
+                      last_modified: '2020-10-04T08:10:14.240Z'
         '422':
           description: Invalid parameters
           content:
@@ -8255,7 +8255,7 @@ components:
             genus:
               type: string
               nullable: true
-              example: 
+              example: Torilis
             year:
               type: integer
               nullable: true
@@ -8857,25 +8857,41 @@ components:
           type: string
         common_name:
           type: string
+        days_to_harvest:
+          type: string
         duration:
           type: string
         edible:
+          type: string
+        edible_part:
           type: string
         family_common_name:
           type: string
         family_name:
           type: string
+        flower_color:
+          type: string
         flower_conspicuous:
+          type: string
+        foliage_color:
           type: string
         foliage_texture:
           type: string
+        fruit_color:
+          type: string
         fruit_conspicuous:
           type: string
+        fruit_months:
+          type: string
         fruit_seed_persistence:
+          type: string
+        genus_name:
           type: string
         growth_form:
           type: string
         growth_habit:
+          type: string
+        growth_months:
           type: string
         growth_rate:
           type: string
@@ -8890,20 +8906,6 @@ components:
         status:
           type: string
         vegetable:
-          type: string
-        growth_months:
-          type: string
-        fruit_months:
-          type: string
-        flower_color:
-          type: string
-        foliage_color:
-          type: string
-        fruit_color:
-          type: string
-        edible_part:
-          type: string
-        genus_name:
           type: string
     filters_species:
       type: object
@@ -8914,25 +8916,41 @@ components:
           type: string
         common_name:
           type: string
+        days_to_harvest:
+          type: string
         duration:
           type: string
         edible:
+          type: string
+        edible_part:
           type: string
         family_common_name:
           type: string
         family_name:
           type: string
+        flower_color:
+          type: string
         flower_conspicuous:
+          type: string
+        foliage_color:
           type: string
         foliage_texture:
           type: string
+        fruit_color:
+          type: string
         fruit_conspicuous:
           type: string
+        fruit_months:
+          type: string
         fruit_seed_persistence:
+          type: string
+        genus_name:
           type: string
         growth_form:
           type: string
         growth_habit:
+          type: string
+        growth_months:
           type: string
         growth_rate:
           type: string
@@ -8948,25 +8966,9 @@ components:
           type: string
         vegetable:
           type: string
-        growth_months:
-          type: string
-        fruit_months:
-          type: string
-        flower_color:
-          type: string
-        foliage_color:
-          type: string
-        fruit_color:
-          type: string
-        edible_part:
-          type: string
-        genus_name:
-          type: string
     filters_not_species:
       type: object
       properties:
-        image_url:
-          type: string
         author:
           type: string
         average_height_cm:
@@ -8974,6 +8976,8 @@ components:
         bibliography:
           type: string
         common_name:
+          type: string
+        days_to_harvest:
           type: string
         edible_part:
           type: string
@@ -8997,6 +9001,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        genus_name:
+          type: string
         ground_humidity:
           type: string
         growth_form:
@@ -9005,7 +9011,7 @@ components:
           type: string
         growth_rate:
           type: string
-        genus_name:
+        image_url:
           type: string
         images_count:
           type: string
@@ -9051,11 +9057,11 @@ components:
           type: string
         soil_texture:
           type: string
+        sources_count:
+          type: string
         status:
           type: string
         synonyms_count:
-          type: string
-        sources_count:
           type: string
         toxicity:
           type: string
@@ -9094,6 +9100,8 @@ components:
           type: string
         duration:
           type: string
+        days_to_harvest:
+          type: string
         edible:
           type: string
         family_common_name:
@@ -9176,11 +9184,11 @@ components:
           type: string
         toxicity:
           type: string
+        updated_at:
+          type: string
         vegetable:
           type: string
         year:
-          type: string
-        updated_at:
           type: string
     sorts_species:
       type: object
@@ -9197,6 +9205,8 @@ components:
           type: string
         duration:
           type: string
+        days_to_harvest:
+          type: string
         edible:
           type: string
         family_common_name:
@@ -9279,16 +9289,20 @@ components:
           type: string
         toxicity:
           type: string
+        updated_at:
+          type: string
         vegetable:
           type: string
         year:
-          type: string
-        updated_at:
           type: string
     ranges_plants:
       type: object
       properties:
         atmospheric_humidity:
+          type: string
+        average_height_cm:
+          type: string
+        days_to_harvest:
           type: string
         frost_free_days_minimum:
           type: string
@@ -9297,8 +9311,6 @@ components:
         images_count:
           type: string
         light:
-          type: string
-        average_height_cm:
           type: string
         maximum_height_cm:
           type: string
@@ -9332,9 +9344,9 @@ components:
           type: string
         soil_texture:
           type: string
-        synonyms_count:
-          type: string
         sources_count:
+          type: string
+        synonyms_count:
           type: string
         toxicity:
           type: string
@@ -9345,6 +9357,10 @@ components:
       properties:
         atmospheric_humidity:
           type: string
+        average_height_cm:
+          type: string
+        days_to_harvest:
+          type: string
         frost_free_days_minimum:
           type: string
         ground_humidity:
@@ -9352,8 +9368,6 @@ components:
         images_count:
           type: string
         light:
-          type: string
-        average_height_cm:
           type: string
         maximum_height_cm:
           type: string
@@ -9387,9 +9401,9 @@ components:
           type: string
         soil_texture:
           type: string
-        synonyms_count:
-          type: string
         sources_count:
+          type: string
+        synonyms_count:
           type: string
         toxicity:
           type: string
