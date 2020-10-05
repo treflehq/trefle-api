@@ -66,7 +66,8 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
       render_serialized_resource(
         submission.record_correction,
         RecordCorrectionSerializer,
-        meta: resource_metadata(submission.record_correction)
+        meta: resource_metadata(submission.record_correction),
+        status: submission.record_correction.id_previously_changed? ? :created : :no_content
       )
     else
       render_error(submission.messages, :unprocessable_entity)
