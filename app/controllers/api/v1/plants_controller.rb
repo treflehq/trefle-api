@@ -64,7 +64,8 @@ class Api::V1::PlantsController < Api::ApiController
     render_serialized_resource(
       rc,
       RecordCorrectionSerializer,
-      meta: resource_metadata(rc)
+      meta: resource_metadata(rc),
+      status: :created
     )
   end
 
