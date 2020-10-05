@@ -23,7 +23,8 @@
             <% (defined?(corrections) ? corrections : species.record_corrections)&.limit(10).each do |corr| %>
               <li>
                 <%= link_to(explore_record_correction_path(corr, anchor: params[:id]), class: (params[:id] == "#{corr.id}" ? 'is-active' : '')) do %>
-                  By <%= corr&.user&.name %> #<%= corr&.id %>
+                  <%= badge_for_correction_status(corr) %> #<%= corr&.id %>
+                  <span class=""><%= corr&.user&.name %></span>
                 <% end %>
               </li>
             <% end %>

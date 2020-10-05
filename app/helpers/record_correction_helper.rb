@@ -14,6 +14,17 @@ module RecordCorrectionHelper
     title
   end
 
+  def badge_for_correction_status(rc)
+    case rc.change_status
+    when 'pending'
+      content_tag(:i, '', class: 'fad fa-hourglass-half')
+    when 'accepted'
+      content_tag(:i, '', class: 'fad fa-check-square')
+    when 'rejected'
+      content_tag(:i, '', class: 'fad fa-times-square')
+    end
+  end
+
   def pretty_correction(rc)
     rc.correction_json.blank? ? '' : JSON.pretty_generate(JSON.parse(rc.correction_json))
   end

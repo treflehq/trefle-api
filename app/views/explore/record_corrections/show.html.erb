@@ -11,7 +11,7 @@
         <h2 class="title is-4 ">
           <i class="fad fa-code-commit has-text-success"></i> Summary
         </h2>
-        <p><b>Current status: </b> <%= status_sentence(@record_correction) %></p>
+        <p><b>Current status: </b> <%= badge_for_correction_status(@record_correction) %> <%= status_sentence(@record_correction) %></p>
         <%= source_sentence(@record_correction) %>
         <br />
         <div class="notification is-info is-light">
