@@ -97,7 +97,7 @@ module CollectionRenderers
     end
   end
 
-  def render_serialized_resource(resource, serializer, serializer_options: {}, links: nil, meta: {})
+  def render_serialized_resource(resource, serializer, serializer_options: {}, links: nil, meta: {}, status: :ok)
     expires_in serializer_options[:delay] || 1.week
 
     end_key = "#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
@@ -110,7 +110,7 @@ module CollectionRenderers
           meta: meta
         }.compact)
       end
-      render(json: serialized_resource) && return
+      render(json: serialized_resource, status: status) && return
     end
   end
 
