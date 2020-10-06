@@ -11,8 +11,8 @@ module Migrators
 
       sp.main_image_url = nil unless HTTParty.get(sp.main_image_url).ok?
 
-      s.species_images.each do |si|
-        si.delete unless HTTParty.get(sp.image_url).ok?
+      sp.species_images.each do |si|
+        si.delete unless HTTParty.get(si.image_url).ok?
       end
 
       if sp.main_image_url.nil?
