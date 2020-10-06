@@ -1,8 +1,8 @@
-class Migrators::SynonymsDuplicateWorker
+class Migrators::SynonymsDuplicatesWorker
   include Sidekiq::Worker
   sidekiq_options queue: :migrations, retry: true, backtrace: true
 
   def perform(*_args)
-    ::Migrators::SynonymsDuplicate.run
+    ::Migrators::SynonymsDuplicates.run
   end
 end
