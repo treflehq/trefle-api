@@ -309,13 +309,9 @@ class Species < ApplicationRecord
   def setup_main_species
     return unless main_species.nil? || main_species.id == id
 
-    Marginalia.with_annotation("setup_main_species") do
-
-      puts "setup_main_species"
-      plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
-      puts "[DONE] setup_main_species"
-
-    end
+    puts "setup_main_species"
+    plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
+    puts "[DONE] setup_main_species"
   end
 
   def complete_cache_fields
