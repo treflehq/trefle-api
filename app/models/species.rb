@@ -274,6 +274,7 @@ class Species < ApplicationRecord
 
   flag :edible_part, %i[roots stem leaves flowers fruits seeds tubers]
 
+  before_validation :infer_main_species
   before_validation :infer_rank
   before_validation :infer_genus
   before_validation :complete_cache_fields
@@ -308,10 +309,13 @@ class Species < ApplicationRecord
   def setup_main_species
     return unless main_species.nil? || main_species.id == id
 
-    puts "setup_main_species"
-    plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
-    puts "[DONE] setup_main_species"
+    Marginalia.with_annotation("setup_main_species") do
 
+      puts "setup_main_species"
+      plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
+      puts "[DONE] setup_main_species"
+
+    end
   end
 
   def complete_cache_fields
@@ -435,6 +439,10 @@ class Species < ApplicationRecord
     save
   end
 
+  def infer_main_species
+    self.main_species_id = nil if self.has_root_name? && self.species_rank?
+  end
+
   def infer_rank
     return unless rank.nil?
 
@@ -500,7 +508,7 @@ class Species < ApplicationRecord
       # We want all species fields, without theses ones
       %w[
         id slug inserted_at updated_at plant_id scientific_name rank
-        checked_at token full_token created_at reviewed_at complete_data
+        checked_at main_species_id token full_token created_at reviewed_at complete_data
         sources_count images_count synonyms_count gbif_score
       ]
     )

@@ -13,9 +13,9 @@ production:
   - crawlers
 :process_limits:
   critical: 4
-  default: 4
+  default: 3
   crawlers: 3
   checks: 3
-  migrations: 3
-  low: 3
+  migrations: 2
+  low: 2
   searchkick: 1
