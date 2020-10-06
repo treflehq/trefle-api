@@ -7,7 +7,7 @@ module Migrators
       sp = Species.friendly.find(species_id)
       return if sp.nil?
 
-      next if sp.species_images.count.zero? && sp.main_image_url.nil?
+      return if sp.species_images.count.zero? && sp.main_image_url.nil?
 
       sp.main_image_url = nil unless HTTParty.get(sp.main_image_url).ok?
 
