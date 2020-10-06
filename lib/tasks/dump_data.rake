@@ -6,7 +6,7 @@ namespace :dump do # rubocop:todo Metrics/BlockLength
       v = val&.to_a
       return nil if v.nil? || v.empty?
 
-      v.join('|')
+      v.join(',')
     end
 
     def convert_species_to_line(sp)
