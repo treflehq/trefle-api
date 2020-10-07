@@ -13,7 +13,7 @@ module Schemas
           year: { type: :integer, nullable: true, description: 'The first publication year of a valid name of this species. [See author citation](https://en.wikipedia.org/wiki/Author_citation_(botany))' }, # 1833,
           bibliography: { type: :string, nullable: true, description: 'The first publication of a valid name of this species. [See author citation](https://en.wikipedia.org/wiki/Author_citation_(botany))' }, # "Penny Cyclop. 1: 30 (1833)",
           author: { type: :string, nullable: true, description: 'The author(s) of the first publication of a valid name of this species. [See author citation](https://en.wikipedia.org/wiki/Author_citation_(botany))' }, # "(Douglas ex D.Don) Lindl.",
-          status: { type: :string, enum: ['accepted', 'unknown'], description: 'The acceptance status of this species by IPNI' }, # "Accepted",
+          status: { type: :string, enum: %w[accepted unknown], description: 'The acceptance status of this species by IPNI' }, # "Accepted",
           rank: { type: :string, enum: [*::Species.ranks.keys], description: 'The [taxonomic rank](https://en.wikipedia.org/wiki/Taxonomic_rank) of the species' }, # "species",
           family_common_name: { type: :string, nullable: true, description: 'The common name (in english) of the species family' }, # "Pine family",
           family: { type: :string, description: 'The scientific name of the species family' },

@@ -22,5 +22,4 @@ module Migrators
       sp.save
     end
   end
-
 end

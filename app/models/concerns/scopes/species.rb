@@ -3,7 +3,7 @@ module Scopes
     extend ActiveSupport::Concern
 
     included do # rubocop:todo Metrics/BlockLength
-      
+
       Api::V1::SpeciesController::FILTERABLE_FIELDS.each do |field|
         # scope "filter_by_#{field}".to_sym, ->(v) { where(field => v) }
         scope "filter_by_#{field}".to_sym, lambda {|v|

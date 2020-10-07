@@ -34,16 +34,16 @@ module Utils
         migrate_trends!(a_to_delete.species_trends, b_to_keep)
 
         final_attributes = a_to_delete.merge_attributes.merge(b_to_keep.merge_attributes)
-        
+
         # Dont cycle main id
         # final_attributes = ['main_species_id'] = nil # if final_attributes['main_species_id'] == b_to_keep.reload.id
-        
-        puts ">> Ready to merge:"
+
+        puts '>> Ready to merge:'
         puts final_attributes.inspect
         puts "into #{b_to_keep.inspect}"
 
         b_to_keep.update(main_species_id: nil) if b_to_keep.has_root_name? && b_to_keep.species_rank?
-        
+
         b_to_keep.reload.update!(final_attributes)
         a_to_delete.delete
       end
@@ -111,7 +111,7 @@ module Utils
       end
     end
 
-    def migrate_trends!(trends, b_to_keep)
+    def migrate_trends!(trends, _b_to_keep)
       trends.delete_all
     end
 
