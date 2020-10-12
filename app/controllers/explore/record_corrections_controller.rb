@@ -1,5 +1,6 @@
 class Explore::RecordCorrectionsController < Explore::ExploreController
   before_action :set_record_correction, only: %i[show]
+  has_scope :status, allow_blank: false
 
   # GET /record_correction
   # GET /record_correction.json
@@ -7,11 +8,14 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
     @page_title       = 'Corrections for plants and species'
     @page_keywords    = 'correction, data, explore, plants, search, species'
 
+    p = params.permit(:search, order: {})
+
     @species = Species.friendly.find(params.require(:species_id)) if params[:species_id]
 
-    @collection ||= RecordCorrection.all
+    @collection ||= apply_scopes(RecordCorrection.all)
     @collection = @collection.where(record: @species) if @species
     @collection = @collection.where(user_id: current_user.id) if params[:mine]
+    @collection = @collection.order(p.to_h.dig('order')) if p[:order]
 
     @pagy, @collection = pagy(@collection)
   end

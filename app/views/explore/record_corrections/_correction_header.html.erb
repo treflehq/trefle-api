@@ -19,7 +19,7 @@
               <%= image_tag correction.user.gravatar_url, class: 'correction-user-image' %>
               <%= correction.user&.name || 'anonymous' %>
               <span class="correction-status-line">
-                <span class="tag is-medium"><%= correction.change_status %></span>
+                <span class="<%= class_for_correction_status(correction.change_status) %> is-medium"><%= correction.change_status %></span>
               </span>
             </p>
             <h1 class="title is-1">

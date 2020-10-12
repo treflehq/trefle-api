@@ -1,12 +1,17 @@
 <div class="species-page home-page container" id="explore-species-page">
   <% if @species %>
   <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
+  <% else %>
+  <%= render partial: 'explore/record_corrections/header', locals: {} %>
   <% end %>
   <div class="columns">
     <div class="column is-3">
       <% if @species %>
       <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'corrections', corrections: @collection} %>
+      <% else %>
+      <%= render partial: 'explore/record_corrections/corrections_menu', locals: {} %>
       <% end %>
+
 
     </div>
 

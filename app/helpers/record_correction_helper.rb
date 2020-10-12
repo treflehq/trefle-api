@@ -14,6 +14,17 @@ module RecordCorrectionHelper
     title
   end
 
+  def class_for_correction_status(status)
+    case status.to_sym
+    when :pending
+      'tag is-info'
+    when :accepted
+      'tag is-success'
+    when :rejected
+      'tag is-danger'
+    end
+  end
+
   def badge_for_correction_status(rc)
     case rc.change_status
     when 'pending'

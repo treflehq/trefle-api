@@ -1,0 +1,56 @@
+<aside class="menu">
+    <p class="menu-label">Filter by status</p>
+    <ul class="menu-list sticky-menu">
+      <li>
+
+      <div class="buttons has-addons">
+        <%= link_to(explore_record_corrections_path(status: :pending), class: (params[:status] == "pending" ? 'is-selected is-info button is-small' : 'button is-small')) do %>
+          <span>Pending</span>
+        <% end %>
+        <%= link_to(explore_record_corrections_path(status: :accepted), class: (params[:status] == "accepted" ? 'is-selected is-primary button is-small' : 'button is-small')) do %>
+          <span>Accepted</span>
+        <% end %>
+        <%= link_to(explore_record_corrections_path(status: :rejected), class: (params[:status] == "rejected" ? 'is-selected is-danger button is-small' : 'button is-small')) do %>
+          <span>Rejected</span>
+        <% end %>
+    </div>
+
+      <%
+=begin%>
+ <li>
+        <%= link_to(explore_species_record_corrections_path(species, anchor: 'corrections'), class: (active == 'corrections' ? 'is-active' : '')) do %>
+          Corrections
+          <span class="tag"><%= (defined?(corrections) ? corrections : species.record_corrections)&.length %></span>
+        <% end %>
+        <% if active == 'corrections' %>
+          <ul>
+            <% (defined?(corrections) ? corrections : species.record_corrections)&.limit(10).each do |corr| %>
+              <li>
+                <%= link_to(explore_record_correction_path(corr, anchor: params[:id]), class: (params[:id] == "#{corr.id}" ? 'is-active' : '')) do %>
+                  <%= badge_for_correction_status(corr) %> #<%= corr&.id %>
+                  <span class=""><%= corr&.user&.name %></span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
+    </ul>
+    <% if species.foreign_sources.any? %>
+      <p class="menu-label">
+        Links
+      </p>
+      <ul class="menu-list">
+        <% species.foreign_sources_plants.each do |fsp| %>
+          <li>
+          <%= link_to(fsp.full_url, target: '_blank', rel: 'noopener') do %>
+            <i class="fa fa-external-link"></i>
+            See on <%= "#{fsp.foreign_source&.name}" %>
+          <% end %>
+          </li>
+        <% end %>
+    <% end %> 
+<%
+=end%>
+      </ul> 
+</aside>

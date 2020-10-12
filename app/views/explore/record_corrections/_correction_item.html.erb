@@ -11,7 +11,7 @@
 
     <%= link_to explore_record_correction_path(correction), class: '' do %>
       <h2 class="title is-5">
-        <span class="tag"><%= correction.change_status %></span>
+        <span class="<%= class_for_correction_status(correction.change_status) %>"><%= correction.change_status %></span>
         <span><%= title_for_correction(correction) %></span>
       </h2>
     <% end %> 
