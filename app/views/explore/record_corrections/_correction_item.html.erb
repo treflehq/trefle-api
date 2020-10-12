@@ -1,9 +1,20 @@
-<%= link_to explore_record_correction_path(correction), class: 'correction-item' do %>
+<div class="correction-item">
   <main>
-    <h2 class="title is-5">
-      <span class="tag"><%= correction.change_status %></span>
-      <span><%= title_for_correction(correction) %></span>
-    </h2>
+    <% unless @species %>
+    <header>
+      <% if correction.record&.main_image_url %>
+        <%= image_tag correction.record&.main_image_url, class: 'user-image thumb-image' %>
+      <% end %>
+      <%= link_to correction.record&.scientific_name, explore_species_path(correction.record_id) %>
+    </header>
+    <% end %>
+
+    <%= link_to explore_record_correction_path(correction), class: '' do %>
+      <h2 class="title is-5">
+        <span class="tag"><%= correction.change_status %></span>
+        <span><%= title_for_correction(correction) %></span>
+      </h2>
+    <% end %> 
   </main>
   <footer>
     <div class="footer-item">
@@ -18,6 +29,5 @@
     <div class="footer-item">
       ᐧ <%= correction.notes.blank? ? 'No notes' : 'With a note' %>
     </div>
-
   </footer>
-<% end %>
+</div>

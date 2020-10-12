@@ -1,15 +1,19 @@
 <div class="species-page home-page container" id="explore-species-page">
+  <% if @species %>
   <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
-  
+  <% end %>
   <div class="columns">
     <div class="column is-3">
+      <% if @species %>
       <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'corrections', corrections: @collection} %>
+      <% end %>
+
     </div>
 
     <div class="column is-9">
       <% if @collection.empty? %>
         <div class="notification is-info is-light">
-          <p>There is no corrections for <%= @species.scientific_name %> yet.</p>
+          <p>There is no corrections <%= @species ? "for #{@species.scientific_name}" : '' %> yet.</p>
         </div>
       <% end %>
 
@@ -17,7 +21,7 @@
         <%= render partial: 'explore/record_corrections/correction_item', locals: {correction: correction} %>
       <% end %>
 
-      <% if @collection.count > 20 %>
+      <% if @collection.count >= 20 %>
         <div class="container">
           <%== pagy_bulma_nav(@pagy) %>
           <%== pagy_info(@pagy) %>

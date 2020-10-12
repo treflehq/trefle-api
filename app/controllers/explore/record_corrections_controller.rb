@@ -7,10 +7,10 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
     @page_title       = 'Corrections for plants and species'
     @page_keywords    = 'correction, data, explore, plants, search, species'
 
-    @species = Species.friendly.find(params.require(:species_id))
+    @species = Species.friendly.find(params.require(:species_id)) if params[:species_id]
 
     @collection ||= RecordCorrection.all
-    @collection = @collection.where(record: @species)
+    @collection = @collection.where(record: @species) if @species
     @collection = @collection.where(user_id: current_user.id) if params[:mine]
 
     @pagy, @collection = pagy(@collection)
