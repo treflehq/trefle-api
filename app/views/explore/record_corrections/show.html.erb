@@ -7,7 +7,16 @@
     </div>
 
     <div class="column is-9">
+
       <section class="section content" id="changes">
+        <% if current_user&.admin? %>
+          <%= link_to 'See on management', [:management, @record_correction.record], class: 'button is-info', target: '_blank' %>
+
+          <% if @record_correction&.pending_change_status? %>
+            <%= link_to 'Accept', accept_management_record_correction_path(@record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button is-primary' %>
+            <%= link_to 'Reject', reject_management_record_correction_path(@record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+          <% end %>
+        <% end %>
         <h2 class="title is-4 ">
           <i class="fad fa-code-commit has-text-success"></i> Summary
         </h2>
