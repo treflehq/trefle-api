@@ -3,7 +3,7 @@ module RecordCorrectionHelper
     limit = 2
     correction = rc.correction_json ? JSON.parse(rc.correction_json) : {}
 
-    title = rc.change_type.to_s.humanize.to_s
+    title = rc.report_source_type? ? 'Report' : rc.change_type.to_s.humanize.to_s
 
     if correction.any?
       changes = correction.keys.first(limit)
@@ -26,6 +26,8 @@ module RecordCorrectionHelper
   end
 
   def badge_for_correction_status(rc)
+    return content_tag(:i, '', class: 'fad fa-exclamation-triangle') if rc.report_source_type? && rc.pending_change_status?
+    
     case rc.change_status
     when 'pending'
       content_tag(:i, '', class: 'fad fa-hourglass-half')
@@ -45,13 +47,14 @@ module RecordCorrectionHelper
   end
 
   def status_sentence(rc)
+    name = rc.report_source_type? ? 'Report' : 'Correction'
     case rc.change_status
     when 'pending'
-      'Correction is pending validation.'
+      "#{name} is pending validation."
     when 'accepted'
-      'Correction has been accepted and merged in the database.'
+      "#{name} has been accepted and merged in the database."
     when 'rejected'
-      'Correction has been rejected.'
+      "#{name} has been rejected."
     end
   end
 

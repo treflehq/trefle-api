@@ -27,6 +27,7 @@ import FieldObservation from './fields/FieldObservation';
 import EditButton from './elements/EditButton';
 import FieldImage from './fields/FieldImage';
 import FieldEdiblePart from './fields/FieldEdiblePart';
+import ReportModal from './elements/ReportModal';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
@@ -70,9 +71,11 @@ const Species = ({ species }) => {
 
     return (
       <section className="section content" id="specifications">
+
+        <ReportModal />
         <h2 className="title is-3 ">
           <i className="fad fa-cog has-text-success"></i> Specifications
-          <EditButton />
+          {/* <EditButton /> */}
         </h2>
         <div className="columns is-multiline">
           <div className="column is-12">
@@ -107,7 +110,7 @@ const Species = ({ species }) => {
     return (<section className="section content" id="growth">
       <h2 className="title is-3 ">
         <i className="fad fa-seedling has-text-success"></i> Growing
-        <EditButton />
+        {/* <EditButton /> */}
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
       <FieldLight name="light" value={growth.light} />
@@ -196,7 +199,7 @@ const Species = ({ species }) => {
   }
 
   return (<>
-    
+
     { renderSpecifications() }
     { renderGrowing() }
     <hr />

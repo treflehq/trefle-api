@@ -9,6 +9,7 @@ import Review from './Review';
 
 const SpeciesPage = ({ slug }) => {
   const [submission, setSubmission] = useState({})
+  const [report, setReport] = useState({})
   const [response, setResponse] = useState({})
   const [user, setUser] = useState({})
   const [currentCorrections, setCurrentCorrections] = useState({})
@@ -52,6 +53,19 @@ const SpeciesPage = ({ slug }) => {
     return json
   }
 
+  const submitReport = async (payload) => {
+    const response = await fetch(
+      `/api/v1/species/${slug}/report?token=${temp_token}`, {
+      method: 'post',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const json = await response.json();
+    console.log(json);
+    setReport(json)
+    return json
+  }
+
   useEffect(() => {
     async function fetchData() {
       const r = await axios.get(`/api/v1/species/${slug}?token=${temp_token}`)
@@ -84,7 +98,9 @@ const SpeciesPage = ({ slug }) => {
     toggleReview,
     setReview,
     submission,
-    submitCorrection
+    report,
+    submitCorrection,
+    submitReport,
   }
 
   if (response.data && user && currentCorrections) {

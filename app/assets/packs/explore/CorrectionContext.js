@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 const CorrectionContext = React.createContext({
   correction: {},
   submission: {},
+  report: {},
   user: {},
   edit: false,
   setField: (field, value) => { },
@@ -13,6 +14,7 @@ const CorrectionContext = React.createContext({
   toggleReview: () => { },
   setReview: (value) => { },
   submitCorrection: async (payload) => { },
+  submitReport: async (payload) => { },
 })
 
 

@@ -92,6 +92,10 @@
   background-position: 50% 50%;
 }
 
+.navbar {
+  z-index: initial;
+}
+
 .correction-item {
   display: flex;
   align-items: stretch;
