@@ -27,7 +27,7 @@ module RecordCorrectionHelper
 
   def badge_for_correction_status(rc)
     return content_tag(:i, '', class: 'fad fa-exclamation-triangle') if rc.report_source_type? && rc.pending_change_status?
-    
+
     case rc.change_status
     when 'pending'
       content_tag(:i, '', class: 'fad fa-hourglass-half')
