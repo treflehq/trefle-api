@@ -24,7 +24,16 @@
         <%= source_sentence(@record_correction) %>
         <br />
         <div class="notification is-info is-light">
-          <p><b>Notes: </b> <%= @record_correction.notes || 'No notes' %></p>
+          <% if @record_correction.notes.blank? %>
+            <span>No notes</span>
+          <% elsif @record_correction.notes&.split("\n").count == 1 %>
+            <p><b>Notes: </b><%= @record_correction.notes %></p>
+          <% else %>
+            <b>Notes: </b>
+            <% @record_correction.notes && @record_correction.notes&.split("\n")&.map do |e| %>
+              <li><%= e %></li>
+            <% end %>
+          <% end %>
         </div>
       </section>
       <section class="section content" id="changes">
