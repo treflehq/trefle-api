@@ -9,7 +9,9 @@ module Migrators
 
       return if sp.species_images.count.zero? && sp.main_image_url.nil?
 
-      sp.main_image_url = HTTParty.get(uri_for(sp.main_image_url)).ok? ? uri_for(sp.main_image_url) : nil
+      unless sp.main_image_url.nil?
+        sp.main_image_url = HTTParty.get(uri_for(sp.main_image_url)).ok? ? uri_for(sp.main_image_url) : nil
+      end
 
       filter_species_images!(sp)
 
