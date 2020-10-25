@@ -15,7 +15,6 @@
     <div id="navbar-trefle" class="navbar-menu">
       <div class="navbar-start">
 
-        <% if user_signed_in? && current_user.admin? %>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
               <i class="fad fa-compass"></i><span> Explore</span>
@@ -33,7 +32,6 @@
               </a>
             </div>
           </div>
-        <% end %>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-item " href="https://docs.trefle.io">
