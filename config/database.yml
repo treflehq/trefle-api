@@ -83,4 +83,3 @@ test:
 production:
   <<: *default
   database: <%= ENV['PG_DATABASE'] || 'trefle_prod' %>
-  sslmode: require
