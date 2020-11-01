@@ -4,7 +4,7 @@ module Search
     include Sidekiq::Worker
 
     def perform
-      Species.reindex
+      ::Species.reindex
     end
   end
 end
