@@ -76,6 +76,7 @@ module Utils
           rc.destroy
         else
           rc.update(record: b_to_keep, notes: rc.notes + "\nMerged into a new species")
+          rc.update_scientific_name_references(b_to_keep.scientific_name)
         end
       end
     end

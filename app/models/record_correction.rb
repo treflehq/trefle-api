@@ -109,4 +109,22 @@ class RecordCorrection < ApplicationRecord
     )
   end
 
+  def update_scientific_name_references(new_scientific_name = nil)
+
+    new_scientific_name ||= record.scientific_name
+
+    if self.change_notes
+      notes = JSON.parse(self.change_notes)
+      notes['scientific_name'] = new_scientific_name if notes['scientific_name']
+      self.change_notes = notes.to_json
+    end
+
+    if self.correction_json
+      correction = JSON.parse(self.correction_json)
+      correction['scientific_name'] = new_scientific_name if correction['scientific_name']
+      self.correction_json = correction.to_json
+    end
+    save
+  end
+
 end
