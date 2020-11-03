@@ -86,8 +86,6 @@ GEM
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
-    appsignal (2.11.0)
-      rack
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     auto_strip_attributes (2.6.0)
@@ -134,6 +132,8 @@ GEM
     crass (1.0.6)
     dalli (2.7.11)
     database_cleaner (1.8.5)
+    ddtrace (0.42.0)
+      msgpack
     derailed_benchmarks (1.8.1)
       benchmark-ips (~> 2)
       get_process_mem (~> 0)
@@ -442,7 +442,6 @@ DEPENDENCIES
   active_flag
   activerecord-like
   annotate
-  appsignal
   auto_strip_attributes (~> 2.5)
   bcrypt (>= 3.1.7)
   bootsnap (>= 1.1.0)
@@ -456,6 +455,7 @@ DEPENDENCIES
   coveralls (>= 0.8.23)
   dalli
   database_cleaner (>= 1.8.5)
+  ddtrace
   derailed_benchmarks
   devise
   dotenv-rails (>= 2.7.5)
