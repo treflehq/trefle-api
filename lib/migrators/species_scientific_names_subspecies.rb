@@ -4,7 +4,7 @@ module Migrators
     def self.run
       ::Species.where("array_length(string_to_array(scientific_name, ' '), 1) > 2").each do |p|
 
-        next if (p.scientific_name =~ /(\s[\w]+) (var|subsp)\.\1/ ).nil?
+        next if (p.scientific_name =~ /(\s[\w]+) (var|subsp)\.\1/).nil?
 
         good_species = ::Species.find_by(scientific_name: p.scientific_name.gsub(/(\s[\w]+)( (var|subsp)\.\1)/, '\1'))
 

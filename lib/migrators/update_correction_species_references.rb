@@ -3,7 +3,7 @@ module Migrators
 
     def self.run
       ::RecordCorrection.pending_change_status.each do |rc|
-        rc.update_scientific_name_references()
+        rc.update_scientific_name_references
       end
       true
     end

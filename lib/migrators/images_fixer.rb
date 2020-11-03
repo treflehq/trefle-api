@@ -25,7 +25,7 @@ module Migrators
     def self.filter_species_images!(sp)
       sp.species_images.each do |si|
         if HTTParty.get(uri_for(si.image_url)).ok?
-          si.image_url = uri_for(si.image_url) 
+          si.image_url = uri_for(si.image_url)
         else
           si.delete
         end
