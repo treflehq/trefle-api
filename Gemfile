@@ -70,7 +70,7 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.2.2'
 gem 'sentry-raven'
-gem 'skylight'
+gem 'skylight', '~> 5.0.0.beta4'
 
 # Sidekiq
 gem 'redis', '~> 4.1.4'

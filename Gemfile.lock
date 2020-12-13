@@ -386,10 +386,8 @@ GEM
     sitemap_generator (6.1.2)
       builder (~> 3.0)
     sixarm_ruby_unaccent (1.2.0)
-    skylight (4.3.1)
-      skylight-core (= 4.3.1)
-    skylight-core (4.3.1)
-      activesupport (>= 4.2.0)
+    skylight (5.0.0.beta4)
+      activesupport (>= 5.2.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -505,7 +503,7 @@ DEPENDENCIES
   sidekiq-status
   simplecov (>= 0.16.1)
   sitemap_generator
-  skylight
+  skylight (~> 5.0.0.beta4)
   spring
   spring-watcher-listen (>= 2.0.0)
   terminal-table
