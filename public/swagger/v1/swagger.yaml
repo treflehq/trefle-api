@@ -122,7 +122,7 @@ paths:
                       links:
                         self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:04.705Z'
+                      last_modified: '2020-12-13T12:27:14.511Z'
         '401':
           description: Invalid credentials
           content:
@@ -264,7 +264,7 @@ paths:
                         links:
                           self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:04.724Z'
+                      last_modified: '2020-12-13T12:27:14.526Z'
         '401':
           description: Invalid credentials
           content:
@@ -572,7 +572,7 @@ paths:
                           links:
                             self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:04.740Z'
+                      last_modified: '2020-12-13T12:27:14.541Z'
         '401':
           description: Invalid credentials
           content:
@@ -976,7 +976,7 @@ paths:
                             links:
                               self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:04.789Z'
+                      last_modified: '2020-12-13T12:27:14.591Z'
         '401':
           description: Invalid credentials
           content:
@@ -1788,7 +1788,7 @@ paths:
                               links:
                                 self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:04.827Z'
+                      last_modified: '2020-12-13T12:27:14.649Z'
         '401':
           description: Invalid credentials
           content:
@@ -2212,7 +2212,7 @@ paths:
                                 links:
                                   self: "/api/v1/kingdoms/plantae"
                     meta:
-                      last_modified: '2020-10-04T08:10:05.157Z'
+                      last_modified: '2020-12-13T12:27:15.036Z'
         '401':
           description: Invalid credentials
           content:
@@ -2461,7 +2461,7 @@ paths:
                           division_order: "/api/v1/division_orders/pinales"
                           genus: "/api/v1/families/pinaceae/genus"
                     meta:
-                      last_modified: '2020-10-04T08:10:05.609Z'
+                      last_modified: '2020-12-13T12:27:15.734Z'
         '401':
           description: Invalid credentials
           content:
@@ -2777,7 +2777,7 @@ paths:
                         plant: "/api/v1/plants/carex-praegracilis"
                         genus: "/api/v1/genus/carex"
                     - id: 273225
-                      common_name: 
+                      common_name:
                       slug: senecio-gamolepis
                       scientific_name: Senecio gamolepis
                       year: 1955
@@ -2787,7 +2787,7 @@ paths:
                       rank: species
                       family_common_name: Aster family
                       genus_id: 669
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Senecio
                       family: Asteraceae
@@ -2846,11 +2846,11 @@ paths:
                   value:
                     data:
                       id: 238331
-                      common_name: 
+                      common_name:
                       slug: senecio-gamolepis
                       scientific_name: Senecio gamolepis
                       main_species_id: 273225
-                      image_url: 
+                      image_url:
                       year: 1955
                       bibliography: 'Notas Mus. La Plata, Bot. 18(89): 222 (1955)'
                       author: Cabrera
@@ -2864,7 +2864,7 @@ paths:
                         genus: "/api/v1/genus/senecio"
                       main_species:
                         id: 273225
-                        common_name: 
+                        common_name:
                         slug: senecio-gamolepis
                         scientific_name: Senecio gamolepis
                         year: 1955
@@ -2876,11 +2876,11 @@ paths:
                         genus_id: 669
                         observations: Peru
                         vegetable: false
-                        image_url: 
+                        image_url:
                         genus: Senecio
                         family: Asteraceae
-                        duration: 
-                        edible_part: 
+                        duration:
+                        edible_part:
                         edible: false
                         images:
                           flower: []
@@ -2906,60 +2906,60 @@ paths:
                               plants: "/api/v1/distributions/per/plants"
                               species: "/api/v1/distributions/per/species"
                         flower:
-                          color: 
-                          conspicuous: 
+                          color:
+                          conspicuous:
                         foliage:
-                          texture: 
-                          color: 
-                          leaf_retention: 
+                          texture:
+                          color:
+                          leaf_retention:
                         fruit_or_seed:
-                          conspicuous: 
-                          color: 
-                          shape: 
-                          seed_persistence: 
+                          conspicuous:
+                          color:
+                          shape:
+                          seed_persistence:
                         specifications:
-                          ligneous_type: 
-                          growth_form: 
-                          growth_habit: 
-                          growth_rate: 
+                          ligneous_type:
+                          growth_form:
+                          growth_habit:
+                          growth_rate:
                           average_height:
-                            cm: 
+                            cm:
                           maximum_height:
-                            cm: 
-                          nitrogen_fixation: 
-                          shape_and_orientation: 
-                          toxicity: 
+                            cm:
+                          nitrogen_fixation:
+                          shape_and_orientation:
+                          toxicity:
                         growth:
-                          description: 
-                          sowing: 
-                          days_to_harvest: 
+                          description:
+                          sowing:
+                          days_to_harvest:
                           row_spacing:
-                            cm: 
+                            cm:
                           spread:
-                            cm: 
-                          ph_maximum: 
-                          ph_minimum: 
-                          light: 
-                          atmospheric_humidity: 
-                          growth_months: 
-                          bloom_months: 
-                          fruit_months: 
+                            cm:
+                          ph_maximum:
+                          ph_minimum:
+                          light:
+                          atmospheric_humidity:
+                          growth_months:
+                          bloom_months:
+                          fruit_months:
                           minimum_precipitation:
-                            mm: 
+                            mm:
                           maximum_precipitation:
-                            mm: 
+                            mm:
                           minimum_root_depth:
-                            cm: 
+                            cm:
                           minimum_temperature:
-                            deg_f: 
-                            deg_c: 
+                            deg_f:
+                            deg_c:
                           maximum_temperature:
-                            deg_f: 
-                            deg_c: 
-                          soil_nutriments: 
-                          soil_salinity: 
-                          soil_texture: 
-                          soil_humidity: 
+                            deg_f:
+                            deg_c:
+                          soil_nutriments:
+                          soil_salinity:
+                          soil_texture:
+                          soil_humidity:
                         links:
                           self: "/api/v1/species/senecio-gamolepis"
                           plant: "/api/v1/plants/senecio-gamolepis"
@@ -2983,7 +2983,7 @@ paths:
                           id: '4234505'
                           name: GBIF
                           url: https://www.gbif.org/species/4234505
-                          citation: 
+                          citation:
                       genus:
                         id: 669
                         name: Senecio
@@ -3004,7 +3004,7 @@ paths:
                           genus: "/api/v1/families/asteraceae/genus"
                       species:
                       - id: 273225
-                        common_name: 
+                        common_name:
                         slug: senecio-gamolepis
                         scientific_name: Senecio gamolepis
                         year: 1955
@@ -3014,7 +3014,7 @@ paths:
                         rank: species
                         family_common_name: Aster family
                         genus_id: 669
-                        image_url: 
+                        image_url:
                         synonyms: []
                         genus: Senecio
                         family: Asteraceae
@@ -3045,9 +3045,9 @@ paths:
                         id: '4234505'
                         name: GBIF
                         url: https://www.gbif.org/species/4234505
-                        citation: 
+                        citation:
                     meta:
-                      last_modified: '2020-10-04T08:10:05.489Z'
+                      last_modified: '2020-12-13T12:27:15.563Z'
         '401':
           description: Invalid credentials
           content:
@@ -3168,7 +3168,7 @@ paths:
       security:
       - token: []
       responses:
-        '200':
+        '201':
           description: Success
           content:
             application/json:
@@ -3183,7 +3183,7 @@ paths:
                       last_modified:
                         type: string
               examples:
-                returns-a-200-response:
+                returns-a-201-response:
                   value:
                     data:
                       id: 1
@@ -3193,14 +3193,14 @@ paths:
                       warning_type: report
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: The flower color is red
-                      created_at: '2020-10-04T08:10:13.225Z'
-                      updated_at: '2020-10-04T08:10:13.227Z'
-                      correction: 
-                      changes: 
+                      created_at: '2020-12-13T12:27:23.527Z'
+                      updated_at: '2020-12-13T12:27:23.529Z'
+                      correction:
+                      changes:
                     meta:
-                      last_modified: '2020-10-04T08:10:13.227Z'
+                      last_modified: '2020-12-13T12:27:23.529Z'
         '401':
           description: Invalid credentials
           content:
@@ -3605,7 +3605,7 @@ paths:
                   value:
                     data:
                     - id: 273225
-                      common_name: 
+                      common_name:
                       slug: senecio-gamolepis
                       scientific_name: Senecio gamolepis
                       year: 1955
@@ -3615,7 +3615,7 @@ paths:
                       rank: species
                       family_common_name: Aster family
                       genus_id: 669
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Senecio
                       family: Asteraceae
@@ -3806,12 +3806,12 @@ paths:
                       scientific_name: Sorbus aucuparia subsp. aucuparia
                       year: 1753
                       bibliography: 'Sp. Pl.: 477 (1753)'
-                      author: 
+                      author:
                       status: accepted
                       rank: ssp
                       family_common_name: Rose family
                       genus_id: 677
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Pyrus aucuparia
                       - Sorbus aucuparia var. xanthocarpa
@@ -3946,7 +3946,7 @@ paths:
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Torilis
                       family: Apiaceae
@@ -3987,14 +3987,14 @@ paths:
                       common_name: Spreading hedgeparsley
                       slug: torilis-arvensis-subsp-neglecta
                       scientific_name: Torilis arvensis subsp. neglecta
-                      year: 
+                      year:
                       bibliography: G. Hegi, Ill. Fl. Mitt.-Eur. 5(2):1055.  1926
                       author: Thell. (Spreng.)
                       status: accepted
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Torilis radiata
                       genus: Torilis
@@ -4014,7 +4014,7 @@ paths:
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Torilis arvensis var. elatior
                       - Caucalis infesta var. elatior
@@ -4035,7 +4035,7 @@ paths:
                       rank: ssp
                       family_common_name: Rose family
                       genus_id: 677
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Sorbus manshuriensis
                       - Sorbus pohuashanensis
@@ -4050,7 +4050,7 @@ paths:
                         plant: "/api/v1/plants/sorbus-aucuparia"
                         genus: "/api/v1/genus/sorbus"
                     - id: 1254480
-                      common_name: 
+                      common_name:
                       slug: sorbus-aucuparia-subsp-maderensis
                       scientific_name: Sorbus aucuparia subsp. maderensis
                       year: 1907
@@ -4060,7 +4060,7 @@ paths:
                       rank: ssp
                       family_common_name: Rose family
                       genus_id: 677
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Sorbus maderensis
                       genus: Sorbus
@@ -4081,7 +4081,7 @@ paths:
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms:
                       - Torilis infesta subsp. heterophylla
                       genus: Torilis
@@ -4091,7 +4091,7 @@ paths:
                         plant: "/api/v1/plants/torilis-arvensis"
                         genus: "/api/v1/genus/torilis"
                     - id: 273225
-                      common_name: 
+                      common_name:
                       slug: senecio-gamolepis
                       scientific_name: Senecio gamolepis
                       year: 1955
@@ -4101,7 +4101,7 @@ paths:
                       rank: species
                       family_common_name: Aster family
                       genus_id: 669
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Senecio
                       family: Asteraceae
@@ -4120,7 +4120,7 @@ paths:
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Torilis
                       family: Apiaceae
@@ -4139,7 +4139,7 @@ paths:
                       rank: ssp
                       family_common_name: Carrot family
                       genus_id: 6637
-                      image_url: 
+                      image_url:
                       synonyms: []
                       genus: Torilis
                       family: Apiaceae
@@ -4219,8 +4219,8 @@ paths:
                       image_url: https://bs.floristic.org/image/o/63073d2fbf45b90701279405ecc2eec0272906ed
                       genus: Sorbus
                       family: Rosaceae
-                      duration: 
-                      edible_part: 
+                      duration:
+                      edible_part:
                       edible: false
                       images:
                         flower:
@@ -5436,16 +5436,16 @@ paths:
                             plants: "/api/v1/distributions/wyo/plants"
                             species: "/api/v1/distributions/wyo/species"
                       flower:
-                        color: 
+                        color:
                         conspicuous: true
                       foliage:
                         texture: fine
-                        color: 
+                        color:
                         leaf_retention: false
                       fruit_or_seed:
                         conspicuous: true
-                        color: 
-                        shape: 
+                        color:
+                        shape:
                         seed_persistence: true
                       specifications:
                         ligneous_type: tree
@@ -5460,20 +5460,20 @@ paths:
                         shape_and_orientation: Erect
                         toxicity: none
                       growth:
-                        description: 
-                        sowing: 
-                        days_to_harvest: 
+                        description:
+                        sowing:
+                        days_to_harvest:
                         row_spacing:
-                          cm: 
+                          cm:
                         spread:
-                          cm: 
+                          cm:
                         ph_maximum: 7.5
                         ph_minimum: 5.5
                         light: 7
                         atmospheric_humidity: 5
-                        growth_months: 
-                        bloom_months: 
-                        fruit_months: 
+                        growth_months:
+                        bloom_months:
+                        fruit_months:
                         minimum_precipitation:
                           mm: 711
                         maximum_precipitation:
@@ -5484,12 +5484,12 @@ paths:
                           deg_f: -32
                           deg_c: -36
                         maximum_temperature:
-                          deg_f: 
-                          deg_c: 
+                          deg_f:
+                          deg_c:
                         soil_nutriments: 3
                         soil_salinity: 0
                         soil_texture: 4
-                        soil_humidity: 
+                        soil_humidity:
                       links:
                         self: "/api/v1/species/sorbus-aucuparia"
                         plant: "/api/v1/plants/sorbus-aucuparia"
@@ -5556,19 +5556,19 @@ paths:
                       - last_update: '2020-07-04T19:21:51.000Z'
                         id: 18/1.0.1.0.1
                         name: CATMINAT
-                        url: 
-                        citation: 
+                        url:
+                        citation:
                       - last_update: '2020-06-16T18:42:34.000Z'
                         id: Sorbus aucuparia L.
                         name: PlantNet
                         url: https://identify.plantnet.org/species/the-plant-list/Sorbus
                           aucuparia L.
-                        citation: 
+                        citation:
                       - last_update: '2020-06-16T18:42:34.000Z'
                         id: '3012167'
                         name: GBIF
                         url: https://www.gbif.org/species/3012167
-                        citation: 
+                        citation:
                       - last_update: '2020-07-18T07:41:16.000Z'
                         id: urn:lsid:ipni.org:names:741641-1
                         name: POWO
@@ -5580,7 +5580,7 @@ paths:
                       images_count: 37
                       sources_count: 5
                       synonyms_count: 13
-                      last_modified: '2020-10-04T08:10:05.628Z'
+                      last_modified: '2020-12-13T12:27:15.760Z'
         '401':
           description: Invalid credentials
           content:
@@ -5701,7 +5701,7 @@ paths:
       security:
       - token: []
       responses:
-        '200':
+        '201':
           description: Success
           content:
             application/json:
@@ -5716,7 +5716,7 @@ paths:
                       last_modified:
                         type: string
               examples:
-                returns-a-200-response:
+                returns-a-201-response:
                   value:
                     data:
                       id: 2
@@ -5726,14 +5726,14 @@ paths:
                       warning_type: report
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: The flower color is red
-                      created_at: '2020-10-04T08:10:13.725Z'
-                      updated_at: '2020-10-04T08:10:13.727Z'
-                      correction: 
-                      changes: 
+                      created_at: '2020-12-13T12:27:24.073Z'
+                      updated_at: '2020-12-13T12:27:24.074Z'
+                      correction:
+                      changes:
                     meta:
-                      last_modified: '2020-10-04T08:10:13.727Z'
+                      last_modified: '2020-12-13T12:27:24.074Z'
         '401':
           description: Invalid credentials
           content:
@@ -5913,7 +5913,7 @@ paths:
                         self: "/api/v1/distributions/2"
                         plants: "/api/v1/distributions/2/plants"
                         species: "/api/v1/distributions/2/species"
-                      parent: 
+                      parent:
                       children:
                       - id: 408
                         name: Northern Africa
@@ -6406,7 +6406,7 @@ paths:
                         self: "/api/v1/distributions/1"
                         plants: "/api/v1/distributions/1/plants"
                         species: "/api/v1/distributions/1/species"
-                      parent: 
+                      parent:
                       children:
                       - id: 370
                         name: Northern Europe
@@ -6459,7 +6459,7 @@ paths:
                           plants: "/api/v1/distributions/14/plants"
                           species: "/api/v1/distributions/14/species"
                     meta:
-                      last_modified: '2020-10-04T08:10:02.693Z'
+                      last_modified: '2020-12-13T12:27:12.159Z'
         '401':
           description: Invalid credentials
           content:
@@ -6506,8 +6506,8 @@ paths:
               examples:
                 returns-a-200-response:
                   value:
-                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTEwLTA1IDEwOjEwOjEzICswMjAwIiwiZXhwIjoxNjAxODg1NDEzfQ.2RhTpf9VljarL5dSYTBk1hMitWsJITTL4rpkwX6IRfE
-                    expiration: 10-05-2020 10:10
+                    token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDoxMjM0IiwiaXAiOiI6OjEiLCJleHBpcmUiOiIyMDIwLTEyLTE0IDEzOjI3OjI0ICswMTAwIiwiZXhwIjoxNjA3OTQ4ODQ0fQ.ENYKCGT0r9rdIXzb_NsEnmcfrc2CebQmAySbGy4aKjM
+                    expiration: 12-14-2020 13:27
         '401':
           description: Invalid credentials
           content:
@@ -6597,31 +6597,31 @@ paths:
                       record_type: Species
                       record_id: 273225
                       user_id: 31
-                      warning_type: 
+                      warning_type:
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: Is the author okay ?
-                      created_at: '2020-10-04T08:10:13.959Z'
-                      updated_at: '2020-10-04T08:10:13.959Z'
-                      correction: 
-                      changes: 
+                      created_at: '2020-12-13T12:27:24.383Z'
+                      updated_at: '2020-12-13T12:27:24.383Z'
+                      correction:
+                      changes:
                     - id: 3
                       record_type: Species
                       record_id: 116854
                       user_id: 30
-                      warning_type: 
+                      warning_type:
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-10-04T08:10:13.951Z'
-                      updated_at: '2020-10-04T08:10:13.951Z'
+                      created_at: '2020-12-13T12:27:24.373Z'
+                      updated_at: '2020-12-13T12:27:24.373Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
                         maximum_height_unit: cm
-                      changes: 
+                      changes:
                     links:
                       self: "/api/v1/corrections"
                       first: "/api/v1/corrections?page=1"
@@ -6676,20 +6676,20 @@ paths:
                       record_type: Species
                       record_id: 116854
                       user_id: 35
-                      warning_type: 
+                      warning_type:
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: The height is wrong, it's way smaller
-                      created_at: '2020-10-04T08:10:14.026Z'
-                      updated_at: '2020-10-04T08:10:14.026Z'
+                      created_at: '2020-12-13T12:27:24.457Z'
+                      updated_at: '2020-12-13T12:27:24.457Z'
                       correction:
                         scientific_name: Carex praegracilis
                         maximum_height_value: 30
                         maximum_height_unit: cm
-                      changes: 
+                      changes:
                     meta:
-                      last_modified: '2020-10-04T08:10:14.026Z'
+                      last_modified: '2020-12-13T12:27:24.457Z'
         '401':
           description: Invalid credentials
           content:
@@ -6718,7 +6718,7 @@ paths:
       security:
       - token: []
       responses:
-        '200':
+        '201':
           description: Success
           content:
             application/json:
@@ -6733,20 +6733,20 @@ paths:
                       last_modified:
                         type: string
               examples:
-                returns-a-200-response:
+                returns-a-201-response:
                   value:
                     data:
                       id: 13
                       record_type: Species
                       record_id: 1164724
                       user_id: 42
-                      warning_type: 
+                      warning_type:
                       change_status: pending
                       change_type: update
-                      accepted_by: 
+                      accepted_by:
                       notes: This tree can grows up to 68 meters
-                      created_at: '2020-10-04T08:10:14.240Z'
-                      updated_at: '2020-10-04T08:10:14.240Z'
+                      created_at: '2020-12-13T12:27:24.659Z'
+                      updated_at: '2020-12-13T12:27:24.659Z'
                       correction:
                         maximum_height_value: 6800
                         maximum_height_unit: cm
@@ -6756,7 +6756,7 @@ paths:
                         - 5000
                         - 6800
                     meta:
-                      last_modified: '2020-10-04T08:10:14.240Z'
+                      last_modified: '2020-12-13T12:27:24.659Z'
         '422':
           description: Invalid parameters
           content:
@@ -7179,7 +7179,7 @@ components:
             - annual
             - biennial
             - perennial
-            - 
+            -
             description: |
               The plant duration(s), which can be:
               - Annual: plants that live, reproduce, and die in one growing season.
@@ -7204,7 +7204,7 @@ components:
             - fruits
             - seeds
             - tubers
-            - 
+            -
             description: The plant edible part(s), if any.
           description: The plant edible part(s), if any.
         edible:
@@ -7550,7 +7550,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 description: The flower color(s)
               description: The flower color(s)
             conspicuous:
@@ -7569,7 +7569,7 @@ components:
               - fine
               - medium
               - coarse
-              - 
+              -
               description: The general texture of the plant’s foliage
             color:
               type: array
@@ -7591,7 +7591,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 description: The leaves color(s)
               description: The leaves color(s)
             leaf_retention:
@@ -7626,7 +7626,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 description: The fruit color(s)
               description: The fruit color(s)
             shape:
@@ -7651,7 +7651,7 @@ components:
               - shrub
               - tree
               - parasite
-              - 
+              -
               description: The ligneous type of the woody plant
             growth_form:
               type: string
@@ -7701,7 +7701,7 @@ components:
               - low
               - medium
               - high
-              - 
+              -
               description: Relative toxicity of the species for humans or animals
           description: Species's main characteristics
         growth:
@@ -7759,7 +7759,7 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 description: The most active growth months of the species (usually
                   all year round for perennial plants)
               description: The most active growth months of the species (usually all
@@ -7783,7 +7783,7 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 description: The months the species usually blooms
               description: The months the species usually blooms
             fruit_months:
@@ -7805,7 +7805,7 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 description: The months the species usually produces fruits
               description: The months the species usually produces fruits
             row_spacing:
@@ -8225,7 +8225,7 @@ components:
           - external
           - observation
           - report
-          - 
+          -
           nullable: true
           description: Where does this data come from ? If "external", you'll need
             to provide the "source_reference" field with the url or the name of the
@@ -8250,7 +8250,7 @@ components:
               - form
               - hybrid
               - subvar
-              - 
+              -
               example: species
             genus:
               type: string
@@ -8259,7 +8259,7 @@ components:
             year:
               type: integer
               nullable: true
-              example: 
+              example:
             author:
               type: string
               nullable: true
@@ -8267,7 +8267,7 @@ components:
             bibliography:
               type: string
               nullable: true
-              example: 
+              example:
             common_name:
               type: string
               nullable: true
@@ -8295,7 +8295,7 @@ components:
                   - annual
                   - biennial
                   - perennial
-                  - 
+                  -
                   nullable: true
                   description: The duration(s) of the species. Several values can
                     be separated with "|"
@@ -8305,7 +8305,7 @@ components:
                 - annual
                 - biennial
                 - perennial
-                - 
+                -
                 nullable: true
                 description: The duration(s) of the species. Several values can be
                   separated with "|"
@@ -8329,7 +8329,7 @@ components:
                   - magenta
                   - grey
                   - black
-                  - 
+                  -
                   nullable: true
                   description: The species flower color(s). Several values can be
                     separated with "|"
@@ -8349,7 +8349,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 nullable: true
                 description: The species flower color(s). Several values can be separated
                   with "|"
@@ -8377,7 +8377,7 @@ components:
                   - magenta
                   - grey
                   - black
-                  - 
+                  -
                   nullable: true
                   description: The species foliage color(s). Several values can be
                     separated with "|"
@@ -8397,7 +8397,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 nullable: true
                 description: The species foliage color(s). Several values can be separated
                   with "|"
@@ -8408,9 +8408,9 @@ components:
               - fine
               - medium
               - coarse
-              - 
+              -
               nullable: true
-              example: 
+              example:
             leaf_retention:
               type: boolean
               nullable: true
@@ -8434,7 +8434,7 @@ components:
                   - magenta
                   - grey
                   - black
-                  - 
+                  -
                   nullable: true
                   description: The species fruit color(s). Several values can be separated
                     with "|"
@@ -8454,7 +8454,7 @@ components:
                 - magenta
                 - grey
                 - black
-                - 
+                -
                 nullable: true
                 description: The species fruit color(s). Several values can be separated
                   with "|"
@@ -8485,7 +8485,7 @@ components:
                   - oct
                   - nov
                   - dec
-                  - 
+                  -
                   nullable: true
                   description: The months when his species have fruits. Several values
                     can be separated by "|"
@@ -8504,7 +8504,7 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 nullable: true
                 description: The months when his species have fruits. Several values
                   can be separated by "|"
@@ -8527,11 +8527,11 @@ components:
                   - oct
                   - nov
                   - dec
-                  - 
+                  -
                   nullable: true
                   description: The months when this species blooms. Several values
                     can be separated by "|"
-                  example: 
+                  example:
               - type: string
                 enum:
                 - jan
@@ -8546,25 +8546,25 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 nullable: true
                 description: The months when this species blooms. Several values can
                   be separated by "|"
-                example: 
+                example:
             ground_humidity:
               type: integer
               nullable: true
               description: Required humidity of the soil, on a scale from 0 (xerophile)
                 to 10 (subaquatic)
-              example: 
+              example:
             growth_form:
               type: string
               nullable: true
-              example: 
+              example:
             growth_habit:
               type: string
               nullable: true
-              example: 
+              example:
             growth_months:
               anyOf:
               - type: array
@@ -8583,11 +8583,11 @@ components:
                   - oct
                   - nov
                   - dec
-                  - 
+                  -
                   nullable: true
                   description: The months when this species grows. Several values
                     can be separated by "|"
-                  example: 
+                  example:
               - type: string
                 enum:
                 - jan
@@ -8602,15 +8602,15 @@ components:
                 - oct
                 - nov
                 - dec
-                - 
+                -
                 nullable: true
                 description: The months when this species grows. Several values can
                   be separated by "|"
-                example: 
+                example:
             growth_rate:
               type: string
               nullable: true
-              example: 
+              example:
             edible_part:
               anyOf:
               - type: array
@@ -8624,7 +8624,7 @@ components:
                   - fruits
                   - seeds
                   - tubers
-                  - 
+                  -
                   nullable: true
                   description: The edible part of the species (if any). Several values
                     can be separated by "|"
@@ -8638,7 +8638,7 @@ components:
                 - fruits
                 - seeds
                 - tubers
-                - 
+                -
                 nullable: true
                 description: The edible part of the species (if any). Several values
                   can be separated by "|"
@@ -8662,19 +8662,19 @@ components:
             adapted_to_coarse_textured_soils:
               type: string
               nullable: true
-              example: 
+              example:
             adapted_to_fine_textured_soils:
               type: string
               nullable: true
-              example: 
+              example:
             adapted_to_medium_textured_soils:
               type: string
               nullable: true
-              example: 
+              example:
             anaerobic_tolerance:
               type: string
               nullable: true
-              example: 
+              example:
             average_height_unit:
               type: string
               enum:
@@ -8777,11 +8777,11 @@ components:
             ph_maximum:
               type: number
               nullable: true
-              example: 
+              example:
             ph_minimum:
               type: number
               nullable: true
-              example: 
+              example:
             soil_nutriments:
               type: integer
               nullable: true
@@ -8807,7 +8807,7 @@ components:
               description: Required texture of the soil, on a scale from 0 (clay)
                 to 10 (rock)
               nullable: true
-              example: 
+              example:
             ligneous_type:
               type: string
               enum:
@@ -8816,9 +8816,9 @@ components:
               - shrub
               - tree
               - parasite
-              - 
+              -
               nullable: true
-              example: 
+              example:
             toxicity:
               type: string
               enum:
@@ -8826,9 +8826,9 @@ components:
               - low
               - medium
               - high
-              - 
+              -
               nullable: true
-              example: 
+              example:
           required:
           - scientific_name
           description: The fields to correct
@@ -8860,6 +8860,8 @@ components:
         days_to_harvest:
           type: string
         duration:
+          type: string
+        establishment:
           type: string
         edible:
           type: string
@@ -8919,6 +8921,8 @@ components:
         days_to_harvest:
           type: string
         duration:
+          type: string
+        establishment:
           type: string
         edible:
           type: string

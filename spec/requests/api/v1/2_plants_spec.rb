@@ -149,7 +149,7 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
 
       security [token: []]
 
-      response '200', 'Success' do
+      response '201', 'Success' do
         schema JsonApiHelper.resource_schema(
           'correction',
           meta: Schemas::Helpers.object_of({

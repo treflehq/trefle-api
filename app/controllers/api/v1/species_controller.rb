@@ -8,6 +8,7 @@ class Api::V1::SpeciesController < Api::ApiController
     common_name
     days_to_harvest
     duration
+    establishment
     edible
     edible_part
     family_common_name
