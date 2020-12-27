@@ -65,11 +65,22 @@
     <div class="column is-10 is-offset-2">
       <div class="field is-grouped is-grouped-right">
         <div class="actions">
+        <%= recaptcha_tags %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-10 is-offset-2">
+      <div class="field is-grouped is-grouped-right">
+        <div class="actions">
           <%= f.submit "Sign up", class: "button is-primary" %>
         </div>
       </div>
     </div>
   </div>
+
   <% end %>
 
   <%= render "devise/shared/links" %>

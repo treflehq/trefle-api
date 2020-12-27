@@ -4,7 +4,10 @@ require 'sidekiq-status/web'
 
 Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+
   root 'home#index'
   get '/about', to: 'home#about', as: 'about'
   get '/terms', to: 'home#licence', as: 'terms'

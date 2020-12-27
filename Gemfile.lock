@@ -319,6 +319,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (4.14.0)
+      json
     redis (4.1.4)
     redis-namespace (1.7.0)
       redis (>= 3.0.4)
@@ -487,6 +489,7 @@ DEPENDENCIES
   rack-attack (~> 6.2.2)
   rails (>= 6.0.3.2)
   rails-controller-testing
+  recaptcha
   redis (~> 4.1.4)
   redis-namespace (~> 1.7.0)
   rspec

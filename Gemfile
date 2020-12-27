@@ -64,7 +64,6 @@ gem 'groupdate'
 gem 'active_flag'
 
 # Monitoring
-# gem 'appsignal'
 gem 'ddtrace'
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
@@ -89,7 +88,6 @@ gem 'terminal-table'
 
 gem 'json-schema'
 
-# gem 'meilisearch'
 gem 'searchkick'
 
 # SEO
@@ -99,6 +97,10 @@ gem 'sitemap_generator'
 # profiling
 gem 'derailed_benchmarks'
 gem 'memory_profiler'
+
+# captcha"
+gem "recaptcha"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
