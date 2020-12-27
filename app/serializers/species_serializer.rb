@@ -155,9 +155,14 @@ class SpeciesSerializer < BaseSerializer
 
   # has_one :plant, serializer: PlantLightSerializer
 
-  has_many :synonyms, serializer: SynonymSerializer
+  # This is causing some N+1 queries, so we turned it into an attribute in order to add the preload
+  # has_many :synonyms, serializer: SynonymSerializer
+  attributes :synonyms
 
-  has_many :foreign_sources_plants, serializer: ForeignSourcesPlantSerializer, name: :sources
+  # This is causing some N+1 queries, so we turned it into an attribute in order to add the preload
+  # has_many :foreign_sources_plants, serializer: ForeignSourcesPlantSerializer, name: :sources
+  attributes :sources
+
   # has_many :species_distributions, serializer: SpeciesDistributionSerializer, name: :distribution
 
   def image_url
@@ -189,14 +194,9 @@ class SpeciesSerializer < BaseSerializer
   # end
 
   def images
-    {
-      flower: Panko::ArraySerializer.new(object.species_images.flower_part, each_serializer: SpeciesImageSerializer).to_a,
-      leaf: Panko::ArraySerializer.new(object.species_images.leaf_part, each_serializer: SpeciesImageSerializer).to_a,
-      habit: Panko::ArraySerializer.new(object.species_images.habit_part, each_serializer: SpeciesImageSerializer).to_a,
-      fruit: Panko::ArraySerializer.new(object.species_images.fruit_part, each_serializer: SpeciesImageSerializer).to_a,
-      bark: Panko::ArraySerializer.new(object.species_images.bark_part, each_serializer: SpeciesImageSerializer).to_a,
-      other: Panko::ArraySerializer.new(object.species_images.other_part, each_serializer: SpeciesImageSerializer).to_a
-    }
+    object.species_images.group_by(&:part).transform_values do |images|
+      Panko::ArraySerializer.new(images, each_serializer: SpeciesImageSerializer).to_a
+    end
   end
 
   def common_names
@@ -204,11 +204,13 @@ class SpeciesSerializer < BaseSerializer
   end
 
   def distribution
-    object.species_distributions.joins(:zone).group_by(&:establishment).transform_values {|e| e.map {|r| r.zone.name } }
+    object.species_distributions.includes(:zone).group_by(&:establishment).transform_values do |e|
+      e.map {|r| r.zone.name }
+    end
   end
 
   def distributions
-    object.species_distributions.joins(:zone).group_by(&:establishment).transform_values do |e|
+    object.species_distributions.includes(:zone).group_by(&:establishment).transform_values do |e|
       e.map {|r| ZoneLightSerializer.new.serialize(r.zone) }
     end
   end
@@ -237,6 +239,13 @@ class SpeciesSerializer < BaseSerializer
     }
   end
 
+  def sources
+    Panko::ArraySerializer.new(
+      object.foreign_sources_plants.includes(:foreign_source),
+      each_serializer: ForeignSourcesPlantSerializer
+    ).to_a
+  end
+
   def specifications
     {
       # c_n_ratio: object.c_n_ratio, @TODO
@@ -258,6 +267,13 @@ class SpeciesSerializer < BaseSerializer
       shape_and_orientation: object.shape_and_orientation,
       toxicity: object.toxicity
     }
+  end
+
+  def synonyms
+    Panko::ArraySerializer.new(
+      object.synonyms.includes(:foreign_sources_plants),
+      each_serializer: SynonymSerializer
+    ).to_a
   end
 
   # rubocop:todo Metrics/MethodLength
