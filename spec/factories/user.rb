@@ -7,7 +7,7 @@ FactoryBot.define do
 
     admin { false }
 
-    before(:create, &:confirm)
+    # before(:create, &:confirm)
 
     factory :admin, class: User do
       admin { true }

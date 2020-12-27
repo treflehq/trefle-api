@@ -22,7 +22,7 @@ u = User.where(email: 'guest@trefle.io').first_or_create!(
   organization_name: 'Trefle',
   organization_url: 'https://trefle.io'
 )
-u.confirm
+# u.confirm
 
 
 # reindex models
