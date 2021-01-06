@@ -6,7 +6,7 @@
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
     "autobind-decorator": "^2.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "britecharts": "^2.16.0",
     "bulma": "^0.9.0",
