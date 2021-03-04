@@ -10,6 +10,7 @@ module Migrators
       return if sp.species_images.count.zero? && sp.main_image_url.nil?
 
       unless sp.main_image_url.nil?
+        sp.main_image_url = sp.main_image_url.gsub('bs.floristic.org', 'bs.plantnet.org')
         sp.main_image_url = HTTParty.get(uri_for(sp.main_image_url)).ok? ? uri_for(sp.main_image_url) : nil
       end
 
@@ -24,6 +25,7 @@ module Migrators
 
     def self.filter_species_images!(sp)
       sp.species_images.each do |si|
+        si.image_url = si.image_url.gsub('bs.floristic.org', 'bs.plantnet.org')
         if HTTParty.get(uri_for(si.image_url)).ok?
           si.image_url = uri_for(si.image_url)
         else
