@@ -1,4 +1,12 @@
 
+
+
+> ⚠️ **Unfortunately, Trefle is over for now.**
+> 
+> We didn't got the time or the means to keep the Trefle API online any longer, so after spending months figuring out a solution, we decided to stop there. It has been a great adventure, and we are forever grateful for your support and feedback :pray:
+
+----
+
 # The Trefle REST API & website
 
 [🌎 Website](https://trefle.io)  •  [🚀 Getting started](https://docs.trefle.io)  •  [📖 API Documentation](https://docs.trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
