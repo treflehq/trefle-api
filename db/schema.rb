@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_141450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
+  enable_extension "timescaledb"
 
   create_table "common_names", force: :cascade do |t|
     t.string "record_type", null: false

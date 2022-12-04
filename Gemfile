@@ -89,6 +89,7 @@ gem 'terminal-table'
 gem 'json-schema'
 
 gem 'searchkick'
+gem "elasticsearch"
 
 # SEO
 gem 'meta-tags'

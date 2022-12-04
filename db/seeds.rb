@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts "Seeding database..."
-require_relative './botanic_seeds'
+# require_relative './botanic_seeds'
 
 SpeciesDistribution.counter_culture_fix_counts
 Species.counter_culture_fix_counts
