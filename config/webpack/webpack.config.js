@@ -17,6 +17,8 @@ module.exports = {
     codesandbox: './app/assets/javascripts/home/codesandbox.js',
     home: './app/assets/javascripts/home/home.js',
     manage: './app/assets/javascripts/manage.js',
+    SpeciesPage: { import: './app/assets/javascripts/explore/SpeciesPage.jsx', filename: 'explore/[name].js' },
+    DataPage: { import: './app/assets/javascripts/explore/DataPage.jsx', filename: 'explore/[name].js' },
   },
   output: {
     filename: "[name].js",

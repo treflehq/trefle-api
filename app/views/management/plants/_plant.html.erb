@@ -32,7 +32,7 @@
       <div class="media-content">
         <div class="content">
           <i>[<%= sp.status %>]</i>
-          <mark><%= sp.species_type || 'NO SPECIES TYPE' %></mark>
+          <mark><%= sp.rank || 'NO SPECIES TYPE' %></mark>
           <%= link_to sp.scientific_name, [:management, sp] %>
           <sup>#<%= sp.id %></sup>
         </div>
