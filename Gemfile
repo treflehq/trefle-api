@@ -44,7 +44,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'httparty', require: false
 gem 'kaminari'
 gem 'pagy', '~> 5.0bundle' # omit patch digit and use the latest if possible
-gem 'typhoeus'
 
 # Gravatar
 gem 'gravtastic'
@@ -90,7 +89,9 @@ gem 'terminal-table'
 gem 'json-schema'
 
 gem 'searchkick'
-gem "elasticsearch", '~> 7.17'
+# gem "elasticsearch", '~> 7.17'
+gem "opensearch-ruby"
+gem 'typhoeus'
 
 # SEO
 gem 'meta-tags'
