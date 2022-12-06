@@ -1,22 +1,21 @@
 
 
-# migrate_synonyms:
-#   cron: "0 0 */15 * *" # At 00:00 on every 15th day-of-month.
-#   class: "Migrators::SynonymsWorker"
-#   queue: migrations
-#
-# migrate_queries_counters:
-#   cron: "*/10 * * * *" # At every 10th minute
-#   class: "UserQueryWorker"
-#   queue: low
-#
-# reindex_species:
-#   cron: "*/30 * * * *" # At every 30th minute
-#   class: "Search::ReindexSpeciesWorker"
-#   queue: reindex
-#
-# check_species_images:
-#   cron: "0 0 */7 * *" # At 00:00 on every 7th day-of-month.
-#   class: "Migrators::ImagesFixerWorker"
-#   queue: migrations
-#
+migrate_synonyms:
+  cron: "0 0 */15 * *" # At 00:00 on every 15th day-of-month.
+  class: "Migrators::SynonymsWorker"
+  queue: migrations
+
+migrate_queries_counters:
+  cron: "*/10 * * * *" # At every 10th minute
+  class: "UserQueryWorker"
+  queue: low
+
+reindex_species:
+  cron: "*/30 * * * *" # At every 30th minute
+  class: "Search::ReindexSpeciesWorker"
+  queue: reindex
+
+check_species_images:
+  cron: "0 0 */7 * *" # At 00:00 on every 7th day-of-month.
+  class: "Migrators::ImagesFixerWorker"
+  queue: migrations
