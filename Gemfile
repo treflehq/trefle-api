@@ -65,7 +65,6 @@ gem 'groupdate'
 gem 'active_flag'
 
 # Monitoring
-gem 'ddtrace'
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.2.2'

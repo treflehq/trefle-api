@@ -123,13 +123,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    ddtrace (1.7.0)
-      debase-ruby_core_source (>= 0.10.16, <= 0.10.18)
-      libdatadog (~> 0.9.0.1.0)
-      libddwaf (~> 1.5.1.0.0)
-      msgpack
     dead_end (4.0.0)
-    debase-ruby_core_source (0.10.18)
     derailed_benchmarks (2.1.2)
       benchmark-ips (~> 2)
       dead_end
@@ -244,9 +238,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    libdatadog (0.9.0.1.0)
-    libddwaf (1.5.1.0.0-x86_64-darwin)
-      ffi (~> 1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -504,7 +495,6 @@ DEPENDENCIES
   coveralls (>= 0.8.23)
   dalli
   database_cleaner (>= 1.8.5)
-  ddtrace
   derailed_benchmarks
   devise
   dotenv-rails (>= 2.7.5)
