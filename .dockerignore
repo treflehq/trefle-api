@@ -55,3 +55,5 @@ yarn-error.log
 frontend/cypress/videos
 data.ms
 meilisearch
+.env
+.env*
