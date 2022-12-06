@@ -22,6 +22,8 @@
 
 # Ignore master key for decrypting credentials and more.
 # /config/master.key
+scripts/deploy.sh
+scripts/deploy*.sh
 
 /public/packs
 /public/packs-test
@@ -41,6 +43,7 @@ public/uploads/
 db/seeds.local
 coverage
 datasets
+records
 
 QUERIES.md
 UTILS.md
