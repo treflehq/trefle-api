@@ -2,31 +2,50 @@
   "name": "trefle-admin",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.10.4",
-    "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "5.1.1",
-    "autobind-decorator": "^2.4.0",
-    "axios": "^0.21.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "britecharts": "^2.16.0",
-    "bulma": "^0.9.0",
-    "clsx": "^1.1.1",
-    "d3-selection": "^1.4.1",
-    "lodash": "^4.17.19",
-    "marked": "^2.0.0",
-    "node-fetch": "^2.6.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-debounce-input": "^3.2.2",
-    "react-dom": "^16.13.1",
-    "react-intense": "^0.1.6",
-    "react-markdown": "^4.3.1",
-    "react-modal": "^3.11.2",
-    "react-select": "^3.1.0",
-    "react-syntax-highlighter": "^12.2.1",
-    "swagger-ui": "^3.26.2"
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@rails/ujs": ">= 6.0.3-1",
+    "autobind-decorator": ">= 2.4.0",
+    "axios": ">= 0.21.1",
+    "babel-loader": "^9.1.0",
+    "britecharts": ">= 2.16.0",
+    "bulma": ">= 0.9.0",
+    "clsx": ">= 1.1.1",
+    "css-loader": "^6.7.2",
+    "d3-selection": ">= 1.4.1",
+    "file-loader": "^6.2.0",
+    "lodash": ">= 4.17.19",
+    "marked": ">= 2.0.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "node-fetch": ">= 2.6.1",
+    "prop-types": ">= 15.7.2",
+    "react": ">= 16.13.1",
+    "react-debounce-input": ">= 3.2.2",
+    "react-dom": ">= 16.13.1",
+    "react-intense": ">= 0.1.6",
+    "react-markdown": ">= 4.3.1",
+    "react-modal": ">= 3.11.2",
+    "react-select": ">= 3.1.0",
+    "react-syntax-highlighter": ">= 12.2.1",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "swagger-ui": ">= 3.26.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-remove-empty-scripts": "^1.0.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "@webpack-cli/serve": ">= 2.0.1",
+    "yarn-audit-fix": ">= 9.3.7"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "scripts": {
+    "build": "webpack --config ./config/webpack/webpack.config.js"
   }
 }

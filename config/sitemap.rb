@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = 'https://trefle.io'
+SitemapGenerator::Sitemap.default_host = "https://#{ENV['APP_HOST'] || 'trefle.io'}"
 
 SitemapGenerator::Sitemap.create(compress: false) do
   # Put links creation logic here.

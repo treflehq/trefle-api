@@ -5,9 +5,10 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'jquery-rails'
-gem 'rails', '>= 6.0.3.2'
+gem 'rails', "~> 7.0.0"
+gem "sprockets-rails"
 
-gem 'webpacker', '>= 5.x'
+gem 'jsbundling-rails'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -68,15 +69,16 @@ gem 'ddtrace'
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.2.2'
-gem 'sentry-raven'
-gem 'skylight', '~> 5.0.0.beta4'
+
+gem "sentry-ruby"
+gem "sentry-rails"
 
 # Sidekiq
-gem 'redis', '~> 4.1.4'
-gem 'redis-namespace', '~> 1.7.0'
-gem 'rufus-scheduler', '~> 3.4.2'
-gem 'sidekiq', '~> 6.0.7'
-gem 'sidekiq-cron', '~> 0.6.3'
+gem 'redis', '>= 4.1.4'
+gem 'redis-namespace', '>= 1.7.0'
+gem 'rufus-scheduler', '>= 3.4.2'
+gem 'sidekiq', '< 7'
+gem 'sidekiq-cron', '>= 0.6.3'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-status'
 
@@ -114,10 +116,10 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'rswag', github: 'pedrocarmona/rswag'
+  gem 'rswag'
   # gem 'rswag'
-  gem 'factory_bot', '~> 5.1.2'
-  gem 'faker', '~> 2.1.2'
+  gem 'factory_bot', '>= 5.1.2'
+  gem 'faker', '>= 2.1.2'
   gem 'seed_dump'
 end
 
