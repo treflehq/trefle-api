@@ -12,7 +12,7 @@ module Api
     include Pagy::Backend
 
     before_action :authorize_request!, except: [:cors_preflight_check]
-    before_action :set_raven_context
+    before_action :set_sentry_context
     before_action :log_request
     after_action :cors_set_access_control_headers
 
@@ -58,14 +58,15 @@ module Api
       end
     end
 
-    def set_raven_context
-      Raven.user_context(
+    def set_sentry_context
+
+      Sentry.set_user(
         id: @current_user&.id,
         email: @current_user&.email,
         username: @current_user&.name,
         jwt: @jwt
       )
-      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+      Sentry.set_tags(url: request.url)
     end
 
     # Setup custom CORS for JWT client tokens

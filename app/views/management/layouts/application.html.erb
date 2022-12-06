@@ -10,13 +10,13 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_pack_tag 'application' %>
-  <%= stylesheet_pack_tag 'manage' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag 'manage' %>
 </head>
 
 <body>
-  <%= javascript_pack_tag 'application' %>
-  <%= javascript_pack_tag 'manage' %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'manage' %>
 
   <%= render 'management/layouts/header' %>
   <%= yield %>

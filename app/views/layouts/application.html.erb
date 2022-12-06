@@ -17,14 +17,15 @@
   <link rel="preconnect" href="https://cdn.rawgit.com">
   <meta name="msapplication-TileColor" content="#41b913">
   <meta name="theme-color" content="#ffffff">
-  <meta property="og:image" content="<%= asset_pack_path("media/packs/images/logo.svg") %>">
+  <meta property="og:image" content="<%= asset_path("images/logo.svg") %>">
   <meta property="og:image:width" content="279">
   <meta property="og:image:height" content="279">
   
 
-  <%= stylesheet_pack_tag 'application' %>
+  <%= stylesheet_link_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
 </head>
 
@@ -34,7 +35,7 @@
       "@context": "http://schema.org",
       "@type": "Trefle",
       "url": "https://trefle.io",
-      "logo": "<%= asset_pack_path("media/packs/images/logo.svg") %>"
+      "logo": "<%= asset_path("images/logo.svg") %>"
     }
   </script>
 
@@ -47,7 +48,7 @@
     </section>
     <%= render partial: "layouts/footer" %>
 
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
     <script src="/fontawesome/js/all.min.js" defer crossorigin="anonymous"></script>
 
     <script>

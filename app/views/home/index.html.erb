@@ -6,7 +6,7 @@
           <div class="columns">
             <div class="column is-10 is-offset-1">
               <h1 class="main-title title is-1">
-                <%= image_tag(asset_pack_path("media/packs/images/logo.svg"), alt: "logo") %>
+                <%= image_tag(asset_path("images/logo.svg"), alt: "logo") %>
                 <p class="title-vertical">Trefle</p>
               </h1>
               <h2 class="subtitle">
@@ -169,5 +169,5 @@
   var temp_token = "<%= @jwt.token %>";
 </script>
 
-<%= javascript_pack_tag 'home/codesandbox' %>
-<%= javascript_pack_tag 'home/home' %>
+<%= javascript_include_tag 'home/codesandbox' %>
+<%= javascript_include_tag 'home/home' %>
