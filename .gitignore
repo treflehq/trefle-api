@@ -91,3 +91,4 @@ scripts/release.sh
 !/app/assets/builds/.keep
 
 /node_modules
+*.dump

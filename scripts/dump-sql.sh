@@ -1,0 +1,28 @@
+pg_dump trefle_dev --no-privileges -U postgres -p6543 -hlocalhost \
+--no-owner \
+-Fc \
+--data-only \
+-t "common_names" \
+-t "division_classes" \
+-t "division_orders" \
+-t "divisions" \
+-t "families" \
+-t "foreign_sources" \
+-t "foreign_sources_plants" \
+-t "genuses" \
+-t "kingdoms" \
+-t "major_groups" \
+-t "old_species" \
+-t "plants" \
+-t "record_corrections" \
+-t "sessions" \
+-t "species" \
+-t "species_distributions" \
+-t "species_images" \
+-t "species_proposals" \
+-t "species_trends" \
+-t "subkingdoms" \
+-t "synonyms" \
+-t "user_queries" \
+-t "users" \
+-t "zones" > data.dump
