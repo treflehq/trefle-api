@@ -18,5 +18,5 @@ class Kingdom < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  has_many :subkingdoms
+  has_many :subkingdoms, dependent: :destroy
 end

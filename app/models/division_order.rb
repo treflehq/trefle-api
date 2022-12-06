@@ -24,5 +24,5 @@ class DivisionOrder < ApplicationRecord
   friendly_id :name, use: :slugged
 
   belongs_to :division_class, optional: true # @TODO to remove
-  has_many :families
+  has_many :families, dependent: :destroy
 end

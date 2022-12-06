@@ -24,5 +24,5 @@ class Subkingdom < ApplicationRecord
   friendly_id :name, use: :slugged
 
   belongs_to :kingdom
-  has_many :divisions
+  has_many :divisions, dependent: :destroy
 end

@@ -461,6 +461,7 @@ DEPENDENCIES
   derailed_benchmarks
   devise
   dotenv-rails (>= 2.7.5)
+  elasticsearch
   factory_bot (~> 5.1.2)
   faker (~> 2.1.2)
   friendly_id (>= 5.2.4)
