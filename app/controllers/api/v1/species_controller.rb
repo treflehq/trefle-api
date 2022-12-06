@@ -232,7 +232,7 @@ class Api::V1::SpeciesController < Api::ApiController
       order: search_params[:order]
     }.compact
 
-    @collection = Species.pagy_search(search, options)
+    @collection = Species.pagy_search(search, **options)
     @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
 
     links = collection_links(@collection, name: %i[species index], scope: %i[search api v1])

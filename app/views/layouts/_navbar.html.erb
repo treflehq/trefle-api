@@ -2,7 +2,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="<%= root_path %>">
-        <%= image_tag(asset_path("images/logo.svg"), alt: "logo", height: "200") %>
+        <%= image_tag(asset_path("logo.svg"), alt: "logo", height: "200") %>
       </a>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-trefle">
@@ -50,7 +50,7 @@
           <i class="fad fa-key"></i><span> Management</span>
         </a>
         <% end %>
-        
+
         <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
           <i class="fad fa-clipboard-user"></i><span> About</span>
         </a>
@@ -93,7 +93,7 @@
 =begin%>
  <a class="navbar-item is-hidden-desktop-only" title="Github" href="https://github.com/treflehq/trefle-api" target="_blank" rel="noopener">
           <span class="icon" style="color: #242a2f;"><i class="fab fa-lg fa-github"></i></span>
-        </a> 
+        </a>
 <%
 =end%>
       </div>
@@ -104,7 +104,7 @@
  <% if is_explore_namespace? %>
     <hr/>
     <%= render partial: 'explore/layouts/navbar' %>
-  <% end %> 
+  <% end %>
 <%
 =end%>
 </div>

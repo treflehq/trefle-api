@@ -18,7 +18,7 @@ class Explore::GenusController < Explore::ExploreController
     #     fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions']
     #   }.compact
 
-    #   @collection = Species.pagy_search(search, options)
+    #   @collection = Species.pagy_search(search, **options)
     #   @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
     # end
   end

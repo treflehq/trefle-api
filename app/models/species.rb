@@ -138,7 +138,7 @@
 #
 class Species < ApplicationRecord
 
-  extend Pagy::Search
+  extend Pagy::Searchkick
   include ActiveModel::Validations
 
   COLUMN_TYPES = Species.columns.map {|e| [e.name, e.type] }.to_h

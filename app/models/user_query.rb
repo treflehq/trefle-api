@@ -22,7 +22,7 @@
 class UserQuery < ApplicationRecord
 
   KEY_PREFIX = 'api_counter'.freeze
-  REDIS_POOL = ConnectionPool.new(size: 5) { Redis.new(url: ENV['REDIS_URL'] || 'redis://127.0.0.1:6379', namespace: "sidekiq_trefle_#{Rails.env}") }
+  REDIS_POOL = ConnectionPool.new(size: 5) { Redis.new(url: (ENV['REDIS_URL'] || 'redis://127.0.0.1:6379')) }
 
   belongs_to :user, optional: true
 

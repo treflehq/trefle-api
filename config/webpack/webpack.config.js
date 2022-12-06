@@ -10,13 +10,13 @@ const mode = process.env.NODE_ENV === 'development' ? 'development' : 'productio
 module.exports = {
   mode,
   optimization: {
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
   },
   entry: {
-    application: [
-      './app/assets/javascripts/application.js',
-      './app/assets/javascripts/manage.js',
-    ],
+    application: './app/assets/javascripts/application.js',
+    codesandbox: './app/assets/javascripts/home/codesandbox.js',
+    home: './app/assets/javascripts/home/home.js',
+    manage: './app/assets/javascripts/manage.js',
   },
   output: {
     filename: "[name].js",

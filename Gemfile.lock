@@ -154,13 +154,13 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    elastic-transport (8.1.0)
-      faraday (< 3)
+    elasticsearch (7.17.7)
+      elasticsearch-api (= 7.17.7)
+      elasticsearch-transport (= 7.17.7)
+    elasticsearch-api (7.17.7)
       multi_json
-    elasticsearch (8.5.2)
-      elastic-transport (~> 8)
-      elasticsearch-api (= 8.5.2)
-    elasticsearch-api (8.5.2)
+    elasticsearch-transport (7.17.7)
+      faraday (~> 1)
       multi_json
     erubi (1.11.0)
     et-orbi (1.2.7)
@@ -171,10 +171,29 @@ GEM
       activesupport (>= 5.0.0)
     faker (3.0.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.7.1)
-      faraday-net_http (>= 2.0, < 3.1)
+    faraday (1.10.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     ffi (1.15.5)
     friendly_id (5.5.0)
       activerecord (>= 4.0.0)
@@ -264,6 +283,7 @@ GEM
     msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    multipart-post (2.2.3)
     net-imap (0.3.1)
       net-protocol
     net-pop (0.1.2)
@@ -278,7 +298,8 @@ GEM
     numerizer (0.1.1)
     oj (3.13.23)
     orm_adapter (0.5.0)
-    pagy (3.11.0)
+    pagy (5.10.1)
+      activesupport
     panko_serializer (0.7.7)
       activesupport
       oj (> 3.11.0, < 4.0.0)
@@ -487,7 +508,7 @@ DEPENDENCIES
   derailed_benchmarks
   devise
   dotenv-rails (>= 2.7.5)
-  elasticsearch
+  elasticsearch (~> 7.17)
   factory_bot (>= 5.1.2)
   faker (>= 2.1.2)
   friendly_id (>= 5.2.4)
@@ -509,7 +530,7 @@ DEPENDENCIES
   meta-tags
   nokogiri
   oj
-  pagy (~> 3.5)
+  pagy (~> 5.0bundle)
   panko_serializer
   pg (>= 0.18, < 2.0)
   pg_query (>= 0.9.0)

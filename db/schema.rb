@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_140236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -22,8 +21,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.bigint "record_id", null: false
     t.string "name"
     t.string "lang"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id"], name: "index_common_names_on_record_type_and_record_id"
   end
 
@@ -31,9 +30,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.bigint "division_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["division_id"], name: "division_classes_division_id_index"
     t.index ["name"], name: "division_classes_name_index", unique: true
   end
@@ -42,9 +41,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.bigint "division_class_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "division_orders_name_index", unique: true
     t.index ["slug"], name: "division_orders_slug_index", unique: true
   end
@@ -53,9 +52,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.bigint "subkingdom_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "divisions_name_index", unique: true
     t.index ["slug"], name: "divisions_slug_index", unique: true
   end
@@ -66,9 +65,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "common_name", limit: 255
     t.bigint "division_order_id"
     t.bigint "major_group_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "families_name_index", unique: true
     t.index ["slug"], name: "families_slug_index", unique: true
   end
@@ -77,22 +76,22 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.string "url", limit: 255
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "copyright_template"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "foreign_sources_name_index", unique: true
     t.index ["slug"], name: "foreign_sources_slug_index", unique: true
   end
 
   create_table "foreign_sources_plants", force: :cascade do |t|
-    t.datetime "last_update", default: -> { "now()" }
+    t.datetime "last_update", precision: nil, default: -> { "now()" }
     t.bigint "species_id"
     t.bigint "foreign_source_id"
     t.string "fid", limit: 255
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.string "record_type"
     t.bigint "record_id"
     t.index ["fid"], name: "index_foreign_sources_plants_on_fid"
@@ -105,9 +104,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.bigint "family_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["family_id"], name: "genuses_family_id_index"
     t.index ["name"], name: "genuses_name_index", unique: true
     t.index ["slug"], name: "genuses_slug_index", unique: true
@@ -116,9 +115,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
   create_table "kingdoms", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "slug", limit: 255
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "kingdoms_name_index", unique: true
     t.index ["slug"], name: "kingdoms_slug_index", unique: true
   end
@@ -126,9 +125,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
   create_table "major_groups", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "slug", limit: 255
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "major_groups_name_index", unique: true
     t.index ["slug"], name: "major_groups_slug_index", unique: true
   end
@@ -142,8 +141,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "status", limit: 255
     t.bigint "plant_id"
     t.string "slug", limit: 255
-    t.datetime "inserted_at"
-    t.datetime "updated_at"
+    t.datetime "inserted_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "fruit_conspicuous"
     t.boolean "coppice_potential"
     t.string "fruit_seed_period_end", limit: 255
@@ -242,8 +241,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.text "observations"
     t.boolean "vegetable"
     t.boolean "edible"
-    t.datetime "reviewed_at"
-    t.datetime "created_at"
+    t.datetime "reviewed_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.decimal "average_mature_height_value"
     t.string "average_mature_height_unit", limit: 12
     t.decimal "maximum_height_value"
@@ -287,16 +286,16 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "family_common_name", limit: 255
     t.string "scientific_name", limit: 255
     t.bigint "genus_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "main_species_id"
     t.boolean "complete_data"
     t.boolean "vegetable", default: false, null: false
     t.text "observations"
     t.integer "species_count"
     t.integer "completion_ratio"
-    t.datetime "reviewed_at"
-    t.datetime "created_at"
+    t.datetime "reviewed_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.integer "images_count", default: 0, null: false
     t.integer "sources_count", default: 0, null: false
     t.integer "main_species_gbif_score", default: 0, null: false
@@ -320,8 +319,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.integer "accepted_by"
     t.text "notes"
     t.text "change_notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "source_type", default: 0, null: false
     t.string "source_reference"
     t.index ["record_type", "record_id"], name: "index_record_corrections_on_record_type_and_record_id"
@@ -329,11 +328,11 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
 
   create_table "sessions", force: :cascade do |t|
     t.string "name", limit: 255
-    t.datetime "started_at"
-    t.datetime "ended_at"
+    t.datetime "started_at", precision: nil
+    t.datetime "ended_at", precision: nil
     t.jsonb "counters"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "species", force: :cascade do |t|
@@ -343,8 +342,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "scientific_name", limit: 255
     t.bigint "plant_id"
     t.string "slug", limit: 255
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "fruit_conspicuous"
     t.float "ph_minimum"
     t.boolean "flower_conspicuous"
@@ -374,8 +373,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.text "observations"
     t.boolean "vegetable"
     t.boolean "edible"
-    t.datetime "reviewed_at"
-    t.datetime "created_at"
+    t.datetime "reviewed_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.decimal "minimum_temperature_deg_f"
     t.decimal "minimum_temperature_deg_c"
     t.decimal "maximum_temperature_deg_f"
@@ -419,7 +418,7 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.integer "dissemination", default: 0, null: false
     t.integer "biological_type"
     t.string "biological_type_raw"
-    t.datetime "checked_at"
+    t.datetime "checked_at", precision: nil
     t.text "token"
     t.text "full_token"
     t.integer "edible_part", default: 0, null: false
@@ -468,8 +467,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.bigint "zone_id", null: false
     t.bigint "species_id", null: false
     t.integer "establishment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["species_id"], name: "index_species_distributions_on_species_id"
     t.index ["zone_id"], name: "index_species_distributions_on_zone_id"
   end
@@ -477,11 +476,11 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
   create_table "species_images", force: :cascade do |t|
     t.string "image_url", limit: 255, null: false
     t.integer "species_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "image_type"
     t.text "copyright"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.integer "part"
     t.integer "score", default: 0, null: false
     t.index ["image_url", "species_id"], name: "species_images_image_url_species_id_index", unique: true
@@ -588,8 +587,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.boolean "complete_data", default: false, null: false
     t.bigint "genus_id"
     t.bigint "user_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "change_type", limit: 255, null: false
     t.string "change_status", limit: 255, default: "pending", null: false
     t.integer "synonym_of_id"
@@ -599,9 +598,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.bigint "species_id", null: false
     t.bigint "foreign_source_id", null: false
     t.integer "score"
-    t.datetime "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "date", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["foreign_source_id"], name: "index_species_trends_on_foreign_source_id"
     t.index ["species_id"], name: "index_species_trends_on_species_id"
   end
@@ -610,9 +609,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.bigint "kingdom_id"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "created_at"
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
     t.index ["name"], name: "subkingdoms_name_index", unique: true
     t.index ["slug"], name: "subkingdoms_slug_index", unique: true
   end
@@ -623,8 +622,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "name"
     t.string "author"
     t.text "notes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_synonyms_on_name"
     t.index ["record_type", "record_id"], name: "index_synonyms_on_record_type_and_record_id"
   end
@@ -635,8 +634,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "action"
     t.bigint "counter"
     t.integer "time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_queries_on_user_id"
   end
 
@@ -645,20 +644,20 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "email", limit: 255
     t.string "password_hash", limit: 255
     t.string "reset_password_token", limit: 255
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.integer "failed_attempts", default: 0
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip", limit: 255
     t.string "last_sign_in_ip", limit: 255
     t.string "unlock_token", limit: 255
     t.string "confirmation_token", limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
+    t.datetime "inserted_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "admin", default: false
     t.string "token", limit: 255
     t.string "organization_name", limit: 255
@@ -667,9 +666,9 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "account_type", limit: 255
     t.boolean "public_profile"
     t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: nil
     t.string "unconfirmed_email"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email"], name: "users_email_index", unique: true
@@ -681,8 +680,8 @@ ActiveRecord::Schema[6.1].define(version: 2020_10_02_141450) do
     t.string "feature"
     t.string "tdwg_code"
     t.integer "tdwg_level"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "slug"
     t.integer "species_count", default: 0, null: false
     t.integer "parent_id"

@@ -43,7 +43,7 @@ gem 'jwt'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'httparty', require: false
 gem 'kaminari'
-gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
+gem 'pagy', '~> 5.0bundle' # omit patch digit and use the latest if possible
 gem 'typhoeus'
 
 # Gravatar
@@ -91,7 +91,7 @@ gem 'terminal-table'
 gem 'json-schema'
 
 gem 'searchkick'
-gem "elasticsearch"
+gem "elasticsearch", '~> 7.17'
 
 # SEO
 gem 'meta-tags'
