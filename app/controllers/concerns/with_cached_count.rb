@@ -3,7 +3,7 @@ module WithCachedCount
 
   def pagy_get_vars(collection, vars)
     vars[:count] ||= cache_count(collection)
-    vars[:page]  ||= params[vars[:page_param] || Pagy::VARS[:page_param]]
+    vars[:page]  ||= params[vars[:page_param] || Pagy::DEFAULT[:page_param]]
     vars
   end
 
