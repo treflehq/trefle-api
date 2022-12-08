@@ -44,8 +44,6 @@ module Api
       else
         begin
           user = user_from_token(@token)
-          # TODO: we don't want to update current_sign_in_at on each request
-          # sign_in user, store: false if user
 
           check_jwt! if @jwt
 

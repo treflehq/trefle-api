@@ -66,7 +66,7 @@ gem 'active_flag'
 # Monitoring
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
-gem 'rack-attack', '~> 6.2.2'
+gem 'rack-attack', '~> 6.6.1'
 
 gem "sentry-ruby"
 gem "sentry-rails"
