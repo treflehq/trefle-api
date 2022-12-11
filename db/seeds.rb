@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts "Seeding database..."
-require_relative './botanic_seeds'
+# require_relative './botanic_seeds'
 
 SpeciesDistribution.counter_culture_fix_counts
 Species.counter_culture_fix_counts
@@ -22,8 +22,6 @@ u = User.where(email: 'guest@trefle.io').first_or_create!(
   organization_name: 'Trefle',
   organization_url: 'https://trefle.io'
 )
-# u.confirm
-
 
 # reindex models
 puts "Reindexing"

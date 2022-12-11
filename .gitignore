@@ -92,3 +92,5 @@ scripts/release.sh
 
 /node_modules
 *.dump
+scripts/dump-local-sql.sh
+scripts/dump-remote-sql.sh

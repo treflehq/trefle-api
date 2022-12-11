@@ -70,6 +70,7 @@ gem 'rack-attack', '~> 6.6.1'
 
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "skylight"
 
 # Sidekiq
 gem 'redis', '>= 4.1.4'
