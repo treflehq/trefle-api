@@ -99,7 +99,7 @@ Rails.application.configure do
     password: ENV['SMTP_PASSWORD'] || Rails.application.credentials.smtp_password,
     domain: ENV['SMTP_DOMAIN'] || Rails.application.credentials.smtp_domain,
     authentication: ENV['SMTP_AUTHENTICATION'] || Rails.application.credentials.smtp_authentication || 'login',
-    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || Rails.application.credentials.smtp_enable_starttls_auto || true
+    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == "true" || Rails.application.credentials.smtp_enable_starttls_auto || true
   }
 
   config.action_mailer.smtp_settings = mail_metadatas
