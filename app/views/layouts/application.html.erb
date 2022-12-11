@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#41b913">
-  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://cdn.rawgit.com">
   <meta name="msapplication-TileColor" content="#41b913">
@@ -25,7 +25,7 @@
   <%= stylesheet_link_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
 </head>
 
@@ -56,8 +56,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-8VL7KHM5CK');
+      gtag('config', 'G-8VL7KHM5CK', { 'user_id': '<%= current_user.try(:id) || 'unknown' %>' });
     </script>
 
 </body>

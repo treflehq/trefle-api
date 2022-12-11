@@ -4,7 +4,8 @@ class Management::UsersController < Management::ManagementController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.page params[:page]
+    @users = apply_scopes(User.all)
+    @pagy, @users = pagy(@users)
   end
 
   # GET /users/1

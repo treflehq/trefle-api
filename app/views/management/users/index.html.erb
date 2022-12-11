@@ -1,74 +1,97 @@
-<p id="notice" class="notification is-info"><%= notice %></p>
+<% cache [:users, :index, @users.cache_key, @users.cache_version] do %>
+<section class="section">
+  <div class="container">
 
-<h1>Users</h1>
+    <p id="notice" class="notification is-info"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Password hash</th>
-      <th>Reset password token</th>
-      <th>Reset password sent at</th>
-      <th>Failed attempts</th>
-      <th>Locked at</th>
-      <th>Sign in count</th>
-      <th>Current sign in at</th>
-      <th>Last sign in at</th>
-      <th>Current sign in ip</th>
-      <th>Last sign in ip</th>
-      <th>Unlock token</th>
-      <th>Confirmation token</th>
-      <th>Confirmed at</th>
-      <th>Confirmation sent at</th>
-      <th>Inserted at</th>
-      <th>Admin</th>
-      <th>Token</th>
-      <th>Organization name</th>
-      <th>Organization url</th>
-      <th>Organization image url</th>
-      <th>Account type</th>
-      <th>Public profile</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <h1 class="title">Users</h1>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.password_hash %></td>
-        <td><%= user.reset_password_token %></td>
-        <td><%= user.reset_password_sent_at %></td>
-        <td><%= user.failed_attempts %></td>
-        <td><%= user.locked_at %></td>
-        <td><%= user.sign_in_count %></td>
-        <td><%= user.current_sign_in_at %></td>
-        <td><%= user.last_sign_in_at %></td>
-        <td><%= user.current_sign_in_ip %></td>
-        <td><%= user.last_sign_in_ip %></td>
-        <td><%= user.unlock_token %></td>
-        <td><%= user.confirmation_token %></td>
-        <td><%= user.confirmed_at %></td>
-        <td><%= user.confirmation_sent_at %></td>
-        <td><%= user.inserted_at %></td>
-        <td><%= user.admin %></td>
-        <td><%= user.token %></td>
-        <td><%= user.organization_name %></td>
-        <td><%= user.organization_url %></td>
-        <td><%= user.organization_image_url %></td>
-        <td><%= user.account_type %></td>
-        <td><%= user.public_profile %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<%= paginate @users %>
-<br>
+</section>
+<section>
 
-<%= link_to 'New User', new_user_path %>
+  <div class="table-container">
+
+    <table class="table is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Token</th>
+          <th>Organization name</th>
+          <th>Organization url</th>
+          <th>Organization image url</th>
+          <th>Account type</th>
+          <th>Public profile</th>
+          <th>Reset password token</th>
+          <th>Reset password sent at</th>
+          <th>Failed attempts</th>
+          <th>Locked at</th>
+          <th>Sign in count</th>
+          <th>Current sign in at</th>
+          <th>Last sign in at</th>
+          <th>Current sign in ip</th>
+          <th>Last sign in ip</th>
+          <th>Unlock token</th>
+          <th>Confirmation token</th>
+          <th>Confirmed at</th>
+          <th>Confirmation sent at</th>
+          <th>Inserted at</th>
+          <th>Admin</th>
+
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.token %></td>
+            <td><%= user.organization_name %></td>
+            <td><%= user.organization_url %></td>
+            <td><%= user.organization_image_url %></td>
+            <td><%= user.account_type %></td>
+            <td><%= user.public_profile %></td>
+            <td><%= user.reset_password_token %></td>
+            <td><%= user.reset_password_sent_at %></td>
+            <td><%= user.failed_attempts %></td>
+            <td><%= user.locked_at %></td>
+            <td><%= user.sign_in_count %></td>
+            <td><%= user.current_sign_in_at %></td>
+            <td><%= user.last_sign_in_at %></td>
+            <td><%= user.current_sign_in_ip %></td>
+            <td><%= user.last_sign_in_ip %></td>
+            <td><%= user.unlock_token %></td>
+            <td><%= user.confirmation_token %></td>
+            <td><%= user.confirmed_at %></td>
+            <td><%= user.confirmation_sent_at %></td>
+            <td><%= user.inserted_at %></td>
+            <td><%= user.admin %></td>
+
+            <td><%= link_to 'Show', management_user_path(user) %></td>
+            <td><%= link_to 'Edit', edit_management_user_path(user) %></td>
+            <td><%= link_to 'Destroy', management_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<section>
+  <div class="container">
+
+    <%== pagy_bulma_nav(@pagy) %>
+    <%== pagy_info(@pagy) %>
+
+    <br>
+
+    <%= link_to 'New User', new_management_user_path %>
+
+  </div>
+</section>
+<% end %>

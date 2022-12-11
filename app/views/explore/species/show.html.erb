@@ -1,4 +1,14 @@
 <div class="species-page home-page container">
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Taxon",
+      "name": "<%= @species.common_name || @species.scientific_name %>",
+      "scientificName": "<%= @species.scientific_name %>",
+      "image": "<%= @species.main_image_url %>",
+      "taxonRank": "<%= @species.rank %>"
+    }
+  </script>
   <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
   
   <div class="columns">

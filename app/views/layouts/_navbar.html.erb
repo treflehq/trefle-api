@@ -27,9 +27,13 @@
               <a class="navbar-item" href="<%= explore_record_corrections_path(status: :pending) %>">
                 <i class="fad fa-clipboard-list-check"></i><span> Corrections</span>
               </a>
-              <a class="navbar-item" href="<%= explore_data_path %>">
+              <%
+=begin%>
+ <a class="navbar-item" href="<%= explore_data_path %>">
                 <i class="fad fa-database"></i><span> Downloads</span>
-              </a>
+              </a> 
+<%
+=end%>
             </div>
           </div>
 
