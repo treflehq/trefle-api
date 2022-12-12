@@ -37,6 +37,11 @@ module Ingester
       end
 
       def self.filter_keys(hash_metric)
+
+        if hash_metric.is_a?(String) && hash_metric&.split('|').length == 1
+          hash_metric = hash_metric&.split(',')
+        end
+        
         array_flags = hash_metric.is_a?(Array) ? hash_metric : hash_metric&.split('|')
 
         array_flags&.map {|e| e&.to_s&.strip&.to_sym }&.reject(&:blank?)&.compact

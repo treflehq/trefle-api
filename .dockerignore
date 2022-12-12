@@ -42,7 +42,7 @@ public/uploads/
 *.sql
 db/seeds.local
 coverage
-datasets
+datasets/old
 records
 
 QUERIES.md

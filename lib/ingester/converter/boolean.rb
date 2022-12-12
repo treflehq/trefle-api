@@ -26,8 +26,11 @@ module Ingester
           next(memo) if hash[metric].nil?
 
           if hash[metric].is_a?(String)
-            hash[metric] = true if hash[metric].underscore == 'true'
-            hash[metric] = false if hash[metric].underscore == 'false'
+            if hash[metric].underscore == 'true'
+              hash[metric] = true
+            elsif hash[metric].underscore == 'false'
+              hash[metric] = false
+            end
           end
           memo[metric] = hash[metric]
           puts "[Converter][Boolean] Species.#{metric} = #{memo[metric]}"
