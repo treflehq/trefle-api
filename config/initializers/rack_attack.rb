@@ -13,16 +13,8 @@ Rack::Attack.safelist('allowed users') do |request|
   Rack::Attack.token(request)&.starts_with?('unl-')
 end
 
-Rack::Attack.throttle('request per ip', limit: 60, period: 60.seconds) do |req|
-  puts "throttle('request per ip', limit: 10, period: 60.seconds) => #{req.path}"
-  if req.path.starts_with?('/api')
-    # Normalize the email, using the same logic as your authentication process, to
-    # protect against rate limit bypasses.
-    # pp req.env.collect {|key, val| "#{key}: #{val}"}.sort
-
-    puts "RATE ~ #{[req.ip, Rack::Attack.token(req)].join('-')}"
-    [req.ip, Rack::Attack.token(req)].join('-')
-  end
+Rack::Attack.throttle('request per ip', limit: 120, period: 60.seconds) do |req|
+  [req.ip, Rack::Attack.token(req)].join('-') if req.path.starts_with?('/api')
 end
 
 Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(url: (ENV['REDIS_URL'] || 'redis://127.0.0.1:6379'), expires_in: 480.minutes)
