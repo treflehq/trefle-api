@@ -19,7 +19,7 @@ const SpeciesItem = ({
   scientific_name,
   common_name,
   synonyms,
-  status,
+  slug,
   rank,
   family,
   author
@@ -30,7 +30,9 @@ const SpeciesItem = ({
       {/* <img src={image_url} alt={scientific_name}/> */}
     </aside>
     <main>
-      <h2><i>{scientific_name}</i> {author ? <small>{author}</small> : ''}</h2>
+      <h2><i>{scientific_name}</i> {author ? <small>{author}</small> : ''}
+        {_enableManagement ? <a href={`/management/species/${slug}`} target="_blank"><sup>⚙</sup></a>: ''}
+      </h2>
       <p>
         {common_name && <span>Also called {capitalize(common_name)}.{' '}</span>}
         Is a {rank} of the <b>{family}</b> family.

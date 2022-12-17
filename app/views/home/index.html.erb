@@ -1,4 +1,4 @@
-<% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?] do %>
+<% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?, current_user&.admin] do %>
   <div class="home-page container">
     <section class="hero">
       <div class="hero-body">
@@ -167,6 +167,7 @@
 <script>
   var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
   var temp_token = "<%= @jwt.token %>";
+  var _enableManagement = <%= current_user&.admin ? 'true' : 'false' %>;
 </script>
 
 <%= javascript_include_tag 'codesandbox' %>

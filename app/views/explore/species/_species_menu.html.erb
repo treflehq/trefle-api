@@ -47,4 +47,23 @@
         <% end %>
       </ul> 
     <% end %>
+    <% if current_user&.admin %>
+      <p class="menu-label">
+        Management
+      </p>
+      <ul class="menu-list">
+          <li>
+          <%= link_to(management_species_path(species), target: '_blank', rel: 'noopener') do %>
+            <i class="fa fa-cog"></i>
+            Manage species
+          <% end %>
+          </li>
+          <li>
+          <%= link_to(management_plant_path(species.plant), target: '_blank', rel: 'noopener') do %>
+            <i class="fa fa-cog"></i>
+            Manage plant
+          <% end %>
+          </li>
+      </ul> 
+    <% end %>
 </aside>
