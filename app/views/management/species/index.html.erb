@@ -50,6 +50,7 @@
           <th><%= sortable_link(:main_image_url, :management_species_index_path, params) %></th>
           <th>FS</th>
           <th><%= sortable_link(:gbif_score, :management_species_index_path, params) %></th>
+          <th><%= sortable_link(:completion_ratio, :management_species_index_path, params) %></th>
           <th><%= sortable_link(:family_name, :management_species_index_path, params) %></th>
           <th><%= sortable_link(:scientific_name, :management_species_index_path, params) %></th>
           <th><%= sortable_link(:author, :management_species_index_path, params) %></th>
@@ -172,6 +173,10 @@
             <% end %>
           </td>
           <td><%= species.gbif_score %></td>
+          <td>
+            <progress class="progress is-small" value="<%= species.completion_ratio %>" max="100"><%= species.completion_ratio %>%</progress>
+            <%= species.completion_ratio %>%
+          </td>
 
           <td>
             <%= species.genus&.family && link_to(species.family_name, management_family_path(species.genus&.family_id)) %>

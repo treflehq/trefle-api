@@ -68,6 +68,7 @@
     <% @plant.species.order(:rank).each do |sp| %>
     <% cache [:plant, :show, sp] do %>
     <%= render sp %>
+    <hr />
     <% end %>
     <% end %>
   </div>

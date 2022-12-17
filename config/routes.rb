@@ -91,6 +91,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     resources :species_proposals
     resources :species_images do
       get :chaos, on: :collection
+      patch :as_main_image, on: :member
     end
     resources :record_corrections do
       patch :accept, on: :member
@@ -98,6 +99,9 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     end
 
     resources :species do
+      resources :species_images do
+        get :chaos, on: :collection
+      end
       patch :refresh, on: :member
     end
 

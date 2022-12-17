@@ -154,35 +154,45 @@
 
       </div>
       <div class="column">
+        <h3 class="title is-4">Main image</h3>
+        <div class="columns is-multiline is-desktop">
+          <div class="column">
+            <img style="max-width: 128px; max-height: 128px" src="<%= @species.main_image_url %>">
+          </div>
+        </div>
+        <hr />
         <h3 class="title is-4">Sources</h3>
         <ul>
           <% @species&.foreign_sources_plants&.each do |fsp| %>
           <li><b><%= fsp.foreign_source.name %></b>: <%= fsp.fid %> (<a target="_blank" href="<%= fsp.full_url %>"><%= fsp.full_url ? "Source" : 'No url' %></a>)</li>
           <% end %>
         </ul>
-        <br />
-        <h3 class="title is-4">Images</h3>
-        <% @species&.species_images&.group_by(&:part)&.each do |part, images| %>
-        <h3 class="title is-6"><%= images.first.part %></h3>
-
-        <div class="columns is-multiline is-desktop">
-          <% images.first(4).each do |spi| %>
-          <div class="column">
-            <img style="max-width: 128px; max-height: 128px" src="<%= spi.image_url %>">
-          </div>
-          <% end %>
-        </div>
-        <% if images.length > 4 %>
-        <span>And <%= images.length - 4 %> more...</span>
-        <% end %>
-        <% end %>
-
+        <hr />
         <h3 class="title is-4">Common names</h3>
         <ul>
           <% @species&.common_names.where(lang: %w(fr en))&.group_by(&:lang)&.each do |lang, names| %>
           <li><b><%= lang %></b>: <%= names.pluck(:name).join(', ') %></li>
           <% end %>
         </ul>
+        <hr />
+        <h3 class="title is-4">Images</h3>
+
+        <% @species&.species_images&.group_by(&:part)&.each do |part, images| %>
+        <h3 class="title is-6"><%= images.first.part %></h3>
+
+        <div class="columns is-multiline is-desktop">
+          <% images.each do |spi| %>
+          <div class="column">
+            <img style="max-width: 128px; max-height: 128px" src="<%= spi.image_url %>">
+            <%= link_to 'Destroy', [:management, spi], method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+            <%= link_to 'As Main', as_main_image_management_species_image_path(spi), method: :patch, remote: true, data: { confirm: 'Are you sure?' }, class: 'button is-success' %>
+            <%= link_to 'Others', chaos_management_species_species_images_path(spi.species_id), class: 'button' %>
+
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+
       </div>
     </div>
     <%= link_to 'Edit', edit_management_species_path(@species) %> |

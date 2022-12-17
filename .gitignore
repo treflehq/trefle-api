@@ -94,3 +94,5 @@ scripts/release.sh
 *.dump
 scripts/dump-local-sql.sh
 scripts/dump-remote-sql.sh
+./scripts/truncate-and-restore-sql.sh
+scripts/truncate-and-restore-sql.sh

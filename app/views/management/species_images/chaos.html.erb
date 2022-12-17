@@ -10,6 +10,8 @@
         <p class="title"><%= species_image.species&.scientific_name %></p>
         <p class="subtitle"><%= species_image.image_url %></p>
         <%= link_to 'Destroy', [:management, species_image], method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+        <%= link_to 'As Main', as_main_image_management_species_image_path(species_image), method: :patch, remote: true, data: { confirm: 'Are you sure?' }, class: 'button is-success' %>
+        <%= link_to 'Others', chaos_management_species_species_images_path(species_image.species_id), class: 'button' %>
       </article>
       <% end %>
     </div>

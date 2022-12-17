@@ -1,19 +1,22 @@
 class Management::SpeciesImagesController < Management::ManagementController
-  before_action :set_species_image, only: %i[show edit update destroy]
+  before_action :set_species, only: %i[index chaos]
+  before_action :set_species_image, only: %i[show edit update destroy as_main_image]
 
   # GET /species_images
   # GET /species_images.json
   def index
-    @species_images = SpeciesImage.all
+    @species_images = @species.species_images if @species
+    @species_images ||= SpeciesImage.all
     @pagy, @species_images = pagy(@species_images)
   end
 
   # GET /species_images/chaos
   # GET /species_images/chaos.json
   def chaos
-    @species_images = SpeciesImage.all
-      .includes(:species)
-      .order(updated_at: :asc)
+    @species_images = @species.species_images if @species
+    @species_images ||= SpeciesImage.all
+
+    @species_images = @species_images.includes(:species).order(updated_at: :asc)
     @pagy, @species_images = pagy(@species_images)
   end
 
@@ -59,6 +62,12 @@ class Management::SpeciesImagesController < Management::ManagementController
     end
   end
 
+  # PATCH/PUT /species_images/1/as_main_image
+  # PATCH/PUT /species_images/1/as_main_image.json
+  def as_main_image
+    @species_image.as_main_image!
+  end
+
   # DELETE /species_images/1
   # DELETE /species_images/1.json
   def destroy
@@ -71,9 +80,12 @@ class Management::SpeciesImagesController < Management::ManagementController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_species_image
     @species_image = SpeciesImage.find(params[:id])
+  end
+
+  def set_species
+    @species = Species.find(params[:species_id]) if params[:species_id]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
