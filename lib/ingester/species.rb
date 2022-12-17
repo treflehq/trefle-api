@@ -39,11 +39,16 @@ module Ingester
 
       # We get or create the species to change
       @species ||= ::Species.where(scientific_name: @data[:scientific_name]).first
+      @species ||= ::Synonym.where(name: @data[:scientific_name]).first&.record
 
       @species ||= ::Species.new(scientific_name: @data[:scientific_name])
 
       # If something goes wrong here, we want to go back to the initial state
       # @species.transaction do
+
+      puts "Species for #{@data[:scientific_name]}=#{@species&.scientific_name}"
+
+      override_names!
 
       # We apply all the data we have on it
       assign_attributes!
@@ -51,6 +56,19 @@ module Ingester
       # We update it (or juste return the changes if dry run)
       save_or_return!
       # end
+    end
+
+    def override_names!
+      return unless @species
+
+      if @data[:scientific_name] != @species&.scientific_name
+        @data[:scientific_name] = @species&.scientific_name
+        @data[:genus_name] = @species&.genus_name
+        @data[:genus_id] = @species&.genus_id
+        @data[:rank] = nil
+        @data[:author] = nil
+        @data[:bibliography] = nil
+      end
     end
 
     def assign_attributes!
