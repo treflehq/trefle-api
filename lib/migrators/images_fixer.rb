@@ -35,7 +35,7 @@ module Migrators
     end
 
     def self.uri_for(link)
-      link&.gsub('http://', 'https://')&.gsub(' ', '%20')
+      link&.gsub(%r{^//}, 'https://')&.gsub('http://', 'https://')&.gsub(' ', '%20')
     end
   end
 end
