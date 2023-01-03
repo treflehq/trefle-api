@@ -172,6 +172,7 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     google-protobuf (3.21.10-x86_64-darwin)
+    google-protobuf (3.21.10-x86_64-linux)
     gravtastic (3.2.6)
     groupdate (6.1.0)
       activesupport (>= 5.2)
@@ -183,8 +184,8 @@ GEM
       railties (>= 5.0)
     heapy (0.2.0)
       thor
-    httparty (0.20.0)
-      mime-types (~> 3.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -238,9 +239,6 @@ GEM
     meta-tags (2.18.0)
       actionpack (>= 3.2.0, < 7.1)
     method_source (1.0.0)
-    mime-types (3.4.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2022.0105)
     mini_histogram (0.3.1)
     mini_mime (1.1.2)
     minitest (5.16.3)
@@ -257,6 +255,8 @@ GEM
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.9-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     numerizer (0.1.1)
     oj (3.13.23)
@@ -459,6 +459,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   active_flag
