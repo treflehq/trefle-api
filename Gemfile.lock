@@ -172,6 +172,7 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     google-protobuf (3.21.10-x86_64-darwin)
+    google-protobuf (3.21.10-x86_64-linux)
     gravtastic (3.2.6)
     groupdate (6.1.0)
       activesupport (>= 5.2)
@@ -258,6 +259,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.9-x86_64-linux)
+      racc (~> 1.4)
     numerizer (0.1.1)
     oj (3.13.23)
     opensearch-api (2.1.0)
@@ -287,7 +290,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.1)
-    rack (2.2.4)
+    rack (2.2.6.2)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
     rack-test (2.0.2)
@@ -459,6 +462,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   active_flag
