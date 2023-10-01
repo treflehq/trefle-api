@@ -1,6 +1,4 @@
-
 AllCops:
-  TargetRubyVersion: 2.6
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'
