@@ -82,7 +82,7 @@ gem 'sidekiq-limit_fetch'
 gem 'sidekiq-status'
 
 gem 'counter_culture', '~> 2.0'
-gem 'interactor-rails', '~> 2.2.1'
+gem 'interactor-rails', '~> 2.0'
 
 gem 'nokogiri'
 gem 'terminal-table'
@@ -148,3 +148,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem "benchmark", "~> 0.4.1"
+
+gem "omniauth-github", "~> 2.0"
+
+gem "omniauth", "~> 2.1"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"

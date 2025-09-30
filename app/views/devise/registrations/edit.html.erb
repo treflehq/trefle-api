@@ -56,6 +56,12 @@
   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <% if !current_user.provider? %>
+    <%= link_to 'Lier mon compte GitHub', user_github_omniauth_authorize_path, method: :post, class: 'btn btn-primary' %>
+  <% else %>
+    <p>Compte GitHub lié (<%= current_user.github_username %>).</p>
+  <% end %>
+
 
   <div class="field">
     <%= f.label :password, class: 'label' %> <i>(leave blank if you don't want to change it)</i>

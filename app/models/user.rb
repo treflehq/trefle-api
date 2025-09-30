@@ -13,6 +13,7 @@
 #  email                  :string(255)
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0)
+#  github_username        :string
 #  inserted_at            :datetime         not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
@@ -22,12 +23,16 @@
 #  organization_name      :string(255)
 #  organization_url       :string(255)
 #  password_hash          :string(255)
+#  provider               :string
 #  public_profile         :boolean
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
 #  sign_in_count          :integer          default(0)
+#  sponsored_tier         :string
+#  sponsorship_checked_at :datetime
 #  token                  :string(255)
+#  uid                    :string
 #  unconfirmed_email      :string
 #  unlock_token           :string(255)
 #  created_at             :datetime
@@ -45,6 +50,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable #, :confirmable
+  devise :omniauthable, omniauth_providers: [:github]
 
   include Gravtastic
   gravtastic

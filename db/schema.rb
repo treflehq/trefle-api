@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_140236) do
+ActiveRecord::Schema[7.0].define(version: 2025_09_30_132420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -668,6 +668,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_140236) do
     t.datetime "remember_created_at", precision: nil
     t.string "unconfirmed_email"
     t.datetime "created_at", precision: nil
+    t.string "provider"
+    t.string "uid"
+    t.string "github_username"
+    t.string "sponsored_tier"
+    t.datetime "sponsorship_checked_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email"], name: "users_email_index", unique: true

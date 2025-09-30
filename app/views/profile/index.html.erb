@@ -83,6 +83,14 @@
             <span>********</span>
             <%= link_to "(change)", edit_user_registration_path(current_user), class: "link" %>
           </li>
+          <li>
+            <% if !current_user.provider? %>
+              <%= link_to 'Link my Github account', user_github_omniauth_authorize_path, method: :post, class: 'btn btn-primary' %>
+            <% else %>
+              <p>Linked GitHub account (<%= current_user.github_username %>).</p>
+            <% end %>
+          </li>
+
 
         </ul>
         <br />

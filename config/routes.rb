@@ -5,7 +5,8 @@ require 'sidekiq-status/web'
 Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   root 'home#index'
