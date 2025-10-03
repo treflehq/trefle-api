@@ -65,6 +65,9 @@
         <a class="navbar-item" title="Account" href="<%= profile_path() %>">
           <%= image_tag current_user.gravatar_url, class: 'user-image' %>
           <%= current_user.name || current_user.email %>
+          <% if current_user.sponsored_tier.present? %>
+            <i style="color: #f39c12; margin-left: 5px" class="fad fa-crown"></i>
+          <% end %>
         </a>
         <%
 =begin%>

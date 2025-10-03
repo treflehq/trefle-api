@@ -51,8 +51,20 @@
         </div>
         <p class="help">You token allow you to makes queries on the Trefle API. Keep it private.</p>
 
-
+        <br />
+        <% if !current_user.sponsored_tier.present? %>
+          <div class="notification">
+            You can make <strong>60 requests per minute</strong>.
+            <br />
+            Do you need more ? Please consider <%= link_to "sponsoring us", about_path(anchor: 'support') %>
+          </div>
+        <% else %>
+          <div class="notification">
+            <strong><i style="color: #f39c12; margin-left: 5px" class="fad fa-crown"></i> You are a sponsor !</strong> Thanks a lot for helping us to keep Trefle alive. You can make up to <strong>600</strong> requests per minute.
+          </div>
+        <% end %>
       </section>
+
       <section class="section" id="token-informations">
         <p class="title is-4">
           Account informations
@@ -85,9 +97,11 @@
           </li>
           <li>
             <% if !current_user.provider? %>
+              <strong>GitHub account:</strong>
               <%= link_to 'Link my Github account', user_github_omniauth_authorize_path, method: :post, class: 'btn btn-primary' %>
             <% else %>
-              <p>Linked GitHub account (<%= current_user.github_username %>).</p>
+              <strong>Linked GitHub account:</strong>
+              <%= current_user.github_username %>
             <% end %>
           </li>
 

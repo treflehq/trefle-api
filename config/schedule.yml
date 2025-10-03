@@ -15,6 +15,11 @@ reindex_species:
   class: "Search::ReindexSpeciesWorker"
   queue: reindex
 
+update_sponsors:
+  cron: "*/15 * * * *" # At every 15th minute
+  class: "Sponsorship::UpdateSponsorWorker"
+  queue: low
+
 check_species_images:
   cron: "0 0 */7 * *" # At 00:00 on every 7th day-of-month.
   class: "Migrators::ImagesFixerWorker"

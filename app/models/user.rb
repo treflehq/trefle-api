@@ -59,6 +59,7 @@ class User < ApplicationRecord
   has_many :user_queries, dependent: :destroy
 
   before_create :assign_token
+  before_update :regenerate_token_if_plan_changed!
 
   ACCOUNT_TYPES = %i[
     individual
@@ -67,12 +68,27 @@ class User < ApplicationRecord
     other
   ].freeze
 
+  def get_token
+    if self.admin
+      "unl-#{SecureRandom.urlsafe_base64(32)}"
+    elsif self.sponsored_tier.present?
+      "spo-#{SecureRandom.urlsafe_base64(32)}"
+    else
+      "usr-#{SecureRandom.urlsafe_base64(32)}"
+    end
+  end
+
   def assign_token
-    self.token = SecureRandom.urlsafe_base64(32)
+    self.token = get_token
   end
 
   def regenerate_token!
-    update(token: SecureRandom.urlsafe_base64(32))
+    update(token: get_token)
+  end
+
+  def regenerate_token_if_plan_changed!
+    new_token = get_token
+    update(token: new_token) if token.slice(0, 3) != new_token.slice(0, 3)
   end
 
 end

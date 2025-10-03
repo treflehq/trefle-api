@@ -16,6 +16,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         uid: auth.uid,
         github_username: auth.info.nickname
       )
+
+      ::Sponsorship::UpdateSponsorWorker.perform_async
       redirect_to edit_user_registration_path, notice: 'Your GitHub account was successfully linked.'
     else
       # If the user could not be created, handle validation errors
