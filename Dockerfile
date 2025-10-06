@@ -1,4 +1,4 @@
-FROM ruby:3.1.0-alpine
+FROM ruby:3.4-alpine
 LABEL maintainer="andre@trefle.io"
 LABEL description="The trefle.io backend API docker image"
 
