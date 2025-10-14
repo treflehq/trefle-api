@@ -103,7 +103,7 @@ module Api
     # end
 
     def user_from_token(token)
-      token.length > 43 ? user_from_jwt_token(token) : user_from_regular_token(token)
+      token.length > 48 ? user_from_jwt_token(token) : user_from_regular_token(token)
     end
 
     def user_from_regular_token(token)
