@@ -87,7 +87,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.default_url_options = { host: ENV['API_HOST'] || 'trefle.io' }
   config.action_mailer.delivery_method = :smtp
@@ -95,7 +94,7 @@ Rails.application.configure do
   mail_metadatas = {
     address: ENV['SMTP_ADDRESS'] || Rails.application.credentials.smtp_address,
     port: ENV['SMTP_PORT'] || Rails.application.credentials.smtp_port,
-    user_name: ENV['SMTP_USER_NAME'] || Rails.application.credentials.smtp_user_name,
+    user_name: ENV['SMTP_USERNAME'] || ENV['SMTP_USER_NAME'] || Rails.application.credentials.smtp_user_name,
     password: ENV['SMTP_PASSWORD'] || Rails.application.credentials.smtp_password,
     domain: ENV['SMTP_DOMAIN'] || Rails.application.credentials.smtp_domain,
     authentication: ENV['SMTP_AUTHENTICATION'] || Rails.application.credentials.smtp_authentication || 'login',

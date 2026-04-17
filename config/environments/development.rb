@@ -60,6 +60,13 @@ Rails.application.configure do
   config.assets.quiet = false
   config.assets.debug = true
 
+  default_host = ENV['APP_HOST'] || 'localhost'
+  default_port = (ENV['APP_PORT'] || 3232).to_i
+  default_url_options = { host: default_host, port: default_port }
+
+  config.action_mailer.default_url_options = default_url_options
+  Rails.application.routes.default_url_options = default_url_options
+
   if ENV['LOCAL_MAILER'] == 'true'
     puts '📩  Warning: Mailer is activated, mails will be sent for real'
 
@@ -69,11 +76,11 @@ Rails.application.configure do
     mail_metadatas = {
       address: ENV['SMTP_ADDRESS'] || Rails.application.credentials.smtp_address,
       port: ENV['SMTP_PORT'] || Rails.application.credentials.smtp_port,
-      user_name: ENV['SMTP_USER_NAME'] || Rails.application.credentials.smtp_user_name,
+      user_name: ENV['SMTP_USERNAME'] || ENV['SMTP_USER_NAME'] || Rails.application.credentials.smtp_user_name,
       password: ENV['SMTP_PASSWORD'] || Rails.application.credentials.smtp_password,
       domain: ENV['SMTP_DOMAIN'] || Rails.application.credentials.smtp_domain,
       authentication: ENV['SMTP_AUTHENTICATION'] || Rails.application.credentials.smtp_authentication || 'login',
-      enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || Rails.application.credentials.smtp_enable_starttls_auto || true
+      enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == 'true'
     }
 
     config.action_mailer.smtp_settings = mail_metadatas
