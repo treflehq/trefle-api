@@ -251,18 +251,6 @@ GEM
       bigdecimal (>= 3.1, < 5)
     jwt (3.1.2)
       base64
-    kaminari (1.2.2)
-      activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.2)
-      kaminari-activerecord (= 1.2.2)
-      kaminari-core (= 1.2.2)
-    kaminari-actionview (1.2.2)
-      actionview
-      kaminari-core (= 1.2.2)
-    kaminari-activerecord (1.2.2)
-      activerecord
-      kaminari-core (= 1.2.2)
-    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     listen (3.0.8)
@@ -556,10 +544,6 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    spring (4.4.2)
-    spring-watcher-listen (2.1.0)
-      listen (>= 2.7, < 4.0)
-      spring (>= 4)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -643,7 +627,6 @@ DEPENDENCIES
   jsbundling-rails
   json-schema
   jwt
-  kaminari
   listen (>= 3.0.5, < 3.2)
   marginalia (>= 1.8.0)
   measured
@@ -656,7 +639,7 @@ DEPENDENCIES
   omniauth-github (~> 2.0)
   omniauth-rails_csrf_protection (~> 1.0)
   opensearch-ruby
-  pagy (~> 5.0bundle)
+  pagy (~> 5.10)
   panko_serializer
   pg (>= 0.18, < 2.0)
   pg_query (>= 0.9.0)
@@ -687,8 +670,6 @@ DEPENDENCIES
   simplecov (>= 0.16.1)
   sitemap_generator
   skylight
-  spring
-  spring-watcher-listen (>= 2.0.0)
   sprockets-rails
   terminal-table
   typhoeus
