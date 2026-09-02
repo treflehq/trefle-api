@@ -198,44 +198,44 @@ class Species < ApplicationRecord
             scientific_name_length: true,
             scientific_name_structure: true
 
-  enum rank: {
+  enum :rank, {
     species: 0,
     ssp: 1,
     var: 2,
     form: 3,
     hybrid: 4,
     subvar: 5
-  }, _suffix: true
+  }, suffix: true
 
-  enum status: {
+  enum :status, {
     accepted: 0,
     unknown: 1,
     rejected: 2,
     doubtful: 3
-  }, _suffix: true
+  }, suffix: true
 
-  enum toxicity: {
+  enum :toxicity, {
     none: 0,
     low: 1,
     medium: 2,
     high: 3
-  }, _suffix: true
+  }, suffix: true
 
-  enum foliage_texture: {
+  enum :foliage_texture, {
     fine: 0,
     medium: 1,
     coarse: 2
-  }, _suffix: true
+  }, suffix: true
 
-  enum ligneous_type: {
+  enum :ligneous_type, {
     liana: 0,
     subshrub: 1,
     shrub: 2,
     tree: 3,
     parasite: 4
-  }, _suffix: true
+  }, suffix: true
 
-  enum soil_texture: {
+  enum :soil_texture, {
     'argile' => 1,
     'intermediaire' => 2,
     'limon' => 3,
@@ -245,7 +245,7 @@ class Species < ApplicationRecord
     'galets' => 7,
     'blocs_fentes_des_parois' => 8,
     'dalle' => 9
-  }, _suffix: true
+  }, suffix: true
 
   flag :duration, %i[annual biennial perennial]
 
