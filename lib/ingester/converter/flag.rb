@@ -12,6 +12,7 @@ module Ingester
 
       FIELDS = %I[
         duration
+        propagated_by
         growth_months
         bloom_months
         fruit_months
@@ -28,7 +29,6 @@ module Ingester
 
           keys = filter_keys(hash[metric])
 
-          puts "[Converter][Flag] Species.#{metric} = #{keys.inspect} (metric was #{hash[metric].inspect})"
           check_keys!(metric, keys)
 
           memo[metric] = keys

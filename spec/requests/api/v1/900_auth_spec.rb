@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Auth API' do # rubocop:todo Metrics/BlockLength
+describe 'Auth API' do
 
   before :each do
     # expect(Zone.count).to eq(0)

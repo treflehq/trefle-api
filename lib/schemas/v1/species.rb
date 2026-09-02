@@ -112,16 +112,16 @@ module Schemas
           base.merge({
             duration: {
               type: :array, nullable: true, items: {
-                type: :string, nullable: true, enum: [*::Species.durations.maps.keys, nil],
-                description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
-              },
+                                              type: :string, nullable: true, enum: [*::Species.durations.maps.keys, nil],
+                                              description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
+                                            },
               description: "The plant duration(s), which can be:\n- Annual: plants that live, reproduce, and die in one growing season.\n- Biennial: plants that need two growing seasons to complete their life cycle, normally completing vegetative growth the first year and flowering the second year.\n- Perennial: plants that live for more than two years, with the shoot system dying back to soil level each year.\n"
             }, # "perrenial",
             edible_part: {
               type: :array, nullable: true, items: {
-                type: :string, nullable: true, enum: [*::Species.edible_parts.maps.keys, nil],
-                description: 'The plant edible part(s), if any.'
-              },
+                                              type: :string, nullable: true, enum: [*::Species.edible_parts.maps.keys, nil],
+                                              description: 'The plant edible part(s), if any.'
+                                            },
               description: 'The plant edible part(s), if any.'
             }, # "stems",
 

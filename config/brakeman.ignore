@@ -1,0 +1,136 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "0bbb94aebd32515b3c63059b19035302492cb3cf424bf062f0e451ea78ba6160",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/explore/species/_species_menu.html.erb",
+      "line": 42,
+      "note": "link_to href from model data; weak confidence, to review during frontend cleanup."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "6422bfe1047508a64d34a8f63e7885498bcb0e635bf47462891d0921a34da774",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/zone.rb",
+      "line": 99,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "692ee9e864b48ccaa60b60890ccd06a53b2152a4b53ccbd9c0a9914922fc9652",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/zone.rb",
+      "line": 87,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "79d585d575bdd9340cb12d5167a89b636cfe6acc8aca40a710bb010ea3e14ad6",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/management/users_controller.rb",
+      "line": 72,
+      "note": "Management backoffice is admin-only (check_admin); admins editing user records is the feature."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "8748650aa8608857fcac42f8629f1fd53896aa58d766c50aad98f5fa309bcbfb",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 10,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "91613e1981855b56e98f38a5f6d3c4c003e397d402c138f1cebad296c84d5768",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 10,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9cf7db7538f93dc2bcea822f1a5beaa21e99e8f1d46a5cc3320065a42773ac65",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/zone.rb",
+      "line": 103,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a763e17837f82002278d71a35d132e6ab0c0190dccc20bce116b414d849c9418",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 21,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "acdee99b46831cec7564f7f33f06d0c79a5b7f3f689dc771292370217c3109e0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 21,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "b41905fecb66c7bfc3fb500d24d3f65d3f6c4ea159936ef83bfbf7c349c6589d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 42,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 7.0.10 ended on 2025-04-01",
+      "file": "Gemfile.lock",
+      "line": 407,
+      "note": "Rails 7.0 EOL acknowledged; staged upgrade to 7.1/7.2/8.0 is planned."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "e06841b0d2b2ad77df107f0cc2cdae10dba0daefed83d198a833fe2546b15cf6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/scopes/species.rb",
+      "line": 42,
+      "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "e17e46f1c7ff8d575ee1ab725bd2ec4edfbf5f5410cd5d6bd4a9678ead9b78a8",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/management/user_queries_controller.rb",
+      "line": 37,
+      "note": "Management backoffice is admin-only (check_admin); admins editing user records is the feature."
+    }
+  ],
+  "updated": "2026-09-02",
+  "brakeman_version": "8.0.6"
+}

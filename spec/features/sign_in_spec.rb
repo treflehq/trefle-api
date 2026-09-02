@@ -10,7 +10,8 @@ RSpec.feature 'Sign in/up page', type: :feature do
     fill_in 'user_password_confirmation', with: 'asamplepassword'
     click_button 'Sign up'
 
-    expect(page).to have_content 'A message with a confirmation link'
+    # Devise :confirmable is disabled on User, sign up logs the user straight in
+    expect(page).to have_content 'You have signed up successfully'
     expect(User.find_by_email('test@lala.co')).to be
 
   end

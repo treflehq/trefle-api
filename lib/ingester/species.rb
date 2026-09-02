@@ -18,7 +18,6 @@ module Ingester
     #   "confidence": 92
     # }
     def initialize(data, **options)
-      pp options
       @data = data&.deep_symbolize_keys&.compact
       # @data[:scientific_name] = "Mama mia"
       @dry_run = options[:dry_run] || false
@@ -95,7 +94,7 @@ module Ingester
       puts @species.changes.inspect.green
       puts "\n".green
 
-      if @dry_run # rubocop:todo Style/GuardClause
+      if @dry_run
 
         return return_hash(@species.changes)
       else

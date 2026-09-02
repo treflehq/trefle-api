@@ -1,6 +1,11 @@
+inherit_from: .rubocop_todo.yml
+
+plugins:
+  - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.4
+  NewCops: disable
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'

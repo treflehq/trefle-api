@@ -96,3 +96,6 @@ scripts/dump-local-sql.sh
 scripts/dump-remote-sql.sh
 ./scripts/truncate-and-restore-sql.sh
 scripts/truncate-and-restore-sql.sh
+
+# Crawler specs live with the private crawler code
+spec/workers/crawlers

@@ -25,7 +25,7 @@ module Resolver
     class << self
 
       # Will request GBIF to resolve a given scientific name
-      def resolve_hash(scientific_name) # rubocop:todo Metrics/PerceivedComplexity
+      def resolve_hash(scientific_name)
         d = Rails.cache.read("resolver/gbif/resolve_hash/#{scientific_name}")
         return JSON.parse(d)&.deep_symbolize_keys if d
 

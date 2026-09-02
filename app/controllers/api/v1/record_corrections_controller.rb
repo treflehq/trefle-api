@@ -86,14 +86,18 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
     Species.friendly.find(params[:species_id])
   end
 
+  # Only these record types accept corrections; never constantize
+  # user input (remote code execution / arbitrary model access).
+  CORRECTABLE_TYPES = {
+    'species' => ::Species,
+    'plant' => ::Plant,
+    'plants' => ::Plant
+  }.freeze
+
   def set_record_poly
     return unless params[:record_type] && params[:record_id]
 
-    record_class = (begin
-                      params[:record_type]&.classify&.constantize
-                    rescue StandardError
-                      nil
-                    end)
+    record_class = CORRECTABLE_TYPES[params[:record_type].to_s.downcase]
 
     record_class&.friendly&.find(params[:record_id])
   end

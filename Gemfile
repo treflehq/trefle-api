@@ -108,8 +108,10 @@ gem "recaptcha"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'coveralls', '>= 0.8.23', require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'database_cleaner', '>= 1.8.5'
   gem 'dotenv-rails', '>= 2.7.5'
   gem 'marginalia', '>= 1.8.0' # annotate queries
@@ -140,8 +142,6 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
 
   gem 'simplecov', '>= 0.16.1', require: false
 end
