@@ -2,6 +2,7 @@ require File.expand_path('./spec_helper', __dir__)
 require File.expand_path('./support/json_api_helper', __dir__)
 require File.expand_path('./support/json_schema_matcher', __dir__)
 require File.expand_path('./support/shared_examples/collection_endpoints', __dir__)
+require File.expand_path('./support/test_seeds', __dir__)
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -48,6 +49,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
+    TestSeeds.seed! # botanic taxonomy + species dataset expected by most specs
     Rails.application.load_seed # loading seeds
     ActiveRecord::Base.connection.execute("SELECT setval('foreign_sources_id_seq', (SELECT max(id) FROM foreign_sources));")
   end

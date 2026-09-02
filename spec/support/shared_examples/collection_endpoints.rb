@@ -7,11 +7,7 @@ RSpec.shared_examples 'a rangeable collection' do |klass, ranges|
       sample_value = klass.where.not(range => nil)&.first&.send(range) || klass&.first&.send(range)
       sample_value_bis = klass.where.not(range => nil)&.last&.send(range) || klass&.last&.send(range)
       elts = klass.send("range_by_#{range}".to_sym, *[sample_value, sample_value_bis].sort)
-      pp elts.pluck(range)
-      puts "Testing ranging on #{range} = #{[sample_value, sample_value_bis].sort} (#{elts} - #{elts&.count})"
       get :index, params: params.merge(range: { range => [sample_value, sample_value_bis].sort.join(',') })
-      puts "elts => #{elts.to_sql}"
-      puts "assigns => #{assigns(:collection).to_sql}"
       expect(assigns(:collection).to_sql).to match(/"[a-z_]*"."#{range}" >= /)
       expect(assigns(:collection).to_sql).to match(/ AND "[a-z_]*"."#{range}" < /)
     end
