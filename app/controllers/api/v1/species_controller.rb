@@ -6,7 +6,6 @@ class Api::V1::SpeciesController < Api::ApiController
     author
     bloom_months
     common_name
-    days_to_harvest
     duration
     establishment
     edible
@@ -39,7 +38,6 @@ class Api::V1::SpeciesController < Api::ApiController
     average_height_cm
     bibliography
     common_name
-    days_to_harvest
     edible_part
     family_common_name
     family_name
@@ -94,7 +92,6 @@ class Api::V1::SpeciesController < Api::ApiController
     bibliography
     common_name
     duration
-    days_to_harvest
     edible
     family_common_name
     family_name
@@ -146,7 +143,6 @@ class Api::V1::SpeciesController < Api::ApiController
   RANGEABLE_FIELDS = %w[
     atmospheric_humidity
     average_height_cm
-    days_to_harvest
     frost_free_days_minimum
     ground_humidity
     images_count

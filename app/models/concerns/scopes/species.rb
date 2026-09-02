@@ -13,28 +13,36 @@ module Scopes
 
       Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.each do |field|
         scope "filter_not_by_#{field}".to_sym, lambda {|value|
-          puts "filter_not_by_#{field} -> #{value.inspect}"
-          coll = ::Species::COLUMN_TYPES[field] == :string ? where.not("lower(#{field}) IN (?)", [*value].map(&:to_s).map(&:downcase)) : where.not(field => value)
-          coll = coll.or(where(field => nil)) unless [*value].include?(nil)
-          coll
+          values = [*value]
+          if values.compact.empty?
+            # filter_not[field]=null means "only records where the field is set"
+            where.not(field => nil)
+          elsif ::Species::COLUMN_TYPES[field] == :string
+            coll = where.not("lower(#{field}) IN (?)", values.compact.map(&:to_s).map(&:downcase))
+            coll = coll.or(where(field => nil)) unless values.include?(nil)
+            coll
+          else
+            coll = where.not(field => values)
+            coll = coll.or(where(field => nil)) unless values.include?(nil)
+            coll
+          end
         }
       end
 
       ::Species.active_flags.each_key do |flag|
         scope "filter_not_by_#{flag}".to_sym, lambda {|value|
-          puts "filter_not_by_#{flag} -> #{value.inspect}"
           flagger = ::Species.active_flags[flag]
           if value && value.first
             values = flagger.maps.keys - [*value].map(&:to_sym)
 
             if values == flagger.maps.keys
-              where.not(flag => [0, nil])
+              where.not(flag => 0).where.not(flag => nil)
             else
               int_val = flagger.to_i(values)
               where.not("species.#{flag} & #{int_val} > 0")
             end
           else
-            where.not(flag => [0, nil])
+            where.not(flag => 0).where.not(flag => nil)
           end
         }
       end
@@ -44,19 +52,19 @@ module Scopes
 
       # Binary flags overrides
       scope :filter_by_duration, ->(v) { where_duration(*v) }
-      scope :filter_not_by_duration, ->(_v) { where.not(duration: [0, nil]) }
+      scope :filter_not_by_duration, ->(_v) { where.not(duration: 0).where.not(duration: nil) }
       scope :filter_by_growth_months, ->(v) { where_growth_months(*v) }
-      scope :filter_not_by_growth_months, ->(_v) { where.not(growth_months: [0, nil]) }
+      scope :filter_not_by_growth_months, ->(_v) { where.not(growth_months: 0).where.not(growth_months: nil) }
       scope :filter_by_bloom_months, ->(v) { where_bloom_months(*v) }
-      scope :filter_not_by_bloom_months, ->(_v) { where.not(bloom_months: [0, nil]) }
+      scope :filter_not_by_bloom_months, ->(_v) { where.not(bloom_months: 0).where.not(bloom_months: nil) }
       scope :filter_by_fruit_months, ->(v) { where_fruit_months(*v) }
-      scope :filter_not_by_fruit_months, ->(_v) { where.not(fruit_months: [0, nil]) }
+      scope :filter_not_by_fruit_months, ->(_v) { where.not(fruit_months: 0).where.not(fruit_months: nil) }
       scope :filter_by_flower_color, ->(v) { where_flower_color(*v) }
-      scope :filter_not_by_flower_color, ->(_v) { where.not(flower_color: [0, nil]) }
+      scope :filter_not_by_flower_color, ->(_v) { where.not(flower_color: 0).where.not(flower_color: nil) }
       scope :filter_by_foliage_color, ->(v) { where_foliage_color(*v) }
-      scope :filter_not_by_foliage_color, ->(_v) { where.not(foliage_color: [0, nil]) }
+      scope :filter_not_by_foliage_color, ->(_v) { where.not(foliage_color: 0).where.not(foliage_color: nil) }
       scope :filter_by_fruit_color, ->(v) { where_fruit_color(*v) }
-      scope :filter_not_by_fruit_color, ->(_v) { where.not(fruit_color: [0, nil]) }
+      scope :filter_not_by_fruit_color, ->(_v) { where.not(fruit_color: 0).where.not(fruit_color: nil) }
       scope :filter_by_edible_part, ->(v) { where_edible_part(*v) }
       # scope :filter_not_by_edible_part, lambda {|value|
       #   puts "VALUE = #{value.inspect}"
