@@ -9,7 +9,6 @@ module Rangeable
 
         start_val, end_val = value&.split(',')
 
-        puts "Range with #{start_val&.strip&.inspect}, #{end_val&.strip&.inspect}"
         results = results.public_send(
           "range_by_#{key}",
           start_val&.blank? ? nil : start_val&.strip,
