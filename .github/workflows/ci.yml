@@ -34,7 +34,10 @@ jobs:
         image: opensearchproject/opensearch:2
         env:
           discovery.type: single-node
-          plugins.security.disabled: 'true'
+          # The 2.12+ docker entrypoint demands an admin password unless the
+          # security plugin is disabled through these image-level switches.
+          DISABLE_SECURITY_PLUGIN: 'true'
+          DISABLE_INSTALL_DEMO_CONFIG: 'true'
           OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
         ports: ['9200:9200']
         options: >-
