@@ -1,8 +1,4 @@
 require 'simplecov'
-require 'coveralls'
-
-# Coveralls on the CI only
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter if ENV['CI']
 
 SimpleCov.start 'rails' do
   add_group 'Interactors', 'app/interactors'

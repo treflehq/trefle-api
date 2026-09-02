@@ -112,7 +112,6 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
-  gem 'coveralls', '>= 0.8.23', require: false
   gem 'database_cleaner', '>= 1.8.5'
   gem 'dotenv-rails', '>= 2.7.5'
   gem 'marginalia', '>= 1.8.0' # annotate queries
