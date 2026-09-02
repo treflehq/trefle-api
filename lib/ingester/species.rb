@@ -18,7 +18,6 @@ module Ingester
     #   "confidence": 92
     # }
     def initialize(data, **options)
-      pp options
       @data = data&.deep_symbolize_keys&.compact
       # @data[:scientific_name] = "Mama mia"
       @dry_run = options[:dry_run] || false
