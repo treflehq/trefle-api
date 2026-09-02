@@ -24,14 +24,14 @@ class SpeciesImage < ApplicationRecord
   counter_culture %i[species plant], column_name: 'images_count'
   counter_culture [:species], column_name: 'images_count'
 
-  enum part: {
+  enum :part, {
     flower: 0,
     leaf: 1,
     habit: 2,
     fruit: 3,
     bark: 4,
     other: 5
-  }, _suffix: true
+  }, suffix: true
 
   def as_main_image!
     self.species.main_image_url = self&.image_url if self&.image_url

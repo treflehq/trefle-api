@@ -33,9 +33,9 @@ class RecordCorrection < ApplicationRecord
   scope :status, ->(s) { where(change_status: s) }
   # Ex:- scope :active, -> {where(:active => true)}
 
-  enum change_type: %i[addition update deletion], _suffix: true
-  enum change_status: %i[pending accepted rejected], _suffix: true
-  enum source_type: %i[external observation report], _suffix: true
+  enum :change_type, %i[addition update deletion], suffix: true
+  enum :change_status, %i[pending accepted rejected], suffix: true
+  enum :source_type, %i[external observation report], suffix: true
 
   before_validation :set_change_type
   validates_presence_of :source_reference,

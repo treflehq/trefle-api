@@ -23,13 +23,13 @@ class SpeciesDistribution < ApplicationRecord
   belongs_to :zone
   belongs_to :species
 
-  enum establishment: {
+  enum :establishment, {
     native: 0,
     introduced: 1,
     doubtful: 2,
     absent: 3,
     extinct: 4
-  }, _suffix: true
+  }, suffix: true
 
   counter_culture :zone, column_name: 'species_count'
 
