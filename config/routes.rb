@@ -2,7 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 require 'sidekiq-status/web'
 
-Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
+Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

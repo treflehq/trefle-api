@@ -11,7 +11,7 @@ module Migrators
     end
 
     # rubocop:todo Naming/MethodParameterName
-    def self.migrate_species!(sp) # rubocop:todo Metrics/PerceivedComplexity # rubocop:todo Naming/MethodParameterName # rubocop:todo Naming/MethodParameterName
+    def self.migrate_species!(sp) # # rubocop:todo Naming/MethodParameterName # rubocop:todo Naming/MethodParameterName
       if sp.synonym_of_id == sp.id || sp.main_species_id == sp.id
         unknowise_species!(sp)
       else

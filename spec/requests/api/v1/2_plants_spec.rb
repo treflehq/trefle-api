@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Plants API' do # rubocop:todo Metrics/BlockLength
+describe 'Plants API' do
 
   before :each do
     # expect(Plant.count).to eq(0)
@@ -122,9 +122,9 @@ describe 'Plants API' do # rubocop:todo Metrics/BlockLength
     end
   end
 
-  path '/api/v1/plants/{id}/report' do # rubocop:todo Metrics/BlockLength
+  path '/api/v1/plants/{id}/report' do
 
-    post 'Report an error' do # rubocop:todo Metrics/BlockLength
+    post 'Report an error' do
 
       noteSchema = { # rubocop:todo Naming/VariableName
         type: :object,

@@ -83,6 +83,7 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
+    ast (2.4.3)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
     base64 (0.3.0)
@@ -93,6 +94,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.23.0)
       msgpack (~> 1.2)
+    brakeman (8.0.6)
+      racc
     builder (3.3.0)
     byebug (13.0.0)
       reline (>= 0.6.0)
@@ -266,6 +269,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    language_server-protocol (3.17.0.6)
+    lint_roller (1.1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -366,6 +371,10 @@ GEM
     panko_serializer (0.8.4)
       activesupport
       oj (> 3.11.0, < 4.0.0)
+    parallel (2.1.0)
+    parser (3.3.12.0)
+      ast (~> 2.4.1)
+      racc
     pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-aarch64-linux-musl)
@@ -427,6 +436,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
       zeitwerk (~> 2.5)
+    rainbow (3.1.1)
     rake (13.3.1)
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
@@ -483,6 +493,27 @@ GEM
     rswag-ui (2.17.0)
       actionpack (>= 5.2, < 8.2)
       railties (>= 5.2, < 8.2)
+    rubocop (1.90.0)
+      json (>= 2.3)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
+      parallel (>= 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.49.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 4.0)
+    rubocop-ast (1.50.0)
+      parser (>= 3.3.7.2)
+      prism (~> 1.7)
+    rubocop-rails (2.37.0)
+      activesupport (>= 4.2.0)
+      lint_roller (~> 1.1)
+      rack (>= 1.1)
+      rubocop (>= 1.89.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
+    ruby-progressbar (1.13.0)
     ruby-statistics (4.1.0)
     ruby2_keywords (0.0.5)
     rubyzip (3.2.2)
@@ -605,6 +636,7 @@ DEPENDENCIES
   bcrypt (>= 3.1.7)
   benchmark (~> 0.4.1)
   bootsnap (>= 1.1.0)
+  brakeman
   byebug
   capybara (>= 2.15)
   colorize
@@ -658,6 +690,8 @@ DEPENDENCIES
   rspec
   rspec-rails
   rswag
+  rubocop
+  rubocop-rails
   rufus-scheduler (>= 3.4.2)
   searchkick
   seed_dump

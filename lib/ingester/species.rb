@@ -94,7 +94,7 @@ module Ingester
       puts @species.changes.inspect.green
       puts "\n".green
 
-      if @dry_run # rubocop:todo Style/GuardClause
+      if @dry_run
 
         return return_hash(@species.changes)
       else
