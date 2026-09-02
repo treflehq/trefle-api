@@ -11,6 +11,6 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     reg = SCIENTIFIC_NAME_VALIDATION_REGEX[record.rank.to_sym]
-    record.errors[attribute] << "structure of '#{value}' seems invalid for #{record.rank} rank" if (value =~ reg).nil?
+    record.errors.add(attribute, "structure of '#{value}' seems invalid for #{record.rank} rank") if (value =~ reg).nil?
   end
 end
