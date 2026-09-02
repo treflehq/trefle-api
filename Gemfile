@@ -73,9 +73,8 @@ gem "skylight"
 
 # Sidekiq
 gem 'redis', '>= 4.1.4'
-gem 'redis-namespace', '>= 1.7.0'
 gem 'rufus-scheduler', '>= 3.4.2'
-gem 'sidekiq', '< 7'
+gem 'sidekiq', '~> 7.3'
 gem 'sidekiq-cron', '>= 0.6.3'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-status'
