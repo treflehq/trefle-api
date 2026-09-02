@@ -5,7 +5,7 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'jquery-rails'
-gem 'rails', "~> 7.0.0"
+gem 'rails', "~> 7.1.0"
 gem "sprockets-rails"
 
 gem 'jsbundling-rails'
@@ -33,7 +33,7 @@ gem 'has_scope'
 gem 'panko_serializer'
 
 # Caching
-gem 'connection_pool'
+gem 'connection_pool', '~> 2.4'
 gem 'dalli'
 
 # Client side tokens
