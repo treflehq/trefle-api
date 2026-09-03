@@ -101,16 +101,6 @@
       "note": "Interpolated identifiers come from frozen constant lists or DB integer ids, never from user input."
     },
     {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 120,
-      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
-      "check_name": "EOLRails",
-      "message": "Support for Rails 7.0.10 ended on 2025-04-01",
-      "file": "Gemfile.lock",
-      "line": 407,
-      "note": "Rails 7.0 EOL acknowledged; staged upgrade to 7.1/7.2/8.0 is planned."
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "e06841b0d2b2ad77df107f0cc2cdae10dba0daefed83d198a833fe2546b15cf6",
@@ -131,6 +121,6 @@
       "note": "Management backoffice is admin-only (check_admin); admins editing user records is the feature."
     }
   ],
-  "updated": "2026-09-02",
+  "updated": "2026-09-03",
   "brakeman_version": "8.0.6"
 }

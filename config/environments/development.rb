@@ -84,6 +84,12 @@ Rails.application.configure do
     }
 
     config.action_mailer.smtp_settings = mail_metadatas
+  else
+    # No real mail in development by default: mails are captured by the :test
+    # delivery method instead of being attempted for real. Set LOCAL_MAILER=true
+    # (see .env.local.example) for the rare case where sending is wanted.
+    config.action_mailer.delivery_method = :test
+    config.action_mailer.perform_deliveries = false
   end
 
   # Raises error for missing translations.
