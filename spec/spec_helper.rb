@@ -5,9 +5,9 @@ SimpleCov.start 'rails' do
   add_group 'Serializers', 'app/serializers'
   add_group 'Uploaders', 'app/uploaders'
 
+  # Private crawler code lives outside this repository
   add_filter 'lib/crawlers'
-  add_filter 'lib/migrators'
-  add_filter 'app/workers'
+  add_filter 'app/workers/crawlers'
 end
 
 require 'database_cleaner'
