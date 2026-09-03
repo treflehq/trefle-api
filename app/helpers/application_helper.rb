@@ -27,7 +27,7 @@ module ApplicationHelper
     case ftype
     when nil
       return tag.span('null', class: 'null-elt') if val.nil?
-      return tag.span(val.to_s(:short)) if name.to_s.ends_with?('_at')
+      return tag.span(val.to_fs(:short)) if name.to_s.ends_with?('_at')
       # rubocop:todo Style/MultipleComparison
       return tag.span(val.to_s, class: "bool-elt #{val}-elt") if val == true || val == false
 

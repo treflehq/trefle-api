@@ -22,9 +22,9 @@
         <td><%= session.ended_at %></td>
         <td><%= session.counters %></td>
         <td><%= session.inserted_at %></td>
-        <td><%= link_to 'Show', session %></td>
+        <td><%= link_to 'Show', [:management, session] %></td>
         <td><%= link_to 'Edit', edit_session_path(session) %></td>
-        <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', [:management, session], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Session', new_session_path %>
+<%= link_to 'New Session', new_management_session_path %>

@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'DivisionClasses API' do # rubocop:todo Metrics/BlockLength
+describe 'DivisionClasses API' do
 
   before :each do
     # expect(DivisionClass.count).to eq(0)

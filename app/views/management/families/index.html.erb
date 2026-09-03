@@ -24,9 +24,9 @@
         <td><%= family.division_order %></td>
         <td><%= family.major_group %></td>
         <td><%= family.inserted_at %></td>
-        <td><%= link_to 'Show', family %></td>
-        <td><%= link_to 'Edit', edit_family_path(family) %></td>
-        <td><%= link_to 'Destroy', family, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, family] %></td>
+        <td><%= link_to 'Edit', edit_management_family_path(family) %></td>
+        <td><%= link_to 'Destroy', [:management, family], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Family', new_family_path %>
+<%= link_to 'New Family', new_management_family_path %>

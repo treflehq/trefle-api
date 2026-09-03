@@ -18,9 +18,9 @@
         <td><%= kingdom.name %></td>
         <td><%= kingdom.slug %></td>
         <td><%= kingdom.inserted_at %></td>
-        <td><%= link_to 'Show', kingdom %></td>
-        <td><%= link_to 'Edit', edit_kingdom_path(kingdom) %></td>
-        <td><%= link_to 'Destroy', kingdom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, kingdom] %></td>
+        <td><%= link_to 'Edit', edit_management_kingdom_path(kingdom) %></td>
+        <td><%= link_to 'Destroy', [:management, kingdom], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Kingdom', new_kingdom_path %>
+<%= link_to 'New Kingdom', new_management_kingdom_path %>

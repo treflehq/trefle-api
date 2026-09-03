@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Families API' do # rubocop:todo Metrics/BlockLength
+describe 'Families API' do
 
   before :each do
     # expect(Family.count).to eq(0)

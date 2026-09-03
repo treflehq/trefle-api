@@ -20,9 +20,9 @@
         <td><%= foreign_source.slug %></td>
         <td><%= foreign_source.url %></td>
         <td><%= foreign_source.inserted_at %></td>
-        <td><%= link_to 'Show', foreign_source %></td>
-        <td><%= link_to 'Edit', edit_foreign_source_path(foreign_source) %></td>
-        <td><%= link_to 'Destroy', foreign_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, foreign_source] %></td>
+        <td><%= link_to 'Edit', edit_management_foreign_source_path(foreign_source) %></td>
+        <td><%= link_to 'Destroy', [:management, foreign_source], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Foreign Source', new_foreign_source_path %>
+<%= link_to 'New Foreign Source', new_management_foreign_source_path %>

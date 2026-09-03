@@ -20,9 +20,9 @@
         <td><%= division_class.slug %></td>
         <td><%= division_class.division %></td>
         <td><%= division_class.inserted_at %></td>
-        <td><%= link_to 'Show', division_class %></td>
-        <td><%= link_to 'Edit', edit_division_class_path(division_class) %></td>
-        <td><%= link_to 'Destroy', division_class, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, division_class] %></td>
+        <td><%= link_to 'Edit', edit_management_division_class_path(division_class) %></td>
+        <td><%= link_to 'Destroy', [:management, division_class], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Division Class', new_division_class_path %>
+<%= link_to 'New Division Class', new_management_division_class_path %>

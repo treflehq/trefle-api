@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester::Converter::Source do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester::Converter::Source do
 
   it 'Can process a good source' do
 

@@ -22,9 +22,9 @@
         <td><%= foreign_sources_plant.foreign_source %></td>
         <td><%= foreign_sources_plant.fid %></td>
         <td><%= foreign_sources_plant.inserted_at %></td>
-        <td><%= link_to 'Show', foreign_sources_plant %></td>
-        <td><%= link_to 'Edit', edit_foreign_sources_plant_path(foreign_sources_plant) %></td>
-        <td><%= link_to 'Destroy', foreign_sources_plant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, foreign_sources_plant] %></td>
+        <td><%= link_to 'Edit', edit_management_foreign_sources_plant_path(foreign_sources_plant) %></td>
+        <td><%= link_to 'Destroy', [:management, foreign_sources_plant], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Foreign Sources Plant', new_foreign_sources_plant_path %>
+<%= link_to 'New Foreign Sources Plant', new_management_foreign_sources_plant_path %>

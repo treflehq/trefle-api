@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester::Converter::Text do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester::Converter::Text do
 
   it 'Can process a good text field' do
 
@@ -18,7 +18,7 @@ RSpec.describe Ingester::Converter::Text do # rubocop:todo Metrics/BlockLength
       observations: 'A good observation'
     )
   end
-  it 'Can process all text fields' do # rubocop:todo Metrics/BlockLength
+  it 'Can process all text fields' do
 
     hash = {
       scientific_name: 'Aiphanes grandis',

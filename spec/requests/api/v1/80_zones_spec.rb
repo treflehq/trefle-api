@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Distributions API' do # rubocop:todo Metrics/BlockLength
+describe 'Distributions API' do
 
   before :each do
     # expect(Zone.count).to eq(0)

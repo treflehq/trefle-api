@@ -20,9 +20,9 @@
         <td><%= division.slug %></td>
         <td><%= division.subkingdom %></td>
         <td><%= division.inserted_at %></td>
-        <td><%= link_to 'Show', division %></td>
-        <td><%= link_to 'Edit', edit_division_path(division) %></td>
-        <td><%= link_to 'Destroy', division, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, division] %></td>
+        <td><%= link_to 'Edit', edit_management_division_path(division) %></td>
+        <td><%= link_to 'Destroy', [:management, division], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Division', new_division_path %>
+<%= link_to 'New Division', new_management_division_path %>

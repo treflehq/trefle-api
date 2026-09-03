@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester::Converter::Measurement do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester::Converter::Measurement do
 
   it 'Can process a good measurement' do
 

@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Divisions API' do # rubocop:todo Metrics/BlockLength
+describe 'Divisions API' do
 
   before :each do
     # expect(Division.count).to eq(0)

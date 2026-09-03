@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Corrections API' do # rubocop:todo Metrics/BlockLength
+describe 'Corrections API' do
 
   before :each do
     # expect(RecordCorrection.count).to eq(0)
@@ -101,9 +101,9 @@ describe 'Corrections API' do # rubocop:todo Metrics/BlockLength
     end
   end
 
-  path '/api/v1/corrections/species/{record_id}' do # rubocop:todo Metrics/BlockLength
+  path '/api/v1/corrections/species/{record_id}' do
 
-    post 'Submit a correction' do # rubocop:todo Metrics/BlockLength
+    post 'Submit a correction' do
 
       # correctionSchema = {
       #   type: :object,

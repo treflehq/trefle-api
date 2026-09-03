@@ -1,5 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
 plugins:
   - rubocop-rails
 
@@ -54,6 +58,14 @@ Metrics/MethodLength:
   Max: 25
 Metrics/BlockLength:
   Max: 30
+  Exclude:
+    - 'spec/**/*'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    # Specs bypass validations on purpose to craft the invalid data
+    # that checks and workers are supposed to detect.
+    - 'spec/**/*'
 Metrics/CyclomaticComplexity:
   Max: 10
 Metrics/ClassLength:

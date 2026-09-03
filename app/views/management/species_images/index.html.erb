@@ -18,9 +18,9 @@
         <td><%= species_image.image_url %></td>
         <td><%= species_image.species %></td>
         <td><%= species_image.inserted_at %></td>
-        <td><%= link_to 'Show', species_image %></td>
-        <td><%= link_to 'Edit', edit_species_image_path(species_image) %></td>
-        <td><%= link_to 'Destroy', species_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, species_image] %></td>
+        <td><%= link_to 'Edit', edit_management_species_image_path(species_image) %></td>
+        <td><%= link_to 'Destroy', [:management, species_image], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Species Image', new_species_image_path %>
+<%= link_to 'New Species Image', new_management_species_image_path %>

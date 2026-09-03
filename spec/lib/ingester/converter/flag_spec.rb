@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester::Converter::Flag do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester::Converter::Flag do
 
   it 'Can process a good flag' do
 

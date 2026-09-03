@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Kingdoms API' do # rubocop:todo Metrics/BlockLength
+describe 'Kingdoms API' do
 
   before :each do
     # expect(Kingdom.count).to eq(0)

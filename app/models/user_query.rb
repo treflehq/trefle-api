@@ -47,9 +47,13 @@ class UserQuery < ApplicationRecord
     REDIS_POOL.with do |conn|
       conn.scan_each(match: "#{KEY_PREFIX}:#{time_key}:*").each do |key|
         _k, time, user_id = key.split(':')
-        q = UserQuery.where(user_id: user_id, time: time).first_or_create
         counter = conn.get(key)
         conn.del(key)
+        # Counters can outlive their user (deleted account): dropping
+        # them beats crashing the whole flush on the FK constraint.
+        next unless User.exists?(user_id)
+
+        q = UserQuery.where(user_id: user_id, time: time).first_or_create
         q.update(counter: (q.counter || 0) + counter.to_i)
       end
     end

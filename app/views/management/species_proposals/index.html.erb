@@ -218,9 +218,9 @@
         <td><%= species_proposal.change_type %></td>
         <td><%= species_proposal.change_status %></td>
         <td><%= species_proposal.synonym_of %></td>
-        <td><%= link_to 'Show', species_proposal %></td>
+        <td><%= link_to 'Show', [:management, species_proposal] %></td>
         <td><%= link_to 'Edit', edit_species_proposal_path(species_proposal) %></td>
-        <td><%= link_to 'Destroy', species_proposal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', [:management, species_proposal], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -229,4 +229,4 @@
 
 <br>
 
-<%= link_to 'New Species Proposal', new_species_proposal_path %>
+<%= link_to 'New Species Proposal', new_management_species_proposal_path %>

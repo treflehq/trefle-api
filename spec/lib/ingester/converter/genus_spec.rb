@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester::Converter::Genus do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester::Converter::Genus do
 
   let(:genus) { Genus.all.sample }
 
