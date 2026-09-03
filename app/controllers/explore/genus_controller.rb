@@ -2,25 +2,11 @@ class Explore::GenusController < Explore::ExploreController
   before_action :set_genus, only: %i[show]
 
   # GET /genus
-  # GET /genus.json
+  # The genus listing was never implemented (the view referenced
+  # variables no action ever set and raised a 500): send visitors to
+  # the species exploration instead.
   def index
-    # search = params[:search]
-    # @page_title = 'Explore plants and genus'
-    # @page_keywords = 'explore, plants, search, genus'
-
-    # if search.blank?
-    #   @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(wiki_score: :desc)
-    #   @pagy, @collection = pagy(@collection)
-    # else
-    #   options = {
-    #     includes: %i[synonyms genus plant],
-    #     boost_by: [:gbif_score],
-    #     fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions']
-    #   }.compact
-
-    #   @collection = Species.pagy_search(search, **options)
-    #   @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
-    # end
+    redirect_to explore_path
   end
 
   # GET /genus/1

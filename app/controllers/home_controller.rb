@@ -35,5 +35,4 @@ class HomeController < ApplicationController
     @page_keywords    = 'API, Botanical, Plants, Species, Data'
   end
 
-  def stats; end
 end

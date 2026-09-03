@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about', as: 'about'
   get '/donate', to: 'home#donate', as: 'donate'
   get '/terms', to: 'home#licence', as: 'terms'
-  get '/stats', to: 'home#stats', as: 'stats'
   get '/profile', to: 'profile#index', as: 'profile'
 
   namespace 'api' do
