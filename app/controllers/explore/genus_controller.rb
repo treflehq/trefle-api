@@ -17,7 +17,10 @@ class Explore::GenusController < Explore::ExploreController
     @page_description = "#{@genus.name} is a genus of the #{@genus.family&.name} family"
     @page_keywords    = [@genus.name, 'genus', 'plant', 'explore'].compact.join(', ')
 
-    @species = @genus.species.where.not(main_image_url: nil).order(wiki_score: :desc).first
+    # Picking the best-ranked species regardless of whether it has a photo lets the
+    # header fall back to the empty-state placeholder instead of crashing (or silently
+    # hiding the genus header) when none of the genus' species has one.
+    @species = @genus.species.order(wiki_score: :desc).first
     set_meta_tags(
       image_src: @species&.main_image_url,
       og: {

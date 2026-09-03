@@ -8,7 +8,9 @@
 
   <div class="columns">
     <div class="column is-3">
-      <aside class="species-correction-image" style="background-image: url(<%= species.main_image_url %>)"></aside>
+      <aside class="species-correction-image">
+        <%= species_photo_tag(species, css_class: 'species-correction-image-photo', width: 300, height: 300) %>
+      </aside>
     </div>
     <div class="column is-9">
           <div class="container">

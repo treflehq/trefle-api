@@ -1,5 +1,5 @@
 <%= link_to explore_species_path(species), class: 'species-grid-item' do %>
-  <aside style="background-image: url(<%= species.main_image_url %>)"></aside>
+  <aside><%= species_photo_tag(species, css_class: 'species-grid-item-photo') %></aside>
   <main>
     <h2 class="title is-5">
 
