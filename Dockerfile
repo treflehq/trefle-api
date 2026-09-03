@@ -31,12 +31,20 @@ COPY Gemfile.lock /app/Gemfile.lock
 
 RUN bundle install --without development test -j4 --retry 3 --path vendor
 
+COPY package.json /app/package.json
+COPY yarn.lock /app/yarn.lock
+
+# jsbundling-rails runs `yarn build` as part of assets:precompile
+RUN yarn install --frozen-lockfile
+
 ADD . /app
 RUN mkdir -p /app/tmp/pids && \
   chmod -R 777 /app/tmp && \
   chmod 777 /app/bin/post-start
 
-RUN bundle exec rails assets:precompile --trace --verbose
+# SECRET_KEY_BASE_DUMMY lets the app boot for precompilation without the real
+# production secret, which is only injected at runtime.
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile --trace --verbose
 RUN rm -rf /app/node_modules storage /usr/local/share/.cache/yarn log/* *.md test kube frontend spec tmp/cache lib/assets spec && \
   rm -rf /var/cache/apk/* && \
   rm -rf /app/config/master.key
