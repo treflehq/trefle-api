@@ -19,6 +19,23 @@ RSpec.describe 'Recurring workers' do
 
       expect(RecordCorrection.pluck(:warning_type, :notes)).to eq([])
     end
+
+    it 'stamps checked_at so the sweep can rotate' do
+      expect { described_class.new.perform(species.id) }
+        .to change { species.reload.checked_at }.from(nil)
+    end
+  end
+
+  describe ChecksSweepWorker do
+    it 'enqueues the least recently checked species first' do
+      Species.update_all(checked_at: 1.day.ago)
+      species.update_columns(checked_at: nil)
+      allow(RunCheckWorker).to receive(:perform_async)
+
+      described_class.new.perform(1)
+
+      expect(RunCheckWorker).to have_received(:perform_async).with(species.id)
+    end
   end
 
   describe SpeciesRefreshWorker do
