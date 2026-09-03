@@ -97,14 +97,4 @@ module Checks
 
   end
 
-  def self.run_all(species_id)
-    enabled = [
-      GenusSpecies,
-      ScientificNameFormat,
-      GenusName,
-      NameAcceptance
-    ].freeze
-
-    enabled.each {|e| e.run(species_id) }
-  end
 end
