@@ -117,6 +117,9 @@ GEM
       activesupport (>= 4.2)
     countries (8.1.0)
       unaccent (~> 0.3)
+    crack (1.0.1)
+      bigdecimal
+      rexml
     crass (1.0.6)
     cronex (0.15.0)
       tzinfo
@@ -224,6 +227,7 @@ GEM
     has_scope (0.9.0)
       actionpack (>= 7.0)
       activesupport (>= 7.0)
+    hashdiff (1.2.1)
     hashie (5.1.0)
       logger
     health_check (3.1.0)
@@ -602,6 +606,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.26.4)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.2)
     websocket (1.2.11)
     websocket-driver (0.8.1)
@@ -703,6 +711,7 @@ DEPENDENCIES
   typhoeus
   tzinfo-data
   web-console (>= 3.3.0)
+  webmock
 
 BUNDLED WITH
    2.6.9
