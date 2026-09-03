@@ -18,9 +18,9 @@
         <td><%= major_group.name %></td>
         <td><%= major_group.slug %></td>
         <td><%= major_group.inserted_at %></td>
-        <td><%= link_to 'Show', major_group %></td>
-        <td><%= link_to 'Edit', edit_major_group_path(major_group) %></td>
-        <td><%= link_to 'Destroy', major_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, major_group] %></td>
+        <td><%= link_to 'Edit', edit_management_major_group_path(major_group) %></td>
+        <td><%= link_to 'Destroy', [:management, major_group], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Major Group', new_major_group_path %>
+<%= link_to 'New Major Group', new_management_major_group_path %>

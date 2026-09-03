@@ -4,7 +4,7 @@ class Management::DivisionClassesController < Management::ManagementController
   # GET /division_classes
   # GET /division_classes.json
   def index
-    @division_classes = DivisionClass.all.page params[:page]
+    @division_classes = DivisionClass.all
   end
 
   # GET /division_classes/1

@@ -20,9 +20,9 @@
         <td><%= subkingdom.slug %></td>
         <td><%= subkingdom.kingdom %></td>
         <td><%= subkingdom.inserted_at %></td>
-        <td><%= link_to 'Show', subkingdom %></td>
-        <td><%= link_to 'Edit', edit_subkingdom_path(subkingdom) %></td>
-        <td><%= link_to 'Destroy', subkingdom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:management, subkingdom] %></td>
+        <td><%= link_to 'Edit', edit_management_subkingdom_path(subkingdom) %></td>
+        <td><%= link_to 'Destroy', [:management, subkingdom], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Subkingdom', new_subkingdom_path %>
+<%= link_to 'New Subkingdom', new_management_subkingdom_path %>

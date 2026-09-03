@@ -4,7 +4,7 @@ class Management::SubkingdomsController < Management::ManagementController
   # GET /subkingdoms
   # GET /subkingdoms.json
   def index
-    @subkingdoms = Subkingdom.all.page params[:page]
+    @subkingdoms = Subkingdom.all
   end
 
   # GET /subkingdoms/1

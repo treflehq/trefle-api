@@ -4,7 +4,7 @@ class Management::FamiliesController < Management::ManagementController
   # GET /families
   # GET /families.json
   def index
-    @families = Family.all.page params[:page]
+    @families = Family.all
   end
 
   # GET /families/1
