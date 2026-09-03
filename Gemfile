@@ -67,8 +67,8 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.6.1'
 
-gem "sentry-ruby"
-gem "sentry-rails"
+gem "sentry-ruby", "~> 7.0"
+gem "sentry-rails", "~> 7.0"
 gem "skylight"
 
 # Sidekiq
