@@ -5,6 +5,8 @@
 
 [🌎 Website](https://trefle.io)  •  [🚀 Getting started](https://docs.trefle.io)  •  [📖 API Documentation](https://docs.trefle.io/reference)  •  [💡 Ideas and features](https://github.com/orgs/treflehq/projects/3)  •  [🐛 Issues](https://github.com/orgs/treflehq/projects/2)
 
+[![CI](https://github.com/treflehq/trefle-api/actions/workflows/ci.yml/badge.svg)](https://github.com/treflehq/trefle-api/actions/workflows/ci.yml) [![License: AGPL v3](https://img.shields.io/github/license/treflehq/trefle-api)](LICENSE.md) [![Latest release](https://img.shields.io/github/v/release/treflehq/trefle-api)](https://github.com/treflehq/trefle-api/releases)
+
 [![View performance data on Skylight](https://badges.skylight.io/status/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/rpm/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/problem/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra) [![View performance data on Skylight](https://badges.skylight.io/typical/nz7MAOv6K6ra.svg)](https://oss.skylight.io/app/applications/nz7MAOv6K6ra)
 
 ## What is Trefle?

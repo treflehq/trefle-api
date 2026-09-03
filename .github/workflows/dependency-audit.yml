@@ -1,0 +1,39 @@
+name: Dependency audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # weekly, Monday 06:00 UTC
+  pull_request:
+    paths:
+      - Gemfile.lock
+      - yarn.lock
+
+jobs:
+  bundler-audit:
+    name: bundler-audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install bundler-audit
+        run: gem install bundler-audit
+      - name: Run bundler-audit
+        run: bundler-audit check --update
+
+  yarn-audit:
+    name: yarn audit
+    runs-on: ubuntu-latest
+    # Non-blocking to start: surfaces vulnerable JS deps without failing CI.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run yarn audit
+        run: yarn audit --level high

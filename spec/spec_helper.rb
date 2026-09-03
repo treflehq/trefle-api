@@ -8,6 +8,9 @@ SimpleCov.start 'rails' do
   # Private crawler code lives outside this repository
   add_filter 'lib/crawlers'
   add_filter 'app/workers/crawlers'
+
+  # Floor is raised as coverage improves (see #204) — never lower it here.
+  minimum_coverage 65
 end
 
 require 'database_cleaner'
