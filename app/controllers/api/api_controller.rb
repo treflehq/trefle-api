@@ -1,6 +1,9 @@
 module Api
   class ApiController < ActionController::API
+    class UnknownQueryKeyError < StandardError; end
+
     rescue_from ActionController::BadRequest, with: :render_bad_request_response
+    rescue_from UnknownQueryKeyError, with: :render_unknown_query_key_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_record_response
     rescue_from ActionController::ParameterMissing, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
@@ -155,6 +158,10 @@ module Api
       render_error(exception.message, :unprocessable_entity)
     end
 
+    def render_unknown_query_key_response(exception)
+      render_error(exception.message, :bad_request)
+    end
+
     def render_not_found_response(exception)
       render_error(exception.message.gsub(' with friendly id', ''), :not_found)
     end
@@ -165,7 +172,7 @@ module Api
 
     def apply_filters(collection, filterable_fields)
       if params[:filter]&.is_a?(ActionController::Parameters)
-        collection.filter_with(params[:filter].permit(filterable_fields).slice(*filterable_fields))
+        collection.filter_with(permit_known_query_keys(:filter, filterable_fields))
       else
         collection
       end
@@ -204,7 +211,7 @@ module Api
 
     def apply_filters_not(collection, filterable_fields)
       if params[:filter_not]&.is_a?(ActionController::Parameters)
-        collection.filter_not_with(params[:filter_not].permit(filterable_fields).slice(*filterable_fields))
+        collection.filter_not_with(permit_known_query_keys(:filter_not, filterable_fields))
       else
         collection
       end
@@ -212,7 +219,7 @@ module Api
 
     def apply_sort(collection, orderable_fields, default_sort:)
       if params[:order]&.is_a?(ActionController::Parameters)
-        collection.sort_with(params[:order].permit(orderable_fields).slice(*orderable_fields))
+        collection.sort_with(permit_known_query_keys(:order, orderable_fields))
       else
         collection.order(default_sort)
       end
@@ -220,7 +227,7 @@ module Api
 
     def apply_range(collection, rangeable_fields)
       if params[:range]&.is_a?(ActionController::Parameters)
-        collection.range_with(params[:range].permit(rangeable_fields).slice(*rangeable_fields))
+        collection.range_with(permit_known_query_keys(:range, rangeable_fields))
       else
         collection
       end
@@ -232,6 +239,21 @@ module Api
       else
         collection
       end
+    end
+
+    # Raises UnknownQueryKeyError (rendered as 400) when `params[param_name]`
+    # contains a key outside `allowed_fields`, instead of silently dropping it
+    # like `permit`/`slice` would. Callers get valid keys back untouched.
+    def permit_known_query_keys(param_name, allowed_fields)
+      provided_params = params[param_name]
+      unknown_keys = provided_params.keys.map(&:to_s) - allowed_fields.map(&:to_s)
+
+      if unknown_keys.any?
+        raise UnknownQueryKeyError, "Unknown #{param_name} key#{'s' if unknown_keys.size > 1}: #{unknown_keys.join(', ')}. " \
+          "Valid #{param_name} keys are: #{allowed_fields.join(', ')}."
+      end
+
+      provided_params.permit(allowed_fields).slice(*allowed_fields)
     end
 
   end
