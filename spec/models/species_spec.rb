@@ -138,7 +138,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Species, type: :model do # rubocop:todo Metrics/BlockLength
+RSpec.describe Species, type: :model do
 
   let(:genus) { Genus.last }
 

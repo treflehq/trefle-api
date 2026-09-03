@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'Genus API' do # rubocop:todo Metrics/BlockLength
+describe 'Genus API' do
 
   COLLECTION_SCHEMA = JsonApiHelper.array_schema(
     'genus',

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Ingester do # rubocop:todo Metrics/BlockLength
+RSpec.describe Ingester do
 
   # it 'Can process a hash' do
 
@@ -28,7 +28,7 @@ RSpec.describe Ingester do # rubocop:todo Metrics/BlockLength
   #   expect(result[:errors]).to eq([])
   # end
 
-  it 'Can process a big hash with incomplete data' do # rubocop:todo Metrics/BlockLength
+  it 'Can process a big hash with incomplete data' do
 
     hash = {
       image_url: 'https://s3.amazonaws.com/openfarm-project/production/media/pictures/attachments/54a9de1233316500020c0000.jpg?1420418576',

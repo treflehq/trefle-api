@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-describe 'DivisionOrders API' do # rubocop:todo Metrics/BlockLength
+describe 'DivisionOrders API' do
 
   before :each do
     # expect(DivisionOrder.count).to eq(0)

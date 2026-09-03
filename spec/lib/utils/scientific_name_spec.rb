@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Utils::ScientificName do # rubocop:todo Metrics/BlockLength
+RSpec.describe Utils::ScientificName do
 
   {
     ['Scandix pecten-veneris subsp. pecten-veneris', nil] => 'Scandix pecten-veneris subsp. pecten-veneris',
