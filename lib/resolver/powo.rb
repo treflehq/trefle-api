@@ -49,7 +49,6 @@ module Resolver
         )
         return unless r.ok?
 
-        puts "[POWO] [#{scientific_name}] Adding #{r.parsed_response['totalResults']} items"
         data = r.parsed_response['results']&.filter {|e| e['accepted'] && e['rank'] != 'Genus' }&.first&.deep_symbolize_keys
         Rails.cache.write("resolver/powo/search/#{scientific_name}", data.to_json, expires_in: 12.hours)
         data
@@ -60,7 +59,6 @@ module Resolver
         r = get("/taxonomy/#{DATASET_KEY}/#{id}")
         return unless r.ok?
 
-        puts "[POWO] [#{id}] Fetched"
         r.parsed_response&.deep_symbolize_keys
       end
 

@@ -35,15 +35,9 @@ module Resolver
 
         confidence = match[:confidence]
 
-        if confidence <= 90
-          puts "Confidence is too low: #{confidence}, skipping..."
-          return
-        end
-
-        puts "#{match[:taxonomicStatus]}: #{match.inspect}"
+        return if confidence <= 90
 
         if match[:synonym]
-          puts "Synonym: #{match.inspect}"
           syn = fetch_species(match[:key])
           match = fetch_species(syn[:acceptedKey])
         else
@@ -54,8 +48,6 @@ module Resolver
 
         return if match[:kingdom] != 'Plantae'
         return if match[:taxonomicStatus] != 'ACCEPTED'
-
-        pp match
 
         match[:main_species] = nil
         match[:confidence] = confidence
@@ -81,7 +73,6 @@ module Resolver
         )
         return unless r.ok?
 
-        puts "[GBIF] [#{scientific_name}] Adding #{r.parsed_response['speciesMatches']['count']} items"
         datas = r.parsed_response['speciesMatches']['results']
 
         data = datas&.reject {|e| e['rank'] == 'GENUS' }&.first&.deep_symbolize_keys
@@ -94,7 +85,6 @@ module Resolver
         r = get("/taxonomy/#{DATASET_KEY}/#{id}")
         return unless r.ok?
 
-        puts "[GBIF] [#{id}] Fetched"
         r.parsed_response&.deep_symbolize_keys
       end
 
@@ -118,7 +108,6 @@ module Resolver
         rank = :hybrid if scientific_name&.match(/ × /) && rank == :species
 
         authorship = clean_authorship(entry[:authorship])
-        pp authorship
         {
           scientific_name: scientific_name,
           rank: rank,

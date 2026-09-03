@@ -54,9 +54,11 @@ RSpec.configure do |config|
     ActiveRecord::Base.connection.execute("SELECT setval('foreign_sources_id_seq', (SELECT max(id) FROM foreign_sources));")
   end
 
-  # We don't want to be connected to internet
-  # WebMock.disable_net_connect!(allow_localhost: true)
-  # WebMock.allow_net_connect!
+  # No spec may reach the outside world (a shadowed Checks.run_all once
+  # called POWO/GBIF for real from CI); localhost stays open for
+  # OpenSearch.
+  require 'webmock/rspec'
+  WebMock.disable_net_connect!(allow_localhost: true)
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

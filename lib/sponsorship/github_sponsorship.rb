@@ -48,10 +48,7 @@ class Sponsorship::GithubSponsorship
 
     response = http.request(request)
 
-    puts response.inspect
     data = JSON.parse(response.body)
-
-    puts data.inspect
 
     # Navigue dans la structure de la réponse GraphQL
     sponsorship = data.dig('data', 'organization', 'sponsorshipsAsMaintainer', 'nodes')
@@ -68,7 +65,6 @@ class Sponsorship::GithubSponsorship
     User.where.not(sponsored_tier: nil, github_username: sponsors.keys).update_all(sponsored_tier: nil)
 
     sponsors.each do |github_login, tier_amount|
-      puts "Adding #{github_login} with tier #{tier_amount}"
       User.find_by(github_username: github_login)&.update(sponsored_tier: tier_amount)
     end
   end
