@@ -20,6 +20,11 @@ update_sponsors:
   class: "Sponsorship::UpdateSponsorWorker"
   queue: low
 
+checks_sweep:
+  cron: "15 * * * *" # hourly, 200 least recently checked species
+  class: "ChecksSweepWorker"
+  queue: checks
+
 check_species_images:
   cron: "0 0 */7 * *" # At 00:00 on every 7th day-of-month.
   class: "Migrators::ImagesFixerWorker"
