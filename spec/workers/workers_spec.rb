@@ -7,11 +7,17 @@ RSpec.describe 'Recurring workers' do
     it 'runs the local checks for a species' do
       species.update_columns(genus_id: Genus.find_by!(name: 'Abelia').id, genus_name: 'Abelia')
 
-      expect { described_class.new.perform(species.id) }.to change(RecordCorrection, :count).by(1)
+      described_class.new.perform(species.id)
+
+      expect(RecordCorrection.pluck(:warning_type, :notes)).to contain_exactly(
+        ['Checks::GenusName', a_string_including('genus')]
+      )
     end
 
     it 'leaves a clean species alone' do
-      expect { described_class.new.perform(species.id) }.not_to change(RecordCorrection, :count)
+      described_class.new.perform(species.id)
+
+      expect(RecordCorrection.pluck(:warning_type, :notes)).to eq([])
     end
   end
 
