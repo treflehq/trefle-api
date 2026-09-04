@@ -290,11 +290,25 @@ module Ingester
     def outranked_for?(attr, source)
       return false unless @species.persisted?
 
-      strongest_other = @species.species_facts.active_status.for_attribute(attr)
-        .where.not(source: source)
+      recorded = @species.species_facts.active_status.for_attribute(attr)
+      strongest_other = recorded.reject {|f| f.source == source }
         .min_by {|f| Traits.priority_index(f.source) }
 
-      strongest_other && Traits.priority_index(strongest_other.source) <= Traits.priority_index(source)
+      incumbent_rank = if strongest_other
+                         Traits.priority_index(strongest_other.source)
+                       elsif recorded.any?
+                         # Only this source is on record: it owns the value and
+                         # may update it (the previous fact is superseded).
+                         return false
+                       else
+                         # Nothing on record at all: the value predates
+                         # provenance recording. It is not unclaimed, just
+                         # unattributed, so it gets the configured legacy rank
+                         # instead of losing by default.
+                         Traits.legacy_value_priority_index
+                       end
+
+      incumbent_rank <= Traits.priority_index(source)
     end
 
     def persist_facts!

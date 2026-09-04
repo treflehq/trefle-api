@@ -111,4 +111,43 @@ RSpec.describe 'Ingester source arbitration' do
     expect(facts.map(&:status)).to eq(%w[superseded active])
   end
 
+  describe 'legacy values (filled column, no fact on record)' do
+    it 'protects a legacy value from a weaker source' do
+      species.update_columns(ph_minimum: 6.5)
+
+      ingest({ source_pfaf: 'b', ph_minimum: 8.5 })
+
+      expect(species.reload.ph_minimum).to eq(6.5)
+      # The disagreement is still recorded rather than lost
+      fact = species.species_facts.active_status.find_by(attribute_name: 'ph_minimum', source: 'pfaf')
+      expect(fact.value).to eq('8.5')
+    end
+
+    it 'lets a source stronger than the legacy rank correct it' do
+      species.update_columns(ph_minimum: 6.5)
+
+      ingest({ ph_minimum: 5.0 }, source: 'community')
+
+      expect(species.reload.ph_minimum).to eq(5.0)
+    end
+
+    it 'still lets any source fill a column that is empty' do
+      expect(species.ph_minimum).to be_nil
+
+      ingest({ source_pfaf: 'b', ph_minimum: 8.5 })
+
+      expect(species.reload.ph_minimum).to eq(8.5)
+    end
+
+    it 'once a fact exists, the fact decides rather than the legacy rank' do
+      # pfaf fills the gap and is now on record...
+      ingest({ source_pfaf: 'b', ph_minimum: 8.5 })
+      # ...so a source stronger than pfaf may correct it, even though it is
+      # weaker than the legacy rank
+      ingest({ source_catminat: 'c', ph_minimum: 6.5 })
+
+      expect(species.reload.ph_minimum).to eq(6.5)
+    end
+  end
+
 end
