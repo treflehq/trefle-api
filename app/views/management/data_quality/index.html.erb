@@ -1,0 +1,148 @@
+<h1 class="title">Data quality</h1>
+
+<% if @latest_date.nil? %>
+  <div class="notification is-warning">
+    No snapshot yet. Run <code>rake quality:snapshot</code> (scheduled weekly via QualitySnapshotWorker).
+  </div>
+<% else %>
+
+  <div class="columns">
+    <div class="column">
+      <div class="box has-text-centered">
+        <p class="heading">Species</p>
+        <p class="title"><%= number_with_delimiter(@aggregate&.species_count) %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box has-text-centered">
+        <p class="heading">Avg completion</p>
+        <p class="title"><%= @aggregate&.details&.dig('avg_completion_ratio') || '—' %>%</p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box has-text-centered">
+        <p class="heading">Implausible values</p>
+        <p class="title"><%= number_with_delimiter(@aggregate&.implausible_count) %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box has-text-centered">
+        <p class="heading">Source conflicts</p>
+        <p class="title"><%= number_with_delimiter(@aggregate&.conflict_count) %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box has-text-centered">
+        <p class="heading">Pending plausibility warnings</p>
+        <p class="title"><%= number_with_delimiter(@pending_plausibility_warnings) %></p>
+      </div>
+    </div>
+  </div>
+
+  <p class="is-size-7 has-text-grey">Snapshot of <%= @latest_date %></p>
+
+  <h2 class="subtitle mt-5">Fill rate per field</h2>
+  <table class="table is-fullwidth is-striped is-narrow">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th style="width: 40%">Fill rate</th>
+        <th class="has-text-right">Filled</th>
+        <th class="has-text-right">Implausible</th>
+        <th class="has-text-right">Conflicts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @field_rows.each do |row| %>
+        <tr>
+          <td><code><%= row.attribute_name %></code></td>
+          <td>
+            <progress class="progress is-small <%= (row.fill_rate || 0) > 50 ? 'is-success' : (row.fill_rate || 0) > 10 ? 'is-warning' : 'is-danger' %>"
+                      value="<%= row.fill_rate || 0 %>" max="100"><%= row.fill_rate %>%</progress>
+            <span class="is-size-7"><%= row.fill_rate %>%</span>
+          </td>
+          <td class="has-text-right"><%= number_with_delimiter(row.filled_count) %></td>
+          <td class="has-text-right <%= 'has-text-danger' if row.implausible_count.positive? %>"><%= number_with_delimiter(row.implausible_count) %></td>
+          <td class="has-text-right <%= 'has-text-danger' if row.conflict_count.positive? %>"><%= number_with_delimiter(row.conflict_count) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="columns mt-5">
+    <div class="column">
+      <h2 class="subtitle">By rank</h2>
+      <table class="table is-fullwidth is-narrow">
+        <thead><tr><th>Rank</th><th class="has-text-right">Species</th><th class="has-text-right">Avg completion</th></tr></thead>
+        <tbody>
+          <% @rank_rows.each do |row| %>
+            <tr>
+              <td><%= row.dimension_value %></td>
+              <td class="has-text-right"><%= number_with_delimiter(row.species_count) %></td>
+              <td class="has-text-right"><%= row.details&.dig('avg_completion_ratio') || '—' %>%</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="column">
+      <h2 class="subtitle">By source (facts)</h2>
+      <% if @source_rows.any? %>
+        <table class="table is-fullwidth is-narrow">
+          <thead><tr><th>Source</th><th class="has-text-right">Facts</th><th class="has-text-right">Active</th><th class="has-text-right">Rejected</th></tr></thead>
+          <tbody>
+            <% @source_rows.each do |row| %>
+              <tr>
+                <td><%= row.dimension_value %></td>
+                <td class="has-text-right"><%= number_with_delimiter(row.species_count) %></td>
+                <td class="has-text-right"><%= number_with_delimiter(row.filled_count) %></td>
+                <td class="has-text-right"><%= number_with_delimiter(row.implausible_count) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="has-text-grey">No provenance facts yet — facts are recorded as crawlers and corrections ingest data.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @history.length > 1 %>
+    <h2 class="subtitle mt-5">Trend</h2>
+    <table class="table is-narrow">
+      <thead><tr><th>Date</th><th class="has-text-right">Species</th><th class="has-text-right">Avg completion</th><th class="has-text-right">Implausible</th><th class="has-text-right">Conflicts</th></tr></thead>
+      <tbody>
+        <% @history.each do |row| %>
+          <tr>
+            <td><%= row.snapshot_on %></td>
+            <td class="has-text-right"><%= number_with_delimiter(row.species_count) %></td>
+            <td class="has-text-right"><%= row.details&.dig('avg_completion_ratio') || '—' %>%</td>
+            <td class="has-text-right"><%= number_with_delimiter(row.implausible_count) %></td>
+            <td class="has-text-right"><%= number_with_delimiter(row.conflict_count) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<% end %>
+
+<h2 class="subtitle mt-5">Work queue — most requested, least complete</h2>
+<% if @priorities.any? %>
+  <p class="is-size-7 has-text-grey">Demand signal: <%= @priorities.first.signal %></p>
+  <table class="table is-fullwidth is-striped is-narrow">
+    <thead><tr><th>Species</th><th class="has-text-right">Completion</th><th class="has-text-right">Demand</th><th></th></tr></thead>
+    <tbody>
+      <% @priorities.each do |row| %>
+        <tr>
+          <td><em><%= row.scientific_name %></em></td>
+          <td class="has-text-right"><%= row.completion_ratio || 0 %>%</td>
+          <td class="has-text-right"><%= number_with_delimiter(row.demand) %></td>
+          <td><%= link_to 'Edit', management_species_path(row.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="has-text-grey">No demand data in this environment.</p>
+<% end %>

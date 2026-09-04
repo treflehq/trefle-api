@@ -1,6 +1,16 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1f0d39b87a195d14d008f9db31aada1aeb14dbf6ffa22a138e6fece9bfbd8566",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "lib/quality/snapshot.rb",
+      "line": 60,
+      "note": "Interpolated identifiers are trait field names from config/traits.yml, whitelisted against Species.column_names in run!; never user input."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "0bbb94aebd32515b3c63059b19035302492cb3cf424bf062f0e451ea78ba6160",

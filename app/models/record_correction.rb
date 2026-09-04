@@ -73,7 +73,7 @@ class RecordCorrection < ApplicationRecord
       )
     else
       correction = JSON.parse(correction_json)
-      i = ::Ingester::Species.new(correction, species_id: record_id)
+      i = ::Ingester::Species.new(correction, species_id: record_id, source: 'community')
       res = i.ingest!
       if res[:valid]
         update(

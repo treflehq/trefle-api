@@ -27,7 +27,7 @@ module Checks
         )
       else
         correction = JSON.parse(@existing_check.correction_json)
-        i = ::Ingester::Species.new(correction, species_id: @existing_check.record_id)
+        i = ::Ingester::Species.new(correction, species_id: @existing_check.record_id, source: 'community')
         res = i.ingest!
         if res[:valid]
           @existing_check.update(
@@ -69,7 +69,7 @@ module Checks
       return if @existing_check&.reload&.pending_change_status?
 
       if correction
-        result = Ingester::Species.new(correction, dry_run: true, species_id: @species.id).ingest!
+        result = Ingester::Species.new(correction, dry_run: true, species_id: @species.id, source: 'community').ingest!
 
         pp result
         params[:change_notes] = result[:changes].to_json

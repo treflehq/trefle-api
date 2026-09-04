@@ -181,6 +181,7 @@ class Species < ApplicationRecord
   has_many :synonyms, as: :record, dependent: :destroy
   has_many :common_names, as: :record, dependent: :destroy
 
+  has_many :species_facts, dependent: :destroy
   has_many :species_trends, dependent: :destroy
   has_many :species_distributions, dependent: :destroy
   has_many :zones, through: :species_distributions
@@ -333,20 +334,18 @@ class Species < ApplicationRecord
     self.main_image_url = candidate if candidate
   end
 
+  # Percentage of filled trait fields, as defined by config/traits.yml:
+  # - only trait categories count (no cache/identity/USDA-legacy columns)
+  # - a field only counts when applicable (e.g. planting_* for edibles)
+  # - false is a filled value; 0 is only "empty" for bitmask/enum fields
   def current_completion_percentage
-    ignored = [
-      *attributes.keys.filter {|e| e.ends_with?('_count') },
-      *attributes.keys.filter {|e| e.ends_with?('_raw') },
-      'id', 'plant_id', 'genus_id', 'slug',
-      'inserted_at', 'updated_at', 'created_at', 'checked_at',
-      'token', 'full_token', 'complete_data', 'completion_ratio'
-    ]
+    fields = Traits.completion_fields.select {|f| Traits.applicable?(f, self) }
+    return 0 if fields.empty?
 
-    total = attributes.without(ignored).keys.count
-    complete = attributes.without(ignored).values.reject {|e| e.nil? || e.blank? || e == 0 }.count
+    complete = fields.count {|f| Traits.filled?(f, attributes[f]) }
 
-    Rails.logger.debug("[current_completion_percentage] #{complete} complete fields over #{total} fields")
-    ((complete.to_f / total.to_f).to_f * 100).to_i # rubocop:todo Style/FloatDivision
+    Rails.logger.debug("[current_completion_percentage] #{complete} complete fields over #{fields.length} fields")
+    ((complete.to_f / fields.length) * 100).to_i
   end
 
   def update_completion_ratio!
