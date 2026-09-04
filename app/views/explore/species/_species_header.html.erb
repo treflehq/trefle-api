@@ -6,13 +6,13 @@
     </ul>
   </nav>
 
-  <div class="columns">
-    <div class="column is-3">
-      <aside class="species-correction-image">
-        <%= species_photo_tag(species, css_class: 'species-correction-image-photo', width: 300, height: 300) %>
+  <div class="columns species-lead">
+    <div class="column is-5">
+      <aside class="species-lead-image">
+        <%= species_photo_tag(species, css_class: 'species-lead-photo', width: 700, height: 500) %>
       </aside>
     </div>
-    <div class="column is-9">
+    <div class="column is-7">
           <div class="container">
             <h1 class="title is-1 scientific-name">
               <%= species.scientific_name %>
@@ -25,12 +25,6 @@
             </h2>
             <p class="subtitle">
               <%= fa_icon('book', class: 'has-text-success') %> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
-              <%
-=begin%>
- <br />
-              <%= species.observations %> 
-<%
-=end%>
             </p>
           </div>
     </div>

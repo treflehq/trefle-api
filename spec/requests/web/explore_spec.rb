@@ -68,7 +68,7 @@ RSpec.describe 'Explore pages', type: :request do
       get explore_species_path(species)
       expect(response.body).not_to include('background-image')
 
-      img = Nokogiri::HTML.fragment(response.body).at_css('.species-correction-image img')
+      img = Nokogiri::HTML.fragment(response.body).at_css('.species-lead-image img')
       expect(img['src']).to eq('https://bs.plantnet.org/image/m/abc123.jpg')
       expect(img['loading']).to eq('lazy')
       expect(img['alt']).to be_present
