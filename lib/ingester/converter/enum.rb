@@ -35,7 +35,9 @@ module Ingester
 
       def self.resolve_number(field, value)
         sym_value = ::Species.send(field.to_s.pluralize).find {|_k, v| v == value&.to_i }
-        raise EnumException, "Wrong value: #{value}, available values are: #{::Species.send(field.to_s.pluralize)}" unless sym_value.any?
+        # Hash#find returns nil (not []) when nothing matches, so guarding on
+        # `.any?` alone raised NoMethodError instead of this exception.
+        raise EnumException, "Wrong value: #{value}, available values are: #{::Species.send(field.to_s.pluralize)}" if sym_value.blank?
 
         sym_value[0]
       end
