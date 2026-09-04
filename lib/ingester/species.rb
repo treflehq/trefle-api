@@ -262,19 +262,15 @@ module Ingester
       @species.changes.slice(*Traits.completion_fields).each do |attr, (old_value, new_value)|
         next if new_value.nil?
 
-        unless Traits.plausible?(attr, new_value)
-          @species.send("#{attr}=", old_value)
-          facts << { attribute_name: attr, source: source, value: new_value,
-                     status: :rejected,
-                     notes: "implausible: outside #{Traits.field(attr)['plausible_range']}" }
-          next
-        end
+        # Captured before any revert: what the source actually claimed, in a
+        # form a reader can interpret (see #fact_value).
+        claimed = fact_value(attr, new_value)
 
-        unless Traits.allowed_value?(attr, new_value)
+        rejection = rejection_reason(attr, new_value)
+        if rejection
           @species.send("#{attr}=", old_value)
-          facts << { attribute_name: attr, source: source, value: new_value,
-                     status: :rejected,
-                     notes: "outside the allowed vocabulary #{Traits.allowed_values(attr).inspect}" }
+          facts << { attribute_name: attr, source: source, value: claimed,
+                     status: :rejected, notes: rejection }
           next
         end
 
@@ -283,7 +279,7 @@ module Ingester
           @species.send("#{attr}=", old_value)
         end
 
-        facts << { attribute_name: attr, source: source, value: new_value, status: :active }
+        facts << { attribute_name: attr, source: source, value: claimed, status: :active }
       end
 
       facts
@@ -317,6 +313,26 @@ module Ingester
                        end
 
       incumbent_rank <= Traits.priority_index(source)
+    end
+
+    # Why a value must not be stored, or nil if it may be.
+    def rejection_reason(attr, value)
+      return "implausible: outside #{Traits.field(attr)['plausible_range']}" unless Traits.plausible?(attr, value)
+      return "outside the allowed vocabulary #{Traits.allowed_values(attr).inspect}" unless Traits.allowed_value?(attr, value)
+
+      nil
+    end
+
+    # A bitmask column stores an integer that means nothing on its own: a fact
+    # recording bloom_months = 28 is unreadable, and the meaning would shift if
+    # the flag order ever changed. Record the flag names instead, so the
+    # provenance trail stays self-describing.
+    def fact_value(attr, raw_value)
+      current = @species.send(attr)
+      return raw_value unless current.is_a?(ActiveFlag::Value)
+
+      names = current.to_a
+      names.any? ? names.join('|') : raw_value
     end
 
     def persist_facts!
