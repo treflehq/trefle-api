@@ -1,7 +1,7 @@
 
 const d3Selection = require('d3-selection');
-import bar from 'britecharts/dist/umd/bar.min';
-import heatmap from 'britecharts/dist/umd/heatmap.min';
+import bar from 'britecharts/dist/umd/charts/bar.min';
+import heatmap from 'britecharts/dist/umd/charts/heatmap.min';
 import { map } from 'lodash';
 
 
