@@ -38,9 +38,7 @@ module Ingester
 
       def self.filter_keys(hash_metric)
 
-        if hash_metric.is_a?(String) && hash_metric&.split('|').length == 1
-          hash_metric = hash_metric&.split(',')
-        end
+        hash_metric = hash_metric&.split(',') if hash_metric.is_a?(String) && hash_metric.split('|').length == 1
         
         array_flags = hash_metric.is_a?(Array) ? hash_metric : hash_metric&.split('|')
 

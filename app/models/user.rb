@@ -69,9 +69,9 @@ class User < ApplicationRecord
   ].freeze
 
   def get_token
-    if self.admin
+    if admin
       "unl-#{SecureRandom.urlsafe_base64(32)}"
-    elsif self.sponsored_tier.present?
+    elsif sponsored_tier.present?
       "spo-#{SecureRandom.urlsafe_base64(32)}"
     else
       "usr-#{SecureRandom.urlsafe_base64(32)}"

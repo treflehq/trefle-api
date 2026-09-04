@@ -10,7 +10,7 @@ RSpec.describe Api::V1::PlantsController do
 
       expect(response).to have_http_status(:success)
       puts response.body
-      json_response = JSON.parse(response.body)
+      JSON.parse(response.body)
     end
 
     it_behaves_like 'a searchable collection', Species.plants

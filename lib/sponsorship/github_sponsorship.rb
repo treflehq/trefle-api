@@ -9,7 +9,7 @@ class Sponsorship::GithubSponsorship
   # Tu dois générer un Personal Access Token (PAT) avec les droits `read:user` et `read:org`
   GITHUB_TOKEN = ENV['GITHUB_API_TOKEN']
 
-  def self.get_sponsors()
+  def self.get_sponsors
     query = <<~GRAPHQL
       query {
         organization(login: "#{SPONSORED_ACCOUNT_LOGIN}") {
@@ -55,11 +55,11 @@ class Sponsorship::GithubSponsorship
 
     return nil unless sponsorship&.any? # L'utilisateur n'est pas un sponsor
 
-    sponsorship.map{|e| [e["sponsorEntity"]["login"], e["tier"]["monthlyPriceInDollars"]] }.to_h
+    sponsorship.map{|e| [e['sponsorEntity']['login'], e['tier']['monthlyPriceInDollars']] }.to_h
   end
 
   def self.reassign_sponsor_status
-    sponsors = get_sponsors()
+    sponsors = get_sponsors
     return unless sponsors
 
     User.where.not(sponsored_tier: nil, github_username: sponsors.keys).update_all(sponsored_tier: nil)

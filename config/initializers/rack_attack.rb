@@ -39,7 +39,7 @@ Rack::Attack.throttle(Rack::Attack::REQUEST_PER_IP_THROTTLE, limit: limit_proc, 
   [req.ip, Rack::Attack.token(req)].join('-') if req.path.starts_with?('/api')
 end
 
-Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(url: (ENV['REDIS_URL'] || 'redis://127.0.0.1:6379'), expires_in: 480.minutes)
+Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(url: ENV['REDIS_URL'] || 'redis://127.0.0.1:6379', expires_in: 480.minutes)
 
 Rack::Attack.throttled_response_retry_after_header = true
 

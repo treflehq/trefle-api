@@ -22,7 +22,7 @@ describe 'DivisionClasses API' do
       description 'List division classes'
       operationId 'listDivisionClasses'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
       response '200', 'Success' do
@@ -54,7 +54,7 @@ describe 'DivisionClasses API' do
       operationId 'getDivisionClass'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested division class'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(

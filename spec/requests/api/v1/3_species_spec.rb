@@ -21,7 +21,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'List species'
       operationId 'listSpecies'
-      security [token: []]
+      security [{ token: [] }]
 
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
@@ -60,7 +60,7 @@ describe 'Species API' do
       operationId 'getSpecies'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -101,7 +101,7 @@ describe 'Species API' do
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -150,7 +150,7 @@ describe 'Species API' do
       # rubocop:enable Naming/VariableName
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(

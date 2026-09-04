@@ -62,7 +62,7 @@ namespace :doc do # rubocop:todo Metrics/BlockLength
 
     json_elts = data.map {|k, val| parse_json_resp(k, val) }.flatten.sort
     swag_elts = schema['components']['schemas'].slice('species').map do |_name, attrs|
-      root_keys = attrs['properties'].map {|n, a| parse_tree(n, a, nil, -10) }.flatten.compact.map {|e| e[:name] }
+      attrs['properties'].map {|n, a| parse_tree(n, a, nil, -10) }.flatten.compact.map {|e| e[:name] }
     end.flatten.compact.sort
 
     json_elts = json_elts.reject {|e| e.match(/\[\]$/) }
@@ -108,10 +108,10 @@ markdown specs from swagger'
         if field_name != :root
           elt = keys.filter {|e| e[:name] == field_name }&.first
           md << "\n### #{field_name}\n"
-          md << "\n#{elt[:description]}\n" if elt && elt[:description]&.length > 0
+          md << "\n#{elt[:description]}\n" if elt && elt[:description]&.length.to_i > 0
         end
 
-        headings = keys.first.keys
+        keys.first.keys
         values = keys.reject {|e| e[:name] == field_name }
 
         # puts "Headings: "
@@ -145,7 +145,7 @@ markdown specs from swagger'
 
     keys = attrs['properties'].map {|n, a| parse_tree(n, a) }.flatten.compact
 
-    headings = keys.first.keys
+    keys.first.keys
     values = keys
 
     table = Terminal::Table.new do |t|

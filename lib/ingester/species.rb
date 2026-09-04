@@ -67,14 +67,14 @@ module Ingester
     def override_names!
       return unless @species
 
-      if @data[:scientific_name] != @species&.scientific_name
-        @data[:scientific_name] = @species&.scientific_name
-        @data[:genus_name] = @species&.genus_name
-        @data[:genus_id] = @species&.genus_id
-        @data[:rank] = nil
-        @data[:author] = nil
-        @data[:bibliography] = nil
-      end
+      return unless @data[:scientific_name] != @species&.scientific_name
+
+      @data[:scientific_name] = @species&.scientific_name
+      @data[:genus_name] = @species&.genus_name
+      @data[:genus_id] = @species&.genus_id
+      @data[:rank] = nil
+      @data[:author] = nil
+      @data[:bibliography] = nil
     end
 
     def assign_attributes!
@@ -101,29 +101,25 @@ module Ingester
       puts @species.changes.inspect.green
       puts "\n".green
 
-      if @dry_run
+      return return_hash(@species.changes) if @dry_run
 
-        return return_hash(@species.changes)
+      puts '=========== Before save: ==========='
+      puts "  changes: #{@species.changes}"
+
+      # binding.pry
+      changes = @species.changes
+      a = @species.save
+
+      changes = @species.saved_changes unless @species.saved_changes.empty?
+
+      puts '=========== After save: ==========='
+      puts "  saved_changes: #{@species.saved_changes}"
+
+      if a
+        persist_facts!
+        puts '[Ingester] Ingested !'
       else
-
-        puts '=========== Before save: ==========='
-        puts "  changes: #{@species.changes}"
-
-        # binding.pry
-        changes = @species.changes
-        a = @species.save
-
-        changes = @species.saved_changes unless @species.saved_changes.empty?
-
-        puts '=========== After save: ==========='
-        puts "  saved_changes: #{@species.saved_changes}"
-
-        if a
-          persist_facts!
-          puts '[Ingester] Ingested !'
-        else
-          puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
-        end
+        puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
       end
 
       return_hash(changes)

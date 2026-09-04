@@ -30,7 +30,7 @@ describe 'Auth API' do
 
       operationId 'claimClientSideToken'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :claim_params, required: true, in: :body, schema: claim_schema
 
       response '200', 'Success' do

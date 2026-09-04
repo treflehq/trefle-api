@@ -22,7 +22,7 @@ describe 'Families API' do
       description 'List families'
       operationId 'listFamilies'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_families')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_families')
@@ -57,7 +57,7 @@ describe 'Families API' do
       operationId 'getFamily'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested family'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(

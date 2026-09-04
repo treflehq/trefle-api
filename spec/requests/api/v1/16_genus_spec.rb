@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 describe 'Genus API' do
 
-  COLLECTION_SCHEMA = JsonApiHelper.array_schema(
+  collection_schema = JsonApiHelper.array_schema(
     'genus',
     links: Schemas::Helpers.pagination_links,
     meta: Schemas::Helpers.object_of({
@@ -35,16 +35,16 @@ describe 'Genus API' do
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for genus names matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
-        schema COLLECTION_SCHEMA
+        schema collection_schema
         let(:token) { user.token }
         run_test!
       end
 
       # response '200', 'Filter on name' do
-      #   # schema COLLECTION_SCHEMA
+      #   # schema collection_schema
       #   let(:token) { user.token }
       #   let(:slug) { Genus.all.sample.slug }
       #   run_test!
@@ -67,7 +67,7 @@ describe 'Genus API' do
       operationId 'getGenus'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested genus'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(

@@ -449,7 +449,7 @@ class Species < ApplicationRecord
     theirs.merge(ours)
   end
 
-  def has_root_name? # rubocop:todo Naming/PredicateName
+  def has_root_name?
     root_name == scientific_name
   end
 

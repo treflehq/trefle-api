@@ -7,7 +7,7 @@ module CollectionRenderers
     ).deep_symbolize_keys
   end
 
-  def collection_links(collection, scope: %i[api v1], name: nil) # rubocop:todo Metrics/PerceivedComplexity
+  def collection_links(collection, scope: %i[api v1], name: nil)
     {
       self: polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params),
       first: polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params.merge({ page: 1 })),
@@ -26,7 +26,7 @@ module CollectionRenderers
   end
 
   def parse_search_pagination_options
-    search = params.require(:q)
+    params.require(:q)
     page = params[:page] || nil
     params[:limit] = 50 if params[:limit] && params[:limit].to_i > 50
     limit = params[:limit] || 20

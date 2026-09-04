@@ -51,7 +51,7 @@ module Api
           check_jwt! if @jwt
 
           @current_user = user
-        rescue ActiveRecord::RecordNotFound => e
+        rescue ActiveRecord::RecordNotFound
           render_unauthorized('Invalid access token') && (return)
         rescue JWT::DecodeError => e
           render_unauthorized(e.message) && (return)
@@ -171,7 +171,7 @@ module Api
     end
 
     def apply_filters(collection, filterable_fields)
-      if params[:filter]&.is_a?(ActionController::Parameters)
+      if params[:filter].is_a?(ActionController::Parameters)
         collection.filter_with(permit_known_query_keys(:filter, filterable_fields))
       else
         collection
@@ -183,18 +183,18 @@ module Api
     def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [])
       where = {}
       order = nil
-      if params[:filter_not]&.is_a?(ActionController::Parameters)
+      if params[:filter_not].is_a?(ActionController::Parameters)
         params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
           where[field] ||= {}
           where[field][:not] = value&.split(',')&.map {|e| e.blank? || e == 'null' ? nil : e }
         end
       end
-      if params[:filter]&.is_a?(ActionController::Parameters)
+      if params[:filter].is_a?(ActionController::Parameters)
         params[:filter].permit(filter_fields).slice(*filter_fields).each do |field, value|
           where[field] = value.split(',')
         end
       end
-      if params[:range]&.is_a?(ActionController::Parameters)
+      if params[:range].is_a?(ActionController::Parameters)
         params[:range].permit(range_fields).slice(*range_fields).each do |field, value|
           min, max = value.split(',')
           where[field] ||= {}
@@ -202,7 +202,7 @@ module Api
           where[field][:lte] = max unless max.blank?
         end
       end
-      order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash if params[:order]&.is_a?(ActionController::Parameters)
+      order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash if params[:order].is_a?(ActionController::Parameters)
       {
         where: where,
         order: order
@@ -210,7 +210,7 @@ module Api
     end
 
     def apply_filters_not(collection, filterable_fields)
-      if params[:filter_not]&.is_a?(ActionController::Parameters)
+      if params[:filter_not].is_a?(ActionController::Parameters)
         collection.filter_not_with(permit_known_query_keys(:filter_not, filterable_fields))
       else
         collection
@@ -218,7 +218,7 @@ module Api
     end
 
     def apply_sort(collection, orderable_fields, default_sort:)
-      if params[:order]&.is_a?(ActionController::Parameters)
+      if params[:order].is_a?(ActionController::Parameters)
         collection.sort_with(permit_known_query_keys(:order, orderable_fields))
       else
         collection.order(default_sort)
@@ -226,7 +226,7 @@ module Api
     end
 
     def apply_range(collection, rangeable_fields)
-      if params[:range]&.is_a?(ActionController::Parameters)
+      if params[:range].is_a?(ActionController::Parameters)
         collection.range_with(permit_known_query_keys(:range, rangeable_fields))
       else
         collection

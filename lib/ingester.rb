@@ -22,7 +22,7 @@ module Ingester
   end
 
   def self.from_csv(filename, **_options)
-    data = csv_to_array(filename)
+    csv_to_array(filename)
     # data.is_a?(Array) ? from_array(data, options) : from_hash(data, options)
   end
 end

@@ -1,7 +1,7 @@
 class Sponsorship::UpdateSponsorWorker
   include Sidekiq::Worker
 
-  def perform()
+  def perform
     ::Sponsorship::GithubSponsorship.reassign_sponsor_status
   end
 end

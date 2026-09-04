@@ -4,7 +4,7 @@ module Migrators
     def self.run
       tokens = Species.find_by_sql('select token, count(token) from species group by token HAVING count(token) > 1')
       res = tokens.map do |t|
-        species = Species.where(token: t.token).map do |sp|
+        Species.where(token: t.token).map do |sp|
           res = ::Resolver::Powo.resolve_hash(sp.scientific_name)
           [
             res.nil? || res[:scientific_name] != sp.scientific_name ? false : true,
