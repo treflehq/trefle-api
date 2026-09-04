@@ -49,4 +49,31 @@ RSpec.describe Checks::PlausibleValues do
 
     expect(warning.reload).not_to be_pending_change_status
   end
+
+  it 'names the bound that was violated, not just that one was' do
+    species.update_columns(average_height_cm: 999_999)
+    described_class.run(species.id)
+
+    warning = RecordCorrection.find_by(warning_type: 'Checks::PlausibleValues')
+    expect(warning.notes).to include('outside the plausible range')
+    expect(warning.notes).to include('12000')
+  end
+
+  it 'names the vocabulary that was violated' do
+    species.update_columns(nitrogen_fixation: 'very high')
+    described_class.run(species.id)
+
+    warning = RecordCorrection.find_by(warning_type: 'Checks::PlausibleValues')
+    expect(warning.notes).to include('outside the allowed vocabulary')
+    expect(warning.notes).to include('High')
+  end
+
+  it 'drops a value that violates the vocabulary when accepted' do
+    species.update_columns(nitrogen_fixation: 'very high')
+    described_class.run(species.id)
+
+    described_class.new(species.id).accept!(nil)
+
+    expect(species.reload.nitrogen_fixation).to be_nil
+  end
 end
