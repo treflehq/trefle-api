@@ -15,7 +15,7 @@ module Api
           token = ::Auth::JsonWebToken.new(user: @user, origin: origin, ip: ip)
           render json: { token: token.token, expiration: token.time.strftime('%m-%d-%Y %H:%M') }, status: :ok
         else
-          render json: { error: 'unauthorized' }, status: :unauthorized
+          render_unauthorized('Invalid credentials')
         end
       end
 

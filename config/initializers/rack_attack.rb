@@ -45,13 +45,19 @@ Rack::Attack.throttled_response_retry_after_header = true
 Rack::Attack.throttled_responder = lambda do |request|
   match_data = request.env['rack.attack.match_data']
   is_sponsor = Rack::Attack.token(request)&.starts_with?('spo-')
+  message = is_sponsor ? 'Too many requests, please slow down' : 'Too many requests. Please visit https://trefle.io/about#support to learn how to increase your limit.'
 
   headers = { 'Content-Type' => 'application/json' }.merge(Rack::Attack.rate_limit_headers(match_data))
 
+  # Same envelope as Api::ApiController#render_error -- this response is
+  # built by Rack middleware, before any controller runs, so it can't reuse
+  # the helper directly (#216).
   [429, headers, [
     {
       error: true,
-      message: is_sponsor ? 'Too many requests, please slow down' : 'Too many requests. Please visit https://trefle.io/about#support to learn how to increase your limit.'
+      code: 'too_many_requests',
+      message: message,
+      messages: message
     }.to_json
   ]]
 end
