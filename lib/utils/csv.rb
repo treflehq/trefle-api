@@ -4,7 +4,7 @@ module Utils
   module Csv
     # Array of hashes to CSV file
     def self.array_to_csv(hashes, filename = nil, **opts)
-      {
+      o = {
         encoding: 'UTF-8',
         write_empty_value: nil,
         col_sep: "\t"
@@ -14,7 +14,7 @@ module Utils
 
       column_names = hashes.first.keys
 
-      s = CSV.generate do |csv|
+      s = CSV.generate(**o) do |csv|
         csv << column_names
         hashes.each {|x| csv << x.values }
       end
@@ -30,7 +30,7 @@ module Utils
         encoding: 'UTF-8',
         col_sep: "\t"
       }.merge(opts)
-      data = CSV.read(filename, o)
+      data = CSV.read(filename, **o)
       data.map.with_index do |sp, i|
 
         sp.to_h.transform_keys(&:parameterize).deep_symbolize_keys

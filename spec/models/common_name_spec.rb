@@ -18,5 +18,27 @@
 require 'rails_helper'
 
 RSpec.describe CommonName, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:species) { Species.friendly.find('abies-alba') }
+
+  it 'attaches to a polymorphic record' do
+    common_name = CommonName.create!(record: species, name: 'Silver fir', lang: 'en')
+
+    expect(common_name.record).to eq(species)
+    expect(species.common_names).to include(common_name)
+  end
+
+  it 'rejects a duplicate name for the same record and language' do
+    CommonName.create!(record: species, name: 'Silver fir', lang: 'en')
+    duplicate = CommonName.new(record: species, name: 'Silver fir', lang: 'en')
+
+    expect(duplicate.valid?).to be(false)
+    expect(duplicate.errors[:name]).to be_present
+  end
+
+  it 'allows the same name for the same record in a different language' do
+    CommonName.create!(record: species, name: 'Silver fir', lang: 'en')
+    other_lang = CommonName.new(record: species, name: 'Silver fir', lang: 'fr')
+
+    expect(other_lang.valid?).to be(true)
+  end
 end
