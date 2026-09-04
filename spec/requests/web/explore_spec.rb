@@ -41,6 +41,16 @@ RSpec.describe 'Explore pages', type: :request do
       expect(img['width']).to be_present
       expect(img['height']).to be_present
     end
+
+    it 'renders 404, not 500, for a page number past the last page' do
+      get explore_path, params: { page: 1_003_855_986 }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'renders 404, not 500, for a non-numeric page' do
+      get explore_path, params: { page: 'not-a-number' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'GET /explore/species/:id' do
