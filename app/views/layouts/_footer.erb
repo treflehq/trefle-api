@@ -69,6 +69,14 @@
     </div>
   </nav>
   <div class="container has-text-centered">
-    <p>Trefle is backed by <a target="_blank" rel="noopener noreferrer" href="https://mashum.org">Mashum</a></p>
+    <p>
+      Trefle is backed by <a target="_blank" rel="noopener noreferrer" href="https://mashum.org">Mashum</a>
+      &middot;
+      <% if app_revision_url %>
+        <a class="app-revision" target="_blank" rel="noopener noreferrer" href="<%= app_revision_url %>"><%= app_revision %></a>
+      <% else %>
+        <span class="app-revision"><%= app_revision %></span>
+      <% end %>
+    </p>
   </div>
 </footer>

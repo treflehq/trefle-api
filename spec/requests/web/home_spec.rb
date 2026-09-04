@@ -51,4 +51,29 @@ RSpec.describe 'Public website pages', type: :request do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'Footer app version' do
+    it 'shows the tagged revision linked to its GitHub release' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('APP_REVISION').and_return('v2.0.2')
+
+      get root_path
+
+      fragment = Nokogiri::HTML.fragment(response.body)
+      link = fragment.at_css('a.app-revision')
+      expect(link.text).to eq('v2.0.2')
+      expect(link['href']).to eq('https://github.com/treflehq/trefle-api/releases/tag/v2.0.2')
+    end
+
+    it 'falls back to "dev" with no link when APP_REVISION is unset' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('APP_REVISION').and_return(nil)
+
+      get root_path
+
+      fragment = Nokogiri::HTML.fragment(response.body)
+      expect(fragment.at_css('a.app-revision')).to be_nil
+      expect(fragment.at_css('span.app-revision').text).to eq('dev')
+    end
+  end
 end
