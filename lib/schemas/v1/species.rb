@@ -186,11 +186,15 @@ module Schemas
               #   per_acre: { type: :number, nullable: true, description: 'TODO' }, # null,
               #   per_sqm: { type: :number, nullable: true, description: 'TODO' } # "TODO"
               # }),
-              light: { type: :integer, nullable: true, description: 'Required amount of light, on a scale from 0 (no light, <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)' },
+              light: { type: :integer, nullable: true,
+                       description: 'Required amount of light, on a scale from 0 (no light, <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)' },
               atmospheric_humidity: { type: :integer, nullable: true, description: 'Required relative humidity in the air, on a scale from 0 (<=10%) to 10 (>= 90%)' },
-              growth_months: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.growth_months.maps.keys, nil], description: 'The most active growth months of the species (usually all year round for perennial plants)' }, description: 'The most active growth months of the species (usually all year round for perennial plants)' },
-              bloom_months: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.bloom_months.maps.keys, nil], description: 'The months the species usually blooms' }, description: 'The months the species usually blooms' },
-              fruit_months: { type: :array, nullable: true, items: { type: :string, nullable: true, enum: [*::Species.fruit_months.maps.keys, nil], description: 'The months the species usually produces fruits' }, description: 'The months the species usually produces fruits' },
+              growth_months: { type: :array, nullable: true,
+                               items: { type: :string, nullable: true, enum: [*::Species.growth_months.maps.keys, nil], description: 'The most active growth months of the species (usually all year round for perennial plants)' }, description: 'The most active growth months of the species (usually all year round for perennial plants)' },
+              bloom_months: { type: :array, nullable: true,
+                              items: { type: :string, nullable: true, enum: [*::Species.bloom_months.maps.keys, nil], description: 'The months the species usually blooms' }, description: 'The months the species usually blooms' },
+              fruit_months: { type: :array, nullable: true,
+                              items: { type: :string, nullable: true, enum: [*::Species.fruit_months.maps.keys, nil], description: 'The months the species usually produces fruits' }, description: 'The months the species usually produces fruits' },
 
               row_spacing: Helpers.object_of({
                 # inches: { type: :number, nullable: true, description: 'TODO' }, # 16,
@@ -220,7 +224,8 @@ module Schemas
                 deg_f: { type: :number, nullable: true, description: 'The maximum tolerable temperature for the species. In fahrenheit degrees' }, # 10,
                 deg_c: { type: :number, nullable: true, description: 'The maximum tolerable temperature for the species. In celsius degrees' } # "TODO"
               }, extras: { description: 'The maximum tolerable temperature for the species. In celsius or fahrenheit degrees' }),
-              soil_nutriments: { type: :integer, nullable: true, description: 'Required quantity of nutriments in the soil, on a scale from 0 (oligotrophic) to 10 (hypereutrophic)' },
+              soil_nutriments: { type: :integer, nullable: true,
+                                 description: 'Required quantity of nutriments in the soil, on a scale from 0 (oligotrophic) to 10 (hypereutrophic)' },
               soil_salinity: { type: :integer, nullable: true, description: 'Tolerance to salinity, on a scale from 0 (untolerant) to 10 (hyperhaline)' },
               soil_texture: { type: :integer, nullable: true, description: 'Required texture of the soil, on a scale from 0 (clay) to 10 (rock)' },
               soil_humidity: { type: :integer, nullable: true, description: 'Required humidity of the soil, on a scale from 0 (xerophile) to 10 (subaquatic)' }
@@ -253,33 +258,33 @@ module Schemas
 
       def self.filters
         Helpers.object_of(
-          ::Api::V1::SpeciesController::FILTERABLE_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::SpeciesController::FILTERABLE_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
 
       def self.sorts
         Helpers.object_of(
-          ::Api::V1::SpeciesController::ORDERABLE_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::SpeciesController::ORDERABLE_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
 
       def self.filters_not
         Helpers.object_of(
-          ::Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
 
       def self.ranges
         Helpers.object_of(
-          ::Api::V1::SpeciesController::RANGEABLE_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::SpeciesController::RANGEABLE_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
 

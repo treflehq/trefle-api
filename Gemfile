@@ -67,8 +67,8 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.6.1'
 
-gem 'sentry-ruby', '~> 7.0'
 gem 'sentry-rails', '~> 7.0'
+gem 'sentry-ruby', '~> 7.0'
 gem 'skylight'
 
 # Sidekiq
@@ -103,14 +103,10 @@ gem 'memory_profiler'
 # captcha"
 gem 'recaptcha'
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'brakeman', require: false
-  gem 'webmock'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
   gem 'database_cleaner', '>= 1.8.5'
   gem 'dotenv-rails', '>= 2.7.5'
   gem 'marginalia', '>= 1.8.0' # annotate queries
@@ -119,6 +115,9 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'rswag'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'webmock'
   # gem 'rswag'
   gem 'factory_bot', '>= 5.1.2'
   gem 'faker', '>= 2.1.2'

@@ -2,7 +2,7 @@ module Migrators
   class Zones
 
     def self.run
-      zones = JSON.parse(File.read("#{Rails.root}/_openfarm/codes.json"))
+      zones = JSON.parse(File.read(Rails.root.join('_openfarm/codes.json')))
       zones.each do |z|
         create_zone(z)
       end

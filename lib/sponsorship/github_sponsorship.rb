@@ -55,7 +55,7 @@ class Sponsorship::GithubSponsorship
 
     return nil unless sponsorship&.any? # L'utilisateur n'est pas un sponsor
 
-    sponsorship.map{|e| [e['sponsorEntity']['login'], e['tier']['monthlyPriceInDollars']] }.to_h
+    sponsorship.map {|e| [e['sponsorEntity']['login'], e['tier']['monthlyPriceInDollars']] }.to_h
   end
 
   def self.reassign_sponsor_status

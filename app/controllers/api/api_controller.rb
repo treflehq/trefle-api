@@ -60,7 +60,6 @@ module Api
     end
 
     def set_sentry_context
-
       Sentry.set_user(
         id: @current_user&.id,
         email: @current_user&.email,
@@ -198,8 +197,8 @@ module Api
         params[:range].permit(range_fields).slice(*range_fields).each do |field, value|
           min, max = value.split(',')
           where[field] ||= {}
-          where[field][:gte] = min unless min.blank?
-          where[field][:lte] = max unless max.blank?
+          where[field][:gte] = min if min.present?
+          where[field][:lte] = max if max.present?
         end
       end
       order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash if params[:order].is_a?(ActionController::Parameters)

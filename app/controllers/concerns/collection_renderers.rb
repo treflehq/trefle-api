@@ -125,10 +125,10 @@ module CollectionRenderers
   end
 
   def render_empty
-    render json: {}, status: 200
+    render json: {}, status: :ok
   end
 
   def render_destroyed
-    render json: nil, status: 204
+    render json: nil, status: :no_content
   end
 end

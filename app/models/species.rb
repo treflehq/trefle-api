@@ -292,9 +292,9 @@ class Species < ApplicationRecord
 
   auto_strip_attributes(*STRING_ATTRIBUTES, squish: true)
 
-  validates_uniqueness_of :scientific_name
+  validates :scientific_name, uniqueness: true
   # rubocop:todo Style/FormatStringToken
-  validates_uniqueness_of :token, allow_nil: true, message: 'A species with a close scientific name is already registered (token=%{value})'
+  validates :token, uniqueness: { allow_nil: true, message: 'A species with a close scientific name is already registered (token=%{value})' }
   # rubocop:enable Style/FormatStringToken
 
   include Filterable

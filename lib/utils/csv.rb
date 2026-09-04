@@ -19,7 +19,7 @@ module Utils
         hashes.each {|x| csv << x.values }
       end
 
-      File.write(filename, s) unless filename.blank?
+      File.write(filename, s) if filename.present?
       s
     end
 
