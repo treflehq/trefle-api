@@ -70,7 +70,7 @@
           <%= image_tag current_user.gravatar_url, class: 'user-image' %>
           <%= current_user.name || current_user.email %>
           <% if current_user.sponsored_tier.present? %>
-            <i style="color: #f39c12; margin-left: 5px" class="fad fa-crown"></i>
+            <span class="icon" style="color: #f39c12; margin-left: 5px"><%= fa_icon('crown') %></span>
           <% end %>
         </a>
         <%
