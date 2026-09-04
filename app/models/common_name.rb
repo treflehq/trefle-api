@@ -18,5 +18,5 @@
 class CommonName < ApplicationRecord
   belongs_to :record, polymorphic: true
 
-  validates_uniqueness_of :name, scope: %i[lang record_id record_type]
+  validates :name, uniqueness: { scope: %i[lang record_id record_type] }
 end

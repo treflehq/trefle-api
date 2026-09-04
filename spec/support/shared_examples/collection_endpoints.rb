@@ -6,7 +6,7 @@ RSpec.shared_examples 'a rangeable collection' do |klass, ranges|
     it "and can be ranged by #{range}" do
       sample_value = klass.where.not(range => nil)&.first&.send(range) || klass&.first&.send(range)
       sample_value_bis = klass.where.not(range => nil)&.last&.send(range) || klass&.last&.send(range)
-      elts = klass.send("range_by_#{range}".to_sym, *[sample_value, sample_value_bis].sort)
+      klass.send("range_by_#{range}".to_sym, *[sample_value, sample_value_bis].sort)
       get :index, params: params.merge(range: { range => [sample_value, sample_value_bis].sort.join(',') })
       expect(assigns(:collection).to_sql).to match(/"[a-z_]*"."#{range}" >= /)
       expect(assigns(:collection).to_sql).to match(/ AND "[a-z_]*"."#{range}" < /)
@@ -32,7 +32,7 @@ RSpec.shared_examples 'a filterable collection' do |klass, filters|
       next unless klass.last.respond_to?(filter)
 
       sample_value = klass.where.not(filter => nil)&.first&.send(filter) || klass&.first&.send(filter)
-      elts = klass.send("filter_by_#{filter}".to_sym, sample_value)
+      klass.send("filter_by_#{filter}".to_sym, sample_value)
       # pp elts.pluck(filter)
       # puts "Testing filtering on #{filter} = #{sample_value} (#{elts} - #{elts&.count})"
       get :index, params: params.merge(filter: { filter => sample_value })
@@ -46,8 +46,8 @@ RSpec.shared_examples 'a filterable_not collection' do |klass, filters_not|
 
   filters_not.without('image_url').each do |filter|
     it "and can be filter_not_by #{filter}" do
-      sample_value = klass.where.not(filter => nil)&.first&.send(filter) || klass&.first&.send(filter)
-      elts = klass.send("filter_not_by_#{filter}".to_sym, 'null')
+      klass.where.not(filter => nil)&.first&.send(filter) || klass&.first&.send(filter)
+      klass.send("filter_not_by_#{filter}".to_sym, 'null')
       # pp elts.pluck(filter)
       # puts "Testing filtering on #{filter} = #{sample_value} (#{elts} - #{elts&.count})"
       get :index, params: params.merge(filter_not: { filter => nil })

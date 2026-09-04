@@ -5,17 +5,20 @@ module Checks
   class PlausibleValues < Check
 
     def run
-      implausible = implausible_fields
+      problems = implausible_fields + out_of_vocabulary_fields
       cross = inconsistent_bounds
 
-      return if implausible.empty? && cross.empty?
+      return if problems.empty? && cross.empty?
 
-      notes = implausible.map {|n, v| "#{n}=#{v} outside plausible range #{Traits.field(n)['plausible_range']}" }
+      # Each problem carries its own reason: whoever triages this warning needs
+      # to know which bound or which vocabulary was violated, not just that
+      # something was.
+      notes = problems.map {|name, value, reason| "#{name}=#{value.inspect} #{reason}" }
       notes += cross.map {|c| "inconsistent bounds: #{c}" }
 
       get_or_create_warning_for_record(
         notes: notes.join("\n"),
-        correction_json: implausible.to_h {|n, _v| [n, nil] }.to_json
+        correction_json: problems.to_h {|name, _value, _reason| [name, nil] }.to_json
       )
     end
 
@@ -41,7 +44,19 @@ module Checks
         next unless value.is_a?(Numeric)
         next if Traits.plausible?(name, value)
 
-        [name, value]
+        [name, value, "outside the plausible range #{Traits.field(name)['plausible_range'].inspect}"]
+      end
+    end
+
+    # Free-text columns constrained by a closed vocabulary (allowed_values)
+    def out_of_vocabulary_fields
+      Traits.fields.keys.filter_map do |name|
+        next unless Traits.allowed_values(name)
+
+        value = @species.attributes[name]
+        next if value.nil? || Traits.allowed_value?(name, value)
+
+        [name, value, "outside the allowed vocabulary #{Traits.allowed_values(name).inspect}"]
       end
     end
 

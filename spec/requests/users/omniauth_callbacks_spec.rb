@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users::OmniauthCallbacks", type: :request do
+RSpec.describe 'Users::OmniauthCallbacks', type: :request do
   before do
     OmniAuth.config.test_mode = true
   end

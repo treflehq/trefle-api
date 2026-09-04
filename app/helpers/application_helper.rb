@@ -44,6 +44,19 @@ module ApplicationHelper
     controller.class.to_s.underscore.starts_with? 'explore/'
   end
 
+  # The release workflow bakes the git tag into the running container as
+  # APP_REVISION (e.g. "v2.0.2"). Local/dev builds have no such tag.
+  def app_revision
+    ENV['APP_REVISION'].presence || 'dev'
+  end
+
+  # Only tagged releases (v*) have a matching GitHub release page to link to.
+  def app_revision_url
+    return nil unless app_revision.match?(/\Av/)
+
+    "https://github.com/treflehq/trefle-api/releases/tag/#{app_revision}"
+  end
+
   def active_class_for(active_controller: nil, class_name: 'has-text-link')
     cname = "#{controller.class.to_s.underscore.gsub('_controller', '')}##{action_name}"
     puts "cname: #{cname}"

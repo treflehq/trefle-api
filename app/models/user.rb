@@ -49,7 +49,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable #, :confirmable
+         :recoverable, :rememberable, :validatable, :trackable # , :confirmable
   devise :omniauthable, omniauth_providers: [:github]
 
   include Gravtastic
@@ -69,9 +69,9 @@ class User < ApplicationRecord
   ].freeze
 
   def get_token
-    if self.admin
+    if admin
       "unl-#{SecureRandom.urlsafe_base64(32)}"
-    elsif self.sponsored_tier.present?
+    elsif sponsored_tier.present?
       "spo-#{SecureRandom.urlsafe_base64(32)}"
     else
       "usr-#{SecureRandom.urlsafe_base64(32)}"

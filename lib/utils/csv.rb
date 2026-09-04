@@ -19,7 +19,7 @@ module Utils
         hashes.each {|x| csv << x.values }
       end
 
-      File.write(filename, s) unless filename.blank?
+      File.write(filename, s) if filename.present?
       s
     end
 
@@ -31,7 +31,7 @@ module Utils
         col_sep: "\t"
       }.merge(opts)
       data = CSV.read(filename, **o)
-      fdata = data.map.with_index do |sp, i|
+      data.map.with_index do |sp, i|
 
         sp.to_h.transform_keys(&:parameterize).deep_symbolize_keys
       rescue StandardError => e
@@ -40,7 +40,6 @@ module Utils
         throw e
 
       end
-      fdata
     end
   end
 end

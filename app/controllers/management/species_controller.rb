@@ -10,7 +10,7 @@ class Management::SpeciesController < Management::ManagementController
     p = params.permit(:search, order: {})
 
     @species = apply_scopes(Species.all)
-    @species = @species.order(p.to_h.dig('order')) if p[:order]
+    @species = @species.order(p.to_h['order']) if p[:order]
     @species = @species.database_search(p[:search]) if p[:search]
     @pagy, @species = pagy(@species)
   end

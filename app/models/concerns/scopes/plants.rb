@@ -16,8 +16,8 @@ module Scopes
 
       # Ranges
       scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }
-      scope :range_by_species_count, ->(a, b) { where(species_count: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      scope :range_by_images_count, ->(a, b) { where(images_count: ((a&.to_i || 0)...(b&.to_i || 3000))) }
+      scope :range_by_species_count, ->(a, b) { where(species_count: ((a.to_i)...(b&.to_i || 3000))) }
+      scope :range_by_images_count, ->(a, b) { where(images_count: ((a.to_i)...(b&.to_i || 3000))) }
 
       # Search
       scope :database_search, lambda {|q|

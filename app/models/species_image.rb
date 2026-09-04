@@ -34,7 +34,7 @@ class SpeciesImage < ApplicationRecord
   }, suffix: true
 
   def as_main_image!
-    self.species.main_image_url = self&.image_url if self&.image_url
-    self.species.save
+    species.main_image_url = image_url if image_url
+    species.save
   end
 end

@@ -16,17 +16,17 @@ module Schemas
 
       def self.filters
         Helpers.object_of(
-          ::Api::V1::GenusController::FILTERABLE_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::GenusController::FILTERABLE_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
 
       def self.sorts
         Helpers.object_of(
-          ::Api::V1::GenusController::ORDERABLE_FIELDS.map do |f|
-            [f, { type: :string }]
-          end.to_h
+          ::Api::V1::GenusController::ORDERABLE_FIELDS.index_with do |_f|
+            { type: :string }
+          end
         )
       end
     end

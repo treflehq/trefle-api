@@ -1,7 +1,7 @@
 class CreateMillisearchIndexes < ActiveRecord::Migration[6.0]
   def up
     Search.instance.with do |client|
-      index = client.get_or_create_index('species', primaryKey: 'id')
+      client.get_or_create_index('species', primaryKey: 'id')
     end
   end
 

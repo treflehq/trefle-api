@@ -67,14 +67,14 @@ module Ingester
     def override_names!
       return unless @species
 
-      if @data[:scientific_name] != @species&.scientific_name
-        @data[:scientific_name] = @species&.scientific_name
-        @data[:genus_name] = @species&.genus_name
-        @data[:genus_id] = @species&.genus_id
-        @data[:rank] = nil
-        @data[:author] = nil
-        @data[:bibliography] = nil
-      end
+      return unless @data[:scientific_name] != @species&.scientific_name
+
+      @data[:scientific_name] = @species&.scientific_name
+      @data[:genus_name] = @species&.genus_name
+      @data[:genus_id] = @species&.genus_id
+      @data[:rank] = nil
+      @data[:author] = nil
+      @data[:bibliography] = nil
     end
 
     def assign_attributes!
@@ -101,29 +101,25 @@ module Ingester
       puts @species.changes.inspect.green
       puts "\n".green
 
-      if @dry_run
+      return return_hash(@species.changes) if @dry_run
 
-        return return_hash(@species.changes)
+      puts '=========== Before save: ==========='
+      puts "  changes: #{@species.changes}"
+
+      # binding.pry
+      changes = @species.changes
+      a = @species.save
+
+      changes = @species.saved_changes unless @species.saved_changes.empty?
+
+      puts '=========== After save: ==========='
+      puts "  saved_changes: #{@species.saved_changes}"
+
+      if a
+        persist_facts!
+        puts '[Ingester] Ingested !'
       else
-
-        puts '=========== Before save: ==========='
-        puts "  changes: #{@species.changes}"
-
-        # binding.pry
-        changes = @species.changes
-        a = @species.save
-
-        changes = @species.saved_changes unless @species.saved_changes.empty?
-
-        puts '=========== After save: ==========='
-        puts "  saved_changes: #{@species.saved_changes}"
-
-        if a
-          persist_facts!
-          puts '[Ingester] Ingested !'
-        else
-          puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
-        end
+        puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
       end
 
       return_hash(changes)
@@ -262,11 +258,15 @@ module Ingester
       @species.changes.slice(*Traits.completion_fields).each do |attr, (old_value, new_value)|
         next if new_value.nil?
 
-        unless Traits.plausible?(attr, new_value)
+        # Captured before any revert: what the source actually claimed, in a
+        # form a reader can interpret (see #fact_value).
+        claimed = fact_value(attr, new_value)
+
+        rejection = rejection_reason(attr, new_value)
+        if rejection
           @species.send("#{attr}=", old_value)
-          facts << { attribute_name: attr, source: source, value: new_value,
-                     status: :rejected,
-                     notes: "implausible: outside #{Traits.field(attr)['plausible_range']}" }
+          facts << { attribute_name: attr, source: source, value: claimed,
+                     status: :rejected, notes: rejection }
           next
         end
 
@@ -275,7 +275,7 @@ module Ingester
           @species.send("#{attr}=", old_value)
         end
 
-        facts << { attribute_name: attr, source: source, value: new_value, status: :active }
+        facts << { attribute_name: attr, source: source, value: claimed, status: :active }
       end
 
       facts
@@ -309,6 +309,26 @@ module Ingester
                        end
 
       incumbent_rank <= Traits.priority_index(source)
+    end
+
+    # Why a value must not be stored, or nil if it may be.
+    def rejection_reason(attr, value)
+      return "implausible: outside #{Traits.field(attr)['plausible_range']}" unless Traits.plausible?(attr, value)
+      return "outside the allowed vocabulary #{Traits.allowed_values(attr).inspect}" unless Traits.allowed_value?(attr, value)
+
+      nil
+    end
+
+    # A bitmask column stores an integer that means nothing on its own: a fact
+    # recording bloom_months = 28 is unreadable, and the meaning would shift if
+    # the flag order ever changed. Record the flag names instead, so the
+    # provenance trail stays self-describing.
+    def fact_value(attr, raw_value)
+      current = @species.send(attr)
+      return raw_value unless current.is_a?(ActiveFlag::Value)
+
+      names = current.to_a
+      names.any? ? names.join('|') : raw_value
     end
 
     def persist_facts!

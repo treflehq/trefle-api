@@ -69,6 +69,7 @@ class Management::UsersController < Management::ManagementController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password_hash, :reset_password_token, :reset_password_sent_at, :failed_attempts, :locked_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :unlock_token, :confirmation_token, :confirmed_at, :confirmation_sent_at, :inserted_at, :admin, :token, :organization_name, :organization_url, :organization_image_url, :account_type, :public_profile)
+    params.require(:user).permit(:name, :email, :password_hash, :reset_password_token, :reset_password_sent_at, :failed_attempts, :locked_at, :sign_in_count, :current_sign_in_at,
+                                 :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :unlock_token, :confirmation_token, :confirmed_at, :confirmation_sent_at, :inserted_at, :admin, :token, :organization_name, :organization_url, :organization_image_url, :account_type, :public_profile)
   end
 end

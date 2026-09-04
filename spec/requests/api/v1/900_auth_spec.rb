@@ -30,13 +30,14 @@ describe 'Auth API' do
 
       operationId 'claimClientSideToken'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :claim_params, required: true, in: :body, schema: claim_schema
 
       response '200', 'Success' do
         schema Schemas::Helpers.object_of({
           expiration: { type: :string, example: '07-13-2020 13:41', description: 'The expiration time of the token. After this time, you\'ll have to request a token again' },
-          token: { type: :string, example: 'eyJhbGciOiJIUzI1NaJ9.eyJ1c2VyX2lkIjoxMDYsIe9yaWdpbiI6Imh0dHA6Ly9wb2NhbGhvc3Q6MzIzMyIsImlwIjoiOjoxIiwiZXhwIjoxNTk0NjQwNTEzfQ.TyqKyKxwsnn7TZsLAfS8OTmTUPk87CSXlk6a2wQU9co', description: 'The client-side access token, that you\'ll use instead of your access token in the `token` parameter' }
+          token: { type: :string,
+                   example: 'eyJhbGciOiJIUzI1NaJ9.eyJ1c2VyX2lkIjoxMDYsIe9yaWdpbiI6Imh0dHA6Ly9wb2NhbGhvc3Q6MzIzMyIsImlwIjoiOjoxIiwiZXhwIjoxNTk0NjQwNTEzfQ.TyqKyKxwsnn7TZsLAfS8OTmTUPk87CSXlk6a2wQU9co', description: 'The client-side access token, that you\'ll use instead of your access token in the `token` parameter' }
         })
         let(:token) { user.token }
         let(:claim_params) do

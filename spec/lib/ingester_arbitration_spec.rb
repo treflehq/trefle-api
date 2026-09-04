@@ -150,4 +150,63 @@ RSpec.describe 'Ingester source arbitration' do
     end
   end
 
+  describe 'closed vocabularies (allowed_values)' do
+    it 'accepts a value from the vocabulary' do
+      ingest({ source_usda: 'x', nitrogen_fixation: 'High' })
+
+      expect(species.reload.nitrogen_fixation).to eq('High')
+    end
+
+    it 'rejects a value outside the vocabulary without assigning it' do
+      ingest({ source_pfaf: 'x', nitrogen_fixation: 'very high' })
+
+      expect(species.reload.nitrogen_fixation).to be_nil
+      fact = species.species_facts.find_by(attribute_name: 'nitrogen_fixation')
+      expect(fact.status).to eq('rejected')
+      expect(fact.notes).to include('allowed vocabulary')
+    end
+
+    it 'is case-sensitive, so spelling drift is caught rather than absorbed' do
+      ingest({ source_pfaf: 'x', nitrogen_fixation: 'high' })
+
+      expect(species.reload.nitrogen_fixation).to be_nil
+    end
+
+    it 'leaves unconstrained text fields alone' do
+      ingest({ source_pfaf: 'x', growth_habit: 'Forb/herb' })
+
+      expect(species.reload.growth_habit).to eq('Forb/herb')
+    end
+  end
+
+  describe 'bitmask columns' do
+    it 'records the flag names rather than the raw bitmask' do
+      ingest({ source_flora_iberica: 'a', bloom_months: 'mar|apr|may' })
+
+      fact = species.species_facts.find_by(attribute_name: 'bloom_months')
+      expect(fact.value).to eq('mar|apr|may')
+      # 28 would be the raw value: meaningless on its own, and unstable if the
+      # flag order ever changed
+      expect(fact.value).not_to eq('28')
+      expect(fact.value_numeric).to be_nil
+    end
+
+    it 'records readable names on a rejected claim too' do
+      # edible_part is a flag; feed it through a source that loses arbitration
+      ingest({ source_flora_iberica: 'a', edible_part: 'seeds' })
+      ingest({ source_pfaf: 'b', edible_part: 'roots' })
+
+      pfaf_fact = species.species_facts.find_by(attribute_name: 'edible_part', source: 'pfaf')
+      expect(pfaf_fact.value).to eq('roots')
+    end
+
+    it 'leaves non-flag values untouched' do
+      ingest({ source_flora_iberica: 'a', average_height_value: 250, average_height_unit: 'cm' })
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.value).to eq('250')
+      expect(fact.value_numeric).to eq(250)
+    end
+  end
+
 end
