@@ -42,6 +42,12 @@ RUN mkdir -p /app/tmp/pids && \
   chmod -R 777 /app/tmp && \
   chmod 777 /app/bin/post-start
 
+# Build the JS bundles BEFORE assets:precompile: sprockets indexes
+# app/assets/builds when the app boots, so the files must already exist
+# (running yarn build through the precompile enhancement leaves them out
+# of the sprockets manifest).
+RUN yarn build
+
 # SECRET_KEY_BASE_DUMMY lets the app boot for precompilation without the real
 # production secret, which is only injected at runtime.
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile --trace --verbose
