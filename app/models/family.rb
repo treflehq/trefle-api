@@ -2,26 +2,22 @@
 #
 # Table name: families
 #
-#  id                :bigint           not null, primary key
-#  common_name       :string(255)
-#  inserted_at       :datetime         not null
+#  id                :integer          not null, primary key
 #  name              :string(255)
 #  slug              :string(255)
-#  created_at        :datetime
+#  common_name       :string(255)
+#  division_order_id :integer
+#  major_group_id    :integer
+#  inserted_at       :datetime         not null
 #  updated_at        :datetime         not null
-#  division_order_id :bigint
-#  major_group_id    :bigint
+#  created_at        :datetime
 #
 # Indexes
 #
 #  families_name_index  (name) UNIQUE
 #  families_slug_index  (slug) UNIQUE
 #
-# Foreign Keys
-#
-#  families_division_order_id_fkey  (division_order_id => division_orders.id)
-#  families_major_group_id_fkey     (major_group_id => major_groups.id)
-#
+
 class Family < ApplicationRecord
   include Filterable
   include Sortable

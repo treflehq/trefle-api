@@ -2,13 +2,13 @@
 #
 # Table name: genuses
 #
-#  id          :bigint           not null, primary key
-#  inserted_at :datetime         not null
+#  id          :integer          not null, primary key
 #  name        :string(255)
 #  slug        :string(255)
-#  created_at  :datetime
+#  family_id   :integer
+#  inserted_at :datetime         not null
 #  updated_at  :datetime         not null
-#  family_id   :bigint
+#  created_at  :datetime
 #
 # Indexes
 #
@@ -16,10 +16,7 @@
 #  genuses_name_index       (name) UNIQUE
 #  genuses_slug_index       (slug) UNIQUE
 #
-# Foreign Keys
-#
-#  genuses_family_id_fkey  (family_id => families.id)
-#
+
 class Genus < ApplicationRecord
   self.table_name = 'genuses'
 

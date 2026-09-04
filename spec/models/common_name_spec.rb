@@ -2,18 +2,19 @@
 #
 # Table name: common_names
 #
-#  id          :bigint           not null, primary key
-#  lang        :string
-#  name        :string
+#  id          :integer          not null, primary key
 #  record_type :string           not null
+#  record_id   :integer          not null
+#  name        :string
+#  lang        :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  record_id   :bigint           not null
 #
 # Indexes
 #
 #  index_common_names_on_record_type_and_record_id  (record_type,record_id)
 #
+
 require 'rails_helper'
 
 RSpec.describe CommonName, type: :model do

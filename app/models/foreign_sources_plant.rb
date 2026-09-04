@@ -2,16 +2,16 @@
 #
 # Table name: foreign_sources_plants
 #
-#  id                :bigint           not null, primary key
+#  id                :integer          not null, primary key
+#  last_update       :datetime
+#  species_id        :integer
+#  foreign_source_id :integer
 #  fid               :string(255)
 #  inserted_at       :datetime         not null
-#  last_update       :datetime
-#  record_type       :string
-#  created_at        :datetime
 #  updated_at        :datetime         not null
-#  foreign_source_id :bigint
-#  record_id         :bigint
-#  species_id        :bigint
+#  created_at        :datetime
+#  record_type       :string
+#  record_id         :integer
 #
 # Indexes
 #
@@ -20,11 +20,7 @@
 #  index_foreign_sources_plants_on_fid                            (fid)
 #  index_foreign_sources_plants_on_record_type_and_record_id      (record_type,record_id)
 #
-# Foreign Keys
-#
-#  foreign_sources_plants_foreign_source_id_fkey  (foreign_source_id => foreign_sources.id)
-#  foreign_sources_plants_species_id_fkey         (species_id => species.id)
-#
+
 class ForeignSourcesPlant < ApplicationRecord
   belongs_to :species, optional: true
   belongs_to :record, polymorphic: true

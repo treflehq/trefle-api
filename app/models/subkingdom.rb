@@ -2,23 +2,20 @@
 #
 # Table name: subkingdoms
 #
-#  id          :bigint           not null, primary key
-#  inserted_at :datetime         not null
+#  id          :integer          not null, primary key
 #  name        :string(255)
 #  slug        :string(255)
-#  created_at  :datetime
+#  kingdom_id  :integer
+#  inserted_at :datetime         not null
 #  updated_at  :datetime         not null
-#  kingdom_id  :bigint
+#  created_at  :datetime
 #
 # Indexes
 #
 #  subkingdoms_name_index  (name) UNIQUE
 #  subkingdoms_slug_index  (slug) UNIQUE
 #
-# Foreign Keys
-#
-#  subkingdoms_kingdom_id_fkey  (kingdom_id => kingdoms.id)
-#
+
 class Subkingdom < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged

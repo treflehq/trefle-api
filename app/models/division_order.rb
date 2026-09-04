@@ -2,23 +2,20 @@
 #
 # Table name: division_orders
 #
-#  id                :bigint           not null, primary key
-#  inserted_at       :datetime         not null
+#  id                :integer          not null, primary key
 #  name              :string(255)
 #  slug              :string(255)
-#  created_at        :datetime
+#  division_class_id :integer
+#  inserted_at       :datetime         not null
 #  updated_at        :datetime         not null
-#  division_class_id :bigint
+#  created_at        :datetime
 #
 # Indexes
 #
 #  division_orders_name_index  (name) UNIQUE
 #  division_orders_slug_index  (slug) UNIQUE
 #
-# Foreign Keys
-#
-#  division_orders_division_class_id_fkey  (division_class_id => division_classes.id)
-#
+
 class DivisionOrder < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
