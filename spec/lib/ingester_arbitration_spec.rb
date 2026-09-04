@@ -78,4 +78,37 @@ RSpec.describe 'Ingester source arbitration' do
     expect(species.reload.average_height_cm).to be_nil
   end
 
+  it 'does not let an equally-ranked source overwrite a filled column' do
+    # Two unlisted sources tie at the lowest rank: crawl order must not decide.
+    ingest({ source_flora_iberica: 'a', average_height_value: 1500, average_height_unit: 'cm' })
+    ingest({ source_pfaf: 'b', average_height_value: 2500, average_height_unit: 'cm' })
+
+    expect(species.reload.average_height_cm).to eq(1500)
+
+    values = species.species_facts.active_status.for_attribute('average_height_cm').pluck(:source, :value)
+    expect(values).to contain_exactly(%w[flora_iberica 1500], %w[pfaf 2500])
+  end
+
+  it 'still lets an equally-ranked source fill an empty column' do
+    ingest({ source_pfaf: 'b', average_height_value: 900, average_height_unit: 'cm' })
+
+    expect(species.reload.average_height_cm).to eq(900)
+  end
+
+  it 'lets a ranked source beat a lower-ranked one whatever the order' do
+    ingest({ source_pfaf: 'b', average_height_value: 2500, average_height_unit: 'cm' })
+    ingest({ source_flora_iberica: 'a', average_height_value: 1500, average_height_unit: 'cm' })
+
+    expect(species.reload.average_height_cm).to eq(1500)
+  end
+
+  it 'lets the same source update its own value' do
+    ingest({ source_flora_iberica: 'a', average_height_value: 1500, average_height_unit: 'cm' })
+    ingest({ source_flora_iberica: 'a', average_height_value: 1600, average_height_unit: 'cm' })
+
+    expect(species.reload.average_height_cm).to eq(1600)
+    facts = species.species_facts.for_attribute('average_height_cm').order(:id)
+    expect(facts.map(&:status)).to eq(%w[superseded active])
+  end
+
 end
