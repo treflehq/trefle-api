@@ -36,8 +36,12 @@ module Traits
     # (e.g. planting_* fields for edible/vegetable species only)
     def applicable?(name, species)
       case field(name)&.fetch('applicable_if', 'always')
+      when 'vegetable'
+        # Cultivation guidance applies to crops, not to anything with an edible
+        # part: a foraged thistle has no row spacing.
+        species.vegetable.present?
       when 'edible_or_vegetable'
-        species.vegetable || species.edible || species.edible_part&.any? ? true : false
+        (species.vegetable || species.edible || species.edible_part&.any?).present?
       else
         true
       end

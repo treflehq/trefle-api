@@ -263,4 +263,36 @@ RSpec.describe Species, type: :model do
       expect(species.plant).to be(nil)
     end
   end
+
+  describe 'completion applicability' do
+    let(:genus_for_applic) { Genus.first || create(:genus) }
+
+    it 'does not ask a foraged plant for cultivation guidance' do
+      species = create(:species, genus_id: genus_for_applic.id)
+      species.update!(edible_part: [:leaves], vegetable: false)
+
+      planting = Traits.completion_fields.select {|f| f.start_with?('planting_') }
+      expect(planting).not_to be_empty
+      expect(planting.none? {|f| Traits.applicable?(f, species) }).to be(true)
+    end
+
+    it 'does ask a cultivated species for cultivation guidance' do
+      species = create(:species, genus_id: genus_for_applic.id)
+      species.update!(vegetable: true)
+
+      planting = Traits.completion_fields.select {|f| f.start_with?('planting_') }
+      expect(planting.all? {|f| Traits.applicable?(f, species) }).to be(true)
+    end
+
+    it 'recording an edible part does not lower the completion ratio' do
+      species = create(:species, genus_id: genus_for_applic.id)
+      species.update!(vegetable: false)
+      before = species.reload.completion_ratio
+
+      species.update!(edible_part: [:leaves])
+
+      expect(species.reload.completion_ratio).to be >= before
+    end
+  end
+
 end

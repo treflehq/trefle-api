@@ -14,8 +14,8 @@
 #   unit:             informative (cm, mm, deg_c, ph, index_0_10...)
 #   plausible_range:  [min, max] — numeric values outside are rejected by the
 #                     ingester and flagged by Checks::PlausibleValues
-#   applicable_if:    always (default) | edible_or_vegetable — a field only
-#                     counts as "missing" when it is applicable
+#   applicable_if:    always (default) | vegetable | edible_or_vegetable — a
+#                     field only counts as "missing" when it is applicable
 #   zero_means_empty: true for bitmask flags / enums where 0 = "not documented"
 
 version: 1
@@ -141,12 +141,14 @@ fields:
   hardiness_zone: { category: ecology, plausible_range: [1, 13] }
   nitrogen_fixation: { category: ecology }
 
-  # --- Cultivation (only "missing" for edible/vegetable species) ---
-  planting_description: { category: cultivation, applicable_if: edible_or_vegetable }
-  planting_sowing_description: { category: cultivation, applicable_if: edible_or_vegetable }
-  planting_days_to_harvest: { category: cultivation, unit: days, plausible_range: [1, 3650], applicable_if: edible_or_vegetable }
-  planting_row_spacing_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: edible_or_vegetable }
-  planting_spread_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: edible_or_vegetable }
+  # --- Cultivation: guidance for growing a crop, so it only counts as missing
+  #     for species actually cultivated (vegetable), not for anything that
+  #     merely has an edible part. A foraged thistle has no row spacing. ---
+  planting_description: { category: cultivation, applicable_if: vegetable }
+  planting_sowing_description: { category: cultivation, applicable_if: vegetable }
+  planting_days_to_harvest: { category: cultivation, unit: days, plausible_range: [1, 3650], applicable_if: vegetable }
+  planting_row_spacing_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: vegetable }
+  planting_spread_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: vegetable }
   minimum_root_depth_cm: { category: cultivation, unit: cm, plausible_range: [1, 3000] }
   edible: { category: derived } # derived from edible_part / vegetable in the serializer
 
