@@ -1,5 +1,5 @@
 <aside class="menu">
-    <p class="menu-label"><%= species.scientific_name %></p>
+    <p class="menu-label scientific-name"><%= species.scientific_name %></p>
     <ul class="menu-list sticky-menu">
       <li>
         <%= link_to('Informations', explore_species_path(species, anchor: 'specifications'), class: (active == 'informations' ? 'is-active' : '')) %>
