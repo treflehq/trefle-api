@@ -18,5 +18,25 @@
 require 'rails_helper'
 
 RSpec.describe SpeciesDistribution, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:species) { Species.friendly.find('abies-alba') }
+  let(:zone) { Zone.first }
+
+  it 'belongs to a species and a zone' do
+    distribution = SpeciesDistribution.create!(species: species, zone: zone, establishment: :native)
+
+    expect(distribution.species).to eq(species)
+    expect(distribution.zone).to eq(zone)
+  end
+
+  it 'exposes the establishment enum with a suffixed predicate' do
+    distribution = SpeciesDistribution.create!(species: species, zone: zone, establishment: :introduced)
+
+    expect(distribution.introduced_establishment?).to be(true)
+    expect(distribution.native_establishment?).to be(false)
+  end
+
+  it 'keeps the zone species_count in sync' do
+    expect { SpeciesDistribution.create!(species: species, zone: zone, establishment: :native) }
+      .to change { zone.reload.species_count }.by(1)
+  end
 end

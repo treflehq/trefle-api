@@ -27,13 +27,13 @@ class UserQuery < ApplicationRecord
   scope :for_time, ->(dt) { where(time: dt) }
 
   def datetime
-    convert_datetime(time)
+    self.class.convert_datetime(time)
   end
 
   # Class methods
 
   def self.convert_datetime(time)
-    DateTime.strptime(time, '%y%m%d%H')
+    DateTime.strptime(time.to_s, '%y%m%d%H')
   end
 
   def self.total_for_hour

@@ -19,5 +19,14 @@
 require 'rails_helper'
 
 RSpec.describe SpeciesTrend, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:species) { Species.friendly.find('abies-alba') }
+  let(:foreign_source) { ForeignSource.find_by!(name: 'GBIF') }
+
+  it 'belongs to a species and a foreign source' do
+    trend = SpeciesTrend.create!(species: species, foreign_source: foreign_source, score: 42, date: Time.zone.today)
+
+    expect(trend.species).to eq(species)
+    expect(trend.foreign_source).to eq(foreign_source)
+    expect(trend.score).to eq(42)
+  end
 end
