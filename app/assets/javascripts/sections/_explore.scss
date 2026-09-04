@@ -477,4 +477,31 @@
     .gray { border-color: #AAAAAA; }
     .black { border-color: #111111; }
   }
+
+  // Replaces a section's pile of individual "unknown" rows with one
+  // compact call to action (see issue #238).
+  .missing-fields-notice {
+    display: inline-block;
+    margin: .5em 0 1em;
+    padding: .5em .75em;
+    border: 1px dashed #FF4136;
+    border-radius: 4px;
+    color: #FF4136;
+    opacity: .8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // Per-species completion percentage next to the scientific-name title;
+  // groundwork for the public completion score (community issue #59).
+  .species-completion {
+    font-family: $family-sans;
+    font-size: .55em;
+    font-weight: normal;
+    vertical-align: middle;
+    margin-left: .5em;
+  }
 }

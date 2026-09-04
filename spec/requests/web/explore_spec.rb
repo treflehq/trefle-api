@@ -63,6 +63,34 @@ RSpec.describe 'Explore pages', type: :request do
       expect(img['loading']).to eq('lazy')
       expect(img['alt']).to be_present
     end
+
+    it 'labels the sidebar entry Overview instead of Informations (#238)' do
+      species = Species.friendly.find('abies-alba')
+      get explore_species_path(species)
+
+      expect(response.body).to include('Overview')
+      expect(response.body).not_to include('Informations')
+    end
+
+    it 'shows the species completion percentage next to the title (#238)' do
+      species = Species.friendly.find('abies-alba')
+      species.update_column(:completion_ratio, 42)
+
+      get explore_species_path(species)
+
+      badge = Nokogiri::HTML.fragment(response.body).at_css('.species-completion')
+      expect(badge.text).to include('42%')
+    end
+
+    it 'falls back to 0% when the completion ratio has never been computed' do
+      species = Species.friendly.find('abies-alba')
+      species.update_column(:completion_ratio, nil)
+
+      get explore_species_path(species)
+
+      badge = Nokogiri::HTML.fragment(response.body).at_css('.species-completion')
+      expect(badge.text).to include('0%')
+    end
   end
 
   describe 'GET /explore/genus' do
