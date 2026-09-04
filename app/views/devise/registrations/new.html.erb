@@ -11,7 +11,9 @@
     </div>
   </div>
 </section>
-<div class="login-container-short">
+<div class="login-container-short auth-page">
+
+  <%= render "devise/shared/omniauth_providers" %>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -26,32 +28,27 @@
   <div class="field">
     <%= f.label :name, class: "label" %>
     <div class="control">
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: 'Your name', class: "input", required: true %>
+      <%= f.text_field :name, autocomplete: "name", placeholder: 'Your name', class: "input", required: true %>
     </div>
   </div>
-
 
   <div class="field">
     <%= f.label :account_type, class: "label" %>
     <div class="control">
-      <div class="select">
-        <%= f.select :account_type, User::ACCOUNT_TYPES.map{|e| [e.to_s.humanize, e]}, autocomplete: "account_type", class: "input, required: true", required: true %>
+      <div class="select is-fullwidth">
+        <%= f.select :account_type, User::ACCOUNT_TYPES.map{|e| [e.to_s.humanize, e]}, {}, autocomplete: "account_type", required: true %>
       </div>
     </div>
   </div>
-
 
   <div class="field">
     <%= f.label :password, class: "label" %>
     <div class="control">
       <%= f.password_field :password, autocomplete: "new-password", class: "input", required: true %>
     </div>
-    <p class="help is-danger">
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-    </p>
-
+    <% if @minimum_password_length %>
+    <p class="help">(<%= @minimum_password_length %> characters minimum)</p>
+    <% end %>
   </div>
 
   <div class="field">
@@ -61,23 +58,15 @@
     </div>
   </div>
 
-  <div class="columns">
-    <div class="column is-10 is-offset-2">
-      <div class="field is-grouped is-grouped-right">
-        <div class="actions">
-        <%= recaptcha_tags %>
-        </div>
-      </div>
+  <div class="field">
+    <div class="control">
+      <%= recaptcha_tags %>
     </div>
   </div>
 
-  <div class="columns">
-    <div class="column is-10 is-offset-2">
-      <div class="field is-grouped is-grouped-right">
-        <div class="actions">
-          <%= f.submit "Sign up", class: "button is-primary" %>
-        </div>
-      </div>
+  <div class="field">
+    <div class="control">
+      <%= f.submit "Sign up", class: "button is-primary is-fullwidth" %>
     </div>
   </div>
 

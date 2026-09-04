@@ -1,0 +1,12 @@
+<% if devise_mapping.omniauthable? && resource_class.omniauth_providers.any? %>
+  <div class="auth-oauth">
+    <% resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to omniauth_authorize_path(resource_name, provider), method: :post, class: "button is-fullwidth auth-oauth-button" do %>
+        <span class="icon"><%= fa_icon provider, style: :brands, class: 'fa-lg' %></span>
+        <span>Sign in with <%= OmniAuth::Utils.camelize(provider) %></span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="auth-divider"><span>or</span></div>
+<% end %>

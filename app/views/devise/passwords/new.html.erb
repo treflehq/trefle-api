@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<div class="login-container-short">
+<div class="login-container-short auth-page">
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -24,13 +24,9 @@
     </div>
   </div>
 
-  <div class="columns">
-    <div class="column is-10 is-offset-2">
-      <div class="field is-grouped is-grouped-right">
-        <div class="actions">
-          <%= f.submit "Send me reset password instructions", class: "button is-primary" %>
-        </div>
-      </div>
+  <div class="field">
+    <div class="control">
+      <%= f.submit "Send me reset password instructions", class: "button is-primary is-fullwidth" %>
     </div>
   </div>
 

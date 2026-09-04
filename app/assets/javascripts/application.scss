@@ -100,6 +100,66 @@ span.token.number {
   margin: auto;
 }
 
+// Devise sign in / sign up / password pages (#233): one consistent
+// single-column composition, GitHub OAuth as a proper secondary button
+// instead of a plain-text link, and focus rings that stay visible on
+// keyboard navigation instead of relying on browser/Bulma defaults.
+.auth-oauth-button {
+  background: #24292f;
+  border-color: #24292f;
+  color: #fff;
+
+  .icon {
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    background: lighten(#24292f, 12%);
+    border-color: lighten(#24292f, 12%);
+    color: #fff;
+  }
+}
+
+.auth-divider {
+  align-items: center;
+  color: #7a7a7a;
+  display: flex;
+  font-size: 0.85rem;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+
+  &::before,
+  &::after {
+    background: #dbdbdb;
+    content: '';
+    flex: 1;
+    height: 1px;
+  }
+
+  span {
+    padding: 0 0.75rem;
+  }
+}
+
+.auth-links {
+  align-items: center;
+  color: #7a7a7a;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.auth-page a:focus-visible,
+.auth-page .button:focus-visible,
+.auth-page .input:focus-visible,
+.auth-links a:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
 .user-image {
   margin-right: 10px;
 }
