@@ -13,6 +13,14 @@
 # boundary). Everything else under /api (writes: corrections, reports...)
 # is intentionally left alone here and keeps relying on the existing
 # Api::ApiController#cors_preflight_check / #cors_set_access_control_headers.
+#
+# rack-cors's Resource#match? (used for BOTH preflight and actual requests)
+# only consults matches_path? and if_proc -- the `methods:` list below is
+# only enforced during preflight (Resource#process_preflight). Without the
+# `if:` guard, an actual cross-origin write request (POST /report, etc.)
+# would still get matched by this catch-all and stamped with CORS headers,
+# regardless of its verb. The `if:` proc is what actually keeps writes out.
+read_methods = %w[GET HEAD OPTIONS].freeze
 rate_limit_headers = %w[RateLimit-Limit RateLimit-Remaining RateLimit-Reset].freeze
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
@@ -30,6 +38,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource '/api/*',
              headers: :any,
              methods: %i[get head options],
+             if: ->(env) { read_methods.include?(env['REQUEST_METHOD']) },
              expose: rate_limit_headers
   end
 end

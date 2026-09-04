@@ -48,6 +48,16 @@ RSpec.describe 'CORS on the public API', type: :request do
 
       expect(response.headers['Access-Control-Allow-Origin']).to be_nil
     end
+
+    it 'does not add CORS headers to a cross-origin POST to a write endpoint' do
+      plant = create(:plant)
+
+      post "/api/v1/plants/#{plant.id}/report",
+           params: { reason: 'test' },
+           headers: { 'Origin' => origin, 'Authorization' => "Bearer #{user.token}" }
+
+      expect(response.headers['Access-Control-Allow-Origin']).to be_nil
+    end
   end
 
 end
