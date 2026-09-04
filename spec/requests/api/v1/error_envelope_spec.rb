@@ -68,5 +68,13 @@ RSpec.describe 'API error envelope', type: :request do
       expect(response.content_type).to match(%r{application/json})
       expect(response.body).not_to include('<html')
     end
+
+    it 'still reports the exception to Sentry' do
+      # rescue_from StandardError handles the exception before it escapes the controller, so it
+      # never reaches Sentry's Rack middleware -- it must be reported explicitly instead.
+      expect(Sentry).to receive(:capture_exception).with(instance_of(RuntimeError))
+
+      get '/api/v1/plants/abies-alba', params: { token: user.token }
+    end
   end
 end

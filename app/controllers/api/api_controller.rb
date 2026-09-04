@@ -202,6 +202,10 @@ module Api
 
     def render_internal_server_error_response(exception)
       Rails.logger.error("[render_internal_server_error_response] #{exception.class}: #{exception.message}")
+      # rescue_from handles the exception before it escapes the controller, so it never reaches
+      # Sentry::Rails::CaptureExceptions (the Rack middleware that auto-reports uncaught exceptions).
+      # Report it explicitly or it goes dark.
+      Sentry.capture_exception(exception)
       render_error('An unexpected error occurred. Please contact us if it persists. See https://trefle.io', :internal_server_error)
     end
 
