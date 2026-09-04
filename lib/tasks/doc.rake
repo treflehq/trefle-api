@@ -58,11 +58,11 @@ namespace :doc do # rubocop:todo Metrics/BlockLength
   desc 'Check fields between API and swagger'
   task check: :environment do
     data = SpeciesSerializer.new.serialize(Species.where.not(average_height_cm: nil).first).to_h
-    schema = YAML.load_file("#{Rails.root}/public/swagger/v1/swagger.yaml")
+    schema = YAML.load_file(Rails.root.join('public/swagger/v1/swagger.yaml'))
 
     json_elts = data.map {|k, val| parse_json_resp(k, val) }.flatten.sort
     swag_elts = schema['components']['schemas'].slice('species').map do |_name, attrs|
-      root_keys = attrs['properties'].map {|n, a| parse_tree(n, a, nil, -10) }.flatten.compact.map {|e| e[:name] }
+      attrs['properties'].map {|n, a| parse_tree(n, a, nil, -10) }.flatten.compact.map {|e| e[:name] }
     end.flatten.compact.sort
 
     json_elts = json_elts.reject {|e| e.match(/\[\]$/) }
@@ -98,7 +98,7 @@ markdown specs from swagger'
       :::
     DESC
 
-    schema = YAML.load_file("#{Rails.root}/public/swagger/v1/swagger.yaml")
+    schema = YAML.load_file(Rails.root.join('public/swagger/v1/swagger.yaml'))
     schema['components']['schemas'].slice('species').map do |name, attrs|
       md << "\n## #{name.humanize}\n"
 
@@ -108,10 +108,10 @@ markdown specs from swagger'
         if field_name != :root
           elt = keys.filter {|e| e[:name] == field_name }&.first
           md << "\n### #{field_name}\n"
-          md << "\n#{elt[:description]}\n" if elt && elt[:description]&.length > 0
+          md << "\n#{elt[:description]}\n" if elt && elt[:description]&.length.to_i > 0
         end
 
-        headings = keys.first.keys
+        keys.first.keys
         values = keys.reject {|e| e[:name] == field_name }
 
         # puts "Headings: "
@@ -123,7 +123,7 @@ markdown specs from swagger'
         table = Terminal::Table.new do |t|
           t.headings = %w[field description]
           t.rows = values.map do |e|
-            ["**#{e[:name] .gsub("#{field_name}.", '')}** (#{e[:type]})", e[:description].gsub("\n", '<br />')]
+            ["**#{e[:name].gsub("#{field_name}.", '')}** (#{e[:type]})", e[:description].gsub("\n", '<br />')]
           end
 
           t.style = { border_top: false, border_bottom: false, border_i: '|' }
@@ -140,12 +140,12 @@ markdown specs from swagger'
   task generate_correction_spec: :environment do
 
     md = []
-    schema = YAML.load_file("#{Rails.root}/public/swagger/v1/swagger.yaml")
+    schema = YAML.load_file(Rails.root.join('public/swagger/v1/swagger.yaml'))
     attrs = schema['components']['schemas']['request_body_correction']['properties']['correction']
 
     keys = attrs['properties'].map {|n, a| parse_tree(n, a) }.flatten.compact
 
-    headings = keys.first.keys
+    keys.first.keys
     values = keys
 
     table = Terminal::Table.new do |t|

@@ -10,7 +10,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
     p = params.permit(:search, order: {})
 
     @record_corrections = apply_scopes(RecordCorrection.all)
-    @record_corrections = @record_corrections.order(p.to_h.dig('order')) if p[:order]
+    @record_corrections = @record_corrections.order(p.to_h['order']) if p[:order]
     # @record_corrections = @record_corrections.where.like(scientific_name: "%#{p[:search]}%") if p[:search]
     @pagy, @record_corrections = pagy(@record_corrections)
   end

@@ -35,13 +35,11 @@ class Synonym < ApplicationRecord
 
   validate :have_different_name
 
-  def have_different_name # rubocop:todo Naming/PredicateName
-    if record.respond_to?(:scientific_name) # rubocop:todo Style/GuardClause
-      errors.add(:name, 'Must be different than the record') if record.scientific_name == name
-    end
+  def have_different_name
+    errors.add(:name, 'Must be different than the record') if record.respond_to?(:scientific_name) && (record.scientific_name == name)
   end
 
-  def self.auto_migrate # rubocop:todo Metrics/PerceivedComplexity
+  def self.auto_migrate
     Species.where(status: 'Synonym').find_in_batches.with_index.each do |sps, i|
       puts "Batching species group #{i}"
       sps.each do |sp|

@@ -5,8 +5,8 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'jquery-rails'
-gem 'rails', "~> 8.0.0"
-gem "sprockets-rails"
+gem 'rails', '~> 8.0.0'
+gem 'sprockets-rails'
 
 gem 'jsbundling-rails'
 
@@ -67,9 +67,9 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'rack-attack', '~> 6.6.1'
 
-gem "sentry-ruby", "~> 7.0"
-gem "sentry-rails", "~> 7.0"
-gem "skylight"
+gem 'sentry-rails', '~> 7.0'
+gem 'sentry-ruby', '~> 7.0'
+gem 'skylight'
 
 # Sidekiq
 gem 'redis', '>= 4.1.4'
@@ -89,7 +89,7 @@ gem 'json-schema'
 
 gem 'searchkick'
 # gem "elasticsearch", '~> 7.17'
-gem "opensearch-ruby"
+gem 'opensearch-ruby'
 gem 'typhoeus'
 
 # SEO
@@ -101,16 +101,12 @@ gem 'derailed_benchmarks'
 gem 'memory_profiler'
 
 # captcha"
-gem "recaptcha"
-
+gem 'recaptcha'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'brakeman', require: false
-  gem 'webmock'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
   gem 'database_cleaner', '>= 1.8.5'
   gem 'dotenv-rails', '>= 2.7.5'
   gem 'marginalia', '>= 1.8.0' # annotate queries
@@ -119,6 +115,9 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'rswag'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'webmock'
   # gem 'rswag'
   gem 'factory_bot', '>= 5.1.2'
   gem 'faker', '>= 2.1.2'
@@ -145,10 +144,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "benchmark", "~> 0.4.1"
+gem 'benchmark', '~> 0.4.1'
 
-gem "omniauth-github", "~> 2.0"
+gem 'omniauth-github', '~> 2.0'
 
-gem "omniauth", "~> 2.1"
+gem 'omniauth', '~> 2.1'
 
-gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem 'omniauth-rails_csrf_protection', '~> 1.0'

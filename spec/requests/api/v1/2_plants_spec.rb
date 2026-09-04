@@ -21,10 +21,11 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List plants'
       operationId 'listPlants'
-      security [token: []]
+      security [{ token: [] }]
 
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
+                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
@@ -59,7 +60,7 @@ describe 'Plants API' do
       operationId 'getPlant'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested plant'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -93,11 +94,12 @@ describe 'Plants API' do
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
+                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -147,7 +149,7 @@ describe 'Plants API' do
       # rubocop:enable Naming/VariableName
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -179,11 +181,12 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List all the plants in the requested zone.'
       operationId 'listPlantsZone'
-      security [token: []]
+      security [{ token: [] }]
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
+                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
@@ -218,11 +221,12 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List plants of the requested genus'
       operationId 'listPlantsGenus'
-      security [token: []]
+      security [{ token: [] }]
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values', schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
+                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'

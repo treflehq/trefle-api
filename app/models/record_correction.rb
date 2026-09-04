@@ -33,14 +33,14 @@ class RecordCorrection < ApplicationRecord
   scope :status, ->(s) { where(change_status: s) }
   # Ex:- scope :active, -> {where(:active => true)}
 
-  enum :change_type, %i[addition update deletion], suffix: true
-  enum :change_status, %i[pending accepted rejected], suffix: true
-  enum :source_type, %i[external observation report], suffix: true
+  enum :change_type, { addition: 0, update: 1, deletion: 2 }, suffix: true
+  enum :change_status, { pending: 0, accepted: 1, rejected: 2 }, suffix: true
+  enum :source_type, { external: 0, observation: 1, report: 2 }, suffix: true
 
   before_validation :set_change_type
-  validates_presence_of :source_reference,
-                        if: proc {|r| r.external_source_type? },
-                        message: 'You need to provide a reference (a link, a publication...) if the correction dont comes from an observation'
+  validates :source_reference,
+            presence: { if: proc {|r| r.external_source_type? },
+                        message: 'You need to provide a reference (a link, a publication...) if the correction dont comes from an observation' }
 
   def set_change_type
     self.change_type = (record ? :update : :addition) unless deletion_change_type?

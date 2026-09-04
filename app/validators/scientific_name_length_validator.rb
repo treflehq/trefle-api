@@ -4,6 +4,8 @@ class ScientificNameLengthValidator < ActiveModel::EachValidator
 
     record.errors.add(attribute, "'#{value}' is invalid, must be at least binomial") if chunks.count < 2
 
-    record.errors.add(attribute, "'#{value}' is invalid for the #{record.rank} rank, must be at least trinomial") if chunks.count < 3 && !record.species_rank? && !record.hybrid_rank?
+    return unless chunks.count < 3 && !record.species_rank? && !record.hybrid_rank?
+
+    record.errors.add(attribute, "'#{value}' is invalid for the #{record.rank} rank, must be at least trinomial")
   end
 end

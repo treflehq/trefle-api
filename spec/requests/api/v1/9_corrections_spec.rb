@@ -47,7 +47,7 @@ describe 'Corrections API' do
       produces 'application/json'
       description 'List corrections'
       operationId 'listCorrections'
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -78,7 +78,7 @@ describe 'Corrections API' do
       operationId 'getCorrection'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id of the requested correction'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -124,7 +124,7 @@ describe 'Corrections API' do
       parameter name: :correction, required: false, in: :body, schema: Schemas::Helpers.schema_href(schema: 'request_body_correction')
       parameter name: :record_id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested correction'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(

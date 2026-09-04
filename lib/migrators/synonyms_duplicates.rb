@@ -21,6 +21,7 @@ module Migrators
 
       ::Utils::Merger.new([to_merge.id], good_species.id).merge! if good_species && to_merge
     end
+    # rubocop:enable Naming/MethodParameterName
 
   end
 end

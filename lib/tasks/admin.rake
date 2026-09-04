@@ -35,10 +35,10 @@ namespace :admin do # rubocop:todo Metrics/BlockLength
       if controller.const_defined?(:FILTERABLE_FIELDS)
         controller::FILTERABLE_FIELDS.each do |f|
           random_filter = (begin
-                             clname.where.not(f => nil).last.send(f)
-                           rescue StandardError
-                             'unknown'
-                           end)
+            clname.where.not(f => nil).last.send(f)
+          rescue StandardError
+            'unknown'
+          end)
           parameters << "filter[#{f}]=#{random_filter}"
         end
       end
@@ -53,15 +53,15 @@ namespace :admin do # rubocop:todo Metrics/BlockLength
       if controller.const_defined?(:RANGEABLE_FIELDS)
         controller::RANGEABLE_FIELDS.each do |f|
           random_range = (begin
-                            clname.where.not(f => nil).last.send(f)
-                          rescue StandardError
-                            'unknown'
-                          end)
+            clname.where.not(f => nil).last.send(f)
+          rescue StandardError
+            'unknown'
+          end)
           other_random_range = (begin
-                                  clname.where.not(f => nil).first.send(f)
-                                rescue StandardError
-                                  'unknown'
-                                end)
+            clname.where.not(f => nil).first.send(f)
+          rescue StandardError
+            'unknown'
+          end)
 
           parameters << "range[#{f}]=#{random_range}"
           parameters << "range[#{f}]=,#{random_range}"

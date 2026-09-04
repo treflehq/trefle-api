@@ -4,9 +4,9 @@ module Utils
       return name unless name
 
       name = name.gsub(/(\([A-Z].*)/, '')
-      name = name.gsub(/\s#{Regexp.escape(author.split(' ').first)}.*/, '') unless author.blank?
+      name = name.gsub(/\s#{Regexp.escape(author.split(' ').first)}.*/, '') if author.present?
       genus, spe, *rest = name.split(' ')
-      rest -= author.split(' ').select {|e| e.length > 3 } unless author.blank?
+      rest -= author.split(' ').select {|e| e.length > 3 } if author.present?
       rest = rest.reject {|e| e =~ /\d{2,4}/ }
 
       name = [genus, spe, rest].join(' ')

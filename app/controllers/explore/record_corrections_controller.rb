@@ -15,7 +15,7 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
     @collection ||= apply_scopes(RecordCorrection.all)
     @collection = @collection.where(record: @species) if @species
     @collection = @collection.where(user_id: current_user.id) if params[:mine]
-    @collection = @collection.order(p.to_h.dig('order')) if p[:order]
+    @collection = @collection.order(p.to_h['order']) if p[:order]
 
     @pagy, @collection = pagy(@collection)
   end

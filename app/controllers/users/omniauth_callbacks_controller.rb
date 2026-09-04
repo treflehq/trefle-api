@@ -27,7 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to root_path, alert: "Could not authenticate you from GitHub."
+    redirect_to root_path, alert: 'Could not authenticate you from GitHub.'
   end
 
   private

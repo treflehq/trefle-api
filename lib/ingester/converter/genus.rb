@@ -12,8 +12,8 @@ module Ingester
 
       # Will convert measurement like fields
       def self.resolve!(hash)
-        genus_id = hash.dig(:genus_id)
-        genus_name = hash.dig(:genus)
+        genus_id = hash[:genus_id]
+        genus_name = hash[:genus]
 
         return { genus_id: genus_id } if genus_id && ::Genus.find(genus_id)
 

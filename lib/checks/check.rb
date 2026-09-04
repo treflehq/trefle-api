@@ -3,8 +3,7 @@ module Checks
 
   class Check
 
-    attr_reader :species
-    attr_reader :existing_check
+    attr_reader :species, :existing_check
 
     def initialize(species_id)
       @species = Species.friendly.find(species_id)

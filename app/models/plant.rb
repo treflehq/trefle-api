@@ -63,8 +63,8 @@ class Plant < ApplicationRecord
   auto_strip_attributes :author, :common_name, :observations, :bibliography, :author,
                         :family_common_name, :scientific_name, squish: true
 
-  validates_uniqueness_of :scientific_name
-  validates_uniqueness_of :main_species_id, allow_nil: true
+  validates :scientific_name, uniqueness: true
+  validates :main_species_id, uniqueness: { allow_nil: true }
 
   before_validation :update_completion_ratio!
 

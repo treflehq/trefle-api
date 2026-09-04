@@ -6,13 +6,12 @@
 # restored production dump; this module recreates the minimum equivalent
 # dataset deterministically so the suite is self-sufficient.
 module TestSeeds
-
   # Index 1 lands on the Abies genus so the suite gets the "Abies alba"
   # species (slug abies-alba) that the corrections specs reference.
   EPITHETS = %w[grandiflora alba uniflora sylvestris officinalis vulgaris].freeze
 
   def self.seed!
-    load Rails.root.join('db', 'botanic_seeds.rb')
+    load Rails.root.join('db/botanic_seeds.rb')
 
     family = Family.first
     genera = [

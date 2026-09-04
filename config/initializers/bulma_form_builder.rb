@@ -122,22 +122,16 @@ class BulmaFormBuilder < ActionView::Helpers::FormBuilder
 
   alias merge_class merge_class_attribute_value
 
-  def div_check_box
-    @template.content_tag(:div, class: 'checkbox') do
-      yield
-    end
+  def div_check_box(&block)
+    @template.content_tag(:div, class: 'checkbox', &block)
   end
 
-  def div_control(options = {})
-    @template.content_tag(:div, merge_class(options, 'control')) do
-      yield
-    end
+  def div_control(options = {}, &block)
+    @template.content_tag(:div, merge_class(options, 'control'), &block)
   end
 
-  def div_control_for_icons
-    @template.content_tag(:div, class: 'control has-icons-left') do
-      yield
-    end
+  def div_control_for_icons(&block)
+    @template.content_tag(:div, class: 'control has-icons-left', &block)
   end
 
   def email_icon

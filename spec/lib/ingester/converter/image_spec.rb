@@ -13,7 +13,7 @@ RSpec.describe Ingester::Converter::Image do
       image_url: 'https://tata.co/image.png'
     }
 
-    result = Ingester::Converter::Image.resolve!(hash)
+    Ingester::Converter::Image.resolve!(hash)
   end
 
   it 'Dont crash when no images' do

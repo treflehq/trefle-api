@@ -32,7 +32,8 @@ module Schemas
         Helpers.object_of({
           notes: { type: :string, nullable: true, description: 'Some optional notes you can add. They will be visible to everybody' },
           # change_type: { type: :string, nullable: true },
-          source_type: { type: :string, enum: [*::RecordCorrection.source_types.keys, nil], nullable: true, description: 'Where does this data come from ? If "external", you\'ll need to provide the "source_reference" field with the url or the name of the source, such as a wikipedia article, a publication, etc...' },
+          source_type: { type: :string, enum: [*::RecordCorrection.source_types.keys, nil], nullable: true,
+                         description: 'Where does this data come from ? If "external", you\'ll need to provide the "source_reference" field with the url or the name of the source, such as a wikipedia article, a publication, etc...' },
           source_reference: { type: :string, nullable: true, description: 'The url of the name of an article or a publication for theses changes' },
           correction: correction_body
         })
@@ -51,7 +52,9 @@ module Schemas
           planting_description: { type: :string, nullable: true, description: 'A description on how the plant usually grows' }, # 'Vegetal flavour, Medium-yellow flowers',
           planting_sowing_description: { type: :string, nullable: true, example: 'A description on how to sow the plant' }, # 'Vegetal flavour, Medium-yellow flowers',
 
-          duration: anyOfEnum(enum: ::Species.durations.maps.keys, extras: { nullable: true, description: 'The duration(s) of the species. Several values can be separated with "|"', example: 'annual' }),
+          duration: anyOfEnum(enum: ::Species.durations.maps.keys,
+                              extras: { nullable: true, description: 'The duration(s) of the species. Several values can be separated with "|"',
+                                        example: 'annual' }),
           flower_color: anyOfEnum(enum: ::Species.flower_colors.maps.keys, extras: { nullable: true, description: 'The species flower color(s). Several values can be separated with "|"', example: 'yellow' }), # 'yellow',
           flower_conspicuous: { type: :boolean, nullable: true, example: true }, # true,
           foliage_color: anyOfEnum(enum: ::Species.foliage_colors.maps.keys, extras: { nullable: true, description: 'The species foliage color(s). Several values can be separated with "|"', example: 'green|blue' }), # 'green|blue',

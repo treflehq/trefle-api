@@ -22,7 +22,7 @@ describe 'Divisions API' do
       description 'List divisions'
       operationId 'listDivisions'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
       response '200', 'Success' do
@@ -54,7 +54,7 @@ describe 'Divisions API' do
       operationId 'getDivision'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested division'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(

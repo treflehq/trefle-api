@@ -44,7 +44,7 @@
 class PlantSerializer < BaseSerializer
 
   attributes :common_name, :slug, :scientific_name,
-             :year, :bibliography, :author, #:status,
+             :year, :bibliography, :author, # :status,
              :family_common_name, :genus_id,
              :main_species_id, :vegetable,
              :observations,

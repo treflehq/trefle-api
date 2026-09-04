@@ -6,7 +6,7 @@ class Management::PlantsController < Management::ManagementController
   def index
     p = params.permit(:search, order: {})
     @plants = Plant.all
-    @plants = @plants.order(p.to_h.dig('order')) if p[:order]
+    @plants = @plants.order(p.to_h['order']) if p[:order]
     @plants = @plants.database_search(p[:search]) if p[:search]
     @pagy, @plants = pagy(@plants)
   end
@@ -72,6 +72,7 @@ class Management::PlantsController < Management::ManagementController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def plant_params
-    params.require(:plant).permit(:slug, :year, :bibliography, :author, :status, :common_name, :family_common_name, :scientific_name, :genus_id, :inserted_at, :main_species_id, :complete_data)
+    params.require(:plant).permit(:slug, :year, :bibliography, :author, :status, :common_name, :family_common_name, :scientific_name, :genus_id, :inserted_at, :main_species_id,
+                                  :complete_data)
   end
 end

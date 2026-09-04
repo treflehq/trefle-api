@@ -8,14 +8,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    puts "Checking captcha"
-    unless verify_recaptcha
-      puts "captcha verified"
-      self.resource = resource_class.new sign_up_params
-      resource.validate # Look for any other validation errors besides reCAPTCHA
-      set_minimum_password_length
-      respond_with_navigational(resource) { render :new }
-    end
+    puts 'Checking captcha'
+    return if verify_recaptcha
+
+    puts 'captcha verified'
+    self.resource = resource_class.new sign_up_params
+    resource.validate # Look for any other validation errors besides reCAPTCHA
+    set_minimum_password_length
+    respond_with_navigational(resource) { render :new }
   end
 
   # GET /resource/sign_up

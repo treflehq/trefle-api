@@ -17,7 +17,7 @@ module Checks
     def accept!(user_id = nil)
       return super(user_id) if @existing_check.change_notes.blank?
 
-      before, after = JSON.parse(@existing_check.change_notes).dig('scientific_name').map {|e| Species.find_by_scientific_name(e) }
+      before, after = JSON.parse(@existing_check.change_notes)['scientific_name'].map {|e| Species.find_by_scientific_name(e) }
 
       # If a species with a good name exists, we merge them together
       if after

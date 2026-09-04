@@ -29,7 +29,7 @@ describe 'Distributions API' do
 
       operationId 'listDistributions'
       # parameter name: :id, required: true, in: :path, type: :string
-      security [token: []]
+      security [{ token: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
       response '200', 'Success' do
@@ -61,7 +61,7 @@ describe 'Distributions API' do
       operationId 'getZone'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested zone'
 
-      security [token: []]
+      security [{ token: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(

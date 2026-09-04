@@ -21,7 +21,5 @@ class Auth::JsonWebToken
     )
   end
 
-  attr_reader :token
-
-  attr_reader :time
+  attr_reader :token, :time
 end
