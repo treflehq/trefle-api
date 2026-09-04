@@ -15,7 +15,7 @@ RSpec.describe 'Management backoffice', type: :request do
     end
 
     %w[species plants users kingdoms subkingdoms divisions division_classes division_orders
-       families genuses record_corrections user_queries species_images foreign_sources].each do |section|
+       families genuses record_corrections user_queries species_images foreign_sources data_quality].each do |section|
       it "refuses non-admin users on /management/#{section}" do
         login_as create(:user), scope: :user
         get "/management/#{section}"
@@ -28,7 +28,7 @@ RSpec.describe 'Management backoffice', type: :request do
     before { login_as create(:admin), scope: :user }
 
     %w[species plants users kingdoms subkingdoms divisions division_classes division_orders
-       families genuses record_corrections user_queries species_images foreign_sources].each do |section|
+       families genuses record_corrections user_queries species_images foreign_sources data_quality].each do |section|
       it "renders /management/#{section}" do
         get "/management/#{section}"
         expect(response).to have_http_status(:ok)
@@ -38,6 +38,15 @@ RSpec.describe 'Management backoffice', type: :request do
     it 'renders the dashboard' do
       get management_path
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'renders the data quality dashboard with snapshot data' do
+      Quality::Snapshot.run!
+
+      get '/management/data_quality'
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('Fill rate per field')
+      expect(response.body).to include('average_height_cm')
     end
 
     it 'renders a species page and updates it' do

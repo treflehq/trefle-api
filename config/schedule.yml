@@ -29,3 +29,8 @@ check_species_images:
   cron: "0 0 */7 * *" # At 00:00 on every 7th day-of-month.
   class: "Migrators::ImagesFixerWorker"
   queue: migrations
+
+quality_snapshot:
+  cron: "30 2 * * 1" # Mondays at 02:30 — weekly data quality snapshot
+  class: "QualitySnapshotWorker"
+  queue: low

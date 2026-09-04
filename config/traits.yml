@@ -1,0 +1,146 @@
+# Traits contract — single source of truth for species data fields.
+#
+# Used by:
+#   - Species#current_completion_percentage (which fields count, when they apply)
+#   - Ingester source arbitration (which source wins on conflict)
+#   - Checks::PlausibleValues (plausible_range / cross-field rules)
+#   - lib/tasks/quality.rake (data quality snapshots)
+#
+# Field keys:
+#   category:         core | descriptive | media | morphology | phenology |
+#                     ecology | cultivation | usda_legacy | deprecated | derived
+#                     Only categories listed under completion.counted_categories
+#                     are part of the completion ratio.
+#   unit:             informative (cm, mm, deg_c, ph, index_0_10...)
+#   plausible_range:  [min, max] — numeric values outside are rejected by the
+#                     ingester and flagged by Checks::PlausibleValues
+#   applicable_if:    always (default) | edible_or_vegetable — a field only
+#                     counts as "missing" when it is applicable
+#   zero_means_empty: true for bitmask flags / enums where 0 = "not documented"
+
+version: 1
+
+completion:
+  counted_categories: [descriptive, media, morphology, phenology, ecology, cultivation]
+
+sources:
+  # Strongest first. Compared case-insensitively against foreign_sources.slug.
+  # "community" = human-reviewed corrections (RecordCorrection acceptance).
+  # Unknown sources rank after everything listed here.
+  default_priority:
+    - community
+    - iucn
+    - try
+    - powo
+    - wfo
+    - ipni
+    - world_flora_online
+    - gbif
+    - usda
+    - tropicos
+    - tela-botanica
+    - catminat
+    - eol
+    - plantnet
+    - openfarm
+    - wikipedia
+
+cross_field_rules:
+  - { min: ph_minimum, max: ph_maximum }
+  - { min: minimum_temperature_deg_c, max: maximum_temperature_deg_c }
+  - { min: minimum_precipitation_mm, max: maximum_precipitation_mm }
+  - { min: average_height_cm, max: maximum_height_cm }
+
+fields:
+  # --- Core nomenclature (not counted: near-always present, not a trait) ---
+  scientific_name: { category: core }
+  author: { category: core }
+  year: { category: core, plausible_range: [1753, 2100] }
+  bibliography: { category: core }
+  rank: { category: core }
+  status: { category: core }
+
+  # --- Descriptive ---
+  common_name: { category: descriptive }
+  observations: { category: descriptive }
+
+  # --- Media ---
+  main_image_url: { category: media }
+
+  # --- Morphology ---
+  average_height_cm: { category: morphology, unit: cm, plausible_range: [1, 12000] }
+  maximum_height_cm: { category: morphology, unit: cm, plausible_range: [1, 13000] }
+  ligneous_type: { category: morphology }
+  growth_form: { category: morphology }
+  growth_habit: { category: morphology }
+  growth_rate: { category: morphology }
+  shape_and_orientation: { category: morphology }
+  foliage_texture: { category: morphology }
+  foliage_color: { category: morphology, zero_means_empty: true }
+  leaf_retention: { category: morphology }
+  flower_color: { category: morphology, zero_means_empty: true }
+  flower_conspicuous: { category: morphology }
+  fruit_color: { category: morphology, zero_means_empty: true }
+  fruit_conspicuous: { category: morphology }
+  fruit_shape: { category: morphology }
+  fruit_seed_persistence: { category: morphology }
+  inflorescence_form: { category: morphology }
+  inflorescence_type: { category: morphology }
+  sexuality: { category: morphology, zero_means_empty: true }
+  pollinisation: { category: morphology, zero_means_empty: true }
+  dissemination: { category: morphology, zero_means_empty: true }
+  biological_type: { category: morphology }
+  toxicity: { category: morphology }
+  edible_part: { category: morphology, zero_means_empty: true }
+  vegetable: { category: morphology }
+
+  # --- Phenology (bitmask flags: 0 = undocumented) ---
+  duration: { category: phenology, zero_means_empty: true }
+  growth_months: { category: phenology, zero_means_empty: true }
+  bloom_months: { category: phenology, zero_means_empty: true }
+  fruit_months: { category: phenology, zero_means_empty: true }
+
+  # --- Ecology (light/humidity/soil indices are 0-10 Ellenberg-like scales
+  #     from Baseflor/Catminat: 0 is a meaningful value, never "empty") ---
+  light: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  atmospheric_humidity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  ground_humidity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  soil_texture: { category: ecology, plausible_range: [1, 9] }
+  soil_salinity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  soil_nutriments: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  ph_minimum: { category: ecology, unit: ph, plausible_range: [1, 12] }
+  ph_maximum: { category: ecology, unit: ph, plausible_range: [1, 12] }
+  minimum_temperature_deg_c: { category: ecology, unit: deg_c, plausible_range: [-90, 60] }
+  maximum_temperature_deg_c: { category: ecology, unit: deg_c, plausible_range: [-60, 90] }
+  minimum_precipitation_mm: { category: ecology, unit: mm, plausible_range: [0, 15000] }
+  maximum_precipitation_mm: { category: ecology, unit: mm, plausible_range: [0, 15000] }
+  hardiness_zone: { category: ecology, plausible_range: [1, 13] }
+  nitrogen_fixation: { category: ecology }
+
+  # --- Cultivation (only "missing" for edible/vegetable species) ---
+  planting_description: { category: cultivation, applicable_if: edible_or_vegetable }
+  planting_sowing_description: { category: cultivation, applicable_if: edible_or_vegetable }
+  planting_days_to_harvest: { category: cultivation, unit: days, plausible_range: [1, 3650], applicable_if: edible_or_vegetable }
+  planting_row_spacing_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: edible_or_vegetable }
+  planting_spread_cm: { category: cultivation, unit: cm, plausible_range: [1, 10000], applicable_if: edible_or_vegetable }
+  minimum_root_depth_cm: { category: cultivation, unit: cm, plausible_range: [1, 3000] }
+  edible: { category: derived } # derived from edible_part / vegetable in the serializer
+
+  # --- USDA legacy (US-only agronomic ratings, not exposed by the API,
+  #     kept in DB but excluded from completion) ---
+  frost_free_days_minimum: { category: usda_legacy, plausible_range: [0, 365] }
+  protein_potential: { category: usda_legacy }
+  adapted_to_coarse_textured_soils: { category: usda_legacy }
+  adapted_to_medium_textured_soils: { category: usda_legacy }
+  adapted_to_fine_textured_soils: { category: usda_legacy }
+  anaerobic_tolerance: { category: usda_legacy }
+  c_n_ratio: { category: usda_legacy }
+  known_allelopath: { category: usda_legacy }
+  caco_3_tolerance: { category: usda_legacy }
+  lifespan: { category: usda_legacy }
+  maturation_order: { category: usda_legacy }
+
+  # --- Deprecated / derived duplicates ---
+  propagated_by: { category: deprecated } # marked @TODO DEPRECATED in the model
+  minimum_temperature_deg_f: { category: derived } # dup of deg_c
+  maximum_temperature_deg_f: { category: derived } # dup of deg_c

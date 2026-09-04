@@ -21,6 +21,9 @@ module Ingester
       @data = data&.deep_symbolize_keys&.compact
       # @data[:scientific_name] = "Mama mia"
       @dry_run = options[:dry_run] || false
+      # Explicit source of this ingestion (e.g. 'community' for accepted
+      # corrections). Otherwise inferred from the source_* keys of the data.
+      @source = options[:source]&.to_s
       @species = ::Species.friendly.find(options[:species_id]) if options[:species_id]
 
       return unless @data
@@ -51,6 +54,10 @@ module Ingester
 
       # We apply all the data we have on it
       assign_attributes!
+
+      # Source arbitration on trait fields: reject implausible values, keep the
+      # column value of a stronger source, and collect provenance facts
+      @pending_facts = arbitrate_traits!
 
       # We update it (or juste return the changes if dry run)
       save_or_return!
@@ -112,6 +119,7 @@ module Ingester
         puts "  saved_changes: #{@species.saved_changes}"
 
         if a
+          persist_facts!
           puts '[Ingester] Ingested !'
         else
           puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
@@ -222,6 +230,73 @@ module Ingester
         valid: @species&.valid?,
         errors: @species&.errors&.full_messages
       }
+    end
+
+    # --- Source arbitration & provenance -----------------------------------
+
+    RESERVED_SOURCE_KEYS = %w[id name type reference url].freeze
+
+    # The source of this ingestion: explicit option, else inferred from the
+    # source_* keys of the data (strongest one if several), else 'unknown'.
+    def detected_source
+      return @source if @source.present?
+
+      slugs = @data.keys.map(&:to_s)
+        .filter {|k| k.start_with?('source_') }
+        .map {|k| k.sub(/\Asource_/, '') }
+        .reject {|s| RESERVED_SOURCE_KEYS.include?(s) }
+        .map {|s| s.sub(/_[a-z]{2}\z/, '') } # source_wikipedia_en -> wikipedia
+
+      slugs.min_by {|s| Traits.priority_index(s) } || 'unknown'
+    end
+
+    # For each changed trait field:
+    # - implausible value  -> revert the assignment, fact recorded as :rejected
+    # - stronger source already claims this attribute and the column is filled
+    #   -> revert the assignment (the claim is still recorded as :active)
+    # Returns the facts to persist after a successful save.
+    def arbitrate_traits!
+      source = detected_source
+      facts = []
+
+      @species.changes.slice(*Traits.completion_fields).each do |attr, (old_value, new_value)|
+        next if new_value.nil?
+
+        unless Traits.plausible?(attr, new_value)
+          @species.send("#{attr}=", old_value)
+          facts << { attribute_name: attr, source: source, value: new_value,
+                     status: :rejected,
+                     notes: "implausible: outside #{Traits.field(attr)['plausible_range']}" }
+          next
+        end
+
+        if Traits.filled?(attr, old_value) && outranked_by_stronger_fact?(attr, source)
+          puts "[Ingester][Arbitration] keeping #{attr} (a stronger source claims it, '#{source}' recorded as fact only)"
+          @species.send("#{attr}=", old_value)
+        end
+
+        facts << { attribute_name: attr, source: source, value: new_value, status: :active }
+      end
+
+      facts
+    end
+
+    def outranked_by_stronger_fact?(attr, source)
+      return false unless @species.persisted?
+
+      strongest_other = @species.species_facts.active_status.for_attribute(attr)
+        .where.not(source: source)
+        .min_by {|f| Traits.priority_index(f.source) }
+
+      strongest_other && Traits.priority_index(strongest_other.source) < Traits.priority_index(source)
+    end
+
+    def persist_facts!
+      (@pending_facts || []).each do |fact|
+        ::SpeciesFact.record!(species: @species, **fact)
+      end
+    rescue StandardError => e
+      Rails.logger.warn("[Ingester] Unable to record facts for #{@species&.scientific_name}: #{e.message}")
     end
 
   end
