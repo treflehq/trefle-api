@@ -525,9 +525,8 @@ GEM
     rubyzip (3.2.2)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
-    searchkick (5.4.0)
-      activemodel (>= 6.1)
-      hashie
+    searchkick (6.1.2)
+      activemodel (>= 7.2)
     securerandom (0.4.1)
     seed_dump (3.4.1)
       activerecord (>= 4)
@@ -697,7 +696,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rufus-scheduler (>= 3.4.2)
-  searchkick
+  searchkick (~> 6.0)
   seed_dump
   selenium-webdriver
   sentry-rails (~> 7.0)
