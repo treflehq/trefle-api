@@ -35,7 +35,14 @@ module Migrators
     end
 
     def self.uri_for(link)
-      link&.gsub(%r{^//}, 'https://')&.gsub('http://', 'https://')&.gsub(' ', '%20')
+      link = link&.gsub(%r{^//}, 'https://')&.gsub('http://', 'https://')&.gsub(' ', '%20')
+      return link if link.nil?
+
+      # Some crawled URLs (POWO asset paths in particular) carry unescaped
+      # non-ASCII characters (accented author names). URI.parse/HTTParty
+      # raise URI::InvalidURIError on those, so percent-encode them here
+      # rather than leaving it to the caller.
+      URI::DEFAULT_PARSER.escape(link, /[^\x00-\x7F]/)
     end
   end
 end
