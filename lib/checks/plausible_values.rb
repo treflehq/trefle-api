@@ -5,12 +5,12 @@ module Checks
   class PlausibleValues < Check
 
     def run
-      implausible = implausible_fields
+      implausible = implausible_fields + out_of_vocabulary_fields
       cross = inconsistent_bounds
 
       return if implausible.empty? && cross.empty?
 
-      notes = implausible.map {|n, v| "#{n}=#{v} outside plausible range #{Traits.field(n)['plausible_range']}" }
+      notes = implausible.map {|n, v| "#{n}=#{v.inspect} is not an accepted value" }
       notes += cross.map {|c| "inconsistent bounds: #{c}" }
 
       get_or_create_warning_for_record(
@@ -40,6 +40,18 @@ module Checks
         value = @species.attributes[name]
         next unless value.is_a?(Numeric)
         next if Traits.plausible?(name, value)
+
+        [name, value]
+      end
+    end
+
+    # Free-text columns constrained by a closed vocabulary (allowed_values)
+    def out_of_vocabulary_fields
+      Traits.fields.keys.filter_map do |name|
+        next unless Traits.allowed_values(name)
+
+        value = @species.attributes[name]
+        next if value.nil? || Traits.allowed_value?(name, value)
 
         [name, value]
       end

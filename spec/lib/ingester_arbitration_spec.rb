@@ -150,4 +150,33 @@ RSpec.describe 'Ingester source arbitration' do
     end
   end
 
+  describe 'closed vocabularies (allowed_values)' do
+    it 'accepts a value from the vocabulary' do
+      ingest({ source_usda: 'x', nitrogen_fixation: 'High' })
+
+      expect(species.reload.nitrogen_fixation).to eq('High')
+    end
+
+    it 'rejects a value outside the vocabulary without assigning it' do
+      ingest({ source_pfaf: 'x', nitrogen_fixation: 'very high' })
+
+      expect(species.reload.nitrogen_fixation).to be_nil
+      fact = species.species_facts.find_by(attribute_name: 'nitrogen_fixation')
+      expect(fact.status).to eq('rejected')
+      expect(fact.notes).to include('allowed vocabulary')
+    end
+
+    it 'is case-sensitive, so spelling drift is caught rather than absorbed' do
+      ingest({ source_pfaf: 'x', nitrogen_fixation: 'high' })
+
+      expect(species.reload.nitrogen_fixation).to be_nil
+    end
+
+    it 'leaves unconstrained text fields alone' do
+      ingest({ source_pfaf: 'x', growth_habit: 'Forb/herb' })
+
+      expect(species.reload.growth_habit).to eq('Forb/herb')
+    end
+  end
+
 end

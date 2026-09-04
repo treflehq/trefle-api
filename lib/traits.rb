@@ -68,6 +68,20 @@ module Traits
       value >= range[0] && value <= range[1]
     end
 
+    # Closed vocabulary check for free-text columns (allowed_values). Fields
+    # without one accept anything; nil is handled by filled?, not here.
+    def allowed_value?(name, value)
+      allowed = field(name)&.dig('allowed_values')
+      return true unless allowed
+      return true if value.nil?
+
+      allowed.map(&:to_s).include?(value.to_s)
+    end
+
+    def allowed_values(name)
+      field(name)&.dig('allowed_values')
+    end
+
     def cross_field_rules
       config['cross_field_rules'] || []
     end

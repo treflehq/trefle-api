@@ -270,6 +270,14 @@ module Ingester
           next
         end
 
+        unless Traits.allowed_value?(attr, new_value)
+          @species.send("#{attr}=", old_value)
+          facts << { attribute_name: attr, source: source, value: new_value,
+                     status: :rejected,
+                     notes: "outside the allowed vocabulary #{Traits.allowed_values(attr).inspect}" }
+          next
+        end
+
         if Traits.filled?(attr, old_value) && outranked_for?(attr, source)
           puts "[Ingester][Arbitration] keeping #{attr} (another source claims it at least as strongly, '#{source}' recorded as fact only)"
           @species.send("#{attr}=", old_value)
