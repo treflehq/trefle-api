@@ -50,6 +50,7 @@ describe 'Auth API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.schema_href(schema: 'error')
         let(:token) { 'invalid' }
         let(:claim_params) do
           {
@@ -61,6 +62,7 @@ describe 'Auth API' do
       end
 
       response '422', 'Missing parameters' do
+        schema Schemas::Helpers.schema_href(schema: 'error')
         let(:token) { user.token }
         let(:claim_params) do
           {
