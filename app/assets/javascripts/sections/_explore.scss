@@ -121,7 +121,7 @@
     align-items: flex-start;
     
     h2.title {
-      font-size: 1em;
+      font-size: $size-h6;
       font-weight: 700;
       margin-bottom: 1em;
     }
@@ -176,7 +176,7 @@
 
   main {
     h2 {
-      font-size: 1.3em;
+      font-size: $size-h5;
       font-weight: 700;
     }
 
@@ -220,6 +220,17 @@
   max-height: 32px;
   width: 32px;
   border-radius: 32px;
+}
+
+// Data earns the mono voice back explicitly now that .home-page no longer
+// blankets the whole page in it (see #234): scientific/taxonomic names and
+// the field values/labels on a species page.
+.scientific-name {
+  font-family: $family-monospace;
+}
+
+.fieldItem {
+  font-family: $family-monospace;
 }
 
 .fieldItem.edit {

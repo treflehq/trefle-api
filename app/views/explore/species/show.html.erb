@@ -40,7 +40,7 @@
           <div class="columns is-multiline">
             <% @species.synonyms.each do |s| %>
               <div class="synonym-item column is-12">
-                <h3 class="title is-5"><%= s.name %> <small><i><%= s.author || 'Unknown author' %></i></small></h1>
+                <h3 class="title is-5 scientific-name"><%= s.name %> <small><i><%= s.author || 'Unknown author' %></i></small></h3>
                 <%
 =begin%>
  <% s.foreign_sources_plants.each do |fo| %>
