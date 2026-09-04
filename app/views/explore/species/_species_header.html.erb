@@ -16,6 +16,9 @@
           <div class="container">
             <h1 class="title is-1 scientific-name">
               <%= species.scientific_name %>
+              <span class="species-completion tag is-light" title="Share of this species' data that is filled in">
+                <%= species.completion_ratio || 0 %>% complete
+              </span>
             </h1>
             <h2 class="subtitle">
               <%= species.common_name || 'No common name' %>

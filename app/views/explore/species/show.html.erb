@@ -64,6 +64,7 @@
 <script>
   var temp_token = "<%= current_user&.token || @jwt.token %>";
   var _enableManagement = <%= current_user&.admin ? 'true' : 'false' %>;
+  var signInPath = "<%= new_user_session_path %>";
 </script>
 
 <%= javascript_include_tag 'explore/SpeciesPage' %>

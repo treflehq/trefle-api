@@ -1,5 +1,5 @@
 
-import { map, capitalize } from 'lodash';
+import { map, capitalize, isNil } from 'lodash';
 import React, { useContext } from 'react'
 import ReactIntense from 'react-intense'
 import FieldCalendar from './fields/FieldCalendar';
@@ -29,6 +29,7 @@ import FieldImage from './fields/FieldImage';
 import FieldEdiblePart from './fields/FieldEdiblePart';
 import ReportModal from './elements/ReportModal';
 import Icon from '../shared/Icon';
+import MissingFieldsNotice from './elements/MissingFieldsNotice';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
@@ -108,26 +109,74 @@ const Species = ({ species }) => {
   const renderGrowing = () => {
     const { growth } = species
 
+    // Each entry knows whether the species actually has this data. In view
+    // mode, fields without data are skipped instead of rendering their
+    // "unknown" label next to an empty meter (see issue #238); a single
+    // MissingFieldsNotice below replaces them all. Edit mode still shows
+    // every field, since that's where a contributor fills them in.
+    const climateFields = [
+      {
+        present: !isNil(growth.light),
+        element: <FieldLight name="light" value={growth.light} />
+      },
+      {
+        present: !isNil(growth.atmospheric_humidity),
+        element: <FieldAtmosphericHumidity name="atmospheric_humidity" value={growth.atmospheric_humidity} />
+      },
+      {
+        present: !isNil(growth.ph_minimum) || !isNil(growth.ph_maximum),
+        element: <FieldPh min={growth.ph_minimum} max={growth.ph_maximum} />
+      },
+      {
+        present: !isNil(growth.minimum_precipitation && growth.minimum_precipitation.mm) || !isNil(growth.maximum_precipitation && growth.maximum_precipitation.mm),
+        element: <FieldPrecipitations min={growth.minimum_precipitation && growth.minimum_precipitation.mm} max={growth.maximum_precipitation && growth.maximum_precipitation.mm} />
+      },
+      {
+        present: !isNil(growth.minimum_temperature && growth.minimum_temperature.deg_c) || !isNil(growth.maximum_temperature && growth.maximum_temperature.deg_c),
+        element: <FieldTemperature min={growth.minimum_temperature && growth.minimum_temperature.deg_c} max={growth.maximum_temperature && growth.maximum_temperature.deg_c} />
+      }
+    ]
+
+    const soilFields = [
+      {
+        present: !isNil(growth.soil_humidity),
+        element: <FieldSoilHumidity name={'ground_humidity'} value={growth.soil_humidity} />
+      },
+      {
+        present: !isNil(growth.soil_nutriments),
+        element: <FieldSoilNutriments name={'soil_nutriments'} value={growth.soil_nutriments} />
+      },
+      {
+        present: !isNil(growth.soil_salinity),
+        element: <FieldSoilSalinity name={'soil_salinity'} value={growth.soil_salinity} />
+      },
+      {
+        present: !isNil(growth.soil_texture),
+        element: <FieldSoilTexture name={'soil_texture'} value={growth.soil_texture} />
+      }
+    ]
+
+    const missingCount = [...climateFields, ...soilFields].filter(f => !f.present).length
+    const visibleClimateFields = edit ? climateFields : climateFields.filter(f => f.present)
+    const visibleSoilFields = edit ? soilFields : soilFields.filter(f => f.present)
+
     return (<section className="section content" id="growth">
       <h2 className="title is-3 ">
         <Icon name="seedling" className="has-text-success" /> Growing
         {/* <EditButton /> */}
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
-      <FieldLight name="light" value={growth.light} />
-      <FieldAtmosphericHumidity name="atmospheric_humidity" value={growth.atmospheric_humidity} />
-      <FieldPh min={growth.ph_minimum} max={growth.ph_maximum} />
-      <FieldPrecipitations min={growth.minimum_precipitation && growth.minimum_precipitation.mm} max={growth.maximum_precipitation && growth.maximum_precipitation.mm} />
-      <FieldTemperature min={growth.minimum_temperature && growth.minimum_temperature.deg_c} max={growth.maximum_temperature && growth.maximum_temperature.deg_c} />
+      {visibleClimateFields.map((f, i) => <React.Fragment key={i}>{f.element}</React.Fragment>)}
 
-      <br />
-      <h4 className="title is-5 ">
-        Soil
-      </h4>
-      <FieldSoilHumidity name={'ground_humidity'} value={growth.soil_humidity} />
-      <FieldSoilNutriments name={'soil_nutriments'} value={growth.soil_nutriments} />
-      <FieldSoilSalinity name={'soil_salinity'} value={growth.soil_salinity} />
-      <FieldSoilTexture name={'soil_texture'} value={growth.soil_texture} />
+      { (edit || visibleSoilFields.length > 0) && <>
+        <br />
+        <h4 className="title is-5 ">
+          Soil
+        </h4>
+        {visibleSoilFields.map((f, i) => <React.Fragment key={i}>{f.element}</React.Fragment>)}
+      </> }
+
+      { !edit && <MissingFieldsNotice count={missingCount} /> }
 
       <br />
       <h4 className="title is-5 ">
