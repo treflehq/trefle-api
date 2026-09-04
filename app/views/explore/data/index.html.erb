@@ -6,7 +6,7 @@
         <div class="hero-body">
           <div class="container">
             <h1 class="title is-1">
-              <i class="fad has-text-primary fa-database"></i>
+              <%= fa_icon('database', class: 'has-text-primary') %>
               Data archives
             </h1>
             <h2 class="subtitle">
@@ -18,8 +18,8 @@
 
       <section class="section content" id="species-data">
         <p>
-          <a class="button is-primary" href="https://github.com/treflehq/dump/raw/master/species.csv" target="_blank" rel="nofollow"><i class="fad fa-download mr-2"></i> Download latest dump</a>
-          <a class="button " href="https://github.com/treflehq/dump" target="_blank" rel="nofollow"><i class="fab fa-github mr-2"></i> See on Github</a>
+          <a class="button is-primary" href="https://github.com/treflehq/dump/raw/master/species.csv" target="_blank" rel="nofollow"><%= fa_icon('download', class: 'mr-2') %> Download latest dump</a>
+          <a class="button " href="https://github.com/treflehq/dump" target="_blank" rel="nofollow"><%= fa_icon('github', style: :brands, class: 'mr-2') %> See on Github</a>
         </p>
         <p>Database archive is automatically updated after a certain amount of changes. The database archive is a tab-separated text file.</p>
 

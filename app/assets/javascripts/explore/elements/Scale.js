@@ -2,6 +2,7 @@
 import React from 'react'
 import { range } from 'lodash'
 import clsx from 'clsx'
+import Icon from '../../shared/Icon'
 
 const Scale = ({
   label,
@@ -16,12 +17,12 @@ const Scale = ({
 
   const values = range(min, max + 1, step)
   return (<span className="scaleItem">
-    {leftIcon && <i className={clsx('fad', `fa-${leftIcon}`)} /> || <span className="blanker" /> }
+    {leftIcon && <Icon name={leftIcon} /> || <span className="blanker" /> }
     <span className="scaleItemContainer">
       {values.map(v => <span key={v} className={clsx('scaleItem-step', v == value && 'current')}>
       </span>)}
     </span>
-    {rightIcon && <i className={clsx('fad', `fa-${rightIcon}`)} />}
+    {rightIcon && <Icon name={rightIcon} />}
   </span>)
 }
 

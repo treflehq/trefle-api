@@ -44,7 +44,7 @@
         <% species.foreign_sources_plants.each do |fsp| %>
           <li>
           <%= link_to(fsp.full_url, target: '_blank', rel: 'noopener') do %>
-            <i class="fa fa-external-link"></i>
+            <%= fa_icon('external-link', style: :solid) %>
             See on <%= "#{fsp.foreign_source&.name}" %>
           <% end %>
           </li>

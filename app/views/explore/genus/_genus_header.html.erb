@@ -22,7 +22,7 @@
             <%
 =begin%>
  <p class="subtitle">
-              <i class="fad fa-book has-text-success"></i> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
+              <%= fa_icon('book', class: 'has-text-success') %> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
               <br />
               <%= species.observations %>
             </p>  

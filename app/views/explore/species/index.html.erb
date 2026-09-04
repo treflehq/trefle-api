@@ -6,7 +6,7 @@
         <div class="hero-body">
           <div class="container">
             <h1 class="title is-1">
-              <i class="fad has-text-primary fa-compass"></i>
+              <%= fa_icon('compass', class: 'has-text-primary') %>
               Explore
             </h1>
             <h2 class="subtitle">
@@ -18,7 +18,7 @@
           <div class="control has-icons-left">
             <input class="input is-large" name="search" value="<%= params[:search] %>" type="search" placeholder="Search">
             <span class="icon is-medium is-left">
-              <i class="fad has-text-primary fa-search"></i>
+              <%= fa_icon('search', class: 'has-text-primary') %>
             </span>
           </div>
         <% end %>

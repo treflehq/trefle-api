@@ -28,6 +28,7 @@ import EditButton from './elements/EditButton';
 import FieldImage from './fields/FieldImage';
 import FieldEdiblePart from './fields/FieldEdiblePart';
 import ReportModal from './elements/ReportModal';
+import Icon from '../shared/Icon';
 
 const Species = ({ species }) => {
   const { toggleEdit, correction, edit } = useContext(CorrectionContext)
@@ -74,7 +75,7 @@ const Species = ({ species }) => {
 
         <ReportModal />
         <h2 className="title is-3 ">
-          <i className="fad fa-cog has-text-success"></i> Specifications
+          <Icon name="cog" className="has-text-success" /> Specifications
           {/* <EditButton /> */}
         </h2>
         <div className="columns is-multiline">
@@ -91,9 +92,9 @@ const Species = ({ species }) => {
             <p><b>Edible part(s)</b>: <FieldEdiblePart value={edible_part} key="edible_part" name="edible_part" /></p>
           </div>
           <div className={clsx("column", edit ? 'is-12' : 'is-6')}>
-            <div className="line"><i className="fad fa-flower" />{' '}{flowerFields}{' flowers'}</div>
-            <div className="line"><i className="fad fa-leaf-maple"/>{' '}{foliageFields}{' foliage'}</div>
-            <div className="line"><i className="fad fa-lemon" />{' '}{fruitFields}{' fruits'}</div>
+            <div className="line"><Icon name="flower" />{' '}{flowerFields}{' flowers'}</div>
+            <div className="line"><Icon name="leaf-maple" />{' '}{foliageFields}{' foliage'}</div>
+            <div className="line"><Icon name="lemon" />{' '}{fruitFields}{' fruits'}</div>
           </div>
         </div>
       </section>
@@ -109,7 +110,7 @@ const Species = ({ species }) => {
 
     return (<section className="section content" id="growth">
       <h2 className="title is-3 ">
-        <i className="fad fa-seedling has-text-success"></i> Growing
+        <Icon name="seedling" className="has-text-success" /> Growing
         {/* <EditButton /> */}
       </h2>
       { growth.description && <ReactMarkdown source={growth.description} /> }
@@ -141,7 +142,7 @@ const Species = ({ species }) => {
     return (
       <section className="section content" id="images">
         <h2 className="title is-3 ">
-          <i className="fad fa-image has-text-success"></i> Images
+          <Icon name="image" className="has-text-success" /> Images
           {/* <EditButton /> */}
         </h2>
         {map(species.images, (images, itype) => {
@@ -168,7 +169,7 @@ const Species = ({ species }) => {
     return (
       <section className="section content" id="distribution">
         <h2 className="title is-3 ">
-          <i className="fad fa-map has-text-success"></i> Distributions
+          <Icon name="map" className="has-text-success" /> Distributions
         </h2>
         {map(species.distribution, (zones, itype) => {
           if (zones.length == 0) {
@@ -186,7 +187,7 @@ const Species = ({ species }) => {
     return (
       <section className="section content" id="synonyms">
         <h2 className="title is-3 ">
-          <i className="fad fa-clone has-text-success"></i> Synonyms
+          <Icon name="clone" className="has-text-success" /> Synonyms
         </h2>
         {species.synonyms.map(syn => {
           return (<div key={syn.id}>

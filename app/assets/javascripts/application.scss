@@ -106,3 +106,20 @@ span.token.number {
 .user-image {
   margin-right: 10px;
 }
+
+// Replaces the sizing classes the FontAwesome runtime kit (all.min.js) used
+// to inject itself, now that icons render as plain inline <svg> (see #231).
+.fa-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+.fa-icon.fa-lg {
+  width: 1.33333em;
+  height: 1.33333em;
+}
+.fa-icon.fa-3x {
+  width: 3em;
+  height: 3em;
+}

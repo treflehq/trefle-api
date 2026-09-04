@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Icon from '../shared/Icon';
 
 const DataPage = ({ slug }) => {
   const [response, setResponse] = useState({})
@@ -22,10 +23,10 @@ const DataPage = ({ slug }) => {
     return <div>
       <div className="field is-grouped">
         <p className="control">
-          <a className="button is-primary" href={asset && asset.browser_download_url} target="_blank" rel="nofollow"><i class="fad fa-download mr-2"></i> Download csv ({size}Mo)</a>
+          <a className="button is-primary" href={asset && asset.browser_download_url} target="_blank" rel="nofollow"><Icon name="download" className="mr-2" /> Download csv ({size}Mo)</a>
         </p>
         <p className="control">
-          <a className="button " href="https://github.com/treflehq/dump" target="_blank" rel="nofollow"><i class="fab fa-github mr-2"></i> See on Github</a>
+          <a className="button " href="https://github.com/treflehq/dump" target="_blank" rel="nofollow"><Icon name="github" style="brands" className="mr-2" /> See on Github</a>
         </p>
       </div>
       <br />

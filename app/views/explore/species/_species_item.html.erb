@@ -5,12 +5,12 @@
 
         <% if species.edible? %>
           <span class="icon has-text-success is-small" title="Edible species">
-            <i class="fad is-rounded fa-utensils is-primary"></i>
+            <%= fa_icon('utensils', class: 'is-rounded is-primary') %>
           </span>
         <% end %>
         <% if species.vegetable? %>
           <span class="icon has-text-primary is-small" title="Vegetable species">
-            <i class="fad is-rounded fa-carrot is-primary"></i>
+            <%= fa_icon('carrot', class: 'is-rounded is-primary') %>
           </span>
         <% end %>
       <%= species.scientific_name %>
