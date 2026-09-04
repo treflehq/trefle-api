@@ -17,6 +17,9 @@
 #   applicable_if:    always (default) | vegetable | edible_or_vegetable — a
 #                     field only counts as "missing" when it is applicable
 #   zero_means_empty: true for bitmask flags / enums where 0 = "not documented"
+#   allowed_values:   closed vocabulary for a free-text column — the ingester
+#                     rejects anything else, so a convention stays a contract
+#                     rather than a habit
 
 version: 1
 
@@ -139,7 +142,10 @@ fields:
   minimum_precipitation_mm: { category: ecology, unit: mm, plausible_range: [0, 15000] }
   maximum_precipitation_mm: { category: ecology, unit: mm, plausible_range: [0, 15000] }
   hardiness_zone: { category: ecology, plausible_range: [1, 13] }
-  nitrogen_fixation: { category: ecology }
+  # Rating scale inherited from USDA PLANTS, where this column originates.
+  # The database held no value at all, so this fixes the vocabulary before
+  # divergent spellings spread.
+  nitrogen_fixation: { category: ecology, allowed_values: [None, Low, Medium, High] }
 
   # --- Cultivation: guidance for growing a crop, so it only counts as missing
   #     for species actually cultivated (vegetable), not for anything that
