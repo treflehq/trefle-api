@@ -1,7 +1,6 @@
 
 import { map, capitalize, isNil } from 'lodash';
 import React, { useContext } from 'react'
-import ReactIntense from 'react-intense'
 import FieldCalendar from './fields/FieldCalendar';
 import ReactMarkdown from 'react-markdown'
 import FieldLight from './fields/FieldLight';
@@ -205,7 +204,7 @@ const Species = ({ species }) => {
             </h4>
             <div className="columns is-multiline">
               {images.map(i => <div key={i.id} className="column is-2">
-                <FieldImage image={i} />
+                <FieldImage image={i} title={capitalize(itype)} />
               </div>)}
             </div>
           </div>)

@@ -6,6 +6,7 @@ import Species from './Species';
 import { useEffect } from 'react';
 import CorrectionContext from './CorrectionContext';
 import Review from './Review';
+import SpeciesSkeleton from './elements/SpeciesSkeleton';
 
 const SpeciesPage = ({ slug }) => {
   const [submission, setSubmission] = useState({})
@@ -110,9 +111,7 @@ const SpeciesPage = ({ slug }) => {
       </CorrectionContext.Provider>
     </>
   } else {
-    return (<div>
-      <h2>Loading...</h2>
-    </div>)
+    return <SpeciesSkeleton />
   }
 }
 
