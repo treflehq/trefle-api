@@ -195,6 +195,18 @@ class Api::V1::SpeciesController < Api::ApiController
     )
   end
 
+  # Provenance of the species trait values: one row per (attribute, source)
+  # claim, including superseded and rejected ones (transparency)
+  def facts
+    @resource = Species.friendly.find(params[:id])
+    facts = @resource.species_facts.order(:attribute_name, :source, :id)
+
+    render json: Panko::Response.new(
+      data: Panko::ArraySerializer.new(facts, each_serializer: SpeciesFactSerializer).to_a,
+      meta: { total: facts.length }
+    )
+  end
+
   # Search on database
   # @TODO @deprecated
   def full_search

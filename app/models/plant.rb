@@ -68,19 +68,9 @@ class Plant < ApplicationRecord
 
   before_validation :update_completion_ratio!
 
+  # A plant is as complete as its main species (see Species#current_completion_percentage)
   def current_completion_percentage
-    return 0 unless main_species
-
-    ignored = [
-      *main_species.attributes.keys.filter {|e| e.starts_with?('z_leg_') },
-      'id', 'inserted_at', 'updated_at', 'created_at', 'complete_data'
-    ]
-
-    total = main_species.attributes.without(ignored).keys.count
-    complete = main_species.attributes.without(ignored).values.reject {|e| e.nil? || e.blank? || e == 0 }.count
-
-    Rails.logger.debug("[current_completion_percentage] #{complete} complete fields over #{total} fields")
-    ((complete.to_f / total.to_f).to_f * 100).to_i # rubocop:todo Style/FloatDivision
+    main_species&.current_completion_percentage || 0
   end
 
   def update_completion_ratio!
@@ -108,7 +98,7 @@ class Plant < ApplicationRecord
   end
 
   def hybrids
-    species.subvar_rank
+    species.hybrid_rank
   end
 
   def forms
@@ -116,7 +106,7 @@ class Plant < ApplicationRecord
   end
 
   def subvarieties
-    species.hybrid_rank
+    species.subvar_rank
   end
 
 end

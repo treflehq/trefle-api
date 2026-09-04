@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_09_30_132420) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_04_100001) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
-  enable_extension "plpgsql"
 
   create_table "common_names", force: :cascade do |t|
     t.string "record_type", null: false
@@ -23,6 +23,21 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_132420) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id"], name: "index_common_names_on_record_type_and_record_id"
+  end
+
+  create_table "data_quality_snapshots", force: :cascade do |t|
+    t.date "snapshot_on", null: false
+    t.string "dimension", null: false
+    t.string "dimension_value"
+    t.string "attribute_name"
+    t.integer "species_count", default: 0, null: false
+    t.integer "filled_count", default: 0, null: false
+    t.integer "implausible_count", default: 0, null: false
+    t.integer "conflict_count", default: 0, null: false
+    t.jsonb "details", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["snapshot_on", "dimension", "dimension_value", "attribute_name"], name: "idx_quality_snapshots_unique", unique: true
   end
 
   create_table "division_classes", force: :cascade do |t|
@@ -472,6 +487,27 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_132420) do
     t.index ["zone_id"], name: "index_species_distributions_on_zone_id"
   end
 
+  create_table "species_facts", force: :cascade do |t|
+    t.bigint "species_id", null: false
+    t.string "attribute_name", null: false
+    t.string "source", null: false
+    t.string "value"
+    t.decimal "value_numeric"
+    t.string "unit"
+    t.integer "evidence_type", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.string "source_record_id"
+    t.string "source_url"
+    t.text "notes"
+    t.integer "n_observations"
+    t.datetime "observed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attribute_name", "status"], name: "index_species_facts_on_attribute_name_and_status"
+    t.index ["species_id", "attribute_name", "source"], name: "idx_species_facts_one_active_per_source", unique: true, where: "(status = 0)"
+    t.index ["species_id", "attribute_name"], name: "index_species_facts_on_species_id_and_attribute_name"
+  end
+
   create_table "species_images", force: :cascade do |t|
     t.string "image_url", limit: 255, null: false
     t.integer "species_id"
@@ -704,6 +740,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_132420) do
   add_foreign_key "species", "plants", name: "species_plant_id_fkey"
   add_foreign_key "species_distributions", "species"
   add_foreign_key "species_distributions", "zones"
+  add_foreign_key "species_facts", "species"
   add_foreign_key "species_proposals", "genuses", column: "genus_id", name: "species_proposals_genus_id_fkey"
   add_foreign_key "species_proposals", "users", name: "species_proposals_user_id_fkey"
   add_foreign_key "species_trends", "foreign_sources"

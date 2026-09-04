@@ -35,7 +35,7 @@ class Corrections::ValidateRecordCorrection
 
   # Validate ingester
   def check_ingestion!
-    context.ingester = Ingester::Species.new(context.correction, dry_run: true)
+    context.ingester = Ingester::Species.new(context.correction, dry_run: true, source: 'community')
     result = context.ingester.ingest!
     context.fail!(messages: result[:errors]) if result[:errors].any?
     context.fail!(messages: 'This correction don\'t seems to change anything') if result[:changes].empty?

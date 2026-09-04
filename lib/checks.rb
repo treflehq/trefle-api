@@ -3,7 +3,7 @@ module Checks
   # Checks::NameAcceptance (external APIs) and Checks::SpeciesDuplicates
   # (whole-table scan) are heavier and must be scheduled on their own.
   def self.run_all(species_id)
-    [Checks::GenusName, Checks::GenusSpecies, Checks::ScientificNameFormat].map do |check|
+    [Checks::GenusName, Checks::GenusSpecies, Checks::ScientificNameFormat, Checks::PlausibleValues].map do |check|
       check.run(species_id)
     end
   end

@@ -21,6 +21,7 @@
         <span class="tag is-info is-small"><%= RecordCorrection.pending_change_status.count %><span>
       <% end %>
       <%= link_to('Chaos', chaos_management_species_images_path, class: 'navbar-item') %>
+      <%= link_to('Data quality', management_data_quality_path, class: 'navbar-item') %>
       <%= link_to('Queries', management_user_queries_path, class: 'navbar-item') %>
       <%= link_to('Stats', stats_management_user_queries_path, class: 'navbar-item') %>
       <%= link_to('Users', management_users_path, class: 'navbar-item') %>
