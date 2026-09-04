@@ -1,0 +1,75 @@
+// Self-hosted webfonts, bundled from the @fontsource packages through the
+// existing webpack pipeline (see the woff2/woff file-loader rule in
+// config/webpack/webpack.config.js). Nothing is fetched from a third-party
+// origin: no Google Fonts <link>/@import, no render-blocking cross-origin
+// request (see #234).
+//
+// Public Sans carries body copy, headings and UI text. Roboto Mono stays for
+// code samples, scientific names and data values/labels ($family-monospace,
+// sections/_variables.scss).
+
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/public-sans/files/public-sans-latin-400-normal.woff2') format('woff2'),
+       url('@fontsource/public-sans/files/public-sans-latin-400-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/public-sans/files/public-sans-latin-500-normal.woff2') format('woff2'),
+       url('@fontsource/public-sans/files/public-sans-latin-500-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('@fontsource/public-sans/files/public-sans-latin-600-normal.woff2') format('woff2'),
+       url('@fontsource/public-sans/files/public-sans-latin-600-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('@fontsource/public-sans/files/public-sans-latin-700-normal.woff2') format('woff2'),
+       url('@fontsource/public-sans/files/public-sans-latin-700-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('@fontsource/roboto-mono/files/roboto-mono-latin-300-normal.woff2') format('woff2'),
+       url('@fontsource/roboto-mono/files/roboto-mono-latin-300-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff2') format('woff2'),
+       url('@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/roboto-mono/files/roboto-mono-latin-500-normal.woff2') format('woff2'),
+       url('@fontsource/roboto-mono/files/roboto-mono-latin-500-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('@fontsource/roboto-mono/files/roboto-mono-latin-700-normal.woff2') format('woff2'),
+       url('@fontsource/roboto-mono/files/roboto-mono-latin-700-normal.woff') format('woff');
+}
