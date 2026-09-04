@@ -108,7 +108,7 @@ class Plant < ApplicationRecord
   end
 
   def hybrids
-    species.subvar_rank
+    species.hybrid_rank
   end
 
   def forms
@@ -116,7 +116,7 @@ class Plant < ApplicationRecord
   end
 
   def subvarieties
-    species.hybrid_rank
+    species.subvar_rank
   end
 
 end
