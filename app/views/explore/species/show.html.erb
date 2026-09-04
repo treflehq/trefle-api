@@ -20,21 +20,21 @@
 
       <section class="section content" id="specifications">
         <h1 class="title is-4 ">
-          <i class="fad fa-cog has-text-success"></i> Specifications
+          <%= fa_icon('cog', class: 'has-text-success') %> Specifications
         </h1>
 
       </section>
 
       <section class="section content" id="images">
         <h1 class="title is-4 ">
-          <i class="fad fa-image has-text-success"></i> Images
+          <%= fa_icon('image', class: 'has-text-success') %> Images
         </h1>
 
       </section>
 
       <section class="section content logo-section" id="synonyms">
         <h1 class="title is-4 ">
-          <i class="fad fa-clone has-text-success"></i> Synonyms
+          <%= fa_icon('clone', class: 'has-text-success') %> Synonyms
         </h1>
         <% if @species.synonyms.any? %>
           <div class="columns is-multiline">

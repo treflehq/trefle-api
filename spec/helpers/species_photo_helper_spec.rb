@@ -71,7 +71,7 @@ RSpec.describe SpeciesPhotoHelper, type: :helper do
       expect(fragment.at_css('img')).to be_nil
       placeholder = fragment.at_css('div.species-grid-item-photo.species-grid-item-photo--empty')
       expect(placeholder).not_to be_nil
-      expect(placeholder.at_css('i.fa-leaf')).not_to be_nil
+      expect(placeholder.at_css('svg.fa-leaf')).not_to be_nil
     end
   end
 end

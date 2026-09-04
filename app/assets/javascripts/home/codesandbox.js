@@ -9,6 +9,7 @@ import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json';
 import http from 'react-syntax-highlighter/dist/esm/languages/hljs/http';
 import monokai from 'react-syntax-highlighter/dist/esm/styles/hljs/monokai';
 import { DebounceInput } from 'react-debounce-input';
+import Icon from '../shared/Icon';
 
 SyntaxHighlighter.registerLanguage('json', json);
 SyntaxHighlighter.registerLanguage('http', http);
@@ -85,7 +86,7 @@ const CodeSandbox = (props) => {
     <div className="columns">
       <div className="column is-1">
         <h1 className="title has-text-centered">
-          <i className="fad has-text-primary fa-code"></i>
+          <Icon name="code" className="has-text-primary" />
         </h1>
       </div>
       <div className="column is-10">

@@ -7,7 +7,7 @@
         <div class="hero-body">
           <div class="container">
             <h1 class="title is-1">
-              <i class="fad has-text-primary fa-seedling"></i>
+              <%= fa_icon('seedling', class: 'has-text-primary') %>
 
               About
             </h1>
@@ -61,7 +61,7 @@
       <!-- <hr> -->
       <section class="section content" id="privacy">
         <h1 class="title is-4 ">
-          <i class="fad fa-user-secret has-text-success"></i> (very short) privacy policy
+          <%= fa_icon('user-secret', class: 'has-text-success') %> (very short) privacy policy
         </h1>
         <p>Trefle.io take your privacy seriously and will take all measures to protect your personal information.</p>
         <p>Any personal information received will only be used to fulfill your order, and may be used for anonymized internal analytical purposes.</p>
@@ -70,7 +70,7 @@
 
       <section class="section content" id="pricing">
         <h1 class="title is-4 ">
-          <i class="fad fa-money-bill-wave has-text-success"></i> Pricing
+          <%= fa_icon('money-bill-wave', class: 'has-text-success') %> Pricing
         </h1>
         <p><b>Trefle is free for all</b>, and always will be.</p>
         <p>However, server maintenance is expensive, so we impose a limit of 60 requests per minute. If you have higher needs, or just want to help us keep Trefle up and running, you can <a href="https://github.com/sponsors/treflehq" target="_blank">sponsor us on GitHub</a>.</p>
@@ -78,7 +78,7 @@
 
       <section class="section content" id="support">
         <h1 class="title is-4 ">
-          <i class="fad fa-hand-heart has-text-success"></i> Need more requests ?
+          <%= fa_icon('hand-heart', class: 'has-text-success') %> Need more requests ?
         </h1>
         <p><b>Sponsors have an extended request limit of 600 requests/minute.</b></p>
         <p>Read <a href="<%= donate_path %>">how to become a sponsor</a>.</p>
@@ -87,7 +87,7 @@
 
       <section class="section content" id="beta-disclaimer">
         <h1 class="title is-4 ">
-          <i class="fad fa-flask-potion has-text-success"></i>
+          <%= fa_icon('flask-potion', class: 'has-text-success') %>
           Beta disclaimer
         </h1>
         <p>Trefle is actually in beta stage, which implies that bugs and issues may still remain undiscovered until this phase of testing is complete.</p>
@@ -97,7 +97,7 @@
       <hr>
       <section class="section content" id="contact">
         <h1 class="title is-4 ">
-          <i class="fad fa-mailbox has-text-success"></i>
+          <%= fa_icon('mailbox', class: 'has-text-success') %>
 
           Contact us
         </h1>
@@ -117,7 +117,7 @@
               <h2 class="title is-5 has-text-centered">Join us on Discord</h2>
               <p class="has-text-centered">
                 <span class="icon" style="color: #7289da;">
-                  <i class="fab fa-3x fa-lg fa-discord"></i>
+                  <%= fa_icon('discord', style: :brands, class: 'fa-3x fa-lg') %>
                 </span>
               </p>
             </a>
@@ -127,7 +127,7 @@
               <h2 class="title is-5 has-text-centered">Follow us on Twitter</h2>
               <p class="has-text-centered">
                 <span class="icon" style="color: #55acee;">
-                  <i class="fab fa-3x fa-lg fa-twitter"></i>
+                  <%= fa_icon('twitter', style: :brands, class: 'fa-3x fa-lg') %>
                 </span>
               </p>
             </a>

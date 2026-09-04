@@ -8,6 +8,14 @@ RSpec.describe 'Public website pages', type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('plants')
     end
+
+    it 'does not load the FontAwesome runtime kit, and renders icons as inline svg instead' do
+      get root_path
+      expect(response.body).not_to include('fontawesome/js/all.min.js')
+
+      fragment = Nokogiri::HTML.fragment(response.body)
+      expect(fragment.css('svg.fa-icon')).not_to be_empty
+    end
   end
 
   describe 'GET /about' do

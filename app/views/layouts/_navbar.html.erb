@@ -17,20 +17,20 @@
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
-              <i class="fad fa-compass"></i><span> Explore</span>
+              <%= fa_icon('compass') %><span> Explore</span>
             </a>
 
             <div class="navbar-dropdown is-boxed">
               <a class="navbar-item" href="<%= explore_path %>">
-                <i class="fad fa-search"></i><span> Search</span>
+                <%= fa_icon('search') %><span> Search</span>
               </a>
               <a class="navbar-item" href="<%= explore_record_corrections_path(status: :pending) %>">
-                <i class="fad fa-clipboard-list-check"></i><span> Corrections</span>
+                <%= fa_icon('clipboard-list-check') %><span> Corrections</span>
               </a>
               <%
 =begin%>
  <a class="navbar-item" href="<%= explore_data_path %>">
-                <i class="fad fa-database"></i><span> Downloads</span>
+                <%= fa_icon('database') %><span> Downloads</span>
               </a> 
 <%
 =end%>
@@ -39,7 +39,7 @@
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-item " href="https://docs.trefle.io">
-            <i class="fad fa-book"></i><span> Documentation</span>
+            <%= fa_icon('book') %><span> Documentation</span>
           </a>
           <div class="navbar-dropdown is-boxed">
             <a class="navbar-item" href="https://docs.trefle.io/docs/guides/getting-started">Getting started</a>
@@ -51,16 +51,16 @@
 
         <% if user_signed_in? && current_user.admin? %>
         <a class="navbar-item " href="<%= management_path %>">
-          <i class="fad fa-key"></i><span> Management</span>
+          <%= fa_icon('key') %><span> Management</span>
         </a>
         <% end %>
 
         <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
-          <i class="fad fa-clipboard-user"></i><span> About</span>
+          <%= fa_icon('clipboard-user') %><span> About</span>
         </a>
 
         <a class="navbar-item <%= active_class_for(active_controller: 'home#donate') %>" href="<%= donate_path %>">
-          <i class="fad fa-hand-holding-heart"></i><span> Donate</span>
+          <%= fa_icon('hand-holding-heart') %><span> Donate</span>
         </a>
       </div>
 
@@ -70,13 +70,13 @@
           <%= image_tag current_user.gravatar_url, class: 'user-image' %>
           <%= current_user.name || current_user.email %>
           <% if current_user.sponsored_tier.present? %>
-            <i style="color: #f39c12; margin-left: 5px" class="fad fa-crown"></i>
+            <span class="icon" style="color: #f39c12; margin-left: 5px"><%= fa_icon('crown') %></span>
           <% end %>
         </a>
         <%
 =begin%>
         <a class="navbar-item" title="Correct or add missing data" href="<%= root_path %>">
-          <b><i class="far fa-hands-helping"></i> Complete our data</b>
+          <b><%= fa_icon('hands-helping', style: :regular) %> Complete our data</b>
         </a>
         <%
 =end%>
@@ -87,23 +87,23 @@
         <%
 =begin%>
         <a class="navbar-item" title="Correct or add missing data" href="<%= new_user_session_path %>">
-          <b><i class="far fa-hands-helping"></i> Complete our data</b>
+          <b><%= fa_icon('hands-helping', style: :regular) %> Complete our data</b>
         </a>
         <%
 =end%>
         <% end %>
 
         <a class="navbar-item is-hidden-desktop-only" title="Join us on Discord" href="https://discord.gg/fuamwgk" target="_blank">
-          <span class="icon" style="color: #7289da;"><i class="fab fa-lg fa-discord"></i></span>
+          <span class="icon" style="color: #7289da;"><%= fa_icon('discord', style: :brands, class: 'fa-lg') %></span>
         </a>
 
         <a class="navbar-item is-hidden-desktop-only" title="Join us on Twitter" href="https://twitter.com/trefle_api" target="_blank" rel="noopener">
-          <span class="icon" style="color: #55acee;"><i class="fab fa-lg fa-twitter"></i></span>
+          <span class="icon" style="color: #55acee;"><%= fa_icon('twitter', style: :brands, class: 'fa-lg') %></span>
         </a>
         <%
 =begin%>
  <a class="navbar-item is-hidden-desktop-only" title="Github" href="https://github.com/treflehq/trefle-api" target="_blank" rel="noopener">
-          <span class="icon" style="color: #242a2f;"><i class="fab fa-lg fa-github"></i></span>
+          <span class="icon" style="color: #242a2f;"><%= fa_icon('github', style: :brands, class: 'fa-lg') %></span>
         </a>
 <%
 =end%>

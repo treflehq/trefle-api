@@ -18,7 +18,7 @@
           <% end %>
         <% end %>
         <h2 class="title is-4 ">
-          <i class="fad fa-code-commit has-text-success"></i> Summary
+          <%= fa_icon('code-commit', class: 'has-text-success') %> Summary
         </h2>
         <p><b>Current status: </b> <%= badge_for_correction_status(@record_correction) %> <%= status_sentence(@record_correction) %></p>
         <%= source_sentence(@record_correction) %>
@@ -38,7 +38,7 @@
       </section>
       <section class="section content" id="changes">
         <h2 class="title is-4 ">
-          <i class="fad fa-code-branch has-text-success"></i> Changes
+          <%= fa_icon('code-branch', class: 'has-text-success') %> Changes
         </h2>
 
         <pre><code><%= pretty_correction(@record_correction) %></code></pre>

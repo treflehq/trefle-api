@@ -22,7 +22,7 @@ RSpec.describe 'Explore pages', type: :request do
       expect(response.body).not_to include('background-image')
 
       card = Nokogiri::HTML.fragment(response.body).at_css("a[href=\"#{explore_species_path(species)}\"]")
-      expect(card.at_css('div.species-grid-item-photo--empty i.fa-leaf')).not_to be_nil
+      expect(card.at_css('div.species-grid-item-photo--empty svg.fa-leaf')).not_to be_nil
     end
 
     it 'renders a real, lazy-loaded, sized <img> for species that have a photo' do
@@ -84,7 +84,7 @@ RSpec.describe 'Explore pages', type: :request do
 
       get explore_genus_path(genus)
 
-      placeholder = Nokogiri::HTML.fragment(response.body).at_css('.species-correction-image .species-correction-image-photo--empty i.fa-leaf')
+      placeholder = Nokogiri::HTML.fragment(response.body).at_css('.species-correction-image .species-correction-image-photo--empty svg.fa-leaf')
       expect(placeholder).not_to be_nil
     end
   end

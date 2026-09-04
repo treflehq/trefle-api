@@ -7,7 +7,7 @@
         <div class="hero-body">
           <div class="container">
             <h1 class="title is-1">
-              <i class="fad has-text-primary fa-key-skeleton"></i>
+              <%= fa_icon('key-skeleton', class: 'has-text-primary') %>
 
               Your account
             </h1>
@@ -60,7 +60,7 @@
           </div>
         <% else %>
           <div class="notification">
-            <strong><i style="color: #f39c12; margin-left: 5px" class="fad fa-crown"></i> You are a sponsor !</strong> Thanks a lot for helping us to keep Trefle alive. You can make up to <strong>600</strong> requests per minute.
+            <strong><span class="icon" style="color: #f39c12; margin-left: 5px"><%= fa_icon('crown') %></span> You are a sponsor !</strong> Thanks a lot for helping us to keep Trefle alive. You can make up to <strong>600</strong> requests per minute.
           </div>
         <% end %>
       </section>

@@ -41,7 +41,7 @@ module SpeciesPhotoHelper
                 height: height
     else
       content_tag :div, class: "#{css_class} #{css_class}--empty" do
-        content_tag :i, '', class: 'fad fa-leaf', 'aria-hidden': 'true'
+        fa_icon('leaf')
       end
     end
   end
