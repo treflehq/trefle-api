@@ -41,6 +41,16 @@ RSpec.describe 'Explore pages', type: :request do
       expect(img['width']).to be_present
       expect(img['height']).to be_present
     end
+
+    it 'renders 404, not 500, for a page number past the last page' do
+      get explore_path, params: { page: 1_003_855_986 }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'renders 404, not 500, for a non-numeric page' do
+      get explore_path, params: { page: 'not-a-number' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'GET /explore/species/:id' do
@@ -115,6 +125,18 @@ RSpec.describe 'Explore pages', type: :request do
       placeholder = Nokogiri::HTML.fragment(response.body).at_css('.species-correction-image .species-correction-image-photo--empty svg.fa-leaf')
       expect(placeholder).not_to be_nil
     end
+
+    it 'renders 404, not 500, for a page number past the last page' do
+      genus = Genus.find_by!(name: 'Abies')
+      get explore_genus_path(genus, page: 1_003_855_986)
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'renders 404, not 500, for a non-numeric page' do
+      genus = Genus.find_by!(name: 'Abies')
+      get explore_genus_path(genus, page: 'not-a-number')
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'GET /explore/corrections' do
@@ -136,6 +158,16 @@ RSpec.describe 'Explore pages', type: :request do
     it 'renders a correction page' do
       get explore_record_correction_path(RecordCorrection.first)
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'renders 404, not 500, for a page number past the last page' do
+      get explore_record_corrections_path(page: 1_003_855_986)
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'renders 404, not 500, for a non-numeric page' do
+      get explore_record_corrections_path(page: 'not-a-number')
+      expect(response).to have_http_status(:not_found)
     end
   end
 
