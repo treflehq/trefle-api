@@ -29,4 +29,24 @@ RSpec.feature 'Sign in/up page', type: :feature do
     expect(page).to have_content 'Signed in successfully'
   end
 
+  scenario 'Sign in page offers GitHub as a proper OAuth button, not a plain link' do
+    visit '/users/sign_in'
+
+    expect(page).to have_css('a.auth-oauth-button', text: 'Sign in with GitHub')
+    expect(page).to have_css('.auth-divider', text: 'or')
+  end
+
+  scenario 'Sign up page offers GitHub as a proper OAuth button, not a plain link' do
+    visit '/users/sign_up'
+
+    expect(page).to have_css('a.auth-oauth-button', text: 'Sign in with GitHub')
+  end
+
+  scenario 'Forgot password page has no GitHub button (it makes no sense there)' do
+    visit '/users/password/new'
+
+    expect(page).to have_no_css('a.auth-oauth-button')
+    expect(page).to have_css('input[type=submit][value="Send me reset password instructions"]')
+  end
+
 end
