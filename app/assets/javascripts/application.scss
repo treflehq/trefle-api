@@ -1,47 +1,11 @@
 
-// 2. Set your own initial variables
-// Update blue
-// $blue: #72d0eb;
-// // Add pink and its invert
-// $pink: #ffb3b3;
-// $pink-invert: #fff;
-// // Add a serif family
-// $family-serif: "Merriweather", "Georgia", serif;
-//
-// // 3. Set the derived variables
-// // Use the new pink as the primary color
-// $primary: $pink;
-// $primary-invert: $pink-invert;
-// // Use the existing orange as the danger color
-// $danger: $orange;
-// // Use the new serif family
-// $family-primary: $family-serif;
-
-// 4. Import the rest of Bulma
+// Brand colors, breakpoints and the respond-to() mixin all live in
+// sections/_variables.scss (imported below) — this used to duplicate them
+// with stale values (a plain Bulma blue $link/$primary that #235 fixed);
+// keep them declared exactly once so the accent family can't drift out of
+// sync again.
 
 @import 'sections/fonts';
-
-$green: #41b913;
-$blue: #3273dc;
-$primary: $green;
-
-$break-small: 480px;
-$break-large: 1024px;
-
-@mixin respond-to($media) {
-  @if $media == handhelds {
-    @media only screen and (max-width: $break-small) { @content; }
-    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 3) { @content; }
-    @media only screen and (max-width: 2 * $break-small) and (-webkit-device-pixel-ratio : 2) { @content; }
-  }
-  @else if $media == medium-screens {
-    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
-  }
-  @else if $media == wide-screens {
-    @media only screen and (min-width: $break-large) { @content; }
-  }
-}
-
 @import 'sections/variables';
 
 @import 'bulma/bulma';
@@ -152,10 +116,19 @@ span.token.number {
   margin-top: 1.5rem;
 }
 
-.auth-page a:focus-visible,
-.auth-page .button:focus-visible,
-.auth-page .input:focus-visible,
-.auth-links a:focus-visible {
+// Sitewide keyboard-focus ring (#235): Bulma only outlines its own
+// form controls, and only with a soft box-shadow, so plain links, the
+// sidebar menu and footer nav items had nothing to show on :focus.
+// One rule, applied to every interactive element, instead of relying on
+// browser/Bulma defaults or copy-pasting this per section (originally
+// scoped to .auth-page alone, see #233).
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible,
+.input:focus-visible,
+.textarea:focus-visible,
+.select select:focus-visible,
+[tabindex]:focus-visible {
   outline: 2px solid $primary;
   outline-offset: 2px;
 }
