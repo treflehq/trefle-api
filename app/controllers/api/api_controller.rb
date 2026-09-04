@@ -2,6 +2,16 @@ module Api
   class ApiController < ActionController::API
     class UnknownQueryKeyError < StandardError; end
 
+    # rescue_from handlers are searched most-specific-last-declared-first (see
+    # ActiveSupport::Rescuable#find_rescue_handler): it reverses the
+    # declaration list and takes the first class match. StandardError has to
+    # be declared FIRST so every more specific rescue below still wins; if it
+    # were declared last it would shadow all of them.
+    rescue_from StandardError, with: :render_internal_server_error_response
+    # A malformed request body (e.g. invalid JSON with a JSON content type)
+    # used to bubble past the controller and surface as an HTML error page
+    # instead of the API envelope (#126).
+    rescue_from ActionDispatch::Http::Parameters::ParseError, with: :render_malformed_request_response
     rescue_from ActionController::BadRequest, with: :render_bad_request_response
     rescue_from UnknownQueryKeyError, with: :render_unknown_query_key_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_record_response
@@ -141,8 +151,25 @@ module Api
       render_unauthorized("IP address (#{client_ip}) is not allowed (expecting #{ip})") && return if ip && ip != client_ip
     end
 
-    def render_error(message, status)
-      render(json: { error: true, message: message }, status: status)
+    # The single envelope documented for every /api error response:
+    # `{ error: true, code:, message:, messages:, details: }`, loosely
+    # inspired by RFC 9457 (without adopting its media type). `code` is the
+    # Rails status symbol (e.g. "not_found") so clients can switch on it
+    # without parsing prose. `messages` duplicates `message` for one
+    # deprecation cycle -- existing clients (mobile/third-party) read that
+    # key today (#216).
+    def render_error(message, status, details: nil)
+      render(json: {
+        error: true,
+        code: error_code_for(status),
+        message: message,
+        messages: message,
+        details: details
+      }.compact, status: status)
+    end
+
+    def render_unauthorized(message)
+      render_error(message, :unauthorized)
     end
 
     def render_unprocessable_record_response(exception)
@@ -167,6 +194,21 @@ module Api
 
     def render_page_overflow_response(exception)
       render_error(exception.message, :not_found)
+    end
+
+    def render_malformed_request_response(_exception)
+      render_error('The request body could not be parsed. Check that it is valid JSON.', :bad_request)
+    end
+
+    def render_internal_server_error_response(exception)
+      Rails.logger.error("[render_internal_server_error_response] #{exception.class}: #{exception.message}")
+      render_error('An unexpected error occurred. Please contact us if it persists. See https://trefle.io', :internal_server_error)
+    end
+
+    def error_code_for(status)
+      return status.to_s if status.is_a?(Symbol)
+
+      Rack::Utils::SYMBOL_TO_STATUS_CODE.invert[status.to_i]&.to_s || status.to_s
     end
 
     def apply_filters(collection, filterable_fields)
