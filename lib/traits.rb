@@ -12,6 +12,7 @@ module Traits
       @config = nil
       @completion_fields = nil
       @source_priority = nil
+      @legacy_value_priority_index = nil
     end
 
     def fields
@@ -82,6 +83,12 @@ module Traits
 
     def stronger_or_equal?(source, other)
       priority_index(source) <= priority_index(other)
+    end
+
+    # Rank given to a filled column that carries no fact (written before
+    # provenance recording existed). See sources.legacy_value_rank.
+    def legacy_value_priority_index
+      @legacy_value_priority_index ||= priority_index(config.dig('sources', 'legacy_value_rank'))
     end
 
   end

@@ -59,6 +59,16 @@ sources:
     - openfarm
     - wikipedia
 
+  # Values written before provenance recording existed (2.1.0) carry no fact,
+  # so nothing defends them: without this, the weakest source could overwrite
+  # good legacy data simply because no competitor was on record.
+  #
+  # A filled column with no facts is therefore treated as claimed by a source
+  # of this rank. Only strictly stronger sources may replace it; everything
+  # else can still fill a gap, and its claim is recorded as a conflicting fact
+  # either way. Move this line to trade protection against correctability.
+  legacy_value_rank: flora_europaea
+
 cross_field_rules:
   - { min: ph_minimum, max: ph_maximum }
   - { min: minimum_temperature_deg_c, max: maximum_temperature_deg_c }
