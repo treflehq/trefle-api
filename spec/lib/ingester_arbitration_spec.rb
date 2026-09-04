@@ -179,4 +179,34 @@ RSpec.describe 'Ingester source arbitration' do
     end
   end
 
+  describe 'bitmask columns' do
+    it 'records the flag names rather than the raw bitmask' do
+      ingest({ source_flora_iberica: 'a', bloom_months: 'mar|apr|may' })
+
+      fact = species.species_facts.find_by(attribute_name: 'bloom_months')
+      expect(fact.value).to eq('mar|apr|may')
+      # 28 would be the raw value: meaningless on its own, and unstable if the
+      # flag order ever changed
+      expect(fact.value).not_to eq('28')
+      expect(fact.value_numeric).to be_nil
+    end
+
+    it 'records readable names on a rejected claim too' do
+      # edible_part is a flag; feed it through a source that loses arbitration
+      ingest({ source_flora_iberica: 'a', edible_part: 'seeds' })
+      ingest({ source_pfaf: 'b', edible_part: 'roots' })
+
+      pfaf_fact = species.species_facts.find_by(attribute_name: 'edible_part', source: 'pfaf')
+      expect(pfaf_fact.value).to eq('roots')
+    end
+
+    it 'leaves non-flag values untouched' do
+      ingest({ source_flora_iberica: 'a', average_height_value: 250, average_height_unit: 'cm' })
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.value).to eq('250')
+      expect(fact.value_numeric).to eq(250)
+    end
+  end
+
 end
