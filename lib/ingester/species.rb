@@ -270,8 +270,8 @@ module Ingester
           next
         end
 
-        if Traits.filled?(attr, old_value) && outranked_by_stronger_fact?(attr, source)
-          puts "[Ingester][Arbitration] keeping #{attr} (a stronger source claims it, '#{source}' recorded as fact only)"
+        if Traits.filled?(attr, old_value) && outranked_for?(attr, source)
+          puts "[Ingester][Arbitration] keeping #{attr} (another source claims it at least as strongly, '#{source}' recorded as fact only)"
           @species.send("#{attr}=", old_value)
         end
 
@@ -281,14 +281,20 @@ module Ingester
       facts
     end
 
-    def outranked_by_stronger_fact?(attr, source)
+    # Only a *strictly stronger* source may overwrite a filled column. On a tie
+    # the existing value stays and the newcomer is recorded as a conflicting
+    # fact: two sources of equal authority disagreeing must not be settled by
+    # crawl order, which is the silent last-write-wins this system exists to
+    # remove. Unknown sources all share the lowest rank, so they tie by default.
+    # Re-ingesting the *same* source is not affected (handled by superseding).
+    def outranked_for?(attr, source)
       return false unless @species.persisted?
 
       strongest_other = @species.species_facts.active_status.for_attribute(attr)
         .where.not(source: source)
         .min_by {|f| Traits.priority_index(f.source) }
 
-      strongest_other && Traits.priority_index(strongest_other.source) < Traits.priority_index(source)
+      strongest_other && Traits.priority_index(strongest_other.source) <= Traits.priority_index(source)
     end
 
     def persist_facts!

@@ -26,11 +26,21 @@ completion:
 sources:
   # Strongest first. Compared case-insensitively against foreign_sources.slug.
   # "community" = human-reviewed corrections (RecordCorrection acceptance).
-  # Unknown sources rank after everything listed here.
+  #
+  # Unknown sources all share the lowest rank, so they tie with each other.
+  # A tie never overwrites a filled column (see Ingester::Species#outranked_for?),
+  # which means an unlisted source can fill a gap but cannot win an argument.
+  # Add a source here to give it a say.
   default_priority:
     - community
     - iucn
     - try
+    # Regional floras: measured, referenced, peer-reviewed. Authoritative for
+    # the flora they cover, which is why they sit above the global aggregators.
+    - flora_iberica
+    - flora_of_north_america
+    - flora_of_china
+    - flora_europaea
     - powo
     - wfo
     - ipni
@@ -40,8 +50,12 @@ sources:
     - tropicos
     - tela-botanica
     - catminat
+    # Dendrological and horticultural compilations: useful, cite their sources,
+    # but secondary to a flora.
+    - treesandshrubsonline
     - eol
     - plantnet
+    - pfaf
     - openfarm
     - wikipedia
 
