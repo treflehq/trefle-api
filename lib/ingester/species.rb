@@ -240,18 +240,27 @@ module Ingester
 
     RESERVED_SOURCE_KEYS = %w[id name type reference url].freeze
 
+    # The source_* keys of the data, as { slug => identifier at that source }.
+    # source_powo: 'urn:lsid:...' means POWO, and that is its id over there.
+    def source_identifiers
+      @source_identifiers ||= @data.keys.map(&:to_s)
+        .filter {|k| k.start_with?('source_') }
+        .to_h {|k| [k.sub(/\Asource_/, '').sub(/_[a-z]{2}\z/, ''), @data[k.to_sym]] }
+        .except(*RESERVED_SOURCE_KEYS)
+    end
+
     # The source of this ingestion: explicit option, else inferred from the
     # source_* keys of the data (strongest one if several), else 'unknown'.
     def detected_source
       return @source if @source.present?
 
-      slugs = @data.keys.map(&:to_s)
-        .filter {|k| k.start_with?('source_') }
-        .map {|k| k.sub(/\Asource_/, '') }
-        .reject {|s| RESERVED_SOURCE_KEYS.include?(s) }
-        .map {|s| s.sub(/_[a-z]{2}\z/, '') } # source_wikipedia_en -> wikipedia
+      source_identifiers.keys.min_by {|s| Traits.priority_index(s) } || 'unknown'
+    end
 
-      slugs.min_by {|s| Traits.priority_index(s) } || 'unknown'
+    # The id this record carries at the source, so a fact can point back at
+    # where its value came from rather than only naming the database.
+    def source_record_id_for(source)
+      source_identifiers[source]&.to_s
     end
 
     # For each changed trait field:
@@ -261,6 +270,7 @@ module Ingester
     # Returns the facts to persist after a successful save.
     def arbitrate_traits!
       source = detected_source
+      source_record_id = source_record_id_for(source)
       facts = []
 
       @species.changes.slice(*Traits.arbitrated_fields).each do |attr, (old_value, new_value)|
@@ -274,6 +284,7 @@ module Ingester
         if rejection
           @species.send("#{attr}=", old_value)
           facts << { attribute_name: attr, source: source, value: claimed,
+                     source_record_id: source_record_id,
                      status: :rejected, notes: rejection }
           next
         end
@@ -283,7 +294,8 @@ module Ingester
           @species.send("#{attr}=", old_value)
         end
 
-        facts << { attribute_name: attr, source: source, value: claimed, status: :active }
+        facts << { attribute_name: attr, source: source, value: claimed,
+                   source_record_id: source_record_id, status: :active }
       end
 
       facts

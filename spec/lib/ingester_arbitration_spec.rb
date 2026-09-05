@@ -278,4 +278,41 @@ RSpec.describe 'Ingester source arbitration' do
     end
   end
 
+  describe 'source identifiers on facts' do
+    it 'records the id the record carries at the source' do
+      ingest({ source_powo: 'urn:lsid:ipni.org:names:857916-1', average_height_value: 120, average_height_unit: 'cm' })
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.source).to eq('powo')
+      expect(fact.source_record_id).to eq('urn:lsid:ipni.org:names:857916-1')
+    end
+
+    it 'records it on a rejected claim too, so a bad value can be traced back' do
+      ingest({ source_pfaf: 'Some+Plant', average_height_value: 999_999, average_height_unit: 'cm' })
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.status).to eq('rejected')
+      expect(fact.source_record_id).to eq('Some+Plant')
+    end
+
+    it 'picks the identifier of the source that actually won' do
+      # Two source_* keys in one payload: the strongest names the fact, so its
+      # identifier is the one that has to be recorded.
+      ingest({ source_powo: 'powo-id', source_gbif: 'gbif-id',
+               average_height_value: 120, average_height_unit: 'cm' })
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.source).to eq('powo')
+      expect(fact.source_record_id).to eq('powo-id')
+    end
+
+    it 'leaves it null when the source was given explicitly' do
+      ingest({ average_height_value: 120, average_height_unit: 'cm' }, source: 'community')
+
+      fact = species.species_facts.find_by(attribute_name: 'average_height_cm')
+      expect(fact.source).to eq('community')
+      expect(fact.source_record_id).to be_nil
+    end
+  end
+
 end
