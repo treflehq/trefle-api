@@ -26,4 +26,34 @@ RSpec.describe Ingester::Converter::CommonName do
     expect(result).to eq({})
   end
 
+  describe 'the common_name column' do
+    it 'sets the column to the first name given' do
+      result = described_class.resolve!({ common_name: 'Stinging nettle|Ortie' })
+
+      expect(result[:common_name]).to eq('Stinging nettle')
+    end
+
+    it 'reaches the column through the ingester' do
+      species = create(:species)
+
+      Ingester::Species.new({ source_gbif: 'g', common_name: 'Stinging nettle' },
+                            species_id: species.id).ingest!
+
+      # Was silently dropped before: no converter wrote the column, so a source
+      # could send the key and see nothing happen.
+      expect(species.reload.common_name).to eq('Stinging nettle')
+    end
+
+    it 'is arbitrated like any other claimed value' do
+      species = create(:species)
+
+      Ingester::Species.new({ source_powo: 'p', common_name: 'Common nettle' },
+                            species_id: species.id, source: 'powo').ingest!
+      Ingester::Species.new({ source_gbif: 'g', common_name: 'Something else' },
+                            species_id: species.id, source: 'gbif').ingest!
+
+      expect(species.reload.common_name).to eq('Common nettle')
+    end
+  end
+
 end

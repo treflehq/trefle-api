@@ -10,10 +10,14 @@ RSpec.describe 'Ingester contract coverage' do
   # Assigned straight from the hash by Ingester::Species#resolve_core_informations!
   let(:core_direct) { %w[scientific_name rank year author] }
 
-  # Derived by the model from associated records rather than claimed by a
-  # source: common_name comes from the common names, main_image_url from the
-  # images. A source cannot set them directly, and should not.
-  let(:model_derived) { %w[common_name main_image_url] }
+  # Handled by a converter that does not advertise a FIELDS list:
+  # Converter::CommonName reads :common_name, Converter::Image the image keys.
+  let(:converter_without_fields_list) { %w[common_name] }
+
+  # Derived by the model rather than claimed by a source: main_image_url is
+  # picked from the species' images (Species#complete_cache_fields), so a
+  # source neither can nor should set it.
+  let(:model_derived) { %w[main_image_url] }
 
   def converter_fields
     measurement = Ingester::Converter::Measurement::FIELDS.flat_map do |metric|
@@ -32,7 +36,7 @@ RSpec.describe 'Ingester contract coverage' do
   end
 
   it 'can actually ingest every field it claims to arbitrate' do
-    reachable = converter_fields + core_direct + model_derived
+    reachable = converter_fields + core_direct + converter_without_fields_list + model_derived
     unreachable = Traits.arbitrated_fields - reachable
 
     expect(unreachable).to be_empty,
