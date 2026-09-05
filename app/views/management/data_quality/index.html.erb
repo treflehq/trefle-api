@@ -107,22 +107,88 @@
     </div>
   </div>
 
-  <% if @history.length > 1 %>
-    <h2 class="subtitle mt-5">Trend</h2>
-    <table class="table is-narrow">
-      <thead><tr><th>Date</th><th class="has-text-right">Species</th><th class="has-text-right">Avg completion</th><th class="has-text-right">Implausible</th><th class="has-text-right">Conflicts</th></tr></thead>
-      <tbody>
-        <% @history.each do |row| %>
-          <tr>
-            <td><%= row.snapshot_on %></td>
-            <td class="has-text-right"><%= number_with_delimiter(row.species_count) %></td>
-            <td class="has-text-right"><%= row.details&.dig('avg_completion_ratio') || '—' %>%</td>
-            <td class="has-text-right"><%= number_with_delimiter(row.implausible_count) %></td>
-            <td class="has-text-right"><%= number_with_delimiter(row.conflict_count) %></td>
-          </tr>
+  <h2 class="subtitle mt-5">Evolution</h2>
+  <div class="field is-grouped mb-4">
+    <% [7, 30, 90, 365].each do |d| %>
+      <p class="control">
+        <%= link_to "#{d} days", management_data_quality_path(days: d),
+              class: "button is-small #{'is-link' if @days == d}" %>
+      </p>
+    <% end %>
+  </div>
+
+  <% if @series.length < 2 %>
+    <div class="notification is-light">
+      Only <%= @series.length %> snapshot so far. The daily job builds this up —
+      come back tomorrow, or run <code>rake quality:snapshot</code> to add a point now.
+    </div>
+  <% else %>
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <table class="table is-fullwidth is-narrow is-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th class="has-text-right">Fill rate</th>
+              <th class="has-text-right">Change</th>
+              <th class="has-text-right">Filled cells</th>
+              <th class="has-text-right">Species</th>
+              <th class="has-text-right">Implausible</th>
+              <th class="has-text-right">Conflicts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% previous = nil %>
+            <% @series.reverse.each do |point| %>
+              <% nxt = @series[@series.index(point) - 1] if @series.index(point).positive? %>
+              <tr>
+                <td><%= point.date %></td>
+                <td class="has-text-right"><strong><%= point.fill_rate %>%</strong></td>
+                <td class="has-text-right">
+                  <% if nxt && point.fill_rate && nxt.fill_rate %>
+                    <% diff = (point.fill_rate - nxt.fill_rate).round(2) %>
+                    <span class="<%= diff.positive? ? 'has-text-success' : (diff.negative? ? 'has-text-danger' : 'has-text-grey') %>">
+                      <%= diff.positive? ? "+#{diff}" : diff %>
+                    </span>
+                  <% else %>
+                    <span class="has-text-grey">—</span>
+                  <% end %>
+                </td>
+                <td class="has-text-right"><%= number_with_delimiter(point.filled_count) %></td>
+                <td class="has-text-right"><%= number_with_delimiter(point.species_count) %></td>
+                <td class="has-text-right <%= 'has-text-danger' if point.implausible_count.to_i.positive? %>"><%= number_with_delimiter(point.implausible_count) %></td>
+                <td class="has-text-right <%= 'has-text-danger' if point.conflict_count.to_i.positive? %>"><%= number_with_delimiter(point.conflict_count) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="column">
+        <h3 class="subtitle is-6">What moved</h3>
+        <% if @field_moves.empty? %>
+          <p class="has-text-grey">Nothing changed over this window.</p>
+        <% else %>
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th>Field</th><th class="has-text-right">Change</th></tr></thead>
+            <tbody>
+              <% @field_moves.first(15).each do |move| %>
+                <tr>
+                  <td><code><%= move.field %></code></td>
+                  <td class="has-text-right <%= move.delta.positive? ? 'has-text-success' : 'has-text-danger' %>">
+                    <%= move.delta.positive? ? "+#{number_with_delimiter(move.delta)}" : number_with_delimiter(move.delta) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <p class="is-size-7 has-text-grey">
+            Species gained or lost per field between the ends of the window.
+            A negative number is a regression worth looking at.
+          </p>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    </div>
   <% end %>
 
 <% end %>

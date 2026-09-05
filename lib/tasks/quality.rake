@@ -8,14 +8,13 @@ namespace :quality do
   desc 'Write data quality snapshot rows for today (global, per field, per rank, per source)'
   task snapshot: :environment do
     result = Quality::Snapshot.run!
-
     puts "Snapshot #{result[:date]}: #{result[:species_count]} species, #{result[:fields_count]} fields"
-    DataQualitySnapshot.on(result[:date]).global.where.not(attribute_name: nil)
-      .sort_by {|s| s.fill_rate || 0 }.each do |s|
-      puts format('  %-32<name>s %6.1<fill>f%% filled  %6<implausible>d implausible  %6<conflicts>d conflicts',
-                  name: s.attribute_name, fill: s.fill_rate || 0,
-                  implausible: s.implausible_count, conflicts: s.conflict_count)
-    end
+    Quality::SnapshotReport.print(result[:date])
+  end
+
+  desc 'Day-by-day progression of the dataset (DAYS=30)'
+  task evolution: :environment do
+    Quality::EvolutionReport.print(days: (ENV['DAYS'] || 30).to_i)
   end
 
   desc 'Most requested species with the poorest data — the work queue'

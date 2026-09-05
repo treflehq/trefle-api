@@ -13,8 +13,11 @@ class Management::DataQualityController < Management::ManagementController
       @source_rows = snapshots.where(dimension: 'source').order(species_count: :desc)
     end
 
-    # Trend: aggregate row of each past snapshot
-    @history = DataQualitySnapshot.global.where(attribute_name: nil).order(:snapshot_on)
+    # Day-by-day progression, so an improvement is visible rather than inferred
+    @days = (params[:days] || 30).to_i.clamp(2, 365)
+    evolution = Quality::Evolution.new(days: @days)
+    @series = evolution.series
+    @field_moves = evolution.field_moves
 
     @priorities = Quality::Priorities.fetch(limit: 50)
     @pending_plausibility_warnings = RecordCorrection.where(
