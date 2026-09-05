@@ -44,7 +44,8 @@ module Schemas
           habit: image_schema(extras: { description: 'Image(s) of the species habit' }),
           fruit: image_schema(extras: { description: 'Image(s) of the species fruit' }),
           bark: image_schema(extras: { description: 'Image(s) of the species bark' }),
-          other: image_schema(extras: { description: 'Image(s) of the species other ' })
+          other: image_schema(extras: { description: 'Image(s) of the species other ' }),
+          unknown: image_schema(extras: { description: 'Image(s) with no identified part' })
         })
       end
 
