@@ -49,6 +49,26 @@ RSpec.describe 'Management backoffice', type: :request do
       expect(response.body).to include('average_height_cm')
     end
 
+    it 'invites a second snapshot rather than showing an empty evolution' do
+      Quality::Snapshot.run!
+
+      get '/management/data_quality'
+
+      expect(response.body).to include('Evolution')
+      expect(response.body).to include('snapshot so far')
+    end
+
+    it 'shows the day-by-day progression once there are two points' do
+      Quality::Snapshot.run!(date: 3.days.ago.to_date)
+      Quality::Snapshot.run!
+
+      get '/management/data_quality', params: { days: 7 }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('Fill rate')
+      expect(response.body).to include(3.days.ago.to_date.to_s)
+    end
+
     it 'renders a species page and updates it' do
       species = Species.friendly.find('abies-alba')
       get "/management/species/#{species.slug}"
