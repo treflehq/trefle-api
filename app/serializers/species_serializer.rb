@@ -194,7 +194,7 @@ class SpeciesSerializer < BaseSerializer
   # end
 
   def images
-    object.species_images.group_by(&:part).transform_values do |images|
+    object.species_images.group_by {|image| image.part || 'unknown' }.transform_values do |images|
       Panko::ArraySerializer.new(images, each_serializer: SpeciesImageSerializer).to_a
     end
   end
