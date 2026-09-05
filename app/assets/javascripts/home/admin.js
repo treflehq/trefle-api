@@ -1,7 +1,7 @@
 
 const d3Selection = require('d3-selection');
-import donut from 'britecharts/dist/umd/donut.min';
-import legend from 'britecharts/dist/umd/legend.min';
+import donut from 'britecharts/dist/umd/charts/donut.min';
+import legend from 'britecharts/dist/umd/charts/legend.min';
 import { map } from 'lodash';
 
 

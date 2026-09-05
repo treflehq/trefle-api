@@ -87,7 +87,7 @@ gem 'terminal-table'
 
 gem 'json-schema'
 
-gem 'searchkick'
+gem 'searchkick', '~> 6.0'
 # gem "elasticsearch", '~> 7.17'
 gem 'opensearch-ruby'
 gem 'typhoeus'
