@@ -40,6 +40,7 @@
     "@webpack-cli/serve": ">= 2.0.1"
   },
   "resolutions": {
+    "d3-color": "^3.1.0",
     "babel-loader/find-cache-dir/make-dir/semver": "^6.3.1",
     "css-loader/semver": "^7.5.2",
     "file-loader/loader-utils/json5": "^2.2.3",
