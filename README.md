@@ -28,3 +28,7 @@ The purpose of this repository is:
 ### 💡 I have a feature idea
 
 [Please create a new feature request!](https://github.com/treflehq/trefle-api/issues/new?assignees=&labels=&template=feature_request.md&title=) We will look at it, make sure it's not a duplicate, then it will go into our [Ideas and features board](https://github.com/orgs/treflehq/projects/3)
+
+## Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the release/canary/switch/rollback runbook.
