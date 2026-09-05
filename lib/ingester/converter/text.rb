@@ -29,6 +29,8 @@ module Ingester
         planting_description
         planting_sowing_description
 
+        phylum
+
         biological_type_raw
         dissemination_raw
         fruit_shape_raw
