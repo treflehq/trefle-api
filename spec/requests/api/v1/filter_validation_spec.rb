@@ -64,6 +64,44 @@ describe 'Filter/order/range key validation', type: :request do
     end
   end
 
+  describe 'GET /api/v1/species filter[edible] boolean coercion (#277)' do
+    # TestSeeds.seed! (spec/rails_helper.rb) loads a shared botanic dataset once per
+    # suite, so the table already holds other edible/non-edible species. Scope every
+    # query down to these two fixtures by scientific_name instead of asserting on the
+    # bare total. `edible` isn't settable directly -- Species#complete_cache_fields
+    # derives it from `vegetable`/`edible_part` on save (app/models/species.rb:321).
+    let!(:edible_species) { create(:species, vegetable: true) }
+    let!(:non_edible_species) { create(:species, vegetable: false) }
+    let(:fixture_names) { [edible_species.scientific_name, non_edible_species.scientific_name].join(',') }
+
+    %w[true yes 1 on TRUE Yes On].each do |token|
+      it "treats #{token.inspect} as truthy" do
+        body = get_json('/api/v1/species', filter: { edible: token, scientific_name: fixture_names })
+
+        expect(response).to have_http_status(:success)
+        expect(body['data'].map {|s| s['id'] }).to eq([edible_species.id])
+      end
+    end
+
+    %w[false no 0 off FALSE No Off].each do |token|
+      it "treats #{token.inspect} as falsy" do
+        body = get_json('/api/v1/species', filter: { edible: token, scientific_name: fixture_names })
+
+        expect(response).to have_http_status(:success)
+        expect(body['data'].map {|s| s['id'] }).to eq([non_edible_species.id])
+      end
+    end
+
+    it 'rejects a value outside the accepted token set with a 400 naming the field and value' do
+      body = get_json('/api/v1/species', filter: { edible: 'banana' })
+
+      expect(response).to have_http_status(:bad_request)
+      expect(body['error']).to eq(true)
+      expect(body['message']).to include('edible')
+      expect(body['message']).to include('banana')
+    end
+  end
+
   describe 'GET /api/v1/plants' do
     it 'rejects an unknown filter_not key with a 400 naming the key' do
       body = get_json('/api/v1/plants', filter_not: { spread: 'null' })

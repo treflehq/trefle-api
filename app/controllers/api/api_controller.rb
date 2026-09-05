@@ -14,6 +14,7 @@ module Api
     rescue_from ActionDispatch::Http::Parameters::ParseError, with: :render_malformed_request_response
     rescue_from ActionController::BadRequest, with: :render_bad_request_response
     rescue_from UnknownQueryKeyError, with: :render_unknown_query_key_response
+    rescue_from Filterable::InvalidFilterValueError, with: :render_invalid_filter_value_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_record_response
     rescue_from ActionController::ParameterMissing, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
@@ -185,6 +186,10 @@ module Api
     end
 
     def render_unknown_query_key_response(exception)
+      render_error(exception.message, :bad_request)
+    end
+
+    def render_invalid_filter_value_response(exception)
       render_error(exception.message, :bad_request)
     end
 
