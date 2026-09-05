@@ -8,9 +8,15 @@
 #
 # Field keys:
 #   category:         core | descriptive | media | morphology | phenology |
-#                     ecology | cultivation | usda_legacy | deprecated | derived
-#                     Only categories listed under completion.counted_categories
-#                     are part of the completion ratio.
+#                     ecology | cultivation | raw | usda_legacy | deprecated |
+#                     derived
+#                     Two separate questions read this. completion.counted_categories
+#                     decides what the completion ratio measures — what we know
+#                     about a plant. arbitration.arbitrated_categories decides
+#                     what source arbitration protects — anything a source can
+#                     claim, which is wider: nomenclature and raw source strings
+#                     are not traits, but they do come from sources and they do
+#                     conflict.
 #   unit:             informative (cm, mm, deg_c, ph, index_0_10...)
 #   plausible_range:  [min, max] — numeric values outside are rejected by the
 #                     ingester and flagged by Checks::PlausibleValues
@@ -24,7 +30,23 @@
 version: 1
 
 completion:
+  # What the completion ratio measures: how much of what we could know about a
+  # plant we actually know. Status and authorship are not knowledge about the
+  # plant, so they are deliberately absent.
   counted_categories: [descriptive, media, morphology, phenology, ecology, cultivation]
+
+arbitration:
+  # What source arbitration protects. Wider than the completion set on purpose:
+  # GBIF and POWO disagreeing on taxon status is exactly the conflict this
+  # system exists to settle, and status is not a trait.
+  arbitrated_categories:
+    [descriptive, media, morphology, phenology, ecology, cultivation, core, raw]
+
+  # Changing a scientific name drives the slug, the plant linkage and the search
+  # tokens. That deserves its own deliberate path, not a silent arbitration
+  # between two crawlers.
+  excluded_fields:
+    - scientific_name
 
 sources:
   # Strongest first. Compared case-insensitively against foreign_sources.slug.
@@ -86,9 +108,11 @@ fields:
   bibliography: { category: core }
   rank: { category: core }
   status: { category: core }
+  phylum: { category: core }
 
   # --- Descriptive ---
   common_name: { category: descriptive }
+  family_common_name: { category: descriptive }
   observations: { category: descriptive }
 
   # --- Media ---
@@ -171,6 +195,18 @@ fields:
   caco_3_tolerance: { category: usda_legacy }
   lifespan: { category: usda_legacy }
   maturation_order: { category: usda_legacy }
+
+  # --- Raw source strings: the untranslated value a source published, kept
+  #     beside the parsed column. Arbitrated (two sources overwriting each
+  #     other's raw text loses information) but never counted, since they
+  #     duplicate a field that is already counted. ---
+  inflorescence_raw: { category: raw }
+  sexuality_raw: { category: raw }
+  pollinisation_raw: { category: raw }
+  dissemination_raw: { category: raw }
+  fruit_shape_raw: { category: raw }
+  maturation_order_raw: { category: raw }
+  biological_type_raw: { category: raw }
 
   # --- Deprecated / derived duplicates ---
   propagated_by: { category: deprecated } # marked @TODO DEPRECATED in the model

@@ -64,10 +64,18 @@ module Ingester
       # end
     end
 
+    # When a source sends a name that disagrees with the record it is being
+    # ingested into, its nomenclature cannot be trusted for that record: it is
+    # describing a different taxon. The name is kept and the nomenclature
+    # fields are dropped.
+    #
+    # Only a *disagreement* triggers this. An ingestion targeted by species_id
+    # that simply omits the name is not one — that used to silently wipe
+    # author, bibliography and rank on every such call.
     def override_names!
       return unless @species
-
-      return unless @data[:scientific_name] != @species&.scientific_name
+      return if @data[:scientific_name].blank?
+      return if @data[:scientific_name] == @species.scientific_name
 
       @data[:scientific_name] = @species&.scientific_name
       @data[:genus_name] = @species&.genus_name
@@ -255,7 +263,7 @@ module Ingester
       source = detected_source
       facts = []
 
-      @species.changes.slice(*Traits.completion_fields).each do |attr, (old_value, new_value)|
+      @species.changes.slice(*Traits.arbitrated_fields).each do |attr, (old_value, new_value)|
         next if new_value.nil?
 
         # Captured before any revert: what the source actually claimed, in a

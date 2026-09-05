@@ -11,6 +11,7 @@ module Traits
     def reset!
       @config = nil
       @completion_fields = nil
+      @arbitrated_fields = nil
       @source_priority = nil
       @legacy_value_priority_index = nil
     end
@@ -27,9 +28,28 @@ module Traits
       config.dig('completion', 'counted_categories')
     end
 
-    # Field names participating in the completion ratio
+    # Field names participating in the completion ratio: how much of what we
+    # could know about a plant we actually know.
     def completion_fields
       @completion_fields ||= fields.select {|_, spec| counted_categories.include?(spec['category']) }.keys
+    end
+
+    def arbitrated_categories
+      config.dig('arbitration', 'arbitrated_categories') || counted_categories
+    end
+
+    def arbitration_excluded_fields
+      config.dig('arbitration', 'excluded_fields') || []
+    end
+
+    # Field names source arbitration protects. Deliberately wider than the
+    # completion set: anything a source can claim can be disagreed about, so
+    # nomenclature and raw source strings belong here even though they are not
+    # traits and are not counted.
+    def arbitrated_fields
+      @arbitrated_fields ||= fields
+        .select {|_, spec| arbitrated_categories.include?(spec['category']) }
+        .keys - arbitration_excluded_fields
     end
 
     # A field only counts as "missing" when it makes sense for this species

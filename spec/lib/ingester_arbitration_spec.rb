@@ -209,4 +209,73 @@ RSpec.describe 'Ingester source arbitration' do
     end
   end
 
+  describe 'fields beyond the completion set' do
+    it 'protects taxon status from a weaker source' do
+      ingest({ source_powo: 'p', status: 'accepted' })
+      ingest({ source_gbif: 'g', status: 'doubtful' })
+
+      expect(species.reload.status).to eq('accepted')
+    end
+
+    it 'records the losing nomenclature claim rather than dropping it' do
+      ingest({ source_powo: 'p', status: 'accepted' })
+      ingest({ source_gbif: 'g', status: 'doubtful' })
+
+      values = species.species_facts.active_status.for_attribute('status').pluck(:source, :value)
+      expect(values).to contain_exactly(%w[powo accepted], %w[gbif doubtful])
+    end
+
+    it 'lets a stronger source correct the status whatever the order' do
+      ingest({ source_gbif: 'g', status: 'doubtful' })
+      ingest({ source_powo: 'p', status: 'accepted' })
+
+      expect(species.reload.status).to eq('accepted')
+    end
+
+    it 'protects raw source strings, which used to overwrite silently' do
+      ingest({ source_powo: 'p', sexuality_raw: 'dioecious' })
+      ingest({ source_catminat: 'c', sexuality_raw: 'dioique' })
+
+      expect(species.reload.sexuality_raw).to eq('dioecious')
+      expect(species.species_facts.for_attribute('sexuality_raw').count).to eq(2)
+    end
+
+    it 'arbitrates year and bibliography too' do
+      ingest({ source_powo: 'p', year: 1753, bibliography: 'Sp. Pl.' })
+      ingest({ source_gbif: 'g', year: 1900, bibliography: 'Elsewhere' })
+
+      expect(species.reload.year).to eq(1753)
+      expect(species.bibliography).to eq('Sp. Pl.')
+    end
+
+    it 'no longer wipes nomenclature when the name is simply absent' do
+      # A targeted ingestion that omits scientific_name is not a disagreement,
+      # but it used to clear author, bibliography and rank all the same.
+      ingest({ source_powo: 'p', author: 'L.', bibliography: 'Sp. Pl.' })
+
+      expect(species.reload.author).to eq('L.')
+      expect(species.bibliography).to eq('Sp. Pl.')
+    end
+
+    it 'still drops nomenclature when the source names a different taxon' do
+      species.update!(author: 'L.')
+
+      ingest({ source_powo: 'p', scientific_name: 'Totally different', author: 'Someone else' })
+
+      expect(species.reload.author).to eq('L.')
+      expect(species.scientific_name).not_to eq('Totally different')
+    end
+
+    it 'leaves scientific_name out of arbitration' do
+      # Renaming drives the slug, the plant linkage and the search tokens, so it
+      # must not be settled silently between two crawlers.
+      expect(Traits.arbitrated_fields).not_to include('scientific_name')
+    end
+
+    it 'keeps the completion set narrower than the arbitrated set' do
+      expect(Traits.completion_fields).not_to include('status', 'rank', 'author')
+      expect(Traits.arbitrated_fields).to include('status', 'rank', 'author')
+    end
+  end
+
 end
