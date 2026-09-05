@@ -15,6 +15,7 @@ module Schemas
       source: Source.schema,
       correction: RecordCorrection.schema,
       zone: Zone.schema,
+      error: Error.schema,
       request_body_correction: RecordCorrection.request_body,
       filters_families: Family.filters,
       filters_genus: Genus.filters,

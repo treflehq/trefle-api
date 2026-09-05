@@ -7,7 +7,8 @@ import { firstNotNil } from '../utils/utils'
 import ReactIntense from 'react-intense'
 
 const FieldImage = ({
-  image
+  image,
+  title
 }) => {
   // const { edit, correction, setFields } = useContext(CorrectionContext)
   // const realValue = firstNotNil(correction[name], value)
@@ -31,7 +32,7 @@ const FieldImage = ({
   // }
 
   return <span>
-    <ReactIntense src={image.image_url} vertical={false} moveSpeed={0} caption={image.copyright} />
+    <ReactIntense src={image.image_url} vertical={false} moveSpeed={0} title={title} caption={image.copyright} />
   </span>
 }
 

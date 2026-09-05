@@ -23,16 +23,32 @@ $size-h5: 1.25rem;
 $size-h6: 1rem;
 $size-small: 0.75rem;
 
+// Kelly green is the brand mark (logo, favicon/tile meta in
+// layouts/application.html.erb) but white text on it measures 2.03:1 —
+// nowhere near WCAG AA's 4.5:1 for normal text — so it never carries text on
+// its own. Forest green is the one accent used wherever color meets text:
+// links, solid buttons/badges, active pagination/menu state, focus rings
+// (see #235). Bulma darkens it further on hover/active, which only raises
+// the contrast.
 $kelly-green: #41b913ff;
+$forest-green: #1c7a3dff;
 $deep-taupe: #795c5fff;
 $burlywood: #d9b26fff;
 $green-blue-crayola: #1982c4ff;
 $kobi: #ee92c2ff;
 
-$green: $kelly-green;
+$green: $forest-green;
+// Kept as an available semantic color (e.g. a future "info" use), but no
+// longer wired into $link/$primary/focus — Bulma's default blue must not
+// leak back in through those (see #235).
 $blue: $green-blue-crayola;
 
 $primary: $green;
+// Bulma defaults $link to $blue; pin it to the single accent so links, nav
+// hovers, pagination and form focus rings (all derived from $link) share the
+// same green instead of Bulma's blue.
+$link: $green;
+$link-focus-border: $green;
 $menu-item-active-background-color: $green;
 
 $break-small: 480px;
