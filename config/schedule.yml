@@ -30,6 +30,14 @@ check_species_images:
   class: "Migrators::ImagesFixerWorker"
   queue: migrations
 
+cache_warmer:
+  # Replaces the standalone heater service. Keeps the serialization cache warm
+  # for the most-requested records; a run is bounded, so this is a steady trickle
+  # rather than the old infinite loop.
+  cron: "*/20 * * * *" # every 20 minutes
+  class: "CacheWarmerWorker"
+  queue: low
+
 quality_snapshot:
   # Daily: while the dataset is actively being filled, a weekly point is too
   # coarse to see whether a change helped. One snapshot is ~60 rows.
