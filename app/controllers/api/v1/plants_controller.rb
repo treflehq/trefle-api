@@ -43,7 +43,7 @@ class Api::V1::PlantsController < Api::ApiController
   end
 
   def show
-    @resource = Species.friendly.find(params[:id])
+    @resource = Species.friendly_or_synonym!(params[:id])
 
     render_serialized_resource(
       @resource.plant,

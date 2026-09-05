@@ -182,7 +182,7 @@ class Api::V1::SpeciesController < Api::ApiController
   end
 
   def show
-    @resource = Species.friendly.find(params[:id])
+    @resource = Species.friendly_or_synonym!(params[:id])
 
     render_serialized_resource(
       @resource,
@@ -198,7 +198,7 @@ class Api::V1::SpeciesController < Api::ApiController
   # Provenance of the species trait values: one row per (attribute, source)
   # claim, including superseded and rejected ones (transparency)
   def facts
-    @resource = Species.friendly.find(params[:id])
+    @resource = Species.friendly_or_synonym!(params[:id])
     facts = @resource.species_facts.order(:attribute_name, :source, :id)
 
     render json: Panko::Response.new(

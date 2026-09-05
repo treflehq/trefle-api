@@ -288,6 +288,18 @@ class Species < ApplicationRecord
   extend FriendlyId
   friendly_id :scientific_name, use: :slugged
 
+  # Resolves a slug or id, falling back on the synonymy: a species merged
+  # into its accepted taxon keeps answering through the Synonym that
+  # replaced it, so stored slugs survive the merge.
+  def self.friendly_or_synonym!(param)
+    friendly.find(param)
+  rescue ActiveRecord::RecordNotFound
+    synonym = Synonym.find_by(record_type: 'Species', slug: param.to_s)
+    raise unless synonym&.record.is_a?(Species)
+
+    synonym.record
+  end
+
   after_save :setup_main_species
 
   auto_strip_attributes(*STRING_ATTRIBUTES, squish: true)

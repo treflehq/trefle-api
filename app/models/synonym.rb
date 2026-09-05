@@ -10,11 +10,13 @@
 #  notes       :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  slug        :string
 #
 # Indexes
 #
 #  index_synonyms_on_name                       (name)
 #  index_synonyms_on_record_type_and_record_id  (record_type,record_id)
+#  index_synonyms_on_slug                       (slug)
 #
 
 class Synonym < ApplicationRecord
@@ -27,6 +29,10 @@ class Synonym < ApplicationRecord
 
   auto_strip_attributes :author, :name, :notes
 
+  # Same derivation as a species slug, so the name keeps resolving through
+  # /species/:slug after a synonym-species record is merged away.
+  before_save :derive_slug
+
   counter_culture :record,
                   column_name: proc {|model| model.respond_to?(:synonyms_count) ? 'synonyms_count' : nil },
                   column_names: {
@@ -37,6 +43,10 @@ class Synonym < ApplicationRecord
 
   def have_different_name
     errors.add(:name, 'Must be different than the record') if record.respond_to?(:scientific_name) && (record.scientific_name == name)
+  end
+
+  def derive_slug
+    self.slug = name.to_s.parameterize if slug.blank? || will_save_change_to_name?
   end
 
   def self.auto_migrate
