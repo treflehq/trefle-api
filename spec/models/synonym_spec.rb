@@ -10,11 +10,13 @@
 #  notes       :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  slug        :string
 #
 # Indexes
 #
 #  index_synonyms_on_name                       (name)
 #  index_synonyms_on_record_type_and_record_id  (record_type,record_id)
+#  index_synonyms_on_slug                       (slug)
 #
 
 require 'rails_helper'

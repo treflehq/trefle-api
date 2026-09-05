@@ -129,6 +129,16 @@
       "file": "app/controllers/management/user_queries_controller.rb",
       "line": 37,
       "note": "Management backoffice is admin-only (check_admin); admins editing user records is the feature."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "083656b2b7c1c44b98ad4dd54b424dfa90bf0dc59de725ee7d276be96ba94d93",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/workers/migrators/synonym_slugs_worker.rb",
+      "line": 23,
+      "note": "Batch backfill of synonyms.slug: the VALUES list holds integer ids and connection.quote()d strings only."
     }
   ],
   "updated": "2026-09-03",
