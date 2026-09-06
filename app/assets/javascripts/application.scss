@@ -13,6 +13,55 @@
 @import 'sections/home';
 @import 'sections/explore';
 
+// Bulma's $title-family/$subtitle-family (sections/_variables.scss) cover
+// the .title/.subtitle helper components, but content.sass has no per-level
+// family hook — so raw h1-h4 inside a .content block (markdown-rendered
+// copy) need their own rule to pick up the institutional serif (#302).
+// H5/H6 intentionally stay Noto Sans (the body/UI voice).
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  color: #0a0a0a;
+  font-family: $family-serif;
+}
+.content h1,
+.content h2 {
+  font-weight: 500;
+}
+.content h3,
+.content h4 {
+  font-weight: 600;
+}
+
+// Bulma's own .title/.subtitle components (elements/title.sass) only vary
+// font-size per .is-N level — $title-family/$subtitle-family and
+// $title-weight apply uniformly across every size, so .is-5/.is-6 (the
+// H5/H6-equivalent sizes real views use, e.g. species scientific-name and
+// record-correction headings) rendered in the serif at the title's flat
+// weight too, contradicting "H5/H6 stay Noto Sans" above (#302 review).
+// .is-7 (below H6) is included for the same reason, even though nothing
+// uses it today.
+.title.is-5,
+.title.is-6,
+.title.is-7,
+.subtitle.is-5,
+.subtitle.is-6,
+.subtitle.is-7 {
+  font-family: $family-sans;
+}
+// The 500/600 h1-h4 weight split, mirrored onto real .title markup (see
+// the .content h1-h4 rule above for the markdown-copy equivalent). Bulma's
+// default $title-weight (600) already matches the h3/h4 tier, but is
+// pinned explicitly here so it can't drift if that default ever changes.
+.title.is-1,
+.title.is-2 {
+  font-weight: 500;
+}
+.title.is-3,
+.title.is-4 {
+  font-weight: 600;
+}
 
 body {
   // background-color: green;
