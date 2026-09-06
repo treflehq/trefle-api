@@ -33,6 +33,10 @@ class RecordCorrection < ApplicationRecord
   scope :status, ->(s) { where(change_status: s) }
   # Ex:- scope :active, -> {where(:active => true)}
 
+  include Filterable
+  include Sortable
+  include Scopes::RecordCorrections
+
   enum :change_type, { addition: 0, update: 1, deletion: 2 }, suffix: true
   enum :change_status, { pending: 0, accepted: 1, rejected: 2 }, suffix: true
   enum :source_type, { external: 0, observation: 1, report: 2 }, suffix: true

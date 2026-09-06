@@ -30,12 +30,15 @@ check_species_images:
   class: "Migrators::ImagesFixerWorker"
   queue: migrations
 
-cache_warmer:
-  # Replaces the standalone heater service. Keeps the serialization cache warm
-  # for the most-requested records; a run is bounded, so this is a steady trickle
-  # rather than the old infinite loop.
+api_sweep:
+  # Replaces the standalone heater service, then the narrower cache warmer.
+  # Every run walks the whole *shape* of the API — each collection crossed with
+  # each filter and order key it accepts — which both warms those responses and
+  # catches an endpoint that has started returning 500. It then takes a slice of
+  # the *depth* (deep pagination, individual records), resuming where the last
+  # run stopped. A run is ~1 minute for ~480 paths, so this is a steady trickle.
   cron: "*/20 * * * *" # every 20 minutes
-  class: "CacheWarmerWorker"
+  class: "ApiSweepWorker"
   queue: low
 
 quality_snapshot:
