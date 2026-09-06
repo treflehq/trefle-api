@@ -13,6 +13,26 @@
 @import 'sections/home';
 @import 'sections/explore';
 
+// Bulma's $title-family/$subtitle-family (sections/_variables.scss) cover
+// the .title/.subtitle helper components, but content.sass has no per-level
+// family hook — so raw h1-h4 inside a .content block (markdown-rendered
+// copy) need their own rule to pick up the institutional serif (#302).
+// H5/H6 intentionally stay Noto Sans (the body/UI voice).
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  color: #0a0a0a;
+  font-family: $family-serif;
+}
+.content h1,
+.content h2 {
+  font-weight: 500;
+}
+.content h3,
+.content h4 {
+  font-weight: 600;
+}
 
 body {
   // background-color: green;

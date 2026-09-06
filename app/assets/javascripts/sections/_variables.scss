@@ -1,8 +1,10 @@
 
-// Readable sans for body copy, headings and UI text (self-hosted, see
+// Institutional identity (#302): Noto Sans for body copy and UI text,
+// Cormorant Garamond for H1-H4 (wired into Bulma below), self-hosted (see
 // sections/_fonts.scss). Mono stays reserved for code, scientific names and
-// data values/labels (see #234).
-$family-sans: 'Public Sans', BlinkMacSystemFont, -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+// data values/labels — and the wordmark (see #234).
+$family-sans: 'Noto Sans', BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+$family-serif: 'Cormorant Garamond', Georgia, serif;
 $family-monospace: 'Roboto Mono', SFMono-Regular, Consolas, Menlo, monospace;
 
 $family-primary: $family-sans;
@@ -10,6 +12,19 @@ $family-secondary: $family-sans;
 // Drives Bulma's own <code>/<pre>/<kbd> styling (base/generic.sass) — this is
 // how "code samples" stay mono without us re-declaring it per selector.
 $family-code: $family-monospace;
+
+// Wire the serif into Bulma's own title/subtitle components ($title-family/
+// $subtitle-family default to false, i.e. inherit $family-primary). Raw
+// content h1-h4 (no .title/.subtitle class) get their own rule in
+// application.scss, since Bulma's content.sass has no per-level family hook.
+// Title color and body color/line-height are given as literal hex/values
+// (rather than referencing Bulma's own $black/$grey-darker) because this
+// file compiles before bulma/bulma is imported.
+$title-family: $family-serif;
+$subtitle-family: $family-serif;
+$title-color: #0a0a0a;
+$body-color: #363636;
+$body-line-height: 1.6;
 
 // The h1-h6/body/small scale, defined once instead of the ad-hoc px/em values
 // that used to be sprinkled across sections/*.scss (see #234). Values mirror
