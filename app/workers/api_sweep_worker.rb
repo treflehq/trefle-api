@@ -1,15 +1,21 @@
 # Walks the public API to keep the cache warm and to notice an endpoint that
 # has started failing.
 #
-# Replaces CacheWarmerWorker, which only fetched a handful of collection roots
-# and the most-requested records — enough to warm something, not enough to
-# discover that a filter raises on page 500.
+# Replaces the standalone heater service, then the cache warmer that followed
+# it — both fetched a handful of collection roots and the most-requested
+# records. That warms something, but it never touches a filter, an order key or
+# a page past the first, so an endpoint that raises stays invisible.
 #
-# Every run covers the whole *shape* of the API: each collection crossed with
-# each filter, order and range key it accepts. That part is bounded and is what
-# catches regressions. It then takes a slice of the *depth* — deep pagination
-# and individual records — resuming where the previous run stopped, because
-# that part is far too large to cover in one go.
+# A run covers three things:
+#
+#   shape  the whole shape of the API — each collection crossed with each
+#          filter, order and range key it accepts. Bounded, so it runs in full
+#          every time. This is what catches regressions.
+#   hot    the most-requested records, so warming stays useful for the things
+#          people actually ask for.
+#   depth  a slice of everything else — every index page and every record —
+#          resuming from a cursor, because a full cycle is around a million
+#          paths and takes weeks.
 #
 # Failures are reported to Sentry rather than only logged: a 500 nobody sees is
 # the same as no check at all.
@@ -19,7 +25,7 @@ class ApiSweepWorker
   sidekiq_options queue: :low, retry: false, backtrace: true
 
   CURSOR_KEY = 'api_sweep:cursor'.freeze
-  DEFAULT_DEPTH = 250
+  DEFAULT_DEPTH = 500
 
   def perform(depth_slice = DEFAULT_DEPTH)
     token = sweep_token
@@ -28,11 +34,11 @@ class ApiSweepWorker
       return false
     end
 
-    cursor = read_cursor
-    paths = Api::Sweep.shape_paths + Api::Sweep.depth_paths(cursor, depth_slice)
+    depth = Api::Sweep::Depth.paths(read_cursor, depth_slice)
+    paths = Api::Sweep.shape_paths + Api::Sweep.hot_paths + depth[:paths]
     failures = paths.filter_map {|path| failure_for(path, token) }
 
-    write_cursor(cursor + depth_slice)
+    write_cursor(depth[:cursor])
     report(paths.length, failures)
 
     { requested: paths.length, failed: failures.length, failures: failures }
@@ -41,7 +47,9 @@ class ApiSweepWorker
   private
 
   # rack-attack safelists 'unl-' tokens, so a sweep neither consumes a quota
-  # nor throttles itself into false failures.
+  # nor throttles itself into false failures. Read from the database rather
+  # than the environment: the old heater carried its token in a committed
+  # manifest, which is how it ended up needing rotation.
   def sweep_token
     User.where(admin: true).find_each do |user|
       return user.token if user.token&.starts_with?('unl-')
@@ -50,13 +58,16 @@ class ApiSweepWorker
   end
 
   def read_cursor
-    Sidekiq.redis {|r| r.get(CURSOR_KEY) }.to_i
+    raw = Sidekiq.redis {|r| r.get(CURSOR_KEY) }
+    raw.present? ? JSON.parse(raw) : Api::Sweep::Depth::EMPTY_CURSOR
   rescue StandardError
-    0
+    # A cursor that cannot be read costs coverage, never correctness: the sweep
+    # restarts the cycle rather than skipping the run.
+    Api::Sweep::Depth::EMPTY_CURSOR
   end
 
-  def write_cursor(value)
-    Sidekiq.redis {|r| r.set(CURSOR_KEY, value) }
+  def write_cursor(cursor)
+    Sidekiq.redis {|r| r.set(CURSOR_KEY, cursor.to_json) }
   rescue StandardError => e
     Rails.logger.warn("[ApiSweep] could not persist cursor: #{e.message}")
   end

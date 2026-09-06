@@ -9,10 +9,10 @@ RSpec.describe ApiSweepWorker do
     Sidekiq.redis {|r| r.del(described_class::CURSOR_KEY) }
   end
 
-  it 'sweeps the whole shape plus a slice of the depth' do
+  it 'sweeps the whole shape, the hot records, and a slice of the depth' do
     result = described_class.new.perform(5)
 
-    expect(result[:requested]).to eq(Api::Sweep.shape_paths.length + 5)
+    expect(result[:requested]).to eq(Api::Sweep.shape_paths.length + Api::Sweep.hot_paths.length + 5)
     expect(result[:failed]).to eq(0)
   end
 
@@ -76,8 +76,21 @@ RSpec.describe ApiSweepWorker do
   describe 'the cursor' do
     it 'advances so the next run walks different depth paths' do
       described_class.new.perform(5)
+      stored = JSON.parse(Sidekiq.redis {|r| r.get(described_class::CURSOR_KEY) })
 
-      expect(Sidekiq.redis {|r| r.get(described_class::CURSOR_KEY) }.to_i).to eq(5)
+      expect(stored['position']).to eq(5)
+    end
+
+    # A cursor is worth nothing if the next run does not read it back.
+    it 'resumes from where the previous run stopped rather than restarting' do
+      described_class.new.perform(5)
+      after_first = stored_cursor
+
+      described_class.new.perform(5)
+      after_second = stored_cursor
+
+      expect(after_second).not_to eq(after_first)
+      expect(after_second['position']).to eq(10)
     end
 
     it 'survives Redis being unavailable rather than skipping the sweep' do
@@ -85,6 +98,10 @@ RSpec.describe ApiSweepWorker do
 
       expect { described_class.new.perform(1) }.not_to raise_error
     end
+  end
+
+  def stored_cursor
+    JSON.parse(Sidekiq.redis {|r| r.get(described_class::CURSOR_KEY) })
   end
 
   it 'declines to run without an unlimited token rather than burning quota' do

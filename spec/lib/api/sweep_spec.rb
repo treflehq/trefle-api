@@ -40,29 +40,16 @@ describe Api::Sweep do
     end
   end
 
-  describe '.depth_paths' do
-    it 'returns at most the requested slice' do
-      expect(described_class.depth_paths(0, 10).length).to eq(10)
+  describe '.hot_paths' do
+    # The full walk reaches every record eventually, but a cycle is weeks long.
+    # Warming is only worth anything for what people actually request, so the
+    # busiest records are swept on every run as well.
+    it 'points at records, most-requested first' do
+      expect(Api::Sweep.hot_paths.first).to start_with('/api/v1/species/')
     end
 
-    it 'advances with the cursor so consecutive runs cover new ground' do
-      first = described_class.depth_paths(0, 10)
-      second = described_class.depth_paths(10, 10)
-
-      expect(second).not_to eq(first)
-      expect(second & first).to be_empty
-    end
-
-    # 489k species is far more than any single run can walk, so the cursor wraps
-    # rather than running off the end.
-    it 'wraps around instead of returning nothing past the end' do
-      huge = described_class.depth_paths(10_000_000, 5)
-
-      expect(huge.length).to eq(5)
-    end
-
-    it 'reaches deep pages, which is where page-1 testing never looks' do
-      expect(described_class.depth_paths(0, 1000)).to include('/api/v1/species?page=500')
+    it 'is bounded so it cannot crowd out the rest of the sweep' do
+      expect(Api::Sweep.hot_paths.length).to be <= (Api::Sweep::HOT_RECORDS * 1.5)
     end
   end
 

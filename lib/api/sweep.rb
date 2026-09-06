@@ -2,14 +2,16 @@ module Api
   # Enumerates the public API surface as request paths, so a sweep can both
   # keep the cache warm and notice an endpoint that started returning 500.
   #
-  # The surface splits in two, and they want different treatment:
+  # The surface splits in three, and they want different treatment:
   #
   #   shape  — every collection crossed with every filter, order and range key
   #            it accepts. Bounded (a few hundred paths) and worth covering on
   #            every run: this is what catches a filter that raises.
-  #   depth  — pagination and individual records. Unbounded — 489k species is
-  #            24k index pages — so a run takes a slice and the next run picks
-  #            up where it left off.
+  #   hot    — the most-requested records, also every run. Warming is only
+  #            useful for things people actually ask for.
+  #   depth  — *everything else*: every index page of every collection and
+  #            every record. Around a million paths, so a run takes a slice and
+  #            the next resumes exactly where it stopped.
   module Sweep
     # Collections and the controller that serves them, for reading the keys
     # each one actually accepts rather than guessing.
@@ -26,6 +28,8 @@ module Api
       'distributions' => 'Api::V1::ZonesController',
       'corrections' => 'Api::V1::RecordCorrectionsController'
     }.freeze
+
+    HOT_RECORDS = 150
 
     # A value of the right shape for each column type. What matters for error
     # detection is that the key is exercised and the value parses — not that it
@@ -72,26 +76,13 @@ module Api
       (constant_for(controller, :RANGEABLE_FIELDS) || []).map {|f| "#{base}?range[#{f}]=1,100" }
     end
 
-    # Pagination and individual records, in demand order. Returns `limit` paths
-    # starting at `cursor`, so consecutive runs advance through the surface.
-    def self.depth_paths(cursor, limit)
-      all = paginated_paths + record_paths
-      return [] if all.empty?
+    # The records people actually request, warmed on every run. The full walk
+    # below will reach them too, but only once per cycle — which is weeks.
+    def self.hot_paths
+      species = Species.order(gbif_score: :desc).limit(HOT_RECORDS).pluck(:slug).compact
+      plants = Plant.order(main_species_gbif_score: :desc).limit(HOT_RECORDS / 2).pluck(:slug).compact
 
-      start = cursor % all.length
-      all.rotate(start).first(limit)
-    end
-
-    # Deep pages matter: a bug in page 900 of species is invisible from page 1.
-    def self.paginated_paths
-      %w[species plants genus families distributions].flat_map do |path|
-        [2, 5, 20, 100, 500].map {|page| "/api/v1/#{path}?page=#{page}" }
-      end
-    end
-
-    def self.record_paths
-      Species.order(gbif_score: :desc).limit(400).pluck(:slug).map {|s| "/api/v1/species/#{s}" } +
-        Plant.order(main_species_gbif_score: :desc).limit(200).pluck(:slug).map {|s| "/api/v1/plants/#{s}" }
+      species.map {|slug| "/api/v1/species/#{slug}" } + plants.map {|slug| "/api/v1/plants/#{slug}" }
     end
   end
 end
