@@ -987,10 +987,15 @@
   dependencies:
     "@floating-ui/core" "^1.0.3"
 
-"@fontsource/public-sans@^5.3.0":
+"@fontsource/cormorant-garamond@^5.3.0":
   version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/public-sans/-/public-sans-5.3.0.tgz#aa038717a4dede53ad69a1766c5e8d18a8100e19"
-  integrity sha512-kjODI0S3zdv0mBYCIQ8TbBayaiqszpc2UbhJiO3bjIqVVXzcWfHSt2o3WBCLOY3juaGaQoy4MoWCcgmfI5hCuA==
+  resolved "https://registry.yarnpkg.com/@fontsource/cormorant-garamond/-/cormorant-garamond-5.3.0.tgz#4d6baee3e9257be403a9fc406f42a8a75356824e"
+  integrity sha512-weuGsCirGVWBWqpt6YUp0yLThTe4G8YO45noq8wxeJCRvEpq5lFrxNMFSTxcyOyV5k5otzJ8guDzYegdYlcLMQ==
+
+"@fontsource/noto-sans@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans/-/noto-sans-5.3.0.tgz#b89fca1fb672e173249250ac90fe75f5759a04c4"
+  integrity sha512-fBCog2PY7DiVVTEEqtI/Qdinx/knobHYfoGpjFXdfBX5RoJaBp1Prw2G75p0OIsdlMZg3cLo0c+YbIUYOxnQJw==
 
 "@fontsource/roboto-mono@^5.3.0":
   version "5.3.0"

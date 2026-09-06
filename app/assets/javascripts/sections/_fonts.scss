@@ -4,41 +4,75 @@
 // origin: no Google Fonts <link>/@import, no render-blocking cross-origin
 // request (see #234).
 //
-// Public Sans carries body copy, headings and UI text. Roboto Mono stays for
-// code samples, scientific names and data values/labels ($family-monospace,
+// Cormorant Garamond carries H1-H4 (the institutional identity, #302).
+// Noto Sans carries body copy and UI text. Roboto Mono stays for code
+// samples, scientific names and data values/labels ($family-monospace,
 // sections/_variables.scss).
 
 @font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('@fontsource/public-sans/files/public-sans-latin-400-normal.woff2') format('woff2'),
-       url('@fontsource/public-sans/files/public-sans-latin-400-normal.woff') format('woff');
-}
-@font-face {
-  font-family: 'Public Sans';
+  font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('@fontsource/public-sans/files/public-sans-latin-500-normal.woff2') format('woff2'),
-       url('@fontsource/public-sans/files/public-sans-latin-500-normal.woff') format('woff');
+  src: url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2') format('woff2'),
+       url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff') format('woff');
 }
 @font-face {
-  font-family: 'Public Sans';
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2') format('woff2'),
+       url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('@fontsource/public-sans/files/public-sans-latin-600-normal.woff2') format('woff2'),
-       url('@fontsource/public-sans/files/public-sans-latin-600-normal.woff') format('woff');
+  src: url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2') format('woff2'),
+       url('@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/noto-sans/files/noto-sans-latin-400-normal.woff2') format('woff2'),
+       url('@fontsource/noto-sans/files/noto-sans-latin-400-normal.woff') format('woff');
 }
 @font-face {
-  font-family: 'Public Sans';
+  font-family: 'Noto Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/noto-sans/files/noto-sans-latin-400-italic.woff2') format('woff2'),
+       url('@fontsource/noto-sans/files/noto-sans-latin-400-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/noto-sans/files/noto-sans-latin-500-normal.woff2') format('woff2'),
+       url('@fontsource/noto-sans/files/noto-sans-latin-500-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('@fontsource/noto-sans/files/noto-sans-latin-600-normal.woff2') format('woff2'),
+       url('@fontsource/noto-sans/files/noto-sans-latin-600-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('@fontsource/public-sans/files/public-sans-latin-700-normal.woff2') format('woff2'),
-       url('@fontsource/public-sans/files/public-sans-latin-700-normal.woff') format('woff');
+  src: url('@fontsource/noto-sans/files/noto-sans-latin-700-normal.woff2') format('woff2'),
+       url('@fontsource/noto-sans/files/noto-sans-latin-700-normal.woff') format('woff');
 }
 
 @font-face {
