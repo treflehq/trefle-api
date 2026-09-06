@@ -10,7 +10,7 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
     change_type
     accepted_by
     source_type
-    external
+    source_reference
   ].freeze
 
   ORDERABLE_FIELDS = %w[
@@ -22,7 +22,7 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
     change_type
     accepted_by
     source_type
-    external
+    source_reference
   ].freeze
 
   def index
