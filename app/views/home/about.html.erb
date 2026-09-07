@@ -1,139 +1,164 @@
-<div class="about-page home-page container is-fluid">
+<%# Rebuilt from Trefle About.dc.html
+    (.agents/design/home-2026/maquette-about.html): header + anchor nav, six
+    sections with a forest-green :target rail, factual team numbers. %>
+<% provide :full_bleed, '1' %>
 
-  <div class="columns">
-    <div class="column is-2"></div>
-    <div class="column is-10">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title is-1">
-              <%= fa_icon('seedling', class: 'has-text-primary') %>
-
-              About
-            </h1>
-            <h2 class="subtitle">
-              General informations, privacy and contacts.
-            </h2>
-          </div>
-        </div>
-      </section>
+<div class="about">
+  <header class="about__header">
+    <div class="about__heading">
+      <span class="about__heading-icon"><%= fa_icon('clipboard-user') %></span>
+      <div>
+        <h1 class="about__title">About Trefle</h1>
+        <p class="about__lead">
+          Trefle is an open botanical data source and REST API, maintained by a
+          small volunteer team and backed by <a href="https://mashum.org">Mashum</a>.
+          It indexes about one million plants and is free for everyone.
+        </p>
+      </div>
     </div>
+    <nav class="about__nav" aria-label="About sections">
+      <a href="#sources">Data sources</a>
+      <a href="#team">The team</a>
+      <a href="#pricing">Pricing &amp; limits</a>
+      <a href="#licence">Licence &amp; citation</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="about__body">
+    <section id="sources" class="about-section about-section--first">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('database') %></span>
+        <h2 class="about-section__title">Data sources</h2>
+      </div>
+      <p>
+        Records are gathered from institutional databases, reconciled on the
+        accepted scientific name, and completed by hand by contributors. Each
+        species page states which sources it draws from and links back to them.
+      </p>
+      <div class="about-sources">
+        <p class="about-sources__caption">Data is gathered from</p>
+        <div class="about-sources__logos">
+          <%= image_tag asset_path('medias/usda.svg'), alt: 'USDA' %>
+          <%= image_tag asset_path('medias/kew.svg'), alt: 'Kew Royal Botanic Gardens' %>
+          <%= image_tag asset_path('medias/ipni.png'), alt: 'IPNI' %>
+          <%= image_tag asset_path('medias/tropicos.gif'), alt: 'Tropicos' %>
+          <%= image_tag asset_path('medias/tela-botanica.png'), alt: 'Tela Botanica' %>
+          <%= image_tag asset_path('medias/wikimedia.png'), alt: 'Wikimedia' %>
+          <%= image_tag asset_path('medias/muhitnat.png'), alt: 'MuhitNat' %>
+        </div>
+        <p class="about-sources__caption">and completed by hand by contributors around the world.</p>
+      </div>
+    </section>
+
+    <section id="team" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('hand-heart') %></span>
+        <h2 class="about-section__title">The team</h2>
+      </div>
+      <p>
+        Trefle started in 2016 and is run by volunteers: developers, data
+        reviewers and contributors who correct species pages. Hosting and
+        research are covered by donations and by Mashum association.
+      </p>
+      <dl class="home-stat-tiles home-stat-tiles--compact">
+        <div class="home-stat-tiles__tile">
+          <dt><%= number_with_delimiter(@team_stats[:core]) %></dt>
+          <dd>core maintainers</dd>
+        </div>
+        <div class="home-stat-tiles__tile">
+          <dt><%= number_with_delimiter(@team_stats[:reviewers]) %></dt>
+          <dd>data reviewers</dd>
+        </div>
+        <div class="home-stat-tiles__tile">
+          <dt><%= number_with_delimiter(@team_stats[:contributors]) %></dt>
+          <dd>contributors this year</dd>
+        </div>
+      </dl>
+      <p class="about-section__more">
+        Want to help? See <%= link_to 'how to join the team', root_path(anchor: 'volunteer') %>.
+      </p>
+    </section>
+
+    <section id="pricing" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('server') %></span>
+        <h2 class="about-section__title">Pricing and limits</h2>
+      </div>
+      <p>
+        Trefle is free for all, and always will be. Server maintenance is
+        expensive, so requests are rate-limited.
+      </p>
+      <div class="about-tiles">
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">Free account</span>
+          <span class="about-tile__value">60 req/min</span>
+          <span class="about-tile__note">Full dataset, all endpoints.</span>
+        </div>
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">GitHub sponsor</span>
+          <span class="about-tile__value">600 req/min</span>
+          <span class="about-tile__note">Or more, if needed. <%= link_to 'Become a sponsor', donate_path %>.</span>
+        </div>
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">Institutions</span>
+          <span class="about-tile__value">Bulk export</span>
+          <span class="about-tile__note">Arranged case by case. <a href="#contact">Contact us</a>.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="licence" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('book') %></span>
+        <h2 class="about-section__title">Licence and citation</h2>
+      </div>
+      <p>
+        The API and platform code are open source. Data keeps the licence of
+        its source; corrections made on Trefle are published under an open
+        licence. Images carry their own attribution.
+      </p>
+      <p class="about-section__more">To cite Trefle in a publication:</p>
+      <pre class="about-citation">Trefle (<%= Date.current.year %>). Trefle: a global plants API. https://trefle.io &mdash; accessed <%= Date.current.iso8601 %>.</pre>
+    </section>
+
+    <section id="privacy" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('key') %></span>
+        <h2 class="about-section__title">(very short) privacy policy</h2>
+      </div>
+      <p>
+        Trefle.io take your privacy seriously and will take all measures to
+        protect your personal information. We store your e-mail, your API token
+        and your corrections. We will not sell or redistribute your information
+        to anyone. No third-party tracking.
+      </p>
+    </section>
+
+    <section id="contact" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('mailbox') %></span>
+        <h2 class="about-section__title">Contact</h2>
+      </div>
+      <p>
+        Questions, partnerships, datasets to integrate, educational projects
+        &mdash; write to us. We reply to every message, usually within a few days.
+      </p>
+      <div class="about-contacts">
+        <a href="mailto:hello@trefle.io" class="about-contact">
+          <span class="about-contact__eyebrow">E-mail</span>
+          <span class="about-contact__value">hello@trefle.io</span>
+        </a>
+        <a href="https://discord.gg/fuamwgk" class="about-contact">
+          <span class="about-contact__eyebrow">Discord</span>
+          <span class="about-contact__value"><span class="about-contact__brand about-contact__brand--discord"><%= fa_icon('discord', style: :brands) %></span>Join the server</span>
+        </a>
+        <a href="https://github.com/treflehq/trefle-api" class="about-contact">
+          <span class="about-contact__eyebrow">GitHub</span>
+          <span class="about-contact__value"><span class="about-contact__brand about-contact__brand--github"><%= fa_icon('github', style: :brands) %></span>treflehq/trefle-api</span>
+        </a>
+      </div>
+    </section>
   </div>
-
-  <div class="columns">
-    <div class="column is-2">
-      <br>
-      <br>
-      <aside class="menu">
-        <ul class="menu-list">
-          <li><a href="#sources">Data sources</a></li>
-          <li><a href="#privacy">Privacy</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#beta-disclaimer">Beta stage</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </aside>
-    </div>
-
-    <div class="column is-10">
-
-      <section class="section logo-section" id="about">
-        <h4 class="title is-4">
-          We deliver all plants informations under an accessible API.
-        </h4>
-      </section>
-
-      <section class="section content logo-section" id="sources">
-        <p class="has-text-centered has-text-grey">Our data is gathered with love from</p>
-        <br>
-        <div class="has-text-centered">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/usda.svg") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/tela-botanica.png") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" class="spadded" src="<%= asset_path("medias/tropicos.gif") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/ipni.png") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" class="all-spadded" src="<%= asset_path("medias/kew.svg") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/wikimedia.png") %>" alt="">
-          <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/muhitnat.png") %>" alt="">  
-        </div>
-        <p class="has-text-centered has-text-grey">& manually from people all around the world</p>
-      </section>
-
-      <!-- <hr> -->
-      <section class="section content" id="privacy">
-        <h1 class="title is-4 ">
-          <%= fa_icon('user-secret', class: 'has-text-success') %> (very short) privacy policy
-        </h1>
-        <p>Trefle.io take your privacy seriously and will take all measures to protect your personal information.</p>
-        <p>Any personal information received will only be used to fulfill your order, and may be used for anonymized internal analytical purposes.</p>
-        <p>We will not sell or redistribute your information to anyone.</p>
-      </section>
-
-      <section class="section content" id="pricing">
-        <h1 class="title is-4 ">
-          <%= fa_icon('money-bill-wave', class: 'has-text-success') %> Pricing
-        </h1>
-        <p><b>Trefle is free for all</b>, and always will be.</p>
-        <p>However, server maintenance is expensive, so we impose a limit of 60 requests per minute. If you have higher needs, or just want to help us keep Trefle up and running, you can <a href="https://github.com/sponsors/treflehq" target="_blank">sponsor us on GitHub</a>.</p>
-      </section>
-
-      <section class="section content" id="support">
-        <h1 class="title is-4 ">
-          <%= fa_icon('hand-heart', class: 'has-text-success') %> Need more requests ?
-        </h1>
-        <p><b>Sponsors have an extended request limit of 600 requests/minute.</b></p>
-        <p>Read <a href="<%= donate_path %>">how to become a sponsor</a>.</p>
-      </section>
-
-
-      <section class="section content" id="beta-disclaimer">
-        <h1 class="title is-4 ">
-          <%= fa_icon('flask-potion', class: 'has-text-success') %>
-          Beta disclaimer
-        </h1>
-        <p>Trefle is actually in beta stage, which implies that bugs and issues may still remain undiscovered until this phase of testing is complete.</p>
-        <p>The beta stage also means that the data may be corrupted, is not 100% validated or complete, and is subject to change.</p>
-        <p>Finally, services may have downtime and the API schemas and calls are subject to change.</p>
-      </section>
-      <hr>
-      <section class="section content" id="contact">
-        <h1 class="title is-4 ">
-          <%= fa_icon('mailbox', class: 'has-text-success') %>
-
-          Contact us
-        </h1>
-        <p>If you have questions, advices, partnerships or if you just want to say hello, please contact us, we'll be our pleasure to reply!</p>
-
-      </section>
-      <section class="section content" id="contact">
-        <div class="columns">
-          <div class="column is-4">
-            <a href="mailto:hello@trefle.io">
-              <h2 class="title is-5 has-text-centered">Send us a mail</h2>
-              <p class="has-text-centered">hello@trefle.io</p>
-            </a>
-          </div>
-          <div class="column is-4">
-            <a title="Join us on Discord" href="https://discord.gg/fuamwgk" target="_blank">
-              <h2 class="title is-5 has-text-centered">Join us on Discord</h2>
-              <p class="has-text-centered">
-                <span class="icon" style="color: #7289da;">
-                  <%= fa_icon('discord', style: :brands, class: 'fa-3x fa-lg') %>
-                </span>
-              </p>
-            </a>
-          </div>
-          <div class="column is-4">
-            <a title="Follow us on Twitter" href="https://twitter.com/trefle_api" target="_blank">
-              <h2 class="title is-5 has-text-centered">Follow us on Twitter</h2>
-              <p class="has-text-centered">
-                <span class="icon" style="color: #55acee;">
-                  <%= fa_icon('twitter', style: :brands, class: 'fa-3x fa-lg') %>
-                </span>
-              </p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
+</div>

@@ -1,0 +1,257 @@
+@import "variables";
+
+// About page, rebuilt from Trefle About.dc.html
+// (.agents/design/home-2026/maquette-about.html): header + anchor nav, then
+// six stacked sections; the targeted section grows a forest-green left rail.
+
+.about {
+  &__header {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+    padding: 4rem 1.5rem 0;
+  }
+
+  &__heading {
+    align-items: flex-start;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__heading-icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 2rem;
+    line-height: 1;
+    margin-top: 0.5rem;
+  }
+
+  &__title {
+    color: #0a0a0a;
+    font-family: $family-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  &__lead {
+    font-size: 1.125rem;
+    margin: 0.75rem 0 0;
+    text-wrap: pretty;
+  }
+
+  &__nav {
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.75rem;
+    margin-top: 2.5rem;
+
+    a {
+      color: #363636;
+      font-size: 0.875rem;
+      padding: 0.75rem 0;
+      white-space: nowrap;
+
+      &:hover,
+      &:focus {
+        color: $forest-green;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+    min-width: 0;
+    padding: 1rem 1.5rem 4rem;
+  }
+}
+
+.about-section {
+  border-top: 1px solid #dbdbdb;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: -1rem;
+  margin-top: 3.5rem;
+  padding-left: 1rem;
+  padding-top: 3rem;
+
+  // The anchored section is marked by a left rail, like the species page
+  // sections (--border-accent in the design tokens).
+  &:target {
+    box-shadow: -2px 0 0 $forest-green;
+  }
+
+  &--first {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  &__heading {
+    align-items: center;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  &__icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  &__title {
+    color: #0a0a0a;
+    font-family: $family-serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  &__more {
+    font-size: 0.9375rem;
+  }
+}
+
+.about-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__caption {
+    color: #7a7a7a;
+    font-size: 0.875rem;
+  }
+
+  &__logos {
+    align-items: center;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+
+    img {
+      display: block;
+      filter: grayscale(1);
+      max-height: 44px;
+      object-fit: contain;
+      transition: filter 150ms;
+      width: 100%;
+
+      &:hover {
+        filter: grayscale(0);
+      }
+    }
+  }
+}
+
+.about-tiles {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 0.5rem;
+}
+
+.about-tile {
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+
+  &__eyebrow {
+    color: #7a7a7a;
+    font-family: $family-monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__value {
+    color: #0a0a0a;
+    font-family: $family-monospace;
+    font-size: 1.5rem;
+  }
+
+  &__note {
+    font-size: 0.875rem;
+  }
+}
+
+.about-citation {
+  background: #f5f5f5;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  color: #363636;
+  font-family: $family-monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.875rem 1rem;
+  white-space: pre-wrap;
+}
+
+.about-contacts {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 0.5rem;
+}
+
+.about-contact {
+  border-top: 1px solid #dbdbdb;
+  color: #363636;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 1rem;
+
+  &:hover,
+  &:focus {
+    color: $forest-green;
+    text-decoration: none;
+  }
+
+  &__eyebrow {
+    color: #7a7a7a;
+    font-family: $family-monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__value {
+    align-items: center;
+    color: #0a0a0a;
+    display: inline-flex;
+    font-family: $family-monospace;
+    gap: 0.4rem;
+  }
+
+  &__brand {
+    display: inline-flex;
+
+    &--discord {
+      color: #7289da;
+    }
+
+    &--github {
+      color: #242a2f;
+    }
+  }
+}
