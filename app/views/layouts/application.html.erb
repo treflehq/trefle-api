@@ -40,14 +40,18 @@
     }
   </script>
 
-  <p class="top-notification alert alert-info" role="alert""><%= notice %></p>
-  <p class=" top-notification alert alert-danger" role="alert""><%= alert %></p>
+  <p class="top-notification alert alert-info" role="alert"><%= notice %></p>
+  <p class="top-notification alert alert-danger" role="alert"><%= alert %></p>
 
   <%= render partial: "layouts/navbar" %>
-  <section class=" section">
+  <% if content_for?(:full_bleed) %>
     <%= yield %>
+  <% else %>
+    <section class="section">
+      <%= yield %>
     </section>
-    <%= render partial: "layouts/footer" %>
+  <% end %>
+  <%= render partial: "layouts/footer" %>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VL7KHM5CK"></script>
     <script>
