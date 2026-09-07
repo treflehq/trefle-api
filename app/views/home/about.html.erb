@@ -115,12 +115,21 @@
         <h2 class="about-section__title">Licence and citation</h2>
       </div>
       <p>
-        The API and platform code are open source. Data keeps the licence of
-        its source; corrections made on Trefle are published under an open
-        licence. Images carry their own attribution.
+        The API and platform code are open source under
+        <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a>.
+        The Trefle database &mdash; the compilation, its structure and the
+        community corrections &mdash; is published under
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a>.
+        Individual records aggregate facts from upstream sources, and each
+        upstream source keeps its own licence. Images carry their own
+        attribution.
+      </p>
+      <p>
+        Using Trefle in an app? Display &ldquo;Data: Trefle.io (CC-BY
+        4.0)&rdquo; with a link back to trefle.io.
       </p>
       <p class="about-section__more">To cite Trefle in a publication:</p>
-      <pre class="about-citation">Trefle (<%= Date.current.year %>). Trefle: a global plants API. https://trefle.io &mdash; accessed <%= Date.current.iso8601 %>.</pre>
+      <pre class="about-citation">Trefle (<%= Date.current.year %>). Trefle: a global plants API. https://trefle.io &mdash; data licensed CC-BY 4.0, accessed <%= Date.current.iso8601 %>.</pre>
     </section>
 
     <section id="privacy" class="about-section">
