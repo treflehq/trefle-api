@@ -1,0 +1,32 @@
+<section id="volunteer" class="home-section home-section--muted">
+  <div class="home-section__inner">
+    <%= render 'home/section_heading',
+          icon: 'hand-heart',
+          title: 'Join the team',
+          intro: 'Trefle is run by a small volunteer team. There is work for developers, for people who care about data quality, and for anyone who knows plants.' %>
+
+    <div class="home-columns">
+      <div class="home-columns__column">
+        <span class="home-columns__icon"><%= fa_icon('code-branch') %></span>
+        <h3 class="home-subheading">Development</h3>
+        <p>Rails API, React front end, import pipelines. Issues are open on GitHub and labelled by difficulty.</p>
+      </div>
+      <div class="home-columns__column">
+        <span class="home-columns__icon"><%= fa_icon('clipboard-list-check') %></span>
+        <h3 class="home-subheading">Data quality</h3>
+        <p>Reconcile sources, review submitted corrections, detect duplicates and broken taxonomies.</p>
+      </div>
+      <div class="home-columns__column">
+        <span class="home-columns__icon"><%= fa_icon('seedling') %></span>
+        <h3 class="home-subheading">Corrections</h3>
+        <p>Any account can complete a species page: growth conditions, distribution, common names, images. No coding involved.</p>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <a href="https://discord.gg/fuamwgk" class="button is-primary">Join us on Discord</a>
+      <a href="https://github.com/treflehq/trefle-api/issues" class="button">Open issues on GitHub</a>
+      <a href="<%= explore_record_corrections_path %>" class="button">Start correcting data</a>
+    </div>
+  </div>
+</section>

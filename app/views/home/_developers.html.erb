@@ -1,0 +1,32 @@
+<section id="developers" class="home-section">
+  <div class="home-section__inner">
+    <%= render 'home/section_heading',
+          icon: 'code',
+          title: 'For developers',
+          intro: 'A plain REST API returning JSON. 60 requests per minute for everyone, 600 for GitHub sponsors.' %>
+
+    <ol class="home-steps">
+      <li class="home-steps__step">
+        <span class="home-mono home-steps__index">01</span>
+        <h3 class="home-subheading">Create an account, get a token</h3>
+        <p>Your token allows you to make queries on the API. Keep it private.</p>
+      </li>
+      <li class="home-steps__step">
+        <span class="home-mono home-steps__index">02</span>
+        <h3 class="home-subheading">Make your first request</h3>
+        <pre class="home-code-sample">curl "https://trefle.io/api/v1/plants?token=YOUR_TOKEN"</pre>
+      </li>
+      <li class="home-steps__step">
+        <span class="home-mono home-steps__index">03</span>
+        <h3 class="home-subheading">Read the reference</h3>
+        <p>Endpoints for plants, species, genus, families, distributions and corrections, with filters, sorting and pagination.</p>
+      </li>
+    </ol>
+
+    <div class="buttons">
+      <a href="<%= new_user_registration_path %>" class="button is-primary">Create an account</a>
+      <a href="https://docs.trefle.io" class="button">Documentation</a>
+      <a href="https://github.com/treflehq/trefle-api" class="button">Source on GitHub</a>
+    </div>
+  </div>
+</section>

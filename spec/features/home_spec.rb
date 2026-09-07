@@ -4,8 +4,8 @@ RSpec.feature 'Home page', type: :feature do
 
   scenario 'User visits the home page' do
     visit '/'
-    expect(page).to have_text('Get started')
-    expect(page).to have_text('Browse the docs')
+    expect(page).to have_text('Explore the plants')
+    expect(page).to have_text('Read the documentation')
     expect(page).to have_text('Sign in')
     expect(page).to have_text('Documentation')
   end

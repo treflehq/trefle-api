@@ -1,0 +1,55 @@
+<% max_rank_count = [stats.records_by_rank.values.max.to_i, 1].max %>
+<section id="data" class="home-section">
+  <div class="home-section__inner">
+    <%= render 'home/section_heading',
+          icon: 'database',
+          title: 'What is in the database',
+          intro: safe_join([
+            'Trefle is still in beta. Some records are incomplete or not fully validated; missing values are labelled ',
+            content_tag(:span, 'unknown', class: 'home-mono'),
+            ' rather than hidden.'
+          ]) %>
+
+    <div class="home-bar-grids">
+      <div>
+        <h3 class="home-subheading">Records by taxonomic rank</h3>
+        <div class="home-bar-grid">
+          <% stats.records_by_rank.each do |label, count| %>
+            <span><%= label %></span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: <%= (count.to_f / max_rank_count * 100).round(1) %>%"></div></div>
+            <span class="home-mono home-bar-grid__value"><%= number_with_delimiter(count) %></span>
+          <% end %>
+        </div>
+        <p class="home-muted-note">
+          Plus about <%= number_with_delimiter(stats.synonyms_count) %> synonyms resolved to an accepted name.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="home-subheading">Share of species with each field filled</h3>
+        <div class="home-bar-grid">
+          <% stats.field_completeness_shares.each do |label, share| %>
+            <span><%= label %></span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: <%= share %>%"></div></div>
+            <span class="home-mono home-bar-grid__value"><%= number_with_precision(share, precision: 1, strip_insignificant_zeros: true) %>%</span>
+          <% end %>
+        </div>
+        <p class="home-muted-note">Each species page states its own completeness and lists what is missing.</p>
+      </div>
+    </div>
+
+    <div class="home-data-sources">
+      <p class="home-data-sources__caption">Data is gathered from</p>
+      <div class="home-data-sources__logos">
+        <%= image_tag(asset_path('medias/usda.svg'), alt: 'USDA') %>
+        <%= image_tag(asset_path('medias/kew.svg'), alt: 'Kew') %>
+        <%= image_tag(asset_path('medias/ipni.png'), alt: 'IPNI') %>
+        <%= image_tag(asset_path('medias/tropicos.gif'), alt: 'Tropicos') %>
+        <%= image_tag(asset_path('medias/tela-botanica.png'), alt: 'Tela Botanica') %>
+        <%= image_tag(asset_path('medias/wikimedia.png'), alt: 'Wikimedia') %>
+        <%= image_tag(asset_path('medias/muhitnat.png'), alt: 'MuhitNat') %>
+      </div>
+      <p class="home-data-sources__footnote">and completed by hand by contributors around the world.</p>
+    </div>
+  </div>
+</section>
