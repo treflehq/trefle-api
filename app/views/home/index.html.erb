@@ -1,3 +1,8 @@
+<%# Sections manage their own container/washes edge to edge (maquette),
+    so the layout must not wrap this page in a padded Bulma .section.
+    Kept outside the cache block: content_for is a side effect that a
+    cached fragment would not replay. %>
+<% provide :full_bleed, '1' %>
 <% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?, current_user&.admin] do %>
   <div class="home-page">
     <%= render 'home/hero' %>

@@ -29,15 +29,23 @@
     <div class="home-changes-grid">
       <div>
         <h3 class="home-subheading">Accepted corrections per week</h3>
-        <div class="home-sparkline">
+        <% total_accepted = activity[:weekly_accepted].sum %>
+        <div class="home-sparkline" role="img" aria-label="<%= pluralize(total_accepted, 'correction') %> accepted over the last 12 weeks">
           <% activity[:weekly_accepted].each do |count| %>
-            <div class="home-sparkline__bar" style="height: <%= (count.to_f / max_weekly * 100).round(1) %>%"></div>
+            <div class="home-sparkline__col">
+              <% if count.positive? %>
+                <div class="home-sparkline__fill" style="height: <%= (count.to_f / max_weekly * 100).round(1) %>%"></div>
+              <% end %>
+            </div>
           <% end %>
         </div>
         <div class="home-sparkline__axis">
           <span>12 weeks ago</span>
           <span>this week</span>
         </div>
+        <% if total_accepted.zero? %>
+          <p class="home-sparkline__empty">No corrections accepted in the last 12 weeks.</p>
+        <% end %>
       </div>
 
       <div>

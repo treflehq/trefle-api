@@ -165,6 +165,7 @@
   letter-spacing: -0.01em;
   margin: 0;
   max-width: 20ch;
+  text-wrap: balance;
 }
 
 // The maquette sets font-style:italic on this <p> but wraps its text in a
@@ -186,6 +187,7 @@
   line-height: 1.6;
   margin: 1.75rem 0 0;
   max-width: 60ch;
+  text-wrap: pretty;
 }
 
 // Start here strip -------------------------------------------------------
@@ -299,6 +301,7 @@
     color: #7a7a7a;
     margin: 0.5rem 0 0;
     max-width: 60ch;
+    text-wrap: pretty;
   }
 }
 
@@ -424,14 +427,21 @@
 }
 
 .home-sparkline {
-  align-items: end;
   border-bottom: 1px solid #dbdbdb;
   display: grid;
   gap: 4px;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   height: 120px;
 
-  &__bar {
+  // Same track/fill pairing as .home-bar-track above, so a quiet week reads
+  // as "zero on a chart" rather than "broken bar".
+  &__col {
+    align-items: end;
+    background: #e3f3e6;
+    display: grid;
+  }
+
+  &__fill {
     background: $forest-green;
     min-height: 2px;
   }
@@ -444,6 +454,12 @@
     justify-content: space-between;
     margin-top: 0.5rem;
   }
+
+  &__empty {
+    color: #7a7a7a;
+    font-size: 0.875rem;
+    margin: 0.75rem 0 0;
+  }
 }
 
 .home-reviewed-list {
@@ -453,19 +469,23 @@
   margin: 0;
   padding: 0;
 
+  // Grid, not flex: the meta column (contributor · date) is capped and
+  // ellipsized so a long contributor name can never crush the body column
+  // into a one-word-per-line sliver.
   &__item {
     align-items: baseline;
     border-top: 1px solid #dbdbdb;
-    display: flex;
+    display: grid;
     font-size: 0.875rem;
-    gap: 0.75rem;
+    gap: 0.25rem 0.75rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     line-height: 1.4;
     padding: 0.5rem 0;
   }
 
   &__body {
-    flex: 1 1 auto;
     min-width: 0;
+    overflow-wrap: anywhere; // long field names (minimum_temperature_deg_c…)
   }
 
   &__species {
@@ -475,9 +495,22 @@
 
   &__meta {
     color: #7a7a7a;
-    flex: 0 0 auto;
     font-size: 0.75rem;
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  @include respond-to(handhelds) {
+    &__item {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    &__meta {
+      grid-column: 2;
+      max-width: none;
+    }
   }
 }
 
@@ -538,6 +571,8 @@
   margin: 0.25rem 0 0;
   overflow-x: auto;
   padding: 0.75rem 1rem;
+  scrollbar-color: #7a7a7a transparent;
+  scrollbar-width: thin;
   white-space: pre;
 }
 
@@ -667,6 +702,13 @@
 .home-terminal {
   border-radius: 5px;
   overflow: hidden;
+
+  // The command line and JSON block are react-syntax-highlighter <pre>s;
+  // keep their overflow scrollbars discreet inside the dark terminal.
+  pre {
+    scrollbar-color: #7a7a7a #363636;
+    scrollbar-width: thin;
+  }
 
   &__bar {
     background: #444643;
