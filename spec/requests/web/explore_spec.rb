@@ -53,6 +53,89 @@ RSpec.describe 'Explore pages', type: :request do
     end
   end
 
+  describe 'GET /explore browse filters and sorts' do
+    def first_card_name
+      h2 = Nokogiri::HTML.fragment(response.body).at_css('.explore-grid__cell .species-grid-item h2')
+      h2.css('svg, style').remove # inline duotone icons carry a <style> block
+      h2.text.strip
+    end
+
+    it 'filters by rank' do
+      variety = Species.order(:id).first
+      variety.update_columns(rank: Species.ranks['var'])
+
+      get explore_path, params: { rank: 'var' }
+      expect(response.body).to include(variety.scientific_name)
+      expect(response.body).not_to include(Species.species_rank.order(wiki_score: :desc).first.scientific_name)
+    end
+
+    it 'ignores an unknown rank instead of erroring' do
+      get explore_path, params: { rank: 'cultivar' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'filters by family name' do
+      species = Species.order(:id).first
+      species.update_columns(family_name: 'Testaceae')
+
+      get explore_path, params: { family: 'Testaceae' }
+      expect(response.body).to include(species.scientific_name)
+      expect(response.body).to include('Showing 1&ndash;1 of 1 plants')
+    end
+
+    it 'keeps only species with an image when asked to' do
+      bare = Species.order(:id).first
+      bare.update_columns(main_image_url: nil)
+
+      get explore_path, params: { images: '1' }
+      expect(response.body).not_to include(bare.scientific_name)
+    end
+
+    it 'sorts by completion ratio' do
+      most_complete = Species.order(:id).first
+      most_complete.update_columns(completion_ratio: 99)
+
+      get explore_path, params: { sort: 'complete' }
+      expect(first_card_name).to eq(most_complete.scientific_name)
+    end
+
+    it 'sorts by scientific name' do
+      get explore_path, params: { sort: 'name' }
+      expect(first_card_name).to eq(Species.order(:scientific_name).first.scientific_name)
+    end
+
+    it 'marks the active filter chip and lets it toggle back off' do
+      get explore_path, params: { vegetable: '1' }
+      chip = Nokogiri::HTML.fragment(response.body).css('a.explore-chip--active').find {|a| a.text == 'Vegetable' }
+      expect(chip).not_to be_nil
+      expect(chip['href']).not_to include('vegetable=1')
+    end
+
+    it 'renders the empty state when nothing matches' do
+      get explore_path, params: { family: 'Nonexistaceae' }
+      expect(response.body).to include('No plant matches this search.')
+      expect(response.body).to include('clear the filters')
+    end
+
+    it 'shows each card with its family and completion percentage' do
+      species = Species.order(wiki_score: :desc).first
+      species.update_columns(completion_ratio: 42, family_name: 'Pinaceae')
+
+      get explore_path
+      card = Nokogiri::HTML.fragment(response.body).css('.explore-grid__cell').find do |cell|
+        cell.text.include?(species.scientific_name)
+      end
+      expect(card.at_css('.explore-grid__family').text).to eq('Pinaceae')
+      expect(card.at_css('.explore-grid__completeness-value').text).to eq('42%')
+    end
+
+    it 'links the corrections queue from the contribute band' do
+      get explore_path
+      expect(response.body).to include('Something missing or wrong?')
+      expect(response.body).to include(explore_record_corrections_path(status: :pending))
+    end
+  end
+
   describe 'GET /explore/species/:id' do
     it 'renders a species page by slug' do
       species = Species.friendly.find('abies-alba')

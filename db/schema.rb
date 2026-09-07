@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_05_160000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_07_090000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -455,7 +455,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_05_160000) do
     t.index ["author"], name: "index_species_on_author"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["common_name"], name: "index_species_on_common_name"
+    t.index ["completion_ratio"], name: "index_species_on_completion_ratio"
     t.index ["family_common_name"], name: "index_species_on_family_common_name"
+    t.index ["family_name"], name: "index_species_on_family_name"
     t.index ["flower_conspicuous"], name: "index_species_on_flower_conspicuous"
     t.index ["gbif_score"], name: "species_gbif_score_idx"
     t.index ["genus_id"], name: "species_genus_id_index"
@@ -472,6 +474,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_05_160000) do
     t.index ["planting_days_to_harvest"], name: "index_species_on_planting_days_to_harvest"
     t.index ["planting_row_spacing_cm"], name: "index_species_on_planting_row_spacing_cm"
     t.index ["planting_spread_cm"], name: "index_species_on_planting_spread_cm"
+    t.index ["reviewed_at"], name: "index_species_on_reviewed_at"
     t.index ["scientific_name"], name: "species_scientific_name_index", unique: true
     t.index ["slug"], name: "index_species_on_slug"
     t.index ["token"], name: "index_species_on_token"

@@ -1,8 +1,11 @@
 class Explore::SpeciesController < Explore::ExploreController
   before_action :set_species, only: %i[show edit update destroy refresh corrections]
 
-  has_scope :vegetable, type: :boolean, allow_blank: true
-  has_scope :edible, type: :boolean, allow_blank: true
+  # Browse filters, all optional and combinable with the search box. Ranks are
+  # the Species enum keys; flags map a param to a SQL/search condition.
+  FILTER_FLAGS = %w[images edible vegetable].freeze
+  SORTS = %w[name complete recent].freeze
+  FAMILY_CHIPS_COUNT = 7
 
   # GET /species
   # GET /species.json
@@ -10,15 +13,18 @@ class Explore::SpeciesController < Explore::ExploreController
     search = params[:search]
     @page_title = 'Explore plants and species'
     @page_keywords = 'explore, plants, search, species'
+    @family_chips = family_chips
 
     if search.blank?
-      @collection ||= Species.all.preload(:plant, :genus, :synonyms).order(wiki_score: :desc)
+      @collection = apply_filters(Species.all).preload(:plant, :genus, :synonyms).order(browse_order)
       @pagy, @collection = pagy(@collection)
     else
       options = {
         includes: %i[synonyms genus plant],
         boost_by: [:gbif_score],
-        fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions']
+        fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions'],
+        where: search_where,
+        order: search_order
       }.compact
 
       @collection = Species.pagy_search(search, **options)
@@ -107,6 +113,77 @@ class Explore::SpeciesController < Explore::ExploreController
   # end
 
   private
+
+  def current_rank
+    params[:rank] if Species.ranks.key?(params[:rank])
+  end
+  helper_method :current_rank
+
+  def current_family
+    params[:family].presence
+  end
+  helper_method :current_family
+
+  def current_flags
+    FILTER_FLAGS.select {|f| params[f] == '1' }
+  end
+  helper_method :current_flags
+
+  def current_sort
+    params[:sort] if SORTS.include?(params[:sort])
+  end
+  helper_method :current_sort
+
+  def apply_filters(scope)
+    scope = scope.where(rank: current_rank) if current_rank
+    scope = scope.where(family_name: current_family) if current_family
+    scope = scope.where.not(main_image_url: nil) if current_flags.include?('images')
+    scope = scope.where(edible: true) if current_flags.include?('edible')
+    scope = scope.where(vegetable: true) if current_flags.include?('vegetable')
+    scope
+  end
+
+  def browse_order
+    case current_sort
+    when 'name' then { scientific_name: :asc }
+    when 'complete' then { completion_ratio: :desc, wiki_score: :desc }
+    when 'recent' then { reviewed_at: :desc, wiki_score: :desc }
+    else { wiki_score: :desc }
+    end
+  end
+
+  # Searchkick indexes every attribute, so the browse filters translate
+  # directly. Name sort is not available on the analyzed field; search
+  # results stay relevance-ordered unless a numeric sort is asked for.
+  def search_where
+    where = {}
+    where[:rank] = current_rank if current_rank
+    where[:family_name] = current_family if current_family
+    where[:main_image_url] = { not: nil } if current_flags.include?('images')
+    where[:edible] = true if current_flags.include?('edible')
+    where[:vegetable] = true if current_flags.include?('vegetable')
+    where.presence
+  end
+
+  def search_order
+    case current_sort
+    when 'complete' then { completion_ratio: :desc }
+    when 'recent' then { reviewed_at: :desc }
+    end
+  end
+
+  # The most represented families, as browse chips. Refreshed daily; the
+  # grouped count is a sequential scan we don't want on every page view.
+  def family_chips
+    Rails.cache.fetch('explore/family_chips/v1', expires_in: 1.day) do
+      Species.where.not(family_name: nil)
+        .group(:family_name)
+        .order(Arel.sql('count_all DESC'))
+        .limit(FAMILY_CHIPS_COUNT)
+        .count
+        .keys
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_species

@@ -1,52 +1,132 @@
-<div class="about-page home-page container">
-  <div class="columns">
-    <div class="column is-2"></div>
-    <div class="column is-8">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title is-1">
-              <%= fa_icon('compass', class: 'has-text-primary') %>
-              Explore
-            </h1>
-            <h2 class="subtitle">
-              Browse and contribute to the Trefle botanical data.
-            </h2>
-            <p class="explore-corrections-link">
-              <%= link_to(explore_record_corrections_path(status: :pending)) do %>
-                <%= fa_icon('clipboard-list-check', class: 'has-text-primary') %> Review the corrections queue
-              <% end %>
-            </p>
-          </div>
-        </div>
-        <%= form_with(method: "get", local: true) do %>
-          <div class="control has-icons-left">
-            <input class="input is-large" name="search" value="<%= params[:search] %>" type="search" placeholder="Search">
-            <span class="icon is-medium is-left">
-              <%= fa_icon('search', class: 'has-text-primary') %>
-            </span>
-          </div>
-        <% end %>
-      </section>
+<%# Sections manage their own container and washes edge to edge, like the
+    home page (maquette Trefle Explore.dc.html). %>
+<% provide :full_bleed, '1' %>
+
+<section class="explore-header">
+  <div class="explore-header__inner">
+    <div class="explore-header__heading">
+      <span class="explore-header__icon"><%= fa_icon('compass') %></span>
+      <div>
+        <h1 class="explore-header__title">Explore</h1>
+        <p class="explore-header__intro">
+          Browse the indexed plants by scientific or common name, then refine
+          by rank, family or use. Each page can be completed by any account.
+        </p>
+      </div>
     </div>
-  </div>
 
-  <% if @collection %>
-    <div class="columns is-multiline">
+    <%= form_with(method: :get, local: true, class: 'explore-search') do %>
+      <div class="control has-icons-left">
+        <input class="input" name="search" value="<%= params[:search] %>" type="search"
+               placeholder="Search by scientific or common name" aria-label="Search plants">
+        <span class="icon is-left"><%= fa_icon('search', class: 'has-text-primary') %></span>
+      </div>
+      <%# Submitting a search keeps the active chips and sort, like the
+          chips keep the search terms. %>
+      <% request.query_parameters.except('search', 'page').each do |key, value| %>
+        <%= hidden_field_tag key, value %>
+      <% end %>
+    <% end %>
 
-      <% @collection.each do |species| %>
-        <div class="column is-3">
-          <%= render partial: 'explore/species/species_item', locals: {species: species} %>
+    <div class="explore-filters">
+      <div class="explore-filters__group">
+        <span class="explore-filters__label">Rank</span>
+        <div class="explore-filters__chips">
+          <% Species.ranks.each_key do |rank| %>
+            <%= explore_chip(rank_chip_label(rank), :rank, rank, active: current_rank == rank) %>
+          <% end %>
+        </div>
+      </div>
+      <% if @family_chips.any? %>
+        <div class="explore-filters__group">
+          <span class="explore-filters__label">Family</span>
+          <div class="explore-filters__chips">
+            <% @family_chips.each do |family| %>
+              <%= explore_chip(family, :family, family, active: current_family == family) %>
+            <% end %>
+          </div>
         </div>
       <% end %>
+      <div class="explore-filters__group">
+        <span class="explore-filters__label">Only</span>
+        <div class="explore-filters__chips">
+          <%= explore_chip('With images', :images, '1', active: current_flags.include?('images')) %>
+          <%= explore_chip('Edible', :edible, '1', active: current_flags.include?('edible')) %>
+          <%= explore_chip('Vegetable', :vegetable, '1', active: current_flags.include?('vegetable')) %>
+        </div>
+      </div>
     </div>
-    <div class="container">
-      <%== pagy_bulma_nav(@pagy) %>
-      <%== pagy_info(@pagy) %>
-    </div>
-  <% end %>
+  </div>
+</section>
 
-</div>
+<section class="explore-results">
+  <div class="explore-results__inner">
+    <div class="explore-results__header">
+      <p class="explore-results__count">
+        <% if @collection.any? %>
+          Showing <%= @pagy.from %>&ndash;<%= @pagy.to %> of <%= number_with_delimiter(@pagy.count) %> plants
+        <% else %>
+          No results
+        <% end %>
+      </p>
+      <%= form_with(method: :get, local: true, class: 'explore-sort') do %>
+        <% request.query_parameters.except('sort', 'page').each do |key, value| %>
+          <%= hidden_field_tag key, value %>
+        <% end %>
+        <label class="explore-sort__label" for="explore-sort-select">Sort</label>
+        <div class="select is-small">
+          <select id="explore-sort-select" name="sort" onchange="this.form.requestSubmit()">
+            <option value="" <%= 'selected' unless current_sort %>>Featured</option>
+            <option value="name" <%= 'selected' if current_sort == 'name' %>>Scientific name A&ndash;Z</option>
+            <option value="complete" <%= 'selected' if current_sort == 'complete' %>>Most complete</option>
+            <option value="recent" <%= 'selected' if current_sort == 'recent' %>>Recently corrected</option>
+          </select>
+        </div>
+        <noscript><button class="button is-small" type="submit">Apply</button></noscript>
+      <% end %>
+    </div>
+
+    <% if @collection.any? %>
+      <div class="explore-grid">
+        <% @collection.each do |species| %>
+          <%= render partial: 'explore/species/species_item', locals: { species: species } %>
+        <% end %>
+      </div>
+      <div class="explore-pagination">
+        <%== pagy_bulma_nav(@pagy) %>
+      </div>
+    <% else %>
+      <div class="explore-empty">
+        <p class="explore-empty__title">No plant matches this search.</p>
+        <p class="explore-empty__hint">
+          Check the spelling, try a genus name only, or
+          <%= link_to 'clear the filters', explore_path %>. A name we do not
+          index yet can be reported through
+          <%= link_to 'the corrections queue', explore_record_corrections_path %>.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section class="explore-contribute">
+  <div class="explore-contribute__inner">
+    <div class="explore-contribute__heading">
+      <span class="explore-contribute__icon"><%= fa_icon('clipboard-list-check') %></span>
+      <h2 class="explore-contribute__title">Something missing or wrong?</h2>
+    </div>
+    <div>
+      <p class="explore-contribute__body">
+        Every species page lists the fields still unknown. Any account can
+        fill one in or correct a value; a reviewer checks it before it is
+        published. Corrections are attributed to their author.
+      </p>
+      <div class="explore-contribute__ctas">
+        <%= link_to 'See the corrections queue', explore_record_corrections_path(status: :pending), class: 'button' %>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script>
   var temp_token = "<%= current_user&.token || @jwt.token %>";
