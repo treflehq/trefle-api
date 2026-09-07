@@ -21,6 +21,11 @@ class HomeController < ApplicationController
     end
 
     @synonyms_count = Rails.cache.fetch("home/synonyms_count-#{@plants_count}") { Synonym.count }
+
+    # Backs the redesigned home page (#305): taxonomic ranks, field
+    # completeness shares, and recent correction activity.
+    @home_stats = HomeStatsPresenter.new
+
     @jwt = ::Auth::JsonWebToken.new(
       user: User.find_by(email: 'guest@trefle.io'),
       origin: ENV['API_HOST'],
