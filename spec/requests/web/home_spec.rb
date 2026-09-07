@@ -44,6 +44,36 @@ RSpec.describe 'Public website pages', type: :request do
     end
   end
 
+  describe 'GET /citation' do
+    it 'renders the three citation formats' do
+      get citation_path
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('Trefle: a global plants API')
+      expect(response.body).to include('Trefle. (') # APA
+      expect(response.body).to include('@misc{trefle') # BibTeX
+    end
+
+    it 'shows a "DOI pending" state when no DOI is configured' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('TREFLE_DOI').and_return(nil)
+
+      get citation_path
+
+      expect(response.body).to include('DOI pending')
+    end
+
+    it 'shows the DOI, linked, when configured' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('TREFLE_DOI').and_return('10.5281/zenodo.1234567')
+
+      get citation_path
+
+      expect(response.body).not_to include('DOI pending')
+      expect(response.body).to include('10.5281/zenodo.1234567')
+      expect(response.body).to include('https://doi.org/10.5281/zenodo.1234567')
+    end
+  end
+
   describe 'GET /profile' do
     it 'redirects anonymous visitors to sign in' do
       get profile_path
