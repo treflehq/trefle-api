@@ -170,14 +170,16 @@
   align-items: stretch;
   flex-direction: column;
 
+  // Every card shows the same square frame: portrait herbarium scans and
+  // landscape field photos are cropped by the object-fit:cover img below,
+  // and the leaf placeholder fills the identical square.
   aside {
-    min-width: 100px;
-    min-height: 150px;
-    height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     margin: 10px 0;
     border-radius: 3px;
     overflow: hidden;
+    width: 100%;
   }
 
   main {

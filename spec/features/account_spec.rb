@@ -20,7 +20,8 @@ RSpec.feature 'Account page', type: :feature do
     expect(page).to have_text('Your account')
     expect(page).to have_text('Access token')
     expect(page).to have_selector("input[value='#{user.token}']")
-    expect(page).to have_text('Account informations')
+    expect(page).to have_text('Account type')
+    expect(page).to have_text('Sign out & deletion')
   end
 
 end
