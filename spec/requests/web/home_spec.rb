@@ -42,6 +42,12 @@ RSpec.describe 'Public website pages', type: :request do
       get terms_path
       expect(response).to have_http_status(:ok)
     end
+
+    it 'names the data licence and the attribution clause (#320)' do
+      get terms_path
+      expect(response.body).to include('CC BY 4.0')
+      expect(response.body).to include('Data: Trefle.io')
+    end
   end
 
   describe 'GET /profile' do

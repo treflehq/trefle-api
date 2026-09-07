@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_05_160000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_07_102227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -712,6 +712,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_05_160000) do
     t.string "github_username"
     t.string "sponsored_tier"
     t.datetime "sponsorship_checked_at"
+    t.datetime "terms_accepted_at"
+    t.string "terms_version"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email"], name: "users_email_index", unique: true

@@ -1,5 +1,6 @@
 class Explore::ExploreController < ActionController::Base
   include Pagy::Backend
+  include RequiresTermsAcceptance
 
   layout 'application'
   before_action :generate_jwt

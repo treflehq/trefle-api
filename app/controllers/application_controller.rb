@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
+  include RequiresTermsAcceptance
+
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_sentry_context
   before_action :set_meta
 
   def configure_permitted_parameters
-    added_attrs = %I[name account_type email password password_confirmation remember_me organization_name organization_url]
+    added_attrs = %I[name account_type email password password_confirmation remember_me organization_name organization_url accepts_terms]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end

@@ -31,6 +31,12 @@ RSpec.describe 'Users::OmniauthCallbacks', type: :request do
       expect(user.provider).to eq('github')
       expect(user.uid).to eq('999')
       expect(response).to redirect_to(root_path)
+
+      # GitHub sign-up has no interactive step of its own to show the terms
+      # checkbox, so the account starts out pending -- the web-wide gate
+      # (RequiresTermsAcceptance#require_terms_acceptance!) picks it up on the
+      # very next page load instead (see spec/requests/terms_acceptances_spec.rb).
+      expect(user.terms_accepted_at).to be_nil
     end
 
     it 'signs in an existing user matched by provider and uid' do

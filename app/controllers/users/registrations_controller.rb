@@ -5,6 +5,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   prepend_before_action :check_captcha, only: [:create] # Change this to be any actions you want to protect.
 
+  # Only the public sign-up form enforces the terms-acceptance checkbox
+  # (see User#enforce_terms_acceptance) -- GitHub OAuth sign-ups and
+  # admin-created users go through other paths that don't call
+  # build_resource, so they're unaffected.
+  def build_resource(hash = {})
+    super
+    resource.enforce_terms_acceptance = true
+  end
+
   private
 
   def check_captcha
