@@ -1,0 +1,11 @@
+<%# Shared heading used by most home sections (#305): a duotone icon in
+    forest green next to a serif H2, with an optional muted intro line. %>
+<div class="home-section-heading">
+  <span class="home-section-heading__icon"><%= fa_icon(icon) %></span>
+  <div>
+    <h2 class="home-section-heading__title"><%= title %></h2>
+    <% if local_assigns[:intro].present? %>
+      <p class="home-section-heading__intro"><%= intro %></p>
+    <% end %>
+  </div>
+</div>

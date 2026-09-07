@@ -1,0 +1,65 @@
+<% activity = stats.correction_activity %>
+<% max_weekly = [activity[:weekly_accepted].max.to_i, 1].max %>
+<section id="changes" class="home-section home-section--muted">
+  <div class="home-section__inner">
+    <%= render 'home/section_heading',
+          icon: 'clipboard-list-check',
+          title: 'Recent changes',
+          intro: 'The database is not frozen. Contributors submit corrections every day; each one is reviewed before it is published.' %>
+
+    <dl class="home-stat-tiles">
+      <div class="home-stat-tiles__tile">
+        <dt><%= number_with_delimiter(activity[:submitted]) %></dt>
+        <dd>corrections submitted</dd>
+      </div>
+      <div class="home-stat-tiles__tile">
+        <dt><%= number_with_delimiter(activity[:accepted]) %></dt>
+        <dd>accepted and published</dd>
+      </div>
+      <div class="home-stat-tiles__tile">
+        <dt><%= number_with_delimiter(activity[:fields_completed]) %></dt>
+        <dd>fields completed</dd>
+      </div>
+      <div class="home-stat-tiles__tile">
+        <dt><%= number_with_delimiter(activity[:contributors]) %></dt>
+        <dd>contributors</dd>
+      </div>
+    </dl>
+
+    <div class="home-changes-grid">
+      <div>
+        <h3 class="home-subheading">Accepted corrections per week</h3>
+        <div class="home-sparkline">
+          <% activity[:weekly_accepted].each do |count| %>
+            <div class="home-sparkline__bar" style="height: <%= (count.to_f / max_weekly * 100).round(1) %>%"></div>
+          <% end %>
+        </div>
+        <div class="home-sparkline__axis">
+          <span>12 weeks ago</span>
+          <span>this week</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="home-subheading">Latest reviewed</h3>
+        <ul class="home-reviewed-list">
+          <% stats.latest_reviewed_corrections.each do |correction| %>
+            <li class="home-reviewed-list__item">
+              <span class="home-status-pill home-status-pill--<%= correction[:status] %>"><%= correction[:status].to_s.capitalize %></span>
+              <span class="home-reviewed-list__body">
+                <% if correction[:species_slug].present? %>
+                  <%= link_to correction[:species_name], explore_species_path(correction[:species_slug]), class: 'home-mono home-reviewed-list__species' %>
+                <% else %>
+                  <span class="home-mono home-reviewed-list__species"><%= correction[:species_name] || 'Unknown species' %></span>
+                <% end %>
+                &mdash; <%= correction[:description] %>
+              </span>
+              <span class="home-mono home-reviewed-list__meta"><%= correction[:contributor] %> &middot; <%= time_ago_in_words(correction[:reviewed_at]) %> ago</span>
+            </li>
+          <% end %>
+        </ul>
+        <p class="home-see-all"><%= link_to 'See all corrections', explore_record_corrections_path %></p>
+      </div>
+    </div>
+  </div>
+</section>

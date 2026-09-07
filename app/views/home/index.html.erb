@@ -1,177 +1,20 @@
 <% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?, current_user&.admin] do %>
-  <div class="home-page container">
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-10 is-offset-1">
-              <h1 class="main-title title is-1">
-                <%= image_tag(asset_path("logo.svg"), alt: "logo") %>
-                <p class="title-vertical">Trefle</p>
-              </h1>
-              <h2 class="subtitle">
-                A global plants API
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-10 is-offset-1">
-            <h2 class="subtitle">
-              <p>We are an open, freely accessible botanical data source and REST API.</p>
-            </h2>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-10 is-offset-1">
-            <div class="buttons">
-              <a href="https://docs.trefle.io" class="button is-info is-outlined">Browse the docs</a>
-              <% if current_user %>
-              <a href="<%= profile_path %>" class="button is-primary">My account</a>
-              <% else %>
-              <a href="<%= new_user_registration_path %>" class="button is-primary">Get started</a>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-    <section class="section is-hidden-mobile">
-      <div class="container">
-        <div id="code-sandbox">
-
-        </div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-1">
-            <h1 class="title has-text-centered">
-              <%= fa_icon('magic', class: 'has-text-primary') %>
-            </h1>
-          </div>
-          <div class="column is-10">
-            <h1 class="title">
-              Explore <%= number_to_human(@plants_count + @synonyms_count, precision: 1).downcase %> indexed plants!
-            </h1>
-            <h2 class=" subtitle">
-              including <%= number_to_human(@detailled_plants_count, precision: 1).downcase %> with detailed data, and <%= number_to_human(@synonyms_count, precision: 1).downcase %> synonyms!
-            </h2>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-1">
-          </div>
-          <div class="column is-3">
-            <div id="persp-chart"></div>
-          </div>
-          <div class="column is-7">
-            <div id="persp-chart-legend"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <hr />
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-10 is-offset-1">
-            <h1 class="title">
-              A complete plants API for...
-            </h1>
-            <br />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-1">
-            <h1 class="title is-4 has-text-centered">
-              <%= fa_icon('robot', class: 'has-text-primary') %>
-            </h1>
-          </div>
-          <div class="column is-5">
-            <h1 class="title is-4">
-              Robots
-            </h1>
-            <p>
-              <mark>Build the next gardening apps and farming robots</mark> by getting high-level informations, such as minimum temperature, root minimum depth or fertility requirement.
-            </p>
-          </div>
-          <div class="column is-1">
-            <h1 class="title is-4 has-text-centered">
-              <%= fa_icon('search', class: 'has-text-primary') %>
-            </h1>
-          </div>
-          <div class="column is-5">
-            <h1 class="title is-4">
-              Researchers
-            </h1>
-            <p>
-              <mark>Search over (almost) all the plants of the world</mark> over multiple criterias, and get up-to-date informations, taxonomical references and more
-            </p>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-1">
-            <h1 class="title is-4 has-text-centered">
-              <%= fa_icon('seedling', class: 'has-text-primary') %>
-            </h1>
-          </div>
-          <div class="column is-5">
-            <h1 class="title is-4">
-              Gardeners & nature lovers
-            </h1>
-            <p>
-              Get detailed informations about how, when and where to grow your plants.
-            </p>
-          </div>
-          <div class="column is-1">
-            <h1 class="title is-4 has-text-centered">
-              <%= fa_icon('book-heart', class: 'has-text-primary') %>
-            </h1>
-          </div>
-          <div class="column is-5">
-            <h1 class="title is-4">
-              Students
-            </h1>
-            <p>
-              Get in touch! We try to support educational projects as much as we can!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <hr />
-    <section class="section">
-      <div class="columns">
-        <div class="column is-10 is-offset-1">
-            <article class="message is-primary">
-              <div class="message-header">
-                <p>We need your support !</p>
-              </div>
-              <div class="message-body">
-                <p>Trefle is an Open Source API and the code & platform are provided totally free of charge.</p>
-                <p>Donations help keep the servers running and allow us to dedicate more time to ongoing development.</p>
-                <p><a href="<%= donate_path %>" class="is-primary">Read more on how you can help us</a></p>
-              </div>
-            </article>
-        </div>
-      </div>
+  <div class="home-page">
+    <%= render 'home/hero' %>
+    <%= render 'home/start_here' %>
+    <%= render 'home/explore' %>
+    <%= render 'home/data', stats: @home_stats %>
+    <%= render 'home/changes', stats: @home_stats %>
+    <%= render 'home/developers' %>
+    <%= render 'home/partners' %>
+    <%= render 'home/volunteer' %>
+    <%= render 'home/support' %>
   </div>
 <% end %>
 
 <script>
-  var persp = <%= @per_species_plants_count.to_json.html_safe %> ;
   var temp_token = "<%= @jwt.token %>";
   var _enableManagement = <%= current_user&.admin ? 'true' : 'false' %>;
 </script>
 
 <%= javascript_include_tag 'codesandbox' %>
-<%= javascript_include_tag 'home' %>

@@ -40,21 +40,6 @@
     height: 150px;
 }
 
-.alpha-badge {
-  position: relative;
-  font-size: .7rem;
-  padding: 2px 5px;
-  margin-left: 1em;
-  border: 1px solid $primary;
-  background: #fff;
-  color: $primary;
-  border-radius: 2px;
-  top: -20px;
-
-  @include respond-to(handhelds) { display: none };
-}
-
-
 .about-page {
   h1 {
     font-weight: bold;
@@ -63,41 +48,6 @@
   #about .title {
     font-weight: 400;
   }
-}
-
-.fakeButtons {
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  border: 1px solid #000;
-  position: relative;
-  top: 0px;
-  left: 6px;
-  background-color: #ff3b47;
-  border-color: transparent;
-  display: inline-block;
-}
-
-.fakeMinimize {
-  left: 11px;
-  background-color: #ffc100;
-  border-color: transparent;
-}
-
-.fakeZoom {
-  left: 16px;
-  background-color: #00d742;
-  border-color: transparent;
-}
-
-.fakeMenu {
-  width: 100%;
-  box-sizing: border-box;
-  height: 25px;
-  background-color: #444643;
-  margin: 0 auto;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
 }
 
 .speciesItem {
@@ -171,50 +121,584 @@
     }
   }
 
+  // Still used by the about/donate/licence pages' Bulma .hero/.hero-body
+  // (the redesigned home index itself uses .home-hero below, not Bulma's).
   .hero {
     margin: 5em auto;
     @include respond-to(handhelds) {
       margin: 1em auto;
     }
   }
+}
 
-  .main-title {
-    display: flex;
-    flex-direction: row;
+// ---------------------------------------------------------------------------
+// Institutional home page (#305): 8 sections rebuilt from
+// .agents/design/home-2026/maquette-home.html. Bars, sparkline and the
+// terminal look are plain HTML/CSS — no charting library on this page.
+
+.home-mono {
+  font-family: $family-monospace;
+}
+
+.home-muted-note {
+  color: #7a7a7a;
+}
+
+// Hero -----------------------------------------------------------------
+.home-hero {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: $layout-max-width;
+  padding: 5rem 1.5rem 3.5rem;
+
+  .buttons {
+    margin-top: 2rem;
+  }
+}
+
+.home-hero__title {
+  color: #0a0a0a;
+  font-family: $family-serif;
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 20ch;
+}
+
+// The maquette sets font-style:italic on this <p> but wraps its text in a
+// <span style="font-style: normal"> that cancels it back to upright — the
+// rendered subtitle is not actually italic (maquette-home.html:60).
+.home-hero__subtitle {
+  color: #363636;
+  font-family: $family-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0.75rem 0 0;
+}
+
+.home-hero__lead {
+  color: #363636;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin: 1.75rem 0 0;
+  max-width: 60ch;
+}
+
+// Start here strip -------------------------------------------------------
+.home-start-here {
+  background: #f5f5f5;
+  border-bottom: 1px solid #dbdbdb;
+  border-top: 1px solid #dbdbdb;
+}
+
+.home-start-here__inner {
+  border-left: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin: 0 auto;
+  max-width: $layout-max-width;
+  padding: 0 1.5rem;
+}
+
+.home-start-here__item {
+  border-right: 1px solid #dbdbdb;
+  color: #363636;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $forest-green;
+    text-decoration: none;
+  }
+}
+
+.home-start-here__eyebrow {
+  color: #7a7a7a;
+  font-family: $family-monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-start-here__label {
+  font-weight: 600;
+}
+
+// Generic section shell ---------------------------------------------------
+.home-section {
+  border-top: 1px solid #dbdbdb;
+
+  &--muted {
+    background: #f5f5f5;
+  }
+}
+
+.home-section__inner {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: $layout-max-width;
+  padding: 4.5rem 1.5rem;
+}
+
+.home-support {
+  display: grid;
+  gap: 2rem 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  .home-section-heading {
+    align-items: flex-start;
+  }
+}
+
+.home-support__body p {
+  font-size: 1.0625rem;
+  margin: 0;
+}
+
+.home-support__ctas {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+// Shared icon + H2 + intro heading, repeated across most sections --------
+.home-section-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.75rem;
+
+  &__icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 1.75rem;
+    line-height: 1;
+    margin-top: 0.35rem;
+  }
+
+  &__title {
+    color: #0a0a0a;
+    font-family: $family-serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  &__intro {
+    color: #7a7a7a;
+    margin: 0.5rem 0 0;
+    max-width: 60ch;
+  }
+}
+
+.home-subheading {
+  color: #0a0a0a;
+  font-family: $family-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+
+  &--large {
+    font-size: 1.625rem;
+  }
+}
+
+// Data section: taxonomic ranks + field completeness bars -----------------
+.home-bar-grids {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: 2.5rem;
+}
+
+.home-bar-grid {
+  align-items: center;
+  display: grid;
+  gap: 0.6rem 1rem;
+  font-size: 0.875rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.home-bar-track {
+  background: #e3f3e6;
+  height: 12px;
+
+  &__fill {
+    background: $forest-green;
+    height: 100%;
+    min-width: 2px;
+  }
+}
+
+.home-bar-grid__value {
+  color: #0a0a0a;
+  text-align: right;
+}
+
+.home-data-sources {
+  border-top: 1px solid #dbdbdb;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  text-align: center;
+
+  &__caption,
+  &__footnote {
+    color: #7a7a7a;
+  }
+
+  &__caption {
+    margin: 0 0 1.5rem;
+  }
+
+  &__footnote {
+    margin: 1.5rem 0 0;
+  }
+
+  &__logos {
     align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     img {
-      max-height: 1em;
+      display: inline-block;
+      filter: grayscale(1);
+      margin: auto;
+      max-height: 80px;
+      max-width: 100px;
+      padding: 10px;
+      transition: filter 150ms;
+
+      &:hover {
+        filter: grayscale(0);
+      }
+    }
+  }
+}
+
+// Recent changes: stat tiles, sparkline, latest reviewed list -------------
+.home-stat-tiles {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  margin: 2.5rem 0 0;
+
+  &__tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    dt {
+      color: #0a0a0a;
+      font-family: $family-monospace;
+      font-size: 1.75rem;
+      line-height: 1.1;
     }
 
-    p {
-      padding-left: 0.2em;
+    dd {
+      color: #7a7a7a;
+      font-size: 0.875rem;
+      margin: 0;
     }
+  }
+}
 
-    & + .subtitle {
+.home-changes-grid {
+  align-items: start;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: 2.5rem;
+}
 
+.home-sparkline {
+  align-items: end;
+  border-bottom: 1px solid #dbdbdb;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  height: 120px;
+
+  &__bar {
+    background: $forest-green;
+    min-height: 2px;
+  }
+
+  &__axis {
+    color: #7a7a7a;
+    display: flex;
+    font-family: $family-monospace;
+    font-size: 0.75rem;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+}
+
+.home-reviewed-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    align-items: baseline;
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    font-size: 0.875rem;
+    gap: 0.75rem;
+    line-height: 1.4;
+    padding: 0.5rem 0;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__species {
+    color: $forest-green;
+    font-style: italic;
+  }
+
+  &__meta {
+    color: #7a7a7a;
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+.home-status-pill {
+  align-items: center;
+  background: #e3f3e6;
+  border-radius: 999px;
+  color: $forest-green;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: $family-monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  height: 1.5em;
+  padding: 0 0.6em;
+
+  &--rejected {
+    background: #feecf0;
+    color: #cc0f35;
+  }
+}
+
+.home-see-all {
+  font-size: 0.9375rem;
+  margin: 1rem 0 0;
+}
+
+// Developers: numbered steps + code sample --------------------------------
+.home-steps {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+
+  &__step {
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+  }
+
+  &__index {
+    color: #7a7a7a;
+    font-size: 0.75rem;
+  }
+}
+
+.home-code-sample {
+  background: #363636;
+  border-radius: 4px;
+  color: #f8f8f2;
+  font-family: $family-monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+  white-space: pre;
+}
+
+// Research and education: bordered cards ----------------------------------
+.home-cards {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: 2.5rem;
+}
+
+.home-card {
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem;
+
+  &__icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+}
+
+// Join the team: 3 columns -------------------------------------------------
+.home-columns {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 2.5rem;
+
+  &__column {
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+  }
+
+  &__icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 1.375rem;
+    line-height: 1;
+  }
+}
+
+// Try it: search input, fake terminal, results ----------------------------
+.home-search {
+  margin-top: 2rem;
+  max-width: 520px;
+  position: relative;
+
+  &__icon {
+    align-items: center;
+    color: $forest-green;
+    display: flex;
+    height: 100%;
+    left: 0.75em;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+  }
+
+  &__input {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #363636;
+    font-family: $family-sans;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.5em 0.75em 0.5em 2.25em;
+    width: 100%;
+
+    &:focus {
+      border-color: $forest-green;
+      box-shadow: 0 0 0 0.125em rgba(28, 122, 61, .25);
+      outline: none;
+    }
+  }
+}
+
+.home-explore-grid {
+  align-items: start;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: 1.5rem;
+
+  &__column {
+    min-width: 0;
+  }
+
+  &__label {
+    color: #7a7a7a;
+    font-family: $family-monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &__results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    // Overrides for the shared .speciesItem (also used by the management
+    // search UI) scoped to this context only, per the maquette's
+    // SpeciesListItem look: mono scientific name (already italic via <i>).
+    .speciesItem h2 {
+      font-family: $family-monospace;
     }
   }
 
-  .typed {
-    // margin: 10px auto;
-    // padding: 20px;
-    // background: #f0f0f0;
-    // border-radius: 5px;
-    // border: #CCC 1px solid;
+  &__links {
+    font-size: 0.9375rem;
+    margin: 1.25rem 0 0;
+  }
+}
 
-    white-space: pre-wrap;
-    color: #000;
-    font-weight: 400;
+.home-terminal {
+  border-radius: 5px;
+  overflow: hidden;
 
-    code {
-      // background: #000;
-      background: none;
-      font-weight: bold;
-      border: none;
-      text-decoration: underline;
-      // border-radius: 2px;
-      color: #000;
+  &__bar {
+    background: #444643;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-sizing: border-box;
+    height: 25px;
+    position: relative;
+    width: 100%;
+  }
+
+  &__dot {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    position: absolute;
+    top: 7px;
+    width: 10px;
+
+    &--close {
+      background-color: #ff3b47;
+      left: 6px;
+    }
+
+    &--minimize {
+      background-color: #ffc100;
+      left: 22px;
+    }
+
+    &--zoom {
+      background-color: #00d742;
+      left: 38px;
     }
   }
 }

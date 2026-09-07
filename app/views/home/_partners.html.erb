@@ -1,0 +1,27 @@
+<section id="partners" class="home-section">
+  <div class="home-section__inner">
+    <%= render 'home/section_heading',
+          icon: 'building',
+          title: 'Research and education',
+          intro: 'Trefle works with institutions that hold botanical data and with those who teach with it.' %>
+
+    <div class="home-cards">
+      <article class="home-card">
+        <span class="home-card__icon"><%= fa_icon('flask-potion') %></span>
+        <h3 class="home-subheading home-subheading--large">Research institutions and scientists</h3>
+        <p>We integrate datasets, publish them under the source&rsquo;s licence with attribution, and return the corrections gathered by the community. Bulk exports and higher rate limits are arranged case by case.</p>
+        <div>
+          <a href="mailto:hello@trefle.io?subject=Research%20partnership" class="button">Contact us about a dataset</a>
+        </div>
+      </article>
+      <article class="home-card">
+        <span class="home-card__icon"><%= fa_icon('book-heart') %></span>
+        <h3 class="home-subheading home-subheading--large">Schools and universities</h3>
+        <p>Student projects, coursework and botany classes use the API free of charge. We try to support educational projects as much as we can: tell us what you are building.</p>
+        <div>
+          <a href="mailto:hello@trefle.io?subject=Education" class="button">Get in touch</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

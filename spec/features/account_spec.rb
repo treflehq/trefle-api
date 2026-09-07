@@ -7,7 +7,9 @@ RSpec.feature 'Account page', type: :feature do
     login_as(user, scope: :user)
 
     visit '/'
-    expect(page).to have_text('account')
+    # The redesigned header/footer (#304) show a capitalized "Account" link
+    # for signed-in visitors rather than the old home page's "My account" CTA.
+    expect(page).to have_text('Account')
   end
 
   scenario 'User can go to his profile' do
