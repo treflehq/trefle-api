@@ -74,7 +74,7 @@
     }
 
     p {
-      color: #6f6f6f
+      color: $text-muted
     }
   }
 }
@@ -141,7 +141,7 @@
 }
 
 .home-muted-note {
-  color: #7a7a7a;
+  color: $text-muted;
 }
 
 // Hero -----------------------------------------------------------------
@@ -224,7 +224,7 @@
 }
 
 .home-start-here__eyebrow {
-  color: #7a7a7a;
+  color: $text-muted;
   font-family: $family-monospace;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
@@ -280,6 +280,14 @@
   display: flex;
   gap: 0.75rem;
 
+  // Hang the icon in the left margin so the title text sits on the same
+  // vertical axis as the section body below it. Only when the viewport has
+  // room beyond the container for the 1.75rem icon + 0.75rem gap; narrower
+  // screens keep the inline icon.
+  @media (min-width: 1080px) {
+    margin-left: -2.5rem;
+  }
+
   &__icon {
     color: $forest-green;
     display: inline-flex;
@@ -298,7 +306,7 @@
   }
 
   &__intro {
-    color: #7a7a7a;
+    color: $text-muted;
     margin: 0.5rem 0 0;
     max-width: 60ch;
     text-wrap: pretty;
@@ -358,7 +366,7 @@
 
   &__caption,
   &__footnote {
-    color: #7a7a7a;
+    color: $text-muted;
   }
 
   &__caption {
@@ -421,7 +429,7 @@
     }
 
     dd {
-      color: #7a7a7a;
+      color: $text-muted;
       font-size: 0.875rem;
       margin: 0;
     }
@@ -457,7 +465,7 @@
   }
 
   &__axis {
-    color: #7a7a7a;
+    color: $text-muted;
     display: flex;
     font-family: $family-monospace;
     font-size: 0.75rem;
@@ -466,7 +474,7 @@
   }
 
   &__empty {
-    color: #7a7a7a;
+    color: $text-muted;
     font-size: 0.875rem;
     margin: 0.75rem 0 0;
   }
@@ -504,7 +512,7 @@
   }
 
   &__meta {
-    color: #7a7a7a;
+    color: $text-muted;
     font-size: 0.75rem;
     max-width: 13rem;
     overflow: hidden;
@@ -564,11 +572,6 @@
     gap: 0.5rem;
     padding-top: 1rem;
   }
-
-  &__index {
-    color: #7a7a7a;
-    font-size: 0.75rem;
-  }
 }
 
 .home-code-sample {
@@ -579,11 +582,9 @@
   font-size: 0.8125rem;
   line-height: 1.5;
   margin: 0.25rem 0 0;
-  overflow-x: auto;
+  overflow-wrap: anywhere;
   padding: 0.75rem 1rem;
-  scrollbar-color: #7a7a7a transparent;
-  scrollbar-width: thin;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 // Research and education: bordered cards ----------------------------------
@@ -682,7 +683,7 @@
   }
 
   &__label {
-    color: #7a7a7a;
+    color: $text-muted;
     font-family: $family-monospace;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
@@ -716,7 +717,7 @@
   // The command line and JSON block are react-syntax-highlighter <pre>s;
   // keep their overflow scrollbars discreet inside the dark terminal.
   pre {
-    scrollbar-color: #7a7a7a #363636;
+    scrollbar-color: $text-muted #363636;
     scrollbar-width: thin;
   }
 
