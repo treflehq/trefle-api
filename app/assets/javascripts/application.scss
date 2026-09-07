@@ -12,6 +12,8 @@
 
 @import 'sections/home';
 @import 'sections/explore';
+@import 'sections/navbar';
+@import 'sections/footer';
 
 // Bulma's $title-family/$subtitle-family (sections/_variables.scss) cover
 // the .title/.subtitle helper components, but content.sass has no per-level

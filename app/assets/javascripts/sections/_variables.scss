@@ -69,6 +69,10 @@ $menu-item-active-background-color: $green;
 $break-small: 480px;
 $break-large: 1024px;
 
+// The 2026 institutional layout's container width (maquette-home.html:39,
+// see #304), wider than Bulma's own desktop container default (960px).
+$layout-max-width: 1040px;
+
 @mixin respond-to($media) {
   @if $media == handhelds {
     @media only screen and (max-width: $break-small) { @content; }

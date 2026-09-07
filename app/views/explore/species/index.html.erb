@@ -12,6 +12,11 @@
             <h2 class="subtitle">
               Browse and contribute to the Trefle botanical data.
             </h2>
+            <p class="explore-corrections-link">
+              <%= link_to(explore_record_corrections_path(status: :pending)) do %>
+                <%= fa_icon('clipboard-list-check', class: 'has-text-primary') %> Review the corrections queue
+              <% end %>
+            </p>
           </div>
         </div>
         <%= form_with(method: "get", local: true) do %>

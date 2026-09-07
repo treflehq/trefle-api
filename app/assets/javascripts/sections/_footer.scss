@@ -1,0 +1,53 @@
+
+@import "variables";
+
+// Institutional footer (#304): DS Footer column layout — brand-colored
+// social links (previously hardcoded inline `style="color:..."`, now classes
+// per #304's cleanup) and the version credit request specs assert against
+// (a.app-revision / span.app-revision, spec/requests/web/home_spec.rb).
+.site-footer {
+  // Matches .site-navbar-container's 1040px override (#304 / #312 review) —
+  // the footer's link columns and version line now share the header's width
+  // instead of Bulma's default 960px desktop .container.
+  .site-footer-container {
+    max-width: $layout-max-width;
+
+    > .level {
+      align-items: flex-start;
+    }
+  }
+
+  .menu-label {
+    color: $forest-green;
+    font-size: $size-small;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__social-link {
+    align-items: center;
+    display: flex;
+
+    span + span {
+      margin-left: 5px;
+    }
+
+    // Brand colors stay fixed on hover too, matching the previous inline
+    // `style="color:..."` behaviour (inline styles beat any :hover rule).
+    &--discord,
+    &--discord:hover {
+      color: #7289da;
+    }
+
+    &--twitter,
+    &--twitter:hover {
+      color: #55acee;
+    }
+
+    &--github,
+    &--github:hover {
+      color: #242a2f;
+    }
+  }
+}

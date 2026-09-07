@@ -1,8 +1,9 @@
-<div class="container">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+<div class="container site-navbar-container">
+  <nav class="navbar site-navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="<%= root_path %>">
-        <%= image_tag(asset_path("logo.svg"), alt: "logo", height: "200") %>
+      <a class="navbar-item brand-link" href="<%= root_path %>">
+        <%= image_tag(asset_path("logo.svg"), alt: "Trefle") %>
+        <span class="brand-wordmark">trefle</span>
       </a>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-trefle">
@@ -14,108 +15,48 @@
 
     <div id="navbar-trefle" class="navbar-menu">
       <div class="navbar-start">
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
-              <%= fa_icon('compass') %><span> Explore</span>
-            </a>
-
-            <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item" href="<%= explore_path %>">
-                <%= fa_icon('search') %><span> Search</span>
-              </a>
-              <a class="navbar-item" href="<%= explore_record_corrections_path(status: :pending) %>">
-                <%= fa_icon('clipboard-list-check') %><span> Corrections</span>
-              </a>
-              <%
-=begin%>
- <a class="navbar-item" href="<%= explore_data_path %>">
-                <%= fa_icon('database') %><span> Downloads</span>
-              </a> 
-<%
-=end%>
-            </div>
-          </div>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-item " href="https://docs.trefle.io">
-            <%= fa_icon('book') %><span> Documentation</span>
-          </a>
-          <div class="navbar-dropdown is-boxed">
-            <a class="navbar-item" href="https://docs.trefle.io/docs/guides/getting-started">Getting started</a>
-            <a class="navbar-item" href="https://docs.trefle.io/reference">Reference</a>
-            <a class="navbar-item" href="https://docs.trefle.io/docs/examples/snippets">Snippets</a>
-            <a class="navbar-item" href="https://docs.trefle.io/blog/tags/releases">Releases</a>
-          </div>
-        </div>
-
-        <% if user_signed_in? && current_user.admin? %>
-        <a class="navbar-item " href="<%= management_path %>">
-          <%= fa_icon('key') %><span> Management</span>
+        <a class="navbar-item <%= active_class_for(active_controller: 'explore/*') %>" href="<%= explore_path %>">
+          <%= fa_icon('compass') %><span>Explore</span>
         </a>
-        <% end %>
+
+        <a class="navbar-item" href="https://docs.trefle.io">
+          <%= fa_icon('book') %><span>Documentation</span>
+        </a>
+
+        <a class="navbar-item" href="<%= root_path(anchor: 'data') %>">
+          <%= fa_icon('database') %><span>Data</span>
+        </a>
 
         <a class="navbar-item <%= active_class_for(active_controller: 'home#about') %>" href="<%= about_path %>">
-          <%= fa_icon('clipboard-user') %><span> About</span>
+          <%= fa_icon('clipboard-user') %><span>About</span>
         </a>
 
         <a class="navbar-item <%= active_class_for(active_controller: 'home#donate') %>" href="<%= donate_path %>">
-          <%= fa_icon('hand-holding-heart') %><span> Donate</span>
+          <%= fa_icon('hand-holding-heart') %><span>Donate</span>
         </a>
+
+        <% if user_signed_in? && current_user.admin? %>
+        <a class="navbar-item" href="<%= management_path %>">
+          <%= fa_icon('key') %><span>Management</span>
+        </a>
+        <% end %>
       </div>
 
       <div class="navbar-end">
         <% if user_signed_in? %>
-        <a class="navbar-item" title="Account" href="<%= profile_path() %>">
+        <a class="navbar-item navbar-account" title="Account" href="<%= profile_path %>">
           <%= image_tag current_user.gravatar_url, class: 'user-image' %>
-          <%= current_user.name || current_user.email %>
+          <span><%= current_user.name || current_user.email %></span>
           <% if current_user.sponsored_tier.present? %>
-            <span class="icon" style="color: #f39c12; margin-left: 5px"><%= fa_icon('crown') %></span>
+            <span class="icon navbar-account__sponsor"><%= fa_icon('crown') %></span>
           <% end %>
         </a>
-        <%
-=begin%>
-        <a class="navbar-item" title="Correct or add missing data" href="<%= root_path %>">
-          <b><%= fa_icon('hands-helping', style: :regular) %> Complete our data</b>
-        </a>
-        <%
-=end%>
         <% else %>
-        <a class="navbar-item" title="Sign in" href="<%= new_user_session_path %>">
+        <a class="navbar-item navbar-signin" title="Sign in" href="<%= new_user_session_path %>">
           Sign in
         </a>
-        <%
-=begin%>
-        <a class="navbar-item" title="Correct or add missing data" href="<%= new_user_session_path %>">
-          <b><%= fa_icon('hands-helping', style: :regular) %> Complete our data</b>
-        </a>
-        <%
-=end%>
         <% end %>
-
-        <a class="navbar-item is-hidden-desktop-only" title="Join us on Discord" href="https://discord.gg/fuamwgk" target="_blank">
-          <span class="icon" style="color: #7289da;"><%= fa_icon('discord', style: :brands, class: 'fa-lg') %></span>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop-only" title="Join us on Twitter" href="https://twitter.com/trefle_api" target="_blank" rel="noopener">
-          <span class="icon" style="color: #55acee;"><%= fa_icon('twitter', style: :brands, class: 'fa-lg') %></span>
-        </a>
-        <%
-=begin%>
- <a class="navbar-item is-hidden-desktop-only" title="Github" href="https://github.com/treflehq/trefle-api" target="_blank" rel="noopener">
-          <span class="icon" style="color: #242a2f;"><%= fa_icon('github', style: :brands, class: 'fa-lg') %></span>
-        </a>
-<%
-=end%>
       </div>
     </div>
   </nav>
-  <%
-=begin%>
- <% if is_explore_namespace? %>
-    <hr/>
-    <%= render partial: 'explore/layouts/navbar' %>
-  <% end %>
-<%
-=end%>
 </div>

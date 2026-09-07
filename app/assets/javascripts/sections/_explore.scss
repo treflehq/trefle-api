@@ -159,6 +159,12 @@
   }
 }
 
+// Entry point back to the global corrections queue now that the navbar's
+// Explore dropdown (which used to link it) is gone (#312 review fix).
+.explore-corrections-link {
+  margin-top: 1em;
+}
+
 .species-grid-item {
   display: flex;
   align-items: stretch;

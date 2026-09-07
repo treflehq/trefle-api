@@ -1,0 +1,78 @@
+
+@import "variables";
+
+// Institutional header (#304): mono wordmark next to the clover mark, plain
+// duotone-icon nav items in Noto Sans, single hairline border. Structure
+// stays Bulma's own navbar/navbar-burger/navbar-menu markup so the existing
+// mobile burger toggle (application.js) keeps working unmodified — only the
+// look is restyled here.
+// Bulma's own .container caps at 960px on desktop (see bulma/elements/
+// container.sass's $desktop - $container-offset); the maquette wants 1040px
+// (see #304 / #312 review) so this overrides it specifically for the navbar,
+// without touching .container's default elsewhere on the site.
+.site-navbar-container {
+  max-width: $layout-max-width;
+}
+
+.navbar.site-navbar {
+  border-bottom: 1px solid #dbdbdb;
+  min-height: 4rem;
+
+  .navbar-brand {
+    align-items: center;
+  }
+
+  .brand-link {
+    align-items: center;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .brand-wordmark {
+    color: #0a0a0a;
+    font-family: $family-monospace;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .navbar-item,
+  .navbar-link {
+    align-items: center;
+    color: #363636;
+    display: flex;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    gap: 6px;
+    transition: color 150ms;
+
+    .fa-icon {
+      color: $forest-green;
+    }
+
+    &:hover,
+    &:focus,
+    &.has-text-link {
+      background: transparent;
+      color: $forest-green;
+    }
+  }
+
+  // "Sign in" is a plain link, not a nav item — no icon, no bold weight.
+  .navbar-signin {
+    font-weight: 400;
+  }
+
+  .navbar-account {
+    .user-image {
+      border-radius: 50%;
+      height: 1.5rem;
+      margin-right: 0;
+      width: 1.5rem;
+    }
+
+    &__sponsor {
+      color: #f39c12;
+    }
+  }
+}
