@@ -28,7 +28,7 @@
 
 class ForeignSourcesPlantSerializer < BaseSerializer
 
-  attributes :id, :name, :url, :citation, :last_update
+  attributes :id, :name, :url, :citation, :last_update, :licence, :licence_url
 
   def id
     object.fid
@@ -44,6 +44,14 @@ class ForeignSourcesPlantSerializer < BaseSerializer
 
   def citation
     object&.citation
+  end
+
+  def licence
+    object&.foreign_source&.licence
+  end
+
+  def licence_url
+    object&.foreign_source&.licence_url
   end
 
 end
