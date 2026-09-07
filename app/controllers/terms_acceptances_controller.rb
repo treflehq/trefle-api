@@ -36,8 +36,14 @@ class TermsAcceptancesController < ApplicationController
 
   # `return_to` comes from an untrusted query/hidden-field param -- only
   # honor same-site paths so it can't be turned into an open redirect.
+  # Beyond a literal `//` prefix, reject backslashes and ASCII tab/newline/CR:
+  # browsers normalize `\` to `/` for special schemes, and strip tab/newline/CR
+  # entirely before resolving a Location header (WHATWG URL spec), so either
+  # one can smuggle a same-site-looking path (e.g. `/\evil.com`) into a
+  # protocol-relative redirect once the browser parses it.
   def safe_return_to(path)
-    return root_path if path.blank? || !path.start_with?('/') || path.start_with?('//')
+    return root_path if path.blank? || path.match?(/[\\\t\n\r]/)
+    return root_path if !path.start_with?('/') || path.start_with?('//')
 
     path
   end

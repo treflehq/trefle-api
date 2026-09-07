@@ -120,6 +120,22 @@ RSpec.describe 'Terms acceptance', type: :request do
       expect(response).to redirect_to(root_path)
     end
 
+    it 'ignores a backslash return_to that browsers normalize into a protocol-relative redirect' do
+      login_as pending_user, scope: :user
+
+      post terms_acceptance_path, params: { user: { accepts_terms: '1' }, return_to: '/\\evil.example' }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it 'ignores a mixed slash/backslash return_to' do
+      login_as pending_user, scope: :user
+
+      post terms_acceptance_path, params: { user: { accepts_terms: '1' }, return_to: '/\\/evil.example' }
+
+      expect(response).to redirect_to(root_path)
+    end
+
     it 'refuses to record acceptance when the box is left unchecked' do
       login_as pending_user, scope: :user
 
