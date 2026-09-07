@@ -6,8 +6,15 @@
 // per #304's cleanup) and the version credit request specs assert against
 // (a.app-revision / span.app-revision, spec/requests/web/home_spec.rb).
 .site-footer {
-  > .level {
-    align-items: flex-start;
+  // Matches .site-navbar-container's 1040px override (#304 / #312 review) —
+  // the footer's link columns and version line now share the header's width
+  // instead of Bulma's default 960px desktop .container.
+  .site-footer-container {
+    max-width: $layout-max-width;
+
+    > .level {
+      align-items: flex-start;
+    }
   }
 
   .menu-label {
