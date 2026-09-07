@@ -16,6 +16,11 @@ RSpec.describe 'Public website pages', type: :request do
       fragment = Nokogiri::HTML.fragment(response.body)
       expect(fragment.css('svg.fa-icon')).not_to be_empty
     end
+
+    it 'exposes the home stats presenter backing the redesigned home page (#305)' do
+      get root_path
+      expect(assigns(:home_stats)).to be_a(HomeStatsPresenter)
+    end
   end
 
   describe 'GET /about' do
