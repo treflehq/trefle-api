@@ -230,29 +230,39 @@ module Api
 
     # @TODO ugly one
     # Turn query params into elasticsearch query
-    def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [])
+    #
+    # field_aliases translates a public filter/order/range key into the field
+    # name actually indexed by Searchkick, for the keys where they differ
+    # (e.g. `image_url` -> `main_image_url`, see Scopes::Species::FIELD_ALIASES)
+    # -- the AR-backed path (Filterable#filter_with et al.) does the same
+    # translation through its own scope, so the two paths stop drifting (#280).
+    def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [], field_aliases: {})
       where = {}
       order = nil
       if params[:filter_not].is_a?(ActionController::Parameters)
         params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
-          where[field] ||= {}
-          where[field][:not] = value&.split(',')&.map {|e| e.blank? || e == 'null' ? nil : e }
+          indexed_field = field_aliases.fetch(field, field)
+          where[indexed_field] ||= {}
+          where[indexed_field][:not] = value&.split(',')&.map {|e| e.blank? || e == 'null' ? nil : e }
         end
       end
       if params[:filter].is_a?(ActionController::Parameters)
         params[:filter].permit(filter_fields).slice(*filter_fields).each do |field, value|
-          where[field] = value.split(',')
+          where[field_aliases.fetch(field, field)] = value.split(',')
         end
       end
       if params[:range].is_a?(ActionController::Parameters)
         params[:range].permit(range_fields).slice(*range_fields).each do |field, value|
           min, max = value.split(',')
-          where[field] ||= {}
-          where[field][:gte] = min if min.present?
-          where[field][:lte] = max if max.present?
+          indexed_field = field_aliases.fetch(field, field)
+          where[indexed_field] ||= {}
+          where[indexed_field][:gte] = min if min.present?
+          where[indexed_field][:lte] = max if max.present?
         end
       end
-      order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash if params[:order].is_a?(ActionController::Parameters)
+      if params[:order].is_a?(ActionController::Parameters)
+        order = params[:order].permit(order_fields).slice(*order_fields).to_unsafe_hash.transform_keys {|field| field_aliases.fetch(field, field) }
+      end
       {
         where: where,
         order: order
