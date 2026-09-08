@@ -8,7 +8,9 @@ module Schemas
             name: { type: :string },
             url: { type: :string, nullable: true },
             last_update: { type: :string },
-            citation: { type: :string, nullable: true }
+            citation: { type: :string, nullable: true },
+            licence: { type: :string, nullable: true, description: 'The SPDX identifier of the licence this source publishes its data under, when known' },
+            licence_url: { type: :string, nullable: true, description: 'A link to the full text of the licence' }
           },
           extras: { required: %w[name last_update] }
         )
