@@ -65,19 +65,18 @@ gem 'active_flag'
 # Monitoring
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
-gem 'rack-attack', '~> 6.6.1'
+gem 'rack-attack', '~> 6.8'
 
 gem 'sentry-rails', '~> 7.0'
 gem 'sentry-ruby', '~> 7.0'
 gem 'skylight'
 
 # Sidekiq
-gem 'redis', '>= 4.1.4'
+gem 'redis', '~> 6.0'
 gem 'rufus-scheduler', '>= 3.4.2'
-gem 'sidekiq', '~> 7.3'
-gem 'sidekiq-cron', '>= 0.6.3'
+gem 'sidekiq', '~> 8.0'
+gem 'sidekiq-cron', '~> 2.4'
 gem 'sidekiq-limit_fetch'
-gem 'sidekiq-status'
 
 gem 'counter_culture', '~> 2.0'
 gem 'interactor-rails', '~> 2.0'
