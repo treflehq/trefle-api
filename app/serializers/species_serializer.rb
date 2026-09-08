@@ -147,7 +147,8 @@ class SpeciesSerializer < BaseSerializer
              :distributions, :distribution,
              :duration,
              :links, :image_url,
-             :vegetable, :edible, :edible_part
+             :vegetable, :edible, :edible_part,
+             :completion_ratio, :complete_data
 
   attributes :flower, :foliage,
              :fruit_or_seed, :specifications,
