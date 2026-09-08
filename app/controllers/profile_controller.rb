@@ -4,5 +4,7 @@ class ProfileController < ApplicationController
   # 401 redirect to the home page.
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    @page_title = 'Your account'
+  end
 end

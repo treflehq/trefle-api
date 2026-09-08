@@ -1,123 +1,114 @@
-<div class="home-page container is-fluid">
+<%# Account page in the institutional structure (same header + stacked
+    hairline sections as the about page, whose classes it reuses). %>
+<% provide :full_bleed, '1' %>
 
-  <div class="columns">
-    <div class="column is-2"></div>
-    <div class="column is-10">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title is-1">
-              <%= fa_icon('key-skeleton', class: 'has-text-primary') %>
-
-              Your account
-            </h1>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <div class="columns">
-    <div class="column is-2">
-      <br>
-      <br>
-      <aside class="menu">
-        <ul class="menu-list">
-          <li><a href="#token-informations">Access token</a></li>
-          <li><a href="#informations">Account</a></li>
-          <li>
-            <%= link_to "Sign out", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: "has-text-danger" %>
-          </li>
-        </ul>
-      </aside>
-    </div>
-    <div class="column is-10">
-
-      <section class="section" id="token-informations">
-        <!-- <div class="columns">
-          <div class="column"> -->
-        <p class="title is-4">
-          Access token
+<div class="about profile">
+  <header class="about__header">
+    <div class="about__heading">
+      <span class="about__heading-icon"><%= fa_icon('key') %></span>
+      <div>
+        <h1 class="about__title">Your account</h1>
+        <p class="about__lead">
+          Signed in as <span class="home-mono"><%= current_user.email %></span>.
         </p>
-        <div class="field has-addons">
-          <p class="control">
-            <a class="button is-static">
-              Your token is:
-            </a>
-          </p>
-          <p class="control is-expanded">
-            <input class="input readonly" readonly value="<%= current_user&.token %>" />
-          </p>
-        </div>
-        <p class="help">You token allow you to makes queries on the Trefle API. Keep it private.</p>
+      </div>
+    </div>
+    <nav class="about__nav" aria-label="Account sections">
+      <a href="#token">Access token</a>
+      <a href="#account">Account</a>
+      <a href="#danger">Sign out &amp; deletion</a>
+    </nav>
+  </header>
 
-        <br />
-        <% if !current_user.sponsored_tier.present? %>
-          <div class="notification">
-            You can make <strong>60 requests per minute</strong>.
-            <br />
-            Do you need more ? Please consider <%= link_to "sponsoring us", about_path(anchor: 'support') %>
-          </div>
-        <% else %>
-          <div class="notification">
-            <strong><span class="icon" style="color: #f39c12; margin-left: 5px"><%= fa_icon('crown') %></span> You are a sponsor !</strong> Thanks a lot for helping us to keep Trefle alive. You can make up to <strong>600</strong> requests per minute.
+  <div class="about__body">
+    <section id="token" class="about-section about-section--first">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('key') %></span>
+        <h2 class="about-section__title">Access token</h2>
+      </div>
+      <p>
+        Your token allows you to make queries on the Trefle API.
+        Keep it private.
+      </p>
+      <input class="profile-token" readonly value="<%= current_user&.token %>"
+             aria-label="API access token" onclick="this.select()">
+      <% if current_user.sponsored_tier.present? %>
+        <p class="profile-rate profile-rate--sponsor">
+          <span class="profile-rate__crown"><%= fa_icon('crown') %></span>
+          You are a sponsor! Thanks a lot for helping us keep Trefle alive.
+          You can make up to <span class="home-mono">600</span> requests per minute.
+        </p>
+      <% else %>
+        <p class="profile-rate">
+          You can make <span class="home-mono">60</span> requests per minute.
+          Need more? <%= link_to 'Become a sponsor', donate_path(anchor: 'sponsor') %>.
+        </p>
+      <% end %>
+    </section>
+
+    <section id="account" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('user') %></span>
+        <h2 class="about-section__title">Account</h2>
+      </div>
+      <dl class="profile-details">
+        <div class="profile-details__row">
+          <dt>Name</dt>
+          <dd><%= current_user.name.presence || '&mdash;'.html_safe %></dd>
+        </div>
+        <div class="profile-details__row">
+          <dt>E-mail</dt>
+          <dd class="home-mono"><%= current_user.email %></dd>
+        </div>
+        <div class="profile-details__row">
+          <dt>Account type</dt>
+          <dd><%= current_user.account_type&.to_s&.humanize || 'Unknown' %></dd>
+        </div>
+        <% if current_user.organization_name.present? %>
+          <div class="profile-details__row">
+            <dt>Organization</dt>
+            <dd><%= current_user.organization_name %></dd>
           </div>
         <% end %>
-      </section>
-
-      <section class="section" id="token-informations">
-        <p class="title is-4">
-          Account informations
-        </p>
-        <ul>
-          <li>
-            <strong>Name:</strong>
-            <%= current_user.name %>
-          </li>
-          <li>
-            <strong>Account type:</strong>
-            <%= current_user.account_type&.to_s&.humanize || 'Unknown' %>
-          </li>
-          <li>
-            <strong>Email:</strong>
-            <%= current_user.email %>
-          </li>
-          <li>
-            <strong>Organization:</strong>
-            <%= current_user.organization_name %>
-          </li>
-          <li>
-            <strong>Website:</strong>
-            <%= current_user.organization_url %>
-          </li>
-          <li>
-            <strong>Password</strong>
-            <span>********</span>
-            <%= link_to "(change)", edit_user_registration_path(current_user), class: "link" %>
-          </li>
-          <li>
-            <% if !current_user.provider? %>
-              <strong>GitHub account:</strong>
-              <%= link_to 'Link my Github account', user_github_omniauth_authorize_path, method: :post, class: 'btn btn-primary' %>
-            <% else %>
-              <strong>Linked GitHub account:</strong>
-              <%= current_user.github_username %>
-            <% end %>
-          </li>
-
-
-        </ul>
-        <br />
-        <hr />
-        <br />
-        <div class="field is-grouped">
-          <p class="control">
-
-            <%= link_to "Edit your account", edit_user_registration_path(current_user), class: "button is-primary" %>
-            <%= button_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, class: "button is-link is-danger" %>
-          </p>
+        <% if current_user.organization_url.present? %>
+          <div class="profile-details__row">
+            <dt>Website</dt>
+            <dd><%= link_to current_user.organization_url, current_user.organization_url %></dd>
+          </div>
+        <% end %>
+        <div class="profile-details__row">
+          <dt>Password</dt>
+          <dd>&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; <%= link_to '(change)', edit_user_registration_path %></dd>
         </div>
-      </section>
-    </div>
+        <div class="profile-details__row">
+          <dt>GitHub</dt>
+          <dd>
+            <% if current_user.provider? %>
+              <span class="home-mono"><%= current_user.github_username %></span>
+            <% else %>
+              <%= link_to 'Link my GitHub account', user_github_omniauth_authorize_path, method: :post %>
+            <% end %>
+          </dd>
+        </div>
+      </dl>
+      <div class="profile-actions">
+        <%= link_to 'Edit your account', edit_user_registration_path, class: 'button is-primary' %>
+      </div>
+    </section>
+
+    <section id="danger" class="about-section">
+      <div class="about-section__heading">
+        <span class="about-section__icon"><%= fa_icon('hourglass-half') %></span>
+        <h2 class="about-section__title">Sign out &amp; deletion</h2>
+      </div>
+      <div class="profile-actions">
+        <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'button' %>
+        <%= button_to 'Cancel my account', registration_path(current_user), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button is-danger is-outlined' %>
+      </div>
+      <p class="profile-danger-note">
+        Cancelling deletes your account and revokes your API token. Your
+        accepted corrections stay, attributed to your name.
+      </p>
+    </section>
   </div>
 </div>

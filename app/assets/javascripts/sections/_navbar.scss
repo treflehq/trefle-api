@@ -6,17 +6,30 @@
 // stays Bulma's own navbar/navbar-burger/navbar-menu markup so the existing
 // mobile burger toggle (application.js) keeps working unmodified — only the
 // look is restyled here.
-// Bulma's own .container caps at 960px on desktop (see bulma/elements/
-// container.sass's $desktop - $container-offset); the maquette wants 1040px
-// (see #304 / #312 review) so this overrides it specifically for the navbar,
-// without touching .container's default elsewhere on the site.
-.site-navbar-container {
-  max-width: $layout-max-width;
+// The hairline spans the full viewport; the nav content sits in the same
+// 1040px + 1.5rem-padding container as every page body, so the brand and the
+// first heading below share a left axis. No Bulma .container here: its
+// responsive caps use :not() selectors that outweigh a plain class override.
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #dbdbdb;
+
+  &__inner {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+    padding: 0 1.5rem;
+  }
 }
 
 .navbar.site-navbar {
-  border-bottom: 1px solid #dbdbdb;
   min-height: 4rem;
+
+  // Bulma gives every .navbar-item a 0.75rem side padding; on the first item
+  // (the brand) that breaks the shared left axis with the page content.
+  .navbar-brand .brand-link {
+    padding-left: 0;
+  }
 
   .navbar-brand {
     align-items: center;

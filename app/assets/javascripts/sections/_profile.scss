@@ -1,0 +1,80 @@
+@import "variables";
+
+// Account page bits on top of the shared .about section structure.
+
+.profile-token {
+  background: #f5f5f5;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #363636;
+  font-family: $family-monospace;
+  font-size: 0.875rem;
+  max-width: 40rem;
+  padding: 0.6rem 0.9rem;
+  width: 100%;
+
+  &:focus {
+    border-color: $forest-green;
+    outline: none;
+  }
+}
+
+.profile-rate {
+  font-size: 0.9375rem;
+  margin: 0;
+
+  .home-mono {
+    color: #0a0a0a;
+  }
+
+  &__crown {
+    color: #f39c12;
+    display: inline-flex;
+  }
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  &__row {
+    border-top: 1px solid #dbdbdb;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    padding: 0.6rem 0;
+
+    dt {
+      color: $text-muted;
+      font-size: 0.875rem;
+    }
+
+    dd {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    @include respond-to(handhelds) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+    }
+  }
+}
+
+.profile-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  form {
+    display: inline-flex;
+  }
+}
+
+.profile-danger-note {
+  color: $text-muted;
+  font-size: 0.875rem;
+}
