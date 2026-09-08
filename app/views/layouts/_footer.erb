@@ -10,6 +10,7 @@
           <ul class="menu-list">
             <li><%= link_to('About', about_path) %></li>
             <li><%= link_to('Terms', terms_path) %></li>
+            <li><%= link_to('Citation', citation_path) %></li>
             <li>
               <% if user_signed_in? %>
                 <%= link_to('Account', profile_path, title: 'Account') %>

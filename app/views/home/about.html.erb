@@ -27,6 +27,7 @@
       <aside class="menu">
         <ul class="menu-list">
           <li><a href="#sources">Data sources</a></li>
+          <li><a href="#licence">Licence and citation</a></li>
           <li><a href="#privacy">Privacy</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#beta-disclaimer">Beta stage</a></li>
@@ -56,6 +57,30 @@
           <img style="display: inline-block; max-height: 80px; max-width: 100px; padding: 10px; margin: auto" src="<%= asset_path("medias/muhitnat.png") %>" alt="">  
         </div>
         <p class="has-text-centered has-text-grey">& manually from people all around the world</p>
+      </section>
+
+      <section class="section content" id="licence">
+        <h1 class="title is-4 ">
+          <%= fa_icon('file-certificate', class: 'has-text-success') %> Licence and citation
+        </h1>
+        <p>
+          The API and platform code are open source under
+          <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a>.
+          The Trefle database &mdash; the compilation, its structure and the
+          community corrections &mdash; is published under
+          <a href="<%= CitationHelper::LICENCE[:url] %>"><%= CitationHelper::LICENCE[:name] %></a>.
+          Individual records aggregate facts from the
+          <%= link_to 'upstream sources listed above', '#sources' %>, and each
+          upstream source keeps its own licence. Images carry their own
+          attribution.
+        </p>
+        <p>
+          Using Trefle in an app? Display &ldquo;Data: Trefle.io
+          (<%= CitationHelper::LICENCE[:name] %>)&rdquo; with a link back to trefle.io.
+          Publishing research? Read the full
+          <%= link_to 'citation formats and DOI', citation_path %> and the
+          <%= link_to 'terms of use', terms_path %>.
+        </p>
       </section>
 
       <!-- <hr> -->

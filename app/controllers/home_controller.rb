@@ -23,4 +23,10 @@ class HomeController < ApplicationController
     @page_keywords    = 'API, Botanical, Plants, Species, Data'
   end
 
+  def citation
+    @page_title       = 'Citation'
+    @page_description = 'How to cite Trefle in academic and other publications.'
+    @page_keywords    = 'Citation, DOI, Licence, CC-BY, BibTeX, APA'
+  end
+
 end

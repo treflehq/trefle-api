@@ -1,0 +1,96 @@
+<div class="citation-page home-page container is-fluid">
+
+  <div class="columns">
+    <div class="column is-2"></div>
+    <div class="column is-10">
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-1">
+              <%= fa_icon('file-certificate', class: 'has-text-primary') %>
+
+              Citation
+            </h1>
+            <h2 class="subtitle">
+              How to cite Trefle in a publication.
+            </h2>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-2">
+      <br>
+      <br>
+      <aside class="menu">
+        <ul class="menu-list">
+          <li><a href="#doi">DOI</a></li>
+          <li><a href="#formats">Citation formats</a></li>
+          <li><a href="#credits">Upstream credits</a></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-10">
+
+      <section class="section content" id="doi">
+        <h1 class="title is-4">
+          <%= fa_icon('key', class: 'has-text-success') %> DOI
+        </h1>
+        <% if citation_doi %>
+          <p>
+            Trefle's dataset is archived on Zenodo under
+            <a href="<%= citation_url %>"><%= citation_doi %></a>.
+            Cite the DOI directly wherever possible &mdash; it resolves to the
+            exact dataset version you used.
+          </p>
+        <% else %>
+          <p>
+            <strong>DOI pending.</strong> Trefle's Zenodo deposit is not live
+            yet; cite the plain URL below in the meantime and update the
+            citation once a DOI is assigned.
+          </p>
+        <% end %>
+      </section>
+
+      <section class="section content" id="formats">
+        <h1 class="title is-4">
+          <%= fa_icon('file-contract', class: 'has-text-success') %> Citation formats
+        </h1>
+
+        <h2 class="title is-6">Plain text</h2>
+        <pre class="citation-format" id="citation-text"><%= citation_text %></pre>
+
+        <h2 class="title is-6">APA</h2>
+        <pre class="citation-format" id="citation-apa"><%= citation_apa %></pre>
+
+        <h2 class="title is-6">BibTeX</h2>
+        <pre class="citation-format" id="citation-bibtex"><%= citation_bibtex %></pre>
+      </section>
+
+      <section class="section content" id="credits">
+        <h1 class="title is-4">
+          <%= fa_icon('database', class: 'has-text-success') %> Upstream credits
+        </h1>
+        <p>
+          Trefle's compilation, structure and community corrections are
+          published under
+          <a href="<%= CitationHelper::LICENCE[:url] %>"><%= CitationHelper::LICENCE[:name] %></a>.
+          Redistributing Trefle data keeps every upstream source's own
+          credit intact &mdash; see the
+          <%= link_to 'sources listed on the About page', about_path(anchor: 'sources') %>
+          and the per-record <code>sources</code> array returned by the API.
+        </p>
+        <p>
+          If your work relies on plant name and distribution data, please
+          also co-cite the World Checklist of Vascular Plants:
+        </p>
+        <pre class="citation-format" id="citation-wcvp">Govaerts, R., Nic Lughadha, E., Black, N. et al. The World Checklist of Vascular Plants, a continuously updated resource for exploring global plant diversity. Sci Data 8, 215 (2021). https://doi.org/10.1038/s41597-021-00997-6</pre>
+      </section>
+
+    </div>
+  </div>
+
+</div>

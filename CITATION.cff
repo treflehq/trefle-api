@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  Trefle's compiled database (its structure and the community corrections)
+  is published under CC-BY 4.0; please cite it as below. See
+  https://trefle.io/citation for the APA and BibTeX formats and the current
+  DOI. The API and platform code are separately licensed AGPL-3.0.
+title: "Trefle: a global plants API"
+type: dataset
+authors:
+  - name: "André Aubin"
+  - name: "Trefle contributors"
+url: "https://trefle.io"
+repository-code: "https://github.com/treflehq/trefle-api"
+license: "CC-BY-4.0"
+keywords:
+  - botany
+  - plants
+  - species
+  - taxonomy
+  - open-data
+# Once the Zenodo deposit (#322) exists, add:
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.NNNNNN"
+#     description: "Concept DOI for the Trefle dataset"

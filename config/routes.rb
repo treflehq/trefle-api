@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about', as: 'about'
   get '/donate', to: 'home#donate', as: 'donate'
   get '/terms', to: 'home#licence', as: 'terms'
+  get '/citation', to: 'home#citation', as: 'citation'
   get '/profile', to: 'profile#index', as: 'profile'
   resource :terms_acceptance, only: %i[new create]
 
