@@ -6,6 +6,12 @@ FactoryBot.define do
     password_confirmation { password }
 
     admin { false }
+    # Most specs just want a user free to use the web app; a signed-in user
+    # with terms_accepted_at blank would otherwise get redirected to the
+    # terms-acceptance prompt (see RequiresTermsAcceptance#require_terms_acceptance!).
+    # Use `create(:user, accepts_terms: false)` to get a user still pending
+    # acceptance.
+    accepts_terms { true }
 
     # before(:create, &:confirm)
 

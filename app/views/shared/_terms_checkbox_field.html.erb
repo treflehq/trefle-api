@@ -1,0 +1,15 @@
+<%# locals: (show_version: false) %>
+<div class="field">
+  <div class="control">
+    <label class="checkbox">
+      <%# check_box_tag alone has no "unchecked" fallback (unlike f.check_box) --
+          an unticked box would submit no param at all, which the acceptance
+          validator treats as "field not present" rather than "declined", and
+          silently lets the request through. The hidden field pins it to "0"
+          when left unchecked, same trick Rails' own check_box helper uses. %>
+      <%= hidden_field_tag 'user[accepts_terms]', '0' %>
+      <%= check_box_tag 'user[accepts_terms]', '1', false %>
+      I have read and accept the <%= link_to "Terms of Use", terms_path, target: "_blank", rel: "noopener" %><% if show_version %> (version <%= TERMS_VERSION %>)<% end %>.
+    </label>
+  </div>
+</div>

@@ -19,4 +19,18 @@ RSpec.feature 'Home page', type: :feature do
     expect(page).to have_text('Sign in')
     expect(page).to have_text('Documentation')
   end
+
+  scenario 'User visits the citation page' do
+    visit '/citation'
+    expect(page).to have_text('Citation')
+    expect(page).to have_text('Trefle: a global plants API')
+    expect(page).to have_text('BibTeX')
+    expect(page).to have_text('DOI pending')
+  end
+
+  scenario 'User follows the citation link from the about page' do
+    visit '/about'
+    click_link 'citation formats and DOI'
+    expect(page).to have_current_path('/citation')
+  end
 end

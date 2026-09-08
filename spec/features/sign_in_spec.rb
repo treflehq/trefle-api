@@ -8,12 +8,27 @@ RSpec.feature 'Sign in/up page', type: :feature do
     fill_in 'user_email',    with: 'test@lala.co'
     fill_in 'user_password', with: 'asamplepassword'
     fill_in 'user_password_confirmation', with: 'asamplepassword'
+    check 'user_accepts_terms'
     click_button 'Sign up'
 
     # Devise :confirmable is disabled on User, sign up logs the user straight in
     expect(page).to have_content 'You have signed up successfully'
-    expect(User.find_by_email('test@lala.co')).to be
+    user = User.find_by_email('test@lala.co')
+    expect(user).to be
+    expect(user.terms_accepted_at).to be_present
+    expect(user.terms_version).to eq(TERMS_VERSION)
+  end
 
+  scenario 'User cannot create an account without accepting the terms' do
+    visit '/users/sign_up'
+
+    fill_in 'user_email',    with: 'nolove@lala.co'
+    fill_in 'user_password', with: 'asamplepassword'
+    fill_in 'user_password_confirmation', with: 'asamplepassword'
+    click_button 'Sign up'
+
+    expect(page).to have_content 'must be accepted to create an account'
+    expect(User.find_by_email('nolove@lala.co')).to be_nil
   end
 
   scenario 'User can sign in' do

@@ -31,6 +31,8 @@
 #  sign_in_count          :integer          default(0)
 #  sponsored_tier         :string
 #  sponsorship_checked_at :datetime
+#  terms_accepted_at      :datetime
+#  terms_version          :string
 #  token                  :string(255)
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -68,6 +70,24 @@ class User < ApplicationRecord
     other
   ].freeze
 
+  # Virtual checkbox for the terms-acceptance form(s). Only the public
+  # sign-up form (Users::RegistrationsController) turns on
+  # `enforce_terms_acceptance`, so this validation never blocks the admin
+  # back-office (management/users) or the GitHub OAuth callback -- both
+  # create users directly. GitHub sign-ups instead pick up the acceptance
+  # prompt on their first web page load, same as pre-existing users
+  # (see RequiresTermsAcceptance#require_terms_acceptance!).
+  attr_accessor :enforce_terms_acceptance
+
+  validates :accepts_terms, acceptance: { message: 'must be accepted to create an account' }, if: :enforce_terms_acceptance
+
+  before_save :record_terms_acceptance, if: :accepts_terms
+
+  # Whether this user has accepted the currently published Terms of Use.
+  def terms_up_to_date?
+    terms_accepted_at.present? && terms_version == TERMS_VERSION
+  end
+
   def get_token
     if admin
       "unl-#{SecureRandom.urlsafe_base64(32)}"
@@ -89,6 +109,11 @@ class User < ApplicationRecord
   def regenerate_token_if_plan_changed!
     new_token = get_token
     update(token: new_token) if token.slice(0, 3) != new_token.slice(0, 3)
+  end
+
+  def record_terms_acceptance
+    self.terms_accepted_at = Time.current
+    self.terms_version = TERMS_VERSION
   end
 
 end

@@ -1,0 +1,29 @@
+<div class="home-page container">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-1">
+          <%= fa_icon('file-contract', class: 'has-text-primary') %>
+          Updated Terms of Use
+        </h1>
+        <h2 class="subtitle">
+          Please accept the current Terms of Use to keep using the Trefle website. Your API access is not affected either way.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section content">
+    <%= form_with url: terms_acceptance_path, method: :post, local: true, html: { class: 'auth-page' } do %>
+      <%= hidden_field_tag :return_to, @return_to %>
+
+      <%= render "shared/terms_checkbox_field", show_version: true %>
+
+      <div class="field">
+        <div class="control">
+          <%= submit_tag 'Accept and continue', class: 'button is-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</div>
