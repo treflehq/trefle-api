@@ -237,7 +237,8 @@ class Api::V1::SpeciesController < Api::ApiController
       filter_not_fields: Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS,
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
-      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS
+      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
+      field_aliases: ::Scopes::Species::FIELD_ALIASES
     )
     options = {
       where: search_params[:where],
