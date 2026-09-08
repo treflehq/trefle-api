@@ -86,6 +86,7 @@ module Scopes
       # Ranges
       scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }
       scope :range_by_atmospheric_humidity, ->(a, b) { where(atmospheric_humidity: ((a.to_i)...(b&.to_i || 3000))) }
+      scope :range_by_completion_ratio, ->(a, b) { where(completion_ratio: ((a.to_i)...(b&.to_i || 3000))) }
       # scope :range_by_bloom_months, ->(a, b) { where(bloom_months: ((a&.to_i || 0)...(b&.to_i || 3000))) }
       # scope :range_by_duration, ->(a, b) { where(duration: ((a&.to_i || 0)...(b&.to_i || 3000))) }
       scope :range_by_frost_free_days_minimum, ->(a, b) { where(frost_free_days_minimum: ((a.to_i)...(b&.to_i || 3000))) }
