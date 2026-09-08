@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_07_110000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_08_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -38,6 +38,25 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_07_110000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["snapshot_on", "dimension", "dimension_value", "attribute_name"], name: "idx_quality_snapshots_unique", unique: true
+  end
+
+  create_table "data_runs", force: :cascade do |t|
+    t.string "runnable", null: false
+    t.string "kind", null: false
+    t.jsonb "arguments", default: {}, null: false
+    t.boolean "dry_run", default: false, null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "report", default: {}, null: false
+    t.jsonb "impact", default: {}, null: false
+    t.string "host"
+    t.string "revision"
+    t.text "error"
+    t.datetime "started_at", null: false
+    t.datetime "finished_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["runnable", "started_at"], name: "index_data_runs_on_runnable_and_started_at"
+    t.index ["started_at"], name: "index_data_runs_on_started_at"
   end
 
   create_table "division_classes", force: :cascade do |t|
