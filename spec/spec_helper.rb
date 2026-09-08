@@ -1,13 +1,13 @@
 require 'simplecov'
 
 SimpleCov.start 'rails' do
-  add_group 'Interactors', 'app/interactors'
-  add_group 'Serializers', 'app/serializers'
-  add_group 'Uploaders', 'app/uploaders'
+  group 'Interactors', 'app/interactors'
+  group 'Serializers', 'app/serializers'
+  group 'Uploaders', 'app/uploaders'
 
   # Private crawler code lives outside this repository
-  add_filter 'lib/crawlers'
-  add_filter 'app/workers/crawlers'
+  skip 'lib/crawlers'
+  skip 'app/workers/crawlers'
 
   # Floor is raised as coverage improves (see #204) — never lower it here.
   minimum_coverage 65
