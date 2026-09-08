@@ -63,7 +63,7 @@ class Management::DivisionsController < Management::ManagementController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_division
-    @division = Division.find(params[:id])
+    @division = Division.friendly.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
