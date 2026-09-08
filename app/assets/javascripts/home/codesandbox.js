@@ -104,7 +104,15 @@ const CodeSandbox = (props) => {
             <span className="home-terminal__dot home-terminal__dot--minimize"></span>
             <span className="home-terminal__dot home-terminal__dot--zoom"></span>
           </div>
-          <SyntaxHighlighter language="http" style={monokai} customStyle={TERMINAL_CODE_STYLE}>
+          <SyntaxHighlighter
+            language="http"
+            style={monokai}
+            customStyle={{ ...TERMINAL_CODE_STYLE, wordBreak: 'break-all' }}
+            // Wrap the command instead of growing a horizontal scrollbar under
+            // the terminal bar (wrapLongLines is the only supported way: the
+            // library pins white-space inline on the <code> tag).
+            wrapLongLines
+          >
             {`$ ${cmd}`}
           </SyntaxHighlighter>
           <SyntaxHighlighter language="json" style={monokai} customStyle={{ ...TERMINAL_CODE_STYLE, maxHeight: '260px' }}>

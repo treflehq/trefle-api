@@ -26,6 +26,12 @@ $title-color: #0a0a0a;
 $body-color: #363636;
 $body-line-height: 1.6;
 
+// Muted/secondary text. The design system's original muted grey (#7a7a7a)
+// measures 4.3:1 on white — under WCAG AA's 4.5:1 for normal text — so the
+// working value is nudged to 5.1:1 while keeping the muted look. Use this
+// variable, never a literal grey, for secondary copy.
+$text-muted: #6e6e6e;
+
 // The h1-h6/body/small scale, defined once instead of the ad-hoc px/em values
 // that used to be sprinkled across sections/*.scss (see #234). Values mirror
 // Bulma's own $size-1.."$size-7", but are declared independently since these
