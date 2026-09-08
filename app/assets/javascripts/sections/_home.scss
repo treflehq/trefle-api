@@ -263,6 +263,13 @@
 
   .home-section-heading {
     align-items: flex-start;
+
+    // #342: this is the one section where the intro sits beside other
+    // content (the support CTAs), not alone in a single column — keep
+    // its measure cap instead of letting it stretch to the column width.
+    &__intro {
+      max-width: 60ch;
+    }
   }
 }
 
