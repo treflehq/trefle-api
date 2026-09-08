@@ -24,7 +24,21 @@ class HomeController < ApplicationController
     @team_stats       = about_team_stats
   end
 
+  def donate
+    @page_title       = 'Support Trefle'
+    @page_description = 'Donations keep the Trefle servers running.'
+    @sponsor_count    = sponsor_count
+  end
+
   private
+
+  # Active GitHub sponsors, synced by the update_sponsors cron. Cached: the
+  # count moves slowly and the donate page has no fragment cache.
+  def sponsor_count
+    Rails.cache.fetch('donate/sponsor_count/v1', expires_in: 12.hours) do
+      User.where.not(sponsored_tier: [nil, '']).count
+    end
+  end
 
   # Real numbers for the about page team tiles: admins maintain the platform,
   # reviewers have accepted at least one correction, contributors submitted

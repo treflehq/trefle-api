@@ -52,6 +52,21 @@ RSpec.describe 'Public website pages', type: :request do
       get donate_path
       expect(response).to have_http_status(:ok)
     end
+
+    it 'shows the real sponsor count with a matching verb' do
+      User.create!(email: 'sponsor@example.test', password: 'password-123', sponsored_tier: 'bronze')
+
+      get donate_path
+      expect(response.body).to include('sponsor currently')
+      expect(response.body).to include('supports Trefle through GitHub')
+    end
+
+    it 'keeps the sponsor terms and the company tiers' do
+      get donate_path
+      expect(response.body).to include('Sponsor terms')
+      expect(response.body).to include('Bronze')
+      expect(response.body).to include('Sponsor on GitHub')
+    end
   end
 
   describe 'GET /terms' do

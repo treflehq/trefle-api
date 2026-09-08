@@ -1,0 +1,184 @@
+@import "variables";
+
+// Donate page, rebuilt from Trefle Donate.dc.html
+// (.agents/design/home-2026/maquette-donate.html). Section headings carry a
+// 3px forest-green underline — this page's own device, distinct from the
+// home's hanging icons and the about page's target rail.
+
+.donate {
+  &__header {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+    padding: 4rem 1.5rem 3rem;
+  }
+
+  &__heading {
+    align-items: flex-start;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__heading-icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 2rem;
+    line-height: 1;
+    margin-top: 0.5rem;
+  }
+
+  &__title {
+    color: #0a0a0a;
+    font-family: $family-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  &__lead {
+    font-size: 1.125rem;
+    margin: 0.75rem 0 0;
+    text-wrap: pretty;
+  }
+}
+
+.donate-section {
+  border-top: 1px solid #dbdbdb;
+
+  &__inner {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+    padding: 3.5rem 1.5rem;
+
+    > p {
+      margin: 0;
+      text-wrap: pretty;
+    }
+  }
+
+  &__heading {
+    align-items: center;
+    align-self: flex-start;
+    border-bottom: 3px solid $forest-green;
+    display: inline-flex;
+    gap: 0.6rem;
+    padding-bottom: 0.75rem;
+  }
+
+  &__icon {
+    color: $forest-green;
+    display: inline-flex;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  &__title {
+    color: #0a0a0a;
+    font-family: $family-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  // .home-steps brings its own 2.5rem top margin for the home layout;
+  // the section's flex gap already spaces it here.
+  &__steps {
+    margin-top: 0;
+  }
+
+  &__ctas {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  &__more {
+    font-size: 0.9375rem;
+  }
+}
+
+.donate-funding {
+  align-items: start;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 0.5rem;
+
+  &__note {
+    color: $text-muted;
+    font-size: 0.8125rem;
+    margin: 1rem 0 0;
+  }
+
+  &__sponsors {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  &__count {
+    color: #0a0a0a;
+    font-size: 1.5rem;
+    margin-right: 0.25rem;
+  }
+}
+
+.donate-tiers {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 0.5rem;
+}
+
+.donate-terms {
+  font-size: 0.875rem;
+
+  summary {
+    color: $text-muted;
+    cursor: pointer;
+  }
+
+  ul {
+    margin: 0.75rem 0 0 1.25rem;
+  }
+}
+
+.donate-links {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 0.5rem;
+}
+
+.donate-link {
+  border-top: 1px solid #dbdbdb;
+  color: #363636;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 1rem;
+
+  &:hover,
+  &:focus {
+    color: $forest-green;
+    text-decoration: none;
+  }
+
+  &__eyebrow {
+    color: $text-muted;
+    font-family: $family-monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__label {
+    font-weight: 600;
+  }
+}

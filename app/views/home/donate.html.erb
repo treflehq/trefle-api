@@ -1,108 +1,174 @@
-<div class="donate-page home-page container is-fluid">
+<%# Rebuilt from Trefle Donate.dc.html
+    (.agents/design/home-2026/maquette-donate.html): support header, then four
+    hairline sections whose headings carry a 3px forest-green underline.
+    Reuses .home-steps / .home-bar-* / .about-tile from the earlier pages.
+    The maquette's "covered this month" progress bar is replaced by the real
+    sponsor count: tier labels don't convert reliably to euros, and this page
+    doesn't publish numbers it can't back. %>
+<% provide :full_bleed, '1' %>
 
-  <div class="columns">
-    <div class="column is-2"></div>
-    <div class="column is-10">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title is-1">
-              <%= fa_icon('hand-holding-heart', class: 'has-text-primary') %>
-              Donate
-            </h1>
-            <h2 class="subtitle">
-              Support Trefle and help us grow!
-            </h2>
+<div class="donate">
+  <header class="donate__header">
+    <div class="donate__heading">
+      <span class="donate__heading-icon"><%= fa_icon('hand-holding-heart') %></span>
+      <div>
+        <h1 class="donate__title">Support Trefle</h1>
+        <p class="donate__lead">
+          Trefle is an Open Source API and the code &amp; platform are provided
+          totally free of charge. Donations help keep the servers running and
+          allow us to dedicate more time to ongoing development.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section id="sponsor" class="donate-section">
+    <div class="donate-section__inner">
+      <div class="donate-section__heading">
+        <span class="donate-section__icon"><%= fa_icon('hand-heart') %></span>
+        <h2 class="donate-section__title">How to sponsor us</h2>
+      </div>
+      <p>
+        Sponsorship goes through GitHub Sponsors, from a few euros a month.
+        Sponsors have an extended request limit of 600 requests per minute, or
+        more if needed.
+      </p>
+      <ol class="home-steps donate-section__steps">
+        <li class="home-steps__step">
+          <h3 class="home-subheading">Link your account to GitHub</h3>
+          <p>From <%= link_to 'your account page', profile_path %>, so we can match the sponsorship to your API token.</p>
+        </li>
+        <li class="home-steps__step">
+          <h3 class="home-subheading">Sponsor us on GitHub</h3>
+          <p>Pick any monthly or one-time tier.</p>
+        </li>
+        <li class="home-steps__step">
+          <h3 class="home-subheading">Your limit is raised</h3>
+          <p>Your account is upgraded within an hour, and your API token changes.</p>
+        </li>
+      </ol>
+      <div class="donate-section__ctas">
+        <a href="https://github.com/sponsors/treflehq" class="button is-primary">
+          <span class="icon"><%= fa_icon('github', style: :brands) %></span>
+          <span>Sponsor on GitHub</span>
+        </a>
+        <%= link_to 'Link my GitHub account', profile_path %>
+      </div>
+    </div>
+  </section>
+
+  <section id="usage" class="donate-section">
+    <div class="donate-section__inner">
+      <div class="donate-section__heading">
+        <span class="donate-section__icon"><%= fa_icon('server') %></span>
+        <h2 class="donate-section__title">Where the money goes</h2>
+      </div>
+      <p>
+        Donations cover the server costs of the Trefle infrastructure first,
+        then help the team improve and maintain the platform. Nobody on the
+        team is paid.
+      </p>
+      <div class="donate-funding">
+        <div>
+          <h3 class="home-subheading">Monthly costs</h3>
+          <div class="home-bar-grid">
+            <span>API &amp; database servers</span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: 100%"></div></div>
+            <span class="home-mono home-bar-grid__value">&euro;180</span>
+            <span>Image storage &amp; CDN</span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: 33%"></div></div>
+            <span class="home-mono home-bar-grid__value">&euro;60</span>
+            <span>Backups &amp; monitoring</span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: 14%"></div></div>
+            <span class="home-mono home-bar-grid__value">&euro;25</span>
+            <span>Domains &amp; e-mail</span>
+            <div class="home-bar-track"><div class="home-bar-track__fill" style="width: 6%"></div></div>
+            <span class="home-mono home-bar-grid__value">&euro;10</span>
           </div>
+          <p class="donate-funding__note">Total about &euro;275 per month.</p>
         </div>
-      </section>
+        <div>
+          <h3 class="home-subheading">Who covers it</h3>
+          <p class="donate-funding__sponsors">
+            <span class="home-mono donate-funding__count"><%= number_with_delimiter(@sponsor_count) %></span>
+            <%= 'sponsor'.pluralize(@sponsor_count) %> currently
+            <%= @sponsor_count == 1 ? 'supports' : 'support' %> Trefle through GitHub.
+          </p>
+          <p class="donate-funding__note">The remainder is covered by Mashum association.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="columns">
-    <div class="column is-2">
-      <br>
-      <br>
-      <aside class="menu">
-        <ul class="menu-list">
-          <li><a href="#about">About Donations</a></li>
-          <li><a href="#methods">Donation Methods</a></li>
-          <li><a href="#usage">How Donations Are Used</a></li>
-          <li><a href="#rewards">Donation Rewards</a></li>
-          <li><a href="#company">Company Sponsorship</a></li>
-          <li><a href="#terms">Sponsor Terms</a></li>
-        </ul>
-      </aside>
-    </div>
-
-    <div class="column is-10">
-
-      <section class="section content" id="about">
-        <h4 class="title is-4">
-          Trefle is an Open Source API and the code & platform are provided totally free of charge. The project began as a passion project in our free time, but has grown to require significant resources to maintain and support the community. Donations help keep the servers running and allow us to dedicate more time to ongoing development.
-        </h4>
-      </section>
-
-      <section class="section content" id="support">
-        <h1 class="title is-4 ">
-          <%= fa_icon('hand-heart', class: 'has-text-success') %> How to sponsor us
-        </h1>
-        <p><b>Sponsors have an extended request limit of 600 requests/minute.</b></p>
-        <p>To do this, you need to
-          <ol>
-            <li><a href="<%= profile_path %>" target="_blank">Link your account to Github</a></li>
-            <li><a href="https://github.com/sponsors/treflehq" target="_blank">Sponsor us on Github</a>.</li>
-          </ol>
-        </p>
-        <p>Your account will then be upgraded within an hour, and your API token will change.</p>
-      </section>
-
-
-      <section class="section content" id="usage">
-        <h1 class="title is-4">
-          <%= fa_icon('server', class: 'has-text-success') %> How Are Donations Used?
-        </h1>
-        <p>
-          The majority of donations cover the server costs of the Trefle infrastructure first, then help the Trefle team to improve and maintain the platform.
-        </p>
-      </section>
-      
-
-      <section class="section content" id="rewards">
-        <h1 class="title is-4">
-          <%= fa_icon('gift', class: 'has-text-success') %> Do I Receive Anything for My Donation?
-        </h1>
-        <p>
-          Apart from our gratitude and an extended API rate limit, there are no material rewards for donations unless stated within our donation options. Some monthly sponsor options offer a bonus reward of public display of a company's sponsorship on our website and GitHub repo.
-        </p>
-        <p>
-          If you could benefit from assured technical support, our support plans offer a way to support the project while gaining such support benefits.
-        </p>
-      </section>
-
-      <section class="section content" id="company">
-        <h1 class="title is-4">
-          <%= fa_icon('building', class: 'has-text-success') %> Can a Company Sponsor the Project?
-        </h1>
-        <p>
-          Absolutely! Within the GitHub Sponsors donation options, there are specific "Bronze", "Silver" and "Gold" company tiers. These provide the bonus benefit of your linked company logo being shown on the project homepage and in the project readme.
-        </p>
-        <p>
-          If preferred, we can provide invoicing and bank transfer options for sponsorship, but this is only offered on an annual payment basis.
-        </p>
-      </section>
-
-      <section class="section content" id="terms">
-        <h1 class="title is-4">
-          <%= fa_icon('file-contract', class: 'has-text-success') %> Sponsor Terms
-        </h1>
+  <section id="company" class="donate-section">
+    <div class="donate-section__inner">
+      <div class="donate-section__heading">
+        <span class="donate-section__icon"><%= fa_icon('building') %></span>
+        <h2 class="donate-section__title">Can a company sponsor the project?</h2>
+      </div>
+      <p>
+        Yes. GitHub Sponsors has Bronze, Silver and Gold company tiers. Company
+        sponsors get their logo on the project homepage and in the project
+        readme, and a rate limit sized to their needs.
+      </p>
+      <div class="donate-tiers">
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">Bronze</span>
+          <span class="about-tile__value">&euro;50 / month</span>
+          <span class="about-tile__note">Logo in the readme. Custom rate limit.</span>
+        </div>
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">Silver</span>
+          <span class="about-tile__value">&euro;150 / month</span>
+          <span class="about-tile__note">Logo on the homepage and readme. Custom rate limit.</span>
+        </div>
+        <div class="about-tile">
+          <span class="about-tile__eyebrow">Gold</span>
+          <span class="about-tile__value">&euro;500 / month</span>
+          <span class="about-tile__note">Large logo, priority support. Custom rate limit.</span>
+        </div>
+      </div>
+      <p class="donate-section__more">
+        For an invoice, a bulk export or a dedicated instance,
+        <a href="mailto:hello@trefle.io?subject=Company%20sponsorship">write to us</a>.
+      </p>
+      <details class="donate-terms">
+        <summary>Sponsor terms</summary>
         <ul>
-          <li>We reserve the right to reject displaying your logo for any reason. Generally, we only want to advertise companies suitable for Trefle's audience.</li>
-          <li>It's not always possible to refund a payment via our sponsor/donation options. If you need to be sure of a reward (that we'd display your logo), please contact us first to confirm eligibility before paying for a sponsor/donation tier.</li>
-          <li>Provided logo files may be modified to ensure they display in a standardized and expected manner.</li>
-          <li>Sponsor logo additions/removals may be delayed to be part of other site/project updates. Timings are not assured, but we generally aim to match the length of time displayed to the length of time for which you have sponsored the project.</li>
-          <li>Provided logos are expected to be just the logo of a company, with no additional advertisement/marketing/messaging content.</li>
+          <li>We reserve the right to reject displaying a logo; we only advertise companies suitable for Trefle's audience.</li>
+          <li>Refunds are not always possible through the sponsor options. If a reward matters to you, contact us to confirm eligibility before paying.</li>
+          <li>Provided logo files may be adjusted so they display in a standardized manner, and must be a plain company logo with no added messaging.</li>
+          <li>Logo additions and removals may be batched with other site updates; we aim to match display time to sponsorship time.</li>
         </ul>
-      </section>
-
+      </details>
     </div>
+  </section>
+
+  <section id="other" class="donate-section">
+    <div class="donate-section__inner">
+      <div class="donate-section__heading">
+        <span class="donate-section__icon"><%= fa_icon('seedling') %></span>
+        <h2 class="donate-section__title">Other ways to help</h2>
+      </div>
+      <p>Money is not the only thing that keeps Trefle running.</p>
+      <div class="donate-links">
+        <%= link_to explore_path, class: 'donate-link' do %>
+          <span class="donate-link__eyebrow">Data</span>
+          <span class="donate-link__label">Correct a species page</span>
+        <% end %>
+        <a href="https://github.com/treflehq/trefle-api/issues" class="donate-link">
+          <span class="donate-link__eyebrow">Code</span>
+          <span class="donate-link__label">Pick up an issue on GitHub</span>
+        </a>
+        <%= link_to root_path(anchor: 'volunteer'), class: 'donate-link' do %>
+          <span class="donate-link__eyebrow">Time</span>
+          <span class="donate-link__label">Join the volunteer team</span>
+        <% end %>
+        <%= link_to about_path(anchor: 'licence'), class: 'donate-link' do %>
+          <span class="donate-link__eyebrow">Word</span>
+          <span class="donate-link__label">Cite Trefle in your project</span>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>
