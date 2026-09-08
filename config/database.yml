@@ -59,7 +59,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: trefle_test
+  # Agent sessions run the suite from several git worktrees against one local
+  # Postgres, and `db:test:prepare` drops and recreates this database — two runs
+  # finishing at once collide (PG::UniqueViolation on pg_database). PG_TEST_DATABASE
+  # lets each checkout claim its own. Unset (CI, a plain local run) keeps trefle_test.
+  database: <%= ENV['PG_TEST_DATABASE'].to_s.empty? ? 'trefle_test' : ENV['PG_TEST_DATABASE'] %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
