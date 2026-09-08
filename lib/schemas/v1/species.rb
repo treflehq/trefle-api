@@ -249,7 +249,9 @@ module Schemas
               name: { type: :string, description: 'The name of the source' }, # "(Douglas ex D.Don) Lindl.",
               citation: { type: :string, nullable: true, description: 'How to cite the source' }, # "(Douglas ex D.Don) Lindl.",
               url: { type: :string, nullable: true, description: 'The link on the source website, or the publication reference' }, # "(Douglas ex D.Don) Lindl.",
-              last_update: { type: :string, description: 'The last time the source was checked' } # "(Douglas ex D.Don) Lindl.",
+              last_update: { type: :string, description: 'The last time the source was checked' }, # "(Douglas ex D.Don) Lindl.",
+              licence: { type: :string, nullable: true, description: 'The SPDX identifier of the licence this source publishes its data under, when known' },
+              licence_url: { type: :string, nullable: true, description: 'A link to the full text of the licence' }
             }, extras: { description: 'The symonyms scientific names and authors' })
 
           }, extras: { description: '' }),

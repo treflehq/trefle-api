@@ -110,6 +110,39 @@ RSpec.describe Migrators do
     end
   end
 
+  describe Migrators::SourceLicences do
+    it 'seeds the verified licence onto a confirmed source' do
+      powo = ForeignSource.find_by!(slug: 'powo')
+
+      described_class.run
+
+      expect(powo.reload.licence).to eq('CC-BY-4.0')
+      expect(powo.reload.licence_url).to eq('https://creativecommons.org/licenses/by/4.0/')
+    end
+
+    it 'seeds a source that is not part of the fixed seed set (WFO)' do
+      wfo = ForeignSource.create!(name: 'World Flora Online', slug: 'wfo')
+
+      described_class.run
+
+      expect(wfo.reload.licence).to eq('CC0-1.0')
+    end
+
+    it 'leaves an unconfirmed source at NULL rather than guess' do
+      plantnet = ForeignSource.find_by!(slug: 'plantnet')
+
+      described_class.run
+
+      expect(plantnet.reload.licence).to be_nil
+    end
+
+    it 'is a no-op for a source outside the verified set' do
+      openfarm = ForeignSource.find_by!(slug: 'openfarm')
+
+      expect { described_class.run }.not_to(change { openfarm.reload.licence })
+    end
+  end
+
   describe Migrators::Metrics do
     it 'leaves species alone once their heights are already recorded (current data state)' do
       Species.update_all(maximum_height_cm: 100)

@@ -10,6 +10,8 @@
 #  updated_at         :datetime         not null
 #  copyright_template :text
 #  created_at         :datetime
+#  licence            :string
+#  licence_url        :string
 #
 # Indexes
 #

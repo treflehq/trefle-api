@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_07_090000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_07_110000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -94,6 +94,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_07_090000) do
     t.datetime "updated_at", precision: nil, null: false
     t.text "copyright_template"
     t.datetime "created_at", precision: nil
+    t.string "licence"
+    t.string "licence_url"
     t.index ["name"], name: "foreign_sources_name_index", unique: true
     t.index ["slug"], name: "foreign_sources_slug_index", unique: true
   end
