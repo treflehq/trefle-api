@@ -1,0 +1,73 @@
+<h1 class="title"><%= @run.runnable %></h1>
+<p class="subtitle is-6">
+  <%= @run.kind %> ·
+  started <%= @run.started_at.strftime('%Y-%m-%d %H:%M:%S') %>
+  on <code><%= @run.host %></code>
+  <% if @run.revision.present? %> · revision <code><%= @run.revision %></code><% end %>
+  <% if @run.dry_run? %> · <span class="tag is-light">dry run</span><% end %>
+</p>
+
+<div class="columns">
+  <div class="column">
+    <div class="box has-text-centered">
+      <p class="heading">Status</p>
+      <p class="title is-4"><%= @run.status %></p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="box has-text-centered">
+      <p class="heading">Duration</p>
+      <p class="title is-4"><%= @run.duration ? "#{@run.duration.round}s" : '—' %></p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="box has-text-centered">
+      <p class="heading">Counters moved</p>
+      <p class="title is-4"><%= @run.moved_counters.size %></p>
+    </div>
+  </div>
+</div>
+
+<% if @run.error.present? %>
+  <div class="notification is-danger"><code><%= @run.error %></code></div>
+<% end %>
+
+<% if @run.arguments.present? %>
+  <h2 class="title is-5">Arguments</h2>
+  <pre><%= JSON.pretty_generate(@run.arguments) %></pre>
+<% end %>
+
+<h2 class="title is-5">Impact (measured before / after)</h2>
+<% if @run.impact.blank? %>
+  <p>No impact captured.</p>
+<% else %>
+  <table class="table is-narrow is-striped">
+    <thead><tr><th>Counter</th><th>Before</th><th>After</th><th>Delta</th></tr></thead>
+    <tbody>
+      <% @run.impact.each do |name, values| %>
+        <tr class="<%= values['delta']&.nonzero? ? '' : 'has-text-grey-light' %>">
+          <td><%= name %></td>
+          <td><%= number_with_delimiter(values['before']) %></td>
+          <td><%= number_with_delimiter(values['after']) %></td>
+          <td><strong><%= values['delta'].positive? ? '+' : '' %><%= number_with_delimiter(values['delta']) %></strong></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<h2 class="title is-5">Report</h2>
+<% if @run.report.blank? %>
+  <p>No report attached.</p>
+<% else %>
+  <table class="table is-narrow is-striped">
+    <tbody>
+      <% @run.report.sort_by {|k, _| k.to_s }.each do |key, value| %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= value.is_a?(Numeric) ? number_with_delimiter(value) : value %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

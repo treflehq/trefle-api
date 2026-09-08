@@ -87,6 +87,7 @@ Rails.application.routes.draw do
 
     get '/', to: 'plants#index'
     get '/data_quality', to: 'data_quality#index'
+    resources :data_runs, only: %i[index show]
 
     resources :users
     resources :user_queries do

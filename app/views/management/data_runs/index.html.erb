@@ -1,0 +1,50 @@
+<h1 class="title">Data runs</h1>
+<p class="subtitle is-6">
+  Journal of the operations that shaped the dataset — imports, purges,
+  migrations — wherever they ran from. Impacts are measured deltas, not claims.
+</p>
+
+<% if @runs.empty? %>
+  <div class="notification is-info">
+    No run recorded yet. Runs journal themselves through <code>DataRun.track!</code>.
+  </div>
+<% else %>
+  <table class="table is-fullwidth is-striped is-narrow">
+    <thead>
+      <tr>
+        <th>Started</th>
+        <th>Run</th>
+        <th>Kind</th>
+        <th>Where</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @runs.each do |run| %>
+        <tr>
+          <td><%= run.started_at.strftime('%Y-%m-%d %H:%M') %></td>
+          <td>
+            <%= link_to(run.runnable, management_data_run_path(run)) %>
+            <% if run.dry_run? %><span class="tag is-light">dry run</span><% end %>
+          </td>
+          <td><%= run.kind %></td>
+          <td><code><%= run.host %></code></td>
+          <td>
+            <% status_class = { 'running' => 'is-info', 'completed' => 'is-success', 'failed' => 'is-danger' }[run.status] %>
+            <span class="tag <%= status_class %>"><%= run.status %></span>
+          </td>
+          <td><%= run.duration ? "#{run.duration.round}s" : '—' %></td>
+          <td>
+            <% run.moved_counters.first(4).each do |name, values| %>
+              <span class="tag is-light">
+                <%= name %>&nbsp;<strong><%= values['delta'].positive? ? '+' : '' %><%= number_with_delimiter(values['delta']) %></strong>
+              </span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
