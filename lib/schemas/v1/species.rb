@@ -1,7 +1,7 @@
 module Schemas
   module V1
     module Species # rubocop:todo Metrics/ModuleLength
-      def self.base
+      def self.base # rubocop:todo Metrics/MethodLength
         {
           id: { type: :integer, description: 'An unique identifier' }, # 101131,
           common_name: { type: :string, nullable: true, description: 'The usual common name, in english, of the species (if any).' }, # "grand fir",
@@ -21,6 +21,8 @@ module Schemas
           genus_id: { type: :integer, description: 'The id of the species genus' }, # 101131,
           genus: { type: :string, description: 'The scientific name of the species genus' },
           image_url: { type: :string, nullable: true, description: 'A main image url of the species' },
+          completion_ratio: { type: :integer, nullable: true, description: 'The percentage (0-100) of trait fields filled for this species. Useful for finding species that would benefit from a contribution.' }, # 62,
+          complete_data: { type: :boolean, nullable: true, description: 'Whether this species is considered to have complete data (currently, a completion_ratio above 50%)' }, # true,
           links: Helpers.object_of({
             self: { type: :string, description: 'API endpoint to the species itself' },
             genus: { type: :string, description: 'API endpoint to the species genus' },

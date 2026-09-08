@@ -6,6 +6,8 @@ class Api::V1::SpeciesController < Api::ApiController
     author
     bloom_months
     common_name
+    complete_data
+    completion_ratio
     duration
     establishment
     edible
@@ -38,6 +40,8 @@ class Api::V1::SpeciesController < Api::ApiController
     average_height_cm
     bibliography
     common_name
+    complete_data
+    completion_ratio
     edible_part
     family_common_name
     family_name
@@ -91,6 +95,8 @@ class Api::V1::SpeciesController < Api::ApiController
     average_height_cm
     bibliography
     common_name
+    complete_data
+    completion_ratio
     duration
     edible
     family_common_name
@@ -143,6 +149,7 @@ class Api::V1::SpeciesController < Api::ApiController
   RANGEABLE_FIELDS = %w[
     atmospheric_humidity
     average_height_cm
+    completion_ratio
     frost_free_days_minimum
     ground_humidity
     images_count
@@ -230,7 +237,8 @@ class Api::V1::SpeciesController < Api::ApiController
       filter_not_fields: Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS,
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
-      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS
+      range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
+      field_aliases: ::Scopes::Species::FIELD_ALIASES
     )
     options = {
       where: search_params[:where],

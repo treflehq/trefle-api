@@ -4,7 +4,8 @@ class SpeciesLightSerializer < BaseSerializer
              :year, :bibliography, :author, :status,
              :rank, :family_common_name, :family,
              :genus_id, :genus,
-             :links, :synonyms, :image_url
+             :links, :synonyms, :image_url,
+             :completion_ratio, :complete_data
 
   def image_url
     object.main_image_url

@@ -2,6 +2,16 @@ module Scopes
   module Species
     extend ActiveSupport::Concern
 
+    # Public filter/order/range key => real column, for the couple of keys
+    # where the public API name doesn't match storage (here: `image_url` is
+    # exposed publicly but the column is `main_image_url`). The AR-backed
+    # scopes below translate through this map; so does the Searchkick path
+    # (Api::ApiController#search_params via `field_aliases:`) -- one mapping
+    # instead of two lists that can drift apart again (#280).
+    FIELD_ALIASES = {
+      'image_url' => 'main_image_url'
+    }.freeze
+
     included do # rubocop:todo Metrics/BlockLength
 
       Api::V1::SpeciesController::FILTERABLE_FIELDS.each do |field|
@@ -81,11 +91,12 @@ module Scopes
       #     where.not(edible_part: [0, nil])
       #   end
       # }
-      scope :filter_not_by_image_url, ->(_v) { where.not(main_image_url: nil) }
+      scope :filter_not_by_image_url, ->(_v) { where.not(FIELD_ALIASES['image_url'] => nil) }
 
       # Ranges
       scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }
       scope :range_by_atmospheric_humidity, ->(a, b) { where(atmospheric_humidity: ((a.to_i)...(b&.to_i || 3000))) }
+      scope :range_by_completion_ratio, ->(a, b) { where(completion_ratio: ((a.to_i)...(b&.to_i || 3000))) }
       # scope :range_by_bloom_months, ->(a, b) { where(bloom_months: ((a&.to_i || 0)...(b&.to_i || 3000))) }
       # scope :range_by_duration, ->(a, b) { where(duration: ((a&.to_i || 0)...(b&.to_i || 3000))) }
       scope :range_by_frost_free_days_minimum, ->(a, b) { where(frost_free_days_minimum: ((a.to_i)...(b&.to_i || 3000))) }

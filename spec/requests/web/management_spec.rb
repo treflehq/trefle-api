@@ -16,7 +16,7 @@ RSpec.describe 'Management backoffice', type: :request do
 
     %w[species plants users kingdoms subkingdoms divisions division_classes division_orders
        families genuses record_corrections user_queries species_images foreign_sources data_quality
-       data_runs].each do |section|
+       data_runs sidekiq].each do |section|
       it "refuses non-admin users on /management/#{section}" do
         login_as create(:user), scope: :user
         get "/management/#{section}"
@@ -30,7 +30,7 @@ RSpec.describe 'Management backoffice', type: :request do
 
     %w[species plants users kingdoms subkingdoms divisions division_classes division_orders
        families genuses record_corrections user_queries species_images foreign_sources data_quality
-       data_runs].each do |section|
+       data_runs sidekiq].each do |section|
       it "renders /management/#{section}" do
         get "/management/#{section}"
         expect(response).to have_http_status(:ok)
