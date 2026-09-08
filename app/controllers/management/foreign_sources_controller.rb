@@ -64,7 +64,7 @@ class Management::ForeignSourcesController < Management::ManagementController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_foreign_source
-    @foreign_source = ForeignSource.find(params[:id])
+    @foreign_source = ForeignSource.friendly.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
