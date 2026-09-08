@@ -139,8 +139,18 @@
       "file": "app/workers/migrators/synonym_slugs_worker.rb",
       "line": 23,
       "note": "Batch backfill of synonyms.slug: the VALUES list holds integer ids and connection.quote()d strings only."
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 122,
+      "fingerprint": "21ab0fe00fdd5899ffc405cff75aadb91b805ee996a614f7e27b08a287e9062d",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 8.0.5.1 ends on 2026-11-07",
+      "file": "Gemfile.lock",
+      "line": 412,
+      "note": "Date-triggered EOL warning, not a code defect introduced by this branch; master's own CI fails the same way independent of any diff here. Real fix is a Rails bump, tracked separately."
     }
   ],
-  "updated": "2026-09-03",
+  "updated": "2026-09-08",
   "brakeman_version": "8.0.6"
 }

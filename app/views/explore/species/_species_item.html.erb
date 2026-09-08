@@ -1,20 +1,30 @@
-<%= link_to explore_species_path(species), class: 'species-grid-item' do %>
-  <aside><%= species_photo_tag(species, css_class: 'species-grid-item-photo') %></aside>
-  <main>
-    <h2 class="title is-5 scientific-name">
+<div class="explore-grid__cell">
+  <%= link_to explore_species_path(species), class: 'species-grid-item' do %>
+    <aside><%= species_photo_tag(species, css_class: 'species-grid-item-photo') %></aside>
+    <main>
+      <h2 class="title is-5 scientific-name">
 
-        <% if species.edible? %>
-          <span class="icon has-text-success is-small" title="Edible species">
-            <%= fa_icon('utensils', class: 'is-rounded is-primary') %>
-          </span>
-        <% end %>
-        <% if species.vegetable? %>
-          <span class="icon has-text-primary is-small" title="Vegetable species">
-            <%= fa_icon('carrot', class: 'is-rounded is-primary') %>
-          </span>
-        <% end %>
-      <%= species.scientific_name %>
-    </h2>
-    <p class="subtitle is-6"><%= species.common_name %></p>
-  </main>
-<% end %> 
+          <% if species.edible? %>
+            <span class="icon has-text-success is-small" title="Edible species">
+              <%= fa_icon('utensils', class: 'is-rounded is-primary') %>
+            </span>
+          <% end %>
+          <% if species.vegetable? %>
+            <span class="icon has-text-primary is-small" title="Vegetable species">
+              <%= fa_icon('carrot', class: 'is-rounded is-primary') %>
+            </span>
+          <% end %>
+        <%= species.scientific_name %>
+      </h2>
+      <p class="subtitle is-6"><%= species.common_name %></p>
+    </main>
+  <% end %>
+  <div class="explore-grid__meta">
+    <span class="explore-grid__family"><%= species.family_name %></span>
+    <% ratio = species.completion_ratio.to_i.clamp(0, 100) %>
+    <span class="explore-grid__completeness" title="<%= ratio %>% of trait fields filled">
+      <span class="explore-grid__completeness-track"><span class="explore-grid__completeness-fill" style="width: <%= ratio %>%"></span></span>
+      <span class="explore-grid__completeness-value"><%= ratio %>%</span>
+    </span>
+  </div>
+</div>

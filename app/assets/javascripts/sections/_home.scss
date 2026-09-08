@@ -398,6 +398,16 @@
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   margin: 2.5rem 0 0;
 
+  // The about page reuses the tiles inside a section, slightly smaller.
+  &--compact {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    margin: 0.5rem 0 0;
+
+    .home-stat-tiles__tile dt {
+      font-size: 1.5rem;
+    }
+  }
+
   &__tile {
     display: flex;
     flex-direction: column;

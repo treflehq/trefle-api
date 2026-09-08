@@ -21,6 +21,23 @@ class HomeController < ApplicationController
     @page_title       = 'About'
     @page_description = 'Trefle is a botanical API and data source.'
     @page_keywords    = 'API, Botanical, Plants, Species, Data'
+    @team_stats       = about_team_stats
+  end
+
+  private
+
+  # Real numbers for the about page team tiles: admins maintain the platform,
+  # reviewers have accepted at least one correction, contributors submitted
+  # one this year. Cached: three aggregates nobody needs fresher than daily.
+  def about_team_stats
+    Rails.cache.fetch('about/team_stats/v1', expires_in: 1.day) do
+      {
+        core: User.where(admin: true).count,
+        reviewers: RecordCorrection.where.not(accepted_by: nil).distinct.count(:accepted_by),
+        contributors: RecordCorrection.where(created_at: Time.zone.now.beginning_of_year..)
+          .where.not(user_id: nil).distinct.count(:user_id)
+      }
+    end
   end
 
   def citation
