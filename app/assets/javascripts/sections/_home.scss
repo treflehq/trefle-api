@@ -186,7 +186,6 @@
   font-size: 1.125rem;
   line-height: 1.6;
   margin: 1.75rem 0 0;
-  max-width: 60ch;
   text-wrap: pretty;
 }
 
@@ -251,6 +250,12 @@
   padding: 4.5rem 1.5rem;
 }
 
+// #339: the developers section's three buttons (create account / docs /
+// source) need visible, even spacing between them.
+#developers .buttons {
+  gap: 0.75rem;
+}
+
 .home-support {
   display: grid;
   gap: 2rem 3rem;
@@ -258,6 +263,13 @@
 
   .home-section-heading {
     align-items: flex-start;
+
+    // #342: this is the one section where the intro sits beside other
+    // content (the support CTAs), not alone in a single column — keep
+    // its measure cap instead of letting it stretch to the column width.
+    &__intro {
+      max-width: 60ch;
+    }
   }
 }
 
@@ -300,7 +312,6 @@
   &__intro {
     color: #7a7a7a;
     margin: 0.5rem 0 0;
-    max-width: 60ch;
     text-wrap: pretty;
   }
 }

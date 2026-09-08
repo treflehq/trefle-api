@@ -10,6 +10,12 @@ RSpec.feature 'Home page', type: :feature do
     expect(page).to have_text('Documentation')
   end
 
+  scenario 'User follows the explore CTA from the home page' do
+    visit '/'
+    click_link 'Explore the plants'
+    expect(page).to have_current_path('/explore')
+  end
+
   scenario 'User visits the about page' do
     visit '/about'
     expect(page).to have_text('About Trefle')
