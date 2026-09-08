@@ -61,9 +61,21 @@
       <p>Certain names, titles, trademarks, service marks, and logos that appear on Trefle are registered or common law (unregistered) marks owned by Trefle members, Trefle content providers, or third parties. With the exception of fair use, you may not use such trademarks without the owner’s prior written permission. Nothing on Trefle shall be construed as granting any license to use any trademark displayed on Trefle without the express written permission of the owner of the trademark.</p>
     </section>
 
+    <section class="section content" id="attribution">
+      <h1 class="title is-4 ">
+        <%= fa_icon('book-heart', class: 'has-text-success') %> Attribution
+      </h1>
+      <p>Trefle's own data (species records, taxonomy, corrections contributed by the community) is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International licence (CC BY 4.0)</a>. Data pulled in from upstream sources keeps that source's own licence -- check the <code>sources</code> array of the API response, or the source's entry, for the licence that actually applies to a given record.</p>
+      <ul>
+        <li>If your application displays Trefle data, show <strong>"Data: Trefle.io (CC BY 4.0)"</strong> next to it, linked to <%= link_to "trefle.io", root_url %>.</li>
+        <li>If you use Trefle data in a publication, cite Trefle using the canonical citation (formats are available on the citation page once published; in the meantime, cite "Trefle, https://trefle.io").</li>
+        <li>By accepting these Terms of Use at sign-up, you agree to this attribution clause -- it is what makes crediting Trefle and its upstream sources binding on every application built on the API, wherever it runs.</li>
+      </ul>
+    </section>
+
     <section class="section content" id="other">
       <p>Trefle reserves the right to change these Terms of Use from time to time without notice; changes shall be effective upon posting. Please check back regularly for updates. Failure of Trefle to enforce any of these terms shall not constitute a waiver of such terms.</p>
-      <p><i>Last modified on Wed, 15 Jul 2020</i></p>
+      <p><i>Last modified on <%= Date.parse(TERMS_VERSION).strftime('%a, %-d %b %Y') %> (version <%= TERMS_VERSION %>)</i></p>
     </section>
 
     <hr>
