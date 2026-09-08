@@ -1,6 +1,7 @@
 require File.expand_path('./spec_helper', __dir__)
 require File.expand_path('./support/json_api_helper', __dir__)
 require File.expand_path('./support/json_schema_matcher', __dir__)
+require File.expand_path('./support/query_counter', __dir__)
 require File.expand_path('./support/shared_examples/collection_endpoints', __dir__)
 require File.expand_path('./support/shared_examples/api_errors', __dir__)
 require File.expand_path('./support/test_seeds', __dir__)
@@ -43,6 +44,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
   config.include JsonApiHelper
+  config.include QueryCounter, type: :request
 
   config.use_transactional_fixtures = true
 

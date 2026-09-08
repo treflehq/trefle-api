@@ -121,7 +121,12 @@ class Api::V1::PlantsController < Api::ApiController
     @collection = Genus.friendly.find(params[:genus_id]).species.plants if params[:genus_id]
     @collection = Zone.friendly.find(params[:zone_id].to_s.downcase).all_species.plants if params[:zone_id]
 
-    @collection ||= Species.plants.includes(:genus)
+    @collection ||= Species.plants
+
+    # SpeciesLightSerializer reads `synonyms` and `plant.slug` on top of
+    # `genus`, so all three need preloading regardless of which branch
+    # above set @collection (see #281).
+    @collection = @collection.preload(:plant, :genus, :synonyms)
 
     @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS)
     @collection = apply_filters_not(@collection, Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS)

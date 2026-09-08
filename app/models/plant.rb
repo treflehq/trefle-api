@@ -85,28 +85,32 @@ class Plant < ApplicationRecord
     puts "Failed to save: #{errors.messages}" unless save
   end
 
+  # PlantSerializer renders each of the six collections below through
+  # SpeciesLightSerializer, which reads `synonyms` and `plant.slug` on top
+  # of `genus` for every row: preload all three or /api/v1/plants/:id pays
+  # two extra queries per species (see #281).
   def species_species
-    species.species_rank
+    species.species_rank.preload(:plant, :genus, :synonyms)
   end
 
   def subspecies
-    species.ssp_rank
+    species.ssp_rank.preload(:plant, :genus, :synonyms)
   end
 
   def varieties
-    species.var_rank
+    species.var_rank.preload(:plant, :genus, :synonyms)
   end
 
   def hybrids
-    species.hybrid_rank
+    species.hybrid_rank.preload(:plant, :genus, :synonyms)
   end
 
   def forms
-    species.form_rank
+    species.form_rank.preload(:plant, :genus, :synonyms)
   end
 
   def subvarieties
-    species.subvar_rank
+    species.subvar_rank.preload(:plant, :genus, :synonyms)
   end
 
 end
