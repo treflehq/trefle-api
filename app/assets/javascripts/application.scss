@@ -12,6 +12,7 @@
 
 @import 'sections/home';
 @import 'sections/explore';
+@import 'sections/about';
 @import 'sections/navbar';
 @import 'sections/footer';
 
@@ -203,4 +204,11 @@ button:focus-visible,
 .fa-icon.fa-3x {
   width: 3em;
   height: 3em;
+}
+// Anchor navigation (about sections, home #data) glides instead of jumping,
+// unless the user asked for reduced motion.
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }

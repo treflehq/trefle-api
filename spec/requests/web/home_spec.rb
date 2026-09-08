@@ -28,6 +28,23 @@ RSpec.describe 'Public website pages', type: :request do
       get about_path
       expect(response).to have_http_status(:ok)
     end
+
+    it 'shows the computed team numbers, the rate-limit tiles and the citation' do
+      get about_path
+      expect(response.body).to include('core maintainers')
+      expect(response.body).to include('60 req/min')
+      expect(response.body).to include('600 req/min')
+      expect(response.body).to include("accessed #{Date.current.iso8601}")
+    end
+
+    it 'links every section from the anchor nav' do
+      get about_path
+      nav = Nokogiri::HTML.fragment(response.body).at_css('.about__nav')
+      anchors = nav.css('a').map {|a| a['href'] }
+      expect(anchors).to eq(%w[#sources #team #pricing #licence #privacy #contact])
+      body = Nokogiri::HTML.fragment(response.body)
+      anchors.each {|anchor| expect(body.at_css(anchor)).not_to be_nil }
+    end
   end
 
   describe 'GET /donate' do
