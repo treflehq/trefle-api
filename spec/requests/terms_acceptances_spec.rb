@@ -24,6 +24,25 @@ RSpec.describe 'Terms acceptance', type: :request do
       expect(response).to redirect_to(new_terms_acceptance_path(return_to: explore_path))
     end
 
+    it 'leaves /terms readable, so a pending user can read what they are asked to accept' do
+      login_as pending_user, scope: :user
+
+      get terms_path
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'keeps the acceptance form\'s own Terms of Use link working rather than bouncing it back' do
+      login_as pending_user, scope: :user
+
+      get new_terms_acceptance_path
+      expect(response.body).to include(terms_path)
+
+      get terms_path
+
+      expect(response).not_to redirect_to(new_terms_acceptance_path(return_to: terms_path))
+    end
+
     it 'redirects a signed-in user whose accepted version is stale' do
       # Built stale from the start (accepts_terms: false so the before_save
       # callback doesn't stamp it as current) rather than accepted-then-mutated:
