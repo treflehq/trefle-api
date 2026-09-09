@@ -28,6 +28,12 @@ module RequiresTermsAcceptance
     return unless user_signed_in?
     return if devise_controller?
     return if controller_path == 'terms_acceptances'
+    # The terms themselves must stay readable, or the gate asks people to accept
+    # a document they cannot open: the acceptance form links to `terms_path`
+    # (shared/_terms_checkbox_field), and without this the link bounces straight
+    # back to the form. `/terms` is home#licence, so `controller_path` is 'home'
+    # and the exemption above does not cover it.
+    return if request.path == terms_path
     return if controller_path.start_with?('api/')
     return if current_user.terms_up_to_date?
 
