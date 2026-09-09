@@ -120,12 +120,26 @@ RSpec.describe Migrators do
       expect(powo.reload.licence_url).to eq('https://creativecommons.org/licenses/by/4.0/')
     end
 
-    it 'seeds a source that is not part of the fixed seed set (WFO)' do
-      wfo = ForeignSource.create!(name: 'World Flora Online', slug: 'wfo')
+    it 'seeds WFO, whose slug is stored upper-case in production' do
+      # Built as 'WFO' on purpose: the previous version of this example created
+      # it as 'wfo', the exact string the mapping looks up, so it asserted the
+      # mapping against itself and stayed green while production had no licence
+      # on its largest taxonomic source.
+      wfo = ForeignSource.create!(name: 'World Flora Online', slug: 'WFO')
 
       described_class.run
 
       expect(wfo.reload.licence).to eq('CC0-1.0')
+      expect(wfo.reload.licence_url).to eq('https://creativecommons.org/publicdomain/zero/1.0/')
+    end
+
+    it 'reports a mapped slug that has no row rather than skipping it silently' do
+      ForeignSource.where('lower(slug) = ?', 'usda').delete_all
+
+      result = described_class.run
+
+      expect(result[:missing]).to include('usda')
+      expect(result[:seeded]).not_to include('usda')
     end
 
     it 'leaves an unconfirmed source at NULL rather than guess' do
