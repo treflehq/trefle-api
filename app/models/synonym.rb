@@ -50,8 +50,7 @@ class Synonym < ApplicationRecord
   end
 
   def self.auto_migrate
-    Species.where(status: 'Synonym').find_in_batches.with_index.each do |sps, i|
-      puts "Batching species group #{i}"
+    Species.where(status: 'Synonym').find_in_batches do |sps|
       sps.each do |sp|
         if sp.synonym_of_id == sp.id || sp.main_species_id == sp.id
           sp.update(
@@ -68,8 +67,6 @@ class Synonym < ApplicationRecord
             sp.foreign_sources_plants.map do |fsp|
               fsp.update!(record: synonym, species_id: nil)
             end
-            puts "FS: #{sp.foreign_sources_plants.count}"
-            puts "Images: #{sp.species_images.count}"
           end
           sp.reload.destroy
 

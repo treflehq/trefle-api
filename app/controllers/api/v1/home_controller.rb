@@ -1,7 +1,6 @@
 class Api::V1::HomeController < ApplicationController
 
   def index
-    # puts request.user_agent
     @plants_count = Rails.cache.fetch('home/plants_count') { Plant.count }
     @detailled_plants_count = Rails.cache.fetch("home/detailled_plants_count-#{@plants_count}") { Species.where.not(foliage_color: nil).count }
 

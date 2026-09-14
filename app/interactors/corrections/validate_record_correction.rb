@@ -28,8 +28,6 @@ class Corrections::ValidateRecordCorrection
       Schemas::V1::RecordCorrection.correction_body,
       context.correction
     )
-    puts 'Validation !'
-    pp validation
     context.fail!(messages: validation) if validation.any?
   end
 

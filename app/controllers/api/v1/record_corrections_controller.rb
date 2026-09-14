@@ -51,7 +51,6 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
 
   # Create a correction
   def create
-    pp @record
     submission = SubmitCorrection.call(
       record: @record,
       user: current_user,
