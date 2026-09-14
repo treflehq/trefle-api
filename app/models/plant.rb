@@ -89,28 +89,39 @@ class Plant < ApplicationRecord
   # SpeciesLightSerializer, which reads `synonyms` and `plant.slug` on top
   # of `genus` for every row: preload all three or /api/v1/plants/:id pays
   # two extra queries per species (see #281).
+  #
+  # The six collections used to be six separate `species.<rank>_rank` scopes,
+  # each its own round trip against the same `plant.species` rows (see #364).
+  # Load that set once and partition it in Ruby instead; memoized because a
+  # single show action reads several of these off the same Plant instance.
   def species_species
-    species.species_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['species'] || []
   end
 
   def subspecies
-    species.ssp_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['ssp'] || []
   end
 
   def varieties
-    species.var_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['var'] || []
   end
 
   def hybrids
-    species.hybrid_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['hybrid'] || []
   end
 
   def forms
-    species.form_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['form'] || []
   end
 
   def subvarieties
-    species.subvar_rank.preload(:plant, :genus, :synonyms)
+    species_by_rank['subvar'] || []
+  end
+
+  private
+
+  def species_by_rank
+    @species_by_rank ||= species.preload(:plant, :genus, :synonyms).group_by(&:rank)
   end
 
 end
