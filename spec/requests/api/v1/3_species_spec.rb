@@ -30,7 +30,8 @@ describe 'Species API' do
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for species matching the given query'
 
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :page, in: :query, required: false, type: :number,
+                description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
