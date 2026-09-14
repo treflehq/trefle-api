@@ -25,6 +25,24 @@ RSpec.describe 'API error envelope', type: :request do
     it_behaves_like 'renders API errors', status: :not_found, code: 'not_found'
   end
 
+  # #367: /plants and /species default-sort the whole table by gbif_score
+  # DESC; a plain OFFSET/LIMIT that deep degrades linearly with no ceiling.
+  # WithCachedCount::MAX_PAGE_DEPTH caps it and fails fast with a 400 instead
+  # of letting it degrade silently -- this must trip before Pagy ever runs
+  # the COUNT/OFFSET query, so it has to hold even against a near-empty
+  # table (where a stock Pagy::OverflowError would otherwise fire instead).
+  describe 'GET /api/v1/plants past the max page depth' do
+    before { get '/api/v1/plants', params: { token: user.token, page: WithCachedCount::MAX_PAGE_DEPTH + 1 } }
+
+    it_behaves_like 'renders API errors', status: :bad_request, code: 'bad_request'
+  end
+
+  describe 'GET /api/v1/species past the max page depth' do
+    before { get '/api/v1/species', params: { token: user.token, page: WithCachedCount::MAX_PAGE_DEPTH + 1 } }
+
+    it_behaves_like 'renders API errors', status: :bad_request, code: 'bad_request'
+  end
+
   describe 'POST /api/auth/claim missing a required param' do
     before { post '/api/auth/claim', params: { token: user.token } }
 

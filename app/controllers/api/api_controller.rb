@@ -20,6 +20,7 @@ module Api
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from Pagy::OverflowError, with: :render_page_overflow_response
     rescue_from Pagy::VariableError, with: :render_page_overflow_response
+    rescue_from WithCachedCount::PageDepthExceededError, with: :render_page_depth_exceeded_response
 
     include ActionController::MimeResponds
     include CollectionRenderers
@@ -190,6 +191,10 @@ module Api
 
     def render_page_overflow_response(exception)
       render_error(exception.message, :not_found)
+    end
+
+    def render_page_depth_exceeded_response(exception)
+      render_error(exception.message, :bad_request)
     end
 
     def render_malformed_request_response(_exception)

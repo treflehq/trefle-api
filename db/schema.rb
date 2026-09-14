@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_08_150000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_14_130239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -473,6 +473,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_08_150000) do
     t.integer "completion_ratio"
     t.string "phylum"
     t.integer "wiki_score"
+    t.index "lower((scientific_name)::text)", name: "index_species_on_lower_scientific_name"
     t.index ["author"], name: "index_species_on_author"
     t.index ["average_height_cm"], name: "index_species_on_average_height_cm"
     t.index ["common_name"], name: "index_species_on_common_name"
