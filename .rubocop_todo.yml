@@ -392,7 +392,6 @@ Rails/SkipsModelValidations:
     - 'db/migrate/20200619105715_migrate_new_species_columns.rb'
     - 'db/migrate/20200619202712_cleanup_columns.rb'
     - 'db/migrate/20200620123313_add_additional_fields.rb'
-    - 'db/migrate/20221206140234_add_service_name_to_active_storage_blobs.active_storage.rb'
     - 'lib/crawlers/gbif.rb'
     - 'lib/migrators/main_images.rb'
     - 'lib/migrators/metrics.rb'
