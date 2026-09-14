@@ -33,5 +33,19 @@ module TrefleAdmin
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << Rails.root.join('lib')
+
+    # Requests reach this app through the k8s ingress, which forwards from
+    # its own in-cluster address (see #331 -- the reported spoof event
+    # carried `X-Forwarded-For: 10.42.0.1`, a Flannel/k3s pod-network
+    # address). Rails' built-in ActionDispatch::RemoteIp::TRUSTED_PROXIES
+    # already covers RFC1918 space, which is why this rarely changes
+    # anything in practice -- it's set explicitly (rather than relying on
+    # that implicit default) so the trust boundary is documented and so
+    # request specs can exercise it deterministically. Extend, don't
+    # replace: passing a custom list to RemoteIp *replaces* the default
+    # rather than adding to it.
+    config.action_dispatch.trusted_proxies = ActionDispatch::RemoteIp::TRUSTED_PROXIES + [
+      IPAddr.new('10.42.0.0/16')
+    ]
   end
 end
