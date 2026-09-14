@@ -36,6 +36,29 @@ RSpec.describe 'Rack-level malformed requests', type: :request do
 
       expect(response).to have_http_status(:bad_request)
     end
+
+    # By the time this reaches Rack, it's no longer Rack::Multipart::
+    # EmptyContentError -- Rack::MethodOverride's own parse attempt
+    # already swallowed that -- but ActionController::BadRequest, raised
+    # from ActionDispatch::Request#POST re-parsing the same truncated
+    # body for real. Left to the app that happens deep inside
+    # ActionController::Instrumentation#process_action, too early for a
+    # controller's own `rescue_from` and, in a "local" request (always
+    # true in this env, see config.consider_all_requests_local), fully
+    # handled by ActionDispatch::DebugExceptions before either mechanism
+    # in RateLimitHeadersMiddleware gets a chance -- so this needs an
+    # actual /api/* route, and an assertion on the response shape, not
+    # just its status, to catch a regression back to that HTML page.
+    it 'returns the documented /api error envelope for an /api route' do
+      post '/api/auth/claim', params: "--AaB03x\r\n", headers: { 'CONTENT_TYPE' => 'multipart/form-data; boundary=AaB03x' }
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.content_type).to eq('application/json')
+      expect(response.parsed_body).to include(
+        'error' => true,
+        'code' => 'bad_request'
+      )
+    end
   end
 
   describe 'a non-UTF-8 form field name' do

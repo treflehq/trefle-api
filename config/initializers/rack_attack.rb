@@ -88,12 +88,26 @@ end
 #     Rails::Rack::Logger#call_app, logging the request line *before*
 #     calling into the rest of the stack -- it never reaches
 #     ActionDispatch::ShowExceptions, so it must be rescued here.
-#   - Rack::Multipart::EmptyContentError: a truncated/empty multipart body.
-#     Raised from deep inside Rack::Attack's own safelist/throttle
-#     evaluation (`req.POST`) -- ShowExceptions *does* wrap that call, so it
-#     rescues this one already and renders a generic 500. It records the
-#     exception on `env['action_dispatch.exception']` before doing so,
-#     which is what lets us catch it here too and downgrade it to 400.
+#   - Rack::Multipart::EmptyContentError, surfacing as
+#     ActionController::BadRequest: a truncated/empty multipart body.
+#     Rack::MethodOverride#method_override_param parses the body first
+#     (for the `_method` override) and silently rescues the resulting
+#     EOFError -- so the *next* thing to touch POST params re-parses the
+#     body for real and gets ActionController::BadRequest instead. Left
+#     alone, that next thing is ActionController::Instrumentation#process_
+#     action building its log payload (`request.filtered_parameters`) --
+#     *before* `super` reaches a controller's own `rescue_from` (see
+#     Api::ApiController), so that never gets a chance either. It's then
+#     caught by ActionDispatch::DebugExceptions, which -- whenever the
+#     request is considered "local" (always true in dev/test, see
+#     config.consider_all_requests_local) -- renders its own HTML page
+#     directly and returns normally, without ever raising further or
+#     touching `env['action_dispatch.exception']`; the two mechanisms
+#     below never see it. So instead, for exactly this content type, we
+#     force the same parse ourselves, up here, before any of that --
+#     scoped to `multipart/form-data` so a plain request still isn't
+#     paying for a body parse it doesn't need (the reason #331 stopped
+#     doing this unconditionally for every request's safelist check).
 #   - Encoding::CompatibilityError (a kind of EncodingError): a form field
 #     name that isn't valid UTF-8. Raised from Rack::MethodOverride, which
 #     runs *before* calling the rest of the stack (so, like the spoof
@@ -112,6 +126,7 @@ class RateLimitHeadersMiddleware
   MALFORMED_REQUEST_ERRORS = [
     ActionDispatch::RemoteIp::IpSpoofAttackError,
     Rack::Multipart::EmptyContentError,
+    ActionController::BadRequest,
     EncodingError
   ].freeze
 
@@ -120,6 +135,16 @@ class RateLimitHeadersMiddleware
   end
 
   def call(env)
+    request = ActionDispatch::Request.new(env)
+
+    # See the ActionController::BadRequest paragraph in the class comment
+    # above -- left to the app, this one specific case gets caught (if at
+    # all) too late to reach either mechanism below. Force it here
+    # instead, scoped to multipart so every other Content-Type (the
+    # overwhelming majority of requests) still skips a body parse this
+    # early, same as before #331.
+    request.POST if request.media_type == 'multipart/form-data'
+
     status, headers, body = @app.call(env)
 
     if (exception = env['action_dispatch.exception']) && malformed_request_error?(exception)
