@@ -11,6 +11,7 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
     p = params.permit(:search, order: {})
 
     @species = Species.friendly.find(params.require(:species_id)) if params[:species_id]
+    preload_foreign_sources_for(@species)
 
     @collection ||= apply_scopes(RecordCorrection.all)
     @collection = @collection.where(record: @species) if @species
@@ -24,6 +25,7 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
   # GET /record_correction/1.json
   def show
     @species = @record_correction.record
+    preload_foreign_sources_for(@species)
 
     ptitle = "Correction for #{@species.scientific_name}"
     @page_title = ptitle

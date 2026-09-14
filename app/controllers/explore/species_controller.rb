@@ -188,6 +188,7 @@ class Explore::SpeciesController < Explore::ExploreController
   # Use callbacks to share common setup or constraints between actions.
   def set_species
     @species = Species.friendly_or_synonym!(params[:id])
+    preload_foreign_sources_for(@species)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
