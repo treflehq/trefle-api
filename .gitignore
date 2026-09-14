@@ -97,5 +97,14 @@ scripts/dump-remote-sql.sh
 ./scripts/truncate-and-restore-sql.sh
 scripts/truncate-and-restore-sql.sh
 
-# Crawler specs live with the private crawler code
+# Crawler specs live with the private crawler code.
+#
+# Worker specs are the ones that have to be copied here to run at all (they
+# need rails_helper, the models and a database, so the private repo's .rspec
+# excludes them). The parser specs and their TRY fixtures run standalone over
+# there and have no reason to be copied — but spec/lib/ and spec/fixtures/ are
+# otherwise tracked directories, so if they ever are, git picks them up and
+# private crawler code lands in a public repository. Name them explicitly.
 spec/workers/crawlers
+spec/lib/crawlers
+spec/fixtures/try
