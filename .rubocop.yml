@@ -70,6 +70,13 @@ Rails/SkipsModelValidations:
     # Specs bypass validations on purpose to craft the invalid data
     # that checks and workers are supposed to detect.
     - 'spec/**/*'
+# Only app/ is in scope: the gitignored data pipeline (lib/ingester,
+# lib/resolver, lib/checks, lib/migrators, rake tasks...) still relies on
+# puts for console/CLI output, and isn't part of the request path that leaked
+# user data (#366).
+Rails/Output:
+  Include:
+    - 'app/**/*'
 Metrics/CyclomaticComplexity:
   Max: 10
 Metrics/ClassLength:

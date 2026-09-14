@@ -46,7 +46,7 @@ module Api
     protected
 
     def log_request
-      puts "🚠 Request by [#{@current_user&.email || 'anonymous'}]"
+      Rails.logger.debug { "[log_request] user_id=#{@current_user&.id || 'anonymous'}" }
       UserQuery.mark!(@current_user&.id) if @current_user
     end
 
@@ -124,9 +124,7 @@ module Api
     end
 
     def user_from_jwt_token(token)
-      puts 'JWT !'
       @jwt = ::Auth::JsonWebToken.decode(token)
-      puts @jwt.inspect
       User.find(@jwt[:user_id])
     end
 
@@ -137,13 +135,6 @@ module Api
 
       client_ip = IPAddr.new(request.remote_ip || request.remote_addr)
       client_origin = request.headers['origin']
-
-      puts "origin = #{origin}"
-      puts "client_origin = #{request.headers['origin']}"
-      puts "request.remote_ip = #{request.remote_ip}"
-      puts "request.env['HTTP_X_FORWARDED_FOR'] = #{request.env['HTTP_X_FORWARDED_FOR']}"
-      puts "request.remote_addr = #{request.remote_addr}"
-      puts "request.env['REMOTE_ADDR'] = #{request.env['REMOTE_ADDR']}"
 
       render_unauthorized('Token expired') && return if Time.zone.now.to_i > exp.to_i
 

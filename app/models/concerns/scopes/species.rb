@@ -77,7 +77,6 @@ module Scopes
       scope :filter_not_by_fruit_color, ->(_v) { where.not(fruit_color: 0).where.not(fruit_color: nil) }
       scope :filter_by_edible_part, ->(v) { where_edible_part(*v) }
       # scope :filter_not_by_edible_part, lambda {|value|
-      #   puts "VALUE = #{value.inspect}"
       #   if value
       #     values = ::Species.edible_parts.maps.keys - [*value].map(&:to_sym)
 

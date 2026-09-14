@@ -4,17 +4,11 @@ class Corrections::SaveRecordCorrection
   def call
     context.record_correction = ::RecordCorrection.where(finder_params).first
 
-    puts "Looking for RC: #{finder_params.inspect}"
-    puts "=> Got: #{context.record_correction.inspect}"
-
     if context.record_correction
       context.record_correction.assign_attributes(record_correction_params)
-      puts "Updates: #{context.record_correction.inspect}"
     else
       context.record_correction = ::RecordCorrection.new(record_correction_params)
-      puts "Creates: #{context.record_correction.inspect}"
     end
-    puts "Before saving: #{context.record_correction.inspect}"
 
     context.fail!(messages: context.record_correction.errors.messages) unless context.record_correction.save
   end

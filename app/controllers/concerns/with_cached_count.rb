@@ -10,9 +10,9 @@ module WithCachedCount
   # add Rails.cache wrapper around the count call
   def cache_count(collection)
     cache_key = "pagy-#{collection.model.name}:#{collection.to_sql}"
-    puts "Caching count for #{collection.model.name}"
+    Rails.logger.debug { "[cache_count] caching count for #{collection.model.name}" }
     Rails.cache.fetch(cache_key, expires_in: 30.seconds) do
-      puts "Count cached for #{collection.model.name} !"
+      Rails.logger.debug { "[cache_count] count cached for #{collection.model.name}" }
       collection.count(:all)
     end
   end

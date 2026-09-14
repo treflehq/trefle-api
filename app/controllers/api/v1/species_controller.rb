@@ -217,7 +217,6 @@ class Api::V1::SpeciesController < Api::ApiController
   # Search on database
   # @TODO @deprecated
   def full_search
-    puts 'full_search'
     @collection ||= collection
     @collection = apply_search(collection)
     @pagy, @collection = pagy(@collection)

@@ -82,7 +82,7 @@ class Plant < ApplicationRecord
     self.species_count = species.count
     Plant.reset_counters(id, :species)
 
-    puts "Failed to save: #{errors.messages}" unless save
+    Rails.logger.warn("[maintain_metadata!] failed to save plant #{id}: #{errors.messages}") unless save
   end
 
   # PlantSerializer renders each of the six collections below through
