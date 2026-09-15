@@ -21,12 +21,18 @@ git push origin v2.x.y
 Wait for the workflow to finish and the image to land in the registry before
 touching any deployment.
 
+**The image tag has no `v`.** `docker/metadata-action` is configured with
+`type=semver,pattern={{version}}`, which strips it: pushing the tag `v2.6.0`
+publishes `ghcr.io/treflehq/api:2.6.0`, not `:v2.6.0`. Every `kubectl set
+image` below uses the registry form. Getting this wrong does not fail loudly —
+the deployment just sits in `ImagePullBackOff`.
+
 ## Canary
 
 Point the canary deployment at the new tag and scale it up:
 
 ```bash
-kubectl set image deployment/trefle-api-next trefle-api-next=ghcr.io/treflehq/api:v2.x.y
+kubectl set image deployment/trefle-api-next trefle-api-next=ghcr.io/treflehq/api:2.x.y
 kubectl scale deployment/trefle-api-next --replicas=1
 ```
 
@@ -73,10 +79,10 @@ database in the meantime.
 Roll the same tag out to production, API first, then the worker:
 
 ```bash
-kubectl set image deployment/trefle-api trefle-api=ghcr.io/treflehq/api:v2.x.y
+kubectl set image deployment/trefle-api trefle-api=ghcr.io/treflehq/api:2.x.y
 kubectl rollout status deployment/trefle-api
 
-kubectl set image deployment/trefle-sidekiq trefle-sidekiq=ghcr.io/treflehq/api:v2.x.y
+kubectl set image deployment/trefle-sidekiq trefle-sidekiq=ghcr.io/treflehq/api:2.x.y
 kubectl rollout status deployment/trefle-sidekiq
 ```
 
@@ -95,8 +101,8 @@ Deployments are pinned to explicit tags, never `:latest`, specifically so a
 rollback is just re-pointing at the previous known-good tag:
 
 ```bash
-kubectl set image deployment/trefle-api trefle-api=ghcr.io/treflehq/api:v2.x.<previous>
-kubectl set image deployment/trefle-sidekiq trefle-sidekiq=ghcr.io/treflehq/api:v2.x.<previous>
+kubectl set image deployment/trefle-api trefle-api=ghcr.io/treflehq/api:2.x.<previous>
+kubectl set image deployment/trefle-sidekiq trefle-sidekiq=ghcr.io/treflehq/api:2.x.<previous>
 ```
 
 This only undoes the code. A migration that already ran during the canary
