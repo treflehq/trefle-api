@@ -16,6 +16,15 @@ module Migrators
     LICENCES = {
       'powo' => CC_BY_4_0,
       'gbif' => CC_BY_4_0,
+      # TRY's own release notes, section "Recommendations in the case of
+      # publication": the data are released under CC BY. Recorded here rather
+      # than left null because it is stated by the provider, not inferred.
+      #
+      # The licence is only half of what CC BY asks of us: credit is owed per
+      # contributing dataset, not to "TRY" alone. The Kattge et al. 2020
+      # citation sits in copyright_template and covers the second half only
+      # partially — see treflehq/trefle-crawlers#26.
+      'try' => CC_BY_4_0,
       'wfo' => {
         licence: 'CC0-1.0',
         licence_url: 'https://creativecommons.org/publicdomain/zero/1.0/'

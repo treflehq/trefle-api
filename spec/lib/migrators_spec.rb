@@ -120,6 +120,21 @@ RSpec.describe Migrators do
       expect(powo.reload.licence_url).to eq('https://creativecommons.org/licenses/by/4.0/')
     end
 
+    # TRY's ForeignSource is created by the private import
+    # (Crawlers::Try::Import#foreign_source) with a citation but no licence,
+    # and first_or_create! never writes to an existing row — so the licence
+    # can only arrive through this migrator. The row TRY built is the one
+    # this has to repair, which is why the example builds it that way.
+    it 'seeds TRY, whose row the import creates without a licence' do
+      fs = ForeignSource.create!(name: 'TRY', slug: 'try', url: 'https://www.try-db.org',
+                                 copyright_template: 'Kattge, J. et al. (2020)…')
+
+      described_class.run
+
+      expect(fs.reload.licence).to eq('CC-BY-4.0')
+      expect(fs.reload.copyright_template).to start_with('Kattge')
+    end
+
     it 'seeds WFO, whose slug is stored upper-case in production' do
       # Built as 'WFO' on purpose: the previous version of this example created
       # it as 'wfo', the exact string the mapping looks up, so it asserted the
