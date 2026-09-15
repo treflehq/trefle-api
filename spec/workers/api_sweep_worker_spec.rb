@@ -71,6 +71,15 @@ RSpec.describe ApiSweepWorker do
       expect(worker.send(:acceptable?, 304)).to be(true)
       expect(worker.send(:acceptable?, 500)).to be(false)
     end
+
+    # #381: the sweep was walking past the pagination cap and reporting the
+    # resulting 400s as failures. The fix belongs in the path enumeration
+    # (Api::Sweep::Depth caps at MAX_PAGE_DEPTH), not here — a 400 from an
+    # unknown filter key or a malformed request is exactly the regression the
+    # shape pass exists to catch, so it must keep failing.
+    it 'still treats a 400 as a failure, whatever its cause' do
+      expect(described_class.new.send(:acceptable?, 400)).to be(false)
+    end
   end
 
   describe 'the cursor' do

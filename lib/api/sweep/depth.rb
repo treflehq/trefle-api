@@ -81,12 +81,19 @@ module Api
         [paths.compact, last >= total ? nil : last]
       end
 
+      # Capped at the depth the API will actually answer. Without the cap the
+      # sweep enumerated every page of every collection: past page 2,500 the
+      # API returns a documented 400 (WithCachedCount::MAX_PAGE_DEPTH), which
+      # ApiSweep::Runner counts as a failure and reports to Sentry. On
+      # production that was ~40k guaranteed-400 paths per cycle — requests that
+      # warm no cache, catch no regression, and bury the real failures the
+      # sweep exists to surface (#381).
       def self.index_page_counts
         PAGINATED.filter_map do |path, model|
           klass = model.safe_constantize
           next unless klass
 
-          pages = (klass.count.to_f / PER_PAGE).ceil
+          pages = [(klass.count.to_f / PER_PAGE).ceil, WithCachedCount::MAX_PAGE_DEPTH].min
           [path, pages] if pages.positive?
         end
       end

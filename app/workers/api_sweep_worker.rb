@@ -92,6 +92,13 @@ class ApiSweepWorker
 
   # 404 is a legitimate answer for a page past the end of a collection, and 304
   # means the cache did its job.
+  #
+  # 400 is deliberately NOT here. The sweep used to walk past the pagination
+  # cap and collect thousands of expected 400s (#381); the fix is that
+  # Api::Sweep::Depth no longer enumerates those pages, not widening this list.
+  # A 400 from an unknown filter key or a malformed request is exactly the
+  # regression the shape pass exists to catch (#368 turned three of those from
+  # 500s into 400s) — accepting it here would blind the check.
   def acceptable?(status)
     [200, 304, 404].include?(status)
   end
