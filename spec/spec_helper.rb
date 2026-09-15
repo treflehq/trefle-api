@@ -1,16 +1,22 @@
 require 'simplecov'
 
-SimpleCov.start 'rails' do
-  group 'Interactors', 'app/interactors'
-  group 'Serializers', 'app/serializers'
-  group 'Uploaders', 'app/uploaders'
+# `rake rswag:specs:swaggerize` re-runs the suite with --dry-run to collect the
+# OpenAPI metadata. No application code executes in a dry run, so measuring it
+# is meaningless: the floor below failed a generation that had in fact succeeded
+# (it reported 13.72%), and the bogus figure overwrote the real coverage report.
+unless ARGV.include?('--dry-run')
+  SimpleCov.start 'rails' do
+    group 'Interactors', 'app/interactors'
+    group 'Serializers', 'app/serializers'
+    group 'Uploaders', 'app/uploaders'
 
-  # Private crawler code lives outside this repository
-  skip 'lib/crawlers'
-  skip 'app/workers/crawlers'
+    # Private crawler code lives outside this repository
+    skip 'lib/crawlers'
+    skip 'app/workers/crawlers'
 
-  # Floor is raised as coverage improves (see #204) — never lower it here.
-  minimum_coverage 65
+    # Floor is raised as coverage improves (see #204) — never lower it here.
+    minimum_coverage 65
+  end
 end
 
 require 'database_cleaner'

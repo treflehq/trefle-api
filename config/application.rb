@@ -20,7 +20,10 @@ Bundler.require(*Rails.groups)
 module TrefleAdmin
   class Application < Rails::Application
 
-    VERSION = '1.7.0'.freeze
+    # Keep in step with the release tags (git tag vX.Y.Z). It is published as
+    # `info.version` of the OpenAPI spec, so a stale value here ships a stale
+    # version number on docs.trefle.io/reference.
+    VERSION = '2.6.0'.freeze
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0

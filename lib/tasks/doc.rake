@@ -2,7 +2,19 @@ require 'yaml'
 require 'terminal-table'
 require 'httparty'
 
+# A multi-value correction field is published as `anyOf` (an array, a single
+# value, or several values joined by "|"). The table wants one row, so describe
+# it from the branch carrying the enum. Without this every multi-value field
+# -- duration, the colors, the months, edible_part -- rendered as an empty cell
+# with no type and no list of accepted values.
+def unwrap_any_of(val)
+  return val unless val.is_a?(Hash) && val['anyOf']
+
+  val['anyOf'].find {|branch| branch['enum'] } || val['anyOf'].first
+end
+
 def gen_description(val)
+  val = unwrap_any_of(val)
   base = [
     val['description']
   ]
@@ -12,6 +24,7 @@ def gen_description(val)
 end
 
 def gen_type(val)
+  val = unwrap_any_of(val)
   return "array of #{val.dig('items', 'type').pluralize}" if val['type'] == 'array' && val.dig('items', 'type')
 
   val['type']
@@ -48,6 +61,25 @@ def parse_tree(k, val, fk = nil, level = 0)
   elts
 end
 
+# The generated spec refers to shared schemas ($ref) rather than inlining them,
+# so a walker that only follows `properties` stops at the reference and reports
+# every key behind it as undocumented. Inline them first.
+def resolve_refs(node, root, seen = [])
+  return node.map {|v| resolve_refs(v, root, seen) } if node.is_a?(Array)
+  return node unless node.is_a?(Hash)
+
+  resolve_hash_refs(node, root, seen)
+end
+
+def resolve_hash_refs(node, root, seen)
+  ref = node['$ref']
+  return node.transform_values {|v| resolve_refs(v, root, seen) } unless ref
+  return node if seen.include?(ref) # a self-referencing schema would loop
+
+  target = ref.delete_prefix('#/').split('/').inject(root) {|acc, key| acc && acc[key] }
+  resolve_refs(node.except('$ref').merge(target || {}), root, seen + [ref])
+end
+
 def group_categories(keys)
   a = keys.group_by {|e| e[:name].split('.').first }
   keys.group_by {|e| a[e[:name].split('.').first].length > 1 ? e[:name].split('.').first : :root }
@@ -59,6 +91,7 @@ namespace :doc do # rubocop:todo Metrics/BlockLength
   task check: :environment do
     data = SpeciesSerializer.new.serialize(Species.where.not(average_height_cm: nil).first).to_h
     schema = YAML.load_file(Rails.root.join('public/swagger/v1/swagger.yaml'))
+    schema = resolve_refs(schema, schema)
 
     json_elts = data.map {|k, val| parse_json_resp(k, val) }.flatten.sort
     swag_elts = schema['components']['schemas'].slice('species').map do |_name, attrs|

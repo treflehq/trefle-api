@@ -21,7 +21,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'List species'
       operationId 'listSpecies'
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
@@ -62,7 +62,7 @@ describe 'Species API' do
       operationId 'getSpecies'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -104,7 +104,7 @@ describe 'Species API' do
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -123,7 +123,7 @@ describe 'Species API' do
       response '401', 'Invalid credentials' do
         let(:token) { 'invalid' }
         let(:q) { 'cocos' }
-        # run_test!
+        run_test!
       end
     end
   end
@@ -153,7 +153,7 @@ describe 'Species API' do
       # rubocop:enable Naming/VariableName
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -172,6 +172,71 @@ describe 'Species API' do
       response '401', 'Invalid credentials' do
         let(:token) { 'invalid' }
         let(:id) { Species.where(complete_data: true).first.id }
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/species/{id}/facts' do
+
+    get 'List the provenance facts of a species' do
+      tags 'Species'
+      produces 'application/json'
+      description 'Every sourced claim about this species\' trait values, including superseded and rejected ones. ' \
+                  'The species trait columns are a projection of the strongest active fact per attribute; this endpoint is the trail behind them.'
+      operationId 'listSpeciesFacts'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.array_schema(
+          'species_fact',
+          meta: Schemas::Helpers.object_of({
+            total: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        let(:id) { Species.where(complete_data: true).first.id }
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        let(:id) { Species.where(complete_data: true).first.id }
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/species/{species_id}/corrections' do
+
+    get 'List the corrections submitted on a species' do
+      tags 'Species'
+      produces 'application/json'
+      description 'The community corrections submitted on this species, whatever their status'
+      operationId 'listSpeciesCorrections'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :species_id, required: true, in: :path, type: :string, description: 'The id or the slug of the species'
+      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.array_schema(
+          'correction',
+          links: Schemas::Helpers.pagination_links,
+          meta: Schemas::Helpers.object_of({
+            total: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        let(:species_id) { Species.where(complete_data: true).first.id }
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        let(:species_id) { Species.where(complete_data: true).first.id }
         run_test!
       end
     end

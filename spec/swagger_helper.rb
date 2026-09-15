@@ -6,7 +6,7 @@ RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
   # NOTE: If you're using the rswag-api to serve API descriptions, you'll need
   # to ensure that it's configured to serve Swagger from the same folder
-  config.openapi_root = Rails.root.join('swagger').to_s
+  config.openapi_root = Rails.root.join('public/swagger').to_s
 
   # Define one or more Swagger documents and provide global metadata for each one
   # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
@@ -19,7 +19,16 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'Trefle API v1',
-        version: TrefleAdmin::Application::VERSION
+        version: TrefleAdmin::Application::VERSION,
+        description: "A REST API over a global plants database: taxonomy, botanical traits, distribution zones and images.\n\n" \
+                     'Every endpoint but `GET /api/v1` requires a token, passed either as a `token` query parameter or as ' \
+                     "`Authorization: Bearer <token>`. Claim one with `POST /api/auth/claim`.\n\n" \
+                     'Trefle compiles data from external sources; each record lists the sources it was built from, with their own licence. ' \
+                     'Attribution is required — see https://trefle.io/citation.',
+        license: {
+          name: 'CC-BY-4.0',
+          url: 'https://creativecommons.org/licenses/by/4.0/'
+        }
       },
       paths: {},
       components: {
