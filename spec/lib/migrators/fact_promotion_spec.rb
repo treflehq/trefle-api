@@ -164,5 +164,55 @@ RSpec.describe Migrators::FactPromotion do
       expect { described_class.run(dry_run: false) }.not_to raise_error
       expect(species.reload.maximum_height_cm).to be_nil
     end
+
+    it 'counts an unconvertible value instead of losing it from the report' do
+      species.update!(maximum_height_cm: nil)
+      record('maximum_height_cm', 'not a number')
+
+      expect(described_class.run(dry_run: true).rejected[:unconvertible]).to eq(1)
+    end
+
+    # An aggregated fact is a median, so a whole-centimetre column routinely
+    # receives a decimal. Integer() refuses it; refusing it dropped 19,662 of
+    # the 263,220 TRY facts in the first dry run, all of them good measurements.
+    it 'rounds a decimal onto a whole-number column' do
+      species.update!(maximum_height_cm: nil)
+      record('maximum_height_cm', '16.200000000000003')
+
+      described_class.run(dry_run: false)
+
+      expect(species.reload.maximum_height_cm).to eq(16)
+    end
+
+    it 'does not coerce a non-numeric string to zero' do
+      species.update!(maximum_height_cm: nil)
+      record('maximum_height_cm', 'tall')
+
+      described_class.run(dry_run: false)
+
+      expect(species.reload.maximum_height_cm).to be_nil
+    end
   end
+  # A count that informs a go/no-go decision must not quietly omit what it did
+  # not look at. Facts on attributes the contract excludes never reach the
+  # promotion loop, so they are counted and named separately.
+  describe 'what it did not consider' do
+    it 'reports facts on attributes outside the contract, by attribute' do
+      record('human_usage_type', 'food')
+      record('soil_ph_indicator', '5')
+      record('growth_rate', 'Rapid')
+
+      result = described_class.run(dry_run: true)
+
+      expect(result.out_of_contract).to eq('human_usage_type' => 1, 'soil_ph_indicator' => 1)
+      expect(result.out_of_contract.values.sum).to eq(2)
+    end
+
+    it 'reports nothing extra when every fact is in the contract' do
+      record('growth_rate', 'Rapid')
+
+      expect(described_class.run(dry_run: true).out_of_contract).to be_empty
+    end
+  end
+
 end

@@ -29,7 +29,7 @@ module Migrators
     # A fact resting on one measurement is recorded but not projected.
     MIN_OBSERVATIONS = 2
 
-    Result = Struct.new(:promoted, :skipped, :per_attribute, :rejected, keyword_init: true)
+    Result = Struct.new(:promoted, :skipped, :per_attribute, :rejected, :out_of_contract, keyword_init: true)
 
     class << self
 
@@ -37,7 +37,8 @@ module Migrators
       # dry_run: compute and report without writing (the default: this job
       #          touches the columns the API serves, so writing is opt-in)
       def run(source: nil, dry_run: true, limit: nil)
-        result = Result.new(promoted: 0, skipped: 0, per_attribute: Hash.new(0), rejected: Hash.new(0))
+        result = Result.new(promoted: 0, skipped: 0, per_attribute: Hash.new(0), rejected: Hash.new(0),
+                            out_of_contract: out_of_contract_counts(source))
 
         candidates(source, limit).group_by(&:species_id).each do |species_id, facts|
           promote_species!(species_id, facts, result, dry_run)
@@ -73,7 +74,10 @@ module Migrators
           next result.skipped += 1 unless promotable?(species, attr, fact, result)
 
           value = column_value(species, attr, fact.value)
-          next result.skipped += 1 if value.nil?
+          if value.nil?
+            result.rejected[:unconvertible] += 1
+            next result.skipped += 1
+          end
 
           species.send("#{attr}=", value)
           result.per_attribute[attr] += 1
@@ -114,18 +118,37 @@ module Migrators
         cast(species, attr, raw)
       end
 
+      # An aggregated fact is a median, so a column stored in whole centimetres
+      # routinely receives "16.200000000000003". Integer() refuses that, and
+      # refusing it drops a perfectly good measurement: round instead. Anything
+      # genuinely non-numeric still returns nil and is reported as
+      # unconvertible rather than coerced to 0.
       def cast(species, attr, raw)
         case species.class.columns_hash[attr]&.type
-        when :integer then Integer(raw, exception: false)
+        when :integer then Float(raw, exception: false)&.round
         when :float, :decimal then Float(raw, exception: false)
         when :boolean then ActiveModel::Type::Boolean.new.cast(raw)
         else raw
         end
       end
 
+      # Facts on attributes the contract excludes never reach the loop above, so
+      # without this they vanish from the report entirely -- a silent gap in a
+      # number meant to inform a go/no-go decision. Counted and named instead.
+      def out_of_contract_counts(source)
+        scope = SpeciesFact.active_status.where.not(attribute_name: promotable_attributes)
+        scope = scope.where(source: source) if source
+        scope.group(:attribute_name).count
+      end
+
       def log(result, dry_run)
         prefix = dry_run ? '[FactPromotion][dry-run]' : '[FactPromotion]'
         Rails.logger.info("#{prefix} promoted #{result.promoted}, skipped #{result.skipped}")
+        outside = result.out_of_contract.values.sum
+        if outside.positive?
+          Rails.logger.info("#{prefix}   #{outside} facts on #{result.out_of_contract.length} attributes outside the contract, not considered:")
+          result.out_of_contract.sort_by {|_, n| -n }.each {|attr, n| Rails.logger.info("#{prefix}     #{attr}: #{n}") }
+        end
         result.rejected.each {|reason, n| Rails.logger.info("#{prefix}   skipped #{n} (#{reason})") }
         result.per_attribute.sort_by {|_, n| -n }.each {|attr, n| Rails.logger.info("#{prefix}   #{attr}: #{n}") }
       end
