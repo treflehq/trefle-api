@@ -243,7 +243,8 @@ module Schemas
             synonyms: Helpers.array_of({
               id: { type: :integer, description: 'An unique identifier' }, # 101131,
               name: { type: :string, description: 'The scientific name of the symonym' }, # "(Douglas ex D.Don) Lindl.",
-              author: { type: :string, nullable: true, description: 'The author of the symonym' } # "(Douglas ex D.Don) Lindl.",
+              author: { type: :string, nullable: true, description: 'The author of the symonym' }, # "(Douglas ex D.Don) Lindl.",
+              sources: Helpers.schema_array_href(schema: 'source').merge(description: 'The sources this synonym was built from')
             }, extras: { description: 'The symonyms scientific names and authors' }),
 
             sources: Helpers.array_of({

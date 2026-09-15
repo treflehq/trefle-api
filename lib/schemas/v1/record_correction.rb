@@ -1,13 +1,16 @@
 module Schemas
   module V1
     module RecordCorrection
+      # A multi-value field takes an array, a single value, or several values
+      # joined by "|". Only the first two are enum members, so the joined form
+      # needs its own branch or the schema contradicts its own description.
       def self.anyOfEnum(enum:, extras:)
-        stringItem = {
-          type: 'string',
-          enum: [*enum, nil]
-        }.merge(extras)
+        joined = extras[:example].to_s.include?('|')
+        alt = "(#{enum.join('|')})"
+        item = { type: 'string', enum: [*enum, nil] }.merge(joined ? extras.except(:example) : extras)
+        piped = { type: 'string', pattern: "^#{alt}(\\|#{alt})*$" }.merge(joined ? extras : extras.except(:example))
 
-        { anyOf: [{ type: :array, items: stringItem }, stringItem] }
+        { anyOf: [{ type: :array, items: item.except(:example) }, item, piped] }
       end
 
       def self.schema
@@ -42,7 +45,7 @@ module Schemas
       def self.correction_body # rubocop:todo Metrics/MethodLength
         Helpers.object_of({
           scientific_name: { type: :string, example: 'Abelmoschus nonexistus' }, # 'Abelmoschus nonexistus',
-          rank: { type: :string, enum: [*::Species.ranks.keys, nil], example: 'species' }, # 'species',
+          rank: { type: :string, enum: [*::Species.ranks.keys, nil], nullable: true, example: 'species' }, # 'species',
           genus: { type: :string, nullable: true, example: ::Genus.last&.name }, # Genus.last.name,
           year: { type: :integer, nullable: true, example: nil }, # nil,
           author: { type: :string, nullable: true, example: 'Moench' }, # 'Moench',
@@ -79,20 +82,20 @@ module Schemas
           adapted_to_medium_textured_soils: { type: :string, nullable: true, example: nil }, # nil,
           anaerobic_tolerance: { type: :string, nullable: true, example: nil }, # nil,
           average_height_unit: { type: :string, enum: %I[in ft cm m], nullable: true, example: 'cm' }, # 'cm',
-          average_height_value: { type: :number, nullable: true, example: '250' }, # '250',
+          average_height_value: { type: :number, nullable: true, example: 250 }, # '250',
           maximum_height_unit: { type: :string, enum: %I[in ft cm m], nullable: true, example: 'cm' }, # 'cm',
-          maximum_height_value: { type: :number, nullable: true, example: '280' }, # '250',
+          maximum_height_value: { type: :number, nullable: true, example: 280 }, # '250',
           planting_row_spacing_unit: { type: :string, enum: %I[in ft cm m], nullable: true, example: 'cm' }, # 'cm',
-          planting_row_spacing_value: { type: :number, nullable: true, example: '80', description: 'The minimum spacing between each rows of plants' }, # '250',
+          planting_row_spacing_value: { type: :number, nullable: true, example: 80, description: 'The minimum spacing between each rows of plants' }, # '250',
           planting_spread_unit: { type: :string, enum: %I[in ft cm m], nullable: true, example: 'cm' }, # 'cm',
-          planting_spread_value: { type: :number, nullable: true, example: '100', description: 'The average spreading of the plant' }, # '250',
+          planting_spread_value: { type: :number, nullable: true, example: 100, description: 'The average spreading of the plant' }, # '250',
           planting_days_to_harvest: { type: :integer, nullable: true, example: 120 }, # 120,
           maximum_precipitation_unit: { type: :string, enum: %I[in ft mm cm m], nullable: true, example: 'mm' }, # 'cm',
-          maximum_precipitation_value: { type: :number, nullable: true, example: '2230' }, # '250',
+          maximum_precipitation_value: { type: :number, nullable: true, example: 2230 }, # '250',
           minimum_precipitation_unit: { type: :string, enum: %I[in ft mm cm m], nullable: true, example: 'mm' }, # 'cm',
-          minimum_precipitation_value: { type: :number, nullable: true, example: '1300' }, # '250',
+          minimum_precipitation_value: { type: :number, nullable: true, example: 1300 }, # '250',
           minimum_root_depth_unit: { type: :string, enum: %I[in ft cm m], nullable: true, example: 'cm' }, # 'cm',
-          minimum_root_depth_value: { type: :number, nullable: true, example: '30' }, # '250',
+          minimum_root_depth_value: { type: :number, nullable: true, example: 30 }, # '250',
           ph_maximum: { type: :number, nullable: true, example: nil },  # nil,
           ph_minimum: { type: :number, nullable: true, example: nil },  # nil,
           soil_nutriments: { type: :integer, nullable: true, description: 'Required quantity of nutriments in the soil, on a scale from 0 (oligotrophic) to 10 (hypereutrophic)' },

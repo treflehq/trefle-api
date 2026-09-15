@@ -47,7 +47,7 @@ describe 'Corrections API' do
       produces 'application/json'
       description 'List corrections'
       operationId 'listCorrections'
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -78,7 +78,7 @@ describe 'Corrections API' do
       operationId 'getCorrection'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id of the requested correction'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -101,7 +101,7 @@ describe 'Corrections API' do
     end
   end
 
-  path '/api/v1/corrections/species/{record_id}' do
+  path '/api/v1/corrections/{record_type}/{record_id}' do
 
     post 'Submit a correction' do
 
@@ -119,12 +119,14 @@ describe 'Corrections API' do
       tags 'Corrections'
       consumes 'application/json'
       produces 'application/json'
-      description 'Submit a new correction for the given species, that will be reviewed and merged into the database. See [Complete our data](/docs/advanced/complete-data) to get started.'
+      description 'Submit a new correction for the given record, that will be reviewed and merged into the database. See [Complete our data](/docs/advanced/complete-data) to get started.'
       operationId 'createCorrection'
       parameter name: :correction, required: false, in: :body, schema: Schemas::Helpers.schema_href(schema: 'request_body_correction')
-      parameter name: :record_id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested correction'
+      parameter name: :record_type, required: true, in: :path, schema: { type: :string, enum: Api::V1::RecordCorrectionsController::CORRECTABLE_TYPES.keys },
+                description: 'The type of record being corrected'
+      parameter name: :record_id, required: true, in: :path, type: :string, description: 'The id or the slug of the record being corrected'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -133,6 +135,7 @@ describe 'Corrections API' do
             last_modified: { type: :string }
           })
         )
+        let(:record_type) { 'species' }
         let(:record_id) { Species.friendly.find('abies-alba').id }
         let(:correction) do
           {
@@ -151,6 +154,7 @@ describe 'Corrections API' do
       end
 
       response '422', 'Invalid parameters' do
+        let(:record_type) { 'species' }
         let(:record_id) { Species.where.not(maximum_height_cm: nil).first.id }
         let(:correction) { { hello: :world } }
         let(:token) { user.token }
@@ -160,9 +164,42 @@ describe 'Corrections API' do
 
       response '401', 'Invalid credentials' do
         let(:token) { 'invalid' }
+        let(:record_type) { 'species' }
         let(:record_id) { Species.where.not(maximum_height_cm: nil).first.id }
         run_test!
       end
     end
   end
+
+  path '/api/v1/corrections/mine' do
+
+    get 'List your own corrections' do
+      tags 'Corrections'
+      consumes 'application/json'
+      produces 'application/json'
+      description 'The corrections submitted by the account the token belongs to'
+      operationId 'listMyCorrections'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.array_schema(
+          'correction',
+          links: Schemas::Helpers.pagination_links,
+          meta: Schemas::Helpers.object_of({
+            total: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
 end

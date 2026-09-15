@@ -76,6 +76,20 @@ jobs:
       - name: Run specs
         run: bundle exec rspec --format progress
 
+      # The OpenAPI spec is generated from the rswag request specs and committed:
+      # it is served at /swagger/v1/swagger.yaml and published to
+      # docs.trefle.io/reference. Nothing enforced that before, and the published
+      # reference sat five years behind the API. Regenerate and fail if the
+      # committed file is behind.
+      - name: Check the committed OpenAPI spec is up to date
+        run: |
+          bundle exec rake rswag:specs:swaggerize
+          if ! git diff --quiet -- public/swagger/v1/swagger.yaml; then
+            echo "::error::public/swagger/v1/swagger.yaml is out of date. Run 'bundle exec rake rswag:specs:swaggerize' and commit the result."
+            git diff -- public/swagger/v1/swagger.yaml
+            exit 1
+          fi
+
   rubocop:
     name: RuboCop
     runs-on: ubuntu-latest

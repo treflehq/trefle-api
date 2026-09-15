@@ -21,7 +21,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List plants'
       operationId 'listPlants'
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
@@ -61,7 +61,7 @@ describe 'Plants API' do
       operationId 'getPlant'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested plant'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -100,7 +100,7 @@ describe 'Plants API' do
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_plants')
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -120,7 +120,7 @@ describe 'Plants API' do
         let(:token) { 'invalid' }
         let(:q) { 'cocos' }
         # puts "Running with token=#{token} & q=#{q}"
-        # run_test!
+        run_test!
       end
     end
   end
@@ -150,7 +150,7 @@ describe 'Plants API' do
       # rubocop:enable Naming/VariableName
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       response '201', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -182,7 +182,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List all the plants in the requested zone.'
       operationId 'listPlantsZone'
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
@@ -223,7 +223,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'List plants of the requested genus'
       operationId 'listPlantsGenus'
-      security [{ token: [] }]
+      security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
@@ -257,4 +257,126 @@ describe 'Plants API' do
       end
     end
   end
+
+  path '/api/v1/plants/{plant_id}/species' do
+
+    get 'List species of a plant' do
+      tags 'Plants'
+      consumes 'application/json'
+      produces 'application/json'
+      description 'List the species attached to the requested plant'
+      operationId 'listSpeciesPlant'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
+      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
+      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
+                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
+      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
+      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.array_schema(
+          'species_light',
+          links: Schemas::Helpers.pagination_links,
+          meta: Schemas::Helpers.object_of({
+            total: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/plants/{plant_id}/species/{id}' do
+
+    get 'Retrieve a species of a plant' do
+      tags 'Plants'
+      consumes 'application/json'
+      produces 'application/json'
+      description 'Get one species attached to the requested plant'
+      operationId 'getSpeciesPlant'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
+      parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.resource_schema(
+          'species',
+          meta: Schemas::Helpers.object_of({
+            last_modified: { type: :string },
+            images_count: { type: :integer },
+            sources_count: { type: :integer },
+            synonyms_count: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+        let(:id) { Species.where(complete_data: true).first.id }
+
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+        let(:id) { Species.where(complete_data: true).first.id }
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/genus/{genus_id}/plants/{id}' do
+
+    get 'Retrieve a plant of a genus' do
+      tags 'Plants'
+      consumes 'application/json'
+      produces 'application/json'
+      description 'Get one plant of the requested genus'
+      operationId 'getPlantGenus'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
+      parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'
+
+      response '200', 'Success' do
+        schema JsonApiHelper.resource_schema(
+          'plant',
+          meta: Schemas::Helpers.object_of({
+            last_modified: { type: :string },
+            images_count: { type: :integer },
+            sources_count: { type: :integer },
+            synonyms_count: { type: :integer }
+          })
+        )
+        let(:token) { user.token }
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+        let(:id) { Plant.order(completion_ratio: :desc).first.id }
+
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        let(:token) { 'invalid' }
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+        let(:id) { Plant.order(completion_ratio: :desc).first.id }
+
+        run_test!
+      end
+    end
+  end
+
 end
