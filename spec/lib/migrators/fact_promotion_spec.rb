@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe Migrators::FactPromotion do
   let(:species) { create(:species) }
 
-  def record(attr, value, source: 'try', n: 5, status: :active)
+  def record(attr, value, source: 'try', observations: 5, status: :active)
     SpeciesFact.record!(species: species, attribute_name: attr, source: source,
-                        value: value, n_observations: n, status: status)
+                        value: value, n_observations: observations, status: status)
   end
 
   describe 'rule 1: an empty column only' do
@@ -16,7 +16,7 @@ RSpec.describe Migrators::FactPromotion do
       record('growth_rate', 'Rapid')
 
       expect { described_class.run(dry_run: false) }
-        .to change { species.reload.growth_rate }.from(nil).to('Rapid')
+        .to(change { species.reload.growth_rate }.from(nil).to('Rapid'))
     end
 
     it 'never overwrites a filled column, whatever the fact says' do
@@ -24,7 +24,7 @@ RSpec.describe Migrators::FactPromotion do
       record('growth_rate', 'Rapid')
 
       expect { described_class.run(dry_run: false) }
-        .not_to change { species.reload.growth_rate }
+        .not_to(change { species.reload.growth_rate })
     end
 
     it 'treats 0 on a zero_means_empty column as empty' do
@@ -41,7 +41,7 @@ RSpec.describe Migrators::FactPromotion do
       record('flower_conspicuous', 'true')
 
       expect { described_class.run(dry_run: false) }
-        .not_to change { species.reload.flower_conspicuous }
+        .not_to(change { species.reload.flower_conspicuous })
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe Migrators::FactPromotion do
       record('protein_potential', 'High')
 
       expect { described_class.run(dry_run: false) }
-        .not_to change { species.reload.protein_potential }
+        .not_to(change { species.reload.protein_potential })
     end
 
     it 'ignores a fact-only attribute that is no column at all' do
@@ -77,18 +77,18 @@ RSpec.describe Migrators::FactPromotion do
   describe 'rule 3: only corroborated facts' do
     it 'skips a fact resting on a single measurement' do
       species.update!(growth_rate: nil)
-      record('growth_rate', 'Rapid', n: 1)
+      record('growth_rate', 'Rapid', observations: 1)
 
       expect { described_class.run(dry_run: false) }
-        .not_to change { species.reload.growth_rate }
+        .not_to(change { species.reload.growth_rate })
     end
 
     it 'promotes a fact that carries no observation count' do
       species.update!(growth_rate: nil)
-      record('growth_rate', 'Rapid', n: nil)
+      record('growth_rate', 'Rapid', observations: nil)
 
       expect { described_class.run(dry_run: false) }
-        .to change { species.reload.growth_rate }.to('Rapid')
+        .to(change { species.reload.growth_rate }.to('Rapid'))
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.describe Migrators::FactPromotion do
       record('growth_rate', 'Rapid', status: :rejected)
 
       expect { described_class.run(dry_run: false) }
-        .not_to change { species.reload.growth_rate }
+        .not_to(change { species.reload.growth_rate })
     end
   end
 
@@ -152,7 +152,7 @@ RSpec.describe Migrators::FactPromotion do
       record('growth_rate', 'Rapid')
 
       expect { described_class.run(dry_run: false) }
-        .to change { species.reload.completion_ratio }
+        .to(change { species.reload.completion_ratio })
     end
   end
 

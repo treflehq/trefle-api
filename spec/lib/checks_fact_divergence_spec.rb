@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Checks::FactDivergence do
   let(:species) { create(:species) }
 
-  def record(attr, value, source: 'try', n: 5, status: :active)
+  def record(attr, value, source: 'try', observations: 5, status: :active)
     SpeciesFact.record!(species: species, attribute_name: attr, source: source,
-                        value: value, n_observations: n, status: status)
+                        value: value, n_observations: observations, status: status)
   end
 
   def warning
