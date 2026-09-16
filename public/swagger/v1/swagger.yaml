@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Trefle API v1
-  version: 2.6.0
+  version: 2.7.0
   description: |-
     A REST API over a global plants database: taxonomy, botanical traits, distribution zones and images.
 
