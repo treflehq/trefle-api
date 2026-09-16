@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_14_130239) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_15_193613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -689,6 +689,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_130239) do
     t.index ["name"], name: "index_synonyms_on_name"
     t.index ["record_type", "record_id"], name: "index_synonyms_on_record_type_and_record_id"
     t.index ["slug"], name: "index_synonyms_on_slug"
+  end
+
+  create_table "try_datasets", force: :cascade do |t|
+    t.integer "dataset_id", null: false
+    t.string "dataset_name"
+    t.string "contributor"
+    t.text "reference"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dataset_id", "reference"], name: "index_try_datasets_on_dataset_id_and_reference", unique: true
+    t.index ["dataset_id"], name: "index_try_datasets_on_dataset_id"
   end
 
   create_table "user_queries", force: :cascade do |t|
