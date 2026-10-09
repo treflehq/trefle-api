@@ -235,4 +235,36 @@ RSpec.describe Migrators::FactPromotion do
     end
   end
 
+  describe 'flag columns' do
+    it 'promotes a comma-separated flag list, the way the TRY import writes it' do
+      species.update_columns(duration: 0)
+      record('duration', 'annual, perennial')
+
+      result = described_class.run(dry_run: false)
+
+      expect(species.reload.duration.to_a).to contain_exactly(:annual, :perennial)
+      expect(result.per_attribute['duration']).to eq(1)
+    end
+
+    it 'still promotes a pipe-separated list' do
+      species.update_columns(duration: 0)
+      record('duration', 'annual|biennial')
+
+      described_class.run(dry_run: false)
+
+      expect(species.reload.duration.to_a).to contain_exactly(:annual, :biennial)
+    end
+
+    it 'refuses a list carrying a flag the column does not know, instead of writing 0' do
+      species.update_columns(duration: 0)
+      record('duration', 'annual, sempiternal')
+
+      result = described_class.run(dry_run: false)
+
+      expect(species.reload.duration.to_a).to be_empty
+      expect(result.promoted).to eq(0)
+      expect(result.rejected[:unconvertible]).to eq(1)
+    end
+  end
+
 end
