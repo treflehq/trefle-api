@@ -219,7 +219,9 @@ class SpeciesSerializer < BaseSerializer
   def flower
     {
       color: render_flag(:flower_color),
-      conspicuous: object.flower_conspicuous
+      conspicuous: object.flower_conspicuous,
+      sexuality: object.sexuality,
+      inflorescence_type: object.inflorescence_type
     }
   end
 
@@ -251,6 +253,7 @@ class SpeciesSerializer < BaseSerializer
     {
       # c_n_ratio: object.c_n_ratio, @TODO
       ligneous_type: object.ligneous_type,
+      biological_type: object.biological_type,
       growth_form: object.growth_form,
       growth_habit: object.growth_habit,
       growth_rate: object.growth_rate,
