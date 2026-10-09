@@ -124,11 +124,23 @@ module Migrators
         return nil if raw.nil? || raw.strip.empty?
 
         current = species.send(attr)
-        return raw.split('|').map(&:strip).reject(&:empty?).map(&:to_sym) if current.is_a?(ActiveFlag::Value)
+        return flag_values(species, attr, raw) if current.is_a?(ActiveFlag::Value)
         return raw if species.class.defined_enums.key?(attr) && species.class.defined_enums[attr].key?(raw)
         return nil if species.class.defined_enums.key?(attr)
 
         cast(species, attr, raw)
+      end
+
+      # A flag fact lists its flags with "|" (what Ingester::Species#fact_value
+      # stores) or ", " (what the TRY import writes). Splitting on "|" alone
+      # turned "annual, perennial" into one unknown flag that ActiveFlag
+      # silently dropped: the species was saved with 0 and counted as
+      # promoted. Every flag must be one the column knows, or the fact is
+      # unconvertible -- never half-applied, never written as 0.
+      def flag_values(species, attr, raw)
+        flags = raw.split(/[|,]/).map(&:strip).reject(&:empty?).map(&:to_sym)
+        known = species.class.active_flags[attr.to_sym].maps.keys
+        flags if flags.any? && (flags - known).empty?
       end
 
       # An aggregated fact is a median, so a column stored in whole centimetres

@@ -156,7 +156,6 @@ class Species < ApplicationRecord
     common_name
     dissemination
     family_common_name
-    fruit_shape
     growth_form
     growth_habit
     growth_rate
@@ -165,7 +164,6 @@ class Species < ApplicationRecord
     nitrogen_fixation
     pollinisation
     protein_potential
-    sexuality
     shape_and_orientation
   ].freeze
 
@@ -234,6 +232,72 @@ class Species < ApplicationRecord
     shrub: 2,
     tree: 3,
     parasite: 4
+  }, suffix: true
+
+  # Life-form and morphology vocabularies (#385). The labels are the
+  # canonical terms the TRY mapping tables already write into facts
+  # (trefle-crawlers lib/crawlers/try/mappings/343, 99, 213, 2934), so a
+  # sourced fact promotes as-is. Numbering starts at 1 on purpose: sexuality
+  # was a NOT NULL DEFAULT 0 column, and a 0 that meant "hermaphrodite" would
+  # have turned every undocumented species into one.
+  enum :biological_type, {
+    phanerophyte: 1,
+    megaphanerophyte: 2,
+    macrophanerophyte: 3,
+    nanophanerophyte: 4,
+    hemiphanerophyte: 5,
+    pseudophanerophyte: 6,
+    chamaephyte: 7,
+    hemicryptophyte: 8,
+    cryptophyte: 9,
+    geophyte: 10,
+    helophyte: 11,
+    hydrophyte: 12,
+    therophyte: 13,
+    epiphyte: 14
+  }, suffix: true
+
+  enum :fruit_shape, {
+    achene: 1,
+    berry: 2,
+    capsule: 3,
+    caryopsis: 4,
+    drupe: 5,
+    follicle: 6,
+    legume: 7,
+    mericarp: 8,
+    nut: 9,
+    pome: 10,
+    samara: 11,
+    schizocarp: 12,
+    silique: 13,
+    strobilus: 14,
+    syconium: 15,
+    utricle: 16
+  }, suffix: true
+
+  enum :sexuality, {
+    hermaphrodite: 1,
+    monoecious: 2,
+    dioecious: 3,
+    andromonoecious: 4,
+    androdioecious: 5,
+    gynomonoecious: 6,
+    gynodioecious: 7,
+    polygamodioecious: 8,
+    trioecious: 9,
+    trimonoecious: 10
+  }, suffix: true
+
+  enum :inflorescence_type, {
+    solitary: 1,
+    raceme: 2,
+    spike: 3,
+    head: 4,
+    umbel: 5,
+    cyme: 6,
+    panicle: 7,
+    fascicle: 8
   }, suffix: true
 
   enum :soil_texture, {
@@ -484,7 +548,6 @@ class Species < ApplicationRecord
       images_count
       pollinisation
       propagated_by
-      sexuality
       sources_count
       synonyms_count
     ]

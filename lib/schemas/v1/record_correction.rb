@@ -62,6 +62,7 @@ module Schemas
           flower_conspicuous: { type: :boolean, nullable: true, example: true }, # true,
           foliage_color: anyOfEnum(enum: ::Species.foliage_colors.maps.keys, extras: { nullable: true, description: 'The species foliage color(s). Several values can be separated with "|"', example: 'green|blue' }), # 'green|blue',
           foliage_texture: { type: :string, enum: [*::Species.foliage_textures.keys, nil], nullable: true, example: nil }, # nil,
+          **%w[biological_type fruit_shape sexuality inflorescence_type].to_h {|f| [f.to_sym, { type: :string, enum: [*::Species.defined_enums[f].keys, nil], nullable: true, example: nil }] }, # #385
           leaf_retention: { type: :boolean, nullable: true, example: false }, # nil,
           fruit_color: anyOfEnum(enum: ::Species.fruit_colors.maps.keys, extras: { nullable: true, description: 'The species fruit color(s). Several values can be separated with "|"', example: 'white' }), # nil,
           fruit_conspicuous: { type: :boolean, nullable: true, example: false }, # nil,

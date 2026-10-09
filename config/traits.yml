@@ -143,7 +143,7 @@ fields:
   fruit_seed_persistence: { category: morphology }
   inflorescence_form: { category: morphology }
   inflorescence_type: { category: morphology }
-  sexuality: { category: morphology, zero_means_empty: true }
+  sexuality: { category: morphology }
   pollinisation: { category: morphology, zero_means_empty: true }
   dissemination: { category: morphology, zero_means_empty: true }
   biological_type: { category: morphology }
