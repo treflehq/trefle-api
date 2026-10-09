@@ -139,37 +139,8 @@
       "file": "app/workers/migrators/synonym_slugs_worker.rb",
       "line": 23,
       "note": "Batch backfill of synonyms.slug: the VALUES list holds integer ids and connection.quote()d strings only."
-    },
-    {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 122,
-      "fingerprint": "21ab0fe00fdd5899ffc405cff75aadb91b805ee996a614f7e27b08a287e9062d",
-      "check_name": "EOLRails",
-      "message": "Support for Rails 8.0.5.1 ends on 2026-11-07",
-      "file": "Gemfile.lock",
-      "line": 412,
-      "note": "Date-triggered EOL warning, not a code defect introduced by this branch; master's own CI fails the same way independent of any diff here. Real fix is a Rails bump, tracked separately."
-    },
-    {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 122,
-      "fingerprint": "98b26f60d776fd41ee6f088c833725145be9aac2d7c5b33780241c273622db42",
-      "check_name": "EOLRails",
-      "message": "Support for Rails 8.0.5.1 ends on 2026-11-07",
-      "file": "Gemfile.lock",
-      "line": 409,
-      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
-      "code": null,
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "Medium",
-      "cwe_id": [
-        1104
-      ],
-      "note": "Temporary, until the Rails 8.1 upgrade (#215) lands. Brakeman starts warning 30 days before end of support; Rails 8.0 is still supported until 2026-11-07. The fingerprint is tied to 8.0.5.1, so a patch bump or the end date itself brings the warning back."
     }
   ],
-  "updated": "2026-09-08",
+  "updated": "2026-10-09",
   "brakeman_version": "8.0.6"
 }
