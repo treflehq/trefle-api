@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_09_110000) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_09_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -446,7 +446,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_110000) do
     t.integer "hardiness_zone"
     t.integer "inflorescence_form"
     t.integer "inflorescence_type"
-    t.integer "sexuality", default: 0, null: false
+    t.integer "sexuality"
     t.string "maturation_order_raw"
     t.integer "pollinisation", default: 0, null: false
     t.integer "fruit_shape"

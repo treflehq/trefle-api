@@ -3237,6 +3237,37 @@ components:
               type: boolean
               nullable: true
               description: Is the flower visible?
+            sexuality:
+              type: string
+              nullable: true
+              enum:
+              - hermaphrodite
+              - monoecious
+              - dioecious
+              - andromonoecious
+              - androdioecious
+              - gynomonoecious
+              - gynodioecious
+              - polygamodioecious
+              - trioecious
+              - trimonoecious
+              -
+              description: Sexual system of the flowers (hermaphrodite, monoecious,
+                dioecious...)
+            inflorescence_type:
+              type: string
+              nullable: true
+              enum:
+              - solitary
+              - raceme
+              - spike
+              - head
+              - umbel
+              - cyme
+              - panicle
+              - fascicle
+              -
+              description: How the flowers are arranged (raceme, spike, umbel...)
           description: Flower related fields (the reproductive structure found in
             flowering plants)
         foliage:
@@ -3312,7 +3343,25 @@ components:
             shape:
               type: string
               nullable: true
-              description: Fruit shape
+              enum:
+              - achene
+              - berry
+              - capsule
+              - caryopsis
+              - drupe
+              - follicle
+              - legume
+              - mericarp
+              - nut
+              - pome
+              - samara
+              - schizocarp
+              - silique
+              - strobilus
+              - syconium
+              - utricle
+              -
+              description: Fruit type (capsule, berry, drupe...)
             seed_persistence:
               type: boolean
               nullable: true
@@ -3333,6 +3382,26 @@ components:
               - parasite
               -
               description: The ligneous type of the woody plant
+            biological_type:
+              type: string
+              nullable: true
+              enum:
+              - phanerophyte
+              - megaphanerophyte
+              - macrophanerophyte
+              - nanophanerophyte
+              - hemiphanerophyte
+              - pseudophanerophyte
+              - chamaephyte
+              - hemicryptophyte
+              - cryptophyte
+              - geophyte
+              - helophyte
+              - hydrophyte
+              - therophyte
+              - epiphyte
+              -
+              description: Raunkiaer life form (phanerophyte, hemicryptophyte, therophyte...)
             growth_form:
               type: string
               nullable: true
@@ -4266,6 +4335,78 @@ components:
               -
               nullable: true
               example:
+            biological_type:
+              type: string
+              enum:
+              - phanerophyte
+              - megaphanerophyte
+              - macrophanerophyte
+              - nanophanerophyte
+              - hemiphanerophyte
+              - pseudophanerophyte
+              - chamaephyte
+              - hemicryptophyte
+              - cryptophyte
+              - geophyte
+              - helophyte
+              - hydrophyte
+              - therophyte
+              - epiphyte
+              -
+              nullable: true
+              example:
+            fruit_shape:
+              type: string
+              enum:
+              - achene
+              - berry
+              - capsule
+              - caryopsis
+              - drupe
+              - follicle
+              - legume
+              - mericarp
+              - nut
+              - pome
+              - samara
+              - schizocarp
+              - silique
+              - strobilus
+              - syconium
+              - utricle
+              -
+              nullable: true
+              example:
+            sexuality:
+              type: string
+              enum:
+              - hermaphrodite
+              - monoecious
+              - dioecious
+              - andromonoecious
+              - androdioecious
+              - gynomonoecious
+              - gynodioecious
+              - polygamodioecious
+              - trioecious
+              - trimonoecious
+              -
+              nullable: true
+              example:
+            inflorescence_type:
+              type: string
+              enum:
+              - solitary
+              - raceme
+              - spike
+              - head
+              - umbel
+              - cyme
+              - panicle
+              - fascicle
+              -
+              nullable: true
+              example:
             leaf_retention:
               type: boolean
               nullable: true
@@ -4728,6 +4869,8 @@ components:
       properties:
         author:
           type: string
+        biological_type:
+          type: string
         bloom_months:
           type: string
         common_name:
@@ -4764,6 +4907,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        fruit_shape:
+          type: string
         genus_name:
           type: string
         growth_form:
@@ -4774,6 +4919,8 @@ components:
           type: string
         growth_rate:
           type: string
+        inflorescence_type:
+          type: string
         leaf_retention:
           type: string
         ligneous_type:
@@ -4781,6 +4928,8 @@ components:
         rank:
           type: string
         scientific_name:
+          type: string
+        sexuality:
           type: string
         status:
           type: string
@@ -4791,6 +4940,8 @@ components:
       properties:
         author:
           type: string
+        biological_type:
+          type: string
         bloom_months:
           type: string
         common_name:
@@ -4827,6 +4978,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        fruit_shape:
+          type: string
         genus_name:
           type: string
         growth_form:
@@ -4837,6 +4990,8 @@ components:
           type: string
         growth_rate:
           type: string
+        inflorescence_type:
+          type: string
         leaf_retention:
           type: string
         ligneous_type:
@@ -4844,6 +4999,8 @@ components:
         rank:
           type: string
         scientific_name:
+          type: string
+        sexuality:
           type: string
         status:
           type: string
@@ -4857,6 +5014,8 @@ components:
         average_height_cm:
           type: string
         bibliography:
+          type: string
+        biological_type:
           type: string
         common_name:
           type: string
@@ -4886,6 +5045,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        fruit_shape:
+          type: string
         genus_name:
           type: string
         ground_humidity:
@@ -4899,6 +5060,8 @@ components:
         image_url:
           type: string
         images_count:
+          type: string
+        inflorescence_type:
           type: string
         leaf_retention:
           type: string
@@ -4935,6 +5098,8 @@ components:
         rank:
           type: string
         scientific_name:
+          type: string
+        sexuality:
           type: string
         soil_nutriments:
           type: string
@@ -4981,6 +5146,8 @@ components:
           type: string
         bibliography:
           type: string
+        biological_type:
+          type: string
         common_name:
           type: string
         complete_data:
@@ -5011,6 +5178,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        fruit_shape:
+          type: string
         ground_humidity:
           type: string
         growth_form:
@@ -5020,6 +5189,8 @@ components:
         growth_rate:
           type: string
         images_count:
+          type: string
+        inflorescence_type:
           type: string
         leaf_retention:
           type: string
@@ -5056,6 +5227,8 @@ components:
         rank:
           type: string
         scientific_name:
+          type: string
+        sexuality:
           type: string
         soil_nutriments:
           type: string
@@ -5088,6 +5261,8 @@ components:
           type: string
         bibliography:
           type: string
+        biological_type:
+          type: string
         common_name:
           type: string
         complete_data:
@@ -5118,6 +5293,8 @@ components:
           type: string
         fruit_seed_persistence:
           type: string
+        fruit_shape:
+          type: string
         ground_humidity:
           type: string
         growth_form:
@@ -5127,6 +5304,8 @@ components:
         growth_rate:
           type: string
         images_count:
+          type: string
+        inflorescence_type:
           type: string
         leaf_retention:
           type: string
@@ -5163,6 +5342,8 @@ components:
         rank:
           type: string
         scientific_name:
+          type: string
+        sexuality:
           type: string
         soil_nutriments:
           type: string
