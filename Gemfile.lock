@@ -130,7 +130,7 @@ GEM
       tzinfo
       unicode (>= 0.4.4.5)
     csv (3.3.5)
-    dalli (5.0.2)
+    dalli (5.0.10)
       logger
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)

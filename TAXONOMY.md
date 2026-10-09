@@ -70,6 +70,14 @@ reachable as a `Synonym`, so stored slugs and external links keep resolving.
 `Crawlers::WcvpSynonyms` already works this way: it adds the synonym, never
 deletes and never overwrites.
 
+### Two shapes that look wrong and are not
+
+- **Section aggregates.** In apomictic genera WCVP accepts a few names at
+  species rank that are written as a section: the common dandelion is
+  *Taraxacum* sect. *Taraxacum*, and *Taraxacum officinale* is its synonym.
+  `Genus sect. Name` is therefore a valid species-rank name.
+- **One-letter epithets.** *Lepanthes o* is a published, accepted orchid.
+
 ## Scope
 
 Trefle indexes vascular plants. Whether hybrids are in or out of that scope is

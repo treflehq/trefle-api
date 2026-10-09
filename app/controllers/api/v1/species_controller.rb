@@ -4,6 +4,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
   FILTERABLE_FIELDS = %w[
     author
+    biological_type
     bloom_months
     common_name
     complete_data
@@ -22,15 +23,18 @@ class Api::V1::SpeciesController < Api::ApiController
     fruit_conspicuous
     fruit_months
     fruit_seed_persistence
+    fruit_shape
     genus_name
     growth_form
     growth_habit
     growth_months
     growth_rate
+    inflorescence_type
     leaf_retention
     ligneous_type
     rank
     scientific_name
+    sexuality
     status
     vegetable
   ].freeze
@@ -39,6 +43,7 @@ class Api::V1::SpeciesController < Api::ApiController
     author
     average_height_cm
     bibliography
+    biological_type
     common_name
     complete_data
     completion_ratio
@@ -53,6 +58,7 @@ class Api::V1::SpeciesController < Api::ApiController
     fruit_color
     fruit_conspicuous
     fruit_seed_persistence
+    fruit_shape
     genus_name
     ground_humidity
     growth_form
@@ -60,6 +66,7 @@ class Api::V1::SpeciesController < Api::ApiController
     growth_rate
     image_url
     images_count
+    inflorescence_type
     leaf_retention
     light
     ligneous_type
@@ -78,6 +85,7 @@ class Api::V1::SpeciesController < Api::ApiController
     planting_spread_cm
     rank
     scientific_name
+    sexuality
     soil_nutriments
     soil_salinity
     soil_texture
@@ -94,6 +102,7 @@ class Api::V1::SpeciesController < Api::ApiController
     author
     average_height_cm
     bibliography
+    biological_type
     common_name
     complete_data
     completion_ratio
@@ -109,11 +118,13 @@ class Api::V1::SpeciesController < Api::ApiController
     fruit_color
     fruit_conspicuous
     fruit_seed_persistence
+    fruit_shape
     ground_humidity
     growth_form
     growth_habit
     growth_rate
     images_count
+    inflorescence_type
     leaf_retention
     light
     ligneous_type
@@ -134,6 +145,7 @@ class Api::V1::SpeciesController < Api::ApiController
     planting_spread_cm
     rank
     scientific_name
+    sexuality
     soil_nutriments
     soil_salinity
     soil_texture
