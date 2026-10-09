@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "bundler/setup"
+
+# The Rails template adds --ensure-latest here; it is left out on purpose so
+# the Brakeman version pinned in Gemfile.lock is the one that decides, like the
+# brakeman job in .github/workflows/ci.yml.
+
+load Gem.bin_path("brakeman", "brakeman")
