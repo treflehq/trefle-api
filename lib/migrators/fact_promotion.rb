@@ -29,7 +29,8 @@ module Migrators
     # A fact resting on one measurement is recorded but not projected.
     MIN_OBSERVATIONS = 2
 
-    Result = Struct.new(:promoted, :skipped, :per_attribute, :rejected, :out_of_contract, keyword_init: true)
+    Result = Struct.new(:promoted, :skipped, :per_attribute, :rejected, :out_of_contract, :invalid_species,
+                        keyword_init: true)
 
     class << self
 
@@ -38,7 +39,7 @@ module Migrators
       #          touches the columns the API serves, so writing is opt-in)
       def run(source: nil, dry_run: true, limit: nil)
         result = Result.new(promoted: 0, skipped: 0, per_attribute: Hash.new(0), rejected: Hash.new(0),
-                            out_of_contract: out_of_contract_counts(source))
+                            out_of_contract: out_of_contract_counts(source), invalid_species: {})
 
         candidates(source, limit).group_by(&:species_id).each do |species_id, facts|
           promote_species!(species_id, facts, result, dry_run)
@@ -69,6 +70,7 @@ module Migrators
         species = Species.find_by(id: species_id)
         return unless species
 
+        promoted = []
         facts.group_by(&:attribute_name).each do |attr, attr_facts|
           fact = attr_facts.first # strongest source, candidates is sorted
           next result.skipped += 1 unless promotable?(species, attr, fact, result)
@@ -80,13 +82,24 @@ module Migrators
           end
 
           species.send("#{attr}=", value)
-          result.per_attribute[attr] += 1
-          result.promoted += 1
+          promoted << attr
         end
+        return if promoted.empty?
 
         # Saving (not update_columns) so the completion ratio recomputes
         # through the existing before_save hook.
-        species.save! if !dry_run && species.changed?
+        species.save! unless dry_run
+        promoted.each {|attr| result.per_attribute[attr] += 1 }
+        result.promoted += promoted.size
+      rescue ActiveRecord::RecordInvalid => e
+        # A species already invalid for reasons of its own (a duplicate token
+        # left by a near-duplicate record, say) cannot be saved at all. That
+        # must not abort the whole run halfway — rehearsing it on a production
+        # restore died 13 s in on one such record — nor be papered over with
+        # validate: false. It is skipped, named, and left for a human.
+        result.invalid_species[species.id] = e.record.errors.full_messages.to_sentence
+        result.rejected[:invalid_species] += promoted.size
+        result.skipped += promoted.size
       end
 
       def promotable?(species, attr, fact, result)
@@ -150,6 +163,7 @@ module Migrators
           result.out_of_contract.sort_by {|_, n| -n }.each {|attr, n| Rails.logger.info("#{prefix}     #{attr}: #{n}") }
         end
         result.rejected.each {|reason, n| Rails.logger.info("#{prefix}   skipped #{n} (#{reason})") }
+        result.invalid_species.each {|id, error| Rails.logger.info("#{prefix}   invalid species #{id}: #{error}") }
         result.per_attribute.sort_by {|_, n| -n }.each {|attr, n| Rails.logger.info("#{prefix}   #{attr}: #{n}") }
       end
 

@@ -215,4 +215,24 @@ RSpec.describe Migrators::FactPromotion do
     end
   end
 
+  describe 'a species that is already invalid' do
+    it 'skips and names it instead of aborting the run' do
+      species.update!(growth_rate: nil)
+      twin = create(:species)
+      broken = create(:species)
+      broken.update_columns(growth_rate: nil, token: twin.token)
+      SpeciesFact.record!(species: broken, attribute_name: 'growth_rate', source: 'try',
+                          value: 'Slow', n_observations: 5)
+      record('growth_rate', 'Rapid')
+
+      result = described_class.run(dry_run: false)
+
+      expect(species.reload.growth_rate).to eq('Rapid')
+      expect(broken.reload.growth_rate).to be_nil
+      expect(result.promoted).to eq(1)
+      expect(result.invalid_species.keys).to eq([broken.id])
+      expect(result.rejected[:invalid_species]).to eq(1)
+    end
+  end
+
 end
