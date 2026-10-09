@@ -60,4 +60,30 @@ RSpec.describe 'Species synonym fallback', type: :request do
     expect(response.body).to include('Abies alba')
   end
 
+  it 'accepts a report on /api/v1/species/:synonym_slug/report' do
+    post '/api/v1/species/abies-pectinata/report', params: { token: user.token, notes: 'wrong height' }
+
+    expect(response).to have_http_status(:created)
+    expect(RecordCorrection.last.record).to eq(accepted)
+  end
+
+  it 'accepts a report on /api/v1/plants/:synonym_slug/report' do
+    post '/api/v1/plants/abies-pectinata/report', params: { token: user.token, notes: 'wrong height' }
+
+    expect(response).to have_http_status(:created)
+    expect(RecordCorrection.last.record).to eq(accepted)
+  end
+
+  it 'lists corrections on /api/v1/species/:synonym_slug/corrections' do
+    get '/api/v1/species/abies-pectinata/corrections', params: { token: user.token }
+
+    expect(response).to have_http_status(:ok)
+  end
+
+  it 'renders the explore corrections page through the synonym slug' do
+    get '/explore/species/abies-pectinata/corrections'
+
+    expect(response).to have_http_status(:ok)
+  end
+
 end
