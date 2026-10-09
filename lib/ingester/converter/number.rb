@@ -12,20 +12,16 @@ module Ingester
 
       FIELDS = %I[
         atmospheric_humidity
-        biological_type
         dissemination
-        fruit_shape
         ground_humidity
         hardiness_zone
         images_count
         inflorescence_form
-        inflorescence_type
         light
         planting_days_to_harvest
         planting_row_spacing_cm
         planting_spread_cm
         pollinisation
-        sexuality
         soil_nutriments
         soil_salinity
         year

@@ -17,6 +17,10 @@ module Ingester
         foliage_texture
         ligneous_type
         soil_texture
+        biological_type
+        fruit_shape
+        sexuality
+        inflorescence_type
       ].freeze
 
       # Will convert measurement like fields
