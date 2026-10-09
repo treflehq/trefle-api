@@ -261,7 +261,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
   # Report an error
   def report
-    @resource = Species.friendly.find(params[:id])
+    @resource = Species.friendly_or_synonym!(params[:id])
     rc = RecordCorrection.report!(
       record: @resource,
       user: current_user,

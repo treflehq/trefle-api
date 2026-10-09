@@ -82,7 +82,7 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
   def set_record_species
     return unless params[:species_id]
 
-    Species.friendly.find(params[:species_id])
+    Species.friendly_or_synonym!(params[:species_id])
   end
 
   # Only these record types accept corrections; never constantize
@@ -105,7 +105,7 @@ class Api::V1::RecordCorrectionsController < Api::ApiController
     return @collection if @collection
 
     @collection ||= RecordCorrection.all
-    @collection = @collection.where(record: Species.friendly.find(params[:species_id])) if params[:species_id]
+    @collection = @collection.where(record: Species.friendly_or_synonym!(params[:species_id])) if params[:species_id]
     @collection = @collection.where(user_id: current_user.id) if params[:mine]
 
     # @collection = @collection.preload(:plant, :genus, :synonyms)

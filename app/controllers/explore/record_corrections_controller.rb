@@ -10,7 +10,7 @@ class Explore::RecordCorrectionsController < Explore::ExploreController
 
     p = params.permit(:search, order: {})
 
-    @species = Species.friendly.find(params.require(:species_id)) if params[:species_id]
+    @species = Species.friendly_or_synonym!(params.require(:species_id)) if params[:species_id]
     preload_foreign_sources_for(@species)
 
     @collection ||= apply_scopes(RecordCorrection.all)
