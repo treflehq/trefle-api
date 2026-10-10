@@ -392,7 +392,11 @@ class Species < ApplicationRecord
   def setup_main_species
     return unless main_species.nil? || main_species.id == id
 
-    plant.update_columns(merge_plant_over_species.merge(main_species_gbif_score: gbif_score))
+    attrs = merge_plant_over_species.merge(main_species_gbif_score: gbif_score)
+    # A root species claims an unclaimed plant: no creation path used to set
+    # this, which left 52,601 plants without a main species (#404).
+    attrs[:main_species_id] = id if plant.main_species_id.nil? && !::Plant.exists?(main_species_id: id)
+    plant.update_columns(attrs)
   end
 
   def complete_cache_fields
