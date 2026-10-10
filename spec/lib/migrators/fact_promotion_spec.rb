@@ -218,9 +218,11 @@ RSpec.describe Migrators::FactPromotion do
   describe 'a species that is already invalid' do
     it 'skips and names it instead of aborting the run' do
       species.update!(growth_rate: nil)
-      twin = create(:species)
-      broken = create(:species)
-      broken.update_columns(growth_rate: nil, token: twin.token)
+      # A near-duplicate pair, the shape production carried 1,843 times:
+      # the same name with and without the hybrid sign shares a token.
+      twin = create(:species, rank: :hybrid, scientific_name: 'Duplicatus × nomen')
+      broken = Species.new(scientific_name: 'Duplicatus nomen', rank: :species, genus: twin.genus, plant: twin.plant)
+      broken.save!(validate: false)
       SpeciesFact.record!(species: broken, attribute_name: 'growth_rate', source: 'try',
                           value: 'Slow', n_observations: 5)
       record('growth_rate', 'Rapid')

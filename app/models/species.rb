@@ -347,6 +347,12 @@ class Species < ApplicationRecord
   before_create :infer_plant
 
   before_save :update_completion_ratio!
+  # The token is what the uniqueness validation compares, so it has to exist
+  # before validation runs. Computed only in before_save, it was still nil on
+  # a new record: a near-duplicate ("Aster handelii" beside "Aster ×
+  # handelii") passed, was saved with a clashing token, and left both records
+  # unsavable. The WCVP import created 20 such pairs on 2026-10-09.
+  before_validation { self.token = computed_token }
   before_save :regenerate_tokens!
 
   extend FriendlyId
