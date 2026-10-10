@@ -42,8 +42,10 @@ RSpec.describe 'Plant rank collections', type: :request do
     expect(response).to have_http_status(:ok)
     # 1 to resolve the slug (Species.friendly_or_synonym!) + 1 to load
     # plant.species once for all six rank collections — not the pre-fix
-    # 1 + 6 (one scope query per rank, run whether or not it has rows).
-    expect(count).to eq(2)
+    # 1 + 6 (one scope query per rank, run whether or not it has rows) —
+    # + 1 for plant.main_species, which the serializer renders and which is
+    # set now that a root species claims its plant (#404).
+    expect(count).to eq(3)
   end
 
   it 'still returns every species under its matching rank key' do
