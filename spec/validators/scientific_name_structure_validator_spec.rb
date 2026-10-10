@@ -20,6 +20,12 @@ RSpec.describe ScientificNameStructureValidator do
     expect(valid_for?('Lepanthes o')).to be(true)
   end
 
+  it 'accepts an intergeneric hybrid written with the sign and a space before the genus' do
+    expect(valid_for?('× Agropogon lutosus')).to be(true)
+    expect(valid_for?('×Agropogon lutosus')).to be(true)
+    expect(valid_for?('× Sorbaronia sorbifolia var. alba', :var)).to be(true)
+  end
+
   it 'still refuses a lowercase section name, a lone genus, or a trinomial at species rank' do
     expect(valid_for?('Taraxacum sect. taraxacum')).to be(false)
     expect(valid_for?('Taraxacum')).to be(false)
