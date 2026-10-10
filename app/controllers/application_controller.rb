@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
-  def check_user
-    redirect_to root_path status: 401, notice: 'Unauthorized' unless current_user
-  end
-
   def set_sentry_context
     Sentry.set_user(id: current_user&.id, username: current_user&.name, email: current_user&.email) # or anything else in session
     Sentry.set_tags(url: request.url)
