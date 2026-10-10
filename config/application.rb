@@ -26,7 +26,7 @@ module TrefleAdmin
     VERSION = '2.9.2'.freeze
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
 
     # Configuration for the application, engines, and railties goes here.
     #
