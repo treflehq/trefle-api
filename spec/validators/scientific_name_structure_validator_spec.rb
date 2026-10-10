@@ -26,6 +26,12 @@ RSpec.describe ScientificNameStructureValidator do
     expect(valid_for?('× Sorbaronia sorbifolia var. alba', :var)).to be(true)
   end
 
+  it 'accepts the infraspecific names of a nothospecies' do
+    expect(valid_for?('Rosa × odorata var. erubescens', :var)).to be(true)
+    expect(valid_for?('Mentha × piperita subsp. citrata', :ssp)).to be(true)
+    expect(valid_for?('Rosa ×odorata var. erubescens', :var)).to be(true)
+  end
+
   it 'still refuses a lowercase section name, a lone genus, or a trinomial at species rank' do
     expect(valid_for?('Taraxacum sect. taraxacum')).to be(false)
     expect(valid_for?('Taraxacum')).to be(false)

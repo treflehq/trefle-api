@@ -4,6 +4,9 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
   # multiplication sign and a space before the genus, "× Agropogon lutosus"
   # (ICN H.3); "×Agropogon" without the space is tolerated as before.
   GENUS = '(?:× ?)?[A-Z][a-z-]+'.freeze
+  # An epithet under an infraspecific rank. A nothospecies keeps its sign
+  # there too: "Rosa × odorata var. erubescens".
+  EPITHET = '(?:× ?)?[a-z][a-z-]+'.freeze
 
   SCIENTIFIC_NAME_VALIDATION_REGEX = {
     # Besides a binomial, WCVP accepts a few apomictic aggregates at species
@@ -11,11 +14,11 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
     # Taraxacum" (Taraxacum officinale is its synonym). Epithets can be a
     # single letter ("Lepanthes o").
     species: /\A(#{GENUS}) ([a-z][a-z-]*|sect\. [A-Z][a-z-]+)\z/,
-    var: /\A(#{GENUS}) ([a-z×][a-z-]+) (var\.) ([a-z×][a-z-]+)\z/,
-    ssp: /\A(#{GENUS}) ([a-z×][a-z-]+) (ssp|subsp)\. ([a-z×][a-z-]+)\z/,
-    form: /\A(#{GENUS}) ([a-z×][a-z-]+) (form|fo?)\. ([a-z×][a-z-]+)\z/,
+    var: /\A(#{GENUS}) (#{EPITHET}) (var\.) (#{EPITHET})\z/,
+    ssp: /\A(#{GENUS}) (#{EPITHET}) (ssp|subsp)\. (#{EPITHET})\z/,
+    form: /\A(#{GENUS}) (#{EPITHET}) (form|fo?)\. (#{EPITHET})\z/,
     hybrid: /\A(#{GENUS}) × ([a-z-]+)(\s.*)?\z/,
-    subvar: /\A(#{GENUS}) ([a-z×][a-z-]+) (subvar\.) ([a-z×][a-z-]+)\z/
+    subvar: /\A(#{GENUS}) (#{EPITHET}) (subvar\.) (#{EPITHET})\z/
   }.freeze
 
   def validate_each(record, attribute, value)
