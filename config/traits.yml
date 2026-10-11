@@ -100,6 +100,19 @@ sources:
   # either way. Move this line to trade protection against correctability.
   legacy_value_rank: flora_europaea
 
+  # Nomenclature has its own order: TAXONOMY.md names WCVP the authority on
+  # accepted names and their authorship, and WCVP is published by Kew as POWO's
+  # dataset (source `powo`). Under default_priority, powo sits below the legacy
+  # rank, so it could never correct an author or a year written before
+  # provenance existed, and the 2026-10 audit had to route 27k WCVP values
+  # through `community` (human-reviewed) to get them in. This list applies to
+  # the fields of the categories named here and nowhere else; the traits keep
+  # default_priority.
+  category_priority:
+    core:
+      order: [community, powo, ipni, wfo, gbif, tropicos]
+      legacy_value_rank: ipni
+
 cross_field_rules:
   - { min: ph_minimum, max: ph_maximum }
   - { min: minimum_temperature_deg_c, max: maximum_temperature_deg_c }
