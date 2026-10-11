@@ -27,8 +27,8 @@ class Management::GenusesController < Management::ManagementController
 
     respond_to do |format|
       if @genuse.save
-        format.html { redirect_to @genuse, notice: 'Genus was successfully created.' }
-        format.json { render :show, status: :created, location: @genuse }
+        format.html { redirect_to management_genuse_path(@genuse), notice: 'Genus was successfully created.' }
+        format.json { render :show, status: :created, location: management_genuse_path(@genuse) }
       else
         format.html { render :new }
         format.json { render json: @genuse.errors, status: :unprocessable_entity }
@@ -41,8 +41,8 @@ class Management::GenusesController < Management::ManagementController
   def update
     respond_to do |format|
       if @genuse.update(genuse_params)
-        format.html { redirect_to @genuse, notice: 'Genus was successfully updated.' }
-        format.json { render :show, status: :ok, location: @genuse }
+        format.html { redirect_to management_genuse_path(@genuse), notice: 'Genus was successfully updated.' }
+        format.json { render :show, status: :ok, location: management_genuse_path(@genuse) }
       else
         format.html { render :edit }
         format.json { render json: @genuse.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Management::GenusesController < Management::ManagementController
   def destroy
     @genuse.destroy
     respond_to do |format|
-      format.html { redirect_to genuses_url, notice: 'Genus was successfully destroyed.' }
+      format.html { redirect_to management_genuses_url, notice: 'Genus was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

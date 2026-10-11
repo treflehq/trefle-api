@@ -39,8 +39,8 @@ class Management::SpeciesImagesController < Management::ManagementController
 
     respond_to do |format|
       if @species_image.save
-        format.html { redirect_to @species_image, notice: 'Species image was successfully created.' }
-        format.json { render :show, status: :created, location: @species_image }
+        format.html { redirect_to [:management, @species_image], notice: 'Species image was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @species_image] }
       else
         format.html { render :new }
         format.json { render json: @species_image.errors, status: :unprocessable_entity }
@@ -53,8 +53,8 @@ class Management::SpeciesImagesController < Management::ManagementController
   def update
     respond_to do |format|
       if @species_image.update(species_image_params)
-        format.html { redirect_to @species_image, notice: 'Species image was successfully updated.' }
-        format.json { render :show, status: :ok, location: @species_image }
+        format.html { redirect_to [:management, @species_image], notice: 'Species image was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @species_image] }
       else
         format.html { render :edit }
         format.json { render json: @species_image.errors, status: :unprocessable_entity }
@@ -73,7 +73,7 @@ class Management::SpeciesImagesController < Management::ManagementController
   def destroy
     @species_image.destroy
     respond_to do |format|
-      format.html { redirect_to chaos_management_species_images_url, notice: 'Species image was successfully destroyed.' }
+      format.html { redirect_to management_chaos_management_species_images_url, notice: 'Species image was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -85,7 +85,7 @@ class Management::SpeciesImagesController < Management::ManagementController
   end
 
   def set_species
-    @species = Species.find(params[:species_id]) if params[:species_id]
+    @species = Species.friendly_or_synonym!(params[:species_id]) if params[:species_id]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

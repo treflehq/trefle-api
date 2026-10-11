@@ -1,4 +1,4 @@
-<%= form_with(model: species_image, local: true) do |form| %>
+<%= form_with(model: [:management, species_image], local: true) do |form| %>
   <% if species_image.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(species_image.errors.count, "error") %> prohibited this species_image from being saved:</h2>

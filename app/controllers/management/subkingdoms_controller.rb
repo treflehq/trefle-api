@@ -26,8 +26,8 @@ class Management::SubkingdomsController < Management::ManagementController
 
     respond_to do |format|
       if @subkingdom.save
-        format.html { redirect_to @subkingdom, notice: 'Subkingdom was successfully created.' }
-        format.json { render :show, status: :created, location: @subkingdom }
+        format.html { redirect_to [:management, @subkingdom], notice: 'Subkingdom was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @subkingdom] }
       else
         format.html { render :new }
         format.json { render json: @subkingdom.errors, status: :unprocessable_entity }
@@ -40,8 +40,8 @@ class Management::SubkingdomsController < Management::ManagementController
   def update
     respond_to do |format|
       if @subkingdom.update(subkingdom_params)
-        format.html { redirect_to @subkingdom, notice: 'Subkingdom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @subkingdom }
+        format.html { redirect_to [:management, @subkingdom], notice: 'Subkingdom was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @subkingdom] }
       else
         format.html { render :edit }
         format.json { render json: @subkingdom.errors, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class Management::SubkingdomsController < Management::ManagementController
   def destroy
     @subkingdom.destroy
     respond_to do |format|
-      format.html { redirect_to subkingdoms_url, notice: 'Subkingdom was successfully destroyed.' }
+      format.html { redirect_to management_subkingdoms_url, notice: 'Subkingdom was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -30,8 +30,8 @@ class Management::PlantsController < Management::ManagementController
 
     respond_to do |format|
       if @plant.save
-        format.html { redirect_to @plant, notice: 'Plant was successfully created.' }
-        format.json { render :show, status: :created, location: @plant }
+        format.html { redirect_to [:management, @plant], notice: 'Plant was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @plant] }
       else
         format.html { render :new }
         format.json { render json: @plant.errors, status: :unprocessable_entity }
@@ -44,8 +44,8 @@ class Management::PlantsController < Management::ManagementController
   def update
     respond_to do |format|
       if @plant.update(plant_params)
-        format.html { redirect_to @plant, notice: 'Plant was successfully updated.' }
-        format.json { render :show, status: :ok, location: @plant }
+        format.html { redirect_to [:management, @plant], notice: 'Plant was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @plant] }
       else
         format.html { render :edit }
         format.json { render json: @plant.errors, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class Management::PlantsController < Management::ManagementController
   def destroy
     @plant.destroy
     respond_to do |format|
-      format.html { redirect_to plants_url, notice: 'Plant was successfully destroyed.' }
+      format.html { redirect_to management_plants_url, notice: 'Plant was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

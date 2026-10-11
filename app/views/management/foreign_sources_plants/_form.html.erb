@@ -1,4 +1,4 @@
-<%= form_with(model: foreign_sources_plant, local: true) do |form| %>
+<%= form_with(model: [:management, foreign_sources_plant], local: true) do |form| %>
   <% if foreign_sources_plant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(foreign_sources_plant.errors.count, "error") %> prohibited this foreign_sources_plant from being saved:</h2>

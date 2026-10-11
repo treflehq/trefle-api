@@ -27,8 +27,8 @@ class Management::MajorGroupsController < Management::ManagementController
 
     respond_to do |format|
       if @major_group.save
-        format.html { redirect_to @major_group, notice: 'Major group was successfully created.' }
-        format.json { render :show, status: :created, location: @major_group }
+        format.html { redirect_to [:management, @major_group], notice: 'Major group was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @major_group] }
       else
         format.html { render :new }
         format.json { render json: @major_group.errors, status: :unprocessable_entity }
@@ -41,8 +41,8 @@ class Management::MajorGroupsController < Management::ManagementController
   def update
     respond_to do |format|
       if @major_group.update(major_group_params)
-        format.html { redirect_to @major_group, notice: 'Major group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @major_group }
+        format.html { redirect_to [:management, @major_group], notice: 'Major group was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @major_group] }
       else
         format.html { render :edit }
         format.json { render json: @major_group.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Management::MajorGroupsController < Management::ManagementController
   def destroy
     @major_group.destroy
     respond_to do |format|
-      format.html { redirect_to major_groups_url, notice: 'Major group was successfully destroyed.' }
+      format.html { redirect_to management_major_groups_url, notice: 'Major group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

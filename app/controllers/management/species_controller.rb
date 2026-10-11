@@ -35,7 +35,7 @@ class Management::SpeciesController < Management::ManagementController
     respond_to do |format|
       if @species.save
         format.html { redirect_to [:management, @species], notice: 'Species was successfully created.' }
-        format.json { render :show, status: :created, location: @species }
+        format.json { render :show, status: :created, location: [:management, @species] }
       else
         format.html { render :new }
         format.json { render json: @species.errors, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ class Management::SpeciesController < Management::ManagementController
       if @species.update(species_params)
         @species.update(reviewed_at: Time.zone.now)
         format.html { redirect_to [:management, @species], notice: 'Species was successfully updated.' }
-        format.json { render :show, status: :ok, location: @species }
+        format.json { render :show, status: :ok, location: [:management, @species] }
       else
         format.html { render :edit }
         format.json { render json: @species.errors, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class Management::SpeciesController < Management::ManagementController
   def destroy
     @species.destroy
     respond_to do |format|
-      format.html { redirect_to species_index_url, notice: 'Species was successfully destroyed.' }
+      format.html { redirect_to management_species_index_url, notice: 'Species was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -73,7 +73,7 @@ class Management::SpeciesController < Management::ManagementController
       if @species
         Crawlers::SpeciesFetchWorker.perform_async(@species.slug)
         format.html { redirect_to [:management, @species], notice: 'Species refresh enqueued.' }
-        format.json { render :show, status: :ok, location: @species }
+        format.json { render :show, status: :ok, location: [:management, @species] }
       else
         format.html { redirect_to [:management, @species], notice: 'En error occured' }
         format.json { render json: @species.errors, status: :unprocessable_entity }
@@ -85,7 +85,7 @@ class Management::SpeciesController < Management::ManagementController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_species
-    @species = Species.friendly.find(params[:id])
+    @species = Species.friendly_or_synonym!(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

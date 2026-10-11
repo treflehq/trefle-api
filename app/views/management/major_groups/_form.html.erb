@@ -1,4 +1,4 @@
-<%= form_with(model: major_group, local: true) do |form| %>
+<%= form_with(model: [:management, major_group], local: true) do |form| %>
   <% if major_group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(major_group.errors.count, "error") %> prohibited this major_group from being saved:</h2>

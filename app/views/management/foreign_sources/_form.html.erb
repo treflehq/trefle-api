@@ -1,4 +1,4 @@
-<%= form_with(model: foreign_source, local: true) do |form| %>
+<%= form_with(model: [:management, foreign_source], local: true) do |form| %>
   <% if foreign_source.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(foreign_source.errors.count, "error") %> prohibited this foreign_source from being saved:</h2>

@@ -27,8 +27,8 @@ class Management::ForeignSourcesPlantsController < Management::ManagementControl
 
     respond_to do |format|
       if @foreign_sources_plant.save
-        format.html { redirect_to @foreign_sources_plant, notice: 'Foreign sources plant was successfully created.' }
-        format.json { render :show, status: :created, location: @foreign_sources_plant }
+        format.html { redirect_to [:management, @foreign_sources_plant], notice: 'Foreign sources plant was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @foreign_sources_plant] }
       else
         format.html { render :new }
         format.json { render json: @foreign_sources_plant.errors, status: :unprocessable_entity }
@@ -41,8 +41,8 @@ class Management::ForeignSourcesPlantsController < Management::ManagementControl
   def update
     respond_to do |format|
       if @foreign_sources_plant.update(foreign_sources_plant_params)
-        format.html { redirect_to @foreign_sources_plant, notice: 'Foreign sources plant was successfully updated.' }
-        format.json { render :show, status: :ok, location: @foreign_sources_plant }
+        format.html { redirect_to [:management, @foreign_sources_plant], notice: 'Foreign sources plant was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @foreign_sources_plant] }
       else
         format.html { render :edit }
         format.json { render json: @foreign_sources_plant.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Management::ForeignSourcesPlantsController < Management::ManagementControl
   def destroy
     @foreign_sources_plant.destroy
     respond_to do |format|
-      format.html { redirect_to foreign_sources_plants_url, notice: 'Foreign sources plant was successfully destroyed.' }
+      format.html { redirect_to management_foreign_sources_plants_url, notice: 'Foreign sources plant was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
