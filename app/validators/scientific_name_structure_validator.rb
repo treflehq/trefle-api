@@ -21,6 +21,14 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
     subvar: /\A(#{GENUS}) (#{EPITHET}) (subvar\.) (#{EPITHET})\z/
   }.freeze
 
+  # Infraspecific ranks first: "Rosa × odorata var. erubescens" is a variety
+  # that happens to carry the hybrid sign, not a hybrid (#414). Nil when no
+  # rank fits, so the caller can leave the record's rank alone and let
+  # validation say so.
+  def self.rank_for(name)
+    %i[ssp var form subvar hybrid species].find {|rank| name.to_s.match?(SCIENTIFIC_NAME_VALIDATION_REGEX[rank]) }&.to_s
+  end
+
   def validate_each(record, attribute, value)
     reg = SCIENTIFIC_NAME_VALIDATION_REGEX[record.rank.to_sym]
     record.errors.add(attribute, "structure of '#{value}' seems invalid for #{record.rank} rank") if (value =~ reg).nil?
