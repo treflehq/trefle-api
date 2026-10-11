@@ -146,9 +146,9 @@ class Explore::SpeciesController < Explore::ExploreController
   def browse_order
     case current_sort
     when 'name' then { scientific_name: :asc }
-    when 'complete' then { completion_ratio: :desc, wiki_score: :desc }
-    when 'recent' then { reviewed_at: :desc, wiki_score: :desc }
-    else { wiki_score: :desc }
+    when 'complete' then { completion_ratio: :desc, gbif_score: :desc }
+    when 'recent' then { reviewed_at: :desc, gbif_score: :desc }
+    else { gbif_score: :desc }
     end
   end
 

@@ -6,7 +6,16 @@ RSpec.describe 'Explore pages', type: :request do
     it 'lists species' do
       get explore_path
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include(Species.order(wiki_score: :desc).first.scientific_name)
+      expect(response.body).to include(Species.order(gbif_score: :desc).first.scientific_name)
+    end
+
+    it 'features the most observed species first' do
+      top = Species.order(:id).last
+      top.update_columns(gbif_score: 1_000_000_000)
+
+      get explore_path
+      first_card = Nokogiri::HTML(response.body).at_css('a[href^="/explore/species/"]')
+      expect(first_card['href']).to eq(explore_species_path(top))
     end
 
     it 'searches species through the search engine', search: true do
@@ -15,7 +24,7 @@ RSpec.describe 'Explore pages', type: :request do
     end
 
     it 'renders a tinted leaf placeholder for species without a photo, not a background-image div' do
-      species = Species.order(wiki_score: :desc).first
+      species = Species.order(gbif_score: :desc).first
       species.update!(main_image_url: nil)
 
       get explore_path
@@ -26,7 +35,7 @@ RSpec.describe 'Explore pages', type: :request do
     end
 
     it 'renders a real, lazy-loaded, sized <img> for species that have a photo' do
-      species = Species.order(wiki_score: :desc).first
+      species = Species.order(gbif_score: :desc).first
       species.update!(main_image_url: 'https://bs.plantnet.org/image/o/abc123.jpg')
 
       get explore_path
@@ -66,7 +75,7 @@ RSpec.describe 'Explore pages', type: :request do
 
       get explore_path, params: { rank: 'var' }
       expect(response.body).to include(variety.scientific_name)
-      expect(response.body).not_to include(Species.species_rank.order(wiki_score: :desc).first.scientific_name)
+      expect(response.body).not_to include(Species.species_rank.order(gbif_score: :desc).first.scientific_name)
     end
 
     it 'ignores an unknown rank instead of erroring' do
@@ -118,7 +127,7 @@ RSpec.describe 'Explore pages', type: :request do
     end
 
     it 'shows each card with its family and completion percentage' do
-      species = Species.order(wiki_score: :desc).first
+      species = Species.order(gbif_score: :desc).first
       species.update_columns(completion_ratio: 42, family_name: 'Pinaceae')
 
       get explore_path
