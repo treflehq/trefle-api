@@ -1,4 +1,4 @@
-<%= form_with(model: division_order, local: true) do |form| %>
+<%= form_with(model: [:management, division_order], local: true) do |form| %>
   <% if division_order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(division_order.errors.count, "error") %> prohibited this division_order from being saved:</h2>

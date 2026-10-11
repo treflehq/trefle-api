@@ -26,8 +26,8 @@ class Management::KingdomsController < Management::ManagementController
 
     respond_to do |format|
       if @kingdom.save
-        format.html { redirect_to @kingdom, notice: 'Kingdom was successfully created.' }
-        format.json { render :show, status: :created, location: @kingdom }
+        format.html { redirect_to [:management, @kingdom], notice: 'Kingdom was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @kingdom] }
       else
         format.html { render :new }
         format.json { render json: @kingdom.errors, status: :unprocessable_entity }
@@ -40,8 +40,8 @@ class Management::KingdomsController < Management::ManagementController
   def update
     respond_to do |format|
       if @kingdom.update(kingdom_params)
-        format.html { redirect_to @kingdom, notice: 'Kingdom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @kingdom }
+        format.html { redirect_to [:management, @kingdom], notice: 'Kingdom was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @kingdom] }
       else
         format.html { render :edit }
         format.json { render json: @kingdom.errors, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class Management::KingdomsController < Management::ManagementController
   def destroy
     @kingdom.destroy
     respond_to do |format|
-      format.html { redirect_to kingdoms_url, notice: 'Kingdom was successfully destroyed.' }
+      format.html { redirect_to management_kingdoms_url, notice: 'Kingdom was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

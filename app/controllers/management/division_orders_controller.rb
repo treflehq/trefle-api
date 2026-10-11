@@ -26,8 +26,8 @@ class Management::DivisionOrdersController < Management::ManagementController
 
     respond_to do |format|
       if @division_order.save
-        format.html { redirect_to @division_order, notice: 'Division order was successfully created.' }
-        format.json { render :show, status: :created, location: @division_order }
+        format.html { redirect_to [:management, @division_order], notice: 'Division order was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @division_order] }
       else
         format.html { render :new }
         format.json { render json: @division_order.errors, status: :unprocessable_entity }
@@ -40,8 +40,8 @@ class Management::DivisionOrdersController < Management::ManagementController
   def update
     respond_to do |format|
       if @division_order.update(division_order_params)
-        format.html { redirect_to @division_order, notice: 'Division order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @division_order }
+        format.html { redirect_to [:management, @division_order], notice: 'Division order was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @division_order] }
       else
         format.html { render :edit }
         format.json { render json: @division_order.errors, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class Management::DivisionOrdersController < Management::ManagementController
   def destroy
     @division_order.destroy
     respond_to do |format|
-      format.html { redirect_to division_orders_url, notice: 'Division order was successfully destroyed.' }
+      format.html { redirect_to management_division_orders_url, notice: 'Division order was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

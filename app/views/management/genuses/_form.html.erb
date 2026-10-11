@@ -1,4 +1,4 @@
-<%= form_with(model: genuse, local: true) do |form| %>
+<%= form_with(model: genuse, scope: :genuse, url: genuse.persisted? ? management_genuse_path(genuse) : management_genuses_path, local: true) do |form| %>
   <% if genuse.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(genuse.errors.count, "error") %> prohibited this genuse from being saved:</h2>

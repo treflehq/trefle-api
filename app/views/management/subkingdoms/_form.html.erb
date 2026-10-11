@@ -1,4 +1,4 @@
-<%= form_with(model: subkingdom, local: true) do |form| %>
+<%= form_with(model: [:management, subkingdom], local: true) do |form| %>
   <% if subkingdom.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(subkingdom.errors.count, "error") %> prohibited this subkingdom from being saved:</h2>

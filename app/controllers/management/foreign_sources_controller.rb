@@ -27,8 +27,8 @@ class Management::ForeignSourcesController < Management::ManagementController
 
     respond_to do |format|
       if @foreign_source.save
-        format.html { redirect_to @foreign_source, notice: 'Foreign source was successfully created.' }
-        format.json { render :show, status: :created, location: @foreign_source }
+        format.html { redirect_to [:management, @foreign_source], notice: 'Foreign source was successfully created.' }
+        format.json { render :show, status: :created, location: [:management, @foreign_source] }
       else
         format.html { render :new }
         format.json { render json: @foreign_source.errors, status: :unprocessable_entity }
@@ -41,8 +41,8 @@ class Management::ForeignSourcesController < Management::ManagementController
   def update
     respond_to do |format|
       if @foreign_source.update(foreign_source_params)
-        format.html { redirect_to @foreign_source, notice: 'Foreign source was successfully updated.' }
-        format.json { render :show, status: :ok, location: @foreign_source }
+        format.html { redirect_to [:management, @foreign_source], notice: 'Foreign source was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:management, @foreign_source] }
       else
         format.html { render :edit }
         format.json { render json: @foreign_source.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Management::ForeignSourcesController < Management::ManagementController
   def destroy
     @foreign_source.destroy
     respond_to do |format|
-      format.html { redirect_to foreign_sources_url, notice: 'Foreign source was successfully destroyed.' }
+      format.html { redirect_to management_foreign_sources_url, notice: 'Foreign source was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

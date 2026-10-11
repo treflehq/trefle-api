@@ -2,5 +2,5 @@
 
 <%= render 'form', genuse: @genuse %>
 
-<%= link_to 'Show', [:management, @genuse] %> |
-<%= link_to 'Back', genuses_path %>
+<%= link_to 'Show', management_genuse_path(@genuse) %> |
+<%= link_to 'Back', management_genuses_path %>

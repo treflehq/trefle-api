@@ -1,4 +1,4 @@
-<%= form_with(model: plant, local: true) do |form| %>
+<%= form_with(model: [:management, plant], local: true) do |form| %>
   <% if plant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(plant.errors.count, "error") %> prohibited this plant from being saved:</h2>

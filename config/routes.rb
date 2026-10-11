@@ -89,16 +89,15 @@ Rails.application.routes.draw do
     resources :data_runs, only: %i[index show]
 
     resources :users
-    resources :user_queries do
+    resources :user_queries, only: %i[index] do
       get :stats, on: :collection
     end
     resources :subkingdoms
-    resources :species_proposals
     resources :species_images do
       get :chaos, on: :collection
       patch :as_main_image, on: :member
     end
-    resources :record_corrections do
+    resources :record_corrections, only: %i[index create update destroy] do
       patch :accept, on: :member
       patch :reject, on: :member
     end
@@ -110,7 +109,6 @@ Rails.application.routes.draw do
       patch :refresh, on: :member
     end
 
-    resources :sessions
     resources :plants
     resources :major_groups
     resources :kingdoms
