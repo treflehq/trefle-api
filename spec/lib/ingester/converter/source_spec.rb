@@ -50,4 +50,12 @@ RSpec.describe Ingester::Converter::Source do
   #     )
   #   end.to raise_error(Ingester::Converter::Source::SourceException)
   # end
+
+  it 'finds an existing source whatever the case of its slug' do
+    wfo = ForeignSource.create!(name: 'WFOCASE', slug: 'WFOCASE')
+
+    expect { described_class.resolve!({ source_wfocase: 'wfo-123' }) }.not_to change(ForeignSource, :count)
+    expect(described_class.resolve!({ source_wfocase: 'wfo-456' })[:foreign_sources_plants_attributes].first[:foreign_source_id])
+      .to eq(wfo.id)
+  end
 end

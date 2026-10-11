@@ -19,6 +19,13 @@ Everything else is a *data* source, not a taxonomic arbiter:
 | GBIF | aggregator; its plant backbone follows WCVP | no |
 | WFO, Tropicos, USDA, CATMINAT, PlantNet, pfaf… | trait and occurrence data | no |
 
+In the ingester this is `sources.category_priority.core` in
+`config/traits.yml`: for author, year, bibliography, rank and status the order
+is community, then `powo` (WCVP), IPNI, WFO, GBIF, and a value written before
+provenance existed ranks with GBIF: any of the three nomenclatural references
+may correct it, an aggregator alone may not. Data from WCVP is ingested under `powo`,
+never under `community`: `community` means a human reviewed it.
+
 Two consequences worth stating:
 
 - A disagreement between POWO and WCVP is a lag, not a conflict. WCVP wins.

@@ -18,7 +18,10 @@ module Ingester
 
         fsp = keys.map do |k|
           source_name = k.to_s.strip.gsub(/^source_/, '')
-          fs = ForeignSource.find_by(slug: source_name) || ForeignSource.find_by(name: source_name)
+          # Case-insensitive: production holds WFO under the slug "WFO" while
+          # the WFO crawler sends source_wfo, and a case-sensitive lookup
+          # would create a second WFO source on the next run.
+          fs = ForeignSource.where('lower(slug) = :n OR lower(name) = :n', n: source_name.downcase).first
 
           fs ||= ForeignSource.create!(name: source_name)
 
