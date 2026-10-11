@@ -13,7 +13,6 @@ module Traits
       @completion_fields = nil
       @arbitrated_fields = nil
       @source_priority = nil
-      @legacy_value_priority_index = nil
     end
 
     def fields
@@ -112,21 +111,37 @@ module Traits
       @source_priority ||= config.dig('sources', 'default_priority').map(&:downcase)
     end
 
-    # Lower index = stronger source. Unknown sources rank last.
-    def priority_index(source)
-      return source_priority.length if source.nil?
+    # Lower index = stronger source. Unknown sources rank last. With an
+    # attribute, a category that declares its own order (sources.
+    # category_priority, e.g. nomenclature) is ranked by that order instead.
+    def priority_index(source, attribute = nil)
+      order = category_order(attribute) || source_priority
+      return order.length if source.nil?
 
-      source_priority.index(source.to_s.downcase) || source_priority.length
+      order.index(source.to_s.downcase) || order.length
     end
 
-    def stronger_or_equal?(source, other)
-      priority_index(source) <= priority_index(other)
+    def stronger_or_equal?(source, other, attribute = nil)
+      priority_index(source, attribute) <= priority_index(other, attribute)
     end
 
     # Rank given to a filled column that carries no fact (written before
-    # provenance recording existed). See sources.legacy_value_rank.
-    def legacy_value_priority_index
-      @legacy_value_priority_index ||= priority_index(config.dig('sources', 'legacy_value_rank'))
+    # provenance recording existed). See sources.legacy_value_rank, and the
+    # per-category override in sources.category_priority.
+    def legacy_value_priority_index(attribute = nil)
+      rank = category_rule(attribute)&.dig('legacy_value_rank') || config.dig('sources', 'legacy_value_rank')
+      priority_index(rank, attribute)
+    end
+
+    def category_order(attribute)
+      category_rule(attribute)&.dig('order')&.map(&:downcase)
+    end
+
+    def category_rule(attribute)
+      return nil if attribute.nil?
+
+      category = field(attribute)&.dig('category')
+      config.dig('sources', 'category_priority', category) if category
     end
 
   end

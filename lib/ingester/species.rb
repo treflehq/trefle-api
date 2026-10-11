@@ -352,10 +352,10 @@ module Ingester
 
       recorded = @species.species_facts.active_status.for_attribute(attr)
       strongest_other = recorded.reject {|f| f.source == source }
-        .min_by {|f| Traits.priority_index(f.source) }
+        .min_by {|f| Traits.priority_index(f.source, attr) }
 
       incumbent_rank = if strongest_other
-                         Traits.priority_index(strongest_other.source)
+                         Traits.priority_index(strongest_other.source, attr)
                        elsif recorded.any?
                          # Only this source is on record: it owns the value and
                          # may update it (the previous fact is superseded).
@@ -365,10 +365,10 @@ module Ingester
                          # provenance recording. It is not unclaimed, just
                          # unattributed, so it gets the configured legacy rank
                          # instead of losing by default.
-                         Traits.legacy_value_priority_index
+                         Traits.legacy_value_priority_index(attr)
                        end
 
-      incumbent_rank <= Traits.priority_index(source)
+      incumbent_rank <= Traits.priority_index(source, attr)
     end
 
     # Why a value must not be stored, or nil if it may be.
