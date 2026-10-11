@@ -56,7 +56,7 @@ module Checks
         .active_status
         .where(attribute_name: Traits.completion_fields & Species.column_names)
         .group_by(&:attribute_name)
-        .transform_values {|facts| facts.min_by {|f| Traits.priority_index(f.source) } }
+        .transform_values {|facts| facts.min_by {|f| Traits.priority_index(f.source, f.attribute_name) } }
     end
 
     # The column holds a typed value, the fact holds the string the source

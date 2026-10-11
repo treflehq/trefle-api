@@ -57,7 +57,7 @@ module Migrators
         scope = SpeciesFact.active_status.where(attribute_name: promotable_attributes)
         scope = scope.where(source: source) if source
         scope = scope.limit(limit) if limit
-        scope.to_a.sort_by {|f| Traits.priority_index(f.source) }
+        scope.to_a.sort_by {|f| Traits.priority_index(f.source, f.attribute_name) }
       end
 
       # The contract is the allow-list. Fact-only attributes are absent from
