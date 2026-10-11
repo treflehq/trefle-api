@@ -32,4 +32,17 @@ RSpec.describe Migrators::HeightConsistency do
 
     expect(species.reload.maximum_height_cm).to eq(120)
   end
+
+  it 'records a rejected legacy fact when the emptied value had none' do
+    legacy = create(:species)
+    legacy.update_columns(average_height_cm: 300, maximum_height_cm: 120)
+
+    result = described_class.run(dry_run: false)
+
+    trace = SpeciesFact.find_by(species: legacy, attribute_name: 'maximum_height_cm', source: 'legacy')
+    expect(legacy.reload.maximum_height_cm).to be_nil
+    expect(trace).to be_rejected_status
+    expect(trace.value).to eq('120')
+    expect(result.legacy_traced).to be >= 1
+  end
 end
