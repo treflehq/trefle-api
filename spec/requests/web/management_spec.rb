@@ -93,7 +93,7 @@ RSpec.describe 'Management backoffice', type: :request do
 
       it 'accepts a correction and applies it to the record' do
         patch "/management/record_corrections/#{correction.id}/accept"
-        expect(response).to redirect_to(management_record_corrections_path)
+        expect(response).to redirect_to(management_record_corrections_path(status: :pending))
         expect(correction.reload).to be_accepted_change_status
         expect(correction.record.reload.maximum_height_cm).to eq(4200)
       end
@@ -101,7 +101,7 @@ RSpec.describe 'Management backoffice', type: :request do
       it 'rejects a correction without touching the record' do
         before_height = correction.record.maximum_height_cm
         patch "/management/record_corrections/#{correction.id}/reject"
-        expect(response).to redirect_to(management_record_corrections_path)
+        expect(response).to redirect_to(management_record_corrections_path(status: :pending))
         expect(correction.reload).to be_rejected_change_status
         expect(correction.record.reload.maximum_height_cm).to eq(before_height)
       end

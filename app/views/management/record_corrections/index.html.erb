@@ -1,111 +1,192 @@
-<section class="section">
-  <div class="container">
+<section class="section corrections-review">
+  <div class="container is-fluid">
 
-    <p id="notice" class="notification is-info"><%= notice %></p>
+    <% if notice.present? %>
+      <p class="notification is-success corrections-review__toast"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="notification is-danger corrections-review__toast"><%= alert %></p>
+    <% end %>
 
     <h1 class="title">Record corrections</h1>
 
-  </div>
-  <div class="container">
     <div class="tabs">
       <ul>
-        <li class="<%= params[:status].blank? && 'is-active' %>">
-          <%= link_to 'All', management_record_corrections_path %>
+        <li class="<%= 'is-active' if params[:status].blank? %>">
+          <%= link_to management_record_corrections_path do %>
+            All <span class="tag is-rounded"><%= @status_counts.values.sum %></span>
+          <% end %>
         </li>
-        <li class="<%= params[:status] == 'pending' && 'is-active' %>">
-          <%= link_to 'Pending', management_record_corrections_path(status: :pending) %>
-        </li>
-        <li class="<%= params[:status] == 'accepted' && 'is-active' %>">
-          <%= link_to 'Accepted', management_record_corrections_path(status: :accepted) %>
-        </li>
-        <li class="<%= params[:status] == 'rejected' && 'is-active' %>">
-          <%= link_to 'Rejected', management_record_corrections_path(status: :rejected) %>
-        </li>
+        <% RecordCorrection.change_statuses.each_key do |status| %>
+          <li class="<%= 'is-active' if params[:status] == status %>">
+            <%= link_to management_record_corrections_path(status: status) do %>
+              <%= status.humanize %> <span class="tag is-rounded"><%= @status_counts[status] || 0 %></span>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
-  </div>
 
-</section>
-<section>
-
-  <div class="table-container">
-
-    <table class="table is-striped is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th><%= sortable_link(:record_id, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:warning_type, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:correction_json, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:change_notes, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:updated_at, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:change_status, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:change_type, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:user_id, :management_record_corrections_path, params) %></th>
-          <th><%= sortable_link(:id, :management_record_corrections_path, params) %></th>
-          <th colspan=" 3">
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @record_corrections.each do |record_correction| %>
-        <tr>
-
-          <td>
-            <%= link_to 'S', explore_record_correction_path(record_correction) %>
-            <%= link_to 'D', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %>
-          </td>
-
-          <td>
-            <%= table_desc(record_correction, :change_status) %>
-            <%= table_desc(record_correction, :change_type) %>
-            <% if record_correction.pending_change_status? %>
-            <%= link_to 'Accept', accept_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
-            <%= link_to 'Reject', reject_management_record_correction_path(record_correction), method: :patch, data: { confirm: 'Are you sure?' }, class: 'button' %>
-            <% end %>
-          </td>
-          <td>
-            <%= table_desc(record_correction, :record_type) %>
-            <%= record_correction.record && link_to((record_correction.record&.scientific_name || record_correction.record&.name), [:management, record_correction.record]) || table_desc(record_correction, :record_id) %>
-          </td>
-          <td>
-            <b><%= record_correction.warning_type %></b>
-            <%= table_desc(record_correction, :notes) %>
-          </td>
-          <td>
-            <pre><%= record_correction.correction_json && (JSON.pretty_generate(JSON.parse(record_correction.correction_json)) rescue record_correction.correction_json) || 'null' %></pre>
-          </td>
-          <td>
-            <pre><%= record_correction.change_notes && (JSON.pretty_generate(JSON.parse(record_correction.change_notes)) rescue record_correction.change_notes) || 'null' %></pre>
-          </td>
-          <td>
-            <%= table_desc(record_correction, :created_at) %>
-            <%= table_desc(record_correction, :updated_at) %>
-          </td>
-          <td><%= table_desc(record_correction, :change_status) %></td>
-          <td><%= table_desc(record_correction, :change_type) %></td>
-          <td>
-            <%= record_correction.user&.name %>
-            <%= record_correction.user&.email %>
-          </td>
-
-          <td><%= table_desc(record_correction, :id) %></td>
-
-          <td><%= link_to 'Show', explore_record_correction_path(record_correction) %></td>
-          <td><%= link_to 'Destroy', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+    <div class="tags corrections-review__kinds">
+      <%= link_to management_record_corrections_path(status: params[:status].presence),
+                  class: "tag is-medium #{'is-primary' unless params.key?(:warning_type)}" do %>
+        Every check
+      <% end %>
+      <% @warning_type_counts.each do |warning_type, count| %>
+        <%= link_to management_record_corrections_path(status: params[:status].presence, warning_type: warning_type.to_s),
+                    class: "tag is-medium #{'is-primary' if params.key?(:warning_type) && params[:warning_type].to_s == warning_type.to_s}",
+                    title: warning_type.presence || 'Corrections filed by contributors' do %>
+          <%= warning_type.presence || 'Community' %>&nbsp;<strong><%= count %></strong>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-</section>
-<section>
-  <div class="container">
+      <% end %>
+    </div>
 
-    <%== pagy_bulma_nav(@pagy) %>
-    <%== pagy_info(@pagy) %>
+    <%= form_with url: bulk_management_record_corrections_path, method: :patch, id: 'corrections-form', local: true do %>
+      <%= hidden_field_tag :return_to, request.fullpath %>
 
+      <div class="level corrections-review__toolbar">
+        <div class="level-left">
+          <label class="checkbox level-item">
+            <input type="checkbox" data-corrections-select-all> Select the page
+          </label>
+          <button type="button" class="button is-small is-white level-item" data-corrections-select-noop
+                  title="Corrections whose values the record already holds">Select the no-ops</button>
+          <span class="level-item has-text-grey" data-corrections-selected-count></span>
+          <div class="level-item buttons">
+            <button type="submit" name="decision" value="accept" class="button is-success is-small"
+                    data-confirm="Accept every selected correction? Deletions are skipped, accept them one by one.">Accept selected</button>
+            <button type="submit" name="decision" value="reject" class="button is-danger is-light is-small"
+                    data-confirm="Reject every selected correction?">Reject selected</button>
+          </div>
+        </div>
+        <div class="level-right">
+          <span class="level-item has-text-grey"><%== pagy_info(@pagy) %></span>
+          <span class="level-item is-size-7">
+            Per page
+            <% Management::RecordCorrectionsController::PER_PAGE.each do |per| %>
+              &nbsp;<%= link_to_unless per == @per_page, per, request.query_parameters.merge('per' => per, 'page' => nil) %>
+            <% end %>
+          </span>
+        </div>
+      </div>
+
+      <table class="table is-hoverable is-fullwidth corrections-review__table">
+        <colgroup>
+          <col class="corrections-review__col-select">
+          <col class="corrections-review__col-record">
+          <col class="corrections-review__col-check">
+          <col class="corrections-review__col-changes">
+          <col class="corrections-review__col-actions">
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th><%= sortable_link(:record_id, :management_record_corrections_path, params) %></th>
+            <th>Check</th>
+            <th>Changes</th>
+            <th><%= sortable_link(:id, :management_record_corrections_path, params) %> · Decision</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @record_corrections.each do |rc| %>
+            <% changes = correction_field_changes(rc) %>
+            <tr id="correction-<%= rc.id %>">
+              <td>
+                <% if rc.pending_change_status? %>
+                  <input type="checkbox" name="ids[]" value="<%= rc.id %>" data-corrections-select <%= 'data-corrections-noop' if changes.any? && changes.none?(&:last) %> aria-label="Select correction <%= rc.id %>">
+                <% end %>
+              </td>
+
+              <td>
+                <% if rc.record %>
+                  <% name = rc.record.try(:scientific_name) || rc.record.try(:name) %>
+                  <% if rc.record.is_a?(Species) %>
+                    <%= link_to name, explore_species_path(rc.record), class: 'has-text-weight-semibold', target: '_blank', rel: 'noopener' %>
+                    <%= link_to 'admin', management_species_path(rc.record), class: 'is-size-7' %>
+                  <% else %>
+                    <span class="has-text-weight-semibold"><%= name %></span>
+                  <% end %>
+                <% else %>
+                  <span class="has-text-grey">record gone</span>
+                <% end %>
+                <p class="is-size-7 has-text-grey">
+                  <%= rc.record_type %> #<%= rc.record_id %>
+                  <% if rc.record.respond_to?(:rank) && rc.record&.rank %>· <%= rc.record.rank %><% end %>
+                  <% if rc.record.respond_to?(:author) && rc.record&.author.present? %><br><%= rc.record.author %> <%= rc.record.try(:year) %><% end %>
+                </p>
+              </td>
+
+              <td>
+                <span class="tag is-light" title="<%= rc.warning_type %>"><%= correction_kind(rc) %></span>
+                <% if rc.deletion_change_type? %>
+                  <span class="tag is-danger">Deletes the record</span>
+                <% end %>
+                <% if rc.notes.present? %>
+                  <p class="corrections-review__notes"><%= rc.notes %></p>
+                <% end %>
+                <p class="is-size-7 has-text-grey">
+                  <%= rc.user&.name.presence || rc.user&.email || 'no user' %> · <%= rc.created_at.to_date %>
+                </p>
+              </td>
+
+              <td>
+                <% changed, unchanged = changes.partition(&:last) %>
+                <% if changed.any? %>
+                  <table class="table is-narrow corrections-review__diff">
+                    <% changed.each do |field, current, proposed, _| %>
+                      <tr>
+                        <th><%= field %></th>
+                        <td class="corrections-review__current"><%= correction_value(current) %></td>
+                        <td class="corrections-review__arrow">→</td>
+                        <td class="corrections-review__proposed"><%= correction_value(proposed) %></td>
+                      </tr>
+                    <% end %>
+                  </table>
+                <% elsif changes.any? %>
+                  <span class="tag is-warning is-light">Nothing changes: the record already holds these values</span>
+                <% end %>
+                <% if unchanged.any? %>
+                  <p class="is-size-7 has-text-grey">Unchanged: <%= unchanged.map(&:first).join(', ') %></p>
+                <% end %>
+                <% if changes.none? && rc.deletion_change_type? %>
+                  <span class="has-text-danger">The record is destroyed on acceptance.</span>
+                <% elsif changes.none? %>
+                  <span class="has-text-grey">No field change</span>
+                <% end %>
+                <% if rc.change_notes.present? && rc.change_notes != '{}' %>
+                  <details class="is-size-7">
+                    <summary>Change notes</summary>
+                    <pre><%= pretty_changes(rc) rescue rc.change_notes %></pre>
+                  </details>
+                <% end %>
+              </td>
+
+              <td>
+                <% if rc.pending_change_status? %>
+                  <div class="buttons are-small">
+                    <button type="submit" formaction="<%= accept_management_record_correction_path(rc) %>" class="button is-success"
+                            <% if rc.deletion_change_type? %>data-confirm="Accepting destroys <%= rc.record.try(:scientific_name) %>. Continue?"<% end %>>Accept</button>
+                    <button type="submit" formaction="<%= reject_management_record_correction_path(rc) %>" class="button is-danger is-light">Reject</button>
+                  </div>
+                <% else %>
+                  <span class="<%= class_for_correction_status(rc.change_status) %>"><%= rc.change_status.humanize %></span>
+                <% end %>
+                <p class="is-size-7">
+                  <%= link_to "##{rc.id}", explore_record_correction_path(rc), target: '_blank', rel: 'noopener' %>
+                  · <%= link_to 'Delete', management_record_correction_path(rc, return_to: request.fullpath), method: :delete, data: { confirm: 'Delete this correction?' }, class: 'has-text-grey' %>
+                </p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% if @record_corrections.empty? %>
+      <p class="has-text-grey">No correction here.</p>
+    <% end %>
+
+    <%== pagy_bulma_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </section>

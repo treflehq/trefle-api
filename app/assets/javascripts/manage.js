@@ -18,11 +18,13 @@
 import './manage.scss'
 import lazy from './lazy'
 import search from './manage/search'
+import corrections from './manage/corrections'
 import { createBarChart, createHeatmapChart } from './manage/stats'
 
 lazy()
 
 document.addEventListener('DOMContentLoaded', () => {
+  corrections()
   if (document.querySelectorAll("#queries-chart").length > 0) {
     createBarChart('#queries-chart', query_data)
     createHeatmapChart('#hm-chart', hm_data)
