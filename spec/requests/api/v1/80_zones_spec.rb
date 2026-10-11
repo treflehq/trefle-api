@@ -149,7 +149,8 @@ describe 'Distributions API' do
           })
         )
         let(:token) { user.token }
-        let(:zone_id) { Zone.order(species_count: :desc).first.slug }
+        # a species of that zone: the nested show answers 404 for any other
+        let(:zone_id) { SpeciesDistribution.first.zone.slug }
         let(:id) { SpeciesDistribution.first.species_id }
 
         run_test!
@@ -189,7 +190,8 @@ describe 'Distributions API' do
           })
         )
         let(:token) { user.token }
-        let(:zone_id) { Zone.order(species_count: :desc).first.slug }
+        # a species of that zone: the nested show answers 404 for any other
+        let(:zone_id) { SpeciesDistribution.first.zone.slug }
         let(:id) { SpeciesDistribution.first.species.plant.slug }
 
         run_test!

@@ -189,6 +189,19 @@ module Api
       render_error(exception.message.gsub(' with friendly id', ''), :not_found)
     end
 
+    # A nested show (/genus/:genus_id/species/:id, /plants/:plant_id/species/:id,
+    # /distributions/:zone_id/plants/:id) answers only for a species of that
+    # parent, as the nested index does; it used to return any species.
+    def ensure_species_in_parent!(species)
+      in_parent =
+        if params[:genus_id] then Genus.friendly.find(params[:genus_id]).id == species.genus_id
+        elsif params[:plant_id] then Plant.friendly.find(params[:plant_id]).id == species.plant_id
+        elsif params[:zone_id] then Zone.friendly.find(params[:zone_id].to_s.downcase).all_species.exists?(species.id)
+        else true
+        end
+      raise ActiveRecord::RecordNotFound, "can't find record: #{params[:id].to_s.inspect}" unless in_parent
+    end
+
     def render_page_overflow_response(exception)
       render_error(exception.message, :not_found)
     end
