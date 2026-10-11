@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include RequiresTermsAcceptance
 
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session, prepend: true
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_sentry_context
   before_action :set_meta
