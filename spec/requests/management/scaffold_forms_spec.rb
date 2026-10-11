@@ -57,4 +57,13 @@ RSpec.describe 'Management new/edit pages', type: :request do
 
     expect(response).to have_http_status(:ok)
   end
+
+  it 'links each correction to a page that exists' do
+    correction = create(:record_correction)
+
+    get management_record_corrections_path
+
+    expect(response.body).to include(explore_record_correction_path(correction))
+    expect(response.body).not_to include("/management/record_corrections/#{correction.id}/edit")
+  end
 end

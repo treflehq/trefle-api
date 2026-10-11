@@ -54,8 +54,7 @@
         <tr>
 
           <td>
-            <%= link_to 'S', [:management, record_correction] %>
-            <%= link_to 'E', edit_management_record_correction_path(record_correction) %>
+            <%= link_to 'S', explore_record_correction_path(record_correction) %>
             <%= link_to 'D', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
 
@@ -94,8 +93,7 @@
 
           <td><%= table_desc(record_correction, :id) %></td>
 
-          <td><%= link_to 'Show', [:management, record_correction] %></td>
-          <td><%= link_to 'Edit', edit_management_record_correction_path(record_correction) %></td>
+          <td><%= link_to 'Show', explore_record_correction_path(record_correction) %></td>
           <td><%= link_to 'Destroy', [:management, record_correction], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
         <% end %>
@@ -109,8 +107,5 @@
     <%== pagy_bulma_nav(@pagy) %>
     <%== pagy_info(@pagy) %>
 
-    <br>
-
-    <%= link_to 'New Record correction', new_management_record_correction_path %>
   </div>
 </section>

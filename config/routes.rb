@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       get :chaos, on: :collection
       patch :as_main_image, on: :member
     end
-    resources :record_corrections do
+    resources :record_corrections, only: %i[index create update destroy] do
       patch :accept, on: :member
       patch :reject, on: :member
     end
