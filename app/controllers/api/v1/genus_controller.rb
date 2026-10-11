@@ -22,6 +22,8 @@ class Api::V1::GenusController < Api::ApiController
 
   def show
     @resource = Genus.friendly.find(params[:id])
+    # /families/:family_id/genus/:id answers only for a genus of that family.
+    raise ActiveRecord::RecordNotFound, "can't find record: #{params[:id].to_s.inspect}" if params[:family_id] && Family.friendly.find(params[:family_id]).id != @resource.family_id
 
     render_serialized_resource(
       @resource,
