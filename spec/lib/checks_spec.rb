@@ -18,6 +18,26 @@ RSpec.describe Checks do
       expect { described_class.run(species.id) }.not_to change(RecordCorrection, :count)
     end
 
+    it 'proposes a re-link, not a rename, when the name points at a genus we hold' do
+      species.update_columns(genus_id: Genus.find_by!(name: 'Abelia').id, genus_name: 'Abelia')
+
+      described_class.run(species.id)
+
+      warning = RecordCorrection.find_by(warning_type: 'Checks::GenusName')
+      expect(JSON.parse(warning.correction_json)).to eq('genus' => 'Abies')
+      expect(JSON.parse(warning.change_notes)).to include('genus_id')
+      expect(warning.notes).to include('Expected a re-link to Abies')
+    end
+
+    it 'proposes the rename when no genus of that name exists' do
+      species.update_columns(scientific_name: 'Abiess alba', genus_name: 'Abies')
+
+      described_class.run(species.id)
+
+      warning = RecordCorrection.find_by(warning_type: 'Checks::GenusName')
+      expect(JSON.parse(warning.correction_json)).to eq('scientific_name' => 'Abies alba')
+    end
+
     it 'resolves an outstanding warning once the data is fixed' do
       species.update_columns(genus_id: Genus.find_by!(name: 'Abelia').id, genus_name: 'Abelia')
       described_class.run(species.id)
