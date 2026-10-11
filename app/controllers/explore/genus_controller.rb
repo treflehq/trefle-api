@@ -20,7 +20,7 @@ class Explore::GenusController < Explore::ExploreController
     # Picking the best-ranked species regardless of whether it has a photo lets the
     # header fall back to the empty-state placeholder instead of crashing (or silently
     # hiding the genus header) when none of the genus' species has one.
-    @species = @genus.species.order(wiki_score: :desc).first
+    @species = @genus.species.order(gbif_score: :desc).first
     set_meta_tags(
       image_src: @species&.main_image_url,
       og: {
@@ -28,7 +28,7 @@ class Explore::GenusController < Explore::ExploreController
         image: @species&.main_image_url
       }
     )
-    @collection = @genus.species.order(wiki_score: :desc)
+    @collection = @genus.species.order(gbif_score: :desc)
     @pagy, @collection = pagy(@collection)
   end
 
