@@ -85,11 +85,17 @@ class RecordCorrection < ApplicationRecord
           change_status: :accepted
         )
       else
-        update(
-          notes: [notes, "Unable to accept, #{res[:errors].join(', ')}"].compact.join("\n")
-        )
+        unable_to_accept!(res[:errors].join(', '))
       end
     end
+  rescue ::Ingester::IngesterException, ActiveRecord::RecordInvalid => e
+    # A correction the ingester refuses (a rename to a genus we do not hold,
+    # a synonym that cannot be written) stays pending, with the reason.
+    unable_to_accept!(e.message)
+  end
+
+  def unable_to_accept!(reason)
+    update(notes: [notes, "Unable to accept, #{reason}"].compact.join("\n"))
   end
 
   # If the correction if from a check, we delegate this to the check

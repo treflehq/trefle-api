@@ -34,14 +34,11 @@ module Checks
             change_status: :accepted
           )
         else
-          @existing_check.update(
-            notes: [
-              @existing_check.notes,
-              "Unable to accept, #{res[:errors].join(', ')}"
-            ].compact.join("\n")
-          )
+          @existing_check.unable_to_accept!(res[:errors].join(', '))
         end
       end
+    rescue ::Ingester::IngesterException, ActiveRecord::RecordInvalid => e
+      @existing_check.unable_to_accept!(e.message)
     end
 
     def self.run(species_id)

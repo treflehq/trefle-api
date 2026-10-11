@@ -72,10 +72,14 @@ module Ingester
     # Only a *disagreement* triggers this. An ingestion targeted by species_id
     # that simply omits the name is not one — that used to silently wipe
     # author, bibliography and rank on every such call.
+    #
+    # A community correction is the other way round: the disagreement *is*
+    # the correction, decided by a human, so the record is renamed (#417).
     def override_names!
       return unless @species
       return if @data[:scientific_name].blank?
       return if @data[:scientific_name] == @species.scientific_name
+      return rename! if community?
 
       @data[:scientific_name] = @species&.scientific_name
       @data[:genus_name] = @species&.genus_name
@@ -83,6 +87,41 @@ module Ingester
       @data[:rank] = nil
       @data[:author] = nil
       @data[:bibliography] = nil
+    end
+
+    def community?
+      @source == 'community'
+    end
+
+    # The genus follows the new name, the rank follows its structure unless
+    # the correction states one, and the old name becomes a synonym once the
+    # save goes through (see #keep_old_name_as_synonym!). A new name whose
+    # genus we do not hold is refused rather than filed under the old one.
+    def rename!
+      new_name = @data[:scientific_name]
+      genus_word = new_name.sub(/\A× ?/, '').split(' ').first
+
+      if genus_word != @species.genus&.name
+        genus = ::Genus.find_by(name: genus_word)
+        raise IngesterException, "Cannot rename to '#{new_name}': no genus named '#{genus_word}'" unless genus
+
+        @data[:genus_id] = genus.id
+      end
+      @data[:rank] ||= ScientificNameStructureValidator.rank_for(new_name)
+      @renamed_from = @species.scientific_name
+    end
+
+    # The name a species was known under keeps resolving: by name in the
+    # synonymy, by slug through Species.friendly_or_synonym!, and in search
+    # through full_token (#361).
+    def keep_old_name_as_synonym!
+      return unless @renamed_from
+      return if ::Synonym.exists?(record_type: 'Species', name: @renamed_from)
+
+      ::Synonym.create!(record: @species, name: @renamed_from)
+      @species.save # full_token is rebuilt on save
+    rescue ActiveRecord::ActiveRecordError => e
+      Rails.logger.warn("[Ingester] Unable to keep '#{@renamed_from}' as a synonym of '#{@species.scientific_name}': #{e.message}")
     end
 
     def assign_attributes!
@@ -125,6 +164,7 @@ module Ingester
 
       if a
         persist_facts!
+        keep_old_name_as_synonym!
         puts '[Ingester] Ingested !'
       else
         puts "[Ingester] Errors while saving: #{@species.errors.full_messages}"
