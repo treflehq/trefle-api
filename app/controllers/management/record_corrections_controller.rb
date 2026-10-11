@@ -1,106 +1,102 @@
 class Management::RecordCorrectionsController < Management::ManagementController
 
-  before_action :set_record_correction, only: %i[show edit update destroy accept reject]
+  before_action :set_record_correction, only: %i[destroy accept reject]
 
   has_scope :status, allow_blank: false
 
-  # GET /record_corrections
-  # GET /record_corrections.json
+  PER_PAGE = [50, 100, 200].freeze
+
+  # GET /management/record_corrections
+  # The review queue: filtered by status and check type, newest first.
   def index
-    p = params.permit(:search, order: {})
+    p = params.permit(:warning_type, order: {})
 
-    @record_corrections = apply_scopes(RecordCorrection.all)
-    @record_corrections = @record_corrections.order(p.to_h['order']) if p[:order]
-    # @record_corrections = @record_corrections.where.like(scientific_name: "%#{p[:search]}%") if p[:search]
-    @pagy, @record_corrections = pagy(@record_corrections)
+    scope = apply_scopes(RecordCorrection.all)
+    @status_counts = RecordCorrection.group(:change_status).count
+    @warning_type_counts = scope.group(:warning_type).count
+      .each_with_object(Hash.new(0)) {|(type, n), acc| acc[type.presence] += n }
+      .sort_by {|_, n| -n }
+    scope = scope.where(warning_type: p[:warning_type].presence || [nil, '']) if p.key?(:warning_type)
+    scope = p[:order] ? scope.order(p.to_h['order']) : scope.order(id: :desc)
+
+    @per_page = PER_PAGE.include?(params[:per].to_i) ? params[:per].to_i : PER_PAGE.first
+    @pagy, @record_corrections = pagy(scope.preload(:record, :user), items: @per_page)
   end
 
-  # GET /record_corrections/1
-  # GET /record_corrections/1.json
-  def show; end
+  # PATCH /management/record_corrections/bulk
+  # Accepts or rejects the selected corrections one by one.
+  def bulk
+    ids = Array(params[:ids]).map(&:to_i)
+    decision = params[:decision].to_s
+    return redirect_to(return_path, alert: 'Select at least one correction.') if ids.empty? || %w[accept reject].exclude?(decision)
 
-  # GET /record_corrections/new
-  def new
-    @record_correction = RecordCorrection.new
-  end
-
-  # GET /record_corrections/1/edit
-  def edit; end
-
-  # POST /record_corrections
-  # POST /record_corrections.json
-  def create
-    @record_correction = RecordCorrection.new(record_correction_params)
-
-    respond_to do |format|
-      if @record_correction.save
-        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully created.' }
-        format.json { render :show, status: :created, location: [:management, @record_correction] }
-      else
-        format.html { render :new }
-        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /record_corrections/1
-  # PATCH/PUT /record_corrections/1.json
-  def update
-    respond_to do |format|
-      if @record_correction.update(record_correction_params)
-        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully updated.' }
-        format.json { render :show, status: :ok, location: [:management, @record_correction] }
-      else
-        format.html { render :edit }
-        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
-      end
-    end
+    selected = RecordCorrection.pending_change_status.where(id: ids)
+    # A deletion destroys the record: it is accepted one by one, never in bulk.
+    skipped = decision == 'accept' ? selected.deletion_change_type.count : 0
+    selected = selected.where.not(change_type: :deletion) if decision == 'accept'
+    results = selected.map {|rc| decide(rc, decision) }
+    done = results.count(true)
+    message = "#{done} correction(s) #{decision}ed."
+    message += " #{results.size - done} could not be and stay pending, with the reason in their notes." if done < results.size
+    message += " #{skipped} deletion(s) skipped, accept them one by one." if skipped.positive?
+    redirect_to return_path, notice: message
   end
 
   def accept
     respond_to do |format|
-      if @record_correction.accept!(current_user)
-        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully accepted.' }
-        format.json { render :show, status: :ok, location: [:management, @record_correction] }
+      if decide(@record_correction, 'accept')
+        format.html { redirect_to return_path, notice: "Correction ##{@record_correction.id} accepted." }
+        format.json { head :no_content }
       else
-        format.html { render :edit }
-        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
+        reason = @record_correction.notes.to_s.lines.last.to_s.strip
+        format.html { redirect_to return_path, alert: "Correction ##{@record_correction.id} could not be accepted. #{reason}" }
+        format.json { render json: { error: reason }, status: :unprocessable_entity }
       end
     end
   end
 
   def reject
     respond_to do |format|
-      if @record_correction.reject!
-        format.html { redirect_to management_record_corrections_path, notice: 'RecordCorrection was successfully rejected.' }
-        format.json { render :show, status: :ok, location: [:management, @record_correction] }
+      if decide(@record_correction, 'reject')
+        format.html { redirect_to return_path, notice: "Correction ##{@record_correction.id} rejected." }
+        format.json { head :no_content }
       else
-        format.html { render :edit }
-        format.json { render json: @record_correction.errors, status: :unprocessable_entity }
+        format.html { redirect_to return_path, alert: "Correction ##{@record_correction.id} could not be rejected." }
+        format.json { head :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /record_corrections/1
-  # DELETE /record_corrections/1.json
+  # DELETE /management/record_corrections/1
   def destroy
     @record_correction.destroy
     respond_to do |format|
-      format.html { redirect_to management_record_corrections_url, notice: 'RecordCorrection was successfully destroyed.' }
+      format.html { redirect_to return_path, notice: "Correction ##{@record_correction.id} deleted." }
       format.json { head :no_content }
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_record_correction
     @record_correction = RecordCorrection.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def record_correction_params
-    params.require(:record_correction)
-      .permit(:name, :slug, :kingdom_id, :inserted_at)
+  # accept!/reject! leave a refused correction pending (accept! appends the
+  # reason to its notes) rather than raising: the outcome is read back from
+  # the status, so a refusal is never reported as a success.
+  def decide(correction, decision)
+    decision == 'accept' ? correction.accept!(current_user.id) : correction.reject!
+    correction.reload
+    decision == 'accept' ? correction.accepted_change_status? : correction.rejected_change_status?
+  end
+
+  # Back to the filtered page the decision was taken from (same filters,
+  # same page), never outside the review queue.
+  def return_path
+    back = params[:return_to].to_s
+    return back if back.start_with?(management_record_corrections_path) && !back.start_with?('//')
+
+    management_record_corrections_path(status: :pending)
   end
 end

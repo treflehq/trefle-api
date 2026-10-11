@@ -1,0 +1,98 @@
+// Review queue (/management/record_corrections): fits the window, no
+// horizontal scroll; long names, notes and values wrap inside their cell.
+.corrections-review {
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  .container.is-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &__kinds .tag {
+    text-decoration: none;
+  }
+
+  &__toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+    padding: 0.5rem 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ededed;
+  }
+
+  &__table {
+    table-layout: fixed;
+    width: 100%;
+
+    td, th {
+      overflow-wrap: anywhere;
+      vertical-align: top;
+    }
+  }
+
+  &__col-select { width: 2.5rem; }
+  &__col-record { width: 18%; }
+  &__col-check { width: 30%; }
+  &__col-changes { width: auto; }
+  &__col-actions { width: 10rem; }
+
+  &__notes {
+    white-space: pre-line;
+    font-size: 0.85rem;
+    margin: 0.35rem 0;
+  }
+
+  &__diff {
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 0.25rem !important;
+    background: transparent;
+    font-size: 0.85rem;
+
+    th { font-weight: 600; color: #4a4a4a; white-space: nowrap; }
+    td, th { border: none !important; padding: 0.15rem 0.4rem !important; }
+    .corrections-review__arrow { width: 1.5rem; text-align: center; color: #7a7a7a; }
+    .corrections-review__current { color: #b4231f; }
+    .corrections-review__proposed { color: #2b790c; font-weight: 600; }
+
+  }
+
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 0.5rem;
+  }
+
+  @media screen and (max-width: 1023px) {
+    &__col-record { width: 25%; }
+    &__col-check { width: 25%; }
+    &__col-actions { width: 7rem; }
+  }
+}
+
+// The admin navbar has more entries than fit on a laptop screen: wrap them
+// instead of pushing the page wider than the window.
+.navbar-menu {
+  flex-shrink: 1;
+  min-width: 0;
+
+  .navbar-start {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+}
+
+// Decisions reload the page at the same scroll position: the outcome shows
+// as a toast instead of at the top of the page.
+.corrections-review__toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 30;
+  max-width: 32rem;
+  box-shadow: 0 0.5rem 1rem rgba(10, 10, 10, 0.15);
+}

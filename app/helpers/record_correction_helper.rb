@@ -74,4 +74,42 @@ module RecordCorrectionHelper
       "Source: #{rc.source_type}"
     end
   end
+
+  # [field, current value, proposed value, changed?] for each field of the
+  # correction; current is :none when the field is not a column of the
+  # record (unit helpers such as average_height_unit).
+  def correction_field_changes(rc)
+    proposed = begin
+      JSON.parse(rc.correction_json.presence || '{}')
+    rescue JSON::ParserError
+      {}
+    end
+    return [] unless proposed.is_a?(Hash)
+
+    proposed.map do |field, value|
+      current = rc.record&.has_attribute?(field) ? rc.record[field] : :none
+      [field, current, value, current == :none || !same_correction_value?(current, value)]
+    end
+  end
+
+  # "1600" and 1600.0 are the same height: numbers compare as numbers.
+  def same_correction_value?(current, proposed)
+    return current.to_s == proposed.to_s unless [current, proposed].all? {|v| v.is_a?(Numeric) || v.to_s.match?(/\A-?\d+(\.\d+)?\z/) }
+
+    BigDecimal(current.to_s) == BigDecimal(proposed.to_s)
+  end
+
+  def correction_value(value)
+    return tag.span('n/a', class: 'has-text-grey-light') if value == :none
+    return tag.em('empty', class: 'has-text-grey') if value.nil? || value == ''
+
+    Array(value).join(', ')
+  end
+
+  # The check that filed the correction, without its namespace.
+  def correction_kind(rc)
+    return 'Community' if rc.warning_type.blank?
+
+    rc.warning_type.to_s.split('::').last.underscore.humanize
+  end
 end
