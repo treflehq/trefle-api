@@ -107,11 +107,14 @@ sources:
   # provenance existed, and the 2026-10 audit had to route 27k WCVP values
   # through `community` (human-reviewed) to get them in. This list applies to
   # the fields of the categories named here and nowhere else; the traits keep
-  # default_priority.
+  # default_priority. A value written before provenance ranks with gbif: below
+  # the three nomenclatural references (WCVP, IPNI, WFO, which covers the
+  # bryophytes WCVP leaves out), and tied with an automated aggregator, so a
+  # GBIF match alone never replaces it.
   category_priority:
     core:
       order: [community, powo, ipni, wfo, gbif, tropicos]
-      legacy_value_rank: ipni
+      legacy_value_rank: gbif
 
 cross_field_rules:
   - { min: ph_minimum, max: ph_maximum }

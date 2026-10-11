@@ -26,6 +26,12 @@ RSpec.describe 'Nomenclature source priority' do
     expect(species.author).to eq('Legacy.')
   end
 
+  it 'lets WFO correct a legacy author too (the bryophytes WCVP does not cover)' do
+    ingest({ author: 'Wfo.' }, 'wfo')
+
+    expect(species.author).to eq('Wfo.')
+  end
+
   it 'keeps a human correction above WCVP' do
     ingest({ author: 'Human.' }, 'community')
     ingest({ author: 'Kew.' }, 'powo')
