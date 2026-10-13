@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     get '/data', to: 'data#index'
     resources :species, only: %i[index show] do
       resources :record_corrections, only: %i[index], path: 'corrections'
+      get :sources, on: :member
     end
     resources :genus, only: %i[index show] do
     end
@@ -87,6 +88,7 @@ Rails.application.routes.draw do
     get '/', to: 'plants#index'
     get '/data_quality', to: 'data_quality#index'
     resources :data_runs, only: %i[index show]
+    resources :species_facts, only: %i[index]
 
     resources :users
     resources :user_queries, only: %i[index] do

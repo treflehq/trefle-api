@@ -1,0 +1,28 @@
+<div class="species-page home-page container">
+  <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
+
+  <div class="columns">
+    <div class="column is-3">
+      <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'sources'} %>
+    </div>
+
+    <div class="column is-9">
+      <section class="section content" id="sources">
+        <h1 class="title is-4">
+          <%= fa_icon('book', class: 'has-text-success') %> Data sources
+        </h1>
+        <p>
+          Each value Trefle shows for <em><%= @species.scientific_name %></em>, with what every source says about it.
+          When sources disagree, the strongest source is shown
+          (<%= link_to 'how sources are ranked', 'https://docs.trefle.io/docs/advanced/data-provenance', target: '_blank', rel: 'noopener' %>).
+          Values imported before sources were recorded one by one are marked <em>Source not recorded</em>.
+        </p>
+        <p class="is-size-7 has-text-grey">
+          Something wrong? <%= link_to 'Suggest a correction', explore_species_path(@species, anchor: 'specifications') %>.
+        </p>
+
+        <%= render partial: 'species_facts/provenance', locals: { provenance: @provenance, admin: false } %>
+      </section>
+    </div>
+  </div>
+</div>

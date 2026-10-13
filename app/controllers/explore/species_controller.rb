@@ -1,5 +1,5 @@
 class Explore::SpeciesController < Explore::ExploreController
-  before_action :set_species, only: %i[show edit update destroy refresh corrections]
+  before_action :set_species, only: %i[show edit update destroy refresh corrections sources]
 
   # Browse filters, all optional and combinable with the search box. Ranks are
   # the Species enum keys; flags map a param to a SQL/search condition.
@@ -48,6 +48,14 @@ class Explore::SpeciesController < Explore::ExploreController
         image: @species.main_image_url
       }
     )
+  end
+
+  # GET /explore/species/:id/sources
+  # Where each value of the species comes from.
+  def sources
+    @provenance = SpeciesProvenance.new(@species)
+    @page_title = "#{@species.scientific_name}: data sources"
+    @page_description = "Where each value Trefle holds on #{@species.scientific_name} comes from, source by source."
   end
 
   # # GET /species/new
