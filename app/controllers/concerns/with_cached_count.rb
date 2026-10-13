@@ -43,12 +43,20 @@ module WithCachedCount
     end
     if (page - 1) * items >= MAX_OFFSET
       raise PageDepthExceededError, "page #{page} with per_page #{items} reaches past row #{MAX_OFFSET}; " \
-        "the deepest page at this page size is #{MAX_OFFSET / items}. Narrow the results with a " \
+        "the deepest page at this page size is #{deepest_page(items)}. Narrow the results with a " \
         'filter or range instead of paging deep into the full collection. See https://docs.trefle.io'
     end
 
     vars[:count] ||= cache_count(collection)
     vars
+  end
+
+  # The last page a client can request at this page size: page N starts at
+  # row (N - 1) * per_page, which has to stay below MAX_OFFSET, and N cannot
+  # exceed MAX_PAGE_DEPTH. CollectionRenderers#collection_links caps `last`
+  # and `next` with it, so the links never point at a page that answers 400.
+  def deepest_page(items)
+    [MAX_PAGE_DEPTH, ((MAX_OFFSET - 1) / items) + 1].min
   end
 
   # add Rails.cache wrapper around the count call

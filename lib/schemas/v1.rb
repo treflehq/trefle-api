@@ -8,8 +8,10 @@ module Schemas
       division_order: DivisionOrder.schema,
       family: Family.schema,
       genus: Genus.schema,
+      # No plant_light: plant lists (/plants, /genus/{id}/plants,
+      # /distributions/{id}/plants, /plants/search) render each plant's main
+      # species with SpeciesLightSerializer, i.e. species_light.
       plant: Plant.schema,
-      plant_light: Plant.light_schema,
       species: Species.schema,
       species_light: Species.light_schema,
       synonym: Synonym.schema,

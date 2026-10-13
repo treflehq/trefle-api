@@ -1601,7 +1601,9 @@ paths:
       summary: List plants
       tags:
       - Plants
-      description: List plants
+      description: List plants. Each row is the main species of a plant, in the same
+        light shape (`species_light`) as the species lists; `links.plant` points at
+        the plant record. GET /plants/{id} returns the full plant.
       operationId: listPlants
       security:
       - token: []
@@ -3571,13 +3573,12 @@ paths:
       summary: Request a client-side token
       tags:
       - Auth
-      description: 'If you need to perform client-side requests, you will have to
-        request a client-side token from you backend, and get a JWT token from this
-        API call in return. This token will be usable on the client side. This call
-        need your secret access token, the url of the website the client side requests
-        will come from and optionally the client IP address.
+      description: |
+        If you need to perform client-side requests, request a client-side token from your backend and get a JWT in return. That token is usable on the client side, in place of your account token, for 24 hours.
 
-        '
+        This call needs your secret account token, as `Authorization: Bearer <token>` or as the `token` query parameter, the origin of the website the client-side requests will come from, and optionally the end user's IP address. A client-side token cannot claim another one.
+
+        Requests made with a client-side token count against the rate limit of the account that claimed it.
       operationId: claimClientSideToken
       security:
       - token: []
@@ -3591,24 +3592,35 @@ paths:
               schema:
                 type: object
                 properties:
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2020-07-13T13:41:00Z'
+                    description: When the token expires, in ISO 8601 UTC. After this
+                      time, request a new one
                   expiration:
                     type: string
+                    deprecated: true
                     example: 07-13-2020 13:41
-                    description: The expiration time of the token. After this time,
-                      you'll have to request a token again
+                    description: 'Deprecated: the expiration time formatted month-day-year,
+                      without a time zone. Read `expires_at` instead'
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NaJ9.eyJ1c2VyX2lkIjoxMDYsIe9yaWdpbiI6Imh0dHA6Ly9wb2NhbGhvc3Q6MzIzMyIsImlwIjoiOjoxIiwiZXhwIjoxNTk0NjQwNTEzfQ.TyqKyKxwsnn7TZsLAfS8OTmTUPk87CSXlk6a2wQU9co
                     description: The client-side access token, that you'll use instead
                       of your access token in the `token` parameter
+                required:
+                - token
+                - expires_at
+                - expiration
         '401':
-          description: Invalid credentials
+          description: Missing or invalid account token
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error"
         '422':
-          description: Missing parameters
+          description: Missing origin
           content:
             application/json:
               schema:
@@ -3645,12 +3657,15 @@ paths:
                 origin:
                   type: string
                   example: https://example.com
-                  description: The website url the API requests will come from
+                  description: The origin (scheme, host and port) of the website the
+                    client-side requests will come from, as browsers send it in the
+                    `Origin` header. A request whose `Origin` header differs is refused.
                 ip:
                   type: string
                   nullable: true
                   example: 12.23.34.45
-                  description: The client IP
+                  description: 'Optional: the IP address of the end user. When given,
+                    the token only works from that address.'
               required:
               - origin
         required: true
@@ -5524,59 +5539,6 @@ components:
       - scientific_name
       - slug
       - links
-    plant_light:
-      type: object
-      properties:
-        id:
-          type: integer
-        common_name:
-          type: string
-          nullable: true
-        slug:
-          type: string
-        scientific_name:
-          type: string
-        year:
-          type: integer
-          nullable: true
-        bibliography:
-          type: string
-          nullable: true
-        author:
-          type: string
-          nullable: true
-        family_common_name:
-          type: string
-          nullable: true
-        genus_id:
-          type: integer
-        main_species_id:
-          type: integer
-          nullable: true
-        vegetable:
-          type: boolean
-          nullable: true
-        observations:
-          type: string
-          nullable: true
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            genus:
-              type: string
-            species:
-              type: string
-          required:
-          - self
-          - genus
-          - species
-      required:
-      - id
-      - scientific_name
-      - slug
-      - links
     species:
       type: object
       properties:
@@ -5857,9 +5819,13 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
-          description: Common names of the species per language
+              description: A common name of the species in that language
+          description: 'Common names of the species, grouped by language. Each key
+            is the language code the source gave: mostly ISO 639-1 two-letter codes
+            (`en`, `fr`, `de`), but older imports used ISO 639-3 three-letter codes
+            (`eng`, `fra`, `deu`), so one language can appear under both keys and
+            a client should merge them. A few keys are regional tags (`pt-br`, `zh-tw`,
+            `zh-hant`), and names with no known language sit under an empty key.'
         distribution:
           type: object
           deprecated: true
@@ -5867,8 +5833,7 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
+              description: The name of a distribution zone
           description: "(Deprecated) Distribution of the species per establishment"
         distributions:
           type: object
@@ -6304,7 +6269,10 @@ components:
             nitrogen_fixation:
               type: string
               nullable: true
-              description: Capability to fix nitrogen in monoculture
+              description: 'Capability to fix nitrogen in monoculture (USDA PLANTS
+                scale). In the current data the value is only `High` or `None`, or
+                null when unknown: the intermediate classes of the scale (`Low`, `Medium`)
+                are not used, and `None` is a recorded value, not missing data.'
             shape_and_orientation:
               type: string
               nullable: true
@@ -6465,12 +6433,20 @@ components:
                 cm:
                   type: number
                   nullable: true
-                  description: Minimum depth of soil required for the species, in
-                    centimeters. Plants that do not have roots such as rootless aquatic
-                    plants have 0
-              description: Minimum depth of soil required for the species, in centimeters.
-                Plants that do not have roots such as rootless aquatic plants have
-                0
+                  description: 'Rooting depth of the species, in centimeters: how
+                    deep its roots typically go, not the soil depth it needs. Values
+                    sourced from the TRY plant trait database (trait "Root rooting
+                    depth") are the median of the depths measured for the species;
+                    older values come from USDA PLANTS ("minimum root depth"). The
+                    species facts (`/species/{id}/facts`) name the source of each
+                    value. Despite the field name, it is not a minimum.'
+              description: 'Rooting depth of the species, in centimeters: how deep
+                its roots typically go, not the soil depth it needs. Values sourced
+                from the TRY plant trait database (trait "Root rooting depth") are
+                the median of the depths measured for the species; older values come
+                from USDA PLANTS ("minimum root depth"). The species facts (`/species/{id}/facts`)
+                name the source of each value. Despite the field name, it is not a
+                minimum.'
             minimum_temperature:
               type: object
               properties:
@@ -6925,11 +6901,17 @@ components:
         plants_count:
           type: integer
           description: Total number of plants in the database
+        detailed_plants_count:
+          type: integer
+          description: Number of species carrying detailed trait data
         detailled_plants_count:
           type: integer
-          description: Number of plants carrying detailed trait data
+          deprecated: true
+          description: Deprecated misspelling of `detailed_plants_count`, same value.
+            Kept for existing clients; read `detailed_plants_count` instead.
       required:
       - plants_count
+      - detailed_plants_count
       - detailled_plants_count
     zone:
       type: object

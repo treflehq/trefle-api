@@ -2,7 +2,7 @@ class Api::V1::HomeController < ApplicationController
 
   def index
     @plants_count = SiteCounts.plants_count
-    @detailled_plants_count = Rails.cache.fetch("home/detailled_plants_count-#{@plants_count}") { Species.where.not(foliage_color: nil).count }
+    @detailed_plants_count = Rails.cache.fetch("home/detailled_plants_count-#{@plants_count}") { Species.where.not(foliage_color: nil).count }
 
     count_per_type = Rails.cache.fetch("home/count_per_type-#{@plants_count}") { Species.group(:rank).count }
     @per_species_plants_count = Rails.cache.fetch("home/per_species_plants_count-#{@plants_count}") do
@@ -12,7 +12,7 @@ class Api::V1::HomeController < ApplicationController
         'Hybrids' => count_per_type['hybrid'],
         'Sub-species' => count_per_type['ssp'],
         'Forms' => count_per_type['form'],
-        'Cultivars' => count_per_type['cultivar']
+        'Subvarieties' => count_per_type['subvar']
       }
     end
 
@@ -20,7 +20,9 @@ class Api::V1::HomeController < ApplicationController
 
     render json: {
       plants_count: @plants_count,
-      detailled_plants_count: @detailled_plants_count
+      detailed_plants_count: @detailed_plants_count,
+      # Deprecated misspelling, kept so existing clients keep reading it.
+      detailled_plants_count: @detailed_plants_count
     }
   end
 

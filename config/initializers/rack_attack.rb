@@ -17,6 +17,48 @@ class Rack::Attack
     ].reject(&:blank?).first
   end
 
+  # Api::ApiController#user_from_token tells the two kinds of token apart
+  # the same way: account tokens are short, client-side JWTs are not.
+  JWT_MIN_LENGTH = 49
+
+  # The token whose quota a request counts against. A client-side JWT
+  # (POST /api/auth/claim) counts against the account that claimed it: its
+  # own string is different for every claim, so keyed on it each JWT got a
+  # fresh 60/min bucket, and claiming more JWTs multiplied the quota.
+  #
+  # Decoding verifies the signature and the expiry (HMAC, no I/O); the
+  # owner's token is one primary-key read, cached for ten minutes. A JWT that
+  # does not decode, or whose user is gone, keeps its own string as the key:
+  # the app answers 401 to it anyway.
+  def self.quota_token(req)
+    # Read by the throttle and its limit proc: resolve once per request.
+    return req.env['trefle.quota_token'] if req.env.key?('trefle.quota_token')
+
+    token = token(req)
+    token = jwt_owner_token(raw_token(req))&.downcase || token if token && token.length >= JWT_MIN_LENGTH
+    req.env['trefle.quota_token'] = token
+  end
+
+  # Like `token` above, without the downcasing, which would break a JWT's
+  # signature.
+  def self.raw_token(req)
+    [
+      req.env['HTTP_AUTHORIZATION'].to_s.sub(/\Abearer\s+/i, '').strip,
+      req.GET['token'].to_s.gsub(/\s+/, '')
+    ].reject(&:blank?).first
+  end
+
+  def self.jwt_owner_token(jwt)
+    user_id = ::Auth::JsonWebToken.decode(jwt)[:user_id]
+    return nil unless user_id
+
+    Rails.cache.fetch(['rack_attack/jwt_owner_token', user_id], expires_in: 10.minutes) do
+      User.where(id: user_id).pick(:token)
+    end
+  rescue JWT::DecodeError
+    nil
+  end
+
   # Same envelope as Api::ApiController#render_error -- these responses are
   # built by Rack middleware, before any controller runs, so they can't
   # reuse the helper directly (#216). Shared by throttled_responder (429s,
@@ -53,10 +95,13 @@ Rack::Attack.safelist('allowed users') do |request|
   Rack::Attack.token(request)&.starts_with?('unl-')
 end
 
-limit_proc = proc {|req| Rack::Attack.token(req)&.starts_with?('spo-') ? 600 : 60 }
+# The JWT of a sponsor account shares the account's bucket, so it gets the
+# account's limit too. The safelist above stays on the token as sent: a JWT
+# handed to browsers never inherits an unlimited account's exemption.
+limit_proc = proc {|req| Rack::Attack.quota_token(req)&.starts_with?('spo-') ? 600 : 60 }
 
 Rack::Attack.throttle(Rack::Attack::REQUEST_PER_IP_THROTTLE, limit: limit_proc, period: 60) do |req|
-  [req.ip, Rack::Attack.token(req)].join('-') if req.path.starts_with?('/api')
+  [req.ip, Rack::Attack.quota_token(req)].join('-') if req.path.starts_with?('/api')
 end
 
 Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(url: ENV['REDIS_URL'] || 'redis://127.0.0.1:6379', expires_in: 480.minutes)

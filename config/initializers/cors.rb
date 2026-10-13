@@ -21,7 +21,9 @@
 # would still get matched by this catch-all and stamped with CORS headers,
 # regardless of its verb. The `if:` proc is what actually keeps writes out.
 read_methods = %w[GET HEAD OPTIONS].freeze
-rate_limit_headers = %w[RateLimit-Limit RateLimit-Remaining RateLimit-Reset].freeze
+# Retry-After rides on a 429 (config/initializers/rack_attack.rb); without it
+# in the list a browser client cannot read how long to wait.
+rate_limit_headers = %w[RateLimit-Limit RateLimit-Remaining RateLimit-Reset Retry-After].freeze
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do

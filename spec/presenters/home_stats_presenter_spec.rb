@@ -29,6 +29,14 @@ RSpec.describe HomeStatsPresenter do
     end
   end
 
+  describe 'RANK_LABELS' do
+    it 'labels every rank of the enum, subvar as subvarieties (not cultivars)' do
+      expect(described_class::RANK_LABELS.keys).to match_array(Species.ranks.keys)
+      expect(described_class::RANK_LABELS['subvar']).to eq('Subvarieties')
+      expect(described_class::RANK_LABELS.values).not_to include('Cultivars')
+    end
+  end
+
   describe '#synonyms_count' do
     it 'counts synonyms on top of whatever already exists' do
       baseline = presenter.synonyms_count
@@ -93,8 +101,6 @@ RSpec.describe HomeStatsPresenter do
       expect(activity[:accepted]).to eq(baseline[:accepted] + 1)
       expect(activity[:fields_completed]).to eq(baseline[:fields_completed] + 1)
       expect(activity[:contributors]).to eq(baseline[:contributors] + 2)
-      expect(activity[:weekly_accepted].length).to eq(12)
-      expect(activity[:weekly_accepted].sum).to eq(baseline[:weekly_accepted].sum + 2)
     end
 
     it 'counts the fields the accepted corrections set, the name excepted' do
@@ -115,19 +121,15 @@ RSpec.describe HomeStatsPresenter do
       expect(presenter.correction_activity[:accepted]).to eq(baseline)
     end
 
-    it 'buckets accepted corrections by week across the last 12 weeks' do
-      baseline = presenter.correction_activity[:weekly_accepted]
+    it 'counts the corrections reviewed in the window, accepted or rejected' do
+      baseline = presenter.correction_activity[:reviewed]
 
-      corrected(status: :accepted, created_at: Time.current, updated_at: Time.current)
-      corrected(status: :accepted, created_at: Time.current, updated_at: Time.current)
-      corrected(status: :accepted, created_at: 11.weeks.ago, updated_at: 11.weeks.ago)
+      corrected(status: :accepted, created_at: 40.days.ago, updated_at: 2.days.ago)
+      corrected(status: :rejected, created_at: 3.days.ago, updated_at: 1.day.ago)
+      corrected(status: :pending, created_at: 1.day.ago)
+      corrected(status: :rejected, created_at: 50.days.ago, updated_at: 45.days.ago)
 
-      series = presenter.correction_activity[:weekly_accepted]
-
-      expect(series.length).to eq(12)
-      expect(series.sum).to eq(baseline.sum + 3)
-      expect(series.first).to eq(baseline.first + 1) # the oldest bucket (11 weeks ago)
-      expect(series.last).to eq(baseline.last + 2) # the current week
+      expect(presenter.correction_activity[:reviewed]).to eq(baseline + 2)
     end
   end
 
