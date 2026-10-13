@@ -29,7 +29,20 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
     %i[ssp var form subvar hybrid species].find {|rank| name.to_s.match?(SCIENTIFIC_NAME_VALIDATION_REGEX[rank]) }&.to_s
   end
 
+  # Two connecting terms in one string: "Dryas octopetala subsp. octopetala
+  # var. kamtschatica" is the full classification of a variety, the way USDA
+  # PLANTS prints it, not a name. A name has one infraspecific rank (ICN Art.
+  # 24.1); the rest is classification (TAXONOMY.md, "One infraspecific rank
+  # per name"). Refused with its own message, whatever the record's rank.
+  CONNECTING_TERM = '(?:ssp|subsp|var|subvar|form|fo?)\\.'.freeze
+  TWO_RANKS = /\A\S+ \S+ #{CONNECTING_TERM} \S+ #{CONNECTING_TERM} \S+\z/
+
   def validate_each(record, attribute, value)
+    if value.to_s.match?(TWO_RANKS)
+      record.errors.add(attribute, "'#{value}' carries two infraspecific ranks; a name has one (ICN Art. 24.1), the rest is classification")
+      return
+    end
+
     reg = SCIENTIFIC_NAME_VALIDATION_REGEX[record.rank.to_sym]
     record.errors.add(attribute, "structure of '#{value}' seems invalid for #{record.rank} rank") if (value =~ reg).nil?
   end
