@@ -26,8 +26,9 @@ module Schemas
           links: Helpers.object_of({
             self: { type: :string, description: 'API endpoint to the species itself' },
             genus: { type: :string, description: 'API endpoint to the species genus' },
-            plant: { type: :string, description: 'API endpoint to the species plant' }
-          }, extras: { required: %w[self genus plant], description: 'API endpoints to related resources' })
+            plant: { type: :string, description: 'API endpoint to the species plant' },
+            synonyms: { type: :string, description: 'API endpoint to the paginated list of the species synonyms' }
+          }, extras: { required: %w[self genus plant synonyms], description: 'API endpoints to related resources' })
         }
       end
 
@@ -103,9 +104,13 @@ module Schemas
       def self.light_schema
         Helpers.object_of(
           base.merge({
-            synonyms: { type: :array, items: { type: :string, nullable: true, description: 'TODO' }, description: 'The symonyms scientific names' }
+            synonyms_count: {
+              type: :integer,
+              description: 'The number of synonyms attached to this record. The names themselves are not embedded in list payloads: ' \
+                           'fetch them from `links.synonyms` (which also lists the synonyms attached to the species autonyms).'
+            }
           }),
-          extras: { required: %w[id rank family genus genus_id scientific_name slug status links], description: 'The symonyms scientific names' }
+          extras: { required: %w[id rank family genus genus_id scientific_name slug status links synonyms_count], description: 'A species, as listed in collections' }
         )
       end
 
@@ -243,12 +248,14 @@ module Schemas
               # })
             }, extras: { description: 'Growing of farming related fields' }),
 
-            synonyms: Helpers.array_of({
-              id: { type: :integer, description: 'An unique identifier' }, # 101131,
-              name: { type: :string, description: 'The scientific name of the symonym' }, # "(Douglas ex D.Don) Lindl.",
-              author: { type: :string, nullable: true, description: 'The author of the symonym' }, # "(Douglas ex D.Don) Lindl.",
-              sources: Helpers.schema_array_href(schema: 'source').merge(description: 'The sources this synonym was built from')
-            }, extras: { description: 'The symonyms scientific names and authors' }),
+            synonyms: {
+              type: :array,
+              items: Synonym.schema,
+              description: "The first #{::SpeciesSerializer::SYNONYMS_LIMIT} synonyms (ordered by name) of the species and of its autonyms " \
+                           '(e.g. "Quercus robur subsp. robur", where WCVP attaches the synonyms of the typical subspecies). ' \
+                           'The full, paginated list is at `links.synonyms`; `synonyms_count` is the total.'
+            },
+            synonyms_count: { type: :integer, description: 'The total number of synonyms of the species and of its autonyms (the embedded `synonyms` array is truncated)' },
 
             sources: Helpers.array_of({
               id: { type: :string, description: 'An unique identifier from the source' }, # 101131,

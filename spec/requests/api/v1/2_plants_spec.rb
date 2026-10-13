@@ -31,14 +31,14 @@ describe 'Plants API' do
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number,
                 description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -94,6 +94,8 @@ describe 'Plants API' do
       operationId 'searchPlants'
       parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
                 schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
@@ -106,9 +108,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:q) { 'cocos' }
         let(:token) { user.token }
@@ -193,14 +193,14 @@ describe 'Plants API' do
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number,
                 description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -234,14 +234,14 @@ describe 'Plants API' do
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
       parameter name: :page, in: :query, required: false, type: :number,
                 description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
@@ -275,14 +275,14 @@ describe 'Plants API' do
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
       parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }

@@ -8,53 +8,26 @@ module CollectionRenderers
   end
 
   def collection_links(collection, scope: %i[api v1], name: nil)
+    route = [*scope, *[*name] || collection.table_name]
+    base = pagination_params
     {
-      self: polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params),
-      first: polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params.merge({ page: 1 })),
-      prev: @pagy.prev && polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params.merge({ page: @pagy.prev })),
-      next: @pagy.next && polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params.merge({ page: @pagy.next })),
-      last: polymorphic_path([*scope, *[*name] || collection.table_name], filtered_params.merge({ page: @pagy.last }))
+      self: polymorphic_path(route, base),
+      first: polymorphic_path(route, base.merge({ page: 1 })),
+      prev: @pagy.prev && polymorphic_path(route, base.merge({ page: @pagy.prev })),
+      next: @pagy.next && polymorphic_path(route, base.merge({ page: @pagy.next })),
+      last: polymorphic_path(route, base.merge({ page: @pagy.last }))
     }.compact
   end
 
-  def parse_search_options
-    parse_search_pagination_options.merge(parse_search_filters_options)
-  end
+  # The query string every pagination link is built from. When the client
+  # chose a page size (through `per_page` or its `limit` alias, see PerPage)
+  # the links carry it as `per_page`, so following them keeps the page size
+  # whichever spelling the request used.
+  def pagination_params
+    base = filtered_params
+    return base unless respond_to?(:per_page_requested?, true) && per_page_requested?
 
-  def parse_search_filters_options
-    {}
-  end
-
-  def parse_search_pagination_options
-    params.require(:q)
-    page = params[:page] || nil
-    params[:limit] = 50 if params[:limit] && params[:limit].to_i > 50
-    limit = params[:limit] || 20
-    offset = params[:offset]&.to_i || (page && (page.to_i - 1) * limit) || 0
-    { limit: limit, offset: offset }
-  end
-
-  def serialize_search_data(results)
-    results['hits'].map do |hit|
-      hit.merge({
-        links: {
-          self: api_v1_species_path(hit['slug'] || hit['id']),
-          plant: api_v1_plant_path(hit['slug'] || hit['id']),
-          genus: api_v1_genus_path(hit['genus_id'])
-        }
-      })
-    end
-  end
-
-  def search_collection_links(collection, scope: %i[api v1], name: nil)
-    currpage = params[:page]&.to_i || 1
-    {
-      self: polymorphic_path([*scope, *name], filtered_params),
-      first: polymorphic_path([*scope, *name], filtered_params.merge({ page: 1 })),
-      prev: collection['offset'] > 0 && polymorphic_path([*scope, *name], filtered_params.merge({ page: currpage - 1 })) || nil,
-      next: (collection['offset'] + collection['limit']) < collection['nbHits'] && polymorphic_path([*scope, *name], filtered_params.merge({ page: currpage + 1 })) || nil,
-      last: polymorphic_path([*scope, *name], filtered_params.merge({ page: (collection['nbHits'] / collection['limit']).to_i + 1 }))
-    }.compact
+    base.without(:limit).merge(per_page: @pagy.items)
   end
 
   def resource_metadata(resource)
@@ -71,7 +44,9 @@ module CollectionRenderers
     # }.merge(serializer_options)
 
     meta = {
-      total: @pagy.count || collection.count
+      total: @pagy.count || collection.count,
+      page: @pagy.page,
+      per_page: @pagy.items
     }.merge(meta)
 
     render json: Panko::Response.new({
