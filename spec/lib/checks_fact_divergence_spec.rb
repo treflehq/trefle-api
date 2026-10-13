@@ -58,6 +58,33 @@ RSpec.describe Checks::FactDivergence do
     expect(warning).to be_nil
   end
 
+  it 'stays quiet when a number only gains a trailing zero' do
+    species.update!(maximum_height_cm: 500)
+    record('maximum_height_cm', 500.0)
+
+    described_class.run(species.id)
+
+    expect(warning).to be_nil
+  end
+
+  it 'reports a number that genuinely differs' do
+    species.update!(maximum_height_cm: 500)
+    record('maximum_height_cm', 450.5)
+
+    described_class.run(species.id)
+
+    expect(warning).to be_present
+  end
+
+  it 'reads a list written with commas, as TRY writes them' do
+    species.update!(flower_color: %i[yellow white])
+    record('flower_color', 'white, yellow')
+
+    described_class.run(species.id)
+
+    expect(warning).to be_nil
+  end
+
   it 'reports a flag column that genuinely differs' do
     species.update!(flower_color: %i[yellow])
     record('flower_color', 'red|blue')
