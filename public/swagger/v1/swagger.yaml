@@ -855,9 +855,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -981,9 +984,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1106,9 +1112,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_plants"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       security:
       - token: []
       - bearerAuth: []
@@ -1234,9 +1243,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1321,9 +1333,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1408,9 +1423,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1580,9 +1598,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1711,9 +1732,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       security:
       - token: []
       - bearerAuth: []
@@ -1919,6 +1943,13 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
+      - name: q
+        in: query
+        required: false
+        description: Search zones by name (part of the name, case- and accent-insensitive).
+          Exact matches come first.
+        schema:
+          type: string
       - name: page
         in: query
         required: false
@@ -1969,13 +2000,16 @@ paths:
       summary: Retrieve a distribution zone
       tags:
       - Distributions
-      description: Get a zone
+      description: |
+        Get a zone by its id, its slug (the TDWG code, e.g. `fra`) or its exact name (case- and accent-insensitive, e.g. `france`).
+        When the name is shared by a region and a botanical country (TDWG level 3), the country is returned.
+        Unknown zones get a 404 whose message points to the `?q=` name search.
       operationId: getZone
       parameters:
       - name: id
         required: true
         in: path
-        description: The id or the slug of the requested zone
+        description: The id, the slug or the exact name of the requested zone
         schema:
           type: string
       security:
@@ -1996,6 +2030,12 @@ paths:
                     properties:
                       last_modified:
                         type: string
+        '404':
+          description: Unknown zone
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
         '401':
           description: Invalid credentials
   "/api/v1/distributions/{zone_id}/species":
@@ -2036,9 +2076,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -3048,7 +3091,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3084,7 +3131,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3120,7 +3171,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3156,7 +3211,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3192,7 +3251,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -4020,10 +4083,18 @@ components:
           type: string
         tdwg_code:
           type: string
+          description: The TDWG (WGSRPD) code of the zone
         tdwg_level:
           type: integer
+          description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+            4 basic recording unit'
         species_count:
           type: integer
+          description: The number of species recorded directly in this zone
+        species_count_cumulative:
+          type: integer
+          description: The number of distinct species recorded in this zone or in
+            any zone below it (the size of its species collection)
         links:
           type: object
           properties:
@@ -4048,10 +4119,18 @@ components:
               type: string
             tdwg_code:
               type: string
+              description: The TDWG (WGSRPD) code of the zone
             tdwg_level:
               type: integer
+              description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                4 basic recording unit'
             species_count:
               type: integer
+              description: The number of species recorded directly in this zone
+            species_count_cumulative:
+              type: integer
+              description: The number of distinct species recorded in this zone or
+                in any zone below it (the size of its species collection)
             links:
               type: object
               properties:
@@ -4079,10 +4158,18 @@ components:
                 type: string
               tdwg_code:
                 type: string
+                description: The TDWG (WGSRPD) code of the zone
               tdwg_level:
                 type: integer
+                description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                  4 basic recording unit'
               species_count:
                 type: integer
+                description: The number of species recorded directly in this zone
+              species_count_cumulative:
+                type: integer
+                description: The number of distinct species recorded in this zone
+                  or in any zone below it (the size of its species collection)
               links:
                 type: object
                 properties:
@@ -4104,6 +4191,7 @@ components:
       - tdwg_code
       - tdwg_level
       - species_count
+      - species_count_cumulative
     error:
       type: object
       properties:
@@ -4935,6 +5023,8 @@ components:
           type: string
         ligneous_type:
           type: string
+        nitrogen_fixation:
+          type: string
         rank:
           type: string
         scientific_name:
@@ -5005,6 +5095,8 @@ components:
         leaf_retention:
           type: string
         ligneous_type:
+          type: string
+        nitrogen_fixation:
           type: string
         rank:
           type: string
@@ -5094,6 +5186,8 @@ components:
         minimum_temperature_deg_c:
           type: string
         minimum_temperature_deg_f:
+          type: string
+        nitrogen_fixation:
           type: string
         ph_maximum:
           type: string
@@ -5380,115 +5474,223 @@ components:
       properties:
         atmospheric_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         average_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         completion_ratio:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         frost_free_days_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ground_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         images_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         light:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_root_depth_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_maximum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_days_to_harvest:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_row_spacing_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_spread_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_nutriments:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_salinity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_texture:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         sources_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         synonyms_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         toxicity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         year:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
     ranges_species:
       type: object
       properties:
         atmospheric_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         average_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         completion_ratio:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         frost_free_days_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ground_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         images_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         light:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_root_depth_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_maximum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_days_to_harvest:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_row_spacing_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_spread_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_nutriments:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_salinity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_texture:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         sources_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         synonyms_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         toxicity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         year:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
 servers:
 - url: http://{defaultHost}
   variables:

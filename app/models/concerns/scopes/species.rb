@@ -92,40 +92,14 @@ module Scopes
       # }
       scope :filter_not_by_image_url, ->(_v) { where.not(FIELD_ALIASES['image_url'] => nil) }
 
-      # Ranges
-      scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }
-      scope :range_by_atmospheric_humidity, ->(a, b) { where(atmospheric_humidity: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_completion_ratio, ->(a, b) { where(completion_ratio: ((a.to_i)...(b&.to_i || 3000))) }
-      # scope :range_by_bloom_months, ->(a, b) { where(bloom_months: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      # scope :range_by_duration, ->(a, b) { where(duration: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      scope :range_by_frost_free_days_minimum, ->(a, b) { where(frost_free_days_minimum: ((a.to_i)...(b&.to_i || 3000))) }
-      # scope :range_by_fruit_months, ->(a, b) { where(fruit_months: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      scope :range_by_ground_humidity, ->(a, b) { where(ground_humidity: ((a.to_i)...(b&.to_i || 3000))) }
-      # scope :range_by_growth_months, ->(a, b) { where(growth_months: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      scope :range_by_images_count, ->(a, b) { where(images_count: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_light, ->(a, b) { where(light: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_average_height_cm, ->(a, b) { where(average_height_cm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_maximum_height_cm, ->(a, b) { where(maximum_height_cm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_maximum_precipitation_mm, ->(a, b) { where(maximum_precipitation_mm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_maximum_temperature_deg_c, ->(a, b) { where(maximum_temperature_deg_c: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_maximum_temperature_deg_f, ->(a, b) { where(maximum_temperature_deg_f: ((a.to_i)...(b&.to_i || 3000))) }
-      # scope :range_by_minimum_planting_density, ->(a, b) { where(minimum_planting_density: ((a&.to_i || 0)...(b&.to_i || 3000))) }
-      scope :range_by_minimum_precipitation_mm, ->(a, b) { where(minimum_precipitation_mm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_minimum_root_depth_cm, ->(a, b) { where(minimum_root_depth_cm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_minimum_temperature_deg_c, ->(a, b) { where(minimum_temperature_deg_c: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_minimum_temperature_deg_f, ->(a, b) { where(minimum_temperature_deg_f: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_ph_maximum, ->(a, b) { where(ph_maximum: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_ph_minimum, ->(a, b) { where(ph_minimum: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_planting_days_to_harvest, ->(a, b) { where(planting_days_to_harvest: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_planting_row_spacing_cm, ->(a, b) { where(planting_row_spacing_cm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_planting_spread_cm, ->(a, b) { where(planting_spread_cm: ((a.to_i)...(b&.to_i || 3_000_000))) }
-      scope :range_by_soil_nutriments, ->(a, b) { where(soil_nutriments: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_soil_salinity, ->(a, b) { where(soil_salinity: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_soil_texture, ->(a, b) { where(soil_texture: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_synonyms_count, ->(a, b) { where(synonyms_count: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_sources_count, ->(a, b) { where(sources_count: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_toxicity, ->(a, b) { where(toxicity: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_year, ->(a, b) { where(year: ((a.to_i)...(b&.to_i || 3000))) }
+      # Ranges: `range[field]=min,max`, inclusive on both sides, either side
+      # optional, bounds parsed as decimals (see Rangeable). One generated
+      # scope per RANGEABLE_FIELDS entry instead of a hand-kept list that had
+      # drifted (truncated bounds, exclusive upper bound, range_by_year
+      # defined twice).
+      Api::V1::SpeciesController::RANGEABLE_FIELDS.each do |field|
+        scope "range_by_#{field}".to_sym, ->(min, max) { where_in_range(field, min, max) }
+      end
 
       # Search
       scope :database_search, lambda {|q|
