@@ -211,13 +211,13 @@ class SpeciesSerializer < BaseSerializer
   end
 
   def distribution
-    object.species_distributions.includes(:zone).group_by(&:establishment).transform_values do |e|
+    species_distributions_with_zones.group_by(&:establishment).transform_values do |e|
       e.map {|r| r.zone.name }
     end
   end
 
   def distributions
-    object.species_distributions.includes(:zone).group_by(&:establishment).transform_values do |e|
+    species_distributions_with_zones.group_by(&:establishment).transform_values do |e|
       e.map {|r| ZoneLightSerializer.new.serialize(r.zone) }
     end
   end
@@ -250,9 +250,19 @@ class SpeciesSerializer < BaseSerializer
 
   def sources
     Panko::ArraySerializer.new(
-      object.foreign_sources_plants.includes(:foreign_source),
+      preloaded_or(:foreign_sources_plants, :foreign_source),
       each_serializer: ForeignSourcesPlantSerializer
     ).to_a
+  end
+
+  # The list rows with `fields` (SpeciesListSerializer) come with these
+  # associations preloaded for the whole page; the detail loads them here.
+  def species_distributions_with_zones
+    preloaded_or(:species_distributions, :zone)
+  end
+
+  def preloaded_or(association, nested)
+    object.association(association).loaded? ? object.public_send(association) : object.public_send(association).includes(nested)
   end
 
   def specifications

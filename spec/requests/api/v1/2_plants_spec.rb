@@ -23,6 +23,7 @@ describe 'Plants API' do
                   'the species lists; `links.plant` points at the plant record. GET /plants/{id} returns the full plant.'
       operationId 'listPlants'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
@@ -65,6 +66,7 @@ describe 'Plants API' do
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested plant'
 
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_plant
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -110,6 +112,7 @@ describe 'Plants API' do
       parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
 
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -214,6 +217,7 @@ describe 'Plants API' do
       description 'List all the plants in the requested zone.'
       operationId 'listPlantsZone'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
@@ -267,6 +271,7 @@ describe 'Plants API' do
       description 'List plants of the requested genus'
       operationId 'listPlantsGenus'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
@@ -322,6 +327,7 @@ describe 'Plants API' do
       description 'List the species attached to the requested plant'
       operationId 'listSpeciesPlant'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
@@ -377,6 +383,7 @@ describe 'Plants API' do
       description 'Get one species attached to the requested plant'
       operationId 'getSpeciesPlant'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species
 
       parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'
@@ -431,6 +438,7 @@ describe 'Plants API' do
       description 'Get one plant of the requested genus'
       operationId 'getPlantGenus'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_plant
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'

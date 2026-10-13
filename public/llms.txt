@@ -120,6 +120,19 @@ indicator classes (1 to 9, 12 for soil humidity) from a European database
 cultivation. Species outside Europe, tropical ones in particular, mostly
 have none.
 
+## Choosing the fields
+
+fields=a,b (top-level keys, id and slug always come) trims any species or
+plants list, search or detail. On a list it also accepts every key of the
+species detail, so the traits of a whole page come in one call instead of
+one detail call per species:
+
+    GET /species?filter[edible]=true&fields=scientific_name,common_name,growth,flower
+
+A group (growth, flower, specifications...) comes whole. `synonyms` stays on
+the detail. With images, common_names, distribution, distributions or
+sources, per_page is at most 20. An unknown key answers 400 with the valid ones.
+
 ## Pagination
 
 Collections return 20 items per page by default. per_page=N (1 to 100; limit=N

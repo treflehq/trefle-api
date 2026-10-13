@@ -123,6 +123,7 @@ describe 'Distributions API' do
       description 'List the species present in the requested zone'
       operationId 'listSpeciesZone'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or slug'
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
@@ -177,6 +178,7 @@ describe 'Distributions API' do
       description 'Get one species present in the requested zone'
       operationId 'getSpeciesZone'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or slug'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'
@@ -232,6 +234,7 @@ describe 'Distributions API' do
       description 'Get one plant present in the requested zone'
       operationId 'getPlantZone'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_plant
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or slug'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'

@@ -1,4 +1,5 @@
 class Api::V1::PlantsController < Api::ApiController
+  include SparseFieldsets
 
   include WithCachedCount
 
@@ -37,7 +38,8 @@ class Api::V1::PlantsController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -49,9 +51,17 @@ class Api::V1::PlantsController < Api::ApiController
     render_serialized_resource(
       @resource.plant,
       PlantSerializer,
+      serializer_options: fields_serializer_options,
       meta: resource_metadata(@resource.plant)
     )
   end
+
+  # SparseFieldsets: the plant detail picks among the plant's keys, the lists
+  # among the species detail's.
+  def fields_serializer
+    action_name == 'show' ? PlantSerializer : super
+  end
+  protected :fields_serializer
 
   # Report an error
   def report
@@ -80,7 +90,8 @@ class Api::V1::PlantsController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -104,7 +115,8 @@ class Api::V1::PlantsController < Api::ApiController
       order: search_params[:order]
     }.compact
 
-    @collection = Species.pagy_search(Species.search_term(search), **options)
+    # On top of genus and plant, the associations the requested fields read (SparseFieldsets).
+    @collection = Species.pagy_search(Species.search_term(search), **options, includes: options[:includes] + fields_preloads)
     # Page size (`per_page`, or its `limit` alias) is read by PerPage.
     @pagy, @collection = pagy_searchkick(@collection)
 
@@ -112,7 +124,8 @@ class Api::V1::PlantsController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -129,7 +142,7 @@ class Api::V1::PlantsController < Api::ApiController
     # need preloading regardless of which branch above set @collection (see
     # #281). Synonyms are no longer embedded in list payloads (only
     # `synonyms_count`, a column).
-    @collection = @collection.preload(:plant, :genus)
+    @collection = @collection.preload(:plant, :genus, *fields_preloads)
 
     @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS,
                                 range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS)
