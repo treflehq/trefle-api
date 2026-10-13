@@ -72,6 +72,52 @@ RSpec.describe 'Management review queue of corrections', type: :request do
     expect(flash[:notice]).to include('2 correction(s) rejected')
   end
 
+  it 'keeps the comment typed on the row with the decision' do
+    rc = correction
+
+    patch accept_management_record_correction_path(rc), params: { comments: { rc.id.to_s => '  WCVP and IPNI agree  ' }, return_to: queue }
+
+    expect(rc.reload).to be_accepted_change_status
+    expect(rc.review_comment).to eq('WCVP and IPNI agree')
+  end
+
+  it 'applies the selection comment unless a row has its own' do
+    first = correction
+    second = correction
+
+    patch bulk_management_record_corrections_path,
+          params: { ids: [first.id, second.id], decision: 'reject', comment: 'No source', comments: { second.id.to_s => 'Blog source' }, return_to: queue }
+
+    expect(first.reload.review_comment).to eq('No source')
+    expect(second.reload.review_comment).to eq('Blog source')
+  end
+
+  it 'ignores the selection comment on a single-row decision' do
+    rc = correction
+
+    patch accept_management_record_correction_path(rc), params: { comment: 'No source', return_to: queue }
+
+    expect(rc.reload).to be_accepted_change_status
+    expect(rc.review_comment).to be_nil
+  end
+
+  it 'drops the comment of a decision that did not go through' do
+    rc = correction(record: Genus.first)
+
+    patch accept_management_record_correction_path(rc), params: { comments: { rc.id.to_s => 'Looks right' }, return_to: queue }
+
+    expect(rc.reload).to be_pending_change_status
+    expect(rc.review_comment).to be_nil
+  end
+
+  it 'shows the comment of a decided correction' do
+    rc = correction(change_status: :rejected, review_comment: 'Same value, rounded')
+
+    get management_record_corrections_path(status: :rejected)
+
+    expect(Nokogiri::HTML(response.body).at_css("#correction-#{rc.id} .corrections-review__review-comment").text).to eq('Same value, rounded')
+  end
+
   it 'never accepts a deletion in bulk' do
     deletion = correction(change_type: :deletion)
 

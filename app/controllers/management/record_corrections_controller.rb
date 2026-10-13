@@ -5,6 +5,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
   has_scope :status, allow_blank: false
 
   PER_PAGE = [50, 100, 200].freeze
+  MAX_COMMENT_LENGTH = 2_000
 
   # GET /management/record_corrections
   # The review queue: filtered by status and check type, newest first.
@@ -34,7 +35,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
     # A deletion destroys the record: it is accepted one by one, never in bulk.
     skipped = decision == 'accept' ? selected.deletion_change_type.count : 0
     selected = selected.where.not(change_type: :deletion) if decision == 'accept'
-    results = selected.map {|rc| decide(rc, decision) }
+    results = selected.map {|rc| decide(rc, decision, comment_for(rc, params[:comment])) }
     done = results.count(true)
     message = "#{done} correction(s) #{decision}ed."
     message += " #{results.size - done} could not be and stay pending, with the reason in their notes." if done < results.size
@@ -44,7 +45,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
 
   def accept
     respond_to do |format|
-      if decide(@record_correction, 'accept')
+      if decide(@record_correction, 'accept', comment_for(@record_correction))
         format.html { redirect_to return_path, notice: "Correction ##{@record_correction.id} accepted." }
         format.json { head :no_content }
       else
@@ -57,7 +58,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
 
   def reject
     respond_to do |format|
-      if decide(@record_correction, 'reject')
+      if decide(@record_correction, 'reject', comment_for(@record_correction))
         format.html { redirect_to return_path, notice: "Correction ##{@record_correction.id} rejected." }
         format.json { head :no_content }
       else
@@ -84,11 +85,23 @@ class Management::RecordCorrectionsController < Management::ManagementController
 
   # accept!/reject! leave a refused correction pending (accept! appends the
   # reason to its notes) rather than raising: the outcome is read back from
-  # the status, so a refusal is never reported as a success.
-  def decide(correction, decision)
+  # the status, so a refusal is never reported as a success. The review
+  # comment is kept only with a decision that went through.
+  def decide(correction, decision, comment = nil)
     decision == 'accept' ? correction.accept!(current_user.id) : correction.reject!
     correction.reload
-    decision == 'accept' ? correction.accepted_change_status? : correction.rejected_change_status?
+    decided = decision == 'accept' ? correction.accepted_change_status? : correction.rejected_change_status?
+    correction.update!(review_comment: comment) if decided && comment
+    decided
+  end
+
+  # The comment typed on the correction's own row, else the one typed for the
+  # whole selection. Only `bulk` passes the latter: the per-row buttons submit
+  # the whole form, selection field included, which must not leak into a
+  # single-row decision.
+  def comment_for(correction, selection_comment = nil)
+    comment = params.dig(:comments, correction.id.to_s).presence || selection_comment.presence
+    comment&.to_s&.strip&.first(MAX_COMMENT_LENGTH).presence
   end
 
   # Back to the filtered page the decision was taken from (same filters,

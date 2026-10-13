@@ -21,6 +21,9 @@
           <%= fa_icon('code-commit', class: 'has-text-success') %> Summary
         </h2>
         <p><b>Current status: </b> <%= badge_for_correction_status(@record_correction) %> <%= status_sentence(@record_correction) %></p>
+        <% if @record_correction.review_comment.present? %>
+          <p id="review-comment"><b>Reviewer's comment: </b><%= @record_correction.review_comment %></p>
+        <% end %>
         <%= source_sentence(@record_correction) %>
         <br />
         <div class="notification is-info is-light">

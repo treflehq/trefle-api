@@ -25,6 +25,7 @@ module Schemas
           notes: { type: :string, nullable: true },
           record_id: { type: :integer, nullable: true },
           record_type: { type: :string },
+          review_comment: { type: :string, nullable: true, description: 'Why the reviewer accepted or rejected the correction' },
           updated_at: { type: :string },
           user_id: { type: :integer },
           warning_type: { type: :string, nullable: true }

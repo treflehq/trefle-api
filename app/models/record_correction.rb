@@ -10,6 +10,7 @@
 #  correction_json  :text
 #  notes            :text
 #  record_type      :string
+#  review_comment   :text
 #  source_reference :string
 #  source_type      :integer          default("external"), not null
 #  warning_type     :string

@@ -52,6 +52,9 @@
           <button type="button" class="button is-small is-white level-item" data-corrections-select-noop
                   title="Corrections whose values the record already holds">Select the no-ops</button>
           <span class="level-item has-text-grey" data-corrections-selected-count></span>
+          <div class="level-item">
+            <input type="text" name="comment" data-corrections-comment class="input is-small" maxlength="2000" placeholder="Why (for the selection)" aria-label="Review comment for the selected corrections">
+          </div>
           <div class="level-item buttons">
             <button type="submit" name="decision" value="accept" class="button is-success is-small"
                     data-confirm="Accept every selected correction? Deletions are skipped, accept them one by one.">Accept selected</button>
@@ -164,6 +167,7 @@
 
               <td>
                 <% if rc.pending_change_status? %>
+                  <input type="text" name="comments[<%= rc.id %>]" data-corrections-comment class="input is-small corrections-review__comment" maxlength="2000" placeholder="Why" aria-label="Review comment for correction <%= rc.id %>">
                   <div class="buttons are-small">
                     <button type="submit" formaction="<%= accept_management_record_correction_path(rc) %>" class="button is-success"
                             <% if rc.deletion_change_type? %>data-confirm="Accepting destroys <%= rc.record.try(:scientific_name) %>. Continue?"<% end %>>Accept</button>
@@ -171,6 +175,9 @@
                   </div>
                 <% else %>
                   <span class="<%= class_for_correction_status(rc.change_status) %>"><%= rc.change_status.humanize %></span>
+                  <% if rc.review_comment.present? %>
+                    <p class="is-size-7 corrections-review__review-comment"><%= rc.review_comment %></p>
+                  <% end %>
                 <% end %>
                 <p class="is-size-7">
                   <%= link_to "##{rc.id}", explore_record_correction_path(rc), target: '_blank', rel: 'noopener' %>
