@@ -1601,7 +1601,9 @@ paths:
       summary: List plants
       tags:
       - Plants
-      description: List plants
+      description: List plants. Each row is the main species of a plant, in the same
+        light shape (`species_light`) as the species lists; `links.plant` points at
+        the plant record. GET /plants/{id} returns the full plant.
       operationId: listPlants
       security:
       - token: []
@@ -1669,8 +1671,9 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error"
         '400':
-          description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+          description: Unknown filter, filter_not, order or range key, filter value
+            outside the accepted values, inverted or non-numeric range, or page beyond
+            2500
           content:
             application/json:
               schema:
@@ -2025,8 +2028,9 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error"
         '400':
-          description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+          description: Unknown filter, filter_not, order or range key, filter value
+            outside the accepted values, inverted or non-numeric range, or page beyond
+            2500
           content:
             application/json:
               schema:
@@ -2139,8 +2143,9 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error"
         '400':
-          description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+          description: Unknown filter, filter_not, order or range key, filter value
+            outside the accepted values, inverted or non-numeric range, or page beyond
+            2500
           content:
             application/json:
               schema:
@@ -2253,8 +2258,9 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error"
         '400':
-          description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+          description: Unknown filter, filter_not, order or range key, filter value
+            outside the accepted values, inverted or non-numeric range, or page beyond
+            2500
           content:
             application/json:
               schema:
@@ -2519,8 +2525,9 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error"
         '400':
-          description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+          description: Unknown filter, filter_not, order or range key, filter value
+            outside the accepted values, inverted or non-numeric range, or page beyond
+            2500
           content:
             application/json:
               schema:
@@ -3566,13 +3573,12 @@ paths:
       summary: Request a client-side token
       tags:
       - Auth
-      description: 'If you need to perform client-side requests, you will have to
-        request a client-side token from you backend, and get a JWT token from this
-        API call in return. This token will be usable on the client side. This call
-        need your secret access token, the url of the website the client side requests
-        will come from and optionally the client IP address.
+      description: |
+        If you need to perform client-side requests, request a client-side token from your backend and get a JWT in return. That token is usable on the client side, in place of your account token, for 24 hours.
 
-        '
+        This call needs your secret account token, as `Authorization: Bearer <token>` or as the `token` query parameter, the origin of the website the client-side requests will come from, and optionally the end user's IP address. A client-side token cannot claim another one.
+
+        Requests made with a client-side token count against the rate limit of the account that claimed it.
       operationId: claimClientSideToken
       security:
       - token: []
@@ -3586,24 +3592,35 @@ paths:
               schema:
                 type: object
                 properties:
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2020-07-13T13:41:00Z'
+                    description: When the token expires, in ISO 8601 UTC. After this
+                      time, request a new one
                   expiration:
                     type: string
+                    deprecated: true
                     example: 07-13-2020 13:41
-                    description: The expiration time of the token. After this time,
-                      you'll have to request a token again
+                    description: 'Deprecated: the expiration time formatted month-day-year,
+                      without a time zone. Read `expires_at` instead'
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NaJ9.eyJ1c2VyX2lkIjoxMDYsIe9yaWdpbiI6Imh0dHA6Ly9wb2NhbGhvc3Q6MzIzMyIsImlwIjoiOjoxIiwiZXhwIjoxNTk0NjQwNTEzfQ.TyqKyKxwsnn7TZsLAfS8OTmTUPk87CSXlk6a2wQU9co
                     description: The client-side access token, that you'll use instead
                       of your access token in the `token` parameter
+                required:
+                - token
+                - expires_at
+                - expiration
         '401':
-          description: Invalid credentials
+          description: Missing or invalid account token
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error"
         '422':
-          description: Missing parameters
+          description: Missing origin
           content:
             application/json:
               schema:
@@ -3640,12 +3657,15 @@ paths:
                 origin:
                   type: string
                   example: https://example.com
-                  description: The website url the API requests will come from
+                  description: The origin (scheme, host and port) of the website the
+                    client-side requests will come from, as browsers send it in the
+                    `Origin` header. A request whose `Origin` header differs is refused.
                 ip:
                   type: string
                   nullable: true
                   example: 12.23.34.45
-                  description: The client IP
+                  description: 'Optional: the IP address of the end user. When given,
+                    the token only works from that address.'
               required:
               - origin
         required: true
@@ -4150,117 +4170,170 @@ components:
       style: deepObject
       explode: true
       description: 'Keep the records whose field equals the value: `filter[field]=value`.
-        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
-        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
-        filterable field; an unknown key answers 400.'
+        Several values separated by commas match any of them (`filter[flower_color]=red,yellow`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. Fields with
+        a closed set of values (status, rank, establishment, duration, colours, months...)
+        list it below and match it case-insensitively; another value answers 400.
+        Numeric fields are filtered with `range[field]`. One key per filterable field;
+        an unknown key answers 400.'
       schema:
         type: object
         properties:
           author:
             type: string
-            example: red,pink
+            example: L.
           biological_type:
             type: string
-            example: red,pink
+            description: 'One of: phanerophyte, megaphanerophyte, macrophanerophyte,
+              nanophanerophyte, hemiphanerophyte, pseudophanerophyte, chamaephyte,
+              hemicryptophyte, cryptophyte, geophyte, helophyte, hydrophyte, therophyte,
+              epiphyte. Several, separated by commas, match any of them.'
+            example: phanerophyte
           bloom_months:
             type: string
-            example: red,pink
+            description: 'One of: jan, feb, mar, apr, may, jun, jul, aug, sep, oct,
+              nov, dec. Several, separated by commas, match any of them.'
+            example: may,jun
           common_name:
             type: string
-            example: red,pink
+            example: tomato
           complete_data:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           completion_ratio:
             type: string
-            example: red,pink
+            example: '100'
           duration:
             type: string
-            example: red,pink
+            description: 'One of: annual, biennial, perennial. Several, separated
+              by commas, match any of them.'
+            example: perennial
           establishment:
             type: string
-            example: red,pink
+            description: 'One of: native, introduced, doubtful, absent, extinct. Several,
+              separated by commas, match any of them.'
+            example: native
           edible:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           edible_part:
             type: string
-            example: red,pink
+            description: 'One of: roots, stem, leaves, flowers, fruits, seeds, tubers.
+              Several, separated by commas, match any of them.'
+            example: fruits,leaves
           family_common_name:
             type: string
-            example: red,pink
+            example: Rose family
           family_name:
             type: string
-            example: red,pink
+            example: Rosaceae
           flower_color:
             type: string
-            example: red,pink
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
+            example: red,yellow
           flower_conspicuous:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           foliage_color:
             type: string
-            example: red,pink
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
+            example: green
           foliage_texture:
             type: string
-            example: red,pink
+            description: 'One of: fine, medium, coarse. Several, separated by commas,
+              match any of them.'
+            example: fine
           fruit_color:
             type: string
-            example: red,pink
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
+            example: red
           fruit_conspicuous:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           fruit_months:
             type: string
-            example: red,pink
+            description: 'One of: jan, feb, mar, apr, may, jun, jul, aug, sep, oct,
+              nov, dec. Several, separated by commas, match any of them.'
+            example: sep,oct
           fruit_seed_persistence:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           fruit_shape:
             type: string
-            example: red,pink
+            description: 'One of: achene, berry, capsule, caryopsis, drupe, follicle,
+              legume, mericarp, nut, pome, samara, schizocarp, silique, strobilus,
+              syconium, utricle. Several, separated by commas, match any of them.'
+            example: achene
           genus_name:
             type: string
-            example: red,pink
+            example: Rosa
           growth_form:
             type: string
-            example: red,pink
+            example: Single Stem
           growth_habit:
             type: string
-            example: red,pink
+            example: Shrub
           growth_months:
             type: string
-            example: red,pink
+            description: 'One of: jan, feb, mar, apr, may, jun, jul, aug, sep, oct,
+              nov, dec. Several, separated by commas, match any of them.'
+            example: apr,may
           growth_rate:
             type: string
-            example: red,pink
+            example: Rapid
           inflorescence_type:
             type: string
-            example: red,pink
+            description: 'One of: solitary, raceme, spike, head, umbel, cyme, panicle,
+              fascicle. Several, separated by commas, match any of them.'
+            example: solitary
           leaf_retention:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
           ligneous_type:
             type: string
-            example: red,pink
+            description: 'One of: liana, subshrub, shrub, tree, parasite. Several,
+              separated by commas, match any of them.'
+            example: shrub
           nitrogen_fixation:
             type: string
-            example: red,pink
+            description: 'One of: None, Low, Medium, High. Several, separated by commas,
+              match any of them.'
+            example: High
           rank:
             type: string
-            example: red,pink
+            description: 'One of: species, ssp, var, form, hybrid, subvar. Several,
+              separated by commas, match any of them.'
+            example: species
           scientific_name:
             type: string
-            example: red,pink
+            example: Rosa canina
           sexuality:
             type: string
-            example: red,pink
+            description: 'One of: hermaphrodite, monoecious, dioecious, andromonoecious,
+              androdioecious, gynomonoecious, gynodioecious, polygamodioecious, trioecious,
+              trimonoecious. Several, separated by commas, match any of them.'
+            example: hermaphrodite
           status:
             type: string
-            example: red,pink
+            description: 'One of: accepted, unknown, rejected, doubtful. Several,
+              separated by commas, match any of them.'
+            example: accepted
           vegetable:
             type: string
-            example: red,pink
+            description: true or false (also yes/no, 1/0, on/off).
+            example: 'true'
         additionalProperties: false
     filter_not_species:
       name: filter_not
@@ -4270,7 +4343,7 @@ components:
       explode: true
       description: 'Exclude the records whose field equals the value(s): `filter_not[field]=value1,value2`.
         `null` excludes the records where the field is empty (`filter_not[edible_part]=null`).
-        An unknown key answers 400.'
+        A value outside the accepted set of a field, or an unknown key, answers 400.'
       schema:
         type: object
         properties:
@@ -4285,18 +4358,25 @@ components:
             example: 'null'
           biological_type:
             type: string
+            description: 'One of: phanerophyte, megaphanerophyte, macrophanerophyte,
+              nanophanerophyte, hemiphanerophyte, pseudophanerophyte, chamaephyte,
+              hemicryptophyte, cryptophyte, geophyte, helophyte, hydrophyte, therophyte,
+              epiphyte. Several, separated by commas, match any of them.'
             example: 'null'
           common_name:
             type: string
             example: 'null'
           complete_data:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           completion_ratio:
             type: string
             example: 'null'
           edible_part:
             type: string
+            description: 'One of: roots, stem, leaves, flowers, fruits, seeds, tubers.
+              Several, separated by commas, match any of them.'
             example: 'null'
           family_common_name:
             type: string
@@ -4306,30 +4386,47 @@ components:
             example: 'null'
           flower_color:
             type: string
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
             example: 'null'
           flower_conspicuous:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           foliage_color:
             type: string
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
             example: 'null'
           foliage_texture:
             type: string
+            description: 'One of: fine, medium, coarse. Several, separated by commas,
+              match any of them.'
             example: 'null'
           frost_free_days_minimum:
             type: string
             example: 'null'
           fruit_color:
             type: string
+            description: 'One of: white, red, brown, orange, yellow, lime, green,
+              cyan, blue, purple, magenta, grey, black. Several, separated by commas,
+              match any of them.'
             example: 'null'
           fruit_conspicuous:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           fruit_seed_persistence:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           fruit_shape:
             type: string
+            description: 'One of: achene, berry, capsule, caryopsis, drupe, follicle,
+              legume, mericarp, nut, pome, samara, schizocarp, silique, strobilus,
+              syconium, utricle. Several, separated by commas, match any of them.'
             example: 'null'
           genus_name:
             type: string
@@ -4354,15 +4451,20 @@ components:
             example: 'null'
           inflorescence_type:
             type: string
+            description: 'One of: solitary, raceme, spike, head, umbel, cyme, panicle,
+              fascicle. Several, separated by commas, match any of them.'
             example: 'null'
           leaf_retention:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           light:
             type: string
             example: 'null'
           ligneous_type:
             type: string
+            description: 'One of: liana, subshrub, shrub, tree, parasite. Several,
+              separated by commas, match any of them.'
             example: 'null'
           maximum_height_cm:
             type: string
@@ -4390,6 +4492,8 @@ components:
             example: 'null'
           nitrogen_fixation:
             type: string
+            description: 'One of: None, Low, Medium, High. Several, separated by commas,
+              match any of them.'
             example: 'null'
           ph_maximum:
             type: string
@@ -4408,12 +4512,17 @@ components:
             example: 'null'
           rank:
             type: string
+            description: 'One of: species, ssp, var, form, hybrid, subvar. Several,
+              separated by commas, match any of them.'
             example: 'null'
           scientific_name:
             type: string
             example: 'null'
           sexuality:
             type: string
+            description: 'One of: hermaphrodite, monoecious, dioecious, andromonoecious,
+              androdioecious, gynomonoecious, gynodioecious, polygamodioecious, trioecious,
+              trimonoecious. Several, separated by commas, match any of them.'
             example: 'null'
           soil_nutriments:
             type: string
@@ -4423,21 +4532,29 @@ components:
             example: 'null'
           soil_texture:
             type: string
+            description: 'One of: argile, intermediaire, limon, sable_fin, sable_grossier,
+              graviers, galets, blocs_fentes_des_parois, dalle. Several, separated
+              by commas, match any of them.'
             example: 'null'
           sources_count:
             type: string
             example: 'null'
           status:
             type: string
+            description: 'One of: accepted, unknown, rejected, doubtful. Several,
+              separated by commas, match any of them.'
             example: 'null'
           synonyms_count:
             type: string
             example: 'null'
           toxicity:
             type: string
+            description: 'One of: none, low, medium, high. Several, separated by commas,
+              match any of them.'
             example: 'null'
           vegetable:
             type: string
+            description: true or false (also yes/no, 1/0, on/off).
             example: 'null'
           year:
             type: string
@@ -4894,18 +5011,19 @@ components:
       style: deepObject
       explode: true
       description: 'Keep the records whose field equals the value: `filter[field]=value`.
-        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
-        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
-        filterable field; an unknown key answers 400.'
+        Several values separated by commas match any of them (`filter[flower_color]=red,yellow`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. Fields with
+        a closed set of values (status, rank, establishment, duration, colours, months...)
+        list it below and match it case-insensitively; another value answers 400.
+        Numeric fields are filtered with `range[field]`. One key per filterable field;
+        an unknown key answers 400.'
       schema:
         type: object
         properties:
           name:
             type: string
-            example: red,pink
           slug:
             type: string
-            example: red,pink
         additionalProperties: false
     order_families:
       name: order
@@ -4939,21 +5057,21 @@ components:
       style: deepObject
       explode: true
       description: 'Keep the records whose field equals the value: `filter[field]=value`.
-        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
-        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
-        filterable field; an unknown key answers 400.'
+        Several values separated by commas match any of them (`filter[flower_color]=red,yellow`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. Fields with
+        a closed set of values (status, rank, establishment, duration, colours, months...)
+        list it below and match it case-insensitively; another value answers 400.
+        Numeric fields are filtered with `range[field]`. One key per filterable field;
+        an unknown key answers 400.'
       schema:
         type: object
         properties:
           name:
             type: string
-            example: red,pink
           slug:
             type: string
-            example: red,pink
           family_id:
             type: string
-            example: red,pink
         additionalProperties: false
     order_genus:
       name: order
@@ -4993,18 +5111,21 @@ components:
       style: deepObject
       explode: true
       description: 'Keep the records whose field equals the value: `filter[field]=value`.
-        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
-        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
-        filterable field; an unknown key answers 400.'
+        Several values separated by commas match any of them (`filter[flower_color]=red,yellow`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. Fields with
+        a closed set of values (status, rank, establishment, duration, colours, months...)
+        list it below and match it case-insensitively; another value answers 400.
+        Numeric fields are filtered with `range[field]`. One key per filterable field;
+        an unknown key answers 400.'
       schema:
         type: object
         properties:
           tdwg_level:
             type: string
-            example: red,pink
+            example: '3'
           tdwg_code:
             type: string
-            example: red,pink
+            example: FRA
         additionalProperties: false
     order_zones:
       name: order
@@ -5085,39 +5206,33 @@ components:
       style: deepObject
       explode: true
       description: 'Keep the records whose field equals the value: `filter[field]=value`.
-        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
-        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
-        filterable field; an unknown key answers 400.'
+        Several values separated by commas match any of them (`filter[flower_color]=red,yellow`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. Fields with
+        a closed set of values (status, rank, establishment, duration, colours, months...)
+        list it below and match it case-insensitively; another value answers 400.
+        Numeric fields are filtered with `range[field]`. One key per filterable field;
+        an unknown key answers 400.'
       schema:
         type: object
         properties:
           user_id:
             type: string
-            example: red,pink
           record_id:
             type: string
-            example: red,pink
           record_type:
             type: string
-            example: red,pink
           warning_type:
             type: string
-            example: red,pink
           change_status:
             type: string
-            example: red,pink
           change_type:
             type: string
-            example: red,pink
           accepted_by:
             type: string
-            example: red,pink
           source_type:
             type: string
-            example: red,pink
           source_reference:
             type: string
-            example: red,pink
         additionalProperties: false
     order_corrections:
       name: order
@@ -5424,59 +5539,6 @@ components:
       - scientific_name
       - slug
       - links
-    plant_light:
-      type: object
-      properties:
-        id:
-          type: integer
-        common_name:
-          type: string
-          nullable: true
-        slug:
-          type: string
-        scientific_name:
-          type: string
-        year:
-          type: integer
-          nullable: true
-        bibliography:
-          type: string
-          nullable: true
-        author:
-          type: string
-          nullable: true
-        family_common_name:
-          type: string
-          nullable: true
-        genus_id:
-          type: integer
-        main_species_id:
-          type: integer
-          nullable: true
-        vegetable:
-          type: boolean
-          nullable: true
-        observations:
-          type: string
-          nullable: true
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            genus:
-              type: string
-            species:
-              type: string
-          required:
-          - self
-          - genus
-          - species
-      required:
-      - id
-      - scientific_name
-      - slug
-      - links
     species:
       type: object
       properties:
@@ -5757,9 +5819,13 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
-          description: Common names of the species per language
+              description: A common name of the species in that language
+          description: 'Common names of the species, grouped by language. Each key
+            is the language code the source gave: mostly ISO 639-1 two-letter codes
+            (`en`, `fr`, `de`), but older imports used ISO 639-3 three-letter codes
+            (`eng`, `fra`, `deu`), so one language can appear under both keys and
+            a client should merge them. A few keys are regional tags (`pt-br`, `zh-tw`,
+            `zh-hant`), and names with no known language sit under an empty key.'
         distribution:
           type: object
           deprecated: true
@@ -5767,8 +5833,7 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
+              description: The name of a distribution zone
           description: "(Deprecated) Distribution of the species per establishment"
         distributions:
           type: object
@@ -6204,7 +6269,10 @@ components:
             nitrogen_fixation:
               type: string
               nullable: true
-              description: Capability to fix nitrogen in monoculture
+              description: 'Capability to fix nitrogen in monoculture (USDA PLANTS
+                scale). In the current data the value is only `High` or `None`, or
+                null when unknown: the intermediate classes of the scale (`Low`, `Medium`)
+                are not used, and `None` is a recorded value, not missing data.'
             shape_and_orientation:
               type: string
               nullable: true
@@ -6365,12 +6433,20 @@ components:
                 cm:
                   type: number
                   nullable: true
-                  description: Minimum depth of soil required for the species, in
-                    centimeters. Plants that do not have roots such as rootless aquatic
-                    plants have 0
-              description: Minimum depth of soil required for the species, in centimeters.
-                Plants that do not have roots such as rootless aquatic plants have
-                0
+                  description: 'Rooting depth of the species, in centimeters: how
+                    deep its roots typically go, not the soil depth it needs. Values
+                    sourced from the TRY plant trait database (trait "Root rooting
+                    depth") are the median of the depths measured for the species;
+                    older values come from USDA PLANTS ("minimum root depth"). The
+                    species facts (`/species/{id}/facts`) name the source of each
+                    value. Despite the field name, it is not a minimum.'
+              description: 'Rooting depth of the species, in centimeters: how deep
+                its roots typically go, not the soil depth it needs. Values sourced
+                from the TRY plant trait database (trait "Root rooting depth") are
+                the median of the depths measured for the species; older values come
+                from USDA PLANTS ("minimum root depth"). The species facts (`/species/{id}/facts`)
+                name the source of each value. Despite the field name, it is not a
+                minimum.'
             minimum_temperature:
               type: object
               properties:
@@ -6825,11 +6901,17 @@ components:
         plants_count:
           type: integer
           description: Total number of plants in the database
+        detailed_plants_count:
+          type: integer
+          description: Number of species carrying detailed trait data
         detailled_plants_count:
           type: integer
-          description: Number of plants carrying detailed trait data
+          deprecated: true
+          description: Deprecated misspelling of `detailed_plants_count`, same value.
+            Kept for existing clients; read `detailed_plants_count` instead.
       required:
       - plants_count
+      - detailed_plants_count
       - detailled_plants_count
     zone:
       type: object

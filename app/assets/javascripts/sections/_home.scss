@@ -133,7 +133,7 @@
 
 // ---------------------------------------------------------------------------
 // Institutional home page (#305): 8 sections rebuilt from
-// .agents/design/home-2026/maquette-home.html. Bars, sparkline and the
+// .agents/design/home-2026/maquette-home.html. Bars and the
 // terminal look are plain HTML/CSS — no charting library on this page.
 
 .home-mono {
@@ -402,12 +402,12 @@
   }
 }
 
-// Recent changes: stat tiles, sparkline, latest reviewed list -------------
+// Recent changes: stat tiles, latest reviewed list -------------------------
 .home-stat-tiles {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  margin: 2.5rem 0 0;
+  margin: 1rem 0 0;
 
   // The about page reuses the tiles inside a section, slightly smaller.
   &--compact {
@@ -417,6 +417,10 @@
     .home-stat-tiles__tile dt {
       font-size: 1.5rem;
     }
+  }
+
+  &__period {
+    margin: 2.5rem 0 0;
   }
 
   &__tile {
@@ -439,48 +443,8 @@
   }
 }
 
-.home-changes-grid {
-  align-items: start;
-  display: grid;
-  gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.home-changes-latest {
   margin-top: 2.5rem;
-}
-
-.home-sparkline {
-  border-bottom: 1px solid #dbdbdb;
-  display: grid;
-  gap: 4px;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  height: 120px;
-
-  // Same track/fill pairing as .home-bar-track above, so a quiet week reads
-  // as "zero on a chart" rather than "broken bar".
-  &__col {
-    align-items: end;
-    background: #e3f3e6;
-    display: grid;
-  }
-
-  &__fill {
-    background: $forest-green;
-    min-height: 2px;
-  }
-
-  &__axis {
-    color: #7a7a7a;
-    display: flex;
-    font-family: $family-monospace;
-    font-size: 0.75rem;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-  }
-
-  &__empty {
-    color: #7a7a7a;
-    font-size: 0.875rem;
-    margin: 0.75rem 0 0;
-  }
 }
 
 .home-reviewed-list {

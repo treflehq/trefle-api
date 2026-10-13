@@ -19,7 +19,7 @@ module Schemas
           per_page: per_page,
           q: search_query,
           zone_q: zone_search_query,
-          **keyed_parameters(:species, ::Api::V1::SpeciesController),
+          **keyed_parameters(:species, ::Api::V1::SpeciesController, model: ::Species),
           **keyed_parameters(:families, ::Api::V1::FamiliesController),
           **keyed_parameters(:genus, ::Api::V1::GenusController),
           **keyed_parameters(:zones, ::Api::V1::ZonesController),
@@ -62,32 +62,37 @@ module Schemas
       end
 
       # filter_<suffix>, filter_not_<suffix>, order_<suffix> and range_<suffix>
-      # for the constants the controller defines.
-      def self.keyed_parameters(suffix, controller)
+      # for the constants the controller defines. model, when given, is the
+      # ActiveRecord class whose closed vocabularies (Filterable#filter_vocabulary)
+      # the filter values are checked against: they are listed per key.
+      def self.keyed_parameters(suffix, controller, model: nil)
         {
-          "filter_#{suffix}": controller.const_defined?(:FILTERABLE_FIELDS, false) && filter(controller::FILTERABLE_FIELDS),
-          "filter_not_#{suffix}": controller.const_defined?(:FILTERABLE_NOT_FIELDS, false) && filter_not(controller::FILTERABLE_NOT_FIELDS),
+          "filter_#{suffix}": controller.const_defined?(:FILTERABLE_FIELDS, false) && filter(controller::FILTERABLE_FIELDS, model: model),
+          "filter_not_#{suffix}": controller.const_defined?(:FILTERABLE_NOT_FIELDS, false) && filter_not(controller::FILTERABLE_NOT_FIELDS, model: model),
           "order_#{suffix}": controller.const_defined?(:ORDERABLE_FIELDS, false) && order(controller::ORDERABLE_FIELDS),
           "range_#{suffix}": controller.const_defined?(:RANGEABLE_FIELDS, false) && range(controller::RANGEABLE_FIELDS)
         }.select {|_name, parameter| parameter }
       end
 
-      def self.filter(fields)
+      def self.filter(fields, model: nil)
         deep_object(
           'filter', fields,
           description: 'Keep the records whose field equals the value: `filter[field]=value`. Several values separated by commas ' \
-                       'match any of them (`filter[flower_color]=red,pink`). Boolean fields accept true, yes, 1, on, false, no, 0 and off. ' \
+                       'match any of them (`filter[flower_color]=red,yellow`). Boolean fields accept true, yes, 1, on, false, no, 0 and off. ' \
+                       'Fields with a closed set of values (status, rank, establishment, duration, colours, months...) list it below and ' \
+                       'match it case-insensitively; another value answers 400. Numeric fields are filtered with `range[field]`. ' \
                        'One key per filterable field; an unknown key answers 400.',
-          value: { type: :string, example: 'red,pink' }
+          value: ->(field) { FilterValues.schema(field, model) }
         )
       end
 
-      def self.filter_not(fields)
+      def self.filter_not(fields, model: nil)
         deep_object(
           'filter_not', fields,
           description: 'Exclude the records whose field equals the value(s): `filter_not[field]=value1,value2`. ' \
-                       '`null` excludes the records where the field is empty (`filter_not[edible_part]=null`). An unknown key answers 400.',
-          value: { type: :string, example: 'null' }
+                       '`null` excludes the records where the field is empty (`filter_not[edible_part]=null`). ' \
+                       'A value outside the accepted set of a field, or an unknown key, answers 400.',
+          value: ->(field) { FilterValues.schema(field, model, example: 'null') }
         )
       end
 
@@ -110,11 +115,14 @@ module Schemas
         )
       end
 
+      # value: the schema of every key, or a lambda taking the key and
+      # returning its schema.
       def self.deep_object(name, fields, description:, value:)
+        properties = fields.uniq.index_with {|field| value.respond_to?(:call) ? value.call(field) : value }
         {
           name: name, in: :query, required: false, style: :deepObject, explode: true,
           description: description,
-          schema: Helpers.object_of(fields.uniq.index_with { value }, extras: { additionalProperties: false })
+          schema: Helpers.object_of(properties, extras: { additionalProperties: false })
         }
       end
     end

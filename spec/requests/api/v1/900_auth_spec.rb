@@ -7,8 +7,9 @@ describe 'Auth API' do
   end
 
   claim_schema = Schemas::Helpers.object_of({
-    origin: { type: :string, example: 'https://example.com', description: 'The website url the API requests will come from' },
-    ip: { type: :string, nullable: true, example: '12.23.34.45', description: 'The client IP' }
+    origin: { type: :string, example: 'https://example.com',
+              description: 'The origin (scheme, host and port) of the website the client-side requests will come from, as browsers send it in the `Origin` header. A request whose `Origin` header differs is refused.' },
+    ip: { type: :string, nullable: true, example: '12.23.34.45', description: 'Optional: the IP address of the end user. When given, the token only works from that address.' }
   }, extras: { required: %w[origin] })
 
   let(:user) { create(:user) }
@@ -27,7 +28,11 @@ describe 'Auth API' do
       consumes 'application/json'
       produces 'application/json'
       description <<~DESC
-        If you need to perform client-side requests, you will have to request a client-side token from you backend, and get a JWT token from this API call in return. This token will be usable on the client side. This call need your secret access token, the url of the website the client side requests will come from and optionally the client IP address.
+        If you need to perform client-side requests, request a client-side token from your backend and get a JWT in return. That token is usable on the client side, in place of your account token, for 24 hours.
+
+        This call needs your secret account token, as `Authorization: Bearer <token>` or as the `token` query parameter, the origin of the website the client-side requests will come from, and optionally the end user's IP address. A client-side token cannot claim another one.
+
+        Requests made with a client-side token count against the rate limit of the account that claimed it.
       DESC
 
       operationId 'claimClientSideToken'
@@ -36,18 +41,26 @@ describe 'Auth API' do
 
       response '200', 'Success' do
         schema Schemas::Helpers.object_of({
-          expiration: { type: :string, example: '07-13-2020 13:41', description: 'The expiration time of the token. After this time, you\'ll have to request a token again' },
+          expires_at: { type: :string, format: 'date-time', example: '2020-07-13T13:41:00Z', description: 'When the token expires, in ISO 8601 UTC. After this time, request a new one' },
+          expiration: { type: :string, deprecated: true, example: '07-13-2020 13:41',
+                        description: 'Deprecated: the expiration time formatted month-day-year, without a time zone. Read `expires_at` instead' },
           token: { type: :string,
                    example: 'eyJhbGciOiJIUzI1NaJ9.eyJ1c2VyX2lkIjoxMDYsIe9yaWdpbiI6Imh0dHA6Ly9wb2NhbGhvc3Q6MzIzMyIsImlwIjoiOjoxIiwiZXhwIjoxNTk0NjQwNTEzfQ.TyqKyKxwsnn7TZsLAfS8OTmTUPk87CSXlk6a2wQU9co', description: 'The client-side access token, that you\'ll use instead of your access token in the `token` parameter' }
-        })
+        }, extras: { required: %w[token expires_at expiration] })
 
         it 'returns a 200 response' do |example|
+          post '/api/auth/claim', params: { origin: 'http://localhost:1234', ip: '::1' }.to_json,
+                                  headers: headers.merge('Authorization' => "Bearer #{user.token}")
+          assert_response_matches_metadata(example.metadata)
+        end
+
+        it 'returns a 200 response with the token as a query parameter' do |example|
           post "/api/auth/claim?token=#{user.token}", params: { origin: 'http://localhost:1234', ip: '::1' }.to_json, headers: headers
           assert_response_matches_metadata(example.metadata)
         end
       end
 
-      response '401', 'Invalid credentials' do
+      response '401', 'Missing or invalid account token' do
         schema Schemas::Helpers.error_schema
 
         it 'returns a 401 response' do |example|
@@ -56,11 +69,11 @@ describe 'Auth API' do
         end
       end
 
-      response '422', 'Missing parameters' do
+      response '422', 'Missing origin' do
         schema Schemas::Helpers.error_schema
 
         it 'returns a 422 response' do |example|
-          post "/api/auth/claim?token=#{user.token}", params: { ip: '::1' }.to_json, headers: headers
+          post '/api/auth/claim', params: { ip: '::1' }.to_json, headers: headers.merge('Authorization' => "Bearer #{user.token}")
           assert_response_matches_metadata(example.metadata)
         end
       end

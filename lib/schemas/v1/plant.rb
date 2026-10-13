@@ -20,19 +20,6 @@ module Schemas
         }
       end
 
-      def self.light_schema
-        Helpers.object_of(
-          base.merge({
-            links: Helpers.object_of({
-              self: { type: :string },
-              genus: { type: :string },
-              species: { type: :string }
-            }, extras: { required: %w[self genus species] })
-          }),
-          extras: { required: %w[id scientific_name slug links] }
-        )
-      end
-
       def self.schema
         Helpers.object_of(
           base.merge({
