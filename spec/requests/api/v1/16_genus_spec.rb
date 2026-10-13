@@ -34,6 +34,8 @@ describe 'Genus API' do
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_genus')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for genus names matching the given query'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -105,16 +107,18 @@ describe 'Genus API' do
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
                 schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
+                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
+                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:genus_id) { Species.where(complete_data: true).first.genus.slug }

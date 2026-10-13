@@ -6,6 +6,31 @@
     </ul>
   </nav>
 
+  <%# requested_synonym: the Synonym whose slug led here, when the page was
+      reached through a synonym rather than the species' own slug. %>
+  <% requested_synonym = local_assigns[:requested_synonym] %>
+  <% unaccepted = species.status.present? && !species.accepted_status? %>
+  <% accepted_name = species.accepted_name if unaccepted %>
+
+  <% if requested_synonym %>
+    <div class="notification is-info is-light species-name-notice">
+      <em class="scientific-name"><%= requested_synonym.name %></em><%= " #{requested_synonym.author}" if requested_synonym.author.present? %>
+      is a synonym. The accepted name is
+      <strong class="scientific-name"><%= species.scientific_name %></strong><%= " #{species_authorship(species)}" if species_authorship(species) %>,
+      the species shown on this page.
+    </div>
+  <% end %>
+  <% if unaccepted %>
+    <div class="notification is-warning is-light species-name-notice">
+      <strong>Not an accepted name</strong> (status: <%= species.status %>).
+      <% if accepted_name %>
+        The accepted name is <%= link_to accepted_name.scientific_name, explore_species_path(accepted_name), class: 'scientific-name' %><%= " #{species_authorship(accepted_name)}" if species_authorship(accepted_name) %>.
+      <% else %>
+        No accepted name is recorded for it yet.
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="columns species-lead">
     <div class="column is-5">
       <aside class="species-lead-image">
@@ -16,6 +41,9 @@
           <div class="container">
             <h1 class="title is-1 scientific-name">
               <%= species.scientific_name %>
+              <% if (authorship = species_authorship(species)) %>
+                <small class="species-authorship" title="Author and year of the name"><%= authorship %></small>
+              <% end %>
               <span class="species-completion tag is-light" title="Share of this species' data that is filled in">
                 <%= species.completion_ratio || 0 %>% complete
               </span>
@@ -23,9 +51,11 @@
             <h2 class="subtitle">
               <%= species.common_name || 'No common name' %>
             </h2>
-            <p class="subtitle">
-              <%= fa_icon('book', class: 'has-text-success') %> <%= species.author || 'No author' %> <%= species.year || 'No year' %> - <i><%= species.bibliography || 'No bibliography' %></i>
-            </p>
+            <% if species.bibliography.present? %>
+              <p class="subtitle species-bibliography">
+                <%= fa_icon('book', class: 'has-text-success') %> <i><%= species.bibliography %></i>
+              </p>
+            <% end %>
           </div>
     </div>
   </div>

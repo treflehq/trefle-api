@@ -66,6 +66,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -103,6 +110,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/kingdoms/{id}":
@@ -156,6 +175,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -193,6 +219,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/subkingdoms/{id}":
@@ -246,6 +284,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -283,6 +328,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/divisions/{id}":
@@ -336,6 +393,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -373,6 +437,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/division_classes/{id}":
@@ -426,6 +502,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -463,6 +546,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/division_orders/{id}":
@@ -516,6 +611,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       - name: filter
         in: query
         required: false
@@ -565,6 +667,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/families/{id}":
@@ -636,6 +750,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -673,6 +794,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/families/{family_id}/genus/{id}":
@@ -741,6 +874,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       security:
       - token: []
       - bearerAuth: []
@@ -855,15 +995,25 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -901,6 +1051,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/genus/{genus_id}/species/{id}":
@@ -981,9 +1143,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -991,6 +1156,13 @@ paths:
           (#367)
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1028,6 +1200,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/plants/{id}":
@@ -1085,6 +1269,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       - name: filter
         in: query
         required: false
@@ -1106,9 +1297,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_plants"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       security:
       - token: []
       - bearerAuth: []
@@ -1149,6 +1343,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/plants/{id}/report":
@@ -1234,9 +1440,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1244,6 +1453,13 @@ paths:
           (#367)
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1281,6 +1497,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/genus/{genus_id}/plants":
@@ -1321,9 +1549,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1331,6 +1562,13 @@ paths:
           (#367)
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1368,6 +1606,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/plants/{plant_id}/species":
@@ -1408,15 +1658,25 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1454,6 +1714,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/plants/{plant_id}/species/{id}":
@@ -1580,9 +1852,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
@@ -1590,6 +1865,13 @@ paths:
           (#367)
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1627,6 +1909,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/species/{id}":
@@ -1690,6 +1984,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       - name: filter
         in: query
         required: false
@@ -1711,9 +2012,12 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       security:
       - token: []
       - bearerAuth: []
@@ -1754,6 +2058,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/species/{id}/report":
@@ -1840,6 +2156,101 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
+  "/api/v1/species/{species_id}/synonyms":
+    get:
+      summary: List the synonyms of a species
+      tags:
+      - Species
+      description: The paginated list of the species synonyms, ordered by name. Includes
+        the synonyms attached to the species autonyms (the typical subspecies or variety,
+        e.g. "Quercus robur subsp. robur", where WCVP records the synonyms of the
+        type); `attached_to` says which record each one hangs on. The species detail
+        only embeds the first 50 of them.
+      operationId: listSpeciesSynonyms
+      security:
+      - token: []
+      - bearerAuth: []
+      parameters:
+      - name: species_id
+        required: true
+        in: path
+        description: The id or the slug of the species
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: The page to fetch
+        schema:
+          type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/synonym"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        description: A link to the current page of the collection
+                      first:
+                        type: string
+                        description: A link to the first page of the collection
+                      next:
+                        type: string
+                        description: A link to the next page of the collection
+                      prev:
+                        type: string
+                        description: A link to the previous page of the collection
+                      last:
+                        type: string
+                        description: A link to the last page of the collection
+                    required:
+                    - self
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                      species:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          slug:
+                            type: string
+                          scientific_name:
+                            type: string
+                        description: The species the synonyms belong to
+                    required:
+                    - total
+                    - page
+                    - per_page
+        '401':
+          description: Invalid credentials
   "/api/v1/species/{species_id}/corrections":
     get:
       summary: List the corrections submitted on a species
@@ -1864,6 +2275,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1901,6 +2319,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/distributions":
@@ -1919,12 +2349,26 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
+      - name: q
+        in: query
+        required: false
+        description: Search zones by name (part of the name, case- and accent-insensitive).
+          Exact matches come first.
+        schema:
+          type: string
       - name: page
         in: query
         required: false
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -1962,6 +2406,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/distributions/{id}":
@@ -1969,13 +2425,16 @@ paths:
       summary: Retrieve a distribution zone
       tags:
       - Distributions
-      description: Get a zone
+      description: |
+        Get a zone by its id, its slug (the TDWG code, e.g. `fra`) or its exact name (case- and accent-insensitive, e.g. `france`).
+        When the name is shared by a region and a botanical country (TDWG level 3), the country is returned.
+        Unknown zones get a 404 whose message points to the `?q=` name search.
       operationId: getZone
       parameters:
       - name: id
         required: true
         in: path
-        description: The id or the slug of the requested zone
+        description: The id, the slug or the exact name of the requested zone
         schema:
           type: string
       security:
@@ -1996,6 +2455,12 @@ paths:
                     properties:
                       last_modified:
                         type: string
+        '404':
+          description: Unknown zone
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
         '401':
           description: Invalid credentials
   "/api/v1/distributions/{zone_id}/species":
@@ -2036,15 +2501,25 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
         schema:
           "$ref": "#/components/schemas/ranges_species"
+        description: 'Range on values: range[field]=min,max, both bounds inclusive.
+          Leave one side empty for an open bound (5, means 5 or more, ,10 means 10
+          or less). Decimal and negative bounds are accepted; a non-numeric bound
+          returns a 400'
       - name: page
         in: query
         required: false
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -2082,6 +2557,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/distributions/{zone_id}/species/{id}":
@@ -2288,6 +2775,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
   "/api/v1/corrections/{id}":
@@ -2394,6 +2893,13 @@ paths:
         description: The page to fetch
         schema:
           type: number
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page, 1 to 100 (default 20). `limit` is accepted as
+          an alias (#217)
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
@@ -2431,6 +2937,18 @@ paths:
                     properties:
                       total:
                         type: integer
+                        description: The number of items in the whole collection
+                      page:
+                        type: integer
+                        description: The current page
+                      per_page:
+                        type: integer
+                        description: The number of items per page (`per_page` parameter,
+                          1 to 100, default 20)
+                    required:
+                    - total
+                    - page
+                    - per_page
         '401':
           description: Invalid credentials
 components:
@@ -2827,10 +3345,14 @@ components:
             plant:
               type: string
               description: API endpoint to the species plant
+            synonyms:
+              type: string
+              description: API endpoint to the paginated list of the species synonyms
           required:
           - self
           - genus
           - plant
+          - synonyms
           description: API endpoints to related resources
         duration:
           type: array
@@ -3048,7 +3570,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3084,7 +3610,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3120,7 +3650,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3156,7 +3690,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3192,7 +3730,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3482,13 +4024,15 @@ components:
             light:
               type: integer
               nullable: true
-              description: Required amount of light, on a scale from 0 (no light,
-                <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)
+              description: 'Ecological indicator of light: Ellenberg L class from
+                1 (deep shade) to 9 (full sun). Describes the habitats where the species
+                grows, not a measurement (see docs.trefle.io/docs/advanced/plants-fields)'
             atmospheric_humidity:
               type: integer
               nullable: true
-              description: Required relative humidity in the air, on a scale from
-                0 (<=10%) to 10 (>= 90%)
+              description: 'Ecological indicator of air humidity: Julve HA class from
+                1 (very dry air) to 9 (saturated air). Describes the habitats where
+                the species grows, not a measurement'
             growth_months:
               type: array
               nullable: true
@@ -3635,13 +4179,15 @@ components:
             soil_nutriments:
               type: integer
               nullable: true
-              description: Required quantity of nutriments in the soil, on a scale
-                from 0 (oligotrophic) to 10 (hypereutrophic)
+              description: 'Ecological indicator of soil nutrients: Ellenberg N class
+                from 1 (hyperoligotrophic) to 9 (hypereutrophic). Describes the habitats
+                where the species grows, not a measurement'
             soil_salinity:
               type: integer
               nullable: true
-              description: Tolerance to salinity, on a scale from 0 (untolerant) to
-                10 (hyperhaline)
+              description: 'Ecological indicator of soil salinity: Ellenberg S class
+                from 0 (absent from saline soils) to 9 (hyperhaline). Describes the
+                habitats where the species grows, not a tolerance'
             soil_texture:
               type: integer
               nullable: true
@@ -3650,8 +4196,9 @@ components:
             soil_humidity:
               type: integer
               nullable: true
-              description: Required humidity of the soil, on a scale from 0 (xerophile)
-                to 10 (subaquatic)
+              description: 'Ecological indicator of soil humidity: Ellenberg F class
+                from 1 (very dry) to 12 (submerged). Describes the habitats where
+                the species grows, not a measurement'
           description: Growing of farming related fields
         synonyms:
           type: array
@@ -3663,17 +4210,36 @@ components:
                 description: An unique identifier
               name:
                 type: string
-                description: The scientific name of the symonym
+                description: The scientific name of the synonym
               author:
                 type: string
                 nullable: true
-                description: The author of the symonym
+                description: The author of the synonym
+              attached_to:
+                type: string
+                nullable: true
+                description: 'The scientific name of the record this synonym is attached
+                  to: the species itself, or one of its autonyms (e.g. "Quercus robur
+                  subsp. robur") when the synonym was recorded on the typical subspecies
+                  or variety'
               sources:
                 type: array
                 items:
                   "$ref": "#/components/schemas/source"
                 description: The sources this synonym was built from
-          description: The symonyms scientific names and authors
+            required:
+            - id
+            - name
+            description: A scientific name once applied to the species (or to one
+              of its autonyms), with its author
+          description: The first 50 synonyms (ordered by name) of the species and
+            of its autonyms (e.g. "Quercus robur subsp. robur", where WCVP attaches
+            the synonyms of the typical subspecies). The full, paginated list is at
+            `links.synonyms`; `synonyms_count` is the total.
+        synonyms_count:
+          type: integer
+          description: The total number of synonyms of the species and of its autonyms
+            (the embedded `synonyms` array is truncated)
         sources:
           type: array
           items:
@@ -3805,18 +4371,20 @@ components:
             plant:
               type: string
               description: API endpoint to the species plant
+            synonyms:
+              type: string
+              description: API endpoint to the paginated list of the species synonyms
           required:
           - self
           - genus
           - plant
+          - synonyms
           description: API endpoints to related resources
-        synonyms:
-          type: array
-          items:
-            type: string
-            nullable: true
-            description: TODO
-          description: The symonyms scientific names
+        synonyms_count:
+          type: integer
+          description: 'The number of synonyms attached to this record. The names
+            themselves are not embedded in list payloads: fetch them from `links.synonyms`
+            (which also lists the synonyms attached to the species autonyms).'
       required:
       - id
       - rank
@@ -3827,7 +4395,37 @@ components:
       - slug
       - status
       - links
-      description: The symonyms scientific names
+      - synonyms_count
+      description: A species, as listed in collections
+    synonym:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: An unique identifier
+        name:
+          type: string
+          description: The scientific name of the synonym
+        author:
+          type: string
+          nullable: true
+          description: The author of the synonym
+        attached_to:
+          type: string
+          nullable: true
+          description: 'The scientific name of the record this synonym is attached
+            to: the species itself, or one of its autonyms (e.g. "Quercus robur subsp.
+            robur") when the synonym was recorded on the typical subspecies or variety'
+        sources:
+          type: array
+          items:
+            "$ref": "#/components/schemas/source"
+          description: The sources this synonym was built from
+      required:
+      - id
+      - name
+      description: A scientific name once applied to the species (or to one of its
+        autonyms), with its author
     source:
       type: object
       properties:
@@ -4015,10 +4613,18 @@ components:
           type: string
         tdwg_code:
           type: string
+          description: The TDWG (WGSRPD) code of the zone
         tdwg_level:
           type: integer
+          description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+            4 basic recording unit'
         species_count:
           type: integer
+          description: The number of species recorded directly in this zone
+        species_count_cumulative:
+          type: integer
+          description: The number of distinct species recorded in this zone or in
+            any zone below it (the size of its species collection)
         links:
           type: object
           properties:
@@ -4043,10 +4649,18 @@ components:
               type: string
             tdwg_code:
               type: string
+              description: The TDWG (WGSRPD) code of the zone
             tdwg_level:
               type: integer
+              description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                4 basic recording unit'
             species_count:
               type: integer
+              description: The number of species recorded directly in this zone
+            species_count_cumulative:
+              type: integer
+              description: The number of distinct species recorded in this zone or
+                in any zone below it (the size of its species collection)
             links:
               type: object
               properties:
@@ -4074,10 +4688,18 @@ components:
                 type: string
               tdwg_code:
                 type: string
+                description: The TDWG (WGSRPD) code of the zone
               tdwg_level:
                 type: integer
+                description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                  4 basic recording unit'
               species_count:
                 type: integer
+                description: The number of species recorded directly in this zone
+              species_count_cumulative:
+                type: integer
+                description: The number of distinct species recorded in this zone
+                  or in any zone below it (the size of its species collection)
               links:
                 type: object
                 properties:
@@ -4099,6 +4721,7 @@ components:
       - tdwg_code
       - tdwg_level
       - species_count
+      - species_count_cumulative
     error:
       type: object
       properties:
@@ -4562,8 +5185,9 @@ components:
             ground_humidity:
               type: integer
               nullable: true
-              description: Required humidity of the soil, on a scale from 0 (xerophile)
-                to 10 (subaquatic)
+              description: 'Ecological indicator of soil humidity: Ellenberg F class
+                from 1 (very dry) to 12 (submerged). Describes the habitats where
+                the species grows, not a measurement'
               example:
             growth_form:
               type: string
@@ -4666,14 +5290,16 @@ components:
             light:
               type: integer
               nullable: true
-              description: Required amount of light, on a scale from 0 (no light,
-                <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)
+              description: 'Ecological indicator of light: Ellenberg L class from
+                1 (deep shade) to 9 (full sun). Describes the habitats where the species
+                grows, not a measurement (see docs.trefle.io/docs/advanced/plants-fields)'
               example: 8
             atmospheric_humidity:
               type: integer
               nullable: true
-              description: Required relative humidity in the air, on a scale from
-                0 (<=10%) to 10 (>= 90%)
+              description: 'Ecological indicator of air humidity: Julve HA class from
+                1 (very dry air) to 9 (saturated air). Describes the habitats where
+                the species grows, not a measurement'
               example: 3
             adapted_to_coarse_textured_soils:
               type: string
@@ -4801,13 +5427,15 @@ components:
             soil_nutriments:
               type: integer
               nullable: true
-              description: Required quantity of nutriments in the soil, on a scale
-                from 0 (oligotrophic) to 10 (hypereutrophic)
+              description: 'Ecological indicator of soil nutrients: Ellenberg N class
+                from 1 (hyperoligotrophic) to 9 (hypereutrophic). Describes the habitats
+                where the species grows, not a measurement'
             soil_salinity:
               type: integer
               nullable: true
-              description: Tolerance to salinity, on a scale from 0 (untolerant) to
-                10 (hyperhaline)
+              description: 'Ecological indicator of soil salinity: Ellenberg S class
+                from 0 (absent from saline soils) to 9 (hyperhaline). Describes the
+                habitats where the species grows, not a tolerance'
             minimum_temperature_deg_c:
               type: number
               nullable: true
@@ -4925,6 +5553,8 @@ components:
           type: string
         ligneous_type:
           type: string
+        nitrogen_fixation:
+          type: string
         rank:
           type: string
         scientific_name:
@@ -4995,6 +5625,8 @@ components:
         leaf_retention:
           type: string
         ligneous_type:
+          type: string
+        nitrogen_fixation:
           type: string
         rank:
           type: string
@@ -5084,6 +5716,8 @@ components:
         minimum_temperature_deg_c:
           type: string
         minimum_temperature_deg_f:
+          type: string
+        nitrogen_fixation:
           type: string
         ph_maximum:
           type: string
@@ -5370,115 +6004,223 @@ components:
       properties:
         atmospheric_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         average_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         completion_ratio:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         frost_free_days_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ground_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         images_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         light:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_root_depth_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_maximum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_days_to_harvest:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_row_spacing_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_spread_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_nutriments:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_salinity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_texture:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         sources_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         synonyms_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         toxicity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         year:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
     ranges_species:
       type: object
       properties:
         atmospheric_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         average_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         completion_ratio:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         frost_free_days_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ground_humidity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         images_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         light:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_height_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         maximum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_precipitation_mm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_root_depth_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_c:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         minimum_temperature_deg_f:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_maximum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         ph_minimum:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_days_to_harvest:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_row_spacing_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         planting_spread_cm:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_nutriments:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_salinity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         soil_texture:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         sources_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         synonyms_count:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         toxicity:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
         year:
           type: string
+          description: 'min,max (both inclusive). Leave a side empty for an open bound:
+            5, means 5 or more, ,10 means 10 or less.'
 servers:
 - url: http://{defaultHost}
   variables:

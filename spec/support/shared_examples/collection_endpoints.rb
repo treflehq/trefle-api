@@ -6,10 +6,16 @@ RSpec.shared_examples 'a rangeable collection' do |klass, ranges|
     it "and can be ranged by #{range}" do
       sample_value = klass.where.not(range => nil)&.first&.send(range) || klass&.first&.send(range)
       sample_value_bis = klass.where.not(range => nil)&.last&.send(range) || klass&.last&.send(range)
-      klass.send("range_by_#{range}".to_sym, *[sample_value, sample_value_bis].sort)
-      get :index, params: params.merge(range: { range => [sample_value, sample_value_bis].sort.join(',') })
-      expect(assigns(:collection).to_sql).to match(/"[a-z_]*"."#{range}" >= /)
-      expect(assigns(:collection).to_sql).to match(/ AND "[a-z_]*"."#{range}" < /)
+      # Enum-backed columns (toxicity, soil_texture) read back as labels, and a
+      # column the seeds leave empty reads back as nil: range[] takes numbers.
+      samples = [sample_value, sample_value_bis].grep(Numeric).sort
+      samples = [1, 2] if samples.empty?
+      min, max = samples
+      get :index, params: params.merge(range: { range => [min, max].join(',') })
+      # Both bounds are inclusive (see Rangeable#where_in_range): BETWEEN for
+      # two distinct bounds, = when both samples are the same value, >= when
+      # only one sample exists.
+      expect(assigns(:collection).to_sql).to match(/"[a-z_]*"\."#{range}" (BETWEEN .+ AND |= |>= )/)
     end
   end
 end

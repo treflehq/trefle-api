@@ -19,7 +19,7 @@
 
 class SynonymSerializer < BaseSerializer
 
-  attributes :id, :name, :author # , :synonym_of
+  attributes :id, :name, :author, :attached_to # , :synonym_of
 
   # link(:self) {|o| url_helpers.api_v1_genus_path(o) }
 
@@ -32,6 +32,17 @@ class SynonymSerializer < BaseSerializer
     when 'Genus'
       url_helpers.api_v1_genus_path(object.record_id)
     end
+  end
+
+  # The scientific name of the record this synonym hangs on: the species
+  # itself, or one of its autonyms ("Quercus robur subsp. robur") when the
+  # synonym was listed through Species#synonyms_with_autonyms. That query
+  # selects the name along the row; a synonym loaded any other way falls
+  # back on its record.
+  def attached_to
+    return object.attached_to_name if object.respond_to?(:attached_to_name)
+
+    object.record.try(:scientific_name) || object.record.try(:name)
   end
 
   def synonym_of

@@ -13,6 +13,12 @@ module ExploreHelper
     RANK_LABELS.fetch(rank, rank.humanize)
   end
 
+  # "L., 1753": the authorship and year of the name, as it is cited after the
+  # binomial. Either may be missing; nil when both are.
+  def species_authorship(species)
+    [species.author.presence, species.year.presence].compact.join(', ').presence
+  end
+
   # A filter chip is a plain GET link that toggles one query parameter while
   # keeping the others (search included) and resetting the page.
   def explore_chip(label, key, value, active: false)

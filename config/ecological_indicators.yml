@@ -1,0 +1,100 @@
+# Ecological indicator values — the Ellenberg-type classes carried by the
+# light, atmospheric_humidity, ground_humidity, soil_nutriments and
+# soil_salinity columns.
+#
+# These are ordinal classes from Baseflor / Catminat (Ph. Julve), following
+# Ellenberg et al. (1992): the number says where the species is typically
+# found along an environmental gradient, inferred from the habitats it
+# occupies. It is neither a measurement nor a tolerance, so nothing here is
+# converted to lux, µg/l or percentages. The ranges differ per indicator
+# (soil humidity runs to 12, salinity starts at 0) and 0 is a real class,
+# not "unknown". See docs.trefle.io/docs/advanced/plants-fields, "Ecological
+# indicator values".
+#
+# Read by lib/ecological_indicators.rb. The explore species page ships this
+# table to the browser so the React fields and the server-rendered pages
+# share one vocabulary. Keys are the species column names (the API exposes
+# ground_humidity as soil_humidity).
+
+note: "Light, humidity, nutriment and salinity values are ecological indicators: Ellenberg classes from Baseflor describing the habitats where the species usually grows in the wild, not what an individual plant tolerates."
+
+indicators:
+  light:
+    label: Light
+    indicator: Ellenberg L
+    min: 1
+    max: 9
+    classes:
+      1: deep shade
+      2: deep shade to shade
+      3: shade
+      4: shade to half-shade
+      5: half-shade
+      6: half-shade to half-light
+      7: half-light to light
+      8: light
+      9: full sun
+  atmospheric_humidity:
+    label: Atmospheric humidity
+    indicator: Julve HA
+    min: 1
+    max: 9
+    classes:
+      1: very dry air
+      2: dry air
+      3: rather dry air
+      4: moderately dry air
+      5: medium air humidity
+      6: moderately humid air
+      7: humid air
+      8: very humid air
+      9: saturated air
+  ground_humidity:
+    label: Soil humidity
+    indicator: Ellenberg F
+    min: 1
+    max: 12
+    classes:
+      1: very dry (hyperxerophilous)
+      2: dry (perxerophilous)
+      3: rather dry (xerophilous)
+      4: moderately dry (meso-xerophilous)
+      5: fresh, never flooded (mesohydric)
+      6: moist (meso-hygrophilous)
+      7: wet, flooded a few weeks a year (hygrophilous)
+      8: very wet, flooded several months a year (hydrophilous)
+      9: amphibious part of the year (seasonal helophyte)
+      10: amphibious all year, base always under water (permanent helophyte)
+      11: shallow or floating aquatic, 0 to 50 cm
+      12: deep or submerged aquatic, 1 to 3 m
+  soil_nutriments:
+    label: Soil nutriments
+    indicator: Ellenberg N
+    min: 1
+    max: 9
+    classes:
+      1: extremely poor (hyperoligotrophic)
+      2: very poor (peroligotrophic)
+      3: poor (oligotrophic)
+      4: rather poor (meso-oligotrophic)
+      5: intermediate (mesotrophic)
+      6: rather rich (meso-eutrophic)
+      7: rich (eutrophic)
+      8: very rich (pereutrophic)
+      9: extremely rich (hypereutrophic)
+  soil_salinity:
+    label: Soil salinity
+    indicator: Ellenberg S
+    min: 0
+    max: 9
+    classes:
+      0: absent from saline soils
+      1: barely saline (hyperoligohaline)
+      2: very slightly saline (peroligohaline)
+      3: slightly saline (oligohaline)
+      4: slightly to moderately saline (meso-oligohaline)
+      5: moderately saline (mesohaline)
+      6: moderately to strongly saline (meso-euhaline)
+      7: strongly saline (euhaline)
+      8: very strongly saline (polyhaline)
+      9: extremely saline (hyperhaline)

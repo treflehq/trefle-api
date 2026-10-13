@@ -24,6 +24,8 @@ describe 'Families API' do
       # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_families')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_families')
       # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for family names matching the given query'
@@ -32,9 +34,7 @@ describe 'Families API' do
         schema JsonApiHelper.array_schema(
           'family',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -94,14 +94,14 @@ describe 'Families API' do
       parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_genus')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_genus')
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'genus',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:family_id) { Genus.first.family.slug }

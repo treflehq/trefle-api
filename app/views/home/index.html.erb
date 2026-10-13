@@ -3,7 +3,9 @@
     Kept outside the cache block: content_for is a side effect that a
     cached fragment would not replay. %>
 <% provide :full_bleed, '1' %>
-<% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?, current_user&.admin] do %>
+<%# expires_in: the fragment embeds the dataset counts, which must not stay
+    frozen at their value on deploy day. SiteCounts caches them for a day. %>
+<% cache [:home, :index, TrefleAdmin::Application::VERSION, current_user.nil?, current_user&.admin], expires_in: 1.day do %>
   <div class="home-page">
     <%= render 'home/hero' %>
     <%= render 'home/start_here' %>
