@@ -93,17 +93,18 @@ class Api::V1::PlantsController < Api::ApiController
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
       range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
-      field_aliases: ::Scopes::Species::FIELD_ALIASES
+      field_aliases: ::Scopes::Species::FIELD_ALIASES,
+      model: ::Species
     )
     options = {
       where: { main_species_id: nil }.merge(search_params[:where]),
       includes: %i[genus plant],
       boost_by: [:gbif_score],
-      fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions'],
+      fields: Species::SEARCH_FIELDS,
       order: search_params[:order]
     }.compact
 
-    @collection = Species.pagy_search(search, **options)
+    @collection = Species.pagy_search(Species.search_term(search), **options)
     # Page size (`per_page`, or its `limit` alias) is read by PerPage.
     @pagy, @collection = pagy_searchkick(@collection)
 
@@ -120,7 +121,7 @@ class Api::V1::PlantsController < Api::ApiController
     return @collection if @collection
 
     @collection = Genus.friendly.find(params[:genus_id]).species.plants if params[:genus_id]
-    @collection = Zone.friendly.find(params[:zone_id].to_s.downcase).all_species.plants if params[:zone_id]
+    @collection = Zone.resolve!(params[:zone_id]).all_species.plants if params[:zone_id]
 
     @collection ||= Species.plants
 

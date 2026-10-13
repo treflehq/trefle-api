@@ -197,6 +197,9 @@ class Explore::SpeciesController < Explore::ExploreController
   def set_species
     @species = Species.friendly_or_synonym!(params[:id])
     preload_foreign_sources_for(@species)
+    # Reached through a synonym's slug: the header then says which name was
+    # asked for and which one is accepted. Synonyms are preloaded just above.
+    @requested_synonym = @species.synonyms.detect {|s| s.slug == params[:id] } if @species.slug != params[:id]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

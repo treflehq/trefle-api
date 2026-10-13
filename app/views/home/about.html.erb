@@ -12,7 +12,9 @@
         <p class="about__lead">
           Trefle is an open botanical data source and REST API, maintained by a
           small volunteer team and backed by <a href="https://mashum.org">Mashum</a>.
-          It indexes about one million plants and is free for everyone.
+          It indexes about <%= site_plants_figure %> plants
+          (<%= site_species_figure %> records with subspecies, varieties,
+          hybrids and forms) and is free for everyone.
         </p>
       </div>
     </div>
@@ -142,10 +144,17 @@
         <h2 class="about-section__title">(very short) privacy policy</h2>
       </div>
       <p>
-        Trefle.io take your privacy seriously and will take all measures to
+        Trefle.io takes your privacy seriously and will take all measures to
         protect your personal information. We store your e-mail, your API token
         and your corrections. We will not sell or redistribute your information
-        to anyone. No third-party tracking.
+        to anyone.
+      </p>
+      <p>
+        This website uses Google Analytics for anonymous usage statistics:
+        pages viewed, country and browser. It sets a cookie to tell returning
+        visitors apart. Your account is not sent to Google, and nothing is sent
+        when you call the API. How Google handles that data is described in
+        <a href="https://policies.google.com/privacy">Google's privacy policy</a>.
       </p>
     </section>
 

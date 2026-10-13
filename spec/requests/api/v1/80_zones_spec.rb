@@ -30,6 +30,8 @@ describe 'Distributions API' do
       operationId 'listDistributions'
       # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
+      parameter name: :q, in: :query, required: false, type: :string,
+                description: 'Search zones by name (part of the name, case- and accent-insensitive). Exact matches come first.'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
       parameter name: :per_page, in: :query, required: false, type: :integer,
                 description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
@@ -57,9 +59,13 @@ describe 'Distributions API' do
       tags 'Distributions'
       consumes 'application/json'
       produces 'application/json'
-      description 'Get a zone'
+      description <<~DESC
+        Get a zone by its id, its slug (the TDWG code, e.g. `fra`) or its exact name (case- and accent-insensitive, e.g. `france`).
+        When the name is shared by a region and a botanical country (TDWG level 3), the country is returned.
+        Unknown zones get a 404 whose message points to the `?q=` name search.
+      DESC
       operationId 'getZone'
-      parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested zone'
+      parameter name: :id, required: true, in: :path, type: :string, description: 'The id, the slug or the exact name of the requested zone'
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -73,6 +79,13 @@ describe 'Distributions API' do
         let(:id) { Zone.first.id }
         let(:token) { user.token }
 
+        run_test!
+      end
+
+      response '404', 'Unknown zone' do
+        schema Schemas::Helpers.schema_href(schema: 'error')
+        let(:id) { 'atlantis' }
+        let(:token) { user.token }
         run_test!
       end
 
@@ -99,7 +112,9 @@ describe 'Distributions API' do
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
                 schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
+                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
+                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
       parameter name: :per_page, in: :query, required: false, type: :integer,
                 description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
