@@ -8,6 +8,7 @@
 #  change_status    :integer          default("pending"), not null
 #  change_type      :integer          default("addition"), not null
 #  correction_json  :text
+#  decided_at       :datetime
 #  notes            :text
 #  record_type      :string
 #  review_comment   :text
@@ -43,12 +44,22 @@ class RecordCorrection < ApplicationRecord
   enum :source_type, { external: 0, observation: 1, report: 2 }, suffix: true
 
   before_validation :set_change_type
+  before_save :stamp_decision, if: :will_save_change_to_change_status?
   validates :source_reference,
             presence: { if: proc {|r| r.external_source_type? },
                         message: 'You need to provide a reference (a link, a publication...) if the correction dont comes from an observation' }
 
   def set_change_type
     self.change_type = (record ? :update : :addition) unless deletion_change_type?
+  end
+
+  # Every path that decides a correction (accept!, reject!, resolve!, the
+  # checks, the data workers) goes through a status change; the date is taken
+  # there rather than in each of them.
+  def stamp_decision
+    return if will_save_change_to_decided_at?
+
+    self.decided_at = pending_change_status? ? nil : Time.current
   end
 
   def self.report!(record:, user:, change_type: :update, notes: nil)

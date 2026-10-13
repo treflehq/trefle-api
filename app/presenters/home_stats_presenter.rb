@@ -79,22 +79,26 @@ class HomeStatsPresenter
     end
   end
 
+  # Changes whenever a correction is filed or decided. The correction
+  # figures are cached under it, so a decision shows on the home page at
+  # once instead of an hour (or a day of page cache) later.
+  def corrections_stamp
+    @corrections_stamp ||= RecordCorrection.maximum(:updated_at)&.to_i
+  end
+
   # 30-day correction activity: submitted/accepted counts, distinct
-  # contributors, and a 12-week weekly series of accepted corrections.
-  #
-  # `fields_completed` stands in for "count of changed fields across accepted
-  # corrections": correction_json is a free-form text blob, and parsing it
-  # for every row to count keys isn't cheap at this table's size, so this
-  # uses the accepted count instead, as allowed by #303.
+  # contributors, the fields the accepted corrections changed, and a 12-week
+  # weekly series of accepted corrections. Decisions are dated by
+  # `decided_at`, not `updated_at`, which later edits of the row move.
   def correction_activity
-    Rails.cache.fetch('home_stats/correction_activity', expires_in: CACHE_EXPIRY) do
+    Rails.cache.fetch(['home_stats/correction_activity', corrections_stamp], expires_in: CACHE_EXPIRY) do
       submitted_scope = RecordCorrection.where(created_at: CORRECTION_ACTIVITY_WINDOW.ago..)
-      accepted_scope = RecordCorrection.accepted_change_status.where(updated_at: CORRECTION_ACTIVITY_WINDOW.ago..)
+      accepted_scope = RecordCorrection.accepted_change_status.where(decided_at: CORRECTION_ACTIVITY_WINDOW.ago..)
 
       {
         submitted: submitted_scope.count,
         accepted: accepted_scope.count,
-        fields_completed: accepted_scope.count,
+        fields_completed: fields_completed(accepted_scope),
         contributors: submitted_scope.distinct.count(:user_id),
         weekly_accepted: weekly_accepted_series
       }
@@ -104,12 +108,12 @@ class HomeStatsPresenter
   # The 5 most recently reviewed (accepted or rejected) corrections, newest
   # first, as plain hashes — no AR objects escape the cache.
   def latest_reviewed_corrections
-    Rails.cache.fetch('home_stats/latest_reviewed_corrections', expires_in: CACHE_EXPIRY) do
+    Rails.cache.fetch(['home_stats/latest_reviewed_corrections', corrections_stamp], expires_in: CACHE_EXPIRY) do
       RecordCorrection
         .where.not(change_status: :pending)
         .where(record_type: 'Species')
         .includes(:user, :record)
-        .order(updated_at: :desc)
+        .order(Arel.sql('decided_at DESC NULLS LAST'), updated_at: :desc)
         .limit(LATEST_REVIEWED_LIMIT)
         .map {|correction| reviewed_entry(correction) }
     end
@@ -123,9 +127,21 @@ class HomeStatsPresenter
     ((scope.count * 100.0) / total).round(1)
   end
 
+  # The fields an accepted correction set: the keys of its correction, the
+  # name excepted (it identifies the record and is sent with every
+  # correction). A deletion sets none. Over a 30-day window this is a few
+  # hundred small JSON documents at most.
+  def fields_completed(accepted_scope)
+    accepted_scope.where.not(correction_json: [nil, '']).pluck(:correction_json).sum do |json|
+      (JSON.parse(json).keys - ['scientific_name']).size
+    rescue JSON::ParserError
+      0
+    end
+  end
+
   def weekly_accepted_series
     range_start = (CORRECTION_SERIES_WEEKS - 1).weeks.ago.beginning_of_week
-    timestamps = RecordCorrection.accepted_change_status.where(updated_at: range_start..).pluck(:updated_at)
+    timestamps = RecordCorrection.accepted_change_status.where(decided_at: range_start..).pluck(:decided_at)
 
     buckets = Hash.new(0)
     timestamps.each {|timestamp| buckets[timestamp.beginning_of_week.to_date] += 1 }
@@ -142,7 +158,7 @@ class HomeStatsPresenter
       status: correction.change_status,
       description: title_for_correction(correction),
       contributor: contributor_name(correction.user),
-      reviewed_at: correction.updated_at
+      reviewed_at: correction.decided_at || correction.updated_at
     }
   end
 

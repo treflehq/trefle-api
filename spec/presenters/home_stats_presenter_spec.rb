@@ -71,9 +71,10 @@ RSpec.describe HomeStatsPresenter do
   describe '#correction_activity' do
     let(:species) { build_species }
 
-    def corrected(status:, created_at:, updated_at: created_at, user: create(:user))
-      correction = create(:record_correction, record: species, user: user, change_status: status)
-      correction.update_columns(created_at: created_at, updated_at: updated_at)
+    def corrected(status:, created_at:, updated_at: created_at, user: create(:user), correction: { year: 1900 })
+      correction = create(:record_correction, record: species, user: user, change_status: status,
+                                              correction_json: { scientific_name: species.scientific_name, **correction }.to_json)
+      correction.update_columns(created_at: created_at, updated_at: updated_at, decided_at: status == :pending ? nil : updated_at)
       correction
     end
 
@@ -94,6 +95,24 @@ RSpec.describe HomeStatsPresenter do
       expect(activity[:contributors]).to eq(baseline[:contributors] + 2)
       expect(activity[:weekly_accepted].length).to eq(12)
       expect(activity[:weekly_accepted].sum).to eq(baseline[:weekly_accepted].sum + 2)
+    end
+
+    it 'counts the fields the accepted corrections set, the name excepted' do
+      baseline = presenter.correction_activity[:fields_completed]
+
+      corrected(status: :accepted, created_at: 2.days.ago, correction: { light: 7, maximum_height_cm: 300 })
+      corrected(status: :rejected, created_at: 2.days.ago, correction: { year: 1901 })
+
+      expect(presenter.correction_activity[:fields_completed]).to eq(baseline + 2)
+    end
+
+    it 'dates a decision when it was taken, not when the row was last edited' do
+      baseline = presenter.correction_activity[:accepted]
+      old = corrected(status: :accepted, created_at: 60.days.ago, updated_at: 60.days.ago)
+
+      old.update!(notes: 'edited today')
+
+      expect(presenter.correction_activity[:accepted]).to eq(baseline)
     end
 
     it 'buckets accepted corrections by week across the last 12 weeks' do
@@ -119,10 +138,10 @@ RSpec.describe HomeStatsPresenter do
 
       old_accepted = create(:record_correction, record: species, user: user, change_status: :accepted,
                                                 correction_json: { author: 'L.' }.to_json)
-      old_accepted.update_columns(updated_at: 2.days.ago)
+      old_accepted.update_columns(updated_at: 2.days.ago, decided_at: 2.days.ago)
 
       recent_rejected = create(:record_correction, record: species, user: user, change_status: :rejected)
-      recent_rejected.update_columns(updated_at: 1.hour.ago)
+      recent_rejected.update_columns(updated_at: 1.hour.ago, decided_at: 1.hour.ago)
 
       create(:record_correction, record: species, user: user, change_status: :pending)
 
