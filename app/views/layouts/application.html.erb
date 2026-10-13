@@ -53,12 +53,15 @@
   <% end %>
   <%= render partial: "layouts/footer" %>
 
+    <%# Google Analytics, anonymous usage statistics only: no user_id, so a
+        signed-in account is never handed to Google. The About page's privacy
+        section describes this; keep the two in step (#437). %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VL7KHM5CK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-8VL7KHM5CK', { 'user_id': '<%= current_user.try(:id) || 'unknown' %>' });
+      gtag('config', 'G-8VL7KHM5CK');
     </script>
 
 </body>

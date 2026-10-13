@@ -21,6 +21,21 @@ RSpec.describe 'Public website pages', type: :request do
       get root_path
       expect(assigns(:home_stats)).to be_a(HomeStatsPresenter)
     end
+
+    it 'states the dataset size from SiteCounts, with no "million" anywhere (#437)' do
+      get root_path
+      expect(response.body.squish).to include("about #{plants_figure} plants (#{species_figure} records once subspecies")
+      expect(response.body).not_to match(/million/i)
+    end
+  end
+
+  # The figures every page quoting a dataset size must agree on.
+  def plants_figure
+    ActiveSupport::NumberHelper.number_to_delimited(SiteCounts.approximate(Plant.count))
+  end
+
+  def species_figure
+    ActiveSupport::NumberHelper.number_to_delimited(SiteCounts.approximate(Species.count))
   end
 
   describe 'GET /about' do
@@ -35,6 +50,21 @@ RSpec.describe 'Public website pages', type: :request do
       expect(response.body).to include('60 req/min')
       expect(response.body).to include('600 req/min')
       expect(response.body).to include("accessed #{Date.current.iso8601}")
+    end
+
+    it 'quotes the same dataset figures as the home page, and no "million" (#437)' do
+      get about_path
+      expect(response.body.squish).to include("about #{plants_figure} plants (#{species_figure} records with subspecies")
+      expect(response.body).not_to match(/million/i)
+    end
+
+    it 'tells visitors that Google Analytics is used, instead of claiming no tracking (#437)' do
+      get about_path
+      privacy = Nokogiri::HTML.fragment(response.body).at_css('#privacy').text
+      expect(privacy).to include('Google Analytics')
+      expect(privacy).to include('Your account is not sent to Google')
+      expect(privacy).not_to include('No third-party tracking')
+      expect(response.body).to include('https://policies.google.com/privacy')
     end
 
     it 'links every section from the anchor nav' do
@@ -107,6 +137,25 @@ RSpec.describe 'Public website pages', type: :request do
       login_as create(:user), scope: :user
       get profile_path
       expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe 'Google Analytics snippet (#437)' do
+    it 'is still loaded, but configured without a user_id for anonymous visitors' do
+      get root_path
+      expect(response.body).to include("gtag('config', 'G-8VL7KHM5CK');")
+      expect(response.body).not_to include('user_id')
+    end
+
+    it 'does not hand the account id to Google for signed-in users either' do
+      user = create(:user)
+      login_as user, scope: :user
+
+      get root_path
+
+      expect(response.body).to include("gtag('config', 'G-8VL7KHM5CK');")
+      expect(response.body).not_to include('user_id')
+      expect(response.body).not_to match(/gtag\('config'.*#{user.id}/)
     end
   end
 
