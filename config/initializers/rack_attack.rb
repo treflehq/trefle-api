@@ -68,7 +68,13 @@ Rack::Attack.throttled_responder = lambda do |request|
   is_sponsor = Rack::Attack.token(request)&.starts_with?('spo-')
   message = is_sponsor ? 'Too many requests, please slow down' : 'Too many requests. Please visit https://trefle.io/about#support to learn how to increase your limit.'
 
-  headers = { 'Content-Type' => 'application/json' }.merge(Rack::Attack.rate_limit_headers(match_data))
+  rate_limit_headers = Rack::Attack.rate_limit_headers(match_data)
+  headers = {
+    'Content-Type' => 'application/json',
+    # throttled_response_retry_after_header (above) only applies to the default
+    # responder; a custom one has to set the header itself (RFC 6585).
+    'Retry-After' => (rate_limit_headers['RateLimit-Reset'].to_i - match_data[:epoch_time]).to_s
+  }.merge(rate_limit_headers)
 
   [429, headers, [Rack::Attack.error_envelope('too_many_requests', message)]]
 end
