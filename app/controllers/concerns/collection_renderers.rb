@@ -62,11 +62,54 @@ module CollectionRenderers
     # }.compact)
   end
 
+  # Serialized payloads are kept in the cache store (memcached in production)
+  # and the detail key doubles as the ETag. A record's cache_key/cache_version
+  # only move when the row does, so without the release in the key a deploy
+  # that changed a payload kept serving the previous release's version of
+  # every record already cached: after 2.9.7, rosa-canina still came back
+  # with its 1,083 synonyms, list pages mixed `synonyms[]` rows with
+  # `synonyms_count` rows, and conditional requests answered 304 on them.
+  #
+  # The key carries the application version and the image revision (the git
+  # tag baked in as APP_REVISION), so every release starts on fresh keys; the
+  # previous release's entries are never read again and age out of memcached
+  # on their own (LRU, and the TTL below).
+  def self.release_cache_namespace
+    [TrefleAdmin::Application::VERSION, ENV['APP_REVISION'].presence].compact.join('+')
+  end
+
+  # A payload also embeds associated records (genus, family, autonym
+  # synonyms, images...) whose changes don't move the record's own
+  # updated_at; the TTL bounds how long such a change can stay invisible.
+  SERIALIZATION_CACHE_TTL = 1.day
+
+  # The one key builder for serialized payloads: the cache entries of the
+  # collection rows and of the detail, and the detail's ETag.
+  def serialization_cache_key(serializer, resource, scope: nil)
+    [
+      scope,
+      CollectionRenderers.release_cache_namespace,
+      serializer.name,
+      "#{resource.cache_key}-#{resource.cache_version}"
+    ].compact.join('/')
+  end
+
+  # When the process started; see http_last_modified.
+  BOOTED_AT = Time.current
+
+  # Last-Modified of a detail response. A client that sends only
+  # If-Modified-Since (no If-None-Match) would otherwise get a 304 on a record
+  # untouched since before the release, whatever the release changed in its
+  # payload. The response cannot be older than the code that built it.
+  def http_last_modified(resource)
+    [resource.updated_at, BOOTED_AT].compact.max
+  end
+
   def cache_or_serialize(collection, serializer, serializer_options: {})
     Rails.logger.debug { "[cache_or_serialize] serializer=#{serializer} options=#{serializer_options}" }
     collection.map do |resource|
-      end_key = "collection/#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
-      Rails.cache.fetch(end_key) do
+      end_key = serialization_cache_key(serializer, resource, scope: 'collection')
+      Rails.cache.fetch(end_key, expires_in: SERIALIZATION_CACHE_TTL) do
         serializer.new(serializer_options).serialize(resource)
       end
     end
@@ -75,10 +118,10 @@ module CollectionRenderers
   def render_serialized_resource(resource, serializer, serializer_options: {}, links: nil, meta: {}, status: :ok)
     expires_in serializer_options[:delay] || 1.week
 
-    end_key = "#{serializer}/#{resource.cache_key}-#{resource.cache_version}"
+    end_key = serialization_cache_key(serializer, resource)
 
-    if stale?(etag: end_key, template: false, last_modified: resource.updated_at) # rubocop:todo Style/GuardClause
-      serialized_resource = Rails.cache.fetch(end_key) do
+    if stale?(etag: end_key, template: false, last_modified: http_last_modified(resource)) # rubocop:todo Style/GuardClause
+      serialized_resource = Rails.cache.fetch(end_key, expires_in: SERIALIZATION_CACHE_TTL) do
         Panko::Response.new({
           data: serializer.new(serializer_options).serialize(resource),
           links: links,
