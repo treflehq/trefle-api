@@ -56,8 +56,19 @@ RSpec.describe 'Management backoffice', type: :request do
 
       get '/management/data_quality'
 
-      expect(response.body).to include('Evolution')
-      expect(response.body).to include('snapshot so far')
+      expect(response.body).to include('Trends')
+      expect(response.body).to include('snapshot in this window')
+    end
+
+    it 'charts the corrections filed and decided over the window' do
+      create(:record_correction, change_status: :pending)
+      create(:record_correction).tap(&:reject!)
+
+      get '/management/data_quality', params: { days: 30 }
+
+      html = Nokogiri::HTML(response.body)
+      expect(html.css('svg.chart rect.chart__mark.is-filed')).not_to be_empty
+      expect(html.css('svg.chart title').map(&:text)).to include(a_string_matching(/Rejected: 1\z/))
     end
 
     it 'shows the day-by-day progression once there are two points' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_160000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -360,6 +360,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_160000) do
     t.integer "source_type", default: 0, null: false
     t.string "source_reference"
     t.text "review_comment"
+    t.datetime "decided_at"
+    t.index ["decided_at"], name: "index_record_corrections_on_decided_at"
     t.index ["record_type", "record_id"], name: "index_record_corrections_on_record_type_and_record_id"
   end
 

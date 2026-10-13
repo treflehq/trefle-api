@@ -18,6 +18,7 @@ class Management::DataQualityController < Management::ManagementController
     evolution = Quality::Evolution.new(days: @days)
     @series = evolution.series
     @field_moves = evolution.field_moves
+    @corrections = Quality::CorrectionActivity.new(days: @days)
 
     @priorities = Quality::Priorities.fetch(limit: 50)
     @pending_plausibility_warnings = RecordCorrection.where(

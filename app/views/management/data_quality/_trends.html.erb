@@ -1,0 +1,115 @@
+<%# Trends over the chosen window: corrections filed and decided, the
+    pending backlog, and the fill rate from the daily snapshots. %>
+<h2 class="subtitle mt-5" id="trends">Trends</h2>
+<div class="buttons has-addons mb-4">
+  <% [7, 30, 90, 365].each do |d| %>
+    <%= link_to "#{d} days", management_data_quality_path(days: d, anchor: 'trends'),
+          class: "button is-small #{'is-link is-selected' if @days == d}" %>
+  <% end %>
+</div>
+
+<% activity = @corrections %>
+<% buckets = activity.buckets %>
+<% labels = buckets.map {|b| b.starts_on.strftime(activity.period == :week ? '%-d %b' : '%-d/%m') } %>
+<div class="box">
+  <h3 class="title is-6 mb-3">Corrections</h3>
+  <div class="columns is-mobile is-multiline has-text-centered mb-2">
+    <div class="column"><p class="heading">Filed</p><p class="title is-5"><%= number_with_delimiter(activity.totals[:submitted]) %></p></div>
+    <div class="column"><p class="heading">Accepted</p><p class="title is-5 has-text-success"><%= number_with_delimiter(activity.totals[:accepted]) %></p></div>
+    <div class="column"><p class="heading">Rejected</p><p class="title is-5 has-text-danger"><%= number_with_delimiter(activity.totals[:rejected]) %></p></div>
+    <div class="column"><p class="heading">Acceptance rate</p><p class="title is-5"><%= activity.acceptance_rate ? "#{activity.acceptance_rate}%" : '—' %></p></div>
+    <div class="column"><p class="heading">Pending now</p><p class="title is-5"><%= link_to number_with_delimiter(activity.totals[:pending_now]), management_record_corrections_path(status: :pending) %></p></div>
+  </div>
+  <p class="is-size-7 has-text-grey mb-2">
+    Per <%= activity.period %> over the last <%= @days %> days. A filing is dated by its creation, a decision by when it was taken.
+  </p>
+  <%= svg_column_chart(labels: labels, series: [
+        { name: 'Filed', css: 'is-filed', values: buckets.map(&:submitted) },
+        { name: 'Accepted', css: 'is-accepted', values: buckets.map(&:accepted) },
+        { name: 'Rejected', css: 'is-rejected', values: buckets.map(&:rejected) }
+      ]) %>
+  <h4 class="heading mt-4">Pending at the end of each <%= activity.period %></h4>
+  <%= svg_line_chart(labels: labels, series: [{ name: 'Pending', css: 'is-pending', values: buckets.map(&:pending) }]) %>
+</div>
+
+<div class="box">
+  <h3 class="title is-6 mb-3">Fill rate</h3>
+  <% if @series.length < 2 %>
+    <p class="has-text-grey">
+      Only <%= @series.length %> snapshot in this window. The daily job builds this up;
+      <code>rake quality:snapshot</code> adds a point now.
+    </p>
+  <% else %>
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <%= svg_line_chart(labels: @series.map {|point| point.date.strftime('%-d/%m') }, unit: '%', from_zero: false,
+                           series: [{ name: 'Fill rate', css: 'is-fill', values: @series.map(&:fill_rate) }]) %>
+        <details class="mt-3">
+          <summary class="is-size-7 has-text-link">Day by day</summary>
+            <table class="table is-fullwidth is-narrow is-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th class="has-text-right">Fill rate</th>
+                  <th class="has-text-right">Change</th>
+                  <th class="has-text-right">Filled cells</th>
+                  <th class="has-text-right">Species</th>
+                  <th class="has-text-right">Implausible</th>
+                  <th class="has-text-right">Conflicts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% previous = nil %>
+                <% @series.reverse.each do |point| %>
+                  <% nxt = @series[@series.index(point) - 1] if @series.index(point).positive? %>
+                  <tr>
+                    <td><%= point.date %></td>
+                    <td class="has-text-right"><strong><%= point.fill_rate %>%</strong></td>
+                    <td class="has-text-right">
+                      <% if nxt && point.fill_rate && nxt.fill_rate %>
+                        <% diff = (point.fill_rate - nxt.fill_rate).round(2) %>
+                        <span class="<%= diff.positive? ? 'has-text-success' : (diff.negative? ? 'has-text-danger' : 'has-text-grey') %>">
+                          <%= diff.positive? ? "+#{diff}" : diff %>
+                        </span>
+                      <% else %>
+                        <span class="has-text-grey">—</span>
+                      <% end %>
+                    </td>
+                    <td class="has-text-right"><%= number_with_delimiter(point.filled_count) %></td>
+                    <td class="has-text-right"><%= number_with_delimiter(point.species_count) %></td>
+                    <td class="has-text-right <%= 'has-text-danger' if point.implausible_count.to_i.positive? %>"><%= number_with_delimiter(point.implausible_count) %></td>
+                    <td class="has-text-right <%= 'has-text-danger' if point.conflict_count.to_i.positive? %>"><%= number_with_delimiter(point.conflict_count) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </details>
+      </div>
+
+      <div class="column">
+        <h4 class="heading">What moved</h4>
+        <% if @field_moves.empty? %>
+          <p class="has-text-grey">Nothing changed over this window.</p>
+        <% else %>
+          <table class="table is-fullwidth is-narrow">
+            <thead><tr><th>Field</th><th class="has-text-right">Change</th></tr></thead>
+            <tbody>
+              <% @field_moves.first(15).each do |move| %>
+                <tr>
+                  <td><code><%= move.field %></code></td>
+                  <td class="has-text-right <%= move.delta.positive? ? 'has-text-success' : 'has-text-danger' %>">
+                    <%= move.delta.positive? ? "+#{number_with_delimiter(move.delta)}" : number_with_delimiter(move.delta) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <p class="is-size-7 has-text-grey">
+            Species gained or lost per field between the ends of the window.
+            A negative number is a regression worth looking at.
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,50 @@
+// Server-rendered SVG charts of the back office (Management::ChartsHelper).
+.chart-figure { margin: 0; }
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+
+  .chart__axis { stroke: #b5b5b5; stroke-width: 1; }
+  .chart__grid { stroke: #ededed; stroke-width: 1; stroke-dasharray: 3 3; }
+  .chart__axis-label { fill: #7a7a7a; font-size: 11px; }
+  .chart__mark { transition: opacity 0.1s; }
+  .chart__mark:hover, .chart__dot:hover { opacity: 0.7; }
+  .chart__line { fill: none; stroke-width: 2; }
+  .chart__dot { stroke: #fff; stroke-width: 1; }
+}
+
+.chart__legend {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #4a4a4a;
+  margin-top: 0.25rem;
+}
+
+.chart__key::before {
+  content: '';
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.3rem;
+  border-radius: 2px;
+  vertical-align: -1px;
+  background: currentColor;
+}
+
+$chart-colors: (
+  'is-filed': #8f9bb3,
+  'is-accepted': #3e8e41,
+  'is-rejected': #d9534f,
+  'is-pending': #e09f3e,
+  'is-fill': #3273dc
+);
+
+@each $name, $color in $chart-colors {
+  .chart .chart__mark.#{$name}, .chart .chart__dot.#{$name} { fill: $color; }
+  .chart .chart__line.#{$name} { stroke: $color; }
+  .chart__key.#{$name}::before { background: $color; }
+}
