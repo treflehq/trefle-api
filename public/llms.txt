@@ -43,6 +43,7 @@ cross-origin requests.
     GET /species/{id}                a species with its full trait data, images, sources, distribution, synonyms
     GET /plants/search?q=...         full-text search over plants (scientific name, common names, synonyms, author, family)
     GET /species/search?q=...        the same over species
+    GET /species/{id}/synonyms       every synonym of a species, paginated (the detail embeds the first 50)
     GET /species/{id}/facts          provenance: every sourced claim behind the species traits
     GET /genus, /genus/{id}, /genus/{id}/species, /genus/{id}/plants
     GET /families, /families/{id}, /families/{id}/genus
@@ -55,8 +56,22 @@ cross-origin requests.
     GET /me                          the account the token belongs to
 
 {id} is the numeric id or the slug (abies-alba). A synonym slug resolves to
-the accepted species. Lists return a light version of each record; fetch
-/species/{id} for the complete one.
+the accepted species. Lists return a light version of each record (the
+same `species_light` shape on /plants and /species); fetch /species/{id}
+for the complete one, including `common_names` (grouped by language code;
+some languages appear under both a two-letter and a three-letter code,
+such as `fr` and `fra`: merge them).
+
+## Recipe: native plants of a country, with their French names
+
+    GET /distributions?q=France                       find the zone; its `slug` is "fra"
+    GET /distributions/fra/plants?filter[establishment]=native
+                                                      plants native to that zone (also introduced,
+                                                      doubtful, absent, extinct); paginate
+    GET /species/{slug}                               for each row: common_names.fr (and .fra)
+
+Zone names are in English (`?q=Brazil`, not `Brésil`). /distributions/{id}
+also takes the zone name when it is unambiguous (/distributions/France/plants).
 
 ## Response envelope
 
@@ -98,17 +113,33 @@ atmospheric_humidity, ground_humidity, ph_minimum, ph_maximum,
 minimum_temperature_deg_c, maximum_temperature_deg_c, soil_texture,
 soil_salinity, soil_nutriments, images_count, sources_count.
 
+light, atmospheric_humidity, ground_humidity (`soil_humidity` in the
+payload), soil_nutriments and soil_salinity are Ellenberg-style ecological
+indicator classes (1 to 9, 12 for soil humidity) from a European database
+(Baseflor): where the species grows in the wild, not what it tolerates in
+cultivation. Species outside Europe, tropical ones in particular, mostly
+have none.
+
 ## Pagination
 
 Collections return 20 items per page by default. per_page=N (1 to 100; limit=N
 is an alias) sets the page size, page=N selects a page; prefer following
-links.next. /species and /plants refuse page > 2500 (400): narrow the results
-with filters or ranges instead.
+links.next. /species and /plants stop at row 50,000: page 2500 at the
+default 20 per page, page 500 at per_page=100; deeper pages answer 400 and
+links.last points at the deepest page you can reach, not at the end of the
+collection. Narrow the results with filters or ranges instead of paging
+through everything.
+
+There is no current bulk export. https://github.com/treflehq/dump holds an
+old snapshot (October 2020, one tab-separated species.csv in its releases,
+under the ODbL): the species with the traits, names and distributions of
+the time, no provenance, and far behind the API's data. For bulk needs,
+see the contact on https://trefle.io/about#pricing.
 
 ## Rate limits and caching
 
 60 requests a minute per IP and token by default (more for sponsors, see
-https://trefle.io/about#support). Every response carries RateLimit-Limit,
+https://trefle.io/about#pricing). Every response carries RateLimit-Limit,
 RateLimit-Remaining and RateLimit-Reset; a 429 adds Retry-After. Single
 records answer ETag and Last-Modified, so conditional requests work.
 

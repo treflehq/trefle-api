@@ -12,16 +12,16 @@ class HomeStatsPresenter
 
   CACHE_EXPIRY = 1.hour
 
-  # The `rank` enum has no distinct "cultivar" value (only `subvar`); the
-  # label below is carried over from the current (dead — cultivar isn't a
-  # real rank) home page code rather than inventing a new taxonomy.
+  # One label per value of the `rank` enum. `subvar` is the subvariety
+  # (ICN rank below the variety), not a cultivar: cultivars are named under
+  # the ICNCP and the enum has no rank for them.
   RANK_LABELS = {
     'species' => 'Species',
     'var' => 'Varieties',
     'ssp' => 'Subspecies',
     'hybrid' => 'Hybrids',
     'form' => 'Forms',
-    'subvar' => 'Cultivars'
+    'subvar' => 'Subvarieties'
   }.freeze
 
   GROWTH_CONDITIONS_SQL = <<~SQL.squish

@@ -10,13 +10,24 @@ module CollectionRenderers
   def collection_links(collection, scope: %i[api v1], name: nil)
     route = [*scope, *[*name] || collection.table_name]
     base = pagination_params
+    last = last_reachable_page
     {
       self: polymorphic_path(route, base),
       first: polymorphic_path(route, base.merge({ page: 1 })),
       prev: @pagy.prev && polymorphic_path(route, base.merge({ page: @pagy.prev })),
-      next: @pagy.next && polymorphic_path(route, base.merge({ page: @pagy.next })),
-      last: polymorphic_path(route, base.merge({ page: @pagy.last }))
+      next: @pagy.next && @pagy.next <= last ? polymorphic_path(route, base.merge({ page: @pagy.next })) : nil,
+      last: polymorphic_path(route, base.merge({ page: last }))
     }.compact
+  end
+
+  # The collection's last page, or the deepest page the controller lets a
+  # client reach (WithCachedCount#deepest_page) when that comes first: on
+  # /species and /plants the full collection runs past the 50,000-row
+  # horizon, and a `last` link beyond it would answer 400.
+  def last_reachable_page
+    return @pagy.last unless respond_to?(:deepest_page, true)
+
+    [@pagy.last, deepest_page(@pagy.items)].min
   end
 
   # The query string every pagination link is built from. When the client

@@ -29,6 +29,14 @@ RSpec.describe HomeStatsPresenter do
     end
   end
 
+  describe 'RANK_LABELS' do
+    it 'labels every rank of the enum, subvar as subvarieties (not cultivars)' do
+      expect(described_class::RANK_LABELS.keys).to match_array(Species.ranks.keys)
+      expect(described_class::RANK_LABELS['subvar']).to eq('Subvarieties')
+      expect(described_class::RANK_LABELS.values).not_to include('Cultivars')
+    end
+  end
+
   describe '#synonyms_count' do
     it 'counts synonyms on top of whatever already exists' do
       baseline = presenter.synonyms_count
