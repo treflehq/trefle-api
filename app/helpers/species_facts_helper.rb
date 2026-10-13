@@ -28,8 +28,11 @@ module SpeciesFactsHelper
     name.to_s.sub(/_(cm|mm|deg_c|deg_f)\z/, '').humanize
   end
 
-  # A fact value as read: numbers rounded, with their unit.
+  # A fact value as read: numbers rounded, with their unit. An ecological
+  # indicator reads as its class on its scale ("7 / 9 · half-light to light").
   def fact_value(fact, unit = fact.unit)
+    return EcologicalIndicators.describe(fact.attribute_name, fact.value_numeric || fact.value) if EcologicalIndicators.field?(fact.attribute_name)
+
     text = if fact.value_numeric
              number_with_precision(fact.value_numeric, precision: 2, strip_insignificant_zeros: true, delimiter: '')
            else
@@ -42,6 +45,7 @@ module SpeciesFactsHelper
   def provenance_shown_value(attribute)
     return tag.span('—', class: 'has-text-grey-light', title: 'Not a field of the record') if attribute.shown == :none
     return tag.em('empty', class: 'has-text-grey') if attribute.shown.nil?
+    return EcologicalIndicators.describe(attribute.name, attribute.shown) if EcologicalIndicators.field?(attribute.name)
 
     value = attribute.shown
     value = value.to_a.map(&:to_s).join(', ') if value.respond_to?(:to_a) && !value.is_a?(String)
