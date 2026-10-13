@@ -19,7 +19,8 @@ describe 'Plants API' do
       tags 'Plants'
       consumes 'application/json'
       produces 'application/json'
-      description 'List plants'
+      description 'List plants. Each row is the main species of a plant, in the same light shape (`species_light`) as ' \
+                  'the species lists; `links.plant` points at the plant record. GET /plants/{id} returns the full plant.'
       operationId 'listPlants'
       security [{ token: [] }, { bearerAuth: [] }]
 

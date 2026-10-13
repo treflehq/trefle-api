@@ -1601,7 +1601,9 @@ paths:
       summary: List plants
       tags:
       - Plants
-      description: List plants
+      description: List plants. Each row is the main species of a plant, in the same
+        light shape (`species_light`) as the species lists; `links.plant` points at
+        the plant record. GET /plants/{id} returns the full plant.
       operationId: listPlants
       security:
       - token: []
@@ -5437,59 +5439,6 @@ components:
       - scientific_name
       - slug
       - links
-    plant_light:
-      type: object
-      properties:
-        id:
-          type: integer
-        common_name:
-          type: string
-          nullable: true
-        slug:
-          type: string
-        scientific_name:
-          type: string
-        year:
-          type: integer
-          nullable: true
-        bibliography:
-          type: string
-          nullable: true
-        author:
-          type: string
-          nullable: true
-        family_common_name:
-          type: string
-          nullable: true
-        genus_id:
-          type: integer
-        main_species_id:
-          type: integer
-          nullable: true
-        vegetable:
-          type: boolean
-          nullable: true
-        observations:
-          type: string
-          nullable: true
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            genus:
-              type: string
-            species:
-              type: string
-          required:
-          - self
-          - genus
-          - species
-      required:
-      - id
-      - scientific_name
-      - slug
-      - links
     species:
       type: object
       properties:
@@ -5770,9 +5719,13 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
-          description: Common names of the species per language
+              description: A common name of the species in that language
+          description: 'Common names of the species, grouped by language. Each key
+            is the language code the source gave: mostly ISO 639-1 two-letter codes
+            (`en`, `fr`, `de`), but older imports used ISO 639-3 three-letter codes
+            (`eng`, `fra`, `deu`), so one language can appear under both keys and
+            a client should merge them. A few keys are regional tags (`pt-br`, `zh-tw`,
+            `zh-hant`), and names with no known language sit under an empty key.'
         distribution:
           type: object
           deprecated: true
@@ -5780,8 +5733,7 @@ components:
             type: array
             items:
               type: string
-              nullable: true
-              description: TODO
+              description: The name of a distribution zone
           description: "(Deprecated) Distribution of the species per establishment"
         distributions:
           type: object
@@ -6217,7 +6169,10 @@ components:
             nitrogen_fixation:
               type: string
               nullable: true
-              description: Capability to fix nitrogen in monoculture
+              description: 'Capability to fix nitrogen in monoculture (USDA PLANTS
+                scale). In the current data the value is only `High` or `None`, or
+                null when unknown: the intermediate classes of the scale (`Low`, `Medium`)
+                are not used, and `None` is a recorded value, not missing data.'
             shape_and_orientation:
               type: string
               nullable: true
@@ -6378,12 +6333,20 @@ components:
                 cm:
                   type: number
                   nullable: true
-                  description: Minimum depth of soil required for the species, in
-                    centimeters. Plants that do not have roots such as rootless aquatic
-                    plants have 0
-              description: Minimum depth of soil required for the species, in centimeters.
-                Plants that do not have roots such as rootless aquatic plants have
-                0
+                  description: 'Rooting depth of the species, in centimeters: how
+                    deep its roots typically go, not the soil depth it needs. Values
+                    sourced from the TRY plant trait database (trait "Root rooting
+                    depth") are the median of the depths measured for the species;
+                    older values come from USDA PLANTS ("minimum root depth"). The
+                    species facts (`/species/{id}/facts`) name the source of each
+                    value. Despite the field name, it is not a minimum.'
+              description: 'Rooting depth of the species, in centimeters: how deep
+                its roots typically go, not the soil depth it needs. Values sourced
+                from the TRY plant trait database (trait "Root rooting depth") are
+                the median of the depths measured for the species; older values come
+                from USDA PLANTS ("minimum root depth"). The species facts (`/species/{id}/facts`)
+                name the source of each value. Despite the field name, it is not a
+                minimum.'
             minimum_temperature:
               type: object
               properties:
@@ -6838,11 +6801,17 @@ components:
         plants_count:
           type: integer
           description: Total number of plants in the database
+        detailed_plants_count:
+          type: integer
+          description: Number of species carrying detailed trait data
         detailled_plants_count:
           type: integer
-          description: Number of plants carrying detailed trait data
+          deprecated: true
+          description: Deprecated misspelling of `detailed_plants_count`, same value.
+            Kept for existing clients; read `detailed_plants_count` instead.
       required:
       - plants_count
+      - detailed_plants_count
       - detailled_plants_count
     zone:
       type: object
