@@ -52,7 +52,6 @@ class HomeStatsPresenter
   }.freeze
 
   CORRECTION_ACTIVITY_WINDOW = 30.days
-  CORRECTION_SERIES_WEEKS = 12
   LATEST_REVIEWED_LIMIT = 5
 
   # Counts of species per taxonomic rank, in display order, plus the total
@@ -86,21 +85,22 @@ class HomeStatsPresenter
     @corrections_stamp ||= RecordCorrection.maximum(:updated_at)&.to_i
   end
 
-  # 30-day correction activity: submitted/accepted counts, distinct
-  # contributors, the fields the accepted corrections changed, and a 12-week
-  # weekly series of accepted corrections. Decisions are dated by
-  # `decided_at`, not `updated_at`, which later edits of the row move.
+  # 30-day correction activity: corrections reviewed (accepted or rejected),
+  # submitted and accepted, distinct contributors, and the fields the accepted
+  # corrections changed. Decisions are dated by `decided_at`, not
+  # `updated_at`, which later edits of the row move.
   def correction_activity
     Rails.cache.fetch(['home_stats/correction_activity', corrections_stamp], expires_in: CACHE_EXPIRY) do
       submitted_scope = RecordCorrection.where(created_at: CORRECTION_ACTIVITY_WINDOW.ago..)
-      accepted_scope = RecordCorrection.accepted_change_status.where(decided_at: CORRECTION_ACTIVITY_WINDOW.ago..)
+      reviewed_scope = RecordCorrection.where.not(change_status: :pending).where(decided_at: CORRECTION_ACTIVITY_WINDOW.ago..)
+      accepted_scope = reviewed_scope.accepted_change_status
 
       {
+        reviewed: reviewed_scope.count,
         submitted: submitted_scope.count,
         accepted: accepted_scope.count,
         fields_completed: fields_completed(accepted_scope),
-        contributors: submitted_scope.distinct.count(:user_id),
-        weekly_accepted: weekly_accepted_series
+        contributors: submitted_scope.distinct.count(:user_id)
       }
     end
   end
@@ -137,16 +137,6 @@ class HomeStatsPresenter
     rescue JSON::ParserError
       0
     end
-  end
-
-  def weekly_accepted_series
-    range_start = (CORRECTION_SERIES_WEEKS - 1).weeks.ago.beginning_of_week
-    timestamps = RecordCorrection.accepted_change_status.where(decided_at: range_start..).pluck(:decided_at)
-
-    buckets = Hash.new(0)
-    timestamps.each {|timestamp| buckets[timestamp.beginning_of_week.to_date] += 1 }
-
-    (0...CORRECTION_SERIES_WEEKS).map {|i| buckets[(range_start + i.weeks).to_date] }
   end
 
   def reviewed_entry(correction)

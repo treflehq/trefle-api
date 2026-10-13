@@ -22,6 +22,18 @@ RSpec.describe 'Public website pages', type: :request do
       expect(assigns(:home_stats)).to be_a(HomeStatsPresenter)
     end
 
+    it 'counts the corrections of the last 30 days, without the weekly chart' do
+      create(:record_correction).tap(&:reject!)
+
+      get root_path
+
+      changes = Nokogiri::HTML(response.body).at_css('#changes')
+      expect(changes.text.squish).to include('In the last 30 days')
+      tile = changes.css('.home-stat-tiles__tile').find {|t| t.at_css('dd').text == 'corrections reviewed' }
+      expect(tile.at_css('dt').text.delete(',').to_i).to be >= 1
+      expect(changes.at_css('.home-sparkline')).to be_nil
+    end
+
     it 'states the dataset size from SiteCounts, with no "million" anywhere (#437)' do
       get root_path
       expect(response.body.squish).to include("about #{plants_figure} plants (#{species_figure} records once subspecies")
