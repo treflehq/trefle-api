@@ -32,6 +32,7 @@ class Api::V1::SpeciesController < Api::ApiController
     inflorescence_type
     leaf_retention
     ligneous_type
+    nitrogen_fixation
     rank
     scientific_name
     sexuality
@@ -78,6 +79,7 @@ class Api::V1::SpeciesController < Api::ApiController
     minimum_root_depth_cm
     minimum_temperature_deg_c
     minimum_temperature_deg_f
+    nitrogen_fixation
     ph_maximum
     ph_minimum
     planting_days_to_harvest
@@ -250,7 +252,8 @@ class Api::V1::SpeciesController < Api::ApiController
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
       range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
-      field_aliases: ::Scopes::Species::FIELD_ALIASES
+      field_aliases: ::Scopes::Species::FIELD_ALIASES,
+      model: ::Species
     )
     options = {
       where: search_params[:where],

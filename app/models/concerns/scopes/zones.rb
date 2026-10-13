@@ -8,11 +8,9 @@ module Scopes
       scope :filter_by_tdwg_code, ->(tdwg_code) { where('LOWER(tdwg_code) IN (?)', [*tdwg_code].map(&:downcase)) }
 
       # Ranges
-      scope :range_by_tdwg_level, ->(a, b) { where(tdwg_level: ((a.to_i)...(b&.to_i || 5))) }
-      scope :range_by_species_count, ->(a, b) { where(species_count: ((a.to_i)...(b&.to_i || 9_999_999_999_999))) }
-      scope :range_by_species_count_cumulative, lambda {|a, b|
-        where(species_count_cumulative: ((a.to_i)...(b&.to_i || 9_999_999_999_999)))
-      }
+      scope :range_by_tdwg_level, ->(min, max) { where_in_range(:tdwg_level, min, max) }
+      scope :range_by_species_count, ->(min, max) { where_in_range(:species_count, min, max) }
+      scope :range_by_species_count_cumulative, ->(min, max) { where_in_range(:species_count_cumulative, min, max) }
 
       # Exact name, case- and accent-insensitive ("france", "reunion")
       scope :named, lambda {|name|

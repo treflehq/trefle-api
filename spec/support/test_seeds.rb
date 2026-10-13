@@ -56,6 +56,7 @@ module TestSeeds
         growth_form: 'Bunch',
         growth_habit: 'Forb/herb',
         growth_rate: 'Rapid',
+        nitrogen_fixation: 'High',
         light: 4 + i,
         atmospheric_humidity: 5,
         ground_humidity: 5,
