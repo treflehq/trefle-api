@@ -49,5 +49,32 @@ module TrefleAdmin
     config.action_dispatch.trusted_proxies = ActionDispatch::RemoteIp::TRUSTED_PROXIES + [
       IPAddr.new('10.42.0.0/16')
     ]
+
+    # Responses were sent uncompressed whatever the client's Accept-Encoding
+    # (a species detail could weigh 641 KB of JSON, openapi.json 347 KB);
+    # JSON shrinks by about 90% under gzip.
+    #
+    # Inserted before (outside) Rack::ETag, so ETags are computed on the
+    # uncompressed body and stay the same for compressed and plain clients
+    # (they are weak ETags, which allows that), and inside
+    # Rack::ConditionalGet, so a 304 is decided first and has no body to
+    # compress. Rack::Attack, Rack::Cors and RateLimitHeadersMiddleware only
+    # set headers, which compression leaves alone.
+    #
+    # Only text formats are compressed (images and fonts already are), and
+    # a body whose size is known to be under 1 KB is left as is: gzip's
+    # framing would make it bigger.
+    compressible_types = %w[
+      application/json application/vnd.api+json application/yaml application/xml
+      application/javascript text/javascript text/css text/html text/plain text/markdown
+      image/svg+xml
+    ].freeze
+    config.middleware.insert_before Rack::ETag, Rack::Deflater,
+                                    include: compressible_types,
+                                    sync: false,
+                                    if: lambda {|_env, _status, headers, _body|
+                                      length = headers[Rack::CONTENT_LENGTH]
+                                      length.nil? || length.to_i >= 1024
+                                    }
   end
 end
