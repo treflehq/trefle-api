@@ -36,7 +36,7 @@ RSpec.describe ScientificNameStructureValidator do
     %i[ssp var species].each do |rank|
       species = Species.new(scientific_name: 'Dryas octopetala subsp. octopetala var. kamtschatica', rank: rank)
       described_class.new(attributes: [:scientific_name]).validate_each(species, :scientific_name, species.scientific_name)
-      expect(species.errors[:scientific_name].join).to include('two infraspecific ranks')
+      expect(species.errors[:scientific_name].join).to include('carries 2 infraspecific ranks; a name has one')
     end
     expect(valid_for?('Saxifraga aizoon var. aizoon subvar. brevifolia', :subvar)).to be(false)
     expect(valid_for?('Rosa canina var. dumalis f. glabra', :form)).to be(false)
@@ -47,9 +47,27 @@ RSpec.describe ScientificNameStructureValidator do
       %i[hybrid var].each do |rank|
         species = Species.new(scientific_name: name, rank: rank)
         described_class.new(attributes: [:scientific_name]).validate_each(species, :scientific_name, name)
-        expect(species.errors[:scientific_name].join).to include('two infraspecific ranks'), "#{name} at #{rank}"
+        expect(species.errors[:scientific_name].join).to include('infraspecific ranks; a name has one'), "#{name} at #{rank}"
       end
     end
+  end
+
+  it 'counts the terms, so a trailing author or a third rank does not slip through the hybrid rank either' do
+    {
+      'Rosa × canina var. dumalis f. glabra L.' => 2,
+      'Saxifraga × aizoon var. aizoon subvar. brevifolia f. multicaulis' => 3,
+      'Rosa × canina subsp. x var. y f. z (L.) Mill.' => 3
+    }.each do |name, terms|
+      species = Species.new(scientific_name: name, rank: :hybrid)
+      described_class.new(attributes: [:scientific_name]).validate_each(species, :scientific_name, name)
+      expect(species.errors[:scientific_name].join).to include("carries #{terms} infraspecific ranks"), name
+    end
+  end
+
+  it 'does not take an epithet or a section for a connecting term' do
+    expect(valid_for?('Taraxacum sect. Taraxacum')).to be(true)
+    expect(valid_for?('Rosa canina var. dumalis', :var)).to be(true)
+    expect(valid_for?('Quercus robur f. fastigiata', :form)).to be(true)
   end
 
   it 'still accepts the name a classification string reduces to' do
