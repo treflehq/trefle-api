@@ -32,6 +32,7 @@ RSpec.describe 'Rate limit headers', type: :request do
     expect(response.headers['RateLimit-Limit']).to eq('60')
     expect(response.headers['RateLimit-Remaining']).to eq('0')
     expect(response.headers['RateLimit-Reset'].to_i).to be > Time.now.to_i
+    expect(response.headers['Retry-After'].to_i).to be_between(1, 60)
   end
 
 end

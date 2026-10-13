@@ -20,18 +20,11 @@ module Schemas
       api_status: ApiStatus.schema,
       zone: Zone.schema,
       error: Error.schema,
-      request_body_correction: RecordCorrection.request_body,
-      filters_families: Family.filters,
-      filters_genus: Genus.filters,
-      filters_plants: Species.filters,
-      filters_species: Species.filters,
-      filters_not_species: Species.filters_not,
-      sorts_families: Family.sorts,
-      sorts_genus: Genus.sorts,
-      sorts_plants: Species.sorts,
-      sorts_species: Species.sorts,
-      ranges_plants: Species.ranges,
-      ranges_species: Species.ranges
+      request_body_correction: RecordCorrection.request_body
     }.freeze
+
+    # components.parameters -- see Parameters for why filter/order/range are
+    # declared there rather than as plain schemas.
+    PARAMETERS = Parameters.all.freeze
   end
 end
