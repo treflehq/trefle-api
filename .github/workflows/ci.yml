@@ -90,6 +90,14 @@ jobs:
             exit 1
           fi
 
+      # The same file the API serves at /api/v1/openapi.yaml, kept with the run
+      # so a release can attach it without rebuilding (#221).
+      - name: Publish the OpenAPI spec as a build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-v1
+          path: public/swagger/v1/swagger.yaml
+
   rubocop:
     name: RuboCop
     runs-on: ubuntu-latest

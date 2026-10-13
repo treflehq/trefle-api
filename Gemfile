@@ -109,6 +109,7 @@ group :development, :test do
   gem 'database_cleaner', '>= 1.8.5'
   gem 'dotenv-rails', '>= 2.7.5'
   gem 'marginalia', '>= 1.8.0' # annotate queries
+  gem 'openapi3_parser' # validates the generated OpenAPI document (spec/requests/api/v1/openapi_spec.rb)
   gem 'pry'
   gem 'rails-controller-testing'
   gem 'rspec'
@@ -117,7 +118,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'webmock'
-  # gem 'rswag'
+  # Test data
   gem 'factory_bot', '>= 5.1.2'
   gem 'faker', '>= 2.1.2'
   gem 'seed_dump'

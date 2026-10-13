@@ -13,7 +13,7 @@ describe 'Kingdoms API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/kingdoms' do
+  path '/kingdoms' do
 
     get 'Searches kingdoms' do
       tags 'Kingdoms'
@@ -21,9 +21,8 @@ describe 'Kingdoms API' do
       produces 'application/json'
       description 'List kingdoms'
       operationId 'listKingdoms'
-      # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -38,13 +37,16 @@ describe 'Kingdoms API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/kingdoms/{id}' do
+  path '/kingdoms/{id}' do
 
     get 'Retrieve a kingdom' do
       tags 'Kingdoms'
@@ -70,9 +72,21 @@ describe 'Kingdoms API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Kingdom.first.id }
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Kingdom.first.id }
       end
     end
   end

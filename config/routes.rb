@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get '/', to: 'home#index'
       get '/me', to: 'users#me'
+      # The OpenAPI description of this API, no token needed (Openapi::Document)
+      get '/openapi.:format', to: 'openapi#show', constraints: { format: /json|yaml/ }
 
       resources :kingdoms, only: %i[index show]
       resources :subkingdoms, only: %i[index show]

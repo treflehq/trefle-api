@@ -3,23 +3,30 @@ openapi: 3.0.1
 info:
   title: Trefle API v1
   version: 2.9.6
-  description: |-
+  description: |
     A REST API over a global plants database: taxonomy, botanical traits, distribution zones and images.
 
-    Every endpoint but `GET /api/v1` requires a token, passed either as a `token` query parameter or as `Authorization: Bearer <token>`. Claim one with `POST /api/auth/claim`.
+    Every endpoint but `GET /api/v1` and this document requires a token, passed either as `Authorization: Bearer <token>` or as a `token` query parameter. Get yours on https://trefle.io/profile; browser applications claim an origin-bound JWT with `POST /api/auth/claim` instead of shipping the account token.
+
+    Collections take `page` and accept `filter[field]`, `filter_not[field]`, `order[field]` and `range[field]` query parameters: one key per field, the allowed keys are listed per endpoint and an unknown key answers 400. Every error answers the same envelope (`error`, `code`, `message`). Requests are rate limited (60 a minute by default) and every response carries `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset`.
+
+    This document is generated from the API test suite and served by the API itself at https://trefle.io/api/v1/openapi.json (or .yaml). A plain-text guide for programs lives at https://trefle.io/llms.txt.
 
     Trefle compiles data from external sources; each record lists the sources it was built from, with their own licence. Attribution is required — see https://trefle.io/citation.
   license:
     name: CC-BY-4.0
     url: https://creativecommons.org/licenses/by/4.0/
+externalDocs:
+  description: 'Guides: getting started, filtering, sorting, pagination, searching'
+  url: https://docs.trefle.io
 paths:
-  "/api/v1":
+  "/":
     get:
       summary: API status
       tags:
       - Root
-      description: Public database counters. This is the only endpoint that does not
-        require a token.
+      description: Public database counters. With the OpenAPI document, the only endpoint
+        that does not require a token.
       operationId: getApiStatus
       security: []
       responses:
@@ -29,7 +36,30 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/api_status"
-  "/api/v1/me":
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/me":
     get:
       summary: Retrieve the token owner
       tags:
@@ -49,7 +79,34 @@ paths:
                 "$ref": "#/components/schemas/user_profile"
         '401':
           description: Invalid credentials
-  "/api/v1/kingdoms":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/kingdoms":
     get:
       summary: Searches kingdoms
       tags:
@@ -60,12 +117,8 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -105,7 +158,34 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/kingdoms/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/kingdoms/{id}":
     get:
       summary: Retrieve a kingdom
       tags:
@@ -139,7 +219,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/subkingdoms":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/subkingdoms":
     get:
       summary: Searches subkingdoms
       tags:
@@ -150,12 +263,8 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -195,7 +304,34 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/subkingdoms/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/subkingdoms/{id}":
     get:
       summary: Retrieve a subkingdom
       tags:
@@ -229,7 +365,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/divisions":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/divisions":
     get:
       summary: Searches divisions
       tags:
@@ -240,12 +409,8 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -285,7 +450,34 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/divisions/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/divisions/{id}":
     get:
       summary: Retrieve a division
       tags:
@@ -319,7 +511,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/division_classes":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/division_classes":
     get:
       summary: Searches division classes
       tags:
@@ -330,12 +555,8 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -375,7 +596,34 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/division_classes/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/division_classes/{id}":
     get:
       summary: Retrieve a division class
       tags:
@@ -409,7 +657,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/division_orders":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/division_orders":
     get:
       summary: Searches division orders
       tags:
@@ -420,12 +701,8 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -465,7 +742,34 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/division_orders/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/division_orders/{id}":
     get:
       summary: Retrieve a division order
       tags:
@@ -499,7 +803,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/families":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/families":
     get:
       summary: Searches families
       tags:
@@ -510,24 +847,10 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_families"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_families"
+      - "$ref": "#/components/parameters/filter_families"
+      - "$ref": "#/components/parameters/order_families"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -567,7 +890,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/families/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/families/{id}":
     get:
       summary: Retrieve a family
       tags:
@@ -601,7 +958,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/families/{family_id}/genus":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/families/{family_id}/genus":
     get:
       summary: List genus of a family
       tags:
@@ -618,24 +1008,10 @@ paths:
         description: The family id or slug
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_genus"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_genus"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_genus"
+      - "$ref": "#/components/parameters/order_genus"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -675,7 +1051,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/families/{family_id}/genus/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/families/{family_id}/genus/{id}":
     get:
       summary: Retrieve a genus of a family
       tags:
@@ -715,7 +1131,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/genus":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus":
     get:
       summary: Searches genus
       tags:
@@ -723,24 +1172,10 @@ paths:
       description: List genus
       operationId: listGenus
       parameters:
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_genus"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_genus"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_genus"
+      - "$ref": "#/components/parameters/order_genus"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       security:
       - token: []
       - bearerAuth: []
@@ -783,7 +1218,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/genus/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus/{id}":
     get:
       summary: Retrieve a genus
       tags:
@@ -817,7 +1286,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/genus/{genus_id}/species":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus/{genus_id}/species":
     get:
       summary: List species of a genus
       tags:
@@ -834,36 +1336,12 @@ paths:
         description: The genus id or slug
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -903,7 +1381,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/genus/{genus_id}/species/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus/{genus_id}/species/{id}":
     get:
       summary: Retrieve a species of a genus
       tags:
@@ -949,7 +1467,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/plants":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants":
     get:
       summary: List plants
       tags:
@@ -960,37 +1511,12 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch. Capped at 2500 -- deeper pages return a 400
-          (#367)
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1030,7 +1556,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/plants/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants/{id}":
     get:
       summary: Retrieve a plant
       tags:
@@ -1064,7 +1624,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/plants/search":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants/search":
     get:
       summary: Search for a plant
       tags:
@@ -1073,42 +1666,13 @@ paths:
         synonym name etc.
       operationId: searchPlants
       parameters:
-      - name: q
-        required: true
-        in: query
-        description: The string to search
-        schema:
-          type: string
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_plants"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_plants"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_plants"
+      - "$ref": "#/components/parameters/q"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
       security:
       - token: []
       - bearerAuth: []
@@ -1151,7 +1715,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/plants/{id}/report":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '422':
+          description: Missing search query
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants/{id}/report":
     post:
       summary: Report an error
       tags:
@@ -1185,6 +1782,39 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
       requestBody:
         content:
           application/json:
@@ -1196,7 +1826,7 @@ paths:
                   example: The flower color is red
                   description: An optional note about the incorrect data
         description: An optional note about the incorrect data
-  "/api/v1/distributions/{zone_id}/plants":
+  "/distributions/{zone_id}/plants":
     get:
       summary: List plants in a distribution zone
       tags:
@@ -1213,37 +1843,12 @@ paths:
         description: The zone id or twdg code
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch. Capped at 2500 -- deeper pages return a 400
-          (#367)
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1283,7 +1888,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/genus/{genus_id}/plants":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus/{genus_id}/plants":
     get:
       summary: List plants of a genus
       tags:
@@ -1300,37 +1945,12 @@ paths:
         description: The genus id or slug
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch. Capped at 2500 -- deeper pages return a 400
-          (#367)
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1370,7 +1990,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/plants/{plant_id}/species":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants/{plant_id}/species":
     get:
       summary: List species of a plant
       tags:
@@ -1387,36 +2047,12 @@ paths:
         description: The plant id or slug
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1456,7 +2092,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/plants/{plant_id}/species/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/plants/{plant_id}/species/{id}":
     get:
       summary: Retrieve a species of a plant
       tags:
@@ -1502,7 +2178,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/genus/{genus_id}/plants/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/genus/{genus_id}/plants/{id}":
     get:
       summary: Retrieve a plant of a genus
       tags:
@@ -1548,7 +2257,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/species":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/species":
     get:
       summary: List species
       tags:
@@ -1559,37 +2301,12 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch. Capped at 2500 -- deeper pages return a 400
-          (#367)
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1629,7 +2346,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/species/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/species/{id}":
     get:
       summary: Retrieve a species
       tags:
@@ -1669,7 +2420,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/species/search":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/species/search":
     get:
       summary: Search for a species
       tags:
@@ -1678,42 +2462,13 @@ paths:
         synonym name etc.
       operationId: searchSpecies
       parameters:
-      - name: q
-        required: true
-        in: query
-        description: The string to search
-        schema:
-          type: string
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
+      - "$ref": "#/components/parameters/q"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
       security:
       - token: []
       - bearerAuth: []
@@ -1756,7 +2511,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/species/{id}/report":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '422':
+          description: Missing search query
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/species/{id}/report":
     post:
       summary: Report an error
       tags:
@@ -1790,6 +2578,39 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
       requestBody:
         content:
           application/json:
@@ -1801,7 +2622,7 @@ paths:
                   example: The flower color is red
                   description: An optional note about the incorrect data
         description: An optional note about the incorrect data
-  "/api/v1/species/{id}/facts":
+  "/species/{id}/facts":
     get:
       summary: List the provenance facts of a species
       tags:
@@ -1840,7 +2661,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/species/{species_id}/corrections":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/species/{species_id}/corrections":
     get:
       summary: List the corrections submitted on a species
       tags:
@@ -1858,12 +2712,10 @@ paths:
         description: The id or the slug of the species
         schema:
           type: string
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_corrections"
+      - "$ref": "#/components/parameters/order_corrections"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1903,7 +2755,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/distributions":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/distributions":
     get:
       summary: List distributions zones
       tags:
@@ -1919,12 +2811,12 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/zone_q"
+      - "$ref": "#/components/parameters/filter_zones"
+      - "$ref": "#/components/parameters/order_zones"
+      - "$ref": "#/components/parameters/range_zones"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -1964,7 +2856,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/distributions/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/distributions/{id}":
     get:
       summary: Retrieve a distribution zone
       tags:
@@ -1998,7 +2924,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/distributions/{zone_id}/species":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/distributions/{zone_id}/species":
     get:
       summary: List species of a distribution zone
       tags:
@@ -2015,36 +2974,12 @@ paths:
         description: The zone id or slug
         schema:
           type: string
-      - name: filter
-        in: query
-        required: false
-        description: Filter on values
-        schema:
-          "$ref": "#/components/schemas/filters_species"
-      - name: filter_not
-        in: query
-        required: false
-        description: Exclude results matching null values
-        schema:
-          "$ref": "#/components/schemas/filters_not_species"
-      - name: order
-        in: query
-        required: false
-        description: Sort on values
-        schema:
-          "$ref": "#/components/schemas/sorts_species"
-      - name: range
-        in: query
-        required: false
-        description: Range on values
-        schema:
-          "$ref": "#/components/schemas/ranges_species"
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_species"
+      - "$ref": "#/components/parameters/filter_not_species"
+      - "$ref": "#/components/parameters/order_species"
+      - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -2084,7 +3019,47 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/distributions/{zone_id}/species/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, invalid filter
+            value, or page beyond 2500
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/distributions/{zone_id}/species/{id}":
     get:
       summary: Retrieve a species of a distribution zone
       tags:
@@ -2130,7 +3105,40 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/distributions/{zone_id}/plants/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/distributions/{zone_id}/plants/{id}":
     get:
       summary: Retrieve a plant of a distribution zone
       tags:
@@ -2176,7 +3184,42 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/auth/claim":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/auth/claim":
+    servers:
+    - url: https://trefle.io/api
     post:
       summary: Request a client-side token
       tags:
@@ -2223,6 +3266,29 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
       requestBody:
         content:
           application/json:
@@ -2241,7 +3307,7 @@ paths:
               required:
               - origin
         required: true
-  "/api/v1/corrections":
+  "/corrections":
     get:
       summary: Searches corrections
       tags:
@@ -2251,6 +3317,11 @@ paths:
       security:
       - token: []
       - bearerAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/filter_corrections"
+      - "$ref": "#/components/parameters/order_corrections"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -2290,7 +3361,41 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
-  "/api/v1/corrections/{id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/corrections/{id}":
     get:
       summary: Retrieve a correction
       tags:
@@ -2324,7 +3429,40 @@ paths:
                         type: string
         '401':
           description: Invalid credentials
-  "/api/v1/corrections/{record_type}/{record_id}":
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/corrections/{record_type}/{record_id}":
     post:
       summary: Submit a correction
       tags:
@@ -2370,14 +3508,51 @@ paths:
                         type: string
         '422':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
       requestBody:
         content:
           application/json:
             schema:
               "$ref": "#/components/schemas/request_body_correction"
-  "/api/v1/corrections/mine":
+  "/corrections/mine":
     get:
       summary: List your own corrections
       tags:
@@ -2388,12 +3563,10 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
-      - name: page
-        in: query
-        required: false
-        description: The page to fetch
-        schema:
-          type: number
+      - "$ref": "#/components/parameters/filter_corrections"
+      - "$ref": "#/components/parameters/order_corrections"
+      - "$ref": "#/components/parameters/page"
+      - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
           description: Success
@@ -2433,16 +3606,1212 @@ paths:
                         type: integer
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '400':
+          description: Unknown filter, filter_not, order or range key, or invalid
+            filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+  "/openapi.{format}":
+    get:
+      summary: Retrieve the OpenAPI description of this API
+      tags:
+      - Root
+      description: The OpenAPI 3.0 document describing every endpoint, parameter and
+        response of this API, as JSON or YAML. No token needed. Generated from the
+        API test suite, so it matches the running version.
+      operationId: getOpenapiDocument
+      security: []
+      parameters:
+      - name: format
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+        description: The serialisation wanted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                description: An OpenAPI 3.0 document
+                required:
+                - openapi
+                - info
+                - paths
+                properties:
+                  openapi:
+                    type: string
+                    example: 3.0.1
+                  info:
+                    type: object
+                  paths:
+                    type: object
+            application/yaml:
+              schema:
+                type: object
+                description: An OpenAPI 3.0 document
+                required:
+                - openapi
+                - info
+                - paths
+                properties:
+                  openapi:
+                    type: string
+                    example: 3.0.1
+                  info:
+                    type: object
+                  paths:
+                    type: object
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+            application/yaml:
+              schema:
+                "$ref": "#/components/schemas/error"
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: 'The account access token, or the JWT claimed with `POST /api/auth/claim`,
+        as `Authorization: Bearer <token>`'
     token:
       type: apiKey
       name: token
       in: query
+      description: The same token as a `token` query parameter, for clients that cannot
+        set headers
+  parameters:
+    page:
+      name: page
+      in: query
+      required: false
+      description: 'The page to fetch, starting at 1. `/species` and `/plants` cap
+        it at 2500 and answer 400 beyond: narrow the results with a filter or a range
+        instead of paging through the whole collection.'
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      required: false
+      description: 'Planned, not honoured yet (#217): collections return 20 items
+        per page whatever this value. Documented ahead so generated clients carry
+        it.'
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page of the search (default 20)
+      schema:
+        type: integer
+        minimum: 1
+        default: 20
+    q:
+      name: q
+      in: query
+      required: true
+      description: 'The text to search for: a scientific name, a common name, a synonym,
+        an author, a genus or a family name'
+      schema:
+        type: string
+      example: coconut
+    zone_q:
+      name: q
+      in: query
+      required: false
+      description: Keep the zones whose name contains this text
+      schema:
+        type: string
+      example: Europe
+    filter_species:
+      name: filter
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field equals the value: `filter[field]=value`.
+        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
+        filterable field; an unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          author:
+            type: string
+            example: red,pink
+          biological_type:
+            type: string
+            example: red,pink
+          bloom_months:
+            type: string
+            example: red,pink
+          common_name:
+            type: string
+            example: red,pink
+          complete_data:
+            type: string
+            example: red,pink
+          completion_ratio:
+            type: string
+            example: red,pink
+          duration:
+            type: string
+            example: red,pink
+          establishment:
+            type: string
+            example: red,pink
+          edible:
+            type: string
+            example: red,pink
+          edible_part:
+            type: string
+            example: red,pink
+          family_common_name:
+            type: string
+            example: red,pink
+          family_name:
+            type: string
+            example: red,pink
+          flower_color:
+            type: string
+            example: red,pink
+          flower_conspicuous:
+            type: string
+            example: red,pink
+          foliage_color:
+            type: string
+            example: red,pink
+          foliage_texture:
+            type: string
+            example: red,pink
+          fruit_color:
+            type: string
+            example: red,pink
+          fruit_conspicuous:
+            type: string
+            example: red,pink
+          fruit_months:
+            type: string
+            example: red,pink
+          fruit_seed_persistence:
+            type: string
+            example: red,pink
+          fruit_shape:
+            type: string
+            example: red,pink
+          genus_name:
+            type: string
+            example: red,pink
+          growth_form:
+            type: string
+            example: red,pink
+          growth_habit:
+            type: string
+            example: red,pink
+          growth_months:
+            type: string
+            example: red,pink
+          growth_rate:
+            type: string
+            example: red,pink
+          inflorescence_type:
+            type: string
+            example: red,pink
+          leaf_retention:
+            type: string
+            example: red,pink
+          ligneous_type:
+            type: string
+            example: red,pink
+          rank:
+            type: string
+            example: red,pink
+          scientific_name:
+            type: string
+            example: red,pink
+          sexuality:
+            type: string
+            example: red,pink
+          status:
+            type: string
+            example: red,pink
+          vegetable:
+            type: string
+            example: red,pink
+        additionalProperties: false
+    filter_not_species:
+      name: filter_not
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Exclude the records whose field equals the value(s): `filter_not[field]=value1,value2`.
+        `null` excludes the records where the field is empty (`filter_not[edible_part]=null`).
+        An unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          author:
+            type: string
+            example: 'null'
+          average_height_cm:
+            type: string
+            example: 'null'
+          bibliography:
+            type: string
+            example: 'null'
+          biological_type:
+            type: string
+            example: 'null'
+          common_name:
+            type: string
+            example: 'null'
+          complete_data:
+            type: string
+            example: 'null'
+          completion_ratio:
+            type: string
+            example: 'null'
+          edible_part:
+            type: string
+            example: 'null'
+          family_common_name:
+            type: string
+            example: 'null'
+          family_name:
+            type: string
+            example: 'null'
+          flower_color:
+            type: string
+            example: 'null'
+          flower_conspicuous:
+            type: string
+            example: 'null'
+          foliage_color:
+            type: string
+            example: 'null'
+          foliage_texture:
+            type: string
+            example: 'null'
+          frost_free_days_minimum:
+            type: string
+            example: 'null'
+          fruit_color:
+            type: string
+            example: 'null'
+          fruit_conspicuous:
+            type: string
+            example: 'null'
+          fruit_seed_persistence:
+            type: string
+            example: 'null'
+          fruit_shape:
+            type: string
+            example: 'null'
+          genus_name:
+            type: string
+            example: 'null'
+          ground_humidity:
+            type: string
+            example: 'null'
+          growth_form:
+            type: string
+            example: 'null'
+          growth_habit:
+            type: string
+            example: 'null'
+          growth_rate:
+            type: string
+            example: 'null'
+          image_url:
+            type: string
+            example: 'null'
+          images_count:
+            type: string
+            example: 'null'
+          inflorescence_type:
+            type: string
+            example: 'null'
+          leaf_retention:
+            type: string
+            example: 'null'
+          light:
+            type: string
+            example: 'null'
+          ligneous_type:
+            type: string
+            example: 'null'
+          maximum_height_cm:
+            type: string
+            example: 'null'
+          maximum_precipitation_mm:
+            type: string
+            example: 'null'
+          maximum_temperature_deg_c:
+            type: string
+            example: 'null'
+          maximum_temperature_deg_f:
+            type: string
+            example: 'null'
+          minimum_precipitation_mm:
+            type: string
+            example: 'null'
+          minimum_root_depth_cm:
+            type: string
+            example: 'null'
+          minimum_temperature_deg_c:
+            type: string
+            example: 'null'
+          minimum_temperature_deg_f:
+            type: string
+            example: 'null'
+          ph_maximum:
+            type: string
+            example: 'null'
+          ph_minimum:
+            type: string
+            example: 'null'
+          planting_days_to_harvest:
+            type: string
+            example: 'null'
+          planting_row_spacing_cm:
+            type: string
+            example: 'null'
+          planting_spread_cm:
+            type: string
+            example: 'null'
+          rank:
+            type: string
+            example: 'null'
+          scientific_name:
+            type: string
+            example: 'null'
+          sexuality:
+            type: string
+            example: 'null'
+          soil_nutriments:
+            type: string
+            example: 'null'
+          soil_salinity:
+            type: string
+            example: 'null'
+          soil_texture:
+            type: string
+            example: 'null'
+          sources_count:
+            type: string
+            example: 'null'
+          status:
+            type: string
+            example: 'null'
+          synonyms_count:
+            type: string
+            example: 'null'
+          toxicity:
+            type: string
+            example: 'null'
+          vegetable:
+            type: string
+            example: 'null'
+          year:
+            type: string
+            example: 'null'
+        additionalProperties: false
+    order_species:
+      name: order
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Sort on the field, `asc` (default) or `desc`: `order[year]=desc`.
+        Several keys sort on several fields, in the order given. An unknown key answers
+        400.'
+      schema:
+        type: object
+        properties:
+          atmospheric_humidity:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          author:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          average_height_cm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          bibliography:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          biological_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          common_name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          complete_data:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          completion_ratio:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          duration:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          edible:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          family_common_name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          family_name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          flower_color:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          flower_conspicuous:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          foliage_color:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          foliage_texture:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          frost_free_days_minimum:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          fruit_color:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          fruit_conspicuous:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          fruit_seed_persistence:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          fruit_shape:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          ground_humidity:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          growth_form:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          growth_habit:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          growth_rate:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          images_count:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          inflorescence_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          leaf_retention:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          light:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          ligneous_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          maximum_height_cm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          maximum_precipitation_mm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          maximum_temperature_deg_c:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          maximum_temperature_deg_f:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          minimum_precipitation_mm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          minimum_root_depth_cm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          minimum_temperature_deg_c:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          minimum_temperature_deg_f:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          ph_maximum:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          ph_minimum:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          planting_days_to_harvest:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          planting_row_spacing_cm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          planting_spread_cm:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          rank:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          scientific_name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          sexuality:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          soil_nutriments:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          soil_salinity:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          soil_texture:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          sources_count:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          status:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          synonyms_count:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          toxicity:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          updated_at:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          vegetable:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          year:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+        additionalProperties: false
+    range_species:
+      name: range
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field lies between two bounds: `range[field]=min,max`.
+        Leave the upper bound empty for an open range (`range[maximum_height_cm]=1000,`).
+        An unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          atmospheric_humidity:
+            type: string
+            example: '10,100'
+          average_height_cm:
+            type: string
+            example: '10,100'
+          completion_ratio:
+            type: string
+            example: '10,100'
+          frost_free_days_minimum:
+            type: string
+            example: '10,100'
+          ground_humidity:
+            type: string
+            example: '10,100'
+          images_count:
+            type: string
+            example: '10,100'
+          light:
+            type: string
+            example: '10,100'
+          maximum_height_cm:
+            type: string
+            example: '10,100'
+          maximum_precipitation_mm:
+            type: string
+            example: '10,100'
+          maximum_temperature_deg_c:
+            type: string
+            example: '10,100'
+          maximum_temperature_deg_f:
+            type: string
+            example: '10,100'
+          minimum_precipitation_mm:
+            type: string
+            example: '10,100'
+          minimum_root_depth_cm:
+            type: string
+            example: '10,100'
+          minimum_temperature_deg_c:
+            type: string
+            example: '10,100'
+          minimum_temperature_deg_f:
+            type: string
+            example: '10,100'
+          ph_maximum:
+            type: string
+            example: '10,100'
+          ph_minimum:
+            type: string
+            example: '10,100'
+          planting_days_to_harvest:
+            type: string
+            example: '10,100'
+          planting_row_spacing_cm:
+            type: string
+            example: '10,100'
+          planting_spread_cm:
+            type: string
+            example: '10,100'
+          soil_nutriments:
+            type: string
+            example: '10,100'
+          soil_salinity:
+            type: string
+            example: '10,100'
+          soil_texture:
+            type: string
+            example: '10,100'
+          sources_count:
+            type: string
+            example: '10,100'
+          synonyms_count:
+            type: string
+            example: '10,100'
+          toxicity:
+            type: string
+            example: '10,100'
+          year:
+            type: string
+            example: '10,100'
+        additionalProperties: false
+    filter_families:
+      name: filter
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field equals the value: `filter[field]=value`.
+        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
+        filterable field; an unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            example: red,pink
+          slug:
+            type: string
+            example: red,pink
+        additionalProperties: false
+    order_families:
+      name: order
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Sort on the field, `asc` (default) or `desc`: `order[year]=desc`.
+        Several keys sort on several fields, in the order given. An unknown key answers
+        400.'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          slug:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+        additionalProperties: false
+    filter_genus:
+      name: filter
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field equals the value: `filter[field]=value`.
+        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
+        filterable field; an unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            example: red,pink
+          slug:
+            type: string
+            example: red,pink
+          family_id:
+            type: string
+            example: red,pink
+        additionalProperties: false
+    order_genus:
+      name: order
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Sort on the field, `asc` (default) or `desc`: `order[year]=desc`.
+        Several keys sort on several fields, in the order given. An unknown key answers
+        400.'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          slug:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          family_id:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+        additionalProperties: false
+    filter_zones:
+      name: filter
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field equals the value: `filter[field]=value`.
+        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
+        filterable field; an unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          tdwg_level:
+            type: string
+            example: red,pink
+          tdwg_code:
+            type: string
+            example: red,pink
+        additionalProperties: false
+    order_zones:
+      name: order
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Sort on the field, `asc` (default) or `desc`: `order[year]=desc`.
+        Several keys sort on several fields, in the order given. An unknown key answers
+        400.'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          slug:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          species_count:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          tdwg_level:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          tdwg_code:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+        additionalProperties: false
+    range_zones:
+      name: range
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field lies between two bounds: `range[field]=min,max`.
+        Leave the upper bound empty for an open range (`range[maximum_height_cm]=1000,`).
+        An unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          tdwg_level:
+            type: string
+            example: '10,100'
+          species_count:
+            type: string
+            example: '10,100'
+        additionalProperties: false
+    filter_corrections:
+      name: filter
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Keep the records whose field equals the value: `filter[field]=value`.
+        Several values separated by commas match any of them (`filter[flower_color]=red,pink`).
+        Boolean fields accept true, yes, 1, on, false, no, 0 and off. One key per
+        filterable field; an unknown key answers 400.'
+      schema:
+        type: object
+        properties:
+          user_id:
+            type: string
+            example: red,pink
+          record_id:
+            type: string
+            example: red,pink
+          record_type:
+            type: string
+            example: red,pink
+          warning_type:
+            type: string
+            example: red,pink
+          change_status:
+            type: string
+            example: red,pink
+          change_type:
+            type: string
+            example: red,pink
+          accepted_by:
+            type: string
+            example: red,pink
+          source_type:
+            type: string
+            example: red,pink
+          source_reference:
+            type: string
+            example: red,pink
+        additionalProperties: false
+    order_corrections:
+      name: order
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: 'Sort on the field, `asc` (default) or `desc`: `order[year]=desc`.
+        Several keys sort on several fields, in the order given. An unknown key answers
+        400.'
+      schema:
+        type: object
+        properties:
+          user_id:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          record_id:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          record_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          warning_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          change_status:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          change_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          accepted_by:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          source_type:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+          source_reference:
+            type: string
+            enum:
+            - asc
+            - desc
+            example: desc
+        additionalProperties: false
   schemas:
     kingdom:
       type: object
@@ -4848,639 +7217,5 @@ components:
           required:
           - scientific_name
           description: The fields to correct
-    filters_families:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-    filters_genus:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        family_id:
-          type: string
-    filters_plants:
-      type: object
-      properties:
-        author:
-          type: string
-        biological_type:
-          type: string
-        bloom_months:
-          type: string
-        common_name:
-          type: string
-        complete_data:
-          type: string
-        completion_ratio:
-          type: string
-        duration:
-          type: string
-        establishment:
-          type: string
-        edible:
-          type: string
-        edible_part:
-          type: string
-        family_common_name:
-          type: string
-        family_name:
-          type: string
-        flower_color:
-          type: string
-        flower_conspicuous:
-          type: string
-        foliage_color:
-          type: string
-        foliage_texture:
-          type: string
-        fruit_color:
-          type: string
-        fruit_conspicuous:
-          type: string
-        fruit_months:
-          type: string
-        fruit_seed_persistence:
-          type: string
-        fruit_shape:
-          type: string
-        genus_name:
-          type: string
-        growth_form:
-          type: string
-        growth_habit:
-          type: string
-        growth_months:
-          type: string
-        growth_rate:
-          type: string
-        inflorescence_type:
-          type: string
-        leaf_retention:
-          type: string
-        ligneous_type:
-          type: string
-        rank:
-          type: string
-        scientific_name:
-          type: string
-        sexuality:
-          type: string
-        status:
-          type: string
-        vegetable:
-          type: string
-    filters_species:
-      type: object
-      properties:
-        author:
-          type: string
-        biological_type:
-          type: string
-        bloom_months:
-          type: string
-        common_name:
-          type: string
-        complete_data:
-          type: string
-        completion_ratio:
-          type: string
-        duration:
-          type: string
-        establishment:
-          type: string
-        edible:
-          type: string
-        edible_part:
-          type: string
-        family_common_name:
-          type: string
-        family_name:
-          type: string
-        flower_color:
-          type: string
-        flower_conspicuous:
-          type: string
-        foliage_color:
-          type: string
-        foliage_texture:
-          type: string
-        fruit_color:
-          type: string
-        fruit_conspicuous:
-          type: string
-        fruit_months:
-          type: string
-        fruit_seed_persistence:
-          type: string
-        fruit_shape:
-          type: string
-        genus_name:
-          type: string
-        growth_form:
-          type: string
-        growth_habit:
-          type: string
-        growth_months:
-          type: string
-        growth_rate:
-          type: string
-        inflorescence_type:
-          type: string
-        leaf_retention:
-          type: string
-        ligneous_type:
-          type: string
-        rank:
-          type: string
-        scientific_name:
-          type: string
-        sexuality:
-          type: string
-        status:
-          type: string
-        vegetable:
-          type: string
-    filters_not_species:
-      type: object
-      properties:
-        author:
-          type: string
-        average_height_cm:
-          type: string
-        bibliography:
-          type: string
-        biological_type:
-          type: string
-        common_name:
-          type: string
-        complete_data:
-          type: string
-        completion_ratio:
-          type: string
-        edible_part:
-          type: string
-        family_common_name:
-          type: string
-        family_name:
-          type: string
-        flower_color:
-          type: string
-        flower_conspicuous:
-          type: string
-        foliage_color:
-          type: string
-        foliage_texture:
-          type: string
-        frost_free_days_minimum:
-          type: string
-        fruit_color:
-          type: string
-        fruit_conspicuous:
-          type: string
-        fruit_seed_persistence:
-          type: string
-        fruit_shape:
-          type: string
-        genus_name:
-          type: string
-        ground_humidity:
-          type: string
-        growth_form:
-          type: string
-        growth_habit:
-          type: string
-        growth_rate:
-          type: string
-        image_url:
-          type: string
-        images_count:
-          type: string
-        inflorescence_type:
-          type: string
-        leaf_retention:
-          type: string
-        light:
-          type: string
-        ligneous_type:
-          type: string
-        maximum_height_cm:
-          type: string
-        maximum_precipitation_mm:
-          type: string
-        maximum_temperature_deg_c:
-          type: string
-        maximum_temperature_deg_f:
-          type: string
-        minimum_precipitation_mm:
-          type: string
-        minimum_root_depth_cm:
-          type: string
-        minimum_temperature_deg_c:
-          type: string
-        minimum_temperature_deg_f:
-          type: string
-        ph_maximum:
-          type: string
-        ph_minimum:
-          type: string
-        planting_days_to_harvest:
-          type: string
-        planting_row_spacing_cm:
-          type: string
-        planting_spread_cm:
-          type: string
-        rank:
-          type: string
-        scientific_name:
-          type: string
-        sexuality:
-          type: string
-        soil_nutriments:
-          type: string
-        soil_salinity:
-          type: string
-        soil_texture:
-          type: string
-        sources_count:
-          type: string
-        status:
-          type: string
-        synonyms_count:
-          type: string
-        toxicity:
-          type: string
-        vegetable:
-          type: string
-        year:
-          type: string
-    sorts_families:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-    sorts_genus:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        family_id:
-          type: string
-    sorts_plants:
-      type: object
-      properties:
-        atmospheric_humidity:
-          type: string
-        author:
-          type: string
-        average_height_cm:
-          type: string
-        bibliography:
-          type: string
-        biological_type:
-          type: string
-        common_name:
-          type: string
-        complete_data:
-          type: string
-        completion_ratio:
-          type: string
-        duration:
-          type: string
-        edible:
-          type: string
-        family_common_name:
-          type: string
-        family_name:
-          type: string
-        flower_color:
-          type: string
-        flower_conspicuous:
-          type: string
-        foliage_color:
-          type: string
-        foliage_texture:
-          type: string
-        frost_free_days_minimum:
-          type: string
-        fruit_color:
-          type: string
-        fruit_conspicuous:
-          type: string
-        fruit_seed_persistence:
-          type: string
-        fruit_shape:
-          type: string
-        ground_humidity:
-          type: string
-        growth_form:
-          type: string
-        growth_habit:
-          type: string
-        growth_rate:
-          type: string
-        images_count:
-          type: string
-        inflorescence_type:
-          type: string
-        leaf_retention:
-          type: string
-        light:
-          type: string
-        ligneous_type:
-          type: string
-        maximum_height_cm:
-          type: string
-        maximum_precipitation_mm:
-          type: string
-        maximum_temperature_deg_c:
-          type: string
-        maximum_temperature_deg_f:
-          type: string
-        minimum_precipitation_mm:
-          type: string
-        minimum_root_depth_cm:
-          type: string
-        minimum_temperature_deg_c:
-          type: string
-        minimum_temperature_deg_f:
-          type: string
-        ph_maximum:
-          type: string
-        ph_minimum:
-          type: string
-        planting_days_to_harvest:
-          type: string
-        planting_row_spacing_cm:
-          type: string
-        planting_spread_cm:
-          type: string
-        rank:
-          type: string
-        scientific_name:
-          type: string
-        sexuality:
-          type: string
-        soil_nutriments:
-          type: string
-        soil_salinity:
-          type: string
-        soil_texture:
-          type: string
-        sources_count:
-          type: string
-        status:
-          type: string
-        synonyms_count:
-          type: string
-        toxicity:
-          type: string
-        updated_at:
-          type: string
-        vegetable:
-          type: string
-        year:
-          type: string
-    sorts_species:
-      type: object
-      properties:
-        atmospheric_humidity:
-          type: string
-        author:
-          type: string
-        average_height_cm:
-          type: string
-        bibliography:
-          type: string
-        biological_type:
-          type: string
-        common_name:
-          type: string
-        complete_data:
-          type: string
-        completion_ratio:
-          type: string
-        duration:
-          type: string
-        edible:
-          type: string
-        family_common_name:
-          type: string
-        family_name:
-          type: string
-        flower_color:
-          type: string
-        flower_conspicuous:
-          type: string
-        foliage_color:
-          type: string
-        foliage_texture:
-          type: string
-        frost_free_days_minimum:
-          type: string
-        fruit_color:
-          type: string
-        fruit_conspicuous:
-          type: string
-        fruit_seed_persistence:
-          type: string
-        fruit_shape:
-          type: string
-        ground_humidity:
-          type: string
-        growth_form:
-          type: string
-        growth_habit:
-          type: string
-        growth_rate:
-          type: string
-        images_count:
-          type: string
-        inflorescence_type:
-          type: string
-        leaf_retention:
-          type: string
-        light:
-          type: string
-        ligneous_type:
-          type: string
-        maximum_height_cm:
-          type: string
-        maximum_precipitation_mm:
-          type: string
-        maximum_temperature_deg_c:
-          type: string
-        maximum_temperature_deg_f:
-          type: string
-        minimum_precipitation_mm:
-          type: string
-        minimum_root_depth_cm:
-          type: string
-        minimum_temperature_deg_c:
-          type: string
-        minimum_temperature_deg_f:
-          type: string
-        ph_maximum:
-          type: string
-        ph_minimum:
-          type: string
-        planting_days_to_harvest:
-          type: string
-        planting_row_spacing_cm:
-          type: string
-        planting_spread_cm:
-          type: string
-        rank:
-          type: string
-        scientific_name:
-          type: string
-        sexuality:
-          type: string
-        soil_nutriments:
-          type: string
-        soil_salinity:
-          type: string
-        soil_texture:
-          type: string
-        sources_count:
-          type: string
-        status:
-          type: string
-        synonyms_count:
-          type: string
-        toxicity:
-          type: string
-        updated_at:
-          type: string
-        vegetable:
-          type: string
-        year:
-          type: string
-    ranges_plants:
-      type: object
-      properties:
-        atmospheric_humidity:
-          type: string
-        average_height_cm:
-          type: string
-        completion_ratio:
-          type: string
-        frost_free_days_minimum:
-          type: string
-        ground_humidity:
-          type: string
-        images_count:
-          type: string
-        light:
-          type: string
-        maximum_height_cm:
-          type: string
-        maximum_precipitation_mm:
-          type: string
-        maximum_temperature_deg_c:
-          type: string
-        maximum_temperature_deg_f:
-          type: string
-        minimum_precipitation_mm:
-          type: string
-        minimum_root_depth_cm:
-          type: string
-        minimum_temperature_deg_c:
-          type: string
-        minimum_temperature_deg_f:
-          type: string
-        ph_maximum:
-          type: string
-        ph_minimum:
-          type: string
-        planting_days_to_harvest:
-          type: string
-        planting_row_spacing_cm:
-          type: string
-        planting_spread_cm:
-          type: string
-        soil_nutriments:
-          type: string
-        soil_salinity:
-          type: string
-        soil_texture:
-          type: string
-        sources_count:
-          type: string
-        synonyms_count:
-          type: string
-        toxicity:
-          type: string
-        year:
-          type: string
-    ranges_species:
-      type: object
-      properties:
-        atmospheric_humidity:
-          type: string
-        average_height_cm:
-          type: string
-        completion_ratio:
-          type: string
-        frost_free_days_minimum:
-          type: string
-        ground_humidity:
-          type: string
-        images_count:
-          type: string
-        light:
-          type: string
-        maximum_height_cm:
-          type: string
-        maximum_precipitation_mm:
-          type: string
-        maximum_temperature_deg_c:
-          type: string
-        maximum_temperature_deg_f:
-          type: string
-        minimum_precipitation_mm:
-          type: string
-        minimum_root_depth_cm:
-          type: string
-        minimum_temperature_deg_c:
-          type: string
-        minimum_temperature_deg_f:
-          type: string
-        ph_maximum:
-          type: string
-        ph_minimum:
-          type: string
-        planting_days_to_harvest:
-          type: string
-        planting_row_spacing_cm:
-          type: string
-        planting_spread_cm:
-          type: string
-        soil_nutriments:
-          type: string
-        soil_salinity:
-          type: string
-        soil_texture:
-          type: string
-        sources_count:
-          type: string
-        synonyms_count:
-          type: string
-        toxicity:
-          type: string
-        year:
-          type: string
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: trefle.io
+- url: https://trefle.io/api/v1

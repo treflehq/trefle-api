@@ -13,22 +13,6 @@ module Schemas
           }, extras: { required: %w[self] })
         }, extras: { required: %w[id name slug links] })
       end
-
-      def self.filters
-        Helpers.object_of(
-          ::Api::V1::GenusController::FILTERABLE_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
-
-      def self.sorts
-        Helpers.object_of(
-          ::Api::V1::GenusController::ORDERABLE_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
     end
   end
 end

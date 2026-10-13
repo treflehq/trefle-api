@@ -265,38 +265,6 @@ module Schemas
         )
       end
 
-      def self.filters
-        Helpers.object_of(
-          ::Api::V1::SpeciesController::FILTERABLE_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
-
-      def self.sorts
-        Helpers.object_of(
-          ::Api::V1::SpeciesController::ORDERABLE_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
-
-      def self.filters_not
-        Helpers.object_of(
-          ::Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
-
-      def self.ranges
-        Helpers.object_of(
-          ::Api::V1::SpeciesController::RANGEABLE_FIELDS.index_with do |_f|
-            { type: :string }
-          end
-        )
-      end
-
       # rubocop:enable Metrics/AbcSize
     end
   end

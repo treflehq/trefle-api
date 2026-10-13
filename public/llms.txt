@@ -1,0 +1,122 @@
+# Trefle API
+
+> Trefle is an open REST API over a global plants database: the taxonomy from
+> kingdom down to species, botanical traits (growth, flowers, fruits, edibility,
+> soil, climate), geographic distribution zones, images and the sources every
+> value comes from. This file is the short orientation for programs and AI
+> agents; the complete, machine-readable contract is the OpenAPI document.
+
+## Where things are
+
+- Base URL: https://trefle.io/api/v1 (HTTPS only; JSON in and out)
+- OpenAPI 3.0 document: https://trefle.io/api/v1/openapi.json (or .yaml), no token needed.
+  It is generated from the API test suite, so it matches the running version
+  (`info.version`). It lists every endpoint, the allowed filter/order/range
+  keys per endpoint, the response schemas and the error envelope.
+- Guides: https://docs.trefle.io (getting started, filtering, sorting,
+  pagination, searching, client-side apps, data provenance)
+- Rendered reference: https://docs.trefle.io/reference
+- Source code and issue tracker: https://github.com/treflehq/trefle-api
+
+## Authentication
+
+Every endpoint needs an access token, except GET /api/v1 (public counters)
+and the OpenAPI document. Create an account on https://trefle.io/users/sign_up
+and copy the token from https://trefle.io/profile. Send it either way:
+
+    Authorization: Bearer YOUR_TOKEN        (preferred)
+    ?token=YOUR_TOKEN                        (query parameter)
+
+A missing or invalid token answers 401. Never ship the account token in a
+browser or mobile app: from your backend, claim a JWT bound to your origin
+with POST https://trefle.io/api/auth/claim (JSON body
+{"origin": "https://your.site", "ip": "optional client IP"}, authenticated
+with the account token). It answers {"token": "<jwt>", "expiration": "..."};
+the page then sends the JWT as its Bearer token. Read endpoints answer
+cross-origin requests.
+
+## Main endpoints
+
+    GET /plants                      one record per plant (its main species), paginated
+    GET /plants/{id}                 a plant with its main species and all its species
+    GET /species                     every species, subspecies, variety, hybrid and cultivar
+    GET /species/{id}                a species with its full trait data, images, sources, distribution, synonyms
+    GET /plants/search?q=...         full-text search over plants (scientific name, common names, synonyms, author, family)
+    GET /species/search?q=...        the same over species
+    GET /species/{id}/facts          provenance: every sourced claim behind the species traits
+    GET /genus, /genus/{id}, /genus/{id}/species, /genus/{id}/plants
+    GET /families, /families/{id}, /families/{id}/genus
+    GET /kingdoms, /subkingdoms, /divisions, /division_classes, /division_orders (and /{id})
+    GET /distributions, /distributions/{id}, /distributions/{id}/species, /distributions/{id}/plants
+                                     WGSRPD geographic zones (TDWG), by slug such as "fra" or "europe"
+    GET /corrections, /corrections/{id}, /corrections/mine
+    POST /corrections/{record_type}/{record_id}   submit a data correction (reviewed by hand)
+    POST /species/{id}/report        report wrong data on a species, with a note
+    GET /me                          the account the token belongs to
+
+{id} is the numeric id or the slug (abies-alba). A synonym slug resolves to
+the accepted species. Lists return a light version of each record; fetch
+/species/{id} for the complete one.
+
+## Response envelope
+
+    Collection: {"data": [...], "links": {"self", "first", "prev", "next", "last"}, "meta": {"total": N}}
+    Record:     {"data": {...}, "meta": {"last_modified": "..."}}
+    Error:      {"error": true, "code": "not_found", "message": "...", "messages": "..."}
+
+Error statuses: 400 (unknown filter/order/range key, invalid value, page too
+deep), 401, 404, 422 (invalid body), 429 (rate limit), 500. `code` is a
+stable machine-readable token; `messages` is a deprecated alias of `message`.
+
+## Filtering, ranges and sorting
+
+Bracketed object parameters, one key per field (OpenAPI style deepObject).
+The allowed keys of each endpoint are in the OpenAPI document under
+components.parameters (filter_species, range_species, order_species...); an
+unknown key answers 400 with the list of valid keys.
+
+    filter[field]=value          exact match; several values with commas match any of them:
+                                 filter[flower_color]=red,pink
+    filter_not[field]=null       exclude records where the field is empty (or equals the given values)
+    range[field]=min,max         numeric range; leave max empty for an open range: range[maximum_height_cm]=1000,
+    order[field]=asc|desc        sort; several order[...] keys sort on several fields
+
+Boolean fields accept true, yes, 1, on, false, no, 0 and off.
+
+Example, edible trees at least 10 m high, tallest first (curl needs -g, it
+otherwise treats the brackets as globs):
+
+    curl -g -H "Authorization: Bearer YOUR_TOKEN" \
+      "https://trefle.io/api/v1/species?filter[edible]=true&filter[ligneous_type]=tree&range[maximum_height_cm]=1000,&order[maximum_height_cm]=desc"
+
+Frequent species filter keys: common_name, scientific_name, family_name,
+genus_name, rank, edible, edible_part, vegetable, duration, flower_color,
+foliage_color, fruit_color, growth_habit, growth_form, growth_rate,
+ligneous_type, leaf_retention, bloom_months, fruit_months. Frequent range
+keys: year, average_height_cm, maximum_height_cm, light,
+atmospheric_humidity, ground_humidity, ph_minimum, ph_maximum,
+minimum_temperature_deg_c, maximum_temperature_deg_c, soil_texture,
+soil_salinity, soil_nutriments, images_count, sources_count.
+
+## Pagination
+
+Collections return 20 items per page. page=N selects a page; prefer following
+links.next. /species and /plants refuse page > 2500 (400): narrow the results
+with filters or ranges instead. The search endpoints take limit=N for the
+page size. A per_page parameter on every collection is planned, not yet
+honoured.
+
+## Rate limits and caching
+
+60 requests a minute per IP and token by default (more for sponsors, see
+https://trefle.io/about#support). Every response carries RateLimit-Limit,
+RateLimit-Remaining and RateLimit-Reset; a 429 adds Retry-After. Single
+records answer ETag and Last-Modified, so conditional requests work.
+
+## Licence and attribution
+
+Data: CC BY 4.0 (https://trefle.io/terms). Cite Trefle and the sources each
+species lists in its `sources`; see https://trefle.io/citation. Images keep
+the licence of their source, given alongside each image. Trefle is open
+source and non-profit; report wrong data through POST /species/{id}/report
+or /corrections rather than silently correcting it downstream.

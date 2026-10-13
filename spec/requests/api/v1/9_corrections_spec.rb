@@ -39,7 +39,7 @@ describe 'Corrections API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/corrections' do
+  path '/corrections' do
 
     get 'Searches corrections' do
       tags 'Corrections'
@@ -48,6 +48,7 @@ describe 'Corrections API' do
       description 'List corrections'
       operationId 'listCorrections'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :filter_corrections, :order_corrections, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -62,13 +63,23 @@ describe 'Corrections API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response '400', 'Unknown filter, filter_not, order or range key, or invalid filter value' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/corrections/{id}' do
+  path '/corrections/{id}' do
 
     get 'Retrieve a correction' do
       tags 'Corrections'
@@ -94,14 +105,26 @@ describe 'Corrections API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { RecordCorrection.first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { RecordCorrection.first.id }
+      end
     end
   end
 
-  path '/api/v1/corrections/{record_type}/{record_id}' do
+  path '/corrections/{record_type}/{record_id}' do
 
     post 'Submit a correction' do
 
@@ -154,6 +177,7 @@ describe 'Corrections API' do
       end
 
       response '422', 'Invalid parameters' do
+        schema Schemas::Helpers.error_schema
         let(:record_type) { 'species' }
         let(:record_id) { Species.where.not(maximum_height_cm: nil).first.id }
         let(:correction) { { hello: :world } }
@@ -163,15 +187,29 @@ describe 'Corrections API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:record_type) { 'species' }
         let(:record_id) { Species.where.not(maximum_height_cm: nil).first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:record_type) { 'species' }
+        let(:record_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:record_type) { 'species' }
+        let(:record_id) { Species.where.not(maximum_height_cm: nil).first.id }
+      end
     end
   end
 
-  path '/api/v1/corrections/mine' do
+  path '/corrections/mine' do
 
     get 'List your own corrections' do
       tags 'Corrections'
@@ -181,7 +219,7 @@ describe 'Corrections API' do
       operationId 'listMyCorrections'
       security [{ token: [] }, { bearerAuth: [] }]
 
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :filter_corrections, :order_corrections, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -196,9 +234,19 @@ describe 'Corrections API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response '400', 'Unknown filter, filter_not, order or range key, or invalid filter value' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response_too_many_requests
     end
   end
 

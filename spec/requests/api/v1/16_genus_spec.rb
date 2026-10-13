@@ -21,7 +21,7 @@ describe 'Genus API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/genus' do
+  path '/genus' do
 
     get 'Searches genus' do
       tags 'Genus'
@@ -30,10 +30,7 @@ describe 'Genus API' do
       description 'List genus'
       operationId 'listGenus'
 
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_genus')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_genus')
-      # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for genus names matching the given query'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :filter_genus, :order_genus, :page, :per_page
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -51,13 +48,23 @@ describe 'Genus API' do
       # end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response '400', 'Unknown filter, filter_not, order or range key, or invalid filter value' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/genus/{id}' do
+  path '/genus/{id}' do
 
     get 'Retrieve a genus' do
       tags 'Genus'
@@ -83,14 +90,26 @@ describe 'Genus API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Genus.first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Genus.first.id }
+      end
     end
   end
 
-  path '/api/v1/genus/{genus_id}/species' do
+  path '/genus/{genus_id}/species' do
 
     get 'List species of a genus' do
       tags 'Genus'
@@ -101,12 +120,7 @@ describe 'Genus API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -123,15 +137,35 @@ describe 'Genus API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
 
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
+      end
     end
   end
 
-  path '/api/v1/genus/{genus_id}/species/{id}' do
+  path '/genus/{genus_id}/species/{id}' do
 
     get 'Retrieve a species of a genus' do
       tags 'Genus'
@@ -162,11 +196,25 @@ describe 'Genus API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
         let(:id) { Species.where(complete_data: true).first.id }
 
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:genus_id) { Species.where(complete_data: true).first.genus.slug }
+        let(:id) { Species.where(complete_data: true).first.id }
       end
     end
   end
