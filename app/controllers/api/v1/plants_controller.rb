@@ -93,7 +93,8 @@ class Api::V1::PlantsController < Api::ApiController
       filter_fields: Api::V1::SpeciesController::FILTERABLE_FIELDS,
       order_fields: Api::V1::SpeciesController::ORDERABLE_FIELDS,
       range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS,
-      field_aliases: ::Scopes::Species::FIELD_ALIASES
+      field_aliases: ::Scopes::Species::FIELD_ALIASES,
+      model: ::Species
     )
     options = {
       where: { main_species_id: nil }.merge(search_params[:where]),

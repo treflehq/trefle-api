@@ -245,7 +245,10 @@ module Api
     # (e.g. `image_url` -> `main_image_url`, see Scopes::Species::FIELD_ALIASES)
     # -- the AR-backed path (Filterable#filter_with et al.) does the same
     # translation through its own scope, so the two paths stop drifting (#280).
-    def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [], field_aliases: {})
+    #
+    # model is the ActiveRecord class the range bounds are typed against (an
+    # integer column rounds a decimal bound inwards, see Rangeable.parse_bounds).
+    def search_params(filter_not_fields: [], filter_fields: [], order_fields: [], range_fields: [], field_aliases: {}, model: nil)
       where = {}
       order = nil
       if params[:filter_not].is_a?(ActionController::Parameters)
@@ -262,11 +265,17 @@ module Api
       end
       if params[:range].is_a?(ActionController::Parameters)
         params[:range].permit(range_fields).slice(*range_fields).each do |field, value|
-          min, max = value.split(',')
+          next if value.blank?
+
+          # Same parsing as the ActiveRecord path (Rangeable#range_with):
+          # decimal bounds, inclusive, either side optional, 400 on a non-number.
+          min, max = Rangeable.parse_bounds(field, value, column_type: model&.columns_hash&.dig(field.to_s)&.type)
+          next if min.nil? && max.nil?
+
           indexed_field = field_aliases.fetch(field, field)
           where[indexed_field] ||= {}
-          where[indexed_field][:gte] = min if min.present?
-          where[indexed_field][:lte] = max if max.present?
+          where[indexed_field][:gte] = search_bound(min) unless min.nil?
+          where[indexed_field][:lte] = search_bound(max) unless max.nil?
         end
       end
       if params[:order].is_a?(ActionController::Parameters)
@@ -276,6 +285,12 @@ module Api
         where: where,
         order: order
       }
+    end
+
+    # BigDecimal would be serialised as a JSON string in the search body;
+    # OpenSearch range queries want a number.
+    def search_bound(number)
+      number.is_a?(BigDecimal) ? number.to_f : number
     end
 
     def apply_filters_not(collection, filterable_fields)

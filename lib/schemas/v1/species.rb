@@ -289,10 +289,13 @@ module Schemas
         )
       end
 
+      # `min,max`, both bounds inclusive; either side can be left empty for an
+      # open bound (`5,` or `,10`). Decimal and negative bounds are accepted; a
+      # bound that is not a number is a 400 (see Rangeable.parse_bounds).
       def self.ranges
         Helpers.object_of(
           ::Api::V1::SpeciesController::RANGEABLE_FIELDS.index_with do |_f|
-            { type: :string }
+            { type: :string, description: 'min,max (both inclusive). Leave a side empty for an open bound: 5, means 5 or more, ,10 means 10 or less.' }
           end
         )
       end

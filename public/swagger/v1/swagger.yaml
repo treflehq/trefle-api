@@ -855,7 +855,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -981,7 +981,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -1106,7 +1106,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_plants"
       security:
@@ -1234,7 +1234,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -1321,7 +1321,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -1408,7 +1408,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -1580,7 +1580,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page
@@ -1711,7 +1711,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       security:
@@ -2036,7 +2036,7 @@ paths:
       - name: range
         in: query
         required: false
-        description: Range on values
+        description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound (5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
         schema:
           "$ref": "#/components/schemas/ranges_species"
       - name: page

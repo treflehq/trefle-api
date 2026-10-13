@@ -99,7 +99,9 @@ describe 'Distributions API' do
       parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
                 schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
       parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, description: 'Range on values', schema: Schemas::Helpers.schema_href(schema: 'ranges_species')
+      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
+                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
+                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
       response '200', 'Success' do
