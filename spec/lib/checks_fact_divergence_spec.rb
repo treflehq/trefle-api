@@ -67,6 +67,15 @@ RSpec.describe Checks::FactDivergence do
     expect(warning).to be_nil
   end
 
+  it 'stays quiet when the claim rounds to the integer the column holds' do
+    species.update!(maximum_height_cm: 410)
+    record('maximum_height_cm', 409.99999999999994)
+
+    described_class.run(species.id)
+
+    expect(warning).to be_nil
+  end
+
   it 'reports a number that genuinely differs' do
     species.update!(maximum_height_cm: 500)
     record('maximum_height_cm', 450.5)
