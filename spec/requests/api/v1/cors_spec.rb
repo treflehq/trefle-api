@@ -37,10 +37,11 @@ RSpec.describe 'CORS on the public API', type: :request do
       expect(response.headers['Access-Control-Allow-Origin']).to eq('*')
     end
 
-    it 'exposes the RateLimit-* headers to cross-origin clients' do
+    it 'exposes the RateLimit-* and Retry-After headers to cross-origin clients' do
       get '/api/v1/plants', headers: { 'Origin' => origin, 'Authorization' => "Bearer #{user.token}" }
 
-      expect(response.headers['Access-Control-Expose-Headers']).to include('RateLimit-Limit', 'RateLimit-Remaining', 'RateLimit-Reset')
+      expect(response.headers['Access-Control-Expose-Headers'])
+        .to include('RateLimit-Limit', 'RateLimit-Remaining', 'RateLimit-Reset', 'Retry-After')
     end
 
     it 'does not add CORS headers to non-API routes' do

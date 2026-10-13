@@ -8,7 +8,9 @@ RSpec.describe 'API home and profile', type: :request do
       expect(response).to have_http_status(:ok)
       body = JSON.parse(response.body)
       expect(body['plants_count']).to eq(Plant.count)
-      expect(body).to have_key('detailled_plants_count')
+      expect(body).to have_key('detailed_plants_count')
+      # Deprecated misspelling, still served with the same value.
+      expect(body['detailled_plants_count']).to eq(body['detailed_plants_count'])
     end
   end
 
