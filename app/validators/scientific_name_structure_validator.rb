@@ -33,14 +33,16 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
   # var. kamtschatica" is the full classification of a variety, the way USDA
   # PLANTS prints it, not a name. A name has one infraspecific rank (ICN Art.
   # 24.1); the rest is classification (TAXONOMY.md, "One infraspecific rank
-  # per name"). Refused with its own message, whatever the record's rank.
-  CONNECTING_TERM = '(?:ssp|subsp|var|subvar|form|fo?)\\.'.freeze
-  # The hybrid sign may stand apart before the genus or an epithet.
-  TWO_RANKS = /\A(?:× )?\S+ (?:× )?\S+ #{CONNECTING_TERM} (?:× )?\S+ #{CONNECTING_TERM} (?:× )?\S+\z/
+  # per name"). The terms are counted, not matched as a shape: a third rank, a
+  # hybrid sign standing apart or an author left at the end would slip past a
+  # fixed form, and the hybrid rank's own regex tolerates a free tail.
+  # Refused with its own message, whatever the record's rank.
+  CONNECTING_TERM = /(?:\A| )(?:ssp|subsp|var|subvar|form|fo?)\.(?= )/
 
   def validate_each(record, attribute, value)
-    if value.to_s.match?(TWO_RANKS)
-      record.errors.add(attribute, "'#{value}' carries two infraspecific ranks; a name has one (ICN Art. 24.1), the rest is classification")
+    terms = value.to_s.scan(CONNECTING_TERM).size
+    if terms > 1
+      record.errors.add(attribute, "'#{value}' carries #{terms} infraspecific ranks; a name has one (ICN Art. 24.1), the rest is classification")
       return
     end
 

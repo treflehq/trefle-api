@@ -76,12 +76,14 @@ What we do with one:
   external links keep resolving. The position of the variety under its
   subspecies is not stored anywhere else: we are a name index, not a
   classification.
-- `ScientificNameStructureValidator` refuses a string with two connecting terms
-  with its own message, whatever rank the record is filed at. The import of
-  2022 saved them without validation; nothing may again.
+- `ScientificNameStructureValidator` refuses a string with two or more
+  connecting terms with its own message, whatever rank the record is filed at.
+  The import of 2022 saved them without validation; nothing may again.
 
-The 2026-10 pass that applied this is `datasets/infraspecific-ranks-2026-10`
-in `trefle-crawlers` (`Crawlers::InfraspecificRanks`).
+The pass that applies this to the 236 records is
+`datasets/infraspecific-ranks-2026-10` in `trefle-crawlers`
+(`Crawlers::InfraspecificRanks`): merge into the taxon we already hold, or
+rename to the trinomial, each record decided against WCVP and WFO.
 
 ## Autonyms are not the species
 
