@@ -7,10 +7,13 @@
 #
 # Three rules, in order of how much damage breaking them would do:
 #
-#   1. An empty column only. A filled value is never overwritten, whatever its
-#      source and whatever the fact says. Disagreements are a human's call and
-#      go through Checks::FactDivergence -> the corrections queue, not through
-#      a bulk job.
+#   1. An empty column only. A filled value is never overwritten here,
+#      whatever its source and whatever the fact says. Filling a gap cannot
+#      lose anything; replacing a value can, so it is a separate job with its
+#      own trail: Migrators::FactArbitration lets a strictly stronger source
+#      replace a value nothing stronger backs (a 2022 value, say), and never
+#      touches a community one. Other disagreements are a human's call and go
+#      through Checks::FactDivergence -> the corrections queue.
 #   2. Only attributes in the traits.yml contract. Fact-only attributes —
 #      human usage types (#18), the two Ellenberg indicators marked
 #      `promoted: false` (#14) — are not in it and so cannot be promoted by
@@ -47,6 +50,22 @@ module Migrators
 
         log(result, dry_run)
         result
+      end
+
+      # The inverse of Ingester::Species#fact_value: a flag column was stored
+      # as "a|b|c", everything else as its own to_s. Returns nil when the
+      # stored string cannot be turned back into a value the column accepts,
+      # so a malformed fact is skipped rather than raising mid-run.
+      # Public: Migrators::FactArbitration reads facts back the same way.
+      def column_value(species, attr, raw)
+        return nil if raw.nil? || raw.strip.empty?
+
+        current = species.send(attr)
+        return flag_values(species, attr, raw) if current.is_a?(ActiveFlag::Value)
+        return raw if species.class.defined_enums.key?(attr) && species.class.defined_enums[attr].key?(raw)
+        return nil if species.class.defined_enums.key?(attr)
+
+        cast(species, attr, raw)
       end
 
       private
@@ -114,21 +133,6 @@ module Migrators
       def reject(result, reason)
         result.rejected[reason] += 1
         false
-      end
-
-      # The inverse of Ingester::Species#fact_value: a flag column was stored
-      # as "a|b|c", everything else as its own to_s. Returns nil when the
-      # stored string cannot be turned back into a value the column accepts,
-      # so a malformed fact is skipped rather than raising mid-run.
-      def column_value(species, attr, raw)
-        return nil if raw.nil? || raw.strip.empty?
-
-        current = species.send(attr)
-        return flag_values(species, attr, raw) if current.is_a?(ActiveFlag::Value)
-        return raw if species.class.defined_enums.key?(attr) && species.class.defined_enums[attr].key?(raw)
-        return nil if species.class.defined_enums.key?(attr)
-
-        cast(species, attr, raw)
       end
 
       # A flag fact lists its flags with "|" (what Ingester::Species#fact_value
