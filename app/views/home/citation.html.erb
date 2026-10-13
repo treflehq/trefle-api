@@ -26,6 +26,7 @@
       <br>
       <aside class="menu">
         <ul class="menu-list">
+          <li><a href="#version">Data version</a></li>
           <li><a href="#doi">DOI</a></li>
           <li><a href="#formats">Citation formats</a></li>
           <li><a href="#credits">Upstream credits</a></li>
@@ -34,6 +35,39 @@
     </div>
 
     <div class="column is-10">
+
+      <section class="section content" id="version">
+        <h1 class="title is-4">
+          <%= fa_icon('code-branch', class: 'has-text-success') %> Data version
+        </h1>
+        <% if citation_version %>
+          <p>
+            The data currently served is version
+            <strong id="dataset-version"><%= citation_version %></strong>.
+          </p>
+        <% else %>
+          <p>No data version has been recorded yet.</p>
+        <% end %>
+        <p>
+          The version is the date of the last data operation run on the
+          database (an import, a purge, a migration), with a
+          <code>.2</code>, <code>.3</code>&hellip; suffix when several ran the
+          same day. Every API response states it, in
+          <code>meta.dataset_version</code> and in the
+          <code>X-Trefle-Data-Version</code> header; <code>GET /api/v1</code>
+          returns it with its release date, and
+          <code>GET /api/v1/changelog</code> lists the previous versions and
+          what each one changed.
+        </p>
+        <p>
+          <strong>Cite the version together with the date you accessed the
+          data</strong> (replace <code><%= CitationHelper::ACCESS_DATE_PLACEHOLDER %></code>
+          below). Community corrections are accepted one by one between data
+          operations, so the access date is what pins them. If your queries
+          spanned several days, give the range, and keep the
+          <code>dataset_version</code> of the responses you stored.
+        </p>
+      </section>
 
       <section class="section content" id="doi">
         <h1 class="title is-4">
@@ -60,14 +94,22 @@
           <%= fa_icon('file-contract', class: 'has-text-success') %> Citation formats
         </h1>
 
+        <p>
+          Each block below cites Trefle and, after it, the upstream sources
+          whose records Trefle serves (see <a href="#credits">Upstream credits</a>).
+        </p>
+
         <h2 class="title is-6">Plain text</h2>
-        <pre class="citation-format" id="citation-text"><%= citation_text %></pre>
+        <pre class="citation-format" id="citation-text"><%= citation_text_with_sources %></pre>
 
         <h2 class="title is-6">APA</h2>
         <pre class="citation-format" id="citation-apa"><%= citation_apa %></pre>
 
         <h2 class="title is-6">BibTeX</h2>
-        <pre class="citation-format" id="citation-bibtex"><%= citation_bibtex %></pre>
+        <pre class="citation-format" id="citation-bibtex"><%= citation_bibtex_with_sources %></pre>
+
+        <h2 class="title is-6">RIS</h2>
+        <pre class="citation-format" id="citation-ris"><%= citation_ris_with_sources %></pre>
       </section>
 
       <section class="section content" id="credits">
@@ -84,10 +126,34 @@
           and the per-record <code>sources</code> array returned by the API.
         </p>
         <p>
-          If your work relies on plant name and distribution data, please
-          also co-cite the World Checklist of Vascular Plants:
+          These upstream sources currently contribute records to Trefle
+          (taxonomic links and trait values counted in the database, so the
+          list follows the data). Their licences require that you credit
+          them alongside Trefle:
         </p>
-        <pre class="citation-format" id="citation-wcvp">Govaerts, R., Nic Lughadha, E., Black, N. et al. The World Checklist of Vascular Plants, a continuously updated resource for exploring global plant diversity. Sci Data 8, 215 (2021). https://doi.org/10.1038/s41597-021-00997-6</pre>
+        <table class="table is-narrow" id="citation-sources">
+          <thead>
+            <tr><th>Source</th><th>Licence</th><th>Records</th><th>How to credit</th></tr>
+          </thead>
+          <tbody>
+            <% citation_sources.each do |source| %>
+              <tr>
+                <td><%= source.url.present? ? link_to(source.name, source.url.start_with?('http') ? source.url : "https://#{source.url}") : source.name %></td>
+                <td><%= source.licence_url.present? ? link_to(source.licence || 'see source', source.licence_url) : (source.licence || 'see source') %></td>
+                <td><%= number_with_delimiter(source.records) %></td>
+                <td><%= source.reference %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% if citation_minor_sources.any? %>
+          <p>
+            A handful of values also come from
+            <%= citation_minor_sources.map {|source| "#{source.name} (#{source.records})" }.to_sentence %>;
+            the per-record <code>sources</code> array and
+            <code>GET /api/v1/species/{id}/facts</code> say which.
+          </p>
+        <% end %>
       </section>
 
     </div>

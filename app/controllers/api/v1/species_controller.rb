@@ -225,7 +225,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
     render json: Panko::Response.new(
       data: Panko::ArraySerializer.new(facts, each_serializer: SpeciesFactSerializer).to_a,
-      meta: { total: facts.length }
+      meta: { total: facts.length }.merge(dataset_version_meta)
     )
   end
 

@@ -118,6 +118,40 @@ RSpec.describe 'Public website pages', type: :request do
       expect(response.body).to include('@misc{trefle') # BibTeX
     end
 
+    it 'states the data version, asks for the access date and offers RIS' do
+      DataRun.create!(runnable: 'Spec::Run', kind: 'import', status: :completed,
+                      started_at: Time.utc(2026, 10, 13, 6, 0), finished_at: Time.utc(2026, 10, 13, 6, 40))
+      DatasetVersion.reset!
+
+      get citation_path
+
+      expect(response.body).to include('id="dataset-version">2026.10.13<')
+      expect(response.body).to include('data version 2026.10.13') # plain text
+      expect(response.body).to include('version = {2026.10.13}') # BibTeX
+      expect(response.body).to include('urldate = {YYYY-MM-DD}')
+      expect(response.body).to include('TY  - DATA') # RIS
+      expect(response.body).to include('ET  - Version 2026.10.13')
+    ensure
+      DatasetVersion.reset!
+    end
+
+    it 'co-cites the upstream sources the data actually comes from, TRY and WCVP included' do
+      stub_const('CitationSources::MAJOR_THRESHOLD', 1)
+      Migrators::SourceLicences.run
+      ForeignSource.find_by(slug: 'try') || ForeignSource.create!(name: 'TRY', slug: 'try', url: 'https://www.try-db.org')
+      species = create(:species)
+      ForeignSourcesPlant.create!(species: species, foreign_source: ForeignSource.find_by!(slug: 'powo'), fid: 'powo-fid')
+      SpeciesFact.create!(species: species, attribute_name: 'light', source: 'try', value: '7')
+
+      get citation_path
+
+      sources = response.body[%r{id="citation-sources".*?</table>}m]
+      expect(sources).to include('Kattge', 'Govaerts', 'CC-BY-4.0')
+      expect(sources).not_to include('Tropicos') # no record comes from it
+      expect(response.body).to include('@article{kattge2020try', '@article{govaerts2021wcvp')
+      expect(response.body).to include('DO  - 10.1111/gcb.14904')
+    end
+
     it 'shows a "DOI pending" state when no DOI is configured' do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with('TREFLE_DOI').and_return(nil)
@@ -167,7 +201,8 @@ RSpec.describe 'Public website pages', type: :request do
 
       expect(response.body).to include("gtag('config', 'G-8VL7KHM5CK');")
       expect(response.body).not_to include('user_id')
-      expect(response.body).not_to match(/gtag\('config'.*#{user.id}/)
+      # Word boundaries: user 8 must not match the 8 in G-8VL7KHM5CK.
+      expect(response.body).not_to match(/gtag\('config'.*\b#{user.id}\b/)
     end
   end
 
