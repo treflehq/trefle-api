@@ -12,6 +12,11 @@ module Schemas
       { '$ref' => "#/components/schemas/#{schema}" }
     end
 
+    # The error envelope every 4xx/5xx answer shares (Schemas::V1::Error).
+    def self.error_schema
+      schema_href(schema: 'error')
+    end
+
     def self.schema_array_href(schema: '')
       {
         type: :array,

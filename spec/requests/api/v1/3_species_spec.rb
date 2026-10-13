@@ -13,7 +13,7 @@ describe 'Species API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/species' do
+  path '/species' do
 
     get 'List species' do
       tags 'Species'
@@ -23,19 +23,7 @@ describe 'Species API' do
       operationId 'listSpecies'
       security [{ token: [] }, { bearerAuth: [] }]
 
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
-      # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for species matching the given query'
-
-      parameter name: :page, in: :query, required: false, type: :number,
-                description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
-      parameter name: :per_page, in: :query, required: false, type: :integer,
-                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -48,13 +36,23 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/species/{id}' do
+  path '/species/{id}' do
 
     get 'Retrieve a species' do
       tags 'Species'
@@ -83,14 +81,26 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Species.where(complete_data: true).first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Species.where(complete_data: true).first.id }
+      end
     end
   end
 
-  path '/api/v1/species/search' do
+  path '/species/search' do
 
     get 'Search for a species' do
       tags 'Species'
@@ -98,17 +108,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'Search for a species with the given scientific name, common name, synonym name etc.'
       operationId 'searchSpecies'
-      parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :per_page, in: :query, required: false, type: :integer,
-                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -125,14 +125,26 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:q) { 'cocos' }
         run_test!
       end
+
+      response '422', 'Missing search query' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:q) { '' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:q) { 'cocos' }
+      end
     end
   end
 
-  path '/api/v1/species/{id}/report' do
+  path '/species/{id}/report' do
 
     post 'Report an error' do
 
@@ -174,14 +186,26 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Species.where(complete_data: true).first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Species.where(complete_data: true).first.id }
+      end
     end
   end
 
-  path '/api/v1/species/{id}/facts' do
+  path '/species/{id}/facts' do
 
     get 'List the provenance facts of a species' do
       tags 'Species'
@@ -206,14 +230,26 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Species.where(complete_data: true).first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Species.where(complete_data: true).first.id }
+      end
     end
   end
 
-  path '/api/v1/species/{species_id}/synonyms' do
+  path '/species/{species_id}/synonyms' do
 
     get 'List the synonyms of a species' do
       tags 'Species'
@@ -226,9 +262,7 @@ describe 'Species API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :species_id, required: true, in: :path, type: :string, description: 'The id or the slug of the species'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :per_page, in: :query, required: false, type: :integer,
-                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
+      parameters :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -248,14 +282,34 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:species_id) { 'abies-alba' }
         run_test!
       end
+
+      response '400', 'Invalid page size' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { 'abies-alba' }
+        let(:per_page) { 0 }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:species_id) { 'abies-alba' }
+      end
     end
   end
 
-  path '/api/v1/species/{species_id}/corrections' do
+  path '/species/{species_id}/corrections' do
 
     get 'List the corrections submitted on a species' do
       tags 'Species'
@@ -265,9 +319,7 @@ describe 'Species API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :species_id, required: true, in: :path, type: :string, description: 'The id or the slug of the species'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :per_page, in: :query, required: false, type: :integer,
-                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
+      parameters :filter_corrections, :order_corrections, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -281,9 +333,29 @@ describe 'Species API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:species_id) { Species.where(complete_data: true).first.id }
         run_test!
+      end
+
+      response '400', 'Unknown filter, filter_not, order or range key, or invalid filter value' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { Species.where(complete_data: true).first.id }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:species_id) { Species.where(complete_data: true).first.id }
       end
     end
   end

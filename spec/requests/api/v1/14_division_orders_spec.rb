@@ -13,7 +13,7 @@ describe 'DivisionOrders API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/division_orders' do
+  path '/division_orders' do
 
     get 'Searches division orders' do
       tags 'DivisionOrders'
@@ -21,11 +21,8 @@ describe 'DivisionOrders API' do
       produces 'application/json'
       description 'List division orders'
       operationId 'listDivisionOrders'
-      # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :per_page, in: :query, required: false, type: :integer,
-                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
+      parameters :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -38,13 +35,16 @@ describe 'DivisionOrders API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/division_orders/{id}' do
+  path '/division_orders/{id}' do
 
     get 'Retrieve a division order' do
       tags 'DivisionOrders'
@@ -70,9 +70,21 @@ describe 'DivisionOrders API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { DivisionOrder.first.id }
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { DivisionOrder.first.id }
       end
     end
   end

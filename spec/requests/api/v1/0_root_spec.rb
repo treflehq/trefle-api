@@ -8,12 +8,12 @@ describe 'Root API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1' do
+  path '/' do
 
     get 'API status' do
       tags 'Root'
       produces 'application/json'
-      description 'Public database counters. This is the only endpoint that does not require a token.'
+      description 'Public database counters. With the OpenAPI document, the only endpoint that does not require a token.'
       operationId 'getApiStatus'
       # Explicitly no authentication, rather than merely omitting the key.
       security []
@@ -22,10 +22,12 @@ describe 'Root API' do
         schema Schemas::Helpers.schema_href(schema: 'api_status')
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/me' do
+  path '/me' do
 
     get 'Retrieve the token owner' do
       tags 'Root'
@@ -41,9 +43,12 @@ describe 'Root API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 end
