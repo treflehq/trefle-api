@@ -1,0 +1,86 @@
+<%# Where each value of a species comes from. locals: provenance (SpeciesProvenance), admin (bool) %>
+<% counts = provenance.counts %>
+<div class="species-provenance">
+  <div class="tags species-provenance__summary">
+    <% SpeciesProvenance::STATES.each do |state| %>
+      <% next unless counts[state] %>
+      <span class="tags has-addons">
+        <%= provenance_state_tag(state) %><span class="tag is-light"><%= counts[state] %></span>
+      </span>
+    <% end %>
+    <% if provenance.sources.any? %>
+      <span class="has-text-grey is-size-7">Sources: <%= provenance.sources.map {|s| fact_source_name(s) }.join(', ') %></span>
+    <% end %>
+  </div>
+
+  <% if provenance.attributes.empty? %>
+    <p class="has-text-grey">No value recorded for this species yet.</p>
+  <% else %>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable species-provenance__table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Shown</th>
+            <th>What the sources say</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% provenance.attributes.group_by(&:category).each do |category, attributes| %>
+            <tr class="species-provenance__category">
+              <th colspan="4"><%= (category || 'other').humanize %></th>
+            </tr>
+            <% attributes.each do |attribute| %>
+              <tr id="fact-<%= attribute.name %>" class="species-provenance__row is-<%= attribute.state %>">
+                <td>
+                  <span class="has-text-weight-semibold"><%= fact_attribute_label(attribute.name) %></span>
+                  <% if admin %><br><code class="is-size-7"><%= attribute.name %></code><% end %>
+                </td>
+                <td><%= provenance_shown_value(attribute) %></td>
+                <td>
+                  <% if attribute.active_facts.empty? %>
+                    <span class="has-text-grey is-size-7">No source recorded</span>
+                  <% end %>
+                  <ul class="species-provenance__facts">
+                    <% attribute.active_facts.each do |fact| %>
+                      <li class="<%= 'is-shown' if fact == attribute.shown_fact %>">
+                        <strong><%= fact_value(fact, attribute.unit) %></strong>
+                        · <%= fact_source(fact) %>
+                        <span class="has-text-grey is-size-7">· <%= fact_evidence(fact) %></span>
+                        <% if admin %>
+                          <span class="has-text-grey is-size-7">
+                            · #<%= fact.id %>
+                            <% if fact.source_record_id.present? %>· record <%= truncate(fact.source_record_id, length: 40) %><% end %>
+                          </span>
+                        <% end %>
+                        <% if fact.notes.present? %><br><span class="is-size-7 has-text-grey"><%= fact.notes %></span><% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                  <% if attribute.history_facts.any? %>
+                    <details class="is-size-7" <%= 'open' if admin %>>
+                      <summary><%= pluralize(attribute.history_facts.size, 'earlier or rejected value') %></summary>
+                      <ul class="species-provenance__facts">
+                        <% attribute.history_facts.each do |fact| %>
+                          <li>
+                            <span class="tag is-light <%= fact.rejected_status? ? 'is-danger' : '' %>"><%= fact.status.humanize %></span>
+                            <%= fact_value(fact, attribute.unit) %> · <%= fact_source(fact) %>
+                            <span class="has-text-grey">· <%= fact_evidence(fact) %></span>
+                            <% if admin %><span class="has-text-grey">· #<%= fact.id %></span><% end %>
+                            <% if fact.notes.present? %><br><span class="has-text-grey"><%= fact.notes %></span><% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </details>
+                  <% end %>
+                </td>
+                <td><%= provenance_state_tag(attribute.state) %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,97 @@
+<section class="section species-facts-admin">
+  <div class="container is-fluid">
+    <% if alert.present? %><p class="notification is-danger is-light"><%= alert %></p><% end %>
+
+    <h1 class="title">Facts</h1>
+    <p class="subtitle is-6">
+      Every sourced value, as each source gives it. The species columns show the strongest active fact
+      per field (see <code>config/traits.yml</code>); superseded and rejected facts stay as history.
+    </p>
+
+    <%= form_with url: management_species_facts_path, method: :get, local: true, class: 'species-facts-admin__filters' do %>
+      <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+          <%= text_field_tag :species, @filters[:species], class: 'input is-small', placeholder: 'Species slug' %>
+        </div>
+        <div class="control">
+          <div class="select is-small">
+            <%= select_tag :attribute_name, options_for_select(@attribute_counts.map {|name, n| ["#{name} (#{n})", name] }, @filters[:attribute_name]), include_blank: 'Any field' %>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select is-small">
+            <%= select_tag :source, options_for_select(@source_counts.map {|name, n| ["#{fact_source_name(name)} (#{n})", name] }, @filters[:source]), include_blank: 'Any source' %>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select is-small">
+            <%= select_tag :status, options_for_select(SpeciesFact.statuses.keys.map {|s| [s.humanize, s] }, @filters[:status]), include_blank: 'Any status' %>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select is-small">
+            <%= select_tag :evidence_type, options_for_select(SpeciesFact.evidence_types.keys.map {|s| [s.humanize, s] }, @filters[:evidence_type]), include_blank: 'Any evidence' %>
+          </div>
+        </div>
+        <div class="control">
+          <label class="checkbox is-size-7">
+            <%= check_box_tag :disputed, "1", @filters[:disputed].present? %> Active sources disagree
+          </label>
+        </div>
+        <div class="control">
+          <%= submit_tag 'Filter', class: 'button is-small is-primary', name: nil %>
+          <%= link_to 'Reset', management_species_facts_path, class: 'button is-small is-white' %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @species %>
+      <p class="mb-3">
+        Showing the facts of <%= link_to @species.scientific_name, management_species_path(@species) %>
+        · <%= link_to 'public data sources page', sources_explore_species_path(@species), target: '_blank', rel: 'noopener' %>
+      </p>
+    <% end %>
+
+    <p class="has-text-grey is-size-7"><%== pagy_info(@pagy) %></p>
+
+    <table class="table is-fullwidth is-hoverable is-narrow species-facts-admin__table">
+      <thead>
+        <tr>
+          <th>Species</th>
+          <th>Field</th>
+          <th>Value</th>
+          <th>Source</th>
+          <th>Status</th>
+          <th>Evidence</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @facts.each do |fact| %>
+          <tr>
+            <td>
+              <% if fact.species %>
+                <%= link_to fact.species.scientific_name, management_species_path(fact.species, anchor: 'facts') %>
+                <%= link_to '⌕', management_species_facts_path(@filters.merge(species: fact.species.slug)), title: 'Only this species', class: 'has-text-grey' %>
+              <% else %>
+                <span class="has-text-grey">#<%= fact.species_id %></span>
+              <% end %>
+            </td>
+            <td><%= link_to fact.attribute_name, management_species_facts_path(@filters.merge(attribute_name: fact.attribute_name)), class: 'has-text-dark' %></td>
+            <td class="has-text-weight-semibold"><%= fact_value(fact) %></td>
+            <td>
+              <%= fact_source(fact) %>
+              <% if fact.source_record_id.present? && fact.source != "merged_from_synonym" %><br><span class="is-size-7 has-text-grey"><%= truncate(fact.source_record_id, length: 40) %></span><% end %>
+            </td>
+            <td><span class="tag is-light <%= { 'active' => 'is-success', 'rejected' => 'is-danger' }[fact.status] %>"><%= fact.status.humanize %></span></td>
+            <td class="is-size-7"><%= fact_evidence(fact) %></td>
+            <td class="is-size-7 has-text-grey"><%= fact.notes %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @facts.empty? %><p class="has-text-grey">No fact matches these filters.</p><% end %>
+    <%== pagy_bulma_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
+</section>

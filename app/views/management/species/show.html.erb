@@ -200,3 +200,14 @@
   </div>
 </section>
 <% end %>
+<%# Outside the fragment cache: facts change without touching the species. %>
+<section class="section" id="facts">
+  <div class="container">
+    <h3 class="title is-4">
+      Facts
+      <%= link_to 'All facts of this species', management_species_facts_path(species: @species.slug), class: 'button is-small is-pulled-right' %>
+      <%= link_to 'Public page', sources_explore_species_path(@species), class: 'button is-small is-white is-pulled-right', target: '_blank', rel: 'noopener' %>
+    </h3>
+    <%= render partial: 'species_facts/provenance', locals: { provenance: SpeciesProvenance.new(@species), admin: true } %>
+  </div>
+</section>
