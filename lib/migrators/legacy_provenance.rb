@@ -19,6 +19,9 @@
 #   - caches of other records that carry their own provenance:
 #     main_image_url (species_images have a source), family_common_name (the
 #     family's name).
+#   - the free-text descriptive columns, observations (a locality note:
+#     "Oregon to California") and common_name: not trait values, and at 379k
+#     rows they would dwarf the real traces with noise.
 #
 # ph_minimum/ph_maximum: the 2022 import converted Baseflor soil reaction
 # classes (an ordinal, Ellenberg R) into pH intervals, which the public docs
@@ -40,14 +43,18 @@ module Migrators
     PH_FIELDS = %w[ph_minimum ph_maximum].freeze
 
     CATEGORIES = %w[descriptive morphology phenology ecology cultivation].freeze
+    # Caches of other records' data, which carry their own provenance.
     CACHE_FIELDS = %w[main_image_url family_common_name].freeze
+    # Free text, not trait values: a locality note is not provenance-bearing
+    # data, and these two alone would be 379k rows next to 62k real traces.
+    FREE_TEXT_FIELDS = %w[observations common_name].freeze
     BATCH_SIZE = 5_000
 
     Result = Struct.new(:facts_created, :by_field, :baseflor_ph_pairs, :skipped_false_booleans, keyword_init: true)
 
     def self.fields
       Traits.fields.select {|name, spec| CATEGORIES.include?(spec['category']) && ::Species.column_names.include?(name) }
-        .keys - CACHE_FIELDS
+        .keys - CACHE_FIELDS - FREE_TEXT_FIELDS
     end
 
     def self.run(dry_run: true)

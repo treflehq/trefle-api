@@ -8,7 +8,7 @@ RSpec.describe Migrators::LegacyProvenance do
     species.update_columns(
       ph_minimum: 7, ph_maximum: 7.5, growth_habit: 'Forb/herb', light: 5,
       bloom_months: Species.bloom_months.to_i(%i[mar apr]), edible_part: 0, foliage_texture: nil,
-      vegetable: false, leaf_retention: false, common_name: '', main_image_url: 'https://example.org/habit.jpg'
+      vegetable: false, leaf_retention: false, common_name: 'Test herb', observations: 'Oregon', main_image_url: 'https://example.org/habit.jpg'
     )
     sourced.update_columns(light: 6, ph_minimum: 6, ph_maximum: 8)
     SpeciesFact.record!(species: sourced, attribute_name: 'light', source: 'catminat', value: 6)
@@ -29,6 +29,7 @@ RSpec.describe Migrators::LegacyProvenance do
     expect(legacy(species, 'vegetable')).to be_nil
     expect(legacy(species, 'leaf_retention')).to be_nil
     expect(legacy(species, 'common_name')).to be_nil
+    expect(legacy(species, 'observations')).to be_nil
     expect(legacy(species, 'main_image_url')).to be_nil
     expect(legacy(species, 'foliage_texture')).to be_nil
     # The seeded test dataset carries trait values of its own, so the counts are floors.
@@ -74,9 +75,9 @@ RSpec.describe Migrators::LegacyProvenance do
     expect(SpeciesFact.where(species: species, source: 'legacy').count).to eq(5)
   end
 
-  it 'never traces nomenclature or caches of other records' do
+  it 'never traces nomenclature, free text or caches of other records' do
     expect(described_class.fields).not_to include('author', 'status', 'scientific_name', 'main_image_url',
-                                                  'family_common_name', 'edible')
-    expect(described_class.fields).to include('growth_habit', 'ph_minimum', 'bloom_months', 'observations')
+                                                  'family_common_name', 'edible', 'observations', 'common_name')
+    expect(described_class.fields).to include('growth_habit', 'growth_form', 'ph_minimum', 'bloom_months')
   end
 end
