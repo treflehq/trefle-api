@@ -9,14 +9,17 @@
       "taxonRank": "<%= @species.rank %>"
     }
   </script>
-  <%= render partial: 'explore/species/species_header', locals: {species: @species} %>
-  
+  <%= render partial: 'explore/species/species_header', locals: {species: @species, requested_synonym: @requested_synonym} %>
+
   <div class="columns">
     <div class="column is-3">
       <%= render partial: 'explore/species/species_menu', locals: {species: @species, active: 'informations'} %>
     </div>
 
-    <div class="column is-9" id="explore-species-page">
+    <%# The React page reads the ecological indicator classes (light, humidities,
+        nutriments, salinity) from this attribute, so it spells them exactly as
+        the server-rendered pages do. %>
+    <div class="column is-9" id="explore-species-page" data-ecological-indicators="<%= EcologicalIndicators.to_h.to_json %>">
 
       <section class="section content" id="specifications">
         <h1 class="title is-4 ">

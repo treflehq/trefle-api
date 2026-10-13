@@ -13,7 +13,7 @@ describe 'Divisions API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/divisions' do
+  path '/divisions' do
 
     get 'Searches divisions' do
       tags 'Divisions'
@@ -21,30 +21,30 @@ describe 'Divisions API' do
       produces 'application/json'
       description 'List divisions'
       operationId 'listDivisions'
-      # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'division',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/divisions/{id}' do
+  path '/divisions/{id}' do
 
     get 'Retrieve a division' do
       tags 'Divisions'
@@ -70,9 +70,21 @@ describe 'Divisions API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Division.first.id }
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Division.first.id }
       end
     end
   end

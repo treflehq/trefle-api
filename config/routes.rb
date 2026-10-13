@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get '/', to: 'home#index'
       get '/me', to: 'users#me'
+      # The OpenAPI description of this API, no token needed (Openapi::Document)
+      get '/openapi.:format', to: 'openapi#show', constraints: { format: /json|yaml/ }
 
       resources :kingdoms, only: %i[index show]
       resources :subkingdoms, only: %i[index show]
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
 
       resources :species, only: %i[index show] do
         resources :record_corrections, only: %i[index], path: 'corrections'
+        resources :synonyms, only: %i[index]
         post '/report', action: :report, on: :member
         get '/facts', action: :facts, on: :member
         get '/search', action: :search, on: :collection

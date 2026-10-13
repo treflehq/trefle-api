@@ -193,6 +193,96 @@ RSpec.describe 'Explore pages', type: :request do
       badge = Nokogiri::HTML.fragment(response.body).at_css('.species-completion')
       expect(badge.text).to include('0%')
     end
+
+    it 'cites the author and year after the scientific name (#439)' do
+      species = Species.friendly.find('abies-alba')
+      species.update_columns(author: 'Mill.', year: 1768)
+
+      get explore_species_path(species)
+
+      title = Nokogiri::HTML.fragment(response.body).at_css('.species-lead h1')
+      expect(title.text.squish).to start_with('Abies alba Mill., 1768')
+      expect(title.at_css('.species-authorship').text).to eq('Mill., 1768')
+    end
+
+    it 'cites the year alone when the author is unknown, with no placeholder text (#439)' do
+      species = Species.friendly.find('abies-alba')
+      species.update_columns(author: nil, year: 1768)
+
+      get explore_species_path(species)
+
+      title = Nokogiri::HTML.fragment(response.body).at_css('.species-lead h1')
+      expect(title.at_css('.species-authorship').text).to eq('1768')
+      expect(response.body).not_to include('No author', 'No year')
+    end
+
+    it 'leaves the authorship out when the name has neither author nor year (#439)' do
+      species = Species.friendly.find('abies-alba')
+      species.update_columns(author: nil, year: nil)
+
+      get explore_species_path(species)
+
+      title = Nokogiri::HTML.fragment(response.body).at_css('.species-lead h1')
+      expect(title.text.squish).to start_with('Abies alba ')
+      expect(title.at_css('.species-authorship')).to be_nil
+      expect(response.body).not_to include('No author', 'No year', 'No bibliography')
+    end
+
+    it 'ships the ecological indicators as Ellenberg classes, not as lux or µg figures (#439)' do
+      get explore_species_path(Species.friendly.find('abies-alba'))
+
+      container = Nokogiri::HTML.fragment(response.body).at_css('#explore-species-page')
+      table = JSON.parse(container['data-ecological-indicators'])
+
+      expect(table['indicators'].keys).to contain_exactly('light', 'atmospheric_humidity', 'ground_humidity', 'soil_nutriments', 'soil_salinity')
+      expect(table['indicators']['light'].values_at('min', 'max')).to eq([1, 9])
+      expect(table['indicators']['light']['classes']['7']).to eq('half-light to light')
+      expect(table['indicators']['ground_humidity']['max']).to eq(12)
+      expect(table['indicators']['soil_salinity']['classes']['0']).to eq('absent from saline soils')
+      expect(table['note']).to include('not what an individual plant tolerates')
+      expect(response.body).not_to include(' lux', 'µg', 'Cl−')
+    end
+
+    it 'says which name is accepted when reached through a synonym slug (#439)' do
+      accepted = Species.friendly.find('abies-alba')
+      Synonym.create!(record: accepted, name: 'Abies pectinata', author: 'DC.')
+
+      get '/explore/species/abies-pectinata'
+
+      expect(response).to have_http_status(:ok)
+      notice = Nokogiri::HTML.fragment(response.body).at_css('.species-name-notice')
+      expect(notice.text.squish).to include('Abies pectinata DC. is a synonym', 'The accepted name is Abies alba Aubin1, 1901')
+    end
+
+    it 'flags a name whose status is not accepted and links the species that holds it as a synonym (#439)' do
+      doubtful = Species.friendly.find('abies-alba')
+      accepted = Species.where.not(id: doubtful.id).order(:id).first
+      doubtful.update_columns(status: Species.statuses['doubtful'])
+      Synonym.create!(record: accepted, name: doubtful.scientific_name, author: 'Mill.')
+
+      get explore_species_path(doubtful)
+
+      notice = Nokogiri::HTML.fragment(response.body).at_css('.species-name-notice')
+      expect(notice.text.squish).to include('Not an accepted name (status: doubtful)', "The accepted name is #{accepted.scientific_name} #{accepted.author}, #{accepted.year}")
+      expect(notice.at_css('a')['href']).to eq(explore_species_path(accepted))
+    end
+
+    it 'says so when a name that is not accepted has no accepted record claiming it yet (#439)' do
+      unknown = Species.friendly.find('abies-alba')
+      unknown.update_columns(status: Species.statuses['unknown'])
+
+      get explore_species_path(unknown)
+
+      notice = Nokogiri::HTML.fragment(response.body).at_css('.species-name-notice')
+      expect(notice.text.squish).to include('Not an accepted name (status: unknown)', 'No accepted name is recorded for it yet')
+      expect(notice.at_css('a')).to be_nil
+    end
+
+    it 'shows no name notice on an accepted species reached by its own slug' do
+      get explore_species_path(Species.friendly.find('abies-alba'))
+
+      expect(Nokogiri::HTML.fragment(response.body).at_css('.species-name-notice')).to be_nil
+    end
   end
 
   describe 'GET /explore/genus' do

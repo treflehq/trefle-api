@@ -13,7 +13,7 @@ describe 'Subkingdoms API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/subkingdoms' do
+  path '/subkingdoms' do
 
     get 'Searches subkingdoms' do
       tags 'Subkingdoms'
@@ -21,30 +21,30 @@ describe 'Subkingdoms API' do
       produces 'application/json'
       description 'List subkingdoms'
       operationId 'listSubkingdoms'
-      # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'subkingdom',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/subkingdoms/{id}' do
+  path '/subkingdoms/{id}' do
 
     get 'Retrieve a subkingdom' do
       tags 'Subkingdoms'
@@ -70,9 +70,21 @@ describe 'Subkingdoms API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Subkingdom.first.id }
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Subkingdom.first.id }
       end
     end
   end

@@ -4,16 +4,17 @@ class SpeciesLightSerializer < BaseSerializer
              :year, :bibliography, :author, :status,
              :rank, :family_common_name, :family,
              :genus_id, :genus,
-             :links, :synonyms, :image_url,
+             :links, :synonyms_count, :image_url,
              :completion_ratio, :complete_data
 
   def image_url
     object.main_image_url
   end
 
-  def synonyms
-    object.synonyms.pluck(:name)
-  end
+  # List payloads carry the count of the synonyms attached to this record
+  # (a counter column, no extra query) and a link to the paginated list;
+  # the names themselves are no longer embedded (a species can have a
+  # thousand of them).
 
   # def common_names
   #   object.common_names.pluck(:name)
@@ -31,7 +32,8 @@ class SpeciesLightSerializer < BaseSerializer
     {
       self: url_helpers.api_v1_species_path(object),
       plant: url_helpers.api_v1_plant_path(object&.plant&.slug || 'unknown'),
-      genus: url_helpers.api_v1_genus_path(object&.genus&.slug || 'unknown')
+      genus: url_helpers.api_v1_genus_path(object&.genus&.slug || 'unknown'),
+      synonyms: url_helpers.api_v1_species_synonyms_path(object)
     }
   end
 

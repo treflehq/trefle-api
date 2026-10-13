@@ -358,6 +358,41 @@ class Species < ApplicationRecord
   extend FriendlyId
   friendly_id :scientific_name, use: :slugged
 
+  # Connecting terms an autonym can carry (the infraspecific ranks of
+  # `enum :rank` that repeat the species epithet: ssp, var, form, subvar).
+  AUTONYM_TERMS = %w[subsp. var. f. subvar.].freeze
+
+  # The names of this species' autonyms: the infraspecific records that
+  # repeat the species epithet ("Quercus robur subsp. robur"). WCVP attaches
+  # the synonyms of the typical subspecies/variety to that autonym rather
+  # than to the species, so a reader of "Quercus robur" would otherwise never
+  # see them (5 synonyms on the species, 333 on its autonym). Derived from
+  # the name rather than from `main_species_id` because a few thousand
+  # autonyms are not linked to their species through that column.
+  def autonym_names
+    return [] unless species_rank?
+
+    genus_part, epithet, *rest = scientific_name.to_s.split
+    return [] if epithet.blank? || rest.any?
+
+    AUTONYM_TERMS.map {|term| "#{genus_part} #{epithet} #{term} #{epithet}" }
+  end
+
+  # The synonyms attached to this species and to its autonyms, in one query:
+  # the join on `species` adds `attached_to_name` (the scientific name of the
+  # record each synonym hangs on) to every row, so the serializer can say
+  # which one it came from. Unordered; callers add their own order.
+  def synonyms_with_autonyms
+    Synonym.joins('INNER JOIN species ON species.id = synonyms.record_id')
+      .where(synonyms: { record_type: 'Species' })
+      .where('species.id = :id OR species.scientific_name IN (:names)', id: id, names: autonym_names)
+      .select('synonyms.*, species.scientific_name AS attached_to_name')
+  end
+
+  def synonyms_with_autonyms_count
+    @synonyms_with_autonyms_count ||= synonyms_with_autonyms.count(:all)
+  end
+
   # Resolves a slug or id, falling back on the synonymy: a species merged
   # into its accepted taxon keeps answering through the Synonym that
   # replaced it, so stored slugs survive the merge.
@@ -368,6 +403,15 @@ class Species < ApplicationRecord
     raise unless synonym&.record.is_a?(Species)
 
     synonym.record
+  end
+
+  # For a record whose name is not accepted: the species that lists this name
+  # among its synonyms, i.e. the accepted name to point readers to. Nil for an
+  # accepted name, and for a name no accepted record claims yet.
+  def accepted_name
+    return nil if status.nil? || accepted_status?
+
+    Synonym.where(record_type: 'Species').where('lower(name) = ?', scientific_name.to_s.downcase).first&.record
   end
 
   after_save :setup_main_species

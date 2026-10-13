@@ -13,7 +13,7 @@ describe 'Plants API' do
 
   let(:user) { create(:user) }
 
-  path '/api/v1/plants' do
+  path '/plants' do
 
     get 'List plants' do
       tags 'Plants'
@@ -23,37 +23,36 @@ describe 'Plants API' do
       operationId 'listPlants'
       security [{ token: [] }, { bearerAuth: [] }]
 
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
-      # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
-      parameter name: :page, in: :query, required: false, type: :number,
-                description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response_too_many_requests
     end
   end
 
-  path '/api/v1/plants/{id}' do
+  path '/plants/{id}' do
 
     get 'Retrieve a plant' do
       tags 'Plants'
@@ -79,14 +78,26 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Plant.order(completion_ratio: :desc).first.slug }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Plant.order(completion_ratio: :desc).first.slug }
+      end
     end
   end
 
-  path '/api/v1/plants/search' do
+  path '/plants/search' do
 
     get 'Search for a plant' do
       tags 'Plants'
@@ -94,15 +105,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Search for a plant with the given scientific name, common name, synonym name etc.'
       operationId 'searchPlants'
-      parameter name: :q, required: true, in: :query, type: :string, description: 'The string to search'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_plants')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_plants')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_plants'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -110,9 +113,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:q) { 'cocos' }
         let(:token) { user.token }
@@ -121,15 +122,27 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:q) { 'cocos' }
         # puts "Running with token=#{token} & q=#{q}"
         run_test!
       end
+
+      response '422', 'Missing search query' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:q) { '' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:q) { 'cocos' }
+      end
     end
   end
 
-  path '/api/v1/plants/{id}/report' do
+  path '/plants/{id}/report' do
 
     post 'Report an error' do
 
@@ -171,14 +184,26 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:id) { Species.where(complete_data: true).first.id }
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:id) { Species.where(complete_data: true).first.id }
+      end
     end
   end
 
-  path '/api/v1/distributions/{zone_id}/plants' do
+  path '/distributions/{zone_id}/plants' do
 
     get 'List plants in a distribution zone' do
       tags 'Plants'
@@ -189,24 +214,13 @@ describe 'Plants API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
-      # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
-      parameter name: :page, in: :query, required: false, type: :number,
-                description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -214,14 +228,34 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:zone_id) { Zone.order(species_count: :desc).first.slug }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:zone_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:zone_id) { Zone.order(species_count: :desc).first.slug }
+      end
     end
   end
 
-  path '/api/v1/genus/{genus_id}/plants' do
+  path '/genus/{genus_id}/plants' do
 
     get 'List plants of a genus' do
       tags 'Plants'
@@ -232,24 +266,13 @@ describe 'Plants API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
-      # parameter name: :q, in: :query, required: false, type: :string, description: 'Search for plants matching the given query'
-      parameter name: :page, in: :query, required: false, type: :number,
-                description: "The page to fetch. Capped at #{WithCachedCount::MAX_PAGE_DEPTH} -- deeper pages return a 400 (#367)"
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
@@ -258,15 +281,35 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
 
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+      end
     end
   end
 
-  path '/api/v1/plants/{plant_id}/species' do
+  path '/plants/{plant_id}/species' do
 
     get 'List species of a plant' do
       tags 'Plants'
@@ -277,22 +320,13 @@ describe 'Plants API' do
       security [{ token: [] }, { bearerAuth: [] }]
 
       parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
-      parameter name: :filter, in: :query, required: false, description: 'Filter on values', schema: Schemas::Helpers.schema_href(schema: 'filters_species')
-      parameter name: :filter_not, in: :query, required: false, description: 'Exclude results matching null values',
-                schema: Schemas::Helpers.schema_href(schema: 'filters_not_species')
-      parameter name: :order, in: :query, required: false, description: 'Sort on values', schema: Schemas::Helpers.schema_href(schema: 'sorts_species')
-      parameter name: :range, in: :query, required: false, schema: Schemas::Helpers.schema_href(schema: 'ranges_species'),
-                description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
-                             '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
-      parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
@@ -301,15 +335,35 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
 
         run_test!
       end
+
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+        let(:filter) { { not_a_field: 'x' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:plant_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+      end
     end
   end
 
-  path '/api/v1/plants/{plant_id}/species/{id}' do
+  path '/plants/{plant_id}/species/{id}' do
 
     get 'Retrieve a species of a plant' do
       tags 'Plants'
@@ -340,16 +394,30 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
         let(:id) { Species.where(complete_data: true).first.id }
 
         run_test!
       end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
+        let(:id) { Species.where(complete_data: true).first.id }
+      end
     end
   end
 
-  path '/api/v1/genus/{genus_id}/plants/{id}' do
+  path '/genus/{genus_id}/plants/{id}' do
 
     get 'Retrieve a plant of a genus' do
       tags 'Plants'
@@ -380,11 +448,25 @@ describe 'Plants API' do
       end
 
       response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
         let(:token) { 'invalid' }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
         let(:id) { Plant.order(completion_ratio: :desc).first.id }
 
         run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+        let(:id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
+        let(:id) { Plant.order(completion_ratio: :desc).first.id }
       end
     end
   end

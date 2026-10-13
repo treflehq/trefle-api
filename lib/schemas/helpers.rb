@@ -12,6 +12,11 @@ module Schemas
       { '$ref' => "#/components/schemas/#{schema}" }
     end
 
+    # The error envelope every 4xx/5xx answer shares (Schemas::V1::Error).
+    def self.error_schema
+      schema_href(schema: 'error')
+    end
+
     def self.schema_array_href(schema: '')
       {
         type: :array,
@@ -31,6 +36,17 @@ module Schemas
         type: :array,
         items: object_of(properties)
       }.compact.merge(extras)
+    end
+
+    # The `meta` object every paginated collection renders (see
+    # CollectionRenderers#render_serialized_collection). `extra` adds the
+    # endpoint-specific keys.
+    def self.pagination_meta(extra = {})
+      object_of({
+        total: { type: :integer, description: 'The number of items in the whole collection' },
+        page: { type: :integer, description: 'The current page' },
+        per_page: { type: :integer, description: "The number of items per page (`per_page` parameter, 1 to #{::PerPage::MAX}, default #{::PerPage::DEFAULT})" }
+      }.merge(extra), extras: { required: %w[total page per_page] })
     end
 
     def self.pagination_links

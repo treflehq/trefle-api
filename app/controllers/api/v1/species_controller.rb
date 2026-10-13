@@ -212,7 +212,7 @@ class Api::V1::SpeciesController < Api::ApiController
       meta: {
         images_count: @resource.images_count,
         sources_count: @resource.sources_count,
-        synonyms_count: @resource.synonyms_count
+        synonyms_count: @resource.synonyms_with_autonyms_count
       }.merge(resource_metadata(@resource))
     )
   end
@@ -257,14 +257,15 @@ class Api::V1::SpeciesController < Api::ApiController
     )
     options = {
       where: search_params[:where],
-      includes: %i[synonyms genus plant],
+      includes: %i[genus plant],
       boost_by: [:gbif_score],
       fields: Species::SEARCH_FIELDS,
       order: search_params[:order]
     }.compact
 
     @collection = Species.pagy_search(Species.search_term(search), **options)
-    @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
+    # Page size (`per_page`, or its `limit` alias) is read by PerPage.
+    @pagy, @collection = pagy_searchkick(@collection)
 
     links = collection_links(@collection, name: %i[species index], scope: %i[search api v1])
 
@@ -300,7 +301,9 @@ class Api::V1::SpeciesController < Api::ApiController
     @collection = Zone.resolve!(params[:zone_id]).all_species if params[:zone_id]
     @collection ||= Species.all
 
-    @collection = @collection.preload(:plant, :genus, :synonyms)
+    # SpeciesLightSerializer reads `plant.slug` and `genus`; synonyms are no
+    # longer embedded in list payloads (only `synonyms_count`, a column).
+    @collection = @collection.preload(:plant, :genus)
 
     @collection = apply_filters(@collection, FILTERABLE_FIELDS)
     @collection = apply_filters_not(@collection, FILTERABLE_NOT_FIELDS)

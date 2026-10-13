@@ -18,13 +18,17 @@ module Api
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_record_response
     rescue_from ActionController::ParameterMissing, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-    rescue_from Pagy::OverflowError, with: :render_page_overflow_response
-    rescue_from Pagy::VariableError, with: :render_page_overflow_response
+    # Pagy::OverflowError < Pagy::VariableError: one handler tells them apart.
+    rescue_from Pagy::VariableError, with: :render_pagination_error_response
+    rescue_from PerPage::InvalidPageSizeError, with: :render_invalid_page_size_response
     rescue_from WithCachedCount::PageDepthExceededError, with: :render_page_depth_exceeded_response
 
     include ActionController::MimeResponds
     include CollectionRenderers
     include Pagy::Backend
+    # After Pagy::Backend so its pagy_get_vars / pagy_searchkick_get_vars
+    # overrides sit in front of Pagy's.
+    include PerPage
 
     before_action :authorize_request!, except: [:cors_preflight_check]
     before_action :set_sentry_context
@@ -202,8 +206,27 @@ module Api
       raise ActiveRecord::RecordNotFound, "can't find record: #{params[:id].to_s.inspect}" unless in_parent
     end
 
-    def render_page_overflow_response(exception)
-      render_error(exception.message, :not_found)
+    # Pagy's own messages are written for the developer ("expected :page
+    # >= 1; got \"abc\"") -- rephrase them for the client. A page past the
+    # last one, or one that is not a positive integer, is a request error:
+    # both answer 400, with the last page number when it is known so the
+    # client can correct itself without a second round trip.
+    def render_pagination_error_response(exception)
+      message =
+        if exception.is_a?(Pagy::OverflowError)
+          "page #{exception.value} is beyond the last page #{exception.pagy.last}"
+        elsif exception.variable == :page
+          "page must be a positive integer; got #{(params[:page].presence || exception.value).to_s.inspect}"
+        else
+          "#{exception.variable} is invalid: #{exception.message}"
+        end
+
+      details = exception.is_a?(Pagy::OverflowError) ? { last_page: exception.pagy.last } : nil
+      render_error(message, :bad_request, details: details)
+    end
+
+    def render_invalid_page_size_response(exception)
+      render_error(exception.message, :bad_request)
     end
 
     def render_page_depth_exceeded_response(exception)

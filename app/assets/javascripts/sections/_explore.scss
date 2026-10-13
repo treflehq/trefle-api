@@ -280,6 +280,28 @@
   font-family: $family-monospace;
 }
 
+// "Quercus robur L., 1753": the authorship sits after the binomial, quieter.
+.species-authorship {
+  font-size: .45em;
+  font-weight: 400;
+  opacity: .65;
+  margin-left: .25em;
+  white-space: nowrap;
+}
+
+// Synonym reached or name not accepted: which name is the accepted one.
+.species-name-notice {
+  margin-bottom: 1.5rem;
+
+  .scientific-name {
+    font-style: italic;
+  }
+}
+
+.ecological-indicators-note {
+  margin-top: .5em;
+}
+
 .fieldItem {
   font-family: $family-monospace;
 }
