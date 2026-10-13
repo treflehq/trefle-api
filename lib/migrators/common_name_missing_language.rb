@@ -35,11 +35,11 @@ module Migrators
     # Untagged rows repeating another untagged row of the same record and name
     # (case-insensitive): all but the lowest id.
     def self.internal_duplicates
-      scope.where(<<~SQL.squish)
+      scope.where(<<~SQL.squish, CUTOFF, ASCII)
         EXISTS (SELECT 1 FROM common_names o
                 WHERE o.record_type = common_names.record_type AND o.record_id = common_names.record_id
                   AND lower(o.name) = lower(common_names.name) AND (o.lang IS NULL OR o.lang = '')
-                  AND o.created_at < '#{CUTOFF.iso8601}' AND o.name ~ '#{ASCII}' AND o.id < common_names.id)
+                  AND o.created_at < ? AND o.name ~ ? AND o.id < common_names.id)
       SQL
     end
 
