@@ -26,7 +26,7 @@ RSpec.describe ApiSweepWorker do
     allow(Rails).to receive(:cache).and_return(store)
 
     species = Species.order(gbif_score: :desc).first
-    key = "SpeciesSerializer/#{species.cache_key}-#{species.cache_version}"
+    key = Api::V1::SpeciesController.new.serialization_cache_key(SpeciesSerializer, species)
     expect(store.exist?(key)).to be(false)
 
     described_class.new.perform(1000)
