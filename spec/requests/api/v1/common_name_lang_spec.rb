@@ -111,6 +111,18 @@ RSpec.describe 'Common names in a language (lang)', type: :request do
       expect(unnamed).not_to include(tomato.slug, maize.slug)
     end
 
+    it 'counts the English column as the English name under lang=en' do
+      slugs = ->(params) { get_json('/api/v1/species', { lang: 'en', per_page: 100 }.merge(params))['data'].pluck('slug') }
+
+      expect(slugs.call(filter: { common_name: 'Englishwort' })).to eq([english_only.slug])
+      expect(slugs.call(filter: { common_name: 'englishwort,tomato' })).to contain_exactly(english_only.slug, tomato.slug)
+      expect(slugs.call(filter: { common_name: 'null' })).to include(nameless.slug)
+      expect(slugs.call(filter: { common_name: 'null' })).not_to include(english_only.slug, tomato.slug)
+      expect(slugs.call(filter_not: { common_name: 'null' })).to include(english_only.slug, tomato.slug)
+      expect(slugs.call(filter_not: { common_name: 'null' })).not_to include(nameless.slug)
+      expect(slugs.call(filter_not: { common_name: 'Englishwort' })).not_to include(english_only.slug)
+    end
+
     it 'excludes a name with filter_not' do
       slugs = get_json('/api/v1/species', lang: 'fr', filter_not: { common_name: 'tomate' }, per_page: 100)['data'].pluck('slug')
 
@@ -210,6 +222,24 @@ RSpec.describe 'Common names in a language (lang)', type: :request do
       expect(filtered['data'].pluck('slug')).to eq([tomato.slug])
       expect(plants['data'].pluck('slug')).not_to include(tomato.slug)
       expect(plants['data'].pluck('slug')).to include(maize.slug)
+    end
+
+    it 'counts the English column as the English name under lang=en' do
+      index_synchronously { [tomato, english_only, nameless].each(&:reindex) }
+
+      found = get_json('/api/v1/species/search', q: genus.name, lang: 'en', filter: { common_name: 'Englishwort' })
+      unnamed = get_json('/api/v1/species/search', q: genus.name, lang: 'en', filter: { common_name: 'null' })
+
+      expect(found['data'].pluck('slug')).to eq([english_only.slug])
+      expect(unnamed['data'].pluck('slug')).to eq([nameless.slug])
+    end
+
+    it 'answers 400 rather than truncating a filter that matches too many species' do
+      stub_const('CommonNameLocalization::MAX_SEARCH_FILTER_IDS', 1)
+
+      get_json('/api/v1/species/search', q: genus.name, lang: 'fr', filter_not: { common_name: 'null' })
+
+      expect(response).to have_http_status(:bad_request)
     end
   end
 end
