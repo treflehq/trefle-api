@@ -24,14 +24,14 @@ describe 'Subkingdoms API' do
       # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'subkingdom',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!

@@ -33,6 +33,17 @@ module Schemas
       }.compact.merge(extras)
     end
 
+    # The `meta` object every paginated collection renders (see
+    # CollectionRenderers#render_serialized_collection). `extra` adds the
+    # endpoint-specific keys.
+    def self.pagination_meta(extra = {})
+      object_of({
+        total: { type: :integer, description: 'The number of items in the whole collection' },
+        page: { type: :integer, description: 'The current page' },
+        per_page: { type: :integer, description: "The number of items per page (`per_page` parameter, 1 to #{::PerPage::MAX}, default #{::PerPage::DEFAULT})" }
+      }.merge(extra), extras: { required: %w[total page per_page] })
+    end
+
     def self.pagination_links
       object_of({
         self: {

@@ -98,14 +98,15 @@ class Api::V1::PlantsController < Api::ApiController
     )
     options = {
       where: { main_species_id: nil }.merge(search_params[:where]),
-      includes: %i[synonyms genus plant],
+      includes: %i[genus plant],
       boost_by: [:gbif_score],
       fields: Species::SEARCH_FIELDS,
       order: search_params[:order]
     }.compact
 
     @collection = Species.pagy_search(Species.search_term(search), **options)
-    @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
+    # Page size (`per_page`, or its `limit` alias) is read by PerPage.
+    @pagy, @collection = pagy_searchkick(@collection)
 
     links = collection_links(@collection, name: %i[plants], scope: %i[search api v1])
 
@@ -124,10 +125,11 @@ class Api::V1::PlantsController < Api::ApiController
 
     @collection ||= Species.plants
 
-    # SpeciesLightSerializer reads `synonyms` and `plant.slug` on top of
-    # `genus`, so all three need preloading regardless of which branch
-    # above set @collection (see #281).
-    @collection = @collection.preload(:plant, :genus, :synonyms)
+    # SpeciesLightSerializer reads `plant.slug` on top of `genus`, so both
+    # need preloading regardless of which branch above set @collection (see
+    # #281). Synonyms are no longer embedded in list payloads (only
+    # `synonyms_count`, a column).
+    @collection = @collection.preload(:plant, :genus)
 
     @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS)
     @collection = apply_filters_not(@collection, Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS)

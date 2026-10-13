@@ -14,13 +14,13 @@ RSpec.describe WithCachedCount do
       attr_reader :params
 
       def initialize(params)
-        @params = params
+        @params = ActionController::Parameters.new(params)
       end
     end
   end
 
-  def build(page:)
-    including_class.new(page: page.to_s)
+  def build(page:, per_page: nil)
+    including_class.new({ page: page.to_s, per_page: per_page&.to_s }.compact)
   end
 
   it 'accepts a page exactly at MAX_PAGE_DEPTH' do
@@ -33,5 +33,26 @@ RSpec.describe WithCachedCount do
     instance = build(page: WithCachedCount::MAX_PAGE_DEPTH + 1)
 
     expect { instance.pagy_get_vars(Species.none, {}) }.to raise_error(WithCachedCount::PageDepthExceededError)
+  end
+
+  # #217: the page size is client-controlled, so the cap is also a row horizon
+  # (MAX_OFFSET): the same 50,000 rows whatever the page size.
+  it 'accepts the deepest page that stays within MAX_OFFSET at 100 items per page' do
+    instance = build(page: WithCachedCount::MAX_OFFSET / 100, per_page: 100)
+
+    expect { instance.pagy_get_vars(Species.none, {}) }.not_to raise_error
+  end
+
+  it 'rejects the page past MAX_OFFSET at 100 items per page, naming the deepest one' do
+    instance = build(page: (WithCachedCount::MAX_OFFSET / 100) + 1, per_page: 100)
+
+    expect { instance.pagy_get_vars(Species.none, {}) }
+      .to raise_error(WithCachedCount::PageDepthExceededError, /deepest page at this page size is #{WithCachedCount::MAX_OFFSET / 100}/)
+  end
+
+  it 'passes the page size to Pagy as :items' do
+    instance = build(page: 1, per_page: 42)
+
+    expect(instance.pagy_get_vars(Species.none, {})[:items]).to eq(42)
   end
 end

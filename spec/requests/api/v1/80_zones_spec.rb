@@ -33,14 +33,14 @@ describe 'Distributions API' do
       parameter name: :q, in: :query, required: false, type: :string,
                 description: 'Search zones by name (part of the name, case- and accent-insensitive). Exact matches come first.'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'zone',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -116,14 +116,14 @@ describe 'Distributions API' do
                 description: 'Range on values: range[field]=min,max, both bounds inclusive. Leave one side empty for an open bound ' \
                              '(5, means 5 or more, ,10 means 10 or less). Decimal and negative bounds are accepted; a non-numeric bound returns a 400'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
+      parameter name: :per_page, in: :query, required: false, type: :integer,
+                description: "Items per page, 1 to #{PerPage::MAX} (default #{PerPage::DEFAULT}). `limit` is accepted as an alias (#217)"
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }

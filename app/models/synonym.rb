@@ -33,8 +33,12 @@ class Synonym < ApplicationRecord
   # /species/:slug after a synonym-species record is merged away.
   before_save :derive_slug
 
+  # The proc receives the counted record (this synonym), not its parent:
+  # decide on record_type. Testing `model.respond_to?(:synonyms_count)` here
+  # was always false, so the live counter never moved and the column only
+  # ever got filled by counter_culture_fix_counts.
   counter_culture :record,
-                  column_name: proc {|model| model.respond_to?(:synonyms_count) ? 'synonyms_count' : nil },
+                  column_name: proc {|synonym| synonym.record_type == 'Species' ? 'synonyms_count' : nil },
                   column_names: {
                     ['synonyms.record_type = ?', 'Species'] => 'synonyms_count'
                   }
