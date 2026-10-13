@@ -26,8 +26,9 @@ module Schemas
           links: Helpers.object_of({
             self: { type: :string, description: 'API endpoint to the species itself' },
             genus: { type: :string, description: 'API endpoint to the species genus' },
-            plant: { type: :string, description: 'API endpoint to the species plant' }
-          }, extras: { required: %w[self genus plant], description: 'API endpoints to related resources' })
+            plant: { type: :string, description: 'API endpoint to the species plant' },
+            synonyms: { type: :string, description: 'API endpoint to the paginated list of the species synonyms' }
+          }, extras: { required: %w[self genus plant synonyms], description: 'API endpoints to related resources' })
         }
       end
 
@@ -79,7 +80,8 @@ module Schemas
           slug: { type: :string, description: 'An unique, human readable, identifier' },
           tdwg_code: { type: :string, description: 'The TDWG zone unique code' },
           tdwg_level: { type: :integer, description: 'The TDWG zone level' },
-          species_count: { type: :integer, description: 'The number of species in this zone' },
+          species_count: { type: :integer, description: 'The number of species recorded directly in this zone' },
+          species_count_cumulative: { type: :integer, description: 'The number of distinct species recorded in this zone or any zone below it' },
           links: Helpers.object_of({
             self: { type: :string, description: 'API endpoint to the zone itself' },
             species: { type: :string, description: 'API endpoint to the species in this zone' },
@@ -103,9 +105,13 @@ module Schemas
       def self.light_schema
         Helpers.object_of(
           base.merge({
-            synonyms: { type: :array, items: { type: :string, nullable: true, description: 'TODO' }, description: 'The symonyms scientific names' }
+            synonyms_count: {
+              type: :integer,
+              description: 'The number of synonyms attached to this record. The names themselves are not embedded in list payloads: ' \
+                           'fetch them from `links.synonyms` (which also lists the synonyms attached to the species autonyms).'
+            }
           }),
-          extras: { required: %w[id rank family genus genus_id scientific_name slug status links], description: 'The symonyms scientific names' }
+          extras: { required: %w[id rank family genus genus_id scientific_name slug status links synonyms_count], description: 'A species, as listed in collections' }
         )
       end
 
@@ -193,8 +199,8 @@ module Schemas
               #   per_sqm: { type: :number, nullable: true, description: 'TODO' } # "TODO"
               # }),
               light: { type: :integer, nullable: true,
-                       description: 'Required amount of light, on a scale from 0 (no light, <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)' },
-              atmospheric_humidity: { type: :integer, nullable: true, description: 'Required relative humidity in the air, on a scale from 0 (<=10%) to 10 (>= 90%)' },
+                       description: 'Ecological indicator of light: Ellenberg L class from 1 (deep shade) to 9 (full sun). Describes the habitats where the species grows, not a measurement (see docs.trefle.io/docs/advanced/plants-fields)' },
+              atmospheric_humidity: { type: :integer, nullable: true, description: 'Ecological indicator of air humidity: Julve HA class from 1 (very dry air) to 9 (saturated air). Describes the habitats where the species grows, not a measurement' },
               growth_months: { type: :array, nullable: true,
                                items: { type: :string, nullable: true, enum: [*::Species.growth_months.maps.keys, nil], description: 'The most active growth months of the species (usually all year round for perennial plants)' }, description: 'The most active growth months of the species (usually all year round for perennial plants)' },
               bloom_months: { type: :array, nullable: true,
@@ -231,10 +237,10 @@ module Schemas
                 deg_c: { type: :number, nullable: true, description: 'The maximum tolerable temperature for the species. In celsius degrees' } # "TODO"
               }, extras: { description: 'The maximum tolerable temperature for the species. In celsius or fahrenheit degrees' }),
               soil_nutriments: { type: :integer, nullable: true,
-                                 description: 'Required quantity of nutriments in the soil, on a scale from 0 (oligotrophic) to 10 (hypereutrophic)' },
-              soil_salinity: { type: :integer, nullable: true, description: 'Tolerance to salinity, on a scale from 0 (untolerant) to 10 (hyperhaline)' },
+                                 description: 'Ecological indicator of soil nutrients: Ellenberg N class from 1 (hyperoligotrophic) to 9 (hypereutrophic). Describes the habitats where the species grows, not a measurement' },
+              soil_salinity: { type: :integer, nullable: true, description: 'Ecological indicator of soil salinity: Ellenberg S class from 0 (absent from saline soils) to 9 (hyperhaline). Describes the habitats where the species grows, not a tolerance' },
               soil_texture: { type: :integer, nullable: true, description: 'Required texture of the soil, on a scale from 0 (clay) to 10 (rock)' },
-              soil_humidity: { type: :integer, nullable: true, description: 'Required humidity of the soil, on a scale from 0 (xerophile) to 10 (subaquatic)' }
+              soil_humidity: { type: :integer, nullable: true, description: 'Ecological indicator of soil humidity: Ellenberg F class from 1 (very dry) to 12 (submerged). Describes the habitats where the species grows, not a measurement' }
               # hardiness_zone: { type: :string, nullable: true, description: 'TODO' }, @TODO
               # adaptation: Helpers.object_of({
               #   medium: { type: :boolean, nullable: true, description: 'TODO' }, # true,
@@ -243,12 +249,14 @@ module Schemas
               # })
             }, extras: { description: 'Growing of farming related fields' }),
 
-            synonyms: Helpers.array_of({
-              id: { type: :integer, description: 'An unique identifier' }, # 101131,
-              name: { type: :string, description: 'The scientific name of the symonym' }, # "(Douglas ex D.Don) Lindl.",
-              author: { type: :string, nullable: true, description: 'The author of the symonym' }, # "(Douglas ex D.Don) Lindl.",
-              sources: Helpers.schema_array_href(schema: 'source').merge(description: 'The sources this synonym was built from')
-            }, extras: { description: 'The symonyms scientific names and authors' }),
+            synonyms: {
+              type: :array,
+              items: Synonym.schema,
+              description: "The first #{::SpeciesSerializer::SYNONYMS_LIMIT} synonyms (ordered by name) of the species and of its autonyms " \
+                           '(e.g. "Quercus robur subsp. robur", where WCVP attaches the synonyms of the typical subspecies). ' \
+                           'The full, paginated list is at `links.synonyms`; `synonyms_count` is the total.'
+            },
+            synonyms_count: { type: :integer, description: 'The total number of synonyms of the species and of its autonyms (the embedded `synonyms` array is truncated)' },
 
             sources: Helpers.array_of({
               id: { type: :string, description: 'An unique identifier from the source' }, # 101131,

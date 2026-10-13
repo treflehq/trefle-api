@@ -3,14 +3,11 @@ import { map, capitalize, isNil } from 'lodash';
 import React, { useContext } from 'react'
 import FieldCalendar from './fields/FieldCalendar';
 import ReactMarkdown from 'react-markdown'
-import FieldLight from './fields/FieldLight';
-import FieldAtmosphericHumidity from './fields/FieldAtmosphericHumidity';
+import FieldIndicator from './fields/FieldIndicator';
 import FieldPh from './fields/FieldPh';
 import FieldPrecipitations from './fields/FieldPrecipitations';
-import FieldSoilHumidity from './fields/FieldSoilHumidity';
-import FieldSoilNutriments from './fields/FieldSoilNutriments';
-import FieldSoilSalinity from './fields/FieldSoilSalinity';
 import FieldSoilTexture from './fields/FieldSoilTexture';
+import { indicatorNote } from './constants/ecologicalIndicators';
 import FieldTemperature from './fields/FieldTemperature';
 import CorrectionContext from './CorrectionContext';
 import FieldHeightAverage from './fields/FieldHeightAverage';
@@ -113,14 +110,18 @@ const Species = ({ species }) => {
     // "unknown" label next to an empty meter (see issue #238); a single
     // MissingFieldsNotice below replaces them all. Edit mode still shows
     // every field, since that's where a contributor fills them in.
+    //
+    // Light, the humidities, nutriments and salinity are ecological indicator
+    // values (Ellenberg classes, see config/ecological_indicators.yml): they
+    // read as a class on its scale, not as a lux, µg/l or percentage figure.
     const climateFields = [
       {
         present: !isNil(growth.light),
-        element: <FieldLight name="light" value={growth.light} />
+        element: <FieldIndicator name="light" value={growth.light} leftIcon="clouds" rightIcon="sun" />
       },
       {
         present: !isNil(growth.atmospheric_humidity),
-        element: <FieldAtmosphericHumidity name="atmospheric_humidity" value={growth.atmospheric_humidity} />
+        element: <FieldIndicator name="atmospheric_humidity" value={growth.atmospheric_humidity} leftIcon="tint" />
       },
       {
         present: !isNil(growth.ph_minimum) || !isNil(growth.ph_maximum),
@@ -139,15 +140,15 @@ const Species = ({ species }) => {
     const soilFields = [
       {
         present: !isNil(growth.soil_humidity),
-        element: <FieldSoilHumidity name={'ground_humidity'} value={growth.soil_humidity} />
+        element: <FieldIndicator name="ground_humidity" value={growth.soil_humidity} leftIcon="fill-drip" />
       },
       {
         present: !isNil(growth.soil_nutriments),
-        element: <FieldSoilNutriments name={'soil_nutriments'} value={growth.soil_nutriments} />
+        element: <FieldIndicator name="soil_nutriments" value={growth.soil_nutriments} leftIcon="cauldron" />
       },
       {
         present: !isNil(growth.soil_salinity),
-        element: <FieldSoilSalinity name={'soil_salinity'} value={growth.soil_salinity} />
+        element: <FieldIndicator name="soil_salinity" value={growth.soil_salinity} leftIcon="atom-alt" />
       },
       {
         present: !isNil(growth.soil_texture),
@@ -158,6 +159,7 @@ const Species = ({ species }) => {
     const missingCount = [...climateFields, ...soilFields].filter(f => !f.present).length
     const visibleClimateFields = edit ? climateFields : climateFields.filter(f => f.present)
     const visibleSoilFields = edit ? soilFields : soilFields.filter(f => f.present)
+    const hasIndicator = [growth.light, growth.atmospheric_humidity, growth.soil_humidity, growth.soil_nutriments, growth.soil_salinity].some(v => !isNil(v))
 
     return (<section className="section content" id="growth">
       <h2 className="title is-3 ">
@@ -174,6 +176,8 @@ const Species = ({ species }) => {
         </h4>
         {visibleSoilFields.map((f, i) => <React.Fragment key={i}>{f.element}</React.Fragment>)}
       </> }
+
+      { (edit || hasIndicator) && indicatorNote() && <p className="ecological-indicators-note is-size-7 has-text-grey">{indicatorNote()}</p> }
 
       { !edit && <MissingFieldsNotice count={missingCount} /> }
 

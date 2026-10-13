@@ -12,6 +12,7 @@ module Schemas
       plant_light: Plant.light_schema,
       species: Species.schema,
       species_light: Species.light_schema,
+      synonym: Synonym.schema,
       source: Source.schema,
       correction: RecordCorrection.schema,
       species_fact: SpeciesFact.schema,

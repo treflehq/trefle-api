@@ -54,9 +54,7 @@ describe 'Corrections API' do
         schema JsonApiHelper.array_schema(
           'correction',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -225,9 +223,7 @@ describe 'Corrections API' do
         schema JsonApiHelper.array_schema(
           'correction',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!

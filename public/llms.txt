@@ -100,11 +100,10 @@ soil_salinity, soil_nutriments, images_count, sources_count.
 
 ## Pagination
 
-Collections return 20 items per page. page=N selects a page; prefer following
+Collections return 20 items per page by default. per_page=N (1 to 100; limit=N
+is an alias) sets the page size, page=N selects a page; prefer following
 links.next. /species and /plants refuse page > 2500 (400): narrow the results
-with filters or ranges instead. The search endpoints take limit=N for the
-page size. A per_page parameter on every collection is planned, not yet
-honoured.
+with filters or ranges instead.
 
 ## Rate limits and caching
 

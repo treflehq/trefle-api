@@ -28,9 +28,7 @@ describe 'Subkingdoms API' do
         schema JsonApiHelper.array_schema(
           'subkingdom',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!

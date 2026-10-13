@@ -156,9 +156,15 @@ class SpeciesSerializer < BaseSerializer
 
   # has_one :plant, serializer: PlantLightSerializer
 
-  # This is causing some N+1 queries, so we turned it into an attribute in order to add the preload
-  # has_many :synonyms, serializer: SynonymSerializer
-  attributes :synonyms
+  # The detail embeds the first SYNONYMS_LIMIT synonyms only (by name): a
+  # species like Rosa canina carries 1,052 of them, 628 KB of a 641 KB
+  # payload. `synonyms_count` gives the full count and `links.synonyms` the
+  # paginated endpoint that lists them all (/api/v1/species/:id/synonyms).
+  # Both include the synonyms attached to the species' autonyms (see
+  # Species#synonyms_with_autonyms).
+  SYNONYMS_LIMIT = 50
+
+  attributes :synonyms, :synonyms_count
 
   # This is causing some N+1 queries, so we turned it into an attribute in order to add the preload
   # has_many :foreign_sources_plants, serializer: ForeignSourcesPlantSerializer, name: :sources
@@ -275,9 +281,13 @@ class SpeciesSerializer < BaseSerializer
 
   def synonyms
     Panko::ArraySerializer.new(
-      object.synonyms.includes(:foreign_sources_plants),
+      object.synonyms_with_autonyms.order(:name, :id).limit(SYNONYMS_LIMIT).preload(foreign_sources_plants: :foreign_source),
       each_serializer: SynonymSerializer
     ).to_a
+  end
+
+  def synonyms_count
+    object.synonyms_with_autonyms_count
   end
 
   # rubocop:todo Metrics/MethodLength
@@ -345,7 +355,8 @@ class SpeciesSerializer < BaseSerializer
     {
       self: url_helpers.api_v1_species_path(object),
       plant: url_helpers.api_v1_plant_path(object.plant.slug),
-      genus: url_helpers.api_v1_genus_path(object.genus.slug)
+      genus: url_helpers.api_v1_genus_path(object.genus.slug),
+      synonyms: url_helpers.api_v1_species_synonyms_path(object)
     }
   end
 

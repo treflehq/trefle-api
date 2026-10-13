@@ -15,9 +15,9 @@ module Scopes
       scope :filter_by_year, ->(v) { where(year: v) }
 
       # Ranges
-      scope :range_by_year, ->(a, b) { where(year: ((a&.to_i || -3000)...(b&.to_i || 3000))) }
-      scope :range_by_species_count, ->(a, b) { where(species_count: ((a.to_i)...(b&.to_i || 3000))) }
-      scope :range_by_images_count, ->(a, b) { where(images_count: ((a.to_i)...(b&.to_i || 3000))) }
+      scope :range_by_year, ->(min, max) { where_in_range(:year, min, max) }
+      scope :range_by_species_count, ->(min, max) { where_in_range(:species_count, min, max) }
+      scope :range_by_images_count, ->(min, max) { where_in_range(:images_count, min, max) }
 
       # Search
       scope :database_search, lambda {|q|

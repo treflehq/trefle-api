@@ -29,9 +29,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -107,7 +105,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Search for a plant with the given scientific name, common name, synonym name etc.'
       operationId 'searchPlants'
-      parameters :q, :limit, :page, :filter_species, :filter_not_species, :order_species, :range_species
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -115,9 +113,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:q) { 'cocos' }
         let(:token) { user.token }
@@ -224,9 +220,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -278,9 +272,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
@@ -334,9 +326,7 @@ describe 'Plants API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }

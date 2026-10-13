@@ -17,7 +17,6 @@ module Schemas
         {
           page: page,
           per_page: per_page,
-          limit: limit,
           q: search_query,
           zone_q: zone_search_query,
           **keyed_parameters(:species, ::Api::V1::SpeciesController),
@@ -40,17 +39,9 @@ module Schemas
       def self.per_page
         {
           name: 'per_page', in: :query, required: false,
-          description: 'Planned, not honoured yet (#217): collections return 20 items per page whatever this value. ' \
-                       'Documented ahead so generated clients carry it.',
-          schema: { type: :integer, minimum: 1, maximum: 100, default: 20 }
-        }
-      end
-
-      def self.limit
-        {
-          name: 'limit', in: :query, required: false,
-          description: 'Number of results per page of the search (default 20)',
-          schema: { type: :integer, minimum: 1, default: 20 }
+          description: "Items per page, #{::PerPage::DEFAULT} by default, at most #{::PerPage::MAX}. `limit` is accepted as an alias. " \
+                       'Out of range or not an integer answers 400.',
+          schema: { type: :integer, minimum: 1, maximum: ::PerPage::MAX, default: ::PerPage::DEFAULT }
         }
       end
 
@@ -65,7 +56,7 @@ module Schemas
       def self.zone_search_query
         {
           name: 'q', in: :query, required: false,
-          description: 'Keep the zones whose name contains this text',
+          description: 'Search zones by name (part of the name, case- and accent-insensitive). Exact matches come first.',
           schema: { type: :string }, example: 'Europe'
         }
       end
@@ -112,8 +103,9 @@ module Schemas
       def self.range(fields)
         deep_object(
           'range', fields,
-          description: 'Keep the records whose field lies between two bounds: `range[field]=min,max`. ' \
-                       'Leave the upper bound empty for an open range (`range[maximum_height_cm]=1000,`). An unknown key answers 400.',
+          description: 'Keep the records whose field lies between two bounds: `range[field]=min,max`, both inclusive. ' \
+                       'Leave one side empty for an open bound (`range[maximum_height_cm]=1000,` or `,10`). Decimal and negative ' \
+                       'bounds are accepted; a non-numeric bound or an unknown key answers 400.',
           value: { type: :string, example: '10,100' }
         )
       end

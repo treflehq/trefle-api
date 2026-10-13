@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
       resources :species, only: %i[index show] do
         resources :record_corrections, only: %i[index], path: 'corrections'
+        resources :synonyms, only: %i[index]
         post '/report', action: :report, on: :member
         get '/facts', action: :facts, on: :member
         get '/search', action: :search, on: :collection

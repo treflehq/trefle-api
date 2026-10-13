@@ -29,9 +29,7 @@ describe 'Species API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         run_test!
@@ -110,7 +108,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'Search for a species with the given scientific name, common name, synonym name etc.'
       operationId 'searchSpecies'
-      parameters :q, :limit, :page, :filter_species, :filter_not_species, :order_species, :range_species
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -118,9 +116,7 @@ describe 'Species API' do
         schema JsonApiHelper.array_schema(
           'species_light',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:q) { 'cocos' }
         let(:token) { user.token }
@@ -253,6 +249,66 @@ describe 'Species API' do
     end
   end
 
+  path '/species/{species_id}/synonyms' do
+
+    get 'List the synonyms of a species' do
+      tags 'Species'
+      produces 'application/json'
+      description 'The paginated list of the species synonyms, ordered by name. Includes the synonyms attached to the species autonyms ' \
+                  '(the typical subspecies or variety, e.g. "Quercus robur subsp. robur", where WCVP records the synonyms of the type); ' \
+                  '`attached_to` says which record each one hangs on. ' \
+                  "The species detail only embeds the first #{SpeciesSerializer::SYNONYMS_LIMIT} of them."
+      operationId 'listSpeciesSynonyms'
+      security [{ token: [] }, { bearerAuth: [] }]
+
+      parameter name: :species_id, required: true, in: :path, type: :string, description: 'The id or the slug of the species'
+      parameters :page, :per_page
+
+      response '200', 'Success' do
+        schema JsonApiHelper.array_schema(
+          'synonym',
+          links: Schemas::Helpers.pagination_links,
+          meta: Schemas::Helpers.pagination_meta(
+            species: Schemas::Helpers.object_of({
+              id: { type: :integer },
+              slug: { type: :string },
+              scientific_name: { type: :string }
+            }, extras: { description: 'The species the synonyms belong to' })
+          )
+        )
+        let(:token) { user.token }
+        let(:species_id) { 'abies-alba' }
+        run_test!
+      end
+
+      response '401', 'Invalid credentials' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { 'invalid' }
+        let(:species_id) { 'abies-alba' }
+        run_test!
+      end
+
+      response '400', 'Invalid page size' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { 'abies-alba' }
+        let(:per_page) { 0 }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        schema Schemas::Helpers.error_schema
+        let(:token) { user.token }
+        let(:species_id) { 'does-not-exist' }
+        run_test!
+      end
+
+      response_too_many_requests do
+        let(:species_id) { 'abies-alba' }
+      end
+    end
+  end
+
   path '/species/{species_id}/corrections' do
 
     get 'List the corrections submitted on a species' do
@@ -269,9 +325,7 @@ describe 'Species API' do
         schema JsonApiHelper.array_schema(
           'correction',
           links: Schemas::Helpers.pagination_links,
-          meta: Schemas::Helpers.object_of({
-            total: { type: :integer }
-          })
+          meta: Schemas::Helpers.pagination_meta
         )
         let(:token) { user.token }
         let(:species_id) { Species.where(complete_data: true).first.id }

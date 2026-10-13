@@ -5,6 +5,7 @@ class Migrators::CountersWorker
 
   def perform(*_args)
     SpeciesDistribution.counter_culture_fix_counts
+    Zone.fix_cumulative_counts
     Species.counter_culture_fix_counts
     ForeignSourcesPlant.counter_culture_fix_counts
     Synonym.counter_culture_fix_counts
