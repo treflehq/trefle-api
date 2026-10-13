@@ -7,6 +7,7 @@
 #  name          :string           not null
 #  slug          :string
 #  species_count :integer          default(0), not null
+#  species_count_cumulative :integer default(0), not null
 #  tdwg_code     :string
 #  tdwg_level    :integer
 #  created_at    :datetime         not null
@@ -44,6 +45,71 @@ class Zone < ApplicationRecord
     Zone.all.each do |z|
       z.update_columns(species_count: z.all_species.count, updated_at: Time.zone.now)
     end
+  end
+
+  # Resolves a zone from a path parameter: the slug (TDWG code, `fra`) or the
+  # numeric id as before, then the exact zone name, case- and
+  # accent-insensitive (`France`, `reunion`). Clients rarely know the TDWG
+  # code of a country; they know its name.
+  #
+  # A name shared by several zones (WGSRPD has "Mongolia" at level 2 and 3)
+  # resolves to the level 3 zone, the "botanical country" a bare country name
+  # denotes. Any other ambiguity, like no match at all, is a 404 whose message
+  # points to `?q=`.
+  def self.resolve!(param)
+    friendly.find(param.to_s.downcase)
+  rescue ActiveRecord::RecordNotFound
+    candidates = named(param).to_a
+    zone = candidates.one? ? candidates.first : botanical_country_among(candidates)
+    return zone if zone
+
+    raise ActiveRecord::RecordNotFound, not_found_message(param, candidates)
+  end
+
+  def self.botanical_country_among(candidates)
+    countries = candidates.select {|z| z.tdwg_level == 3 }
+    countries.first if countries.one?
+  end
+
+  def self.not_found_message(param, candidates)
+    search_hint = "search zones by name with /api/v1/distributions?q=#{ERB::Util.url_encode(param.to_s)}"
+    if candidates.any?
+      list = candidates.map {|z| "#{z.slug} (TDWG level #{z.tdwg_level})" }.join(', ')
+      "#{param.to_s.inspect} matches #{candidates.size} zones: #{list}. Use the slug, or #{search_hint}"
+    else
+      "can't find zone #{param.to_s.inspect}: use its slug (the TDWG code, e.g. \"fra\" for France), or #{search_hint}"
+    end
+  end
+
+  # Distinct species recorded in the zone or in any zone below it, for every
+  # zone in one statement: the recursive CTE pairs each zone with itself and
+  # all its descendants, the join counts the distinct species over that set.
+  # Only rows whose value changed are written, with updated_at bumped so the
+  # serializer cache (keyed on cache_version) drops the stale payload.
+  def self.fix_cumulative_counts
+    connection.execute(<<~SQL.squish).cmd_tuples
+      WITH RECURSIVE tree(root_id, zone_id, path) AS (
+          SELECT id, id, ARRAY[id] FROM zones
+        UNION ALL
+          SELECT tree.root_id, zones.id, tree.path || zones.id
+          FROM tree
+          JOIN zones ON zones.parent_id = tree.zone_id
+          WHERE NOT zones.id = ANY(tree.path)
+      ),
+      counts AS (
+        SELECT tree.root_id AS zone_id, COUNT(DISTINCT species_distributions.species_id) AS species_count
+        FROM tree
+        JOIN species_distributions ON species_distributions.zone_id = tree.zone_id
+        GROUP BY tree.root_id
+      )
+      UPDATE zones
+      SET species_count_cumulative = COALESCE(counts.species_count, 0),
+          updated_at = CURRENT_TIMESTAMP
+      FROM zones AS target
+      LEFT JOIN counts ON counts.zone_id = target.id
+      WHERE zones.id = target.id
+        AND zones.species_count_cumulative <> COALESCE(counts.species_count, 0)
+    SQL
   end
 
   def touch_parents

@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_09_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_100100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
+  enable_extension "unaccent"
 
   create_table "common_names", force: :cascade do |t|
     t.string "record_type", null: false
@@ -767,6 +768,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_150000) do
     t.string "slug"
     t.integer "species_count", default: 0, null: false
     t.integer "parent_id"
+    t.integer "species_count_cumulative", default: 0, null: false
   end
 
   add_foreign_key "division_classes", "divisions", name: "division_classes_division_id_fkey"
