@@ -70,12 +70,31 @@ module Checks
     # are the bulk of what TRY contributes. Compare them as sets.
     def same_value?(current, claimed)
       return flag_set(current) == flag_set(claimed) if current.is_a?(ActiveFlag::Value)
+      return same_number?(current, claimed) if numeric?(current) && numeric?(claimed)
 
       comparable(current).casecmp?(claimed.to_s)
     end
 
+    # A height of 500 and a claim of "500.0" are the same value: numbers
+    # compare as numbers, or every TRY float would report a divergence.
+    NUMBER = /\A-?\d+(\.\d+)?\z/
+
+    # An integer column cannot hold 102.5 or 409.99999999999994: the claim is
+    # the same once rounded the way the column would store it.
+    def same_number?(current, claimed)
+      claimed = BigDecimal(claimed.to_s.strip)
+      return claimed.round == current if current.is_a?(Integer)
+
+      BigDecimal(current.to_s) == claimed
+    end
+
+    def numeric?(value)
+      value.is_a?(Numeric) || value.to_s.strip.match?(NUMBER)
+    end
+
     def flag_set(value)
-      raw = value.is_a?(ActiveFlag::Value) ? value.to_a : value.to_s.split('|')
+      # TRY writes lists as "green, yellow", the column serializes "green|yellow".
+      raw = value.is_a?(ActiveFlag::Value) ? value.to_a : value.to_s.split(/[|,]/)
       raw.map {|v| v.to_s.strip.downcase }.reject(&:empty?).to_set
     end
 
