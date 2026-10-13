@@ -15,9 +15,12 @@ module Checks
     end
 
     def accept!(user_id = nil)
-      return super(user_id) if @existing_check.change_notes.blank?
+      # change_notes is the dry-run diff of the correction, and it can be "{}"
+      # when that dry run saw no name change: nothing to merge then.
+      names = JSON.parse(@existing_check.change_notes.presence || '{}')['scientific_name']
+      return super(user_id) if names.blank?
 
-      before, after = JSON.parse(@existing_check.change_notes)['scientific_name'].map {|e| Species.find_by_scientific_name(e) }
+      before, after = names.map {|e| Species.find_by_scientific_name(e) }
 
       # If a species with a good name exists, we merge them together
       if after
