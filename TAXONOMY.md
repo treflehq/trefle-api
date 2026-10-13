@@ -51,6 +51,38 @@ the one we store. Author citations, publication years and parenthetical author
 blocks are stripped from `scientific_name` — the author belongs in its own
 column.
 
+## One infraspecific rank per name
+
+The name of an infraspecific taxon is the species name, **one** connecting term
+and **one** epithet (ICN Art. 24.1). A string with two of them is not a name:
+
+    Saxifraga aizoon var. aizoon subvar. brevifolia f. multicaulis subf. surculosa
+
+is, in the Code's own example (Art. 24 Ex. 1), the *full classification* of the
+subform *Saxifraga aizoon* subf. *surculosa* within its species, "not only its
+name". USDA PLANTS prints its infraspecific taxa that way (`Genus species ssp. x
+var. y`), and 236 of our records came in with that shape from the December 2022
+rebuild, carrying the species' author. IPNI, POWO and WCVP never store such
+strings; WFO has a few dozen.
+
+What we do with one:
+
+- The record's name is the trinomial: species, the terminal connecting term,
+  the terminal epithet. `Dryas octopetala subsp. octopetala var. kamtschatica`
+  is `Dryas octopetala var. kamtschatica`, at rank `var`.
+- The author is the author of that name, not of the species or the subspecies.
+  An autonym (`… var. octopetala`) has none.
+- The longer string is kept as a `Synonym` of the record, so stored slugs and
+  external links keep resolving. The position of the variety under its
+  subspecies is not stored anywhere else: we are a name index, not a
+  classification.
+- `ScientificNameStructureValidator` refuses a string with two connecting terms
+  with its own message, whatever rank the record is filed at. The import of
+  2022 saved them without validation; nothing may again.
+
+The 2026-10 pass that applied this is `datasets/infraspecific-ranks-2026-10`
+in `trefle-crawlers` (`Crawlers::InfraspecificRanks`).
+
 ## Autonyms are not the species
 
 When an infraspecific taxon includes the type of the species, the ICN (Art. 26)
@@ -93,6 +125,7 @@ dataset should be treated as unmeasured rather than intentional.
 
 ## References
 
+- [ICN, Article 24 (names of infraspecific taxa; Ex. 1 on full classification)](https://www.iapt-taxon.org/nomen/pages/main/art_24.html)
 - [ICN, Article 26 (autonyms)](https://www.iapt-taxon.org/nomen/pages/main/art_26.html)
 - [About WCVP — Kew](https://powo.science.kew.org/about-wcvp)
 - [WCVP as a GBIF checklist dataset](https://www.gbif.org/dataset/f382f0ce-323a-4091-bb9f-add557f3a9a2)
