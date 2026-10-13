@@ -32,9 +32,11 @@ describe Api::Sweep do
     end
 
     # A boolean column filtered with 'a' would blow up before the endpoint was
-    # ever exercised, so the value follows the column type.
+    # ever exercised, so the value follows the column type; a field with a
+    # closed vocabulary answers 400 to anything else, so it gets one of its values.
     it 'sends a value of the right type for the column being filtered' do
-      expect(paths).to include('/api/v1/species?filter[duration]=1')     # integer
+      expect(paths).to include('/api/v1/species?filter[completion_ratio]=1') # integer
+      expect(paths).to include('/api/v1/species?filter[duration]=annual')    # closed vocabulary
       expect(paths).to include('/api/v1/species?filter[edible]=true')    # boolean
       expect(paths).to include('/api/v1/species?filter[author]=a')       # string
     end

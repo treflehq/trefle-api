@@ -12,6 +12,26 @@ module Scopes
       'image_url' => 'main_image_url'
     }.freeze
 
+    class_methods do
+      # Closed vocabularies of the species filters (Filterable#filter_vocabulary):
+      # a value outside them answers 400 instead of silently matching the
+      # wrong rows. Enums (status, rank, sexuality...), bitmask flags (duration,
+      # colours, months, edible_part), the establishment of a distribution, and
+      # the free-text columns traits.yml closes with allowed_values
+      # (nitrogen_fixation).
+      def filter_vocabularies
+        @filter_vocabularies ||= begin
+          vocabularies = defined_enums.transform_values(&:dup)
+          active_flags.each {|name, flag| vocabularies[name.to_s] = flag.maps.keys.map(&:to_s) }
+          vocabularies['establishment'] = ::SpeciesDistribution.establishments.dup
+          Traits.fields.each do |name, field|
+            vocabularies[name] ||= field['allowed_values'].map(&:to_s) if field.is_a?(Hash) && field['allowed_values']
+          end
+          vocabularies.freeze
+        end
+      end
+    end
+
     included do # rubocop:todo Metrics/BlockLength
 
       Api::V1::SpeciesController::FILTERABLE_FIELDS.each do |field|

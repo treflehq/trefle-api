@@ -38,6 +38,9 @@ RSpec.shared_examples 'a filterable collection' do |klass, filters|
       next unless klass.last.respond_to?(filter)
 
       sample_value = klass.where.not(filter => nil)&.first&.send(filter) || klass&.first&.send(filter)
+      # A bitmask flag reads as a Set of names ("[:annual]" once in a query
+      # string), which the API refuses: send the names, or one accepted value.
+      sample_value = sample_value.to_a.join(',').presence || klass.filter_vocabulary_names(filter).first if sample_value.is_a?(Set)
       klass.send("filter_by_#{filter}".to_sym, sample_value)
       # pp elts.pluck(filter)
       # puts "Testing filtering on #{filter} = #{sample_value} (#{elts} - #{elts&.count})"

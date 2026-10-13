@@ -131,7 +131,8 @@ class Api::V1::PlantsController < Api::ApiController
     # `synonyms_count`, a column).
     @collection = @collection.preload(:plant, :genus)
 
-    @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS)
+    @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS,
+                                range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS)
     @collection = apply_filters_not(@collection, Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS)
     @collection = apply_sort(@collection, Api::V1::SpeciesController::ORDERABLE_FIELDS, default_sort: { gbif_score: :desc })
     @collection = apply_range(@collection, Api::V1::SpeciesController::RANGEABLE_FIELDS)
