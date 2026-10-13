@@ -75,6 +75,17 @@ RSpec.describe Checks do
     it 'accepts a clean name' do
       expect { described_class.run(species.id) }.not_to change(RecordCorrection, :count)
     end
+
+    it 'applies the formatted name when the stored diff is empty' do
+      species.update_columns(scientific_name: 'Abies alba Mill.', author: 'Mill.')
+      warning = described_class.run(species.id).existing_check || RecordCorrection.find_by!(warning_type: 'Checks::ScientificNameFormat')
+      warning.update_columns(change_notes: '{}')
+
+      warning.accept!
+
+      expect(warning.reload).to be_accepted_change_status
+      expect(species.reload.scientific_name).to eq('Abies alba')
+    end
   end
 
   describe Checks::NameAcceptance do
