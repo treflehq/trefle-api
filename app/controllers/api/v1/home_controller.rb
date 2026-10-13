@@ -1,7 +1,7 @@
 class Api::V1::HomeController < ApplicationController
 
   def index
-    @plants_count = Rails.cache.fetch('home/plants_count') { Plant.count }
+    @plants_count = SiteCounts.plants_count
     @detailled_plants_count = Rails.cache.fetch("home/detailled_plants_count-#{@plants_count}") { Species.where.not(foliage_color: nil).count }
 
     count_per_type = Rails.cache.fetch("home/count_per_type-#{@plants_count}") { Species.group(:rank).count }
