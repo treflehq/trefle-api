@@ -95,6 +95,22 @@ kubectl logs -f deployment/trefle-api --tail=200
 kubectl logs -f deployment/trefle-sidekiq --tail=200
 ```
 
+### Caches
+
+No cache flush is needed. The serialized API payloads cached in memcached
+(and the ETags derived from them) are keyed on the release:
+`TrefleAdmin::Application::VERSION` plus the image's `APP_REVISION`
+(`CollectionRenderers.release_cache_namespace`). The new pods read and write
+fresh keys only; the previous release's entries are never read again and
+age out on their own (memcached LRU, and a one-day TTL). This is also what
+lets the canary and production share memcached without serving each other's
+payloads. `VERSION` is bumped with every release (see its comment in
+`config/application.rb`); `APP_REVISION` is the git tag of the image, so a
+release tagged without the bump still gets its own keys.
+
+Clients holding an ETag from the previous release get a 200 with the new
+payload on their next conditional request, not a stale 304.
+
 ## Rollback
 
 Deployments are pinned to explicit tags, never `:latest`, specifically so a
