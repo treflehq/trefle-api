@@ -12,30 +12,65 @@ module Rangeable
   #   range (`6.5,` -> >= 7, `,6.5` -> <= 6), which is what the decimal bound
   #   means on integer data, instead of ActiveRecord's silent truncation;
   # - anything that is not a number raises Filterable::InvalidFilterValueError
-  #   (rendered as a 400) instead of being read as 0.
+  #   (rendered as a 400) instead of being read as 0;
+  # - a lower bound greater than the upper bound (`range[ph_minimum]=7,5`)
+  #   raises too: it can match nothing, and was answered with an empty page
+  #   that read like "no species". It is compared on the bounds as given, before
+  #   the integer rounding below (`6.2,6.8` is a valid range with no integer in
+  #   it, not an inverted one).
   #
   # Returns [min, max]; a bound is nil when left open.
   def self.parse_bounds(field, value, column_type: nil)
     raw_min, raw_max = value.to_s.split(',', 2)
+    min = parse_bound(field, raw_min)
+    max = parse_bound(field, raw_max)
+    ensure_ordered!(field, raw_min, raw_max, min, max)
     [
-      parse_bound(field, raw_min, column_type, :min),
-      parse_bound(field, raw_max, column_type, :max)
+      round_bound(min, column_type, :min),
+      round_bound(max, column_type, :max)
     ]
   end
 
-  def self.parse_bound(field, raw, column_type, side)
+  def self.parse_bound(field, raw)
     return nil if raw.blank?
 
     number = BigDecimal(raw.strip)
     raise ArgumentError, 'not finite' unless number.finite?
-    return number unless column_type == :integer
 
-    side == :min ? number.ceil : number.floor
+    number
   rescue ArgumentError
     raise Filterable::InvalidFilterValueError,
           "Invalid range value for #{field}: #{raw.strip.inspect} is not a number. " \
           "Use range[#{field}]=min,max with numeric bounds; leave a side empty for an open bound " \
           "(range[#{field}]=5, or range[#{field}]=,10)."
+  end
+
+  def self.ensure_ordered!(field, raw_min, raw_max, min, max)
+    return if min.nil? || max.nil? || min <= max
+
+    raise Filterable::InvalidFilterValueError,
+          "Invalid range for #{field}: the lower bound #{raw_min.strip} is greater than the upper bound #{raw_max.strip}. " \
+          "Use range[#{field}]=min,max with min <= max (range[#{field}]=#{raw_max.strip},#{raw_min.strip})."
+  end
+
+  def self.round_bound(number, column_type, side)
+    return number if number.nil? || column_type != :integer
+
+    side == :min ? number.ceil : number.floor
+  end
+
+  # The hint added to the 400 of an unknown filter key that is a rangeable
+  # numeric field (`filter[light]=9`): such a field is filtered with
+  # `range[light]`, which the bare "unknown key" message did not say.
+  # provided: the filter params, to echo the client's value in the example.
+  def self.range_hint(unknown_keys, range_fields, provided)
+    numeric = unknown_keys & range_fields.map(&:to_s)
+    return '' if numeric.empty?
+
+    field = numeric.first
+    value = provided[field].to_s.split(',').first.presence || 'min'
+    "#{numeric.join(', ')} #{numeric.size > 1 ? 'are numeric fields' : 'is a numeric field'}: " \
+      "use range[#{field}]=min,max instead (range[#{field}]=#{value},#{value} for an exact value). "
   end
 
   module ClassMethods

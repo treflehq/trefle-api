@@ -252,9 +252,11 @@ module Api
       Rack::Utils::SYMBOL_TO_STATUS_CODE.invert[status.to_i]&.to_s || status.to_s
     end
 
-    def apply_filters(collection, filterable_fields)
+    # range_fields only shapes the message of an unknown key: `filter[light]=9`
+    # on a field that is only rangeable points the client to `range[light]`.
+    def apply_filters(collection, filterable_fields, range_fields: [])
       if params[:filter].is_a?(ActionController::Parameters)
-        collection.filter_with(permit_known_query_keys(:filter, filterable_fields))
+        collection.filter_with(permit_known_query_keys(:filter, filterable_fields, range_fields: range_fields))
       else
         collection
       end
@@ -278,12 +280,12 @@ module Api
         params[:filter_not].permit(filter_not_fields).slice(*filter_not_fields).each do |field, value|
           indexed_field = field_aliases.fetch(field, field)
           where[indexed_field] ||= {}
-          where[indexed_field][:not] = value&.split(',')&.map {|e| e.blank? || e == 'null' ? nil : e }
+          where[indexed_field][:not] = value&.split(',')&.map {|e| e.blank? || e == 'null' ? nil : model&.canonical_filter_value(field, e) || e }
         end
       end
       if params[:filter].is_a?(ActionController::Parameters)
         params[:filter].permit(filter_fields).slice(*filter_fields).each do |field, value|
-          where[field_aliases.fetch(field, field)] = value.split(',')
+          where[field_aliases.fetch(field, field)] = value.split(',').map {|e| model&.canonical_filter_value(field, e) || e }
         end
       end
       if params[:range].is_a?(ActionController::Parameters)
@@ -351,12 +353,16 @@ module Api
     # Raises UnknownQueryKeyError (rendered as 400) when `params[param_name]`
     # contains a key outside `allowed_fields`, instead of silently dropping it
     # like `permit`/`slice` would. Callers get valid keys back untouched.
-    def permit_known_query_keys(param_name, allowed_fields)
+    #
+    # range_fields: numeric fields the endpoint ranges on. An unknown key that
+    # is one of them gets a hint towards `range[key]`, the way to filter it.
+    def permit_known_query_keys(param_name, allowed_fields, range_fields: [])
       provided_params = params[param_name]
       unknown_keys = provided_params.keys.map(&:to_s) - allowed_fields.map(&:to_s)
 
       if unknown_keys.any?
         raise UnknownQueryKeyError, "Unknown #{param_name} key#{'s' if unknown_keys.size > 1}: #{unknown_keys.join(', ')}. " \
+          "#{Rangeable.range_hint(unknown_keys, range_fields, provided_params)}" \
           "Valid #{param_name} keys are: #{allowed_fields.join(', ')}."
       end
 

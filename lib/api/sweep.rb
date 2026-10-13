@@ -33,8 +33,13 @@ module Api
 
     # A value of the right shape for each column type. What matters for error
     # detection is that the key is exercised and the value parses — not that it
-    # matches any row.
+    # matches any row. A field with a closed vocabulary (enum, flag,
+    # establishment...) answers 400 to anything else, so it gets one of its
+    # accepted values.
     def self.sample_value(field)
+      vocabulary = Species.filter_vocabulary_names(field)
+      return vocabulary.first if vocabulary
+
       column = Species.columns_hash[field.to_s] || Plant.columns_hash[field.to_s]
       case column&.type
       when :boolean then 'true'

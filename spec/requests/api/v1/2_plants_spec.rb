@@ -41,7 +41,8 @@ describe 'Plants API' do
         run_test!
       end
 
-      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+      response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
+                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:filter) { { not_a_field: 'x' } }
@@ -234,7 +235,8 @@ describe 'Plants API' do
         run_test!
       end
 
-      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+      response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
+                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -288,7 +290,8 @@ describe 'Plants API' do
         run_test!
       end
 
-      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+      response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
+                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
@@ -342,7 +345,8 @@ describe 'Plants API' do
         run_test!
       end
 
-      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+      response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
+                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
