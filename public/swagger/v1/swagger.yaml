@@ -1943,6 +1943,13 @@ paths:
       - token: []
       - bearerAuth: []
       parameters:
+      - name: q
+        in: query
+        required: false
+        description: Search zones by name (part of the name, case- and accent-insensitive).
+          Exact matches come first.
+        schema:
+          type: string
       - name: page
         in: query
         required: false
@@ -1993,13 +2000,16 @@ paths:
       summary: Retrieve a distribution zone
       tags:
       - Distributions
-      description: Get a zone
+      description: |
+        Get a zone by its id, its slug (the TDWG code, e.g. `fra`) or its exact name (case- and accent-insensitive, e.g. `france`).
+        When the name is shared by a region and a botanical country (TDWG level 3), the country is returned.
+        Unknown zones get a 404 whose message points to the `?q=` name search.
       operationId: getZone
       parameters:
       - name: id
         required: true
         in: path
-        description: The id or the slug of the requested zone
+        description: The id, the slug or the exact name of the requested zone
         schema:
           type: string
       security:
@@ -2020,6 +2030,12 @@ paths:
                     properties:
                       last_modified:
                         type: string
+        '404':
+          description: Unknown zone
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
         '401':
           description: Invalid credentials
   "/api/v1/distributions/{zone_id}/species":
@@ -3075,7 +3091,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3111,7 +3131,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3147,7 +3171,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3183,7 +3211,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -3219,7 +3251,11 @@ components:
                     description: The TDWG zone level
                   species_count:
                     type: integer
-                    description: The number of species in this zone
+                    description: The number of species recorded directly in this zone
+                  species_count_cumulative:
+                    type: integer
+                    description: The number of distinct species recorded in this zone
+                      or any zone below it
                   links:
                     type: object
                     properties:
@@ -4042,10 +4078,18 @@ components:
           type: string
         tdwg_code:
           type: string
+          description: The TDWG (WGSRPD) code of the zone
         tdwg_level:
           type: integer
+          description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+            4 basic recording unit'
         species_count:
           type: integer
+          description: The number of species recorded directly in this zone
+        species_count_cumulative:
+          type: integer
+          description: The number of distinct species recorded in this zone or in
+            any zone below it (the size of its species collection)
         links:
           type: object
           properties:
@@ -4070,10 +4114,18 @@ components:
               type: string
             tdwg_code:
               type: string
+              description: The TDWG (WGSRPD) code of the zone
             tdwg_level:
               type: integer
+              description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                4 basic recording unit'
             species_count:
               type: integer
+              description: The number of species recorded directly in this zone
+            species_count_cumulative:
+              type: integer
+              description: The number of distinct species recorded in this zone or
+                in any zone below it (the size of its species collection)
             links:
               type: object
               properties:
@@ -4101,10 +4153,18 @@ components:
                 type: string
               tdwg_code:
                 type: string
+                description: The TDWG (WGSRPD) code of the zone
               tdwg_level:
                 type: integer
+                description: 'The TDWG level: 1 continent, 2 region, 3 botanical country,
+                  4 basic recording unit'
               species_count:
                 type: integer
+                description: The number of species recorded directly in this zone
+              species_count_cumulative:
+                type: integer
+                description: The number of distinct species recorded in this zone
+                  or in any zone below it (the size of its species collection)
               links:
                 type: object
                 properties:
@@ -4126,6 +4186,7 @@ components:
       - tdwg_code
       - tdwg_level
       - species_count
+      - species_count_cumulative
     error:
       type: object
       properties:

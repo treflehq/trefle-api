@@ -196,7 +196,7 @@ module Api
       in_parent =
         if params[:genus_id] then Genus.friendly.find(params[:genus_id]).id == species.genus_id
         elsif params[:plant_id] then Plant.friendly.find(params[:plant_id]).id == species.plant_id
-        elsif params[:zone_id] then Zone.friendly.find(params[:zone_id].to_s.downcase).all_species.exists?(species.id)
+        elsif params[:zone_id] then Zone.resolve!(params[:zone_id]).all_species.exists?(species.id)
         else true
         end
       raise ActiveRecord::RecordNotFound, "can't find record: #{params[:id].to_s.inspect}" unless in_parent

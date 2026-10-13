@@ -30,6 +30,8 @@ describe 'Distributions API' do
       operationId 'listDistributions'
       # parameter name: :id, required: true, in: :path, type: :string
       security [{ token: [] }, { bearerAuth: [] }]
+      parameter name: :q, in: :query, required: false, type: :string,
+                description: 'Search zones by name (part of the name, case- and accent-insensitive). Exact matches come first.'
       parameter name: :page, in: :query, required: false, type: :number, description: 'The page to fetch'
 
       response '200', 'Success' do
@@ -57,9 +59,13 @@ describe 'Distributions API' do
       tags 'Distributions'
       consumes 'application/json'
       produces 'application/json'
-      description 'Get a zone'
+      description <<~DESC
+        Get a zone by its id, its slug (the TDWG code, e.g. `fra`) or its exact name (case- and accent-insensitive, e.g. `france`).
+        When the name is shared by a region and a botanical country (TDWG level 3), the country is returned.
+        Unknown zones get a 404 whose message points to the `?q=` name search.
+      DESC
       operationId 'getZone'
-      parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested zone'
+      parameter name: :id, required: true, in: :path, type: :string, description: 'The id, the slug or the exact name of the requested zone'
 
       security [{ token: [] }, { bearerAuth: [] }]
 
@@ -73,6 +79,13 @@ describe 'Distributions API' do
         let(:id) { Zone.first.id }
         let(:token) { user.token }
 
+        run_test!
+      end
+
+      response '404', 'Unknown zone' do
+        schema Schemas::Helpers.schema_href(schema: 'error')
+        let(:id) { 'atlantis' }
+        let(:token) { user.token }
         run_test!
       end
 

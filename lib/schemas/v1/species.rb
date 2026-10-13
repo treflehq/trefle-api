@@ -79,7 +79,8 @@ module Schemas
           slug: { type: :string, description: 'An unique, human readable, identifier' },
           tdwg_code: { type: :string, description: 'The TDWG zone unique code' },
           tdwg_level: { type: :integer, description: 'The TDWG zone level' },
-          species_count: { type: :integer, description: 'The number of species in this zone' },
+          species_count: { type: :integer, description: 'The number of species recorded directly in this zone' },
+          species_count_cumulative: { type: :integer, description: 'The number of distinct species recorded in this zone or any zone below it' },
           links: Helpers.object_of({
             self: { type: :string, description: 'API endpoint to the zone itself' },
             species: { type: :string, description: 'API endpoint to the species in this zone' },

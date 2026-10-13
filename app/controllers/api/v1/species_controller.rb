@@ -259,11 +259,11 @@ class Api::V1::SpeciesController < Api::ApiController
       where: search_params[:where],
       includes: %i[synonyms genus plant],
       boost_by: [:gbif_score],
-      fields: ['common_name^10', 'common_names^8', 'scientific_name^5', 'synonyms^3', 'author', 'genus', 'family', 'family_common_name', 'distributions'],
+      fields: Species::SEARCH_FIELDS,
       order: search_params[:order]
     }.compact
 
-    @collection = Species.pagy_search(search, **options)
+    @collection = Species.pagy_search(Species.search_term(search), **options)
     @pagy, @collection = pagy_searchkick(@collection, items: (params[:limit] || 20).to_i)
 
     links = collection_links(@collection, name: %i[species index], scope: %i[search api v1])
@@ -297,7 +297,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
     @collection = Genus.friendly.find(params[:genus_id]).species if params[:genus_id]
     @collection = Plant.friendly.find(params[:plant_id]).species if params[:plant_id]
-    @collection = Zone.friendly.find(params[:zone_id].to_s.downcase).all_species if params[:zone_id]
+    @collection = Zone.resolve!(params[:zone_id]).all_species if params[:zone_id]
     @collection ||= Species.all
 
     @collection = @collection.preload(:plant, :genus, :synonyms)
