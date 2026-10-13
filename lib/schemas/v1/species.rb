@@ -194,8 +194,8 @@ module Schemas
               #   per_sqm: { type: :number, nullable: true, description: 'TODO' } # "TODO"
               # }),
               light: { type: :integer, nullable: true,
-                       description: 'Required amount of light, on a scale from 0 (no light, <= 10 lux) to 10 (very intensive insolation, >= 100 000 lux)' },
-              atmospheric_humidity: { type: :integer, nullable: true, description: 'Required relative humidity in the air, on a scale from 0 (<=10%) to 10 (>= 90%)' },
+                       description: 'Ecological indicator of light: Ellenberg L class from 1 (deep shade) to 9 (full sun). Describes the habitats where the species grows, not a measurement (see docs.trefle.io/docs/advanced/plants-fields)' },
+              atmospheric_humidity: { type: :integer, nullable: true, description: 'Ecological indicator of air humidity: Julve HA class from 1 (very dry air) to 9 (saturated air). Describes the habitats where the species grows, not a measurement' },
               growth_months: { type: :array, nullable: true,
                                items: { type: :string, nullable: true, enum: [*::Species.growth_months.maps.keys, nil], description: 'The most active growth months of the species (usually all year round for perennial plants)' }, description: 'The most active growth months of the species (usually all year round for perennial plants)' },
               bloom_months: { type: :array, nullable: true,
@@ -232,10 +232,10 @@ module Schemas
                 deg_c: { type: :number, nullable: true, description: 'The maximum tolerable temperature for the species. In celsius degrees' } # "TODO"
               }, extras: { description: 'The maximum tolerable temperature for the species. In celsius or fahrenheit degrees' }),
               soil_nutriments: { type: :integer, nullable: true,
-                                 description: 'Required quantity of nutriments in the soil, on a scale from 0 (oligotrophic) to 10 (hypereutrophic)' },
-              soil_salinity: { type: :integer, nullable: true, description: 'Tolerance to salinity, on a scale from 0 (untolerant) to 10 (hyperhaline)' },
+                                 description: 'Ecological indicator of soil nutrients: Ellenberg N class from 1 (hyperoligotrophic) to 9 (hypereutrophic). Describes the habitats where the species grows, not a measurement' },
+              soil_salinity: { type: :integer, nullable: true, description: 'Ecological indicator of soil salinity: Ellenberg S class from 0 (absent from saline soils) to 9 (hyperhaline). Describes the habitats where the species grows, not a tolerance' },
               soil_texture: { type: :integer, nullable: true, description: 'Required texture of the soil, on a scale from 0 (clay) to 10 (rock)' },
-              soil_humidity: { type: :integer, nullable: true, description: 'Required humidity of the soil, on a scale from 0 (xerophile) to 10 (subaquatic)' }
+              soil_humidity: { type: :integer, nullable: true, description: 'Ecological indicator of soil humidity: Ellenberg F class from 1 (very dry) to 12 (submerged). Describes the habitats where the species grows, not a measurement' }
               # hardiness_zone: { type: :string, nullable: true, description: 'TODO' }, @TODO
               # adaptation: Helpers.object_of({
               #   medium: { type: :boolean, nullable: true, description: 'TODO' }, # true,

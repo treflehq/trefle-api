@@ -15,6 +15,18 @@ RSpec.describe 'Species data sources page', type: :request do
     expect(row.text).to include('5000 cm', 'TRY Plant Trait Database', '12 observations', 'TRY 7.0 datasets 25', 'Sourced')
   end
 
+  it 'reads an ecological indicator as its class on its scale, not as a bare number (#439)' do
+    species.update_columns(light: 7)
+    SpeciesFact.record!(species: species, attribute_name: 'light', source: 'try', value: 7, evidence_type: :measured)
+
+    get sources_explore_species_path(species)
+
+    row = Nokogiri::HTML(response.body).at_css('#fact-light')
+    expect(row.at_css('td:nth-child(2)').text.squish).to eq('7 / 9 · half-light to light')
+    expect(row.at_css('.species-provenance__facts').text).to include('7 / 9 · half-light to light')
+    expect(row.text).not_to include('lux')
+  end
+
   it 'is linked from the species menu' do
     get explore_species_path(species)
 

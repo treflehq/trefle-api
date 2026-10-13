@@ -370,6 +370,15 @@ class Species < ApplicationRecord
     synonym.record
   end
 
+  # For a record whose name is not accepted: the species that lists this name
+  # among its synonyms, i.e. the accepted name to point readers to. Nil for an
+  # accepted name, and for a name no accepted record claims yet.
+  def accepted_name
+    return nil if status.nil? || accepted_status?
+
+    Synonym.where(record_type: 'Species').where('lower(name) = ?', scientific_name.to_s.downcase).first&.record
+  end
+
   after_save :setup_main_species
 
   auto_strip_attributes(*STRING_ATTRIBUTES, squish: true)
