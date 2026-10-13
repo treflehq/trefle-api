@@ -35,7 +35,7 @@ class Management::RecordCorrectionsController < Management::ManagementController
     # A deletion destroys the record: it is accepted one by one, never in bulk.
     skipped = decision == 'accept' ? selected.deletion_change_type.count : 0
     selected = selected.where.not(change_type: :deletion) if decision == 'accept'
-    results = selected.map {|rc| decide(rc, decision, comment_for(rc)) }
+    results = selected.map {|rc| decide(rc, decision, comment_for(rc, params[:comment])) }
     done = results.count(true)
     message = "#{done} correction(s) #{decision}ed."
     message += " #{results.size - done} could not be and stay pending, with the reason in their notes." if done < results.size
@@ -96,9 +96,11 @@ class Management::RecordCorrectionsController < Management::ManagementController
   end
 
   # The comment typed on the correction's own row, else the one typed for the
-  # whole selection.
-  def comment_for(correction)
-    comment = params.dig(:comments, correction.id.to_s).presence || params[:comment].presence
+  # whole selection. Only `bulk` passes the latter: the per-row buttons submit
+  # the whole form, selection field included, which must not leak into a
+  # single-row decision.
+  def comment_for(correction, selection_comment = nil)
+    comment = params.dig(:comments, correction.id.to_s).presence || selection_comment.presence
     comment&.to_s&.strip&.first(MAX_COMMENT_LENGTH).presence
   end
 

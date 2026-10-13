@@ -92,6 +92,15 @@ RSpec.describe 'Management review queue of corrections', type: :request do
     expect(second.reload.review_comment).to eq('Blog source')
   end
 
+  it 'ignores the selection comment on a single-row decision' do
+    rc = correction
+
+    patch accept_management_record_correction_path(rc), params: { comment: 'No source', return_to: queue }
+
+    expect(rc.reload).to be_accepted_change_status
+    expect(rc.review_comment).to be_nil
+  end
+
   it 'drops the comment of a decision that did not go through' do
     rc = correction(record: Genus.first)
 
