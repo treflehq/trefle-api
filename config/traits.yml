@@ -173,14 +173,17 @@ fields:
   bloom_months: { category: phenology, zero_means_empty: true }
   fruit_months: { category: phenology, zero_means_empty: true }
 
-  # --- Ecology (light/humidity/soil indices are 0-10 Ellenberg-like scales
-  #     from Baseflor/Catminat: 0 is a meaningful value, never "empty") ---
-  light: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
-  atmospheric_humidity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
-  ground_humidity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  # --- Ecology (light/humidity/soil indicators are Ellenberg classes from
+  #     Baseflor/Catminat, each with its own range: see
+  #     config/ecological_indicators.yml. Salinity 0 is a meaningful value,
+  #     never "empty". The unit keeps its historical name `index_0_10`, which
+  #     facts recorded before these ranges already carry.) ---
+  light: { category: ecology, unit: index_0_10, plausible_range: [1, 9] }
+  atmospheric_humidity: { category: ecology, unit: index_0_10, plausible_range: [1, 9] }
+  ground_humidity: { category: ecology, unit: index_0_10, plausible_range: [1, 12] }
   soil_texture: { category: ecology, plausible_range: [1, 9] }
-  soil_salinity: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
-  soil_nutriments: { category: ecology, unit: index_0_10, plausible_range: [0, 10] }
+  soil_salinity: { category: ecology, unit: index_0_10, plausible_range: [0, 9] }
+  soil_nutriments: { category: ecology, unit: index_0_10, plausible_range: [1, 9] }
   ph_minimum: { category: ecology, unit: ph, plausible_range: [1, 12] }
   ph_maximum: { category: ecology, unit: ph, plausible_range: [1, 12] }
   minimum_temperature_deg_c: { category: ecology, unit: deg_c, plausible_range: [-90, 60] }
