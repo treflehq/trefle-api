@@ -80,4 +80,20 @@ RSpec.describe Migrators::LegacyProvenance do
                                                   'family_common_name', 'edible', 'observations', 'common_name')
     expect(described_class.fields).to include('growth_habit', 'growth_form', 'ph_minimum', 'bloom_months')
   end
+
+  describe 'arbitration' do
+    def outranked?(record, field, source)
+      Ingester::Species.new({}, species_id: record.id, source: source).send(:outranked_for?, field, source)
+    end
+
+    it 'defends a traced value exactly as it was defended untraced' do
+      sources = %w[wikipedia try community]
+      before = sources.index_with {|src| outranked?(species, 'growth_habit', src) }
+
+      described_class.run(dry_run: false)
+
+      expect(sources.index_with {|src| outranked?(species, 'growth_habit', src) }).to eq(before)
+      expect(before).to include('wikipedia' => true, 'community' => false)
+    end
+  end
 end

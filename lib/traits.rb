@@ -1,6 +1,8 @@
 # Reads config/traits.yml — the per-field data contract used for the
 # completion ratio, ingester source arbitration and data quality checks.
 module Traits
+  LEGACY_SOURCE = 'legacy'.freeze
+
   class << self
 
     def config
@@ -114,7 +116,12 @@ module Traits
     # Lower index = stronger source. Unknown sources rank last. With an
     # attribute, a category that declares its own order (sources.
     # category_priority, e.g. nomenclature) is ranked by that order instead.
+    # The pseudo-source `legacy` (Migrators::LegacyProvenance) ranks at the
+    # legacy value rank: tracing a pre-provenance value must not change what
+    # defends it.
     def priority_index(source, attribute = nil)
+      return legacy_value_priority_index(attribute) if source.to_s.downcase == LEGACY_SOURCE
+
       order = category_order(attribute) || source_priority
       return order.length if source.nil?
 

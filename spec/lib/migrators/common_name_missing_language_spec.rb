@@ -22,6 +22,17 @@ RSpec.describe Migrators::CommonNameMissingLanguage do
     expect(result.to_h).to eq(tagged_en: 1, duplicates_removed: 1, left_recent: 1, left_non_ascii: 1)
   end
 
+  it 'keeps one of several untagged rows with the same name' do
+    twin = CommonName.create!(record: species, name: "bliss' Buckwheat", lang: nil, created_at: old, updated_at: old)
+
+    result = described_class.run(dry_run: false)
+
+    expect(CommonName.exists?(twin.id)).to be(false)
+    expect(usda.reload.lang).to eq('en')
+    expect(result).to have_attributes(tagged_en: 1, duplicates_removed: 2)
+    expect(CommonName.where(record: species, lang: 'en').where('lower(name) = ?', "bliss' buckwheat").count).to eq(1)
+  end
+
   it 'only counts on a dry run' do
     result = described_class.run(dry_run: true)
 

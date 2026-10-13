@@ -34,7 +34,7 @@
 module Migrators
   class LegacyProvenance
 
-    SOURCE = 'legacy'.freeze
+    SOURCE = Traits::LEGACY_SOURCE
     NOTE = 'value present before provenance tracking (2022 import), no source recorded'.freeze
     BASEFLOR_NOTE = 'derived from a Baseflor soil reaction class by the 2022 import, a class not a measurement'.freeze
     # (ph_minimum, ph_maximum) intervals the 2022 import mapped Baseflor's nine
