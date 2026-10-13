@@ -1,8 +1,8 @@
 class Api::V1::ZonesController < Api::ApiController
 
-  ORDERABLE_FIELDS = %w[name slug species_count tdwg_level tdwg_code].freeze
+  ORDERABLE_FIELDS = %w[name slug species_count species_count_cumulative tdwg_level tdwg_code].freeze
   FILTERABLE_FIELDS = %w[tdwg_level tdwg_code].freeze
-  RANGEABLE_FIELDS = %w[tdwg_level species_count].freeze
+  RANGEABLE_FIELDS = %w[tdwg_level species_count species_count_cumulative].freeze
 
   def index
     @collection = collection
@@ -17,7 +17,7 @@ class Api::V1::ZonesController < Api::ApiController
   end
 
   def show
-    @resource = Zone.friendly.find(params[:id].to_s.downcase)
+    @resource = Zone.resolve!(params[:id])
 
     render_serialized_resource(
       @resource,
@@ -32,9 +32,11 @@ class Api::V1::ZonesController < Api::ApiController
     @collection = Zone.all
 
     @collection = apply_filters(@collection, FILTERABLE_FIELDS)
+    # Before the sort: `?q=` ranks exact name matches first, the requested
+    # (or default) order only breaks ties.
+    @collection = apply_search(@collection)
     @collection = apply_sort(@collection, ORDERABLE_FIELDS, default_sort: { name: :asc })
     @collection = apply_range(@collection, RANGEABLE_FIELDS)
-    @collection = apply_search(collection)
 
     @pagy, @collection = pagy(@collection)
     @collection
