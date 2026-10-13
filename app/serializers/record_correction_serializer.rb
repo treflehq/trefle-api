@@ -10,6 +10,7 @@
 #  correction_json  :text
 #  notes            :text
 #  record_type      :string
+#  review_comment   :text
 #  source_reference :string
 #  source_type      :integer          default("external"), not null
 #  warning_type     :string
@@ -29,7 +30,7 @@
 class RecordCorrectionSerializer < BaseSerializer
   attributes :record_type, :record_id, :user_id,
              :correction, :warning_type, :change_status,
-             :change_type, :accepted_by, :notes, :changes,
+             :change_type, :accepted_by, :notes, :review_comment, :changes,
              :created_at, :updated_at
 
   def correction

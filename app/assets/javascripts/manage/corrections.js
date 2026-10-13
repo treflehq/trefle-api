@@ -40,4 +40,9 @@ export default function corrections() {
   })
   boxes().forEach((box) => box.addEventListener('change', refresh))
   refresh()
+
+  // Enter in a comment field would submit the bulk form with no decision.
+  form.querySelectorAll('[data-corrections-comment]').forEach((input) => {
+    input.addEventListener('keydown', (event) => { if (event.key === 'Enter') event.preventDefault() })
+  })
 }
