@@ -52,13 +52,25 @@ module Schemas
         })
       end
 
+      # What `minimum_root_depth_cm` holds since the TRY import: the column
+      # name says minimum, the values are a typical rooting depth.
+      ROOT_DEPTH_DESCRIPTION = 'Rooting depth of the species, in centimeters: how deep its roots typically go, ' \
+                               'not the soil depth it needs. Values sourced from the TRY plant trait database ' \
+                               '(trait "Root rooting depth") are the median of the depths measured for the species; ' \
+                               'older values come from USDA PLANTS ("minimum root depth"). The species facts ' \
+                               '(`/species/{id}/facts`) name the source of each value. Despite the field name, it is not a minimum.'.freeze
+
       def self.common_names_schema
         Helpers.object_of(nil, extras: {
           additionalProperties: {
             type: :array,
-            items: { type: :string, nullable: true, description: 'TODO' }
+            items: { type: :string, description: 'A common name of the species in that language' }
           },
-          description: 'Common names of the species per language'
+          description: 'Common names of the species, grouped by language. Each key is the language code the source ' \
+                       'gave: mostly ISO 639-1 two-letter codes (`en`, `fr`, `de`), but older imports used ISO 639-3 ' \
+                       'three-letter codes (`eng`, `fra`, `deu`), so one language can appear under both keys and a ' \
+                       'client should merge them. A few keys are regional tags (`pt-br`, `zh-tw`, `zh-hant`), and ' \
+                       'names with no known language sit under an empty key.'
         })
       end
 
@@ -67,7 +79,7 @@ module Schemas
           deprecated: true,
           additionalProperties: {
             type: :array,
-            items: { type: :string, nullable: true, description: 'TODO' }
+            items: { type: :string, description: 'The name of a distribution zone' }
           },
           description: '(Deprecated) Distribution of the species per establishment'
         })
@@ -180,7 +192,12 @@ module Schemas
                 # ft: { type: :integer, nullable: true, description: 'TODO' }, # null,
                 cm: { type: :integer, nullable: true, description: 'The maximum height of the species, in centimeters' } # "TODO"
               }, extras: { description: 'The maximum height of the species, in centimeters' }),
-              nitrogen_fixation: { type: :string, nullable: true, description: 'Capability to fix nitrogen in monoculture' }, # "None",
+              nitrogen_fixation: {
+                type: :string, nullable: true,
+                description: 'Capability to fix nitrogen in monoculture (USDA PLANTS scale). In the current data the ' \
+                             'value is only `High` or `None`, or null when unknown: the intermediate classes of the ' \
+                             'scale (`Low`, `Medium`) are not used, and `None` is a recorded value, not missing data.'
+              }, # "None",
               shape_and_orientation: { type: :string, nullable: true, description: 'The predominant shape of the species' }, # "Decumbent",
               toxicity: { type: :string, nullable: true, enum: [*::Species.toxicities.keys, nil], description: 'Relative toxicity of the species for humans or animals' } # "None",
             }, extras: { description: 'Species\'s main characteristics' }),
@@ -226,8 +243,8 @@ module Schemas
               }, extras: { description: 'Maximum precipitation per year, in milimeters per year' }),
               minimum_root_depth: Helpers.object_of({
                 # inches: { type: :number, nullable: true, description: 'TODO' }, # 10,
-                cm: { type: :number, nullable: true, description: 'Minimum depth of soil required for the species, in centimeters. Plants that do not have roots such as rootless aquatic plants have 0' } # "TODO"
-              }, extras: { description: 'Minimum depth of soil required for the species, in centimeters. Plants that do not have roots such as rootless aquatic plants have 0' }),
+                cm: { type: :number, nullable: true, description: ROOT_DEPTH_DESCRIPTION } # "TODO"
+              }, extras: { description: ROOT_DEPTH_DESCRIPTION }),
               minimum_temperature: Helpers.object_of({
                 deg_f: { type: :number, nullable: true, description: 'The minimum tolerable temperature for the species. In fahrenheit degrees' }, # 10,
                 deg_c: { type: :number, nullable: true, description: 'The minimum tolerable temperature for the species. In celsius degrees' } # "TODO"
