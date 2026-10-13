@@ -42,6 +42,16 @@ RSpec.describe ScientificNameStructureValidator do
     expect(valid_for?('Rosa canina var. dumalis f. glabra', :form)).to be(false)
   end
 
+  it 'refuses two infraspecific ranks when the hybrid sign stands apart, at hybrid rank too' do
+    ['Rosa × odorata var. x f. y', 'Rosa ×odorata var. x f. y', '× Agropogon lutosus var. x f. y'].each do |name|
+      %i[hybrid var].each do |rank|
+        species = Species.new(scientific_name: name, rank: rank)
+        described_class.new(attributes: [:scientific_name]).validate_each(species, :scientific_name, name)
+        expect(species.errors[:scientific_name].join).to include('two infraspecific ranks'), "#{name} at #{rank}"
+      end
+    end
+  end
+
   it 'still accepts the name a classification string reduces to' do
     expect(valid_for?('Dryas octopetala var. kamtschatica', :var)).to be(true)
     expect(valid_for?('Saxifraga aizoon subvar. brevifolia', :subvar)).to be(true)

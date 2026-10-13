@@ -35,7 +35,8 @@ class ScientificNameStructureValidator < ActiveModel::EachValidator
   # 24.1); the rest is classification (TAXONOMY.md, "One infraspecific rank
   # per name"). Refused with its own message, whatever the record's rank.
   CONNECTING_TERM = '(?:ssp|subsp|var|subvar|form|fo?)\\.'.freeze
-  TWO_RANKS = /\A\S+ \S+ #{CONNECTING_TERM} \S+ #{CONNECTING_TERM} \S+\z/
+  # The hybrid sign may stand apart before the genus or an epithet.
+  TWO_RANKS = /\A(?:× )?\S+ (?:× )?\S+ #{CONNECTING_TERM} (?:× )?\S+ #{CONNECTING_TERM} (?:× )?\S+\z/
 
   def validate_each(record, attribute, value)
     if value.to_s.match?(TWO_RANKS)
