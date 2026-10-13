@@ -1,6 +1,7 @@
 class Api::V1::SpeciesController < Api::ApiController
 
   include WithCachedCount
+  include CommonNameLocalization
 
   FILTERABLE_FIELDS = %w[
     author
@@ -256,7 +257,7 @@ class Api::V1::SpeciesController < Api::ApiController
       model: ::Species
     )
     options = {
-      where: search_params[:where],
+      where: localize_common_name_search_conditions(search_params[:where]),
       includes: %i[genus plant],
       boost_by: [:gbif_score],
       fields: Species::SEARCH_FIELDS,
@@ -305,8 +306,9 @@ class Api::V1::SpeciesController < Api::ApiController
     # longer embedded in list payloads (only `synonyms_count`, a column).
     @collection = @collection.preload(:plant, :genus)
 
-    @collection = apply_filters(@collection, FILTERABLE_FIELDS, range_fields: RANGEABLE_FIELDS)
-    @collection = apply_filters_not(@collection, FILTERABLE_NOT_FIELDS)
+    @collection = apply_filters(@collection, FILTERABLE_FIELDS, range_fields: RANGEABLE_FIELDS, skip: common_name_filter_skip)
+    @collection = apply_filters_not(@collection, FILTERABLE_NOT_FIELDS, skip: common_name_filter_skip)
+    @collection = apply_localized_common_name_filters(@collection)
     @collection = apply_sort(@collection, ORDERABLE_FIELDS, default_sort: { gbif_score: :desc })
     @collection = apply_range(@collection, RANGEABLE_FIELDS)
     # @collection = apply_search(collection)

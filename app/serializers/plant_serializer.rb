@@ -43,7 +43,9 @@
 
 class PlantSerializer < BaseSerializer
 
-  attributes :common_name, :slug, :scientific_name,
+  include LocalizedCommonName
+
+  attributes :common_name, :common_name_lang, :slug, :scientific_name,
              :year, :bibliography, :author, # :status,
              :family_common_name, :genus_id,
              :main_species_id, :vegetable,
@@ -62,6 +64,15 @@ class PlantSerializer < BaseSerializer
 
   has_one :genus, serializer: GenusLightSerializer
   has_one :family, serializer: FamilyLightSerializer
+
+  # The plant's name is its main species' name.
+  def common_name
+    localized_common_name(object.main_species_id).first
+  end
+
+  def common_name_lang
+    localized_common_name(object.main_species_id).last
+  end
 
   def image_url
     object.main_species&.main_image_url

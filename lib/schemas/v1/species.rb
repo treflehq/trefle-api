@@ -4,7 +4,11 @@ module Schemas
       def self.base # rubocop:todo Metrics/MethodLength
         {
           id: { type: :integer, description: 'An unique identifier' }, # 101131,
-          common_name: { type: :string, nullable: true, description: 'The usual common name, in english, of the species (if any).' }, # "grand fir",
+          common_name: { type: :string, nullable: true, description: 'The usual common name, in english, of the species (if any). With the `lang` parameter, its name in that language when it has one.' }, # "grand fir",
+          common_name_lang: {
+            type: :string, nullable: true,
+            description: 'Only with the `lang` parameter: the ISO 639-1 code of the language `common_name` is in, `en` when the species has no name in the requested language, `null` when it has no common name at all.'
+          },
           slug: { type: :string, description: 'An unique human-readable identifier (if you can, prefer to use this over id)' }, # "abies-grandis",
           scientific_name: {
             type: :string,

@@ -19,6 +19,7 @@ module Schemas
           per_page: per_page,
           q: search_query,
           zone_q: zone_search_query,
+          lang: LangParameter.schema,
           **keyed_parameters(:species, ::Api::V1::SpeciesController, model: ::Species),
           **keyed_parameters(:families, ::Api::V1::FamiliesController),
           **keyed_parameters(:genus, ::Api::V1::GenusController),
