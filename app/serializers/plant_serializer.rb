@@ -48,7 +48,7 @@ class PlantSerializer < BaseSerializer
              :family_common_name, :genus_id,
              :main_species_id, :vegetable,
              :observations,
-             :links, :image_url
+             :links, :image_url, :main_image
 
   has_one :main_species, serializer: SpeciesSerializer
   has_many :species_species, serializer: SpeciesLightSerializer, name: :species
@@ -65,6 +65,10 @@ class PlantSerializer < BaseSerializer
 
   def image_url
     object.main_species&.main_image_url
+  end
+
+  def main_image
+    serialize_main_image(object.main_species&.main_image_url, species_id: object.main_species_id)
   end
 
   def year

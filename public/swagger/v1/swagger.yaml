@@ -6028,6 +6028,54 @@ components:
         observations:
           type: string
           nullable: true
+        image_url:
+          type: string
+          nullable: true
+          description: A main image url of the plant
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         main_species:
           "$ref": "#/components/schemas/species"
         sources:
@@ -6123,6 +6171,50 @@ components:
           type: string
           nullable: true
           description: A main image url of the species
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         completion_ratio:
           type: integer
           nullable: true
@@ -6217,12 +6309,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species flower
             leaf:
               type: array
@@ -6234,12 +6356,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species leaf
             habit:
               type: array
@@ -6251,12 +6403,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species habit
             fruit:
               type: array
@@ -6268,12 +6450,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species fruit
             bark:
               type: array
@@ -6285,12 +6497,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species bark
             other:
               type: array
@@ -6302,12 +6544,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: 'Image(s) of the species other '
             unknown:
               type: array
@@ -6319,12 +6591,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) with no identified part
         common_names:
           type: object
@@ -7163,6 +7465,50 @@ components:
           type: string
           nullable: true
           description: A main image url of the species
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         completion_ratio:
           type: integer
           nullable: true
