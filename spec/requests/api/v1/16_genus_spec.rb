@@ -118,6 +118,7 @@ describe 'Genus API' do
       description 'List the species of the requested genus'
       operationId 'listSpeciesGenus'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
@@ -173,6 +174,7 @@ describe 'Genus API' do
       operationId 'getSpeciesGenus'
       parameters :lang
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested record'

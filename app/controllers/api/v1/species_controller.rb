@@ -1,4 +1,5 @@
 class Api::V1::SpeciesController < Api::ApiController
+  include SparseFieldsets
 
   include WithCachedCount
   include CommonNameLocalization
@@ -198,7 +199,8 @@ class Api::V1::SpeciesController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -210,6 +212,7 @@ class Api::V1::SpeciesController < Api::ApiController
     render_serialized_resource(
       @resource,
       SpeciesSerializer,
+      serializer_options: fields_serializer_options,
       meta: {
         images_count: @resource.images_count,
         sources_count: @resource.sources_count,
@@ -217,6 +220,13 @@ class Api::V1::SpeciesController < Api::ApiController
       }.merge(resource_metadata(@resource))
     )
   end
+
+  # SparseFieldsets: the detail picks among its own keys (synonyms included),
+  # the lists among SpeciesListSerializer's.
+  def fields_serializer
+    action_name == 'show' ? SpeciesSerializer : super
+  end
+  protected :fields_serializer
 
   # Provenance of the species trait values: one row per (attribute, source)
   # claim, including superseded and rejected ones (transparency)
@@ -240,7 +250,8 @@ class Api::V1::SpeciesController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -264,7 +275,8 @@ class Api::V1::SpeciesController < Api::ApiController
       order: search_params[:order]
     }.compact
 
-    @collection = Species.pagy_search(Species.search_term(search), **options)
+    # On top of genus and plant, the associations the requested fields read (SparseFieldsets).
+    @collection = Species.pagy_search(Species.search_term(search), **options, includes: options[:includes] + fields_preloads)
     # Page size (`per_page`, or its `limit` alias) is read by PerPage.
     @pagy, @collection = pagy_searchkick(@collection)
 
@@ -272,7 +284,8 @@ class Api::V1::SpeciesController < Api::ApiController
 
     render_serialized_collection(
       @collection,
-      SpeciesLightSerializer,
+      list_serializer,
+      serializer_options: fields_serializer_options,
       links: links
     )
   end
@@ -304,7 +317,7 @@ class Api::V1::SpeciesController < Api::ApiController
 
     # SpeciesLightSerializer reads `plant.slug` and `genus`; synonyms are no
     # longer embedded in list payloads (only `synonyms_count`, a column).
-    @collection = @collection.preload(:plant, :genus)
+    @collection = @collection.preload(:plant, :genus, *fields_preloads)
 
     @collection = apply_filters(@collection, FILTERABLE_FIELDS, range_fields: RANGEABLE_FIELDS, skip: common_name_filter_skip)
     @collection = apply_filters_not(@collection, FILTERABLE_NOT_FIELDS, skip: common_name_filter_skip)

@@ -24,7 +24,8 @@ module Schemas
           **keyed_parameters(:families, ::Api::V1::FamiliesController),
           **keyed_parameters(:genus, ::Api::V1::GenusController),
           **keyed_parameters(:zones, ::Api::V1::ZonesController),
-          **keyed_parameters(:corrections, ::Api::V1::RecordCorrectionsController)
+          **keyed_parameters(:corrections, ::Api::V1::RecordCorrectionsController),
+          **FieldsParameters.all
         }
       end
 

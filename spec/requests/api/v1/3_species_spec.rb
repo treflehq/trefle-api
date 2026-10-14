@@ -22,6 +22,7 @@ describe 'Species API' do
       description 'List species'
       operationId 'listSpecies'
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
@@ -65,6 +66,7 @@ describe 'Species API' do
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species
 
       response '200', 'Success' do
         schema JsonApiHelper.resource_schema(
@@ -113,6 +115,7 @@ describe 'Species API' do
       parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species, :lang
 
       security [{ token: [] }, { bearerAuth: [] }]
+      parameters :fields_species_list
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(

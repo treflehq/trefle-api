@@ -57,11 +57,23 @@ module PerPage
     return DEFAULT unless name
 
     raw = params[name].to_s.strip
-    unless raw.match?(/\A\d+\z/) && (1..MAX).cover?(raw.to_i)
-      raise InvalidPageSizeError, "#{name} must be an integer between 1 and #{MAX}; got #{raw.inspect}. " \
+    max = per_page_max
+    unless raw.match?(/\A\d+\z/) && (1..max).cover?(raw.to_i)
+      raise InvalidPageSizeError, "#{name} must be an integer between 1 and #{max}#{per_page_max_reason}; got #{raw.inspect}. " \
         "The default is #{DEFAULT}."
     end
 
     raw.to_i
+  end
+
+  # The ceiling of this request, MAX unless the request asks for heavier rows
+  # (SparseFieldsets lowers it for the embedded collections).
+  def per_page_max
+    MAX
+  end
+
+  # Why the ceiling is below MAX, for the error message (" with fields=...").
+  def per_page_max_reason
+    nil
   end
 end
