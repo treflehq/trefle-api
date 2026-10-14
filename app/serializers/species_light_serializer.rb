@@ -6,7 +6,7 @@ class SpeciesLightSerializer < BaseSerializer
              :year, :bibliography, :author, :status,
              :rank, :family_common_name, :family,
              :genus_id, :genus,
-             :links, :synonyms_count, :image_url,
+             :links, :synonyms_count, :image_url, :main_image,
              :completion_ratio, :complete_data
 
   def common_name
@@ -19,6 +19,10 @@ class SpeciesLightSerializer < BaseSerializer
 
   def image_url
     object.main_image_url
+  end
+
+  def main_image
+    serialize_main_image(object.main_image_url, species_id: object.id)
   end
 
   # List payloads carry the count of the synonyms attached to this record

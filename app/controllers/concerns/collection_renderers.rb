@@ -1,6 +1,7 @@
 module CollectionRenderers
   extend ActiveSupport::Concern
   include SerializationVariant
+  include DatasetVersionMeta
 
   def filtered_params
     params.to_unsafe_h.without(
@@ -59,7 +60,7 @@ module CollectionRenderers
       total: @pagy.count || collection.count,
       page: @pagy.page,
       per_page: @pagy.items
-    }.merge(meta)
+    }.merge(meta).merge(dataset_version_meta)
 
     render json: Panko::Response.new({
       data: cache_or_serialize(collection, serializer, serializer_options: serializer_options),
@@ -133,7 +134,12 @@ module CollectionRenderers
   def render_serialized_resource(resource, serializer, serializer_options: {}, links: nil, meta: {}, status: :ok)
     expires_in serializer_options[:delay] || 1.week
 
-    end_key = serialization_cache_key(serializer, resource)
+    # The cached payload embeds meta.dataset_version, so the version is part
+    # of the key (and of the ETag): a data run also retires every detail
+    # payload built before it, including those whose embedded records moved
+    # without touching the record's own updated_at.
+    end_key = serialization_cache_key(serializer, resource, scope: DatasetVersion.current_version)
+    meta = (meta || {}).merge(dataset_version_meta)
 
     if stale?(etag: end_key, template: false, last_modified: http_last_modified(resource)) # rubocop:todo Style/GuardClause
       serialized_resource = Rails.cache.fetch(end_key, expires_in: SERIALIZATION_CACHE_TTL) do

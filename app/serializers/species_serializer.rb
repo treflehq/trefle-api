@@ -148,7 +148,7 @@ class SpeciesSerializer < BaseSerializer
              :observations, :images, :common_names,
              :distributions, :distribution,
              :duration,
-             :links, :image_url,
+             :links, :image_url, :main_image,
              :vegetable, :edible, :edible_part,
              :completion_ratio, :complete_data
 
@@ -184,6 +184,10 @@ class SpeciesSerializer < BaseSerializer
 
   def image_url
     object.main_image_url
+  end
+
+  def main_image
+    serialize_main_image(object.main_image_url, species_id: object.id)
   end
 
   def genus

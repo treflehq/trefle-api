@@ -25,6 +25,7 @@ module Schemas
           genus_id: { type: :integer, description: 'The id of the species genus' }, # 101131,
           genus: { type: :string, description: 'The scientific name of the species genus' },
           image_url: { type: :string, nullable: true, description: 'A main image url of the species' },
+          main_image: main_image_schema,
           completion_ratio: { type: :integer, nullable: true, description: 'The percentage (0-100) of trait fields filled for this species. Useful for finding species that would benefit from a contribution.' }, # 62,
           complete_data: { type: :boolean, nullable: true, description: 'Whether this species is considered to have complete data (currently, a completion_ratio above 50%)' }, # true,
           links: Helpers.object_of({
@@ -36,12 +37,39 @@ module Schemas
         }
       end
 
-      def self.image_schema(extras:)
-        Helpers.array_of({
+      def self.image_properties
+        {
           id: { type: :integer, description: 'An unique identifier' }, # 101131,
-          image_url: { type: :string, description: 'The url of the image' }, # "(Douglas ex D.Don) Lindl.",
-          copyright: { type: :string, nullable: true, description: 'A copyright (if any) for the image. Don\'t forget to properly credit the author if you\'re using them' } # "(Douglas ex D.Don) Lindl.",
-        }, extras: extras)
+          image_url: { type: :string, description: 'The url of the image (the original, full size)' },
+          thumbnail_url: {
+            type: :string, nullable: true,
+            description: 'A small version of the image, only where its host serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+          },
+          copyright: { type: :string, nullable: true, description: 'The copyright line of the image, as its source gave it. Don\'t forget to properly credit the author if you\'re using them' },
+          licence: {
+            type: :string, nullable: true,
+            description: 'The licence of the image, read from its copyright: a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version ' \
+                         'when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved` (no reuse without the rights holder\'s permission). ' \
+                         'Null when the copyright states no licence Trefle can read.'
+          },
+          licence_url: { type: :string, nullable: true, description: 'A link to the licence text, when there is one' },
+          author: { type: :string, nullable: true, description: 'The author of the image to credit, when the source names one' },
+          commercial_use_allowed: {
+            type: :boolean, nullable: true,
+            description: 'Whether the licence allows commercial use (false for NC licences and all rights reserved). Null when the licence is unknown.'
+          }
+        }
+      end
+
+      def self.image_schema(extras:)
+        Helpers.array_of(image_properties, extras: extras)
+      end
+
+      def self.main_image_schema
+        Helpers.object_of(image_properties, extras: {
+          nullable: true,
+          description: 'The image behind `image_url`, with its licence, author and thumbnail. Null when there is no main image.'
+        })
       end
 
       def self.images_schema

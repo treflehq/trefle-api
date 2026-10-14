@@ -21,7 +21,9 @@ module Schemas
           main_species_id: { type: :integer, nullable: true }, # 101131,
           vegetable: { type: :boolean, nullable: true }, # false,
           # vegetable_category: { type: :string, nullable: true }, # null,
-          observations: { type: :string, nullable: true } # "SW. Canada to N. California",
+          observations: { type: :string, nullable: true }, # "SW. Canada to N. California",
+          image_url: { type: :string, nullable: true, description: 'A main image url of the plant' },
+          main_image: Schemas::V1::Species.main_image_schema
         }
       end
 
