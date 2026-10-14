@@ -23,7 +23,7 @@ describe 'Species API' do
       operationId 'listSpecies'
       security [{ token: [] }, { bearerAuth: [] }]
 
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -42,7 +42,7 @@ describe 'Species API' do
       end
 
       response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
-                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+                      "inverted or non-numeric range, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:filter) { { not_a_field: 'x' } }
@@ -61,6 +61,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'Get a species'
       operationId 'getSpecies'
+      parameters :lang
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested species'
 
       security [{ token: [] }, { bearerAuth: [] }]
@@ -109,7 +110,7 @@ describe 'Species API' do
       produces 'application/json'
       description 'Search for a species with the given scientific name, common name, synonym name etc.'
       operationId 'searchSpecies'
-      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species, :lang
 
       security [{ token: [] }, { bearerAuth: [] }]
 

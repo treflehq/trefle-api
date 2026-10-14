@@ -21,7 +21,14 @@ RSpec.describe 'Serialization cache', type: :request do
   end
 
   describe 'the key' do
-    let(:controller) { Api::V1::SpeciesController.new }
+    # The key reads the request parameters that shape the payload.
+    let(:query) { {} }
+    let(:controller) do
+      Api::V1::SpeciesController.new.tap do |controller|
+        controller.request = ActionDispatch::TestRequest.create
+        controller.params = query
+      end
+    end
 
     it 'carries the application version and the image revision' do
       stub_const('TrefleAdmin::Application::VERSION', '9.8.7')
@@ -39,6 +46,16 @@ RSpec.describe 'Serialization cache', type: :request do
       stub_const('TrefleAdmin::Application::VERSION', '99.0.0')
 
       expect(controller.serialization_cache_key(SpeciesLightSerializer, species, scope: 'collection')).not_to eq(before_release)
+    end
+
+    it 'carries the variant of the payload the request parameters shape, none by default' do
+      default_key = controller.serialization_cache_key(SpeciesSerializer, species)
+      allow(controller).to receive(:serialization_variant_parts).and_return({ a: 'x', b: nil, c: 'y' })
+
+      key = controller.serialization_cache_key(SpeciesSerializer, species)
+
+      expect(key).to include('/SpeciesSerializer/a=x&c=y/')
+      expect(default_key).not_to include('=')
     end
   end
 

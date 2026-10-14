@@ -1641,6 +1641,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -1709,7 +1710,7 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+            value, unknown lang, or page beyond 2500
           content:
             application/json:
               schema:
@@ -1750,10 +1751,8 @@ paths:
       - Genus
       description: Get one species of the requested genus
       operationId: getSpeciesGenus
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: genus_id
         required: true
         in: path
@@ -1766,6 +1765,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -1853,6 +1855,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -1921,8 +1924,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -1958,6 +1961,7 @@ paths:
       description: Get a plant
       operationId: getPlant
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: id
         required: true
         in: path
@@ -2045,6 +2049,7 @@ paths:
       - "$ref": "#/components/parameters/filter_not_species"
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/lang"
       security:
       - token: []
       - bearerAuth: []
@@ -2256,6 +2261,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2324,8 +2330,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2382,6 +2388,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2450,8 +2457,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2508,6 +2515,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2576,8 +2584,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2618,10 +2626,8 @@ paths:
       - Plants
       description: Get one species attached to the requested plant
       operationId: getSpeciesPlant
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: plant_id
         required: true
         in: path
@@ -2634,6 +2640,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -2709,10 +2718,8 @@ paths:
       - Plants
       description: Get one plant of the requested genus
       operationId: getPlantGenus
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: genus_id
         required: true
         in: path
@@ -2725,6 +2732,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -2810,6 +2820,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2878,8 +2889,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2915,6 +2926,7 @@ paths:
       description: Get a species
       operationId: getSpecies
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: id
         required: true
         in: path
@@ -3008,6 +3020,7 @@ paths:
       - "$ref": "#/components/parameters/filter_not_species"
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
+      - "$ref": "#/components/parameters/lang"
       security:
       - token: []
       - bearerAuth: []
@@ -3749,6 +3762,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -3817,7 +3831,7 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+            value, unknown lang, or page beyond 2500
           content:
             application/json:
               schema:
@@ -3858,10 +3872,8 @@ paths:
       - Distributions
       description: Get one species present in the requested zone
       operationId: getSpeciesZone
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: zone_id
         required: true
         in: path
@@ -3874,6 +3886,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -3949,10 +3964,8 @@ paths:
       - Distributions
       description: Get one plant present in the requested zone
       operationId: getPlantZone
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: zone_id
         required: true
         in: path
@@ -3965,6 +3978,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -4676,6 +4692,26 @@ components:
       schema:
         type: string
       example: Europe
+    lang:
+      name: lang
+      in: query
+      required: false
+      description: 'An [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes)
+        language code (`fr`, `de`, `es`...). `common_name` is then the name of the
+        species in that language: among its names in the language, the one the most
+        sources agree on (the first recorded on a tie). A species without a name in
+        the language keeps its English name. `common_name_lang` tells which language
+        the name is in (`null` when the species has no common name at all). `filter[common_name]`
+        and `filter_not[common_name]` then match the names of that language, ignoring
+        case and accents (`filter[common_name]=tomate&lang=fr`); `filter[common_name]=null`
+        keeps the species without a name in it, `filter_not[common_name]=null` those
+        with one. `order[common_name]` still sorts on the English name. Without `lang`,
+        `common_name` is the English name. A code no common name is recorded in answers
+        400 with the accepted ones.'
+      schema:
+        type: string
+        pattern: "^[a-zA-Z]{2}$"
+      example: fr
     filter_species:
       name: filter
       in: query
@@ -6001,6 +6037,13 @@ components:
         common_name:
           type: string
           nullable: true
+          description: The common name of the main species, in english, or in the
+            language of the `lang` parameter.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in (see the species `common_name_lang`).'
         slug:
           type: string
         scientific_name:
@@ -6110,6 +6153,13 @@ components:
           type: string
           nullable: true
           description: The usual common name, in english, of the species (if any).
+            With the `lang` parameter, its name in that language when it has one.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in, `en` when the species has no name in the
+            requested language, `null` when it has no common name at all.'
         slug:
           type: string
           description: An unique human-readable identifier (if you can, prefer to
@@ -7404,6 +7454,13 @@ components:
           type: string
           nullable: true
           description: The usual common name, in english, of the species (if any).
+            With the `lang` parameter, its name in that language when it has one.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in, `en` when the species has no name in the
+            requested language, `null` when it has no common name at all.'
         slug:
           type: string
           description: An unique human-readable identifier (if you can, prefer to

@@ -1,5 +1,6 @@
 module CollectionRenderers
   extend ActiveSupport::Concern
+  include SerializationVariant
   include DatasetVersionMeta
 
   def filtered_params
@@ -96,12 +97,15 @@ module CollectionRenderers
   SERIALIZATION_CACHE_TTL = 1.day
 
   # The one key builder for serialized payloads: the cache entries of the
-  # collection rows and of the detail, and the detail's ETag.
+  # collection rows and of the detail, and the detail's ETag. The variant
+  # (SerializationVariant) keeps apart the payloads a query parameter
+  # shapes, so `?lang=fr` never serves, nor answers 304 to, the default one.
   def serialization_cache_key(serializer, resource, scope: nil)
     [
       scope,
       CollectionRenderers.release_cache_namespace,
       serializer.name,
+      serialization_variant,
       "#{resource.cache_key}-#{resource.cache_version}"
     ].compact.join('/')
   end
@@ -122,7 +126,7 @@ module CollectionRenderers
     collection.map do |resource|
       end_key = serialization_cache_key(serializer, resource, scope: 'collection')
       Rails.cache.fetch(end_key, expires_in: SERIALIZATION_CACHE_TTL) do
-        serializer.new(serializer_options).serialize(resource)
+        serializer.new(serializer_options_with_context(serializer_options)).serialize(resource)
       end
     end
   end
@@ -140,7 +144,7 @@ module CollectionRenderers
     if stale?(etag: end_key, template: false, last_modified: http_last_modified(resource)) # rubocop:todo Style/GuardClause
       serialized_resource = Rails.cache.fetch(end_key, expires_in: SERIALIZATION_CACHE_TTL) do
         Panko::Response.new({
-          data: serializer.new(serializer_options).serialize(resource),
+          data: serializer.new(serializer_options_with_context(serializer_options)).serialize(resource),
           links: links,
           meta: meta
         }.compact)

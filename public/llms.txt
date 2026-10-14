@@ -65,10 +65,16 @@ such as `fr` and `fra`: merge them).
 ## Recipe: native plants of a country, with their French names
 
     GET /distributions?q=France                       find the zone; its `slug` is "fra"
-    GET /distributions/fra/plants?filter[establishment]=native
+    GET /distributions/fra/plants?filter[establishment]=native&lang=fr
                                                       plants native to that zone (also introduced,
-                                                      doubtful, absent, extinct); paginate
-    GET /species/{slug}                               for each row: common_names.fr (and .fra)
+                                                      doubtful, absent, extinct), with their French
+                                                      `common_name`; paginate
+
+`lang` (an ISO 639-1 code) works on every species and plants list, search and
+detail: `common_name` is the name in that language, or the English one when
+there is none, and `common_name_lang` says which. With `lang`,
+`filter[common_name]` matches the names of that language, ignoring case and
+accents (`/species?lang=fr&filter[common_name]=tomate`).
 
 Zone names are in English (`?q=Brazil`, not `Brésil`). /distributions/{id}
 also takes the zone name when it is unambiguous (/distributions/France/plants).
