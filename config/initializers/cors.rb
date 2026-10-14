@@ -24,6 +24,9 @@ read_methods = %w[GET HEAD OPTIONS].freeze
 # Retry-After rides on a 429 (config/initializers/rack_attack.rb); without it
 # in the list a browser client cannot read how long to wait.
 rate_limit_headers = %w[RateLimit-Limit RateLimit-Remaining RateLimit-Reset Retry-After].freeze
+# The data version every API response carries (DatasetVersion), readable by
+# a browser client citing what it displayed.
+exposed_headers = (rate_limit_headers + %w[X-Trefle-Data-Version]).freeze
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
@@ -35,12 +38,12 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource '/api/auth/claim',
              headers: :any,
              methods: %i[post options],
-             expose: rate_limit_headers
+             expose: exposed_headers
 
     resource '/api/*',
              headers: :any,
              methods: %i[get head options],
              if: ->(env) { read_methods.include?(env['REQUEST_METHOD']) },
-             expose: rate_limit_headers
+             expose: exposed_headers
   end
 end

@@ -59,6 +59,48 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error"
+  "/changelog":
+    get:
+      summary: Data versions
+      tags:
+      - Root
+      description: 'The history of the data versions, newest first (the latest 100):
+        one entry per data operation (import, migration, purge...) that may have written
+        to the data, with the row counts it moved. The current version is also in
+        every response''s `meta.dataset_version` and `X-Trefle-Data-Version` header.
+        No token needed.'
+      operationId: listDataVersions
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/changelog"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
   "/me":
     get:
       summary: Retrieve the token owner
@@ -164,10 +206,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -229,6 +282,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -322,10 +387,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -387,6 +463,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -480,10 +568,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -545,6 +644,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -638,10 +749,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -703,6 +825,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -796,10 +930,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -861,6 +1006,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -956,10 +1113,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1028,6 +1196,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1129,10 +1309,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1213,6 +1404,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1368,6 +1571,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1471,10 +1686,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1561,6 +1787,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1660,10 +1898,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1733,6 +1982,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1832,10 +2093,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1903,6 +2175,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2017,10 +2301,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2132,10 +2427,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2247,10 +2553,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2338,6 +2655,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2417,6 +2746,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2514,10 +2855,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2593,6 +2945,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2692,10 +3056,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2763,6 +3138,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2949,6 +3336,16 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                       species:
                         type: object
                         properties:
@@ -2963,6 +3360,7 @@ paths:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3071,10 +3469,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3184,10 +3593,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3259,6 +3679,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '404':
           description: Not found
           content:
@@ -3362,10 +3794,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3452,6 +3895,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3531,6 +3986,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3729,10 +4196,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3801,6 +4279,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3880,6 +4370,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '422':
           description: Invalid parameters
           content:
@@ -3986,10 +4488,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -7255,10 +7768,133 @@ components:
           deprecated: true
           description: Deprecated misspelling of `detailed_plants_count`, same value.
             Kept for existing clients; read `detailed_plants_count` instead.
+        dataset_version:
+          type: string
+          nullable: true
+          description: 'The version of the data this response was served from: the
+            date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix when
+            several ran that day (also in the `X-Trefle-Data-Version` header). Cite
+            it with your access date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+            Null on a database with no recorded data operation.'
+          example: 2026.10.13
+        dataset:
+          type: object
+          properties:
+            version:
+              type: string
+              nullable: true
+              description: 'The version of the data this response was served from:
+                the date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix
+                when several ran that day (also in the `X-Trefle-Data-Version` header).
+                Cite it with your access date; see https://trefle.io/citation and
+                `GET /api/v1/changelog`. Null on a database with no recorded data
+                operation.'
+              example: 2026.10.13
+            released_at:
+              type: string
+              format: date-time
+              nullable: true
+              description: When the data operation that produced this version finished
+            licence:
+              type: string
+              description: SPDX identifier of the licence of the compiled data
+              example: CC-BY-4.0
+            licence_url:
+              type: string
+              format: uri
+            citation_url:
+              type: string
+              format: uri
+              description: 'How to cite Trefle: formats, data version, access date
+                and the upstream sources to co-cite'
+            changelog_url:
+              type: string
+              format: uri
+              description: The history of the data versions (`GET /api/v1/changelog`)
+          description: 'What to cite: the data version and where the citation and
+            the version history live'
+          required:
+          - version
+          - released_at
+          - licence
+          - licence_url
+          - citation_url
+          - changelog_url
       required:
       - plants_count
       - detailed_plants_count
       - detailled_plants_count
+      - dataset_version
+      - dataset
+    changelog:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+                description: The data version this operation produced
+                example: 2026.10.13
+              kind:
+                type: string
+                description: What the operation was (import, migration, purge...)
+                example: import
+              status:
+                type: string
+                enum:
+                - completed
+                - failed
+                description: A failed operation may still have written part of its
+                  changes, so it produces a version too
+              started_at:
+                type: string
+                format: date-time
+              finished_at:
+                type: string
+                format: date-time
+              changes:
+                type: object
+                additionalProperties:
+                  type: integer
+                description: Observed change in the row counts the operation moved
+                  (species, synonyms, species_facts, active_facts, common_names, species_distributions...),
+                  measured before and after it ran. Rows updated in place do not show
+                  here.
+                example:
+                  species_facts: 267412
+                  active_facts: 84310
+            required:
+            - version
+            - kind
+            - status
+            - started_at
+            - finished_at
+            - changes
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Number of entries returned (the latest 100 at most)
+            dataset_version:
+              type: string
+              nullable: true
+              description: 'The version of the data this response was served from:
+                the date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix
+                when several ran that day (also in the `X-Trefle-Data-Version` header).
+                Cite it with your access date; see https://trefle.io/citation and
+                `GET /api/v1/changelog`. Null on a database with no recorded data
+                operation.'
+              example: 2026.10.13
+          required:
+          - total
+          - dataset_version
+      required:
+      - data
+      - meta
     zone:
       type: object
       properties:

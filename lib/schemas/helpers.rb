@@ -38,6 +38,18 @@ module Schemas
       }.compact.merge(extras)
     end
 
+    # meta.dataset_version, on every API payload (CollectionRenderers,
+    # DatasetVersion).
+    DATASET_VERSION = {
+      type: :string,
+      nullable: true,
+      description: 'The version of the data this response was served from: the date of the last data operation, ' \
+                   '`YYYY.MM.DD`, with a `.N` suffix when several ran that day (also in the `X-Trefle-Data-Version` header). ' \
+                   'Cite it with your access date; see https://trefle.io/citation and `GET /api/v1/changelog`. ' \
+                   'Null on a database with no recorded data operation.',
+      example: '2026.10.13'
+    }.freeze
+
     # The `meta` object every paginated collection renders (see
     # CollectionRenderers#render_serialized_collection). `extra` adds the
     # endpoint-specific keys.
@@ -45,8 +57,9 @@ module Schemas
       object_of({
         total: { type: :integer, description: 'The number of items in the whole collection' },
         page: { type: :integer, description: 'The current page' },
-        per_page: { type: :integer, description: "The number of items per page (`per_page` parameter, 1 to #{::PerPage::MAX}, default #{::PerPage::DEFAULT})" }
-      }.merge(extra), extras: { required: %w[total page per_page] })
+        per_page: { type: :integer, description: "The number of items per page (`per_page` parameter, 1 to #{::PerPage::MAX}, default #{::PerPage::DEFAULT})" },
+        dataset_version: DATASET_VERSION
+      }.merge(extra), extras: { required: %w[total page per_page dataset_version] })
     end
 
     def self.pagination_links

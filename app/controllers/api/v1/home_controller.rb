@@ -18,11 +18,32 @@ class Api::V1::HomeController < ApplicationController
 
     @synonyms_count = Rails.cache.fetch("home/synonyms_count-#{@plants_count}") { Synonym.count }
 
+    dataset = DatasetVersion.current
+    response.headers['X-Trefle-Data-Version'] = dataset.version if dataset
+
     render json: {
       plants_count: @plants_count,
       detailed_plants_count: @detailed_plants_count,
       # Deprecated misspelling, kept so existing clients keep reading it.
-      detailled_plants_count: @detailed_plants_count
+      detailled_plants_count: @detailed_plants_count,
+      dataset_version: dataset&.version,
+      dataset: dataset_block(dataset)
+    }
+  end
+
+  private
+
+  # What a researcher needs to cite the data they are reading: the version,
+  # when it was released, the licence, and where the citation and the
+  # history of versions live.
+  def dataset_block(dataset)
+    {
+      version: dataset&.version,
+      released_at: dataset&.released_at,
+      licence: CitationHelper::LICENCE[:name],
+      licence_url: CitationHelper::LICENCE[:url],
+      citation_url: citation_url,
+      changelog_url: api_v1_changelog_url
     }
   end
 

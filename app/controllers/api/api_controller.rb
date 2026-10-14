@@ -30,6 +30,7 @@ module Api
     # overrides sit in front of Pagy's.
     include PerPage
 
+    prepend_before_action :set_dataset_version_header # first: a 401 states it too
     before_action :authorize_request!, except: [:cors_preflight_check]
     before_action :set_sentry_context
     before_action :log_request
