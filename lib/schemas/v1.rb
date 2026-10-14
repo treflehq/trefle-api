@@ -20,6 +20,7 @@ module Schemas
       species_fact: SpeciesFact.schema,
       user_profile: UserProfile.schema,
       api_status: ApiStatus.schema,
+      changelog: Changelog.schema,
       zone: Zone.schema,
       error: Error.schema,
       request_body_correction: RecordCorrection.request_body
