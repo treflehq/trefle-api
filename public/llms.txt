@@ -28,12 +28,15 @@ and copy the token from https://trefle.io/profile. Send it either way:
     ?token=YOUR_TOKEN                        (query parameter)
 
 A missing or invalid token answers 401. Never ship the account token in a
-browser or mobile app: from your backend, claim a JWT bound to your origin
-with POST https://trefle.io/api/auth/claim (JSON body
+browser or mobile app. For a web page: from your backend, claim a JWT bound
+to your origin with POST https://trefle.io/api/auth/claim (JSON body
 {"origin": "https://your.site", "ip": "optional client IP"}, authenticated
-with the account token). It answers {"token": "<jwt>", "expiration": "..."};
-the page then sends the JWT as its Bearer token. Read endpoints answer
-cross-origin requests.
+with the account token). It answers {"token": "<jwt>", "expires_at":
+"<ISO 8601 UTC>"}; the page then sends the JWT as its Bearer token. Read
+endpoints answer cross-origin requests. The JWT lasts 24 hours and counts
+against the account's quota. The origin is only checked when the request
+carries an Origin header, so a JWT protects nothing in a mobile app: have the
+app call your backend, which calls Trefle with the account token.
 
 ## Main endpoints
 
