@@ -15,7 +15,15 @@ module JsonApiHelper
     }
   end
 
+  # Every detail payload's meta also carries dataset_version
+  # (CollectionRenderers#render_serialized_resource).
   def self.resource_schema(schema_name, links: nil, meta: nil)
+    if meta && meta[:properties]
+      meta = meta.merge(
+        properties: meta[:properties].merge(dataset_version: Schemas::Helpers::DATASET_VERSION),
+        required: [*meta[:required], 'dataset_version']
+      )
+    end
     {
       type: :object,
       properties: {

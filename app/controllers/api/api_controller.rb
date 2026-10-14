@@ -30,6 +30,7 @@ module Api
     # overrides sit in front of Pagy's.
     include PerPage
 
+    prepend_before_action :set_dataset_version_header # first: a 401 states it too
     before_action :authorize_request!, except: [:cors_preflight_check]
     before_action :set_sentry_context
     before_action :log_request
@@ -254,9 +255,12 @@ module Api
 
     # range_fields only shapes the message of an unknown key: `filter[light]=9`
     # on a field that is only rangeable points the client to `range[light]`.
-    def apply_filters(collection, filterable_fields, range_fields: [])
+    #
+    # skip: valid keys the caller filters on itself (`common_name` under
+    # `lang`, see CommonNameLocalization).
+    def apply_filters(collection, filterable_fields, range_fields: [], skip: [])
       if params[:filter].is_a?(ActionController::Parameters)
-        collection.filter_with(permit_known_query_keys(:filter, filterable_fields, range_fields: range_fields))
+        collection.filter_with(permit_known_query_keys(:filter, filterable_fields, range_fields: range_fields).except(*skip))
       else
         collection
       end
@@ -318,9 +322,9 @@ module Api
       number.is_a?(BigDecimal) ? number.to_f : number
     end
 
-    def apply_filters_not(collection, filterable_fields)
+    def apply_filters_not(collection, filterable_fields, skip: [])
       if params[:filter_not].is_a?(ActionController::Parameters)
-        collection.filter_not_with(permit_known_query_keys(:filter_not, filterable_fields))
+        collection.filter_not_with(permit_known_query_keys(:filter_not, filterable_fields).except(*skip))
       else
         collection
       end

@@ -4,7 +4,12 @@ module Schemas
       def self.base
         {
           id: { type: :integer },
-          common_name: { type: :string, nullable: true }, # "grand fir",
+          # "grand fir"
+          common_name: { type: :string, nullable: true, description: 'The common name of the main species, in english, or in the language of the `lang` parameter.' },
+          common_name_lang: {
+            type: :string, nullable: true,
+            description: 'Only with the `lang` parameter: the ISO 639-1 code of the language `common_name` is in (see the species `common_name_lang`).'
+          },
           slug: { type: :string }, # "abies-grandis",
           scientific_name: { type: :string }, # "Abies grandis",
           year: { type: :integer, nullable: true }, # 1833,
@@ -16,7 +21,9 @@ module Schemas
           main_species_id: { type: :integer, nullable: true }, # 101131,
           vegetable: { type: :boolean, nullable: true }, # false,
           # vegetable_category: { type: :string, nullable: true }, # null,
-          observations: { type: :string, nullable: true } # "SW. Canada to N. California",
+          observations: { type: :string, nullable: true }, # "SW. Canada to N. California",
+          image_url: { type: :string, nullable: true, description: 'A main image url of the plant' },
+          main_image: Schemas::V1::Species.main_image_schema
         }
       end
 

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get '/', to: 'home#index'
       get '/me', to: 'users#me'
+      # Public history of the dataset versions (DatasetVersion), no token needed
+      get '/changelog', to: 'changelog#index'
       # The OpenAPI description of this API, no token needed (Openapi::Document)
       get '/openapi.:format', to: 'openapi#show', constraints: { format: /json|yaml/ }
 

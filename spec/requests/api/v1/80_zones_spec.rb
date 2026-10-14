@@ -126,7 +126,7 @@ describe 'Distributions API' do
       parameters :fields_species_list
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or slug'
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -148,7 +148,7 @@ describe 'Distributions API' do
         run_test!
       end
 
-      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+      response '400', "Unknown filter, filter_not, order or range key, invalid filter value, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -177,6 +177,7 @@ describe 'Distributions API' do
       produces 'application/json'
       description 'Get one species present in the requested zone'
       operationId 'getSpeciesZone'
+      parameters :lang
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_species
 
@@ -233,6 +234,7 @@ describe 'Distributions API' do
       produces 'application/json'
       description 'Get one plant present in the requested zone'
       operationId 'getPlantZone'
+      parameters :lang
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_plant
 

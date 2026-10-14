@@ -25,7 +25,7 @@ describe 'Plants API' do
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_species_list
 
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -44,7 +44,7 @@ describe 'Plants API' do
       end
 
       response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
-                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+                      "inverted or non-numeric range, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:filter) { { not_a_field: 'x' } }
@@ -63,6 +63,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Get a plant'
       operationId 'getPlant'
+      parameters :lang
       parameter name: :id, required: true, in: :path, type: :string, description: 'The id or the slug of the requested plant'
 
       security [{ token: [] }, { bearerAuth: [] }]
@@ -109,7 +110,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Search for a plant with the given scientific name, common name, synonym name etc.'
       operationId 'searchPlants'
-      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species
+      parameters :q, :page, :per_page, :filter_species, :filter_not_species, :order_species, :range_species, :lang
 
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_species_list
@@ -220,7 +221,7 @@ describe 'Plants API' do
       parameters :fields_species_list
 
       parameter name: :zone_id, required: true, in: :path, type: :string, description: 'The zone id or twdg code'
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -241,7 +242,7 @@ describe 'Plants API' do
       end
 
       response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
-                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+                      "inverted or non-numeric range, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:zone_id) { Zone.order(species_count: :desc).first.slug }
@@ -274,7 +275,7 @@ describe 'Plants API' do
       parameters :fields_species_list
 
       parameter name: :genus_id, required: true, in: :path, type: :string, description: 'The genus id or slug'
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -297,7 +298,7 @@ describe 'Plants API' do
       end
 
       response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
-                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+                      "inverted or non-numeric range, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:genus_id) { Plant.order(completion_ratio: :desc).first.genus.slug }
@@ -330,7 +331,7 @@ describe 'Plants API' do
       parameters :fields_species_list
 
       parameter name: :plant_id, required: true, in: :path, type: :string, description: 'The plant id or slug'
-      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page
+      parameters :filter_species, :filter_not_species, :order_species, :range_species, :page, :per_page, :lang
 
       response '200', 'Success' do
         schema JsonApiHelper.array_schema(
@@ -353,7 +354,7 @@ describe 'Plants API' do
       end
 
       response '400', 'Unknown filter, filter_not, order or range key, filter value outside the accepted values, ' \
-                      "inverted or non-numeric range, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
+                      "inverted or non-numeric range, unknown lang, or page beyond #{WithCachedCount::MAX_PAGE_DEPTH}" do
         schema Schemas::Helpers.error_schema
         let(:token) { user.token }
         let(:plant_id) { Species.where(complete_data: true).first.plant.slug }
@@ -382,6 +383,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Get one species attached to the requested plant'
       operationId 'getSpeciesPlant'
+      parameters :lang
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_species
 
@@ -437,6 +439,7 @@ describe 'Plants API' do
       produces 'application/json'
       description 'Get one plant of the requested genus'
       operationId 'getPlantGenus'
+      parameters :lang
       security [{ token: [] }, { bearerAuth: [] }]
       parameters :fields_plant
 

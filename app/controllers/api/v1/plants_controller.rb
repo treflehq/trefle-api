@@ -2,6 +2,7 @@ class Api::V1::PlantsController < Api::ApiController
   include SparseFieldsets
 
   include WithCachedCount
+  include CommonNameLocalization
 
   # FILTERABLE_FIELDS = %w[
   #   author
@@ -108,7 +109,7 @@ class Api::V1::PlantsController < Api::ApiController
       model: ::Species
     )
     options = {
-      where: { main_species_id: nil }.merge(search_params[:where]),
+      where: { main_species_id: nil }.merge(localize_common_name_search_conditions(search_params[:where])),
       includes: %i[genus plant],
       boost_by: [:gbif_score],
       fields: Species::SEARCH_FIELDS,
@@ -145,14 +146,23 @@ class Api::V1::PlantsController < Api::ApiController
     @collection = @collection.preload(:plant, :genus, *fields_preloads)
 
     @collection = apply_filters(@collection, Api::V1::SpeciesController::FILTERABLE_FIELDS,
-                                range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS)
-    @collection = apply_filters_not(@collection, Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS)
+                                range_fields: Api::V1::SpeciesController::RANGEABLE_FIELDS, skip: common_name_filter_skip)
+    @collection = apply_filters_not(@collection, Api::V1::SpeciesController::FILTERABLE_NOT_FIELDS, skip: common_name_filter_skip)
+    @collection = apply_localized_common_name_filters(@collection)
     @collection = apply_sort(@collection, Api::V1::SpeciesController::ORDERABLE_FIELDS, default_sort: { gbif_score: :desc })
     @collection = apply_range(@collection, Api::V1::SpeciesController::RANGEABLE_FIELDS)
     # @collection = apply_search(collection)
 
     @pagy, @collection = pagy(@collection)
     @collection
+  end
+
+  protected
+
+  # The plant detail shows all the species of the plant (main species,
+  # subspecies, varieties...): their names under `lang` in one query.
+  def localized_species_ids
+    action_name == 'show' ? @resource.plant.species.ids : super
   end
 
 end

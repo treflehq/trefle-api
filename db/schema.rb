@@ -10,11 +10,104 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_14_090000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
   enable_extension "unaccent"
+
+  create_table "audit_corrections", id: false, force: :cascade do |t|
+    t.bigint "species_id"
+    t.text "warning_type"
+    t.jsonb "correction"
+    t.jsonb "change_notes"
+    t.text "notes"
+    t.text "source_reference"
+    t.text "change_type", default: "update"
+  end
+
+  create_table "audit_dist", id: false, force: :cascade do |t|
+    t.bigint "species_id"
+    t.text "plant_name_id"
+    t.bigint "ours"
+    t.bigint "wcvp"
+    t.bigint "ours_not_wcvp"
+    t.bigint "wcvp_not_ours"
+  end
+
+  create_table "audit_gbif_families", id: false, force: :cascade do |t|
+    t.text "family"
+    t.text "match_type"
+    t.text "status"
+    t.text "gbif_family"
+    t.text "gbif_order"
+    t.text "gbif_class"
+    t.text "gbif_phylum"
+    t.text "usage_key"
+    t.text "confidence"
+  end
+
+  create_table "audit_match", id: false, force: :cascade do |t|
+    t.bigint "species_id"
+    t.string "scientific_name", limit: 255
+    t.string "author", limit: 255
+    t.integer "rank"
+    t.integer "status"
+    t.integer "genus_id"
+    t.integer "year"
+    t.string "family_name"
+    t.text "plant_name_id"
+    t.text "taxon_status"
+    t.text "taxon_rank"
+    t.text "wfam"
+    t.text "wgen"
+    t.text "taxon_authors"
+    t.text "accepted_plant_name_id"
+    t.text "first_published"
+    t.text "lifeform_description"
+    t.text "climate_description"
+    t.text "powo_id"
+    t.text "ipni_id"
+    t.bigint "n_matches"
+    t.bigint "rn"
+    t.index ["plant_name_id"], name: "audit_match_plant_name_id_idx"
+    t.index ["species_id"], name: "audit_match_species_id_idx"
+  end
+
+  create_table "audit_powo_id", id: false, force: :cascade do |t|
+    t.bigint "species_id"
+    t.string "scientific_name", limit: 255
+    t.string "author", limit: 255
+    t.string "fid", limit: 255
+    t.text "plant_name_id"
+    t.text "wcvp_name"
+    t.text "taxon_status"
+    t.text "taxon_authors"
+    t.text "accepted_plant_name_id"
+    t.text "powo_id"
+    t.bigint "n"
+  end
+
+  create_table "audit_wfo", id: false, force: :cascade do |t|
+    t.bigint "species_id"
+    t.string "scientific_name", limit: 255
+    t.string "author", limit: 255
+    t.integer "rank"
+    t.integer "status"
+    t.integer "genus_id"
+    t.string "family_name"
+    t.text "taxonid"
+    t.text "taxonomicstatus"
+    t.text "taxonrank"
+    t.text "wfam"
+    t.text "wgen"
+    t.text "wauth"
+    t.text "acceptednameusageid"
+    t.text "majorgroup"
+    t.bigint "n_matches"
+    t.bigint "rn"
+    t.index ["species_id"], name: "audit_wfo_species_id_idx"
+  end
 
   create_table "common_names", force: :cascade do |t|
     t.string "record_type", null: false
@@ -93,6 +186,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["slug"], name: "divisions_slug_index", unique: true
   end
 
+  create_table "dot_cand", id: false, force: :cascade do |t|
+    t.bigint "id"
+    t.string "scientific_name", limit: 255
+    t.text "norm"
+    t.index ["norm"], name: "dot_cand_norm_idx"
+  end
+
+  create_table "dupe_decisions", id: false, force: :cascade do |t|
+    t.text "doomed"
+    t.text "kept"
+  end
+
   create_table "families", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "slug", limit: 255
@@ -146,6 +251,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["family_id"], name: "genuses_family_id_index"
     t.index ["name"], name: "genuses_name_index", unique: true
     t.index ["slug"], name: "genuses_slug_index", unique: true
+  end
+
+  create_table "hyb_cand", id: false, force: :cascade do |t|
+    t.bigint "id"
+    t.string "scientific_name", limit: 255
+    t.integer "rank"
+    t.text "norm"
+    t.index ["norm"], name: "hyb_cand_norm_idx"
   end
 
   create_table "kingdoms", force: :cascade do |t|
@@ -365,6 +478,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["record_type", "record_id"], name: "index_record_corrections_on_record_type_and_record_id"
   end
 
+  create_table "rest_pairs", id: false, force: :cascade do |t|
+    t.text "a"
+    t.text "b"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "name", limit: 255
     t.datetime "started_at", precision: nil
@@ -548,6 +666,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.datetime "created_at", precision: nil
     t.integer "part"
     t.integer "score", default: 0, null: false
+    t.string "licence"
+    t.string "licence_url"
+    t.string "author"
+    t.boolean "commercial_use_allowed"
+    t.string "thumbnail_url"
     t.index ["image_url", "species_id"], name: "species_images_image_url_species_id_index", unique: true
     t.index ["species_id"], name: "index_species_images_on_species_id"
   end
@@ -681,6 +804,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["slug"], name: "subkingdoms_slug_index", unique: true
   end
 
+  create_table "syn_match", id: false, force: :cascade do |t|
+    t.bigint "syn_id"
+    t.string "name"
+    t.bigint "species_id"
+    t.text "plant_name_id"
+    t.text "taxon_status"
+    t.text "accepted_plant_name_id"
+    t.bigint "n"
+    t.index ["accepted_plant_name_id"], name: "syn_match_accepted_plant_name_id_idx"
+    t.index ["syn_id"], name: "syn_match_syn_id_idx"
+  end
+
+  create_table "syn_mis", id: false, force: :cascade do |t|
+    t.bigint "syn_id"
+    t.string "name"
+    t.bigint "species_id"
+    t.string "ours", limit: 255
+    t.text "wcvp_acc"
+    t.text "acc_id"
+    t.bigint "acc_species_id"
+    t.text "our_species_wcvp_status"
+  end
+
   create_table "synonyms", force: :cascade do |t|
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -694,6 +840,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["name"], name: "index_synonyms_on_name"
     t.index ["record_type", "record_id"], name: "index_synonyms_on_record_type_and_record_id"
     t.index ["slug"], name: "index_synonyms_on_slug"
+  end
+
+  create_table "tok_pairs", id: false, force: :cascade do |t|
+    t.text "token"
+    t.bigint "id1"
+    t.bigint "id2"
+    t.string "n1"
+    t.string "n2"
+    t.index ["n1"], name: "tok_pairs_n1_idx"
+    t.index ["n2"], name: "tok_pairs_n2_idx"
+  end
+
+  create_table "tok_pairs_w", id: false, force: :cascade do |t|
+    t.text "token"
+    t.bigint "id1"
+    t.bigint "id2"
+    t.string "n1"
+    t.string "n2"
+    t.text "s1"
+    t.text "s2"
   end
 
   create_table "try_datasets", force: :cascade do |t|
@@ -759,6 +925,130 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_200000) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email"], name: "users_email_index", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "wcvp_dist", id: false, force: :cascade do |t|
+    t.text "plant_locality_id"
+    t.text "plant_name_id"
+    t.text "continent_code_l1"
+    t.text "continent"
+    t.text "region_code_l2"
+    t.text "region"
+    t.text "area_code_l3"
+    t.text "area"
+    t.text "introduced"
+    t.text "extinct"
+    t.text "location_doubtful"
+    t.index ["area_code_l3"], name: "wcvp_dist_area_code_l3_idx"
+    t.index ["plant_name_id"], name: "audit_wcvp_dist_pnid"
+    t.index ["plant_name_id"], name: "wcvp_dist_plant_name_id_idx"
+  end
+
+  create_table "wcvp_missing", id: false, force: :cascade do |t|
+    t.text "plant_name_id"
+    t.text "ipni_id"
+    t.text "taxon_rank"
+    t.text "taxon_status"
+    t.text "family"
+    t.text "genus_hybrid"
+    t.text "genus"
+    t.text "species_hybrid"
+    t.text "species"
+    t.text "infraspecific_rank"
+    t.text "infraspecies"
+    t.text "parenthetical_author"
+    t.text "primary_author"
+    t.text "publication_author"
+    t.text "place_of_publication"
+    t.text "volume_and_page"
+    t.text "first_published"
+    t.text "nomenclatural_remarks"
+    t.text "geographic_area"
+    t.text "lifeform_description"
+    t.text "climate_description"
+    t.text "taxon_name"
+    t.text "taxon_authors"
+    t.text "accepted_plant_name_id"
+    t.text "basionym_plant_name_id"
+    t.text "replaced_synonym_author"
+    t.text "homotypic_synonym"
+    t.text "parent_plant_name_id"
+    t.text "powo_id"
+    t.text "hybrid_formula"
+    t.text "reviewed"
+  end
+
+  create_table "wcvp_names", id: false, force: :cascade do |t|
+    t.text "plant_name_id"
+    t.text "ipni_id"
+    t.text "taxon_rank"
+    t.text "taxon_status"
+    t.text "family"
+    t.text "genus_hybrid"
+    t.text "genus"
+    t.text "species_hybrid"
+    t.text "species"
+    t.text "infraspecific_rank"
+    t.text "infraspecies"
+    t.text "parenthetical_author"
+    t.text "primary_author"
+    t.text "publication_author"
+    t.text "place_of_publication"
+    t.text "volume_and_page"
+    t.text "first_published"
+    t.text "nomenclatural_remarks"
+    t.text "geographic_area"
+    t.text "lifeform_description"
+    t.text "climate_description"
+    t.text "taxon_name"
+    t.text "taxon_authors"
+    t.text "accepted_plant_name_id"
+    t.text "basionym_plant_name_id"
+    t.text "replaced_synonym_author"
+    t.text "homotypic_synonym"
+    t.text "parent_plant_name_id"
+    t.text "powo_id"
+    t.text "hybrid_formula"
+    t.text "reviewed"
+    t.index "lower(taxon_name)", name: "wcvp_lower_name"
+    t.index ["accepted_plant_name_id"], name: "audit_wcvp_acc"
+    t.index ["genus"], name: "audit_wcvp_genus"
+    t.index ["plant_name_id"], name: "audit_wcvp_pnid"
+    t.index ["taxon_name"], name: "audit_wcvp_taxon_name"
+  end
+
+  create_table "wfo", id: false, force: :cascade do |t|
+    t.text "taxonid"
+    t.text "scientificnameid"
+    t.text "localid"
+    t.text "scientificname"
+    t.text "taxonrank"
+    t.text "parentnameusageid"
+    t.text "scientificnameauthorship"
+    t.text "family"
+    t.text "subfamily"
+    t.text "tribe"
+    t.text "subtribe"
+    t.text "genus"
+    t.text "subgenus"
+    t.text "specificepithet"
+    t.text "infraspecificepithet"
+    t.text "verbatimtaxonrank"
+    t.text "nomenclaturalstatus"
+    t.text "namepublishedin"
+    t.text "taxonomicstatus"
+    t.text "acceptednameusageid"
+    t.text "originalnameusageid"
+    t.text "nameaccordingtoid"
+    t.text "created"
+    t.text "modified"
+    t.text "majorgroup"
+    t.text "tplid"
+    t.index ["acceptednameusageid"], name: "wfo_acceptednameusageid_idx"
+    t.index ["family"], name: "wfo_family_idx"
+    t.index ["genus"], name: "wfo_genus_idx"
+    t.index ["scientificname"], name: "wfo_scientificname_idx"
+    t.index ["taxonid"], name: "wfo_taxonid_idx"
   end
 
   create_table "zones", force: :cascade do |t|

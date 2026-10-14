@@ -59,6 +59,48 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error"
+  "/changelog":
+    get:
+      summary: Data versions
+      tags:
+      - Root
+      description: 'The history of the data versions, newest first (the latest 100):
+        one entry per data operation (import, migration, purge...) that may have written
+        to the data, with the row counts it moved. The current version is also in
+        every response''s `meta.dataset_version` and `X-Trefle-Data-Version` header.
+        No token needed.'
+      operationId: listDataVersions
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/changelog"
+        '429':
+          description: 'Too many requests: the rate limit is exceeded'
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: Requests allowed per minute
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Requests left in the current minute
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp at which the counter resets
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds to wait before retrying
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
   "/me":
     get:
       summary: Retrieve the token owner
@@ -164,10 +206,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -229,6 +282,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -322,10 +387,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -387,6 +463,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -480,10 +568,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -545,6 +644,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -638,10 +749,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -703,6 +825,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -796,10 +930,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -861,6 +1006,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -956,10 +1113,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1028,6 +1196,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1129,10 +1309,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1213,6 +1404,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1368,6 +1571,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1427,6 +1642,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -1472,10 +1688,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1484,7 +1711,7 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+            value, unknown lang, or page beyond 2500
           content:
             application/json:
               schema:
@@ -1525,11 +1752,9 @@ paths:
       - Genus
       description: Get one species of the requested genus
       operationId: getSpeciesGenus
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
       - "$ref": "#/components/parameters/fields_species"
+      - "$ref": "#/components/parameters/lang"
       - name: genus_id
         required: true
         in: path
@@ -1542,6 +1767,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -1563,6 +1791,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1618,6 +1858,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -1663,10 +1904,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1675,8 +1927,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -1712,6 +1964,7 @@ paths:
       description: Get a plant
       operationId: getPlant
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: id
         required: true
         in: path
@@ -1737,6 +1990,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1789,6 +2054,7 @@ paths:
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/fields_species_list"
+      - "$ref": "#/components/parameters/lang"
       security:
       - token: []
       - bearerAuth: []
@@ -1837,10 +2103,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1908,6 +2185,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -1978,6 +2267,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2023,10 +2313,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2035,8 +2336,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2094,6 +2395,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2139,10 +2441,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2151,8 +2464,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2210,6 +2523,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2255,10 +2569,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2267,8 +2592,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2309,11 +2634,9 @@ paths:
       - Plants
       description: Get one species attached to the requested plant
       operationId: getSpeciesPlant
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
       - "$ref": "#/components/parameters/fields_species"
+      - "$ref": "#/components/parameters/lang"
       - name: plant_id
         required: true
         in: path
@@ -2326,6 +2649,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -2347,6 +2673,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2389,11 +2727,9 @@ paths:
       - Plants
       description: Get one plant of the requested genus
       operationId: getPlantGenus
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
       - "$ref": "#/components/parameters/fields_plant"
+      - "$ref": "#/components/parameters/lang"
       - name: genus_id
         required: true
         in: path
@@ -2406,6 +2742,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -2427,6 +2766,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2480,6 +2831,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -2525,10 +2877,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2537,8 +2900,8 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, filter value
-            outside the accepted values, inverted or non-numeric range, or page beyond
-            2500
+            outside the accepted values, inverted or non-numeric range, unknown lang,
+            or page beyond 2500
           content:
             application/json:
               schema:
@@ -2574,6 +2937,7 @@ paths:
       description: Get a species
       operationId: getSpecies
       parameters:
+      - "$ref": "#/components/parameters/lang"
       - name: id
         required: true
         in: path
@@ -2605,6 +2969,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2657,6 +3033,7 @@ paths:
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/fields_species_list"
+      - "$ref": "#/components/parameters/lang"
       security:
       - token: []
       - bearerAuth: []
@@ -2705,10 +3082,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2776,6 +3164,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -2962,6 +3362,16 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                       species:
                         type: object
                         properties:
@@ -2976,6 +3386,7 @@ paths:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3084,10 +3495,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3197,10 +3619,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3272,6 +3705,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '404':
           description: Not found
           content:
@@ -3331,6 +3776,7 @@ paths:
       - "$ref": "#/components/parameters/range_species"
       - "$ref": "#/components/parameters/page"
       - "$ref": "#/components/parameters/per_page"
+      - "$ref": "#/components/parameters/lang"
       responses:
         '200':
           description: Success
@@ -3376,10 +3822,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3388,7 +3845,7 @@ paths:
                 "$ref": "#/components/schemas/error"
         '400':
           description: Unknown filter, filter_not, order or range key, invalid filter
-            value, or page beyond 2500
+            value, unknown lang, or page beyond 2500
           content:
             application/json:
               schema:
@@ -3429,11 +3886,9 @@ paths:
       - Distributions
       description: Get one species present in the requested zone
       operationId: getSpeciesZone
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
       - "$ref": "#/components/parameters/fields_species"
+      - "$ref": "#/components/parameters/lang"
       - name: zone_id
         required: true
         in: path
@@ -3446,6 +3901,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -3467,6 +3925,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3509,11 +3979,9 @@ paths:
       - Distributions
       description: Get one plant present in the requested zone
       operationId: getPlantZone
-      security:
-      - token: []
-      - bearerAuth: []
       parameters:
       - "$ref": "#/components/parameters/fields_plant"
+      - "$ref": "#/components/parameters/lang"
       - name: zone_id
         required: true
         in: path
@@ -3526,6 +3994,9 @@ paths:
         description: The id or the slug of the requested record
         schema:
           type: string
+      security:
+      - token: []
+      - bearerAuth: []
       responses:
         '200':
           description: Success
@@ -3547,6 +4018,18 @@ paths:
                         type: integer
                       synonyms_count:
                         type: integer
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3745,10 +4228,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3817,6 +4311,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -3896,6 +4402,18 @@ paths:
                     properties:
                       last_modified:
                         type: string
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
+                    required:
+                    - dataset_version
         '422':
           description: Invalid parameters
           content:
@@ -4002,10 +4520,21 @@ paths:
                         type: integer
                         description: The number of items per page (`per_page` parameter,
                           1 to 100, default 20)
+                      dataset_version:
+                        type: string
+                        nullable: true
+                        description: 'The version of the data this response was served
+                          from: the date of the last data operation, `YYYY.MM.DD`,
+                          with a `.N` suffix when several ran that day (also in the
+                          `X-Trefle-Data-Version` header). Cite it with your access
+                          date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+                          Null on a database with no recorded data operation.'
+                        example: 2026.10.13
                     required:
                     - total
                     - page
                     - per_page
+                    - dataset_version
         '401':
           description: Invalid credentials
           content:
@@ -4179,6 +4708,26 @@ components:
       schema:
         type: string
       example: Europe
+    lang:
+      name: lang
+      in: query
+      required: false
+      description: 'An [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes)
+        language code (`fr`, `de`, `es`...). `common_name` is then the name of the
+        species in that language: among its names in the language, the one the most
+        sources agree on (the first recorded on a tie). A species without a name in
+        the language keeps its English name. `common_name_lang` tells which language
+        the name is in (`null` when the species has no common name at all). `filter[common_name]`
+        and `filter_not[common_name]` then match the names of that language, ignoring
+        case and accents (`filter[common_name]=tomate&lang=fr`); `filter[common_name]=null`
+        keeps the species without a name in it, `filter_not[common_name]=null` those
+        with one. `order[common_name]` still sorts on the English name. Without `lang`,
+        `common_name` is the English name. A code no common name is recorded in answers
+        400 with the accepted ones.'
+      schema:
+        type: string
+        pattern: "^[a-zA-Z]{2}$"
+      example: fr
     filter_species:
       name: filter
       in: query
@@ -5669,6 +6218,13 @@ components:
         common_name:
           type: string
           nullable: true
+          description: The common name of the main species, in english, or in the
+            language of the `lang` parameter.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in (see the species `common_name_lang`).'
         slug:
           type: string
         scientific_name:
@@ -5696,6 +6252,54 @@ components:
         observations:
           type: string
           nullable: true
+        image_url:
+          type: string
+          nullable: true
+          description: A main image url of the plant
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         main_species:
           "$ref": "#/components/schemas/species"
         sources:
@@ -5730,6 +6334,13 @@ components:
           type: string
           nullable: true
           description: The usual common name, in english, of the species (if any).
+            With the `lang` parameter, its name in that language when it has one.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in, `en` when the species has no name in the
+            requested language, `null` when it has no common name at all.'
         slug:
           type: string
           description: An unique human-readable identifier (if you can, prefer to
@@ -5791,6 +6402,50 @@ components:
           type: string
           nullable: true
           description: A main image url of the species
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         completion_ratio:
           type: integer
           nullable: true
@@ -5885,12 +6540,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species flower
             leaf:
               type: array
@@ -5902,12 +6587,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species leaf
             habit:
               type: array
@@ -5919,12 +6634,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species habit
             fruit:
               type: array
@@ -5936,12 +6681,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species fruit
             bark:
               type: array
@@ -5953,12 +6728,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) of the species bark
             other:
               type: array
@@ -5970,12 +6775,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: 'Image(s) of the species other '
             unknown:
               type: array
@@ -5987,12 +6822,42 @@ components:
                     description: An unique identifier
                   image_url:
                     type: string
-                    description: The url of the image
+                    description: The url of the image (the original, full size)
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                    description: 'A small version of the image, only where its host
+                      serves one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null
+                      otherwise.'
                   copyright:
                     type: string
                     nullable: true
-                    description: A copyright (if any) for the image. Don't forget
-                      to properly credit the author if you're using them
+                    description: The copyright line of the image, as its source gave
+                      it. Don't forget to properly credit the author if you're using
+                      them
+                  licence:
+                    type: string
+                    nullable: true
+                    description: 'The licence of the image, read from its copyright:
+                      a Creative Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`,
+                      no version when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                      (no reuse without the rights holder''s permission). Null when
+                      the copyright states no licence Trefle can read.'
+                  licence_url:
+                    type: string
+                    nullable: true
+                    description: A link to the licence text, when there is one
+                  author:
+                    type: string
+                    nullable: true
+                    description: The author of the image to credit, when the source
+                      names one
+                  commercial_use_allowed:
+                    type: boolean
+                    nullable: true
+                    description: Whether the licence allows commercial use (false
+                      for NC licences and all rights reserved). Null when the licence
+                      is unknown.
               description: Image(s) with no identified part
         common_names:
           type: object
@@ -6770,6 +7635,13 @@ components:
           type: string
           nullable: true
           description: The usual common name, in english, of the species (if any).
+            With the `lang` parameter, its name in that language when it has one.
+        common_name_lang:
+          type: string
+          nullable: true
+          description: 'Only with the `lang` parameter: the ISO 639-1 code of the
+            language `common_name` is in, `en` when the species has no name in the
+            requested language, `null` when it has no common name at all.'
         slug:
           type: string
           description: An unique human-readable identifier (if you can, prefer to
@@ -6831,6 +7703,50 @@ components:
           type: string
           nullable: true
           description: A main image url of the species
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: An unique identifier
+            image_url:
+              type: string
+              description: The url of the image (the original, full size)
+            thumbnail_url:
+              type: string
+              nullable: true
+              description: 'A small version of the image, only where its host serves
+                one: 150x150 px on Pl@ntNet, 400 px on POWO assets. Null otherwise.'
+            copyright:
+              type: string
+              nullable: true
+              description: The copyright line of the image, as its source gave it.
+                Don't forget to properly credit the author if you're using them
+            licence:
+              type: string
+              nullable: true
+              description: 'The licence of the image, read from its copyright: a Creative
+                Commons id (`CC-BY`, `CC-BY-SA`, `CC-BY-NC`, `CC-BY-NC-SA`, no version
+                when the source gives none), `GPL`, or `LicenseRef-All-Rights-Reserved`
+                (no reuse without the rights holder''s permission). Null when the
+                copyright states no licence Trefle can read.'
+            licence_url:
+              type: string
+              nullable: true
+              description: A link to the licence text, when there is one
+            author:
+              type: string
+              nullable: true
+              description: The author of the image to credit, when the source names
+                one
+            commercial_use_allowed:
+              type: boolean
+              nullable: true
+              description: Whether the licence allows commercial use (false for NC
+                licences and all rights reserved). Null when the licence is unknown.
+          nullable: true
+          description: The image behind `image_url`, with its licence, author and
+            thumbnail. Null when there is no main image.
         completion_ratio:
           type: integer
           nullable: true
@@ -7090,10 +8006,133 @@ components:
           deprecated: true
           description: Deprecated misspelling of `detailed_plants_count`, same value.
             Kept for existing clients; read `detailed_plants_count` instead.
+        dataset_version:
+          type: string
+          nullable: true
+          description: 'The version of the data this response was served from: the
+            date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix when
+            several ran that day (also in the `X-Trefle-Data-Version` header). Cite
+            it with your access date; see https://trefle.io/citation and `GET /api/v1/changelog`.
+            Null on a database with no recorded data operation.'
+          example: 2026.10.13
+        dataset:
+          type: object
+          properties:
+            version:
+              type: string
+              nullable: true
+              description: 'The version of the data this response was served from:
+                the date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix
+                when several ran that day (also in the `X-Trefle-Data-Version` header).
+                Cite it with your access date; see https://trefle.io/citation and
+                `GET /api/v1/changelog`. Null on a database with no recorded data
+                operation.'
+              example: 2026.10.13
+            released_at:
+              type: string
+              format: date-time
+              nullable: true
+              description: When the data operation that produced this version finished
+            licence:
+              type: string
+              description: SPDX identifier of the licence of the compiled data
+              example: CC-BY-4.0
+            licence_url:
+              type: string
+              format: uri
+            citation_url:
+              type: string
+              format: uri
+              description: 'How to cite Trefle: formats, data version, access date
+                and the upstream sources to co-cite'
+            changelog_url:
+              type: string
+              format: uri
+              description: The history of the data versions (`GET /api/v1/changelog`)
+          description: 'What to cite: the data version and where the citation and
+            the version history live'
+          required:
+          - version
+          - released_at
+          - licence
+          - licence_url
+          - citation_url
+          - changelog_url
       required:
       - plants_count
       - detailed_plants_count
       - detailled_plants_count
+      - dataset_version
+      - dataset
+    changelog:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+                description: The data version this operation produced
+                example: 2026.10.13
+              kind:
+                type: string
+                description: What the operation was (import, migration, purge...)
+                example: import
+              status:
+                type: string
+                enum:
+                - completed
+                - failed
+                description: A failed operation may still have written part of its
+                  changes, so it produces a version too
+              started_at:
+                type: string
+                format: date-time
+              finished_at:
+                type: string
+                format: date-time
+              changes:
+                type: object
+                additionalProperties:
+                  type: integer
+                description: Observed change in the row counts the operation moved
+                  (species, synonyms, species_facts, active_facts, common_names, species_distributions...),
+                  measured before and after it ran. Rows updated in place do not show
+                  here.
+                example:
+                  species_facts: 267412
+                  active_facts: 84310
+            required:
+            - version
+            - kind
+            - status
+            - started_at
+            - finished_at
+            - changes
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Number of entries returned (the latest 100 at most)
+            dataset_version:
+              type: string
+              nullable: true
+              description: 'The version of the data this response was served from:
+                the date of the last data operation, `YYYY.MM.DD`, with a `.N` suffix
+                when several ran that day (also in the `X-Trefle-Data-Version` header).
+                Cite it with your access date; see https://trefle.io/citation and
+                `GET /api/v1/changelog`. Null on a database with no recorded data
+                operation.'
+              example: 2026.10.13
+          required:
+          - total
+          - dataset_version
+      required:
+      - data
+      - meta
     zone:
       type: object
       properties:

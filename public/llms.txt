@@ -65,18 +65,24 @@ such as `fr` and `fra`: merge them).
 ## Recipe: native plants of a country, with their French names
 
     GET /distributions?q=France                       find the zone; its `slug` is "fra"
-    GET /distributions/fra/plants?filter[establishment]=native
+    GET /distributions/fra/plants?filter[establishment]=native&lang=fr
                                                       plants native to that zone (also introduced,
-                                                      doubtful, absent, extinct); paginate
-    GET /species/{slug}                               for each row: common_names.fr (and .fra)
+                                                      doubtful, absent, extinct), with their French
+                                                      `common_name`; paginate
+
+`lang` (an ISO 639-1 code) works on every species and plants list, search and
+detail: `common_name` is the name in that language, or the English one when
+there is none, and `common_name_lang` says which. With `lang`,
+`filter[common_name]` matches the names of that language, ignoring case and
+accents (`/species?lang=fr&filter[common_name]=tomate`).
 
 Zone names are in English (`?q=Brazil`, not `Brésil`). /distributions/{id}
 also takes the zone name when it is unambiguous (/distributions/France/plants).
 
 ## Response envelope
 
-    Collection: {"data": [...], "links": {"self", "first", "prev", "next", "last"}, "meta": {"total": N}}
-    Record:     {"data": {...}, "meta": {"last_modified": "..."}}
+    Collection: {"data": [...], "links": {"self", "first", "prev", "next", "last"}, "meta": {"total": N, "dataset_version": "2026.10.13"}}
+    Record:     {"data": {...}, "meta": {"last_modified": "...", "dataset_version": "2026.10.13"}}
     Error:      {"error": true, "code": "not_found", "message": "...", "messages": "..."}
 
 Error statuses: 400 (unknown filter/order/range key, invalid value, page too
@@ -159,7 +165,14 @@ records answer ETag and Last-Modified, so conditional requests work.
 ## Licence and attribution
 
 Data: CC BY 4.0 (https://trefle.io/terms). Cite Trefle and the sources each
-species lists in its `sources`; see https://trefle.io/citation. Images keep
+species lists in its `sources`; see https://trefle.io/citation. A citation
+states the data version (`meta.dataset_version`, the X-Trefle-Data-Version
+header, or GET /api/v1 without a token) and the date you accessed the data;
+the versions and what each changed are listed, without a token, at
+
+    GET /changelog
+
+Images keep
 the licence of their source, given alongside each image. Trefle is open
 source and non-profit; report wrong data through POST /species/{id}/report
 or /corrections rather than silently correcting it downstream.
