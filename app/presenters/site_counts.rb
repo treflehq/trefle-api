@@ -5,6 +5,9 @@
 # here, so the home hero, the About page and the API home agree with each
 # other and with the database instead of each carrying its own figure.
 #
+# Hidden records (Species::HIDDEN_REASONS) are not counted: the figures
+# describe what the lists serve.
+#
 # Both are full-table counts over ~500k rows, so they are cached for a day.
 # Nothing on the site needs them fresher than that.
 class SiteCounts
@@ -12,11 +15,11 @@ class SiteCounts
   CACHE_EXPIRY = 1.day
 
   def self.species_count
-    Rails.cache.fetch('site_counts/v1/species', expires_in: CACHE_EXPIRY) { Species.count }
+    Rails.cache.fetch('site_counts/v2/species', expires_in: CACHE_EXPIRY) { Species.listed.count }
   end
 
   def self.plants_count
-    Rails.cache.fetch('site_counts/v1/plants', expires_in: CACHE_EXPIRY) { Plant.count }
+    Rails.cache.fetch('site_counts/v2/plants', expires_in: CACHE_EXPIRY) { Plant.listed.count }
   end
 
   # Rounded to the nearest thousand for running text ("about 499,000"), so a

@@ -121,9 +121,25 @@ deletes and never overwrites.
 
 ## Scope
 
-Trefle indexes vascular plants. Whether hybrids are in or out of that scope is
-**not currently settled** — see issue #359. Until it is, their absence from the
-dataset should be treated as unmeasured rather than intentional.
+Trefle covers the plant kingdom, not only vascular plants. Each group needs a
+reference that arbitrates its names:
+
+- **Vascular plants** (flowering plants, conifers, ferns, lycophytes): WCVP,
+  as above.
+- **Bryophytes** (mosses, liverworts, hornworts): WCVP does not cover them.
+  WFO will arbitrate them once they are reconciled against it (statuses,
+  authors, a place in the hierarchy). Until then they are **hidden**
+  (`species.hidden_reason = 'bryophyte'`): kept in the database with
+  everything attached, resolvable by slug, but out of the lists, the search
+  and the counts. The 2022 import brought ~35,000 of them with no arbiter, and
+  WFO treats about half of the names served as accepted as synonyms.
+- **Fossils** (extinct taxa, known from the Paleobiology Database through
+  GBIF) are out of scope: an empty record is deleted, one carrying data is
+  hidden (`hidden_reason = 'fossil'`).
+
+Whether hybrids are in or out of scope is **not currently settled** — see
+issue #359. Until it is, their absence from the dataset should be treated as
+unmeasured rather than intentional.
 
 ## References
 

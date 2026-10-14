@@ -46,9 +46,9 @@ RSpec.describe SiteCounts do
 
     it 'serves both counts from the cache for a day' do
       expect(Rails.cache).to receive(:fetch)
-        .with('site_counts/v1/species', expires_in: 1.day).and_call_original
+        .with('site_counts/v2/species', expires_in: 1.day).and_call_original
       expect(Rails.cache).to receive(:fetch)
-        .with('site_counts/v1/plants', expires_in: 1.day).and_call_original
+        .with('site_counts/v2/plants', expires_in: 1.day).and_call_original
 
       described_class.species_count
       described_class.plants_count

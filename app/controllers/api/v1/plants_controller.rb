@@ -138,6 +138,8 @@ class Api::V1::PlantsController < Api::ApiController
     @collection = Zone.resolve!(params[:zone_id]).all_species.plants if params[:zone_id]
 
     @collection ||= Species.plants
+    # Hidden records (Species::HIDDEN_REASONS) resolve by slug, never in a list.
+    @collection = @collection.listed
 
     # SpeciesLightSerializer reads `plant.slug` on top of `genus`, so both
     # need preloading regardless of which branch above set @collection (see

@@ -58,7 +58,7 @@ class HomeStatsPresenter
   # synonym count (shown as a separate footnote on the home page).
   def records_by_rank
     Rails.cache.fetch('home_stats/records_by_rank', expires_in: CACHE_EXPIRY) do
-      counts = Species.group(:rank).count
+      counts = Species.listed.group(:rank).count
       RANK_LABELS.each_with_object({}) {|(rank, label), acc| acc[label] = counts[rank] || 0 }
     end
   end

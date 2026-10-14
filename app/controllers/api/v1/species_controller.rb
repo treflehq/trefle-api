@@ -314,6 +314,8 @@ class Api::V1::SpeciesController < Api::ApiController
     @collection = Plant.friendly.find(params[:plant_id]).species if params[:plant_id]
     @collection = Zone.resolve!(params[:zone_id]).all_species if params[:zone_id]
     @collection ||= Species.all
+    # Hidden records (Species::HIDDEN_REASONS) resolve by slug, never in a list.
+    @collection = @collection.listed
 
     # SpeciesLightSerializer reads `plant.slug` and `genus`; synonyms are no
     # longer embedded in list payloads (only `synonyms_count`, a column).
