@@ -47,6 +47,7 @@
 #  growth_months                    :bigint           default(0), not null
 #  growth_rate                      :string(255)
 #  hardiness_zone                   :integer
+#  hidden_reason                    :string
 #  images_count                     :integer          default(0), not null
 #  inflorescence_form               :integer
 #  inflorescence_raw                :string
@@ -191,6 +192,25 @@ class Species < ApplicationRecord
   accepts_nested_attributes_for :species_images
 
   counter_culture :plant
+
+  # Why a record is kept out of the lists, the search and the site counts
+  # while it stays in the database, keeps everything attached to it and
+  # resolves by its slug (the detail says why in `hidden_reason`):
+  # - bryophyte: mosses, liverworts and hornworts, which no reference
+  #   arbitrates yet (WCVP covers vascular plants only; WFO will, once they
+  #   are reconciled against it, see TAXONOMY.md "Scope");
+  # - fossil: an extinct taxon (GBIF / Paleobiology Database) carrying data,
+  #   where an empty one is deleted.
+  # Set and cleared by journaled data passes, never by hand. NULL is listed.
+  HIDDEN_REASONS = %w[bryophyte fossil].freeze
+
+  validates :hidden_reason, inclusion: { in: HIDDEN_REASONS }, allow_nil: true
+
+  scope :listed, -> { where(hidden_reason: nil) }
+
+  def hidden?
+    !hidden_reason.nil?
+  end
 
   # Check the scientific name is well formatted according to rank
   validates :scientific_name,

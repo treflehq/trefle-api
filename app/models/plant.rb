@@ -68,6 +68,9 @@ class Plant < ApplicationRecord
 
   before_validation :update_completion_ratio!
 
+  # Plants whose main species is listed (Species.listed), and those without one.
+  scope :listed, -> { left_joins(:main_species).where(species: { hidden_reason: nil }) }
+
   # A plant is as complete as its main species (see Species#current_completion_percentage)
   def current_completion_percentage
     main_species&.current_completion_percentage || 0

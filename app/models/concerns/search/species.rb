@@ -56,6 +56,12 @@ module Search
       end
     end
 
+    # A hidden record (Species::HIDDEN_REASONS) has no document: reindexing
+    # it removes the one it had.
+    def should_index?
+      !hidden?
+    end
+
     def search_data
       attributes.deep_symbolize_keys.merge(additional_search_data)
     end

@@ -16,7 +16,7 @@ class Explore::SpeciesController < Explore::ExploreController
     @family_chips = family_chips
 
     if search.blank?
-      @collection = apply_filters(Species.all).preload(:plant, :genus, :synonyms).order(browse_order)
+      @collection = apply_filters(Species.listed).preload(:plant, :genus, :synonyms).order(browse_order)
       @pagy, @collection = pagy(@collection)
     else
       options = {

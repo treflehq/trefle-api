@@ -306,6 +306,12 @@ module Schemas
                            'The full, paginated list is at `links.synonyms`; `synonyms_count` is the total.'
             },
             synonyms_count: { type: :integer, description: 'The total number of synonyms of the species and of its autonyms (the embedded `synonyms` array is truncated)' },
+            hidden_reason: {
+              type: :string, nullable: true, enum: [*::Species::HIDDEN_REASONS, nil],
+              description: 'Why this record is left out of the lists, the search and the counts while it still resolves by its slug: ' \
+                           '`bryophyte` (mosses, liverworts and hornworts, which no reference arbitrates yet), ' \
+                           '`fossil` (an extinct taxon). `null` for every listed record.'
+            },
 
             sources: Helpers.array_of({
               id: { type: :string, description: 'An unique identifier from the source' }, # 101131,

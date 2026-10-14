@@ -10,6 +10,11 @@
     }
   </script>
   <%= render partial: 'explore/species/species_header', locals: {species: @species, requested_synonym: @requested_synonym} %>
+  <% if @species.hidden? %>
+    <div class="notification is-warning is-light">
+      <%= hidden_species_notice(@species) %>
+    </div>
+  <% end %>
 
   <div class="columns">
     <div class="column is-3">

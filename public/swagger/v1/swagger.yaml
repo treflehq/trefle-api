@@ -5883,9 +5883,9 @@ components:
         `common_name`, `common_name_lang`, `common_names`, `complete_data`, `completion_ratio`,
         `distribution`, `distributions`, `duration`, `edible`, `edible_part`, `family`,
         `family_common_name`, `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`,
-        `growth`, `id`, `image_url`, `images`, `links`, `main_image`, `observations`,
-        `rank`, `scientific_name`, `slug`, `sources`, `specifications`, `status`,
-        `synonyms_count`, `vegetable`, `year`.'
+        `growth`, `hidden_reason`, `id`, `image_url`, `images`, `links`, `main_image`,
+        `observations`, `rank`, `scientific_name`, `slug`, `sources`, `specifications`,
+        `status`, `synonyms_count`, `vegetable`, `year`.'
       schema:
         type: array
         items:
@@ -5911,6 +5911,7 @@ components:
           - genus
           - genus_id
           - growth
+          - hidden_reason
           - id
           - image_url
           - images
@@ -5942,9 +5943,9 @@ components:
         `common_name`, `common_name_lang`, `common_names`, `complete_data`, `completion_ratio`,
         `distribution`, `distributions`, `duration`, `edible`, `edible_part`, `family`,
         `family_common_name`, `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`,
-        `growth`, `id`, `image_url`, `images`, `links`, `main_image`, `observations`,
-        `rank`, `scientific_name`, `slug`, `sources`, `specifications`, `status`,
-        `synonyms`, `synonyms_count`, `vegetable`, `year`.'
+        `growth`, `hidden_reason`, `id`, `image_url`, `images`, `links`, `main_image`,
+        `observations`, `rank`, `scientific_name`, `slug`, `sources`, `specifications`,
+        `status`, `synonyms`, `synonyms_count`, `vegetable`, `year`.'
       schema:
         type: array
         items:
@@ -5970,6 +5971,7 @@ components:
           - genus
           - genus_id
           - growth
+          - hidden_reason
           - id
           - image_url
           - images
@@ -7594,6 +7596,17 @@ components:
           type: integer
           description: The total number of synonyms of the species and of its autonyms
             (the embedded `synonyms` array is truncated)
+        hidden_reason:
+          type: string
+          nullable: true
+          enum:
+          - bryophyte
+          - fossil
+          -
+          description: 'Why this record is left out of the lists, the search and the
+            counts while it still resolves by its slug: `bryophyte` (mosses, liverworts
+            and hornworts, which no reference arbitrates yet), `fossil` (an extinct
+            taxon). `null` for every listed record.'
         sources:
           type: array
           items:

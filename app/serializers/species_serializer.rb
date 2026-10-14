@@ -47,6 +47,7 @@
 #  growth_months                    :bigint           default(0), not null
 #  growth_rate                      :string(255)
 #  hardiness_zone                   :integer
+#  hidden_reason                    :string
 #  images_count                     :integer          default(0), not null
 #  inflorescence_form               :integer
 #  inflorescence_raw                :string
@@ -151,6 +152,10 @@ class SpeciesSerializer < BaseSerializer
              :links, :image_url, :main_image,
              :vegetable, :edible, :edible_part,
              :completion_ratio, :complete_data
+
+  # Why the record is left out of the lists and the search, when it is
+  # (Species::HIDDEN_REASONS); null for every listed record.
+  attributes :hidden_reason
 
   attributes :flower, :foliage,
              :fruit_or_seed, :specifications,

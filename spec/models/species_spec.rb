@@ -47,6 +47,7 @@
 #  growth_months                    :bigint           default(0), not null
 #  growth_rate                      :string(255)
 #  hardiness_zone                   :integer
+#  hidden_reason                    :string
 #  images_count                     :integer          default(0), not null
 #  inflorescence_form               :integer
 #  inflorescence_raw                :string
