@@ -1753,8 +1753,8 @@ paths:
       description: Get one species of the requested genus
       operationId: getSpeciesGenus
       parameters:
-      - "$ref": "#/components/parameters/fields_species"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_species"
       - name: genus_id
         required: true
         in: path
@@ -2053,8 +2053,8 @@ paths:
       - "$ref": "#/components/parameters/filter_not_species"
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
-      - "$ref": "#/components/parameters/fields_species_list"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_species_list"
       security:
       - token: []
       - bearerAuth: []
@@ -2635,8 +2635,8 @@ paths:
       description: Get one species attached to the requested plant
       operationId: getSpeciesPlant
       parameters:
-      - "$ref": "#/components/parameters/fields_species"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_species"
       - name: plant_id
         required: true
         in: path
@@ -2728,8 +2728,8 @@ paths:
       description: Get one plant of the requested genus
       operationId: getPlantGenus
       parameters:
-      - "$ref": "#/components/parameters/fields_plant"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_plant"
       - name: genus_id
         required: true
         in: path
@@ -3032,8 +3032,8 @@ paths:
       - "$ref": "#/components/parameters/filter_not_species"
       - "$ref": "#/components/parameters/order_species"
       - "$ref": "#/components/parameters/range_species"
-      - "$ref": "#/components/parameters/fields_species_list"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_species_list"
       security:
       - token: []
       - bearerAuth: []
@@ -3887,8 +3887,8 @@ paths:
       description: Get one species present in the requested zone
       operationId: getSpeciesZone
       parameters:
-      - "$ref": "#/components/parameters/fields_species"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_species"
       - name: zone_id
         required: true
         in: path
@@ -3980,8 +3980,8 @@ paths:
       description: Get one plant present in the requested zone
       operationId: getPlantZone
       parameters:
-      - "$ref": "#/components/parameters/fields_plant"
       - "$ref": "#/components/parameters/lang"
+      - "$ref": "#/components/parameters/fields_plant"
       - name: zone_id
         required: true
         in: path
@@ -5880,12 +5880,12 @@ components:
         detail schema, restricted to those keys. `synonyms` stays on the detail (`links.synonyms`).
         With a field that embeds a collection per row (images, common_names, distribution,
         distributions, sources), `per_page` is at most 20. Valid keys: `author`, `bibliography`,
-        `common_name`, `common_names`, `complete_data`, `completion_ratio`, `distribution`,
-        `distributions`, `duration`, `edible`, `edible_part`, `family`, `family_common_name`,
-        `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`, `growth`, `id`,
-        `image_url`, `images`, `links`, `observations`, `rank`, `scientific_name`,
-        `slug`, `sources`, `specifications`, `status`, `synonyms_count`, `vegetable`,
-        `year`.'
+        `common_name`, `common_name_lang`, `common_names`, `complete_data`, `completion_ratio`,
+        `distribution`, `distributions`, `duration`, `edible`, `edible_part`, `family`,
+        `family_common_name`, `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`,
+        `growth`, `id`, `image_url`, `images`, `links`, `main_image`, `observations`,
+        `rank`, `scientific_name`, `slug`, `sources`, `specifications`, `status`,
+        `synonyms_count`, `vegetable`, `year`.'
       schema:
         type: array
         items:
@@ -5894,6 +5894,7 @@ components:
           - author
           - bibliography
           - common_name
+          - common_name_lang
           - common_names
           - complete_data
           - completion_ratio
@@ -5914,6 +5915,7 @@ components:
           - image_url
           - images
           - links
+          - main_image
           - observations
           - rank
           - scientific_name
@@ -5937,12 +5939,12 @@ components:
       description: 'The keys of the payload to return, separated by commas; `id` and
         `slug` always come. A key is a top-level one: a group (`growth`) comes whole.
         An unknown key answers 400 with the valid ones. Valid keys: `author`, `bibliography`,
-        `common_name`, `common_names`, `complete_data`, `completion_ratio`, `distribution`,
-        `distributions`, `duration`, `edible`, `edible_part`, `family`, `family_common_name`,
-        `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`, `growth`, `id`,
-        `image_url`, `images`, `links`, `observations`, `rank`, `scientific_name`,
-        `slug`, `sources`, `specifications`, `status`, `synonyms`, `synonyms_count`,
-        `vegetable`, `year`.'
+        `common_name`, `common_name_lang`, `common_names`, `complete_data`, `completion_ratio`,
+        `distribution`, `distributions`, `duration`, `edible`, `edible_part`, `family`,
+        `family_common_name`, `flower`, `foliage`, `fruit_or_seed`, `genus`, `genus_id`,
+        `growth`, `id`, `image_url`, `images`, `links`, `main_image`, `observations`,
+        `rank`, `scientific_name`, `slug`, `sources`, `specifications`, `status`,
+        `synonyms`, `synonyms_count`, `vegetable`, `year`.'
       schema:
         type: array
         items:
@@ -5951,6 +5953,7 @@ components:
           - author
           - bibliography
           - common_name
+          - common_name_lang
           - common_names
           - complete_data
           - completion_ratio
@@ -5971,6 +5974,7 @@ components:
           - image_url
           - images
           - links
+          - main_image
           - observations
           - rank
           - scientific_name
@@ -5995,10 +5999,11 @@ components:
       description: 'The keys of the payload to return, separated by commas; `id` and
         `slug` always come. A key is a top-level one: a group (`growth`) comes whole.
         An unknown key answers 400 with the valid ones. Valid keys: `author`, `bibliography`,
-        `common_name`, `family`, `family_common_name`, `forms`, `genus`, `genus_id`,
-        `hybrids`, `id`, `image_url`, `links`, `main_species`, `main_species_id`,
-        `observations`, `scientific_name`, `slug`, `sources`, `species`, `subspecies`,
-        `subvarieties`, `varieties`, `vegetable`, `year`.'
+        `common_name`, `common_name_lang`, `family`, `family_common_name`, `forms`,
+        `genus`, `genus_id`, `hybrids`, `id`, `image_url`, `links`, `main_image`,
+        `main_species`, `main_species_id`, `observations`, `scientific_name`, `slug`,
+        `sources`, `species`, `subspecies`, `subvarieties`, `varieties`, `vegetable`,
+        `year`.'
       schema:
         type: array
         items:
@@ -6007,6 +6012,7 @@ components:
           - author
           - bibliography
           - common_name
+          - common_name_lang
           - family
           - family_common_name
           - forms
@@ -6016,6 +6022,7 @@ components:
           - id
           - image_url
           - links
+          - main_image
           - main_species
           - main_species_id
           - observations
