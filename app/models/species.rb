@@ -171,8 +171,6 @@ class Species < ApplicationRecord
   belongs_to :plant, optional: true, touch: true
   belongs_to :genus, touch: true
   belongs_to :main_species, class_name: 'Species', optional: true, touch: true
-  belongs_to :synonym_of, class_name: 'Species', optional: true
-  has_many :old_synonyms, class_name: 'Species', foreign_key: :synonym_of_id
   has_many :species_images, dependent: :destroy
   has_many :foreign_sources_plants, as: :record, dependent: :destroy, inverse_of: :record
   has_many :foreign_sources, through: :foreign_sources_plants
