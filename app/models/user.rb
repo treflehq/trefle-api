@@ -60,6 +60,15 @@ class User < ApplicationRecord
   has_many :record_corrections, dependent: :nullify
   has_many :user_queries, dependent: :destroy
 
+  SEARCHABLE_COLUMNS = %w[email name organization_name organization_url github_username].freeze
+
+  # Admin search: case-insensitive substring match on the account's identity columns.
+  scope :search, lambda {|query|
+    pattern = "%#{sanitize_sql_like(query.to_s.strip)}%"
+    where(SEARCHABLE_COLUMNS.map {|column| "users.#{column} ILIKE :pattern" }.join(' OR '), pattern: pattern)
+  }
+  scope :with_token, ->(token) { where(token: token.to_s.strip) }
+
   before_create :assign_token
   before_update :regenerate_token_if_plan_changed!
 

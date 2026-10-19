@@ -32,6 +32,26 @@ class UserQuery < ApplicationRecord
 
   # Class methods
 
+  # Request totals over the last 24 h / 7 d / 30 d, the busiest controller#action
+  # pairs, and the first/last hour seen, for one user's rows.
+  def self.usage_summary(user, now: Time.zone.now)
+    rows = where(user_id: user.id)
+    total_since = ->(span) { rows.where('time >= ?', hour_key(now - span)).sum(:counter) }
+    first_hour, last_hour = rows.pick(Arel.sql('MIN(time)'), Arel.sql('MAX(time)'))
+    {
+      last_24h: total_since.call(24.hours),
+      last_7d: total_since.call(7.days),
+      last_30d: total_since.call(30.days),
+      top_actions: rows.where.not(controller: nil).group(:controller, :action).order(Arel.sql('SUM(counter) DESC')).limit(5).sum(:counter),
+      first_hour: first_hour && convert_datetime(first_hour),
+      last_hour: last_hour && convert_datetime(last_hour)
+    }
+  end
+
+  def self.hour_key(time)
+    time.strftime('%y%m%d%H').to_i
+  end
+
   def self.convert_datetime(time)
     DateTime.strptime(time.to_s, '%y%m%d%H')
   end
