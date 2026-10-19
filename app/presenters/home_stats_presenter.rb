@@ -87,11 +87,12 @@ class HomeStatsPresenter
 
   # 30-day correction activity: corrections reviewed (accepted or rejected),
   # submitted and accepted, distinct contributors, and the fields the accepted
-  # corrections changed. Decisions are dated by `decided_at`, not
+  # corrections changed. Submitted and contributors count only what people
+  # filed: the checks and audits file thousands under one account. Decisions are dated by `decided_at`, not
   # `updated_at`, which later edits of the row move.
   def correction_activity
     Rails.cache.fetch(['home_stats/correction_activity', corrections_stamp], expires_in: CACHE_EXPIRY) do
-      submitted_scope = RecordCorrection.where(created_at: CORRECTION_ACTIVITY_WINDOW.ago..)
+      submitted_scope = RecordCorrection.from_people.where(created_at: CORRECTION_ACTIVITY_WINDOW.ago..)
       reviewed_scope = RecordCorrection.where.not(change_status: :pending).where(decided_at: CORRECTION_ACTIVITY_WINDOW.ago..)
       accepted_scope = reviewed_scope.accepted_change_status
 

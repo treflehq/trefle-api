@@ -103,6 +103,20 @@ RSpec.describe HomeStatsPresenter do
       expect(activity[:contributors]).to eq(baseline[:contributors] + 2)
     end
 
+    it 'counts only what people filed as submitted and contributors, not the checks and audits' do
+      baseline = presenter.correction_activity
+      person = create(:user)
+      corrected(status: :pending, created_at: 2.days.ago, user: person)
+      create(:record_correction, record: species, user: person, warning_type: 'report', source_type: :report)
+      create(:record_correction, record: species, user: create(:user), warning_type: 'Audit::YearDiffers')
+      create(:record_correction, record: species, user: create(:user), warning_type: 'Checks::FactDivergence')
+
+      activity = presenter.correction_activity
+
+      expect(activity[:submitted]).to eq(baseline[:submitted] + 2)
+      expect(activity[:contributors]).to eq(baseline[:contributors] + 1)
+    end
+
     it 'counts the fields the accepted corrections set, the name excepted' do
       baseline = presenter.correction_activity[:fields_completed]
 
