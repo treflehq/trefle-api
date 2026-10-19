@@ -179,7 +179,6 @@ class Management::SpeciesController < Management::ManagementController
       :genus_id,
       :main_species_id,
       :plant_id,
-      :synonym_of_id,
       bloom_months: [],
       fruit_months: [],
       growth_months: [],
