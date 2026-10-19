@@ -1,6 +1,9 @@
 class Management::UsersController < Management::ManagementController
   before_action :set_user, only: %i[show edit update destroy]
 
+  has_scope :search, as: :q
+  has_scope :with_token, as: :token
+
   # GET /users
   # GET /users.json
   def index
@@ -10,7 +13,9 @@ class Management::UsersController < Management::ManagementController
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
+  def show
+    @usage = UserQuery.usage_summary(@user)
+  end
 
   # GET /users/new
   def new

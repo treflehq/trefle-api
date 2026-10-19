@@ -6,6 +6,20 @@
 
     <h1 class="title">Users</h1>
 
+    <%= form_with url: management_users_path, method: :get, local: true do |form| %>
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <%= form.search_field :q, value: params[:q], class: 'input', placeholder: 'Email, name, organization, GitHub…' %>
+        </div>
+        <div class="control">
+          <%= form.text_field :token, value: params[:token], class: 'input', placeholder: 'Exact API token' %>
+        </div>
+        <div class="control">
+          <%= form.submit 'Search', name: nil, class: 'button is-info' %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 
 </section>

@@ -1,124 +1,59 @@
 <p id="notice" class="notification is-info"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<section class="section">
+  <h1 class="title"><%= @user.name.presence || @user.email %></h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <h2 class="subtitle">API usage</h2>
+  <% if @usage[:first_hour].nil? %>
+    <p>No requests recorded.</p>
+  <% else %>
+    <table class="table">
+      <tbody>
+        <tr><th>Last 24 h</th><td><%= number_with_delimiter(@usage[:last_24h]) %></td></tr>
+        <tr><th>Last 7 d</th><td><%= number_with_delimiter(@usage[:last_7d]) %></td></tr>
+        <tr><th>Last 30 d</th><td><%= number_with_delimiter(@usage[:last_30d]) %></td></tr>
+        <tr><th>First hour seen</th><td><%= l(@usage[:first_hour], format: :long) %></td></tr>
+        <tr><th>Last hour seen</th><td><%= l(@usage[:last_hour], format: :long) %></td></tr>
+      </tbody>
+    </table>
 
-<p>
-  <strong>Password hash:</strong>
-  <%= @user.password_hash %>
-</p>
+    <h3 class="subtitle is-6">Top actions</h3>
+    <% if @usage[:top_actions].empty? %>
+      <p>Per-action counts are not recorded for this account.</p>
+    <% else %>
+      <ol>
+        <% @usage[:top_actions].each do |(controller_name, action_name), count| %>
+          <li><code><%= controller_name %>#<%= action_name %></code> — <%= number_with_delimiter(count) %></li>
+        <% end %>
+      </ol>
+    <% end %>
+  <% end %>
+</section>
 
-<p>
-  <strong>Reset password token:</strong>
-  <%= @user.reset_password_token %>
-</p>
-
-<p>
-  <strong>Reset password sent at:</strong>
-  <%= @user.reset_password_sent_at %>
-</p>
-
-<p>
-  <strong>Failed attempts:</strong>
-  <%= @user.failed_attempts %>
-</p>
-
-<p>
-  <strong>Locked at:</strong>
-  <%= @user.locked_at %>
-</p>
-
-<p>
-  <strong>Sign in count:</strong>
-  <%= @user.sign_in_count %>
-</p>
-
-<p>
-  <strong>Current sign in at:</strong>
-  <%= @user.current_sign_in_at %>
-</p>
-
-<p>
-  <strong>Last sign in at:</strong>
-  <%= @user.last_sign_in_at %>
-</p>
-
-<p>
-  <strong>Current sign in ip:</strong>
-  <%= @user.current_sign_in_ip %>
-</p>
-
-<p>
-  <strong>Last sign in ip:</strong>
-  <%= @user.last_sign_in_ip %>
-</p>
-
-<p>
-  <strong>Unlock token:</strong>
-  <%= @user.unlock_token %>
-</p>
-
-<p>
-  <strong>Confirmation token:</strong>
-  <%= @user.confirmation_token %>
-</p>
-
-<p>
-  <strong>Confirmed at:</strong>
-  <%= @user.confirmed_at %>
-</p>
-
-<p>
-  <strong>Confirmation sent at:</strong>
-  <%= @user.confirmation_sent_at %>
-</p>
-
-<p>
-  <strong>Inserted at:</strong>
-  <%= @user.inserted_at %>
-</p>
-
-<p>
-  <strong>Admin:</strong>
-  <%= @user.admin %>
-</p>
-
-<p>
-  <strong>Token:</strong>
-  <%= @user.token %>
-</p>
-
-<p>
-  <strong>Organization name:</strong>
-  <%= @user.organization_name %>
-</p>
-
-<p>
-  <strong>Organization url:</strong>
-  <%= @user.organization_url %>
-</p>
-
-<p>
-  <strong>Organization image url:</strong>
-  <%= @user.organization_image_url %>
-</p>
-
-<p>
-  <strong>Account type:</strong>
-  <%= @user.account_type %>
-</p>
-
-<p>
-  <strong>Public profile:</strong>
-  <%= @user.public_profile %>
-</p>
+<section class="section">
+  <h2 class="subtitle">Account</h2>
+  <dl>
+    <dt>Email</dt><dd><%= @user.email %></dd>
+    <dt>Name</dt><dd><%= @user.name %></dd>
+    <dt>GitHub</dt><dd><%= @user.github_username %></dd>
+    <dt>Admin</dt><dd><%= @user.admin %></dd>
+    <dt>Account type</dt><dd><%= @user.account_type %></dd>
+    <dt>Sponsored tier</dt><dd><%= @user.sponsored_tier %></dd>
+    <dt>API token</dt><dd><code><%= @user.token.present? ? "#{@user.token[0, 4]}…#{@user.token[-4..]}" : '' %></code></dd>
+    <dt>Organization</dt><dd><%= @user.organization_name %></dd>
+    <dt>Organization URL</dt><dd><%= @user.organization_url %></dd>
+    <dt>Organization image URL</dt><dd><%= @user.organization_image_url %></dd>
+    <dt>Public profile</dt><dd><%= @user.public_profile %></dd>
+    <dt>Terms version</dt><dd><%= @user.terms_version %></dd>
+    <dt>Terms accepted at</dt><dd><%= @user.terms_accepted_at %></dd>
+    <dt>Signed up</dt><dd><%= @user.created_at || @user.inserted_at %></dd>
+    <dt>Last sign in</dt><dd><%= @user.last_sign_in_at %></dd>
+    <dt>Sign in count</dt><dd><%= @user.sign_in_count %></dd>
+    <dt>Confirmed at</dt><dd><%= @user.confirmed_at %></dd>
+    <dt>Locked at</dt><dd><%= @user.locked_at %></dd>
+    <dt>Failed attempts</dt><dd><%= @user.failed_attempts %></dd>
+  </dl>
+</section>
 
 <%= link_to 'Edit', edit_management_user_path(@user) %> |
 <%= link_to 'Back', management_users_path %>
