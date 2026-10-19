@@ -33,6 +33,10 @@ class RecordCorrection < ApplicationRecord
   belongs_to :user, optional: true
 
   scope :status, ->(s) { where(change_status: s) }
+  # Filed by a person, through the site or the API: a correction carries no
+  # warning_type, a report carries 'report'. The checks and audits always set
+  # their class name there.
+  scope :from_people, -> { where(warning_type: [nil, 'report']) }
   # Ex:- scope :active, -> {where(:active => true)}
 
   include Filterable
