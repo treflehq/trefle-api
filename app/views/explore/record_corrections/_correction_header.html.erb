@@ -31,7 +31,7 @@
               <%= species.common_name || 'No common name' %>
             </h2>
             <p class="subtitle">
-              <%= "Correction submitted on #{correction.created_at.to_formatted_s(:short)}" %>
+              <%= "Correction submitted on #{correction.created_at.strftime('%-d %b %Y, %H:%M')}" %>
             </p>
           </div>
     </div>

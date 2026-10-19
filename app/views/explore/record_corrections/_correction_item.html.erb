@@ -21,7 +21,7 @@
       <span>Submitted by </span>
       <%= image_tag correction.user.gravatar_url, class: 'user-image' %>
       <%= correction.user&.name || 'anonymous' %>
-      <%= " on #{correction.created_at.to_formatted_s(:short)}" %>
+      <%= " on #{correction.created_at.strftime('%-d %b %Y, %H:%M')}" %>
     </div>
     <div class="footer-item">
       ᐧ From <%= correction.source_type %>

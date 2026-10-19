@@ -111,7 +111,7 @@ Rack::Attack.throttled_response_retry_after_header = true
 Rack::Attack.throttled_responder = lambda do |request|
   match_data = request.env['rack.attack.match_data']
   is_sponsor = Rack::Attack.token(request)&.starts_with?('spo-')
-  message = is_sponsor ? 'Too many requests, please slow down' : 'Too many requests. Please visit https://trefle.io/about#support to learn how to increase your limit.'
+  message = is_sponsor ? 'Too many requests, please slow down' : 'Too many requests. Please visit https://trefle.io/about#pricing to learn how to increase your limit.'
 
   rate_limit_headers = Rack::Attack.rate_limit_headers(match_data)
   headers = {
