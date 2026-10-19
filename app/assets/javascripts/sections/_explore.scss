@@ -170,10 +170,11 @@
   align-items: stretch;
   flex-direction: column;
 
+  // Square tile whatever the photo's own ratio, so a portrait or landscape
+  // picture no longer makes its card taller or shorter than its row.
   aside {
     min-width: 100px;
-    min-height: 150px;
-    height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     margin: 10px 0;
     border-radius: 3px;
@@ -393,12 +394,8 @@
     border-top: 1px solid #ccc;
   }
 
-  .sticky-menu {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 20px;
-  }
-
+  // The whole aside sticks; a second sticky list inside it stayed pinned
+  // once the aside reached the end of the page and slid over the LINKS block.
   aside.menu {
     position: sticky;
     top: 20px;

@@ -1,67 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>The change you wanted was rejected (422)</title>
+  <meta charset="utf-8">
+  <title>Request rejected | Trefle</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="/favicon.ico">
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      color: #363636;
+      font-family: "Noto Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+    main { width: 100%; max-width: 40rem; margin: 0 auto; padding: 2rem 1rem; }
+    .code { font-family: "Roboto Mono", Menlo, Consolas, monospace; font-size: .875rem; color: #6f6f6f; margin: 0; }
+    h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: 2.5rem; line-height: 1.15; color: #0a0a0a; margin: .25rem 0 1rem; }
+    p { margin: 0 0 1.5rem; }
+    nav a { display: inline-block; margin: 0 .5rem .5rem 0; padding: .45rem 1rem; border: 1px solid #dbdbdb; border-radius: 4px; color: #363636; text-decoration: none; }
+    nav a.primary { background: #1c7a3d; border-color: #1c7a3d; color: #fff; }
+    nav a:hover { border-color: #1c7a3d; }
   </style>
 </head>
-
-<body class="rails-default-error-page">
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <div>
-      <h1>The change you wanted was rejected.</h1>
-      <p>Maybe you tried to change something you didn't have access to.</p>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
-  </div>
+<body>
+  <main>
+    <p class="code">Error 422</p>
+    <h1>Request rejected</h1>
+    <p>Your request could not be processed. If you were submitting a form, reload the page and try again.</p>
+    <nav>
+      <a class="primary" href="/explore">Explore the plants</a>
+      <a href="/">Home</a>
+      <a href="https://docs.trefle.io">Documentation</a>
+    </nav>
+  </main>
 </body>
 </html>

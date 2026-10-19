@@ -53,30 +53,4 @@ class Synonym < ApplicationRecord
     self.slug = name.to_s.parameterize if slug.blank? || will_save_change_to_name?
   end
 
-  def self.auto_migrate
-    Species.where(status: 'Synonym').find_in_batches do |sps|
-      sps.each do |sp|
-        if sp.synonym_of_id == sp.id || sp.main_species_id == sp.id
-          sp.update(
-            status: 'Unknown',
-            synonym_of_id: sp.synonym_of_id == sp.id ? nil : sp.synonym_of_id,
-            main_species_id: sp.main_species_id == sp.id ? nil : sp.main_species_id
-          )
-        else
-          good_sp = sp.synonym_of || sp.main_species
-          if good_sp
-            synonym = Synonym.where(name: sp.scientific_name, record: good_sp).first_or_create!(
-              author: sp.author
-            )
-            sp.foreign_sources_plants.map do |fsp|
-              fsp.update!(record: synonym, species_id: nil)
-            end
-          end
-          sp.reload.destroy
-
-        end
-      end
-    end
-  end
-
 end

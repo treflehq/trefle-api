@@ -331,6 +331,17 @@ RSpec.describe 'Explore pages', type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'lists the newest correction first, dated with its year' do
+      create(:record_correction, notes: 'Older one', created_at: Time.zone.local(2025, 11, 5, 12, 34))
+      create(:record_correction, notes: 'Newer one', created_at: Time.zone.local(2026, 10, 13, 7, 15))
+      RecordCorrection.where(notes: 'Testing correction listing').update_all(created_at: Time.zone.local(2024, 3, 1))
+
+      get explore_record_corrections_path
+
+      expect(response.body.index('13 Oct 2026')).to be < response.body.index('5 Nov 2025')
+      expect(response.body.index('5 Nov 2025')).to be < response.body.index('1 Mar 2024')
+    end
+
     it 'filters by species' do
       species = RecordCorrection.first.record
       get explore_record_corrections_path(species_id: species.slug)
