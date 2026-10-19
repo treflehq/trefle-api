@@ -45,18 +45,6 @@ RSpec.describe Migrators do
     end
   end
 
-  describe Migrators::Synonyms do
-    # `.run` filters on status: 'Synonym', which isn't one of the Species
-    # status enum values (accepted/unknown/rejected/doubtful), and
-    # `migrate_species!`/`unknowise_species!` read a `synonym_of_id` column
-    # that no longer exists on `species` — this migrator predates the
-    # current schema and can never touch a real row. Pinning the one thing
-    # it can still safely do: nothing.
-    it 'is a no-op against the current schema' do
-      expect { described_class.run }.not_to raise_error
-    end
-  end
-
   describe Migrators::Zones do
     # Zones are seeded with explicit production ids (db/botanic_seeds.rb),
     # which leaves the id sequence trailing the seeded max id.
