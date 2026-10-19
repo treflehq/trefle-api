@@ -33,7 +33,7 @@ const SpeciesItem = ({
   image_url,
   scientific_name,
   common_name,
-  synonyms,
+  synonyms_count,
   slug,
   rank,
   family,
@@ -52,7 +52,7 @@ const SpeciesItem = ({
         {common_name && <span>Also called {capitalize(common_name)}.{' '}</span>}
         Is a {rank} of the <b>{family}</b> family.
       </p>
-      {synonyms.length > 0 && <small>Synonyms: {synonyms.slice(0, 2).join(' or ')}</small>}
+      {synonyms_count > 0 && <small>{synonyms_count} synonym{synonyms_count === 1 ? '' : 's'}</small>}
     </main>
   </div>)
 }
