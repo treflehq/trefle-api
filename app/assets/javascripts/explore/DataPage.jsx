@@ -23,7 +23,7 @@ const DataPage = ({ slug }) => {
     return <div>
       <div className="field is-grouped">
         <p className="control">
-          <a className="button is-primary" href={asset && asset.browser_download_url} target="_blank" rel="nofollow"><Icon name="download" className="mr-2" /> Download csv ({size}Mo)</a>
+          <a className="button is-primary" href={asset && asset.browser_download_url} target="_blank" rel="nofollow"><Icon name="download" className="mr-2" /> Download CSV ({size} MB)</a>
         </p>
         <p className="control">
           <a className="button " href="https://github.com/treflehq/dump" target="_blank" rel="nofollow"><Icon name="github" style="brands" className="mr-2" /> See on Github</a>
@@ -31,7 +31,7 @@ const DataPage = ({ slug }) => {
       </div>
       <br />
       <p><b>{lastRel.body}.</b></p>
-      <p>Database archive is automatically updated after a certain amount of changes. The database archive is a tab-separated text file.</p>
+      <p>The archive is a tab-separated text file.</p>
     </div>
   }
 
