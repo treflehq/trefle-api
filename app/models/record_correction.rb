@@ -116,7 +116,7 @@ class RecordCorrection < ApplicationRecord
 
   # If the correction if from a check, we delegate this to the check
   def accept_check!(user_id = nil)
-    check = warning_type.constantize.new(record_id)
+    check = warning_type.constantize.new(record_id, correction: self)
     check.accept!(user_id)
   end
 

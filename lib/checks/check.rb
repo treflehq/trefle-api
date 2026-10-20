@@ -5,12 +5,18 @@ module Checks
 
     attr_reader :species, :existing_check
 
-    def initialize(species_id)
+    # correction: the warning being decided, when there is one. A species can
+    # hold several warnings of the same check (a rejected one, then the one
+    # filed after it, or one per attribute), so looking it up again from the
+    # species alone could pick the wrong one: accepting a pending warning
+    # then silently did nothing, because the first one found was the old
+    # rejected one.
+    def initialize(species_id, correction: nil)
       @species = Species.friendly.find(species_id)
-      @existing_check = RecordCorrection.where(
+      @existing_check = correction || RecordCorrection.where(
         record: @species,
         warning_type: self.class.to_s
-      ).first
+      ).order(:change_status, id: :desc).first # pending first, then the latest
     end
 
     # This is the generic acceptance
