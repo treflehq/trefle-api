@@ -72,7 +72,8 @@ Rails.application.routes.draw do
 
   namespace 'explore' do
     get '/', to: 'species#index'
-    get '/data', to: 'data#index'
+    # The dump page offered a 2020 snapshot as if it were current; old links land on the database overview.
+    get '/data', to: redirect('/#data')
     resources :species, only: %i[index show] do
       resources :record_corrections, only: %i[index], path: 'corrections'
       get :sources, on: :member
