@@ -365,9 +365,10 @@ RSpec.describe 'Explore pages', type: :request do
   end
 
   describe 'GET /explore/data' do
-    it 'renders' do
-      get explore_data_path
-      expect(response).to have_http_status(:ok)
+    it 'redirects to the database overview on the home page' do
+      get '/explore/data'
+      expect(response).to redirect_to('/#data')
+      expect(response).to have_http_status(:moved_permanently)
     end
   end
 end
