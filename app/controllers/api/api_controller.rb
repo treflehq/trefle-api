@@ -29,6 +29,7 @@ module Api
     # After Pagy::Backend so its pagy_get_vars / pagy_searchkick_get_vars
     # overrides sit in front of Pagy's.
     include PerPage
+    include PageParam
 
     prepend_before_action :set_dataset_version_header # first: a 401 states it too
     before_action :authorize_request!, except: [:cors_preflight_check]
