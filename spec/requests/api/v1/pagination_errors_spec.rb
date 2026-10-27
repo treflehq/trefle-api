@@ -19,6 +19,27 @@ RSpec.describe 'Pagination errors', type: :request do
     end
   end
 
+  # `?page[number]=2` (JSON:API style) and `?page[]=2` reach the controller as
+  # a nested Parameters / an Array, not a string: a 400 too, on the cached
+  # count collections (/plants, /species) as on the plain Pagy ones (/genus).
+  {
+    'page[number]=2' => 'page[number]',
+    'page[]=2' => 'page[]'
+  }.each do |query, shown|
+    %w[/api/v1/plants /api/v1/species /api/v1/genus].each do |path|
+      describe "GET #{path}?#{query}" do
+        before { get "#{path}?#{query}", params: { token: user.token } }
+
+        it_behaves_like 'renders API errors', status: :bad_request, code: 'bad_request'
+
+        it 'says the page must be a single positive integer' do
+          expect(JSON.parse(response.body)['message'])
+            .to eq("page must be a positive integer, not a nested parameter (#{shown}); use ?page=2")
+        end
+      end
+    end
+  end
+
   # Page 2000: past any test table, within the depth cap (#367) that would
   # otherwise answer first.
   describe 'GET /api/v1/species past the last page' do
