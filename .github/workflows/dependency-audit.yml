@@ -11,7 +11,7 @@ on:
 jobs:
   bundler-audit:
     name: bundler-audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
