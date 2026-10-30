@@ -134,7 +134,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
@@ -389,8 +389,8 @@ GEM
     pg (1.6.3-x86_64-linux-musl)
     pg_query (6.2.2)
       google-protobuf (>= 3.25.3)
-    pghero (3.6.2)
-      activerecord (>= 6.1)
+    pghero (4.1.0)
+      activerecord (>= 7.2)
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
